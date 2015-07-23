@@ -1,9 +1,11 @@
-# scalaz-csv
+# scala-csv
 
-[![Build Status](https://travis-ci.org/nrinaudo/scalaz-csv.svg?branch=master)](https://travis-ci.org/nrinaudo/scalaz-csv)
+[![Build Status](https://travis-ci.org/nrinaudo/scala-csv.svg?branch=master)](https://travis-ci.org/nrinaudo/scala-csv)
 
 CSV is an unfortunate part of life. This attempts to alleviate the pain somewhat by letting developers treat CSV data
-as a [scalaz-stream](https://github.com/scalaz/scalaz-stream) source.
+as a simple iterator.
+ 
+A [scalaz-stream](./scalaz-stream) implementation is available as a separate module. 
 
 
 ## Getting it
@@ -11,7 +13,7 @@ as a [scalaz-stream](https://github.com/scalaz/scalaz-stream) source.
 The current version is 0.1.0, which can be added to your project with the following line in your SBT build file:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "scalaz-csv" % "0.1.0"
+libraryDependencies += "com.nrinaudo" %% "scala-csv" % "0.1.0"
 ```
 
 
@@ -19,12 +21,15 @@ libraryDependencies += "com.nrinaudo" %% "scalaz-csv" % "0.1.0"
 
 ```scala
 import com.nrinaudo._
-import scala.io.{Source, Codec}
+import scala.io.Codec
 
-csv.rowsR(Source.fromFile("input.csv")(Codec.ISO8859), ',')
+implicit codec = Codec.ISO8859
+
+csv.safe("input.csv", ',')
   .drop(1)          // Drop the header
   .map(_(0).toLong) // Discard all but the first column, which is a long
 ```
 
-Note that `rowsR` is safe, but allocates a new `Vector` for each row in the CSV data. `unsafeRowsR` re-uses a single
-array buffer, which is more efficient but unsafe.
+All `safe` methods use immutable structures, at the cost of allocating a new `Vector` for each row. The `unsafe`
+methods, on the other hand, only allocate a single `ArrayBuffer` - they are more efficient but might result in corrupt
+data should the buffer be modified / stored as is by callers.
