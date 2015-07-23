@@ -1,4 +1,4 @@
-# scala-csv: scalaz-stream
+# scalaz-stream-csv
 
 [scalaz-stream](https://github.com/scalaz/scalaz-stream) source for CSV data. 
 
