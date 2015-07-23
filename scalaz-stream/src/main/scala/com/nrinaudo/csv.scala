@@ -17,9 +17,9 @@ object csv {
     var wCount = 0 // Number of whitespace found at the end of and escaped cell.
 
     /** Appends the content of the specified cell to the specified row builder. */
-    private def appendEntry(cell: StringBuilder, row: ArrayBuffer[String], trim: Boolean) = {
-      row += { if(trim) cell.result().trim else cell.result() }
-      cell.clear()
+    private def appendEntry(trim: Boolean) = {
+      row += { if(trim) entry.result().trim else entry.result() }
+      entry.clear()
       row
     }
 
@@ -38,13 +38,13 @@ object csv {
       state match {
         case 0 =>
           if(isLineBreak(c)) {
-            appendEntry(entry, row, true)
+            appendEntry(true)
             false
           }
 
           else {
             // Separator character: we've found a new entry in the current row.
-            if(c == separator) appendEntry(entry, row, true)
+            if(c == separator) appendEntry(true)
 
             // Escape character: if at the beginning of the cell, marks it as an escaped cell. Otherwise, treats it as
             // a normal character.
@@ -75,7 +75,7 @@ object csv {
         // - Ending escape mode --------------------------------------------------------------------------------------
         case 2 =>
           if(isLineBreak(c)) {
-            appendEntry(entry, row, false)
+            appendEntry(false)
             wCount = 0
             state = 0
             false
@@ -90,7 +90,7 @@ object csv {
 
             // End of escaped cell.
             else if(c == separator) {
-              appendEntry(entry, row, false)
+              appendEntry(false)
               wCount = 0
               state = 0
             }
@@ -102,7 +102,7 @@ object csv {
     }
     else if(state == 1) throw new IOException("Illegal CSV format: non-terminated escape sequence")
     else {
-      if(entry.nonEmpty || row.nonEmpty) appendEntry(entry, row, true)
+      if(entry.nonEmpty || row.nonEmpty) appendEntry(true)
       false
     }
 
