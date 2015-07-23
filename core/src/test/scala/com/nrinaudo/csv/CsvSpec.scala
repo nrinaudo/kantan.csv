@@ -1,22 +1,15 @@
-package com.nrinaudo
+package com.nrinaudo.csv
 
 import org.scalatest.{FunSpec, Matchers}
 
-import scala.collection.mutable.ArrayBuffer
 import scala.io.{Codec, Source}
-import scalaz.stream._
 
 
 class CsvSpec  extends FunSpec with Matchers {
-  def read(source: Source): List[List[String]] = {
-    val buf = new ArrayBuffer[List[String]]
+  implicit val codec = Codec.ISO8859
 
-    com.nrinaudo.csv.unsafeRowsR(source, ',').map(_.toList).to(io.fillBuffer(buf)).run.run
-
-    buf.toList
-  }
-
-  def readResource(str: String): List[List[String]] = read(Source.fromInputStream(getClass.getResourceAsStream(str))(Codec.ISO8859))
+  def read(source: Source): List[List[String]] = unsafe(source, ',').map(_.toList).toList
+  def readResource(str: String): List[List[String]] = read(Source.fromInputStream(getClass.getResourceAsStream(str)))
   def read(str: String): List[List[String]] = read(Source.fromString(str))
 
 
