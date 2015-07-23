@@ -1,11 +1,11 @@
 # scala-csv
 
-[![Build Status](https://travis-ci.org/nrinaudo/scala-csv.svg?branch=master)](https://travis-ci.org/nrinaudo/scala-csv)
+[![Build Status](https://travis-ci.org/nrinaudo/scalaz-csv.svg?branch=master)](https://travis-ci.org/nrinaudo/scalaz-csv)
 
 CSV is an unfortunate part of life. This attempts to alleviate the pain somewhat by letting developers treat CSV data
 as a simple iterator.
- 
-A [scalaz-stream](./scalaz-stream) implementation is available as a separate module. 
+
+A [scalaz-stream](./scalaz-stream) implementation is available as a separate module.
 
 
 ## Getting it
@@ -23,7 +23,7 @@ libraryDependencies += "com.nrinaudo" %% "scala-csv" % "0.1.1"
 import com.nrinaudo._
 import scala.io.Codec
 
-implicit codec = Codec.ISO8859
+implicit val codec = Codec.ISO8859
 
 csv.safe("input.csv", ',')
   .drop(1)          // Drop the header

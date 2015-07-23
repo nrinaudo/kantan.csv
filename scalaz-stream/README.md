@@ -1,6 +1,6 @@
 # scalaz-stream-csv
 
-[scalaz-stream](https://github.com/scalaz/scalaz-stream) source for CSV data. 
+[scalaz-stream](https://github.com/scalaz/scalaz-stream) source for CSV data.
 
 
 ## Getting it
@@ -18,7 +18,7 @@ libraryDependencies += "com.nrinaudo" %% "scalaz-stream-csv" % "0.1.1"
 import scalaz.stream._
 import scala.io.Codec
 
-implicit codec = Codec.ISO8859
+implicit val codec = Codec.ISO8859
 
 csv.rowsR("input.csv", ',')
   .drop(1)          // Drop the header
