@@ -10,10 +10,10 @@ A [scalaz-stream](./scalaz-stream) implementation is available as a separate mod
 
 ## Getting it
 
-The current version is 0.1.0, which can be added to your project with the following line in your SBT build file:
+The current version is 0.1.1, which can be added to your project with the following line in your SBT build file:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "scala-csv" % "0.1.0"
+libraryDependencies += "com.nrinaudo" %% "scala-csv" % "0.1.1"
 ```
 
 
