@@ -8,7 +8,7 @@ import scala.io.{Codec, Source}
 class CsvSpec  extends FunSpec with Matchers {
   implicit val codec = Codec.ISO8859
 
-  def read(source: Source): List[List[String]] = unsafe(source, ',').map(_.toList).toList
+  def read(source: Source): List[List[String]] = rows[List[String]](source, ',').toList
   def readResource(str: String): List[List[String]] = read(Source.fromInputStream(getClass.getResourceAsStream(str)))
   def read(str: String): List[List[String]] = read(Source.fromString(str))
 

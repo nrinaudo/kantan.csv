@@ -10,26 +10,65 @@ A [scalaz-stream](./scalaz-stream) implementation is available as a separate mod
 
 ## Getting it
 
-The current version is 0.1.1, which can be added to your project with the following line in your SBT build file:
+The current version is 0.1.2, which can be added to your project with the following line in your SBT build file:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "scala-csv" % "0.1.1"
+libraryDependencies += "com.nrinaudo" %% "scala-csv" % "0.1.2"
 ```
 
 
-## Example
+## Examples
+
+The following examples all assume that an implicit `scala.io.Codec` is in scope, and that `com.nrinaudo._` has been
+imported. That is:
 
 ```scala
 import com.nrinaudo._
-import scala.io.Codec
 
-implicit val codec = Codec.ISO8859
+implicit val codec = scala.io.Codec.ISO8859
+```
 
-csv.safe("input.csv", ',')
+### Unsafe but efficient parsing
+The various `unsafeRows` methods recycle a single instance of `ArrayBuffer`. While this is efficient, it's also very
+unsafe and requires users to be careful not to store / modify that instance in any way.
+
+```scala
+csv.unsafeRows("input.csv", ',')
   .drop(1)          // Drop the header
   .map(_(0).toLong) // Discard all but the first column, which is a long
 ```
 
-All `safe` methods use immutable structures, at the cost of allocating a new `Vector` for each row. The `unsafe`
-methods, on the other hand, only allocate a single `ArrayBuffer` - they are more efficient but might result in corrupt
-data should the buffer be modified / stored as is by callers.
+### Safe parsing
+The various `safeRows` methods create a new `Vector[String]` instance for each row. They represent a safer, if somewhat
+less efficient alternative to `unsafeRows`.
+
+```scala
+csv.safeRows("input.csv", ',')
+  .drop(1)          // Drop the header
+  .map(_(0).toLong) // Discard all but the first column, which is a long
+```
+
+### Typeclass-based parsing
+If each row is to be turned into an object, consider declaring an implicit `RowReader` for your type.
+
+For example:
+```scala
+object User {
+  implicit val rowReader = RowReader(r => User(r(0), r(1))
+}
+
+case class User(first: String, last: String)
+
+csv.rows[User]("input.csv", ',')
+```
+
+Under the hood, this is how the `safeRows` methods have been implemented.
+
+Note that when using this approach, every single row in the CSV stream must be well formed. This essentially means that
+typeclass-based parsing is incompatible with having a header row, or at least requires jumping through a few more hoops:
+
+```scala
+csv.unsafeRows("input.csv", ',')
+  .drop(1)
+  .map(RowReader[User].read)
+```

@@ -8,31 +8,51 @@ import scala.io.{Codec, Source}
 package object csv {
   // - Unsafe parsers --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def unsafe(file: String, sep: Char)(implicit c: Codec): Iterator[ArrayBuffer[String]] =
-    unsafe(Source.fromFile(file), sep)
+  def unsafeRows(file: String, sep: Char)(implicit c: Codec): Iterator[ArrayBuffer[String]] =
+    unsafeRows(Source.fromFile(file), sep)
 
-  def unsafe(file: File, sep: Char)(implicit c: Codec): Iterator[ArrayBuffer[String]] =
-    unsafe(Source.fromFile(file), sep)
+  def unsafeRows(file: File, sep: Char)(implicit c: Codec): Iterator[ArrayBuffer[String]] =
+    unsafeRows(Source.fromFile(file), sep)
 
-  def unsafe(in: InputStream, sep: Char)(implicit c: Codec): Iterator[ArrayBuffer[String]] =
-    unsafe(Source.fromInputStream(in), sep)
+  def unsafeRows(in: InputStream, sep: Char)(implicit c: Codec): Iterator[ArrayBuffer[String]] =
+    unsafeRows(Source.fromInputStream(in), sep)
 
-  def unsafe(source: Source, sep: Char): Iterator[ArrayBuffer[String]] =
+  def unsafeRows(source: Source, sep: Char): Iterator[ArrayBuffer[String]] =
     new CsvIterator(source, sep)
 
 
 
   // - Safe parsers --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def safe(file: File, sep: Char)(implicit c: Codec): Iterator[Vector[String]] =
-    safe(Source.fromFile(file), sep)
+  /** Strictly equivalent to calling `rows[Vector[String]](file, sep)`. */
+  def safeRows(file: File, sep: Char)(implicit c: Codec): Iterator[Vector[String]] =
+    rows[Vector[String]](file, sep)
 
-  def safe(in: InputStream, sep: Char)(implicit c: Codec): Iterator[Vector[String]] =
-    safe(Source.fromInputStream(in), sep)
+  /** Strictly equivalent to calling `rows[Vector[String]](in, sep)`. */
+  def safeRows[A: RowReader](in: InputStream, sep: Char)(implicit c: Codec): Iterator[Vector[String]] =
+    rows[Vector[String]](in, sep)
 
-  def safe(file: String, sep: Char)(implicit c: Codec): Iterator[Vector[String]] =
-    safe(Source.fromFile(file), sep)
+  /** Strictly equivalent to calling `rows[Vector[String]](file, sep)`. */
+  def safeRows[A: RowReader](file: String, sep: Char)(implicit c: Codec): Iterator[Vector[String]] =
+    rows[Vector[String]](file, sep)
 
-  def safe(source: Source, sep: Char): Iterator[Vector[String]] =
-    unsafe(source, sep).map(_.toVector)
+  /** Strictly equivalent to calling `rows[Vector[String]](source, sep)`. */
+  def safeRows[A: RowReader](source: Source, sep: Char): Iterator[Vector[String]] =
+    rows[Vector[String]](source, sep)
+
+
+
+  // - Typeclass-based parsers -----------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  def rows[A: RowReader](file: File, sep: Char)(implicit c: Codec): Iterator[A] =
+    rows(Source.fromFile(file), sep)
+
+  def rows[A: RowReader](in: InputStream, sep: Char)(implicit c: Codec): Iterator[A] =
+    rows(Source.fromInputStream(in), sep)
+
+  def rows[A: RowReader](file: String, sep: Char)(implicit c: Codec): Iterator[A] =
+    rows(Source.fromFile(file), sep)
+
+  def rows[A: RowReader](source: Source, sep: Char): Iterator[A] =
+    unsafeRows(source, sep).map(RowReader[A].read)
 }
