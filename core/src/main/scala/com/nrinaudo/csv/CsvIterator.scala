@@ -1,26 +1,47 @@
 package com.nrinaudo.csv
 
-import java.io.{Reader, IOException}
+import java.io.IOException
 
 import scala.collection.AbstractIterator
 import scala.collection.mutable.ArrayBuffer
 
-private[csv] class CsvIterator(data: Iterator[Char], separator: Char) extends AbstractIterator[ArrayBuffer[String]]
-                                                                         with Iterator[ArrayBuffer[String]] {
-  private[this] val entry = new StringBuilder
-  private[this] val row = ArrayBuffer[String]()
-  private[this] var state = 0
-  // 0: normal, 1: in escape, 2: leaving escape
-  private[this] val input: BufferedIterator[Char] = data.buffered
-  var wCount = 0 // Number of whitespace found at the end of and escaped cell.
+/** Defines the various possible states of a CSV parser. */
+private object CsvIterator {
+  object Status {
+    case object Normal extends Status
+    case object Escaping extends Status
+    case object LeavingEscape extends Status
+  }
+  sealed trait Status
+}
 
-  /** Appends the content of the specified cell to the specified row builder. */
-  private def appendEntry(trim: Boolean) = {
-    row += { if(trim) entry.result().trim else entry.result() }
-    entry.clear()
+private[csv] class CsvIterator(data: Iterator[Char], separator: Char) extends AbstractIterator[ArrayBuffer[String]]
+                                                                              with Iterator[ArrayBuffer[String]] {
+  import CsvIterator._
+
+  /** Used to aggregate the content of the current cell. */
+  private val cell = new StringBuilder
+  /** Used to aggregate the content of the current row. */
+  private val row = ArrayBuffer[String]()
+  /** Parser status. */
+  private var status: Status = Status.Normal
+  /** Iterator on the CSV data. We need this to be buffered to deal with possible `\r\n` sequences. */
+  private val input: BufferedIterator[Char] = data.buffered
+  /** Number of whitespace found at the end of and escaped cell. */
+  private var wCount = 0
+
+  /** Appends the content of current cell to the current row. */
+  private def appendCell(trim: Boolean) = {
+    row += { if(trim) cell.result().trim else cell.result() }
+    cell.clear()
     row
   }
 
+  /** Checks whether the specified character is a line break.
+    *
+    * Note that this might consume a character from the input stream if `c` is a line feed and the next character is a
+    * line break.
+    */
   private def isLineBreak(c: Char): Boolean =
     if(c == '\n') true
     else if(c == '\r') {
@@ -29,68 +50,79 @@ private[csv] class CsvIterator(data: Iterator[Char], separator: Char) extends Ab
     }
     else false
 
-
-  def getc(): Boolean = if(input.hasNext) {
+  /** Attempts to read and interpret the next character in the stream.
+    *
+    * @return `false` if the stream is empty, `true` otherwise.
+    */
+  private def parseNext(): Boolean = if(input.hasNext) {
     val c = input.next()
 
-    state match {
-      case 0 =>
+    status match {
+      // - Normal status -----------------------------------------------------------------------------------------------
+      // ---------------------------------------------------------------------------------------------------------------
+      case Status.Normal =>
         if(isLineBreak(c)) {
-          appendEntry(true)
+          appendCell(true)
           false
         }
 
         else {
-          // Separator character: we've found a new entry in the current row.
-          if(c == separator) appendEntry(true)
+          // Separator character: we've found a new cell in the current row.
+          if(c == separator) appendCell(true)
 
           // Escape character: if at the beginning of the cell, marks it as an escaped cell. Otherwise, treats it as
           // a normal character.
           else if(c == '"') {
-            if(entry.isEmpty) {state = 1}
-            else entry += c
+            if(cell.isEmpty) status = Status.Escaping
+            else cell += c
           }
 
           // Whitespace is ignored if at the beginning of a non-escaped cell.
           else if(c.isWhitespace) {
-            if(entry.nonEmpty) entry += c
+            if(cell.nonEmpty) cell += c
           }
 
 
           // Regular character, appended to the current cell.
-          else entry += c
+          else cell += c
           true
         }
 
-      // - Escaped mode --------------------------------------------------------------------------------------------
-      case 1 =>
-        if(c == '"')            state = 2
-        else if(isLineBreak(c)) entry += '\n'
-        else                    entry += c
+
+
+      // - Within escaped content --------------------------------------------------------------------------------------
+      // ---------------------------------------------------------------------------------------------------------------
+      case Status.Escaping =>
+        if(c == '"')            status = Status.LeavingEscape
+        else if(isLineBreak(c)) cell += '\n'
+        else                    cell += c
 
         true
 
-      // - Ending escape mode --------------------------------------------------------------------------------------
-      case 2 =>
+
+
+      // - Ending escape mode ------------------------------------------------------------------------------------------
+      // ---------------------------------------------------------------------------------------------------------------
+      case Status.LeavingEscape =>
         if(isLineBreak(c)) {
-          appendEntry(false)
+          appendCell(false)
           wCount = 0
-          state = 0
+          status = Status.Normal
           false
         }
         // This means that 2 " characters were found in escape mode: that's an escaped ".
         else {
           if(c == '"' && wCount == 0) {
-            entry += '"'
+            cell += '"'
             wCount = 0
-            state = 1
+            status = Status.Escaping
           }
 
           // End of escaped cell.
           else if(c == separator) {
-            appendEntry(false)
+            appendCell(false)
             wCount = 0
-            state = 0
+            status = Status.Normal
           }
           else if(c.isWhitespace) wCount += 1
           else throw new IOException(s"Illegal CSV format: unexpected character '$c'")
@@ -98,9 +130,9 @@ private[csv] class CsvIterator(data: Iterator[Char], separator: Char) extends Ab
         }
     }
   }
-  else if(state == 1) throw new IOException("Illegal CSV format: non-terminated escape sequence")
+  else if(status == Status.Escaping) throw new IOException("Illegal CSV format: non-terminated escape sequence")
   else {
-    if(entry.nonEmpty || row.nonEmpty) appendEntry(true)
+    if(cell.nonEmpty || row.nonEmpty) appendCell(true)
     false
   }
 
@@ -108,7 +140,7 @@ private[csv] class CsvIterator(data: Iterator[Char], separator: Char) extends Ab
   override def next(): ArrayBuffer[String] = {
     row.clear()
 
-    while(getc()) {}
+    while(parseNext()) {}
 
     row
   }
