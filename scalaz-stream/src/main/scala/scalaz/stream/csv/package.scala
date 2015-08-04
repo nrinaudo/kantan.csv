@@ -1,6 +1,6 @@
 package scalaz.stream
 
-import java.io.{File, InputStream}
+import java.io._
 
 import com.nrinaudo.csv._
 
@@ -13,7 +13,7 @@ package object csv {
   // -------------------------------------------------------------------------------------------------------------------
   def unsafeRowsR(src: => Source, sep: Char): Process[Task, ArrayBuffer[String]] =
     io.resource(Task.delay(src))(src => Task.delay(src.close())) { src =>
-      lazy val lines = unsafeRows(src, sep)
+      lazy val lines = com.nrinaudo.csv.unsafeRowsR(src, sep)
       Task.delay { if(lines.hasNext) lines.next() else throw Cause.Terminated(Cause.End) }
     }
 
@@ -21,10 +21,10 @@ package object csv {
     unsafeRowsR(Source.fromFile(file), sep)
 
   def unsafeRowsR(file: File, sep: Char)(implicit c: Codec): Process[Task, ArrayBuffer[String]] =
-      unsafeRowsR(Source.fromFile(file), sep)
+    unsafeRowsR(Source.fromFile(file), sep)
 
   def unsafeRowsR(in: InputStream, sep: Char)(implicit c: Codec): Process[Task, ArrayBuffer[String]] =
-        unsafeRowsR(Source.fromInputStream(in), sep)
+    unsafeRowsR(Source.fromInputStream(in), sep)
 
 
 
@@ -57,4 +57,25 @@ package object csv {
 
   def rowsR[A: RowReader](in: InputStream, sep: Char)(implicit c: Codec): Process[Task, A] =
     rowsR(Source.fromInputStream(in), sep)
+
+
+
+  // - Typeclass-based sinks -------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  def rowsW[A](out: => PrintStream, sep: Char)(implicit rw: RowWriter[A]): Sink[Task, A] =
+    io.resource(Task.delay(com.nrinaudo.csv.rowsW(out, sep)))(out => Task.delay(out.close()))(
+      out => Task.now((a: A) => Task.delay(out.write(a)))
+    )
+
+  def rowsW[A: RowWriter](file: File, sep: Char)(implicit c: Codec): Sink[Task, A] =
+    rowsW(new FileOutputStream(file), sep)
+
+  def rowsW[A: RowWriter](file: String, sep: Char)(implicit c: Codec): Sink[Task, A] =
+    rowsW(new FileOutputStream(file), sep)
+
+  def rowsW[A: RowWriter](out: => OutputStream, sep: Char)(implicit c: Codec): Sink[Task, A] =
+    rowsW(new PrintStream(out, true, c.charSet.name()), sep)
+
+  implicit val c = Codec.ISO8859
+  val test = rowsW[List[String]]("test.csv", ',')
 }

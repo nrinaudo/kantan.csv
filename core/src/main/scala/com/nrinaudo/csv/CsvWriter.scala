@@ -1,0 +1,29 @@
+package com.nrinaudo.csv
+
+import java.io.{Closeable, PrintStream}
+
+class CsvWriter[A] private[csv] (private val out: PrintStream, val sep: Char, private val format: A => List[String])
+  extends Closeable {
+
+  private def escape(str: String): String =
+    if(str.contains("\""))                                                  "\"" + str.replaceAll("\"", "\"\"") + "\""
+    else if (str.contains(sep) || str.contains("\n") || str.contains("\r")) "\"" + str + "\""
+    else                                                                    str
+
+  private def write(ss: List[String]): Unit = ss.map(escape) match {
+    case h :: t =>
+      out.print(h)
+      t.foreach { a =>
+        out.print(',')
+        out.print(a)
+      }
+      out.println()
+    case _ => // Empty rows are not printed.
+  }
+
+  def write(a: A): Unit = write(format(a))
+
+  override def close(): Unit = out.close()
+
+  def contramap[B](f: B => A): CsvWriter[B] = new CsvWriter[B](out, sep, f andThen format)
+}
