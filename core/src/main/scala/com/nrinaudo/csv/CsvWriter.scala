@@ -14,7 +14,7 @@ class CsvWriter[A] private[csv] (private val out: PrintStream, val sep: Char, pr
     case h :: t =>
       out.print(h)
       t.foreach { a =>
-        out.print(',')
+        out.print(sep)
         out.print(a)
       }
       out.println()
