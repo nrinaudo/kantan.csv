@@ -62,7 +62,7 @@ package object csv {
 
   // - Typeclass-based sinks -------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def rowsW[A](out: => PrintWriter, sep: Char)(implicit rw: RowWriter[A]): Sink[Task, A] =
+  def rowsW[A: RowWriter](out: => PrintWriter, sep: Char): Sink[Task, A] =
     io.resource(Task.delay(com.nrinaudo.csv.rowsW(out, sep)))(out => Task.delay(out.close()))(
       out => Task.now((a: A) => Task.delay(out.write(a)))
     )
