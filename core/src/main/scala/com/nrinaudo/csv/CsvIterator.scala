@@ -31,8 +31,8 @@ private[csv] class CsvIterator(data: Iterator[Char], separator: Char) extends Ab
   private var wCount = 0
 
   /** Appends the content of current cell to the current row. */
-  private def appendCell(trim: Boolean) = {
-    row += { if(trim) cell.result().trim else cell.result() }
+  private def appendCell() = {
+    row += cell.result()
     cell.clear()
     row
   }
@@ -62,13 +62,13 @@ private[csv] class CsvIterator(data: Iterator[Char], separator: Char) extends Ab
       // ---------------------------------------------------------------------------------------------------------------
       case Status.Normal =>
         if(isLineBreak(c)) {
-          appendCell(true)
+          appendCell()
           false
         }
 
         else {
           // Separator character: we've found a new cell in the current row.
-          if(c == separator) appendCell(true)
+          if(c == separator) appendCell()
 
           // Escape character: if at the beginning of the cell, marks it as an escaped cell. Otherwise, treats it as
           // a normal character.
@@ -76,12 +76,6 @@ private[csv] class CsvIterator(data: Iterator[Char], separator: Char) extends Ab
             if(cell.isEmpty) status = Status.Escaping
             else cell += c
           }
-
-          // Whitespace is ignored if at the beginning of a non-escaped cell.
-          else if(c.isWhitespace) {
-            if(cell.nonEmpty) cell += c
-          }
-
 
           // Regular character, appended to the current cell.
           else cell += c
@@ -105,7 +99,7 @@ private[csv] class CsvIterator(data: Iterator[Char], separator: Char) extends Ab
       // ---------------------------------------------------------------------------------------------------------------
       case Status.LeavingEscape =>
         if(isLineBreak(c)) {
-          appendCell(false)
+          appendCell()
           wCount = 0
           status = Status.Normal
           false
@@ -120,7 +114,7 @@ private[csv] class CsvIterator(data: Iterator[Char], separator: Char) extends Ab
 
           // End of escaped cell.
           else if(c == separator) {
-            appendCell(false)
+            appendCell()
             wCount = 0
             status = Status.Normal
           }
@@ -132,7 +126,7 @@ private[csv] class CsvIterator(data: Iterator[Char], separator: Char) extends Ab
   }
   else if(status == Status.Escaping) throw new IOException("Illegal CSV format: non-terminated escape sequence")
   else {
-    if(cell.nonEmpty || row.nonEmpty) appendCell(true)
+    if(cell.nonEmpty || row.nonEmpty) appendCell()
     false
   }
 

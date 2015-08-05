@@ -60,7 +60,7 @@ package object csv {
 
   // - Typeclass-based writers -----------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def rowsW[A](out: PrintStream, sep: Char)(implicit rw: RowWriter[A]): CsvWriter[A] = {
+  def rowsW[A](out: PrintWriter, sep: Char)(implicit rw: RowWriter[A]): CsvWriter[A] = {
     rw.header.fold(new CsvWriter[A](out, sep, rw.write)) { h =>
       val w = new CsvWriter[List[String]](out, sep, identity)
       w.write(h)
@@ -76,4 +76,7 @@ package object csv {
 
   def rowsW[A: RowWriter](out: OutputStream, sep: Char)(implicit c: Codec): CsvWriter[A] =
     rowsW(new PrintStream(out, true, c.charSet.name()), sep)
+
+  def rowsW[A: RowWriter](out: PrintStream, sep: Char): CsvWriter[A] =
+    rowsW(new PrintWriter(out), sep)
 }

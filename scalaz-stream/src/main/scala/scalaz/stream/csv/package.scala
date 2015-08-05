@@ -62,7 +62,7 @@ package object csv {
 
   // - Typeclass-based sinks -------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def rowsW[A](out: => PrintStream, sep: Char)(implicit rw: RowWriter[A]): Sink[Task, A] =
+  def rowsW[A](out: => PrintWriter, sep: Char)(implicit rw: RowWriter[A]): Sink[Task, A] =
     io.resource(Task.delay(com.nrinaudo.csv.rowsW(out, sep)))(out => Task.delay(out.close()))(
       out => Task.now((a: A) => Task.delay(out.write(a)))
     )
@@ -75,7 +75,4 @@ package object csv {
 
   def rowsW[A: RowWriter](out: => OutputStream, sep: Char)(implicit c: Codec): Sink[Task, A] =
     rowsW(new PrintStream(out, true, c.charSet.name()), sep)
-
-  implicit val c = Codec.ISO8859
-  val test = rowsW[List[String]]("test.csv", ',')
 }
