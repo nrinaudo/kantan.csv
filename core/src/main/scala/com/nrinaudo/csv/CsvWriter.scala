@@ -17,7 +17,7 @@ class CsvWriter[A] private[csv] (private val out: PrintWriter, val sep: Char, pr
         out.print(sep)
         out.print(a)
       }
-      out.println()
+      out.print("\r\n") // According to the RFC, \n alone is not valid.
     case _ => // Empty rows are not printed.
   }
 
