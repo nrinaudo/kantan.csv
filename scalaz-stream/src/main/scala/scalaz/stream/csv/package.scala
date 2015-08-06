@@ -46,8 +46,11 @@ package object csv {
 
   // - Typeclass-based sources -----------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def rowsR[A: RowReader](src: => Source, sep: Char): Process[Task, A] =
-    unsafeRowsR(src, sep).map(RowReader[A].read)
+  def rowsR[A](src: => Source, sep: Char)(implicit r: RowReader[A]): Process[Task, A] = {
+    val data = unsafeRowsR(src, sep)
+    if(r.hasHeader) data.drop(1).map(r.read)
+    else            data.map(r.read)
+  }
 
   def rowsR[A: RowReader](file: String, sep: Char)(implicit c: Codec): Process[Task, A] =
     rowsR(Source.fromFile(file), sep)
@@ -64,7 +67,7 @@ package object csv {
   // -------------------------------------------------------------------------------------------------------------------
   def rowsW[A: RowWriter](out: => PrintWriter, sep: Char): Sink[Task, A] =
     io.resource(Task.delay(com.nrinaudo.csv.rowsW(out, sep)))(out => Task.delay(out.close()))(
-      out => Task.now((a: A) => Task.delay(out.write(a)))
+      out => Task.now((a: A) => Task.delay { out.write(a); () })
     )
 
   def rowsW[A: RowWriter](file: File, sep: Char)(implicit c: Codec): Sink[Task, A] =

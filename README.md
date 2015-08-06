@@ -29,21 +29,21 @@ implicit val codec = scala.io.Codec.ISO8859
 ```
 
 ### Unsafe but efficient parsing
-The various `unsafeRows` methods recycle a single instance of `ArrayBuffer`. While this is efficient, it's also very
+The various `unsafeRowsR` methods recycle a single instance of `ArrayBuffer`. While this is efficient, it's also very
 unsafe and requires users to be careful not to store / modify that instance in any way.
 
 ```scala
-csv.unsafeRows("input.csv", ',')
+csv.unsafeRowsR("input.csv", ',')
   .drop(1)          // Drop the header
   .map(_(0).toLong) // Discard all but the first column, which is a long
 ```
 
 ### Safe parsing
-The various `safeRows` methods create a new `Vector[String]` instance for each row. They represent a safer, if somewhat
-less efficient alternative to `unsafeRows`.
+The various `safeRowsR` methods create a new `Vector[String]` instance for each row. They represent a safer, if somewhat
+less efficient alternative to `unsafeRowsR`.
 
 ```scala
-csv.safeRows("input.csv", ',')
+csv.safeRowsR("input.csv", ',')
   .drop(1)          // Drop the header
   .map(_(0).toLong) // Discard all but the first column, which is a long
 ```
@@ -53,22 +53,50 @@ If each row is to be turned into an object, consider declaring an implicit `RowR
 
 For example:
 ```scala
-object User {
-  implicit val rowReader = RowReader(r => User(r(0), r(1))
-}
+implicit val userReader = RowReader(r => User(r(0), r(1)))
 
 case class User(first: String, last: String)
 
-csv.rows[User]("input.csv", ',')
+csv.rowsR[User]("input.csv", ',')
 ```
 
-Under the hood, this is how the `safeRows` methods have been implemented.
+This is how the `safeRowsR` methods are implemented under the hood.
 
-Note that when using this approach, every single row in the CSV stream must be well formed. This essentially means that
-typeclass-based parsing is incompatible with having a header row, or at least requires jumping through a few more hoops:
+Note that this approach can cause issues if the CSV data contains a header row. You can configure your `RowReader`
+instance to skip the first line in the stream by overriding its `hasHeader` method (or by calling `withHeader`, which
+will create a cloned instance that will skip the first row).
 
 ```scala
-csv.unsafeRows("input.csv", ',')
-  .drop(1)
-  .map(RowReader[User].read)
+implicit val userReader = RowReader(r => User(r(0), r(1))).withHeader
+```
+
+### Writing lists of strings
+Writing is achieved through one of the `rowsW` methods:
+
+```scala
+val out = csv.rowsW[List[String]](System.out, `,`)
+
+out.write(List("aaa", "bbb", "ccc"))
+out.write(List("zzz", "yyy", "xxx"))
+
+out.close()
+```
+
+
+### Typeclass-based writing
+Note that the previous example works because an implicit `RowWriter[List[String]]` is always in scope. Should you need
+to write something other than lists of strings, you can create your own `RowWriter` instance:
+
+```scala
+implicit val userWriter = RowWriter(u => List(u.first, u.last))
+
+csv.rowsW[User](System.out, `,`)
+  .write(User("Locke", "Lamora"))
+  .write(User("Nicolas", "Rinaudo"))
+  .close()
+```
+
+CSV writing doesn't by default include a header row. This is configurable at the `RowWriter` level:
+```scala
+implicit val userWriter = RowWriter(u => List(u.first, u.last)).withHeader("First Name", "Last Name")
 ```

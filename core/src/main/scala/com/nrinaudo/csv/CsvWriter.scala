@@ -21,7 +21,10 @@ class CsvWriter[A] private[csv] (private val out: PrintWriter, val sep: Char, pr
     case _ => // Empty rows are not printed.
   }
 
-  def write(a: A): Unit = write(format(a))
+  def write(a: A): CsvWriter[A] = {
+    write(format(a))
+    this
+  }
 
   override def close(): Unit = out.close()
 
