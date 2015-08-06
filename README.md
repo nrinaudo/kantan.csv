@@ -65,14 +65,14 @@ instance to skip the first line in the stream by overriding its `hasHeader` meth
 will create a cloned instance that will skip the first row).
 
 ```scala
-implicit val userReader = RowReader(r => User(r(0), r(1))).withHeader
+val userReaderH = userReader.withHeader
 ```
 
 ### Writing lists of strings
 Writing is achieved through one of the `rowsW` methods:
 
 ```scala
-val out = csv.rowsW[List[String]](System.out, `,`)
+val out = csv.rowsW[List[String]](System.out, ',')
 
 out.write(List("aaa", "bbb", "ccc"))
 out.write(List("zzz", "yyy", "xxx"))
@@ -86,9 +86,9 @@ The previous example works because an implicit `RowWriter[List[String]]` is alwa
 something other than lists of strings, you can create your own `RowWriter` instance:
 
 ```scala
-implicit val userWriter = RowWriter(u => List(u.first, u.last))
+implicit val userWriter = RowWriter((u: User) => List(u.first, u.last))
 
-csv.rowsW[User](System.out, `,`)
+csv.rowsW[User](System.out, ',')
   .write(User("Locke", "Lamora"))
   .write(User("Nicolas", "Rinaudo"))
   .close()
@@ -96,5 +96,5 @@ csv.rowsW[User](System.out, `,`)
 
 CSV writing doesn't by default include a header row. This is configurable at the `RowWriter` level:
 ```scala
-implicit val userWriter = RowWriter(u => List(u.first, u.last)).withHeader("First Name", "Last Name")
+val userWriterH = userWriter.withHeader("First Name", "Last Name")
 ```
