@@ -22,27 +22,7 @@ package object csv {
 
 
 
-  // - Safe parsers --------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  /** Strictly equivalent to calling `rows[Vector[String]](file, sep)`. */
-  def safeRowsR(file: File, sep: Char)(implicit c: Codec): Iterator[Vector[String]] =
-    rowsR[Vector[String]](file, sep)
-
-  /** Strictly equivalent to calling `rows[Vector[String]](in, sep)`. */
-  def safeRowsR[A: RowReader](in: InputStream, sep: Char)(implicit c: Codec): Iterator[Vector[String]] =
-    rowsR[Vector[String]](in, sep)
-
-  /** Strictly equivalent to calling `rows[Vector[String]](file, sep)`. */
-  def safeRowsR[A: RowReader](file: String, sep: Char)(implicit c: Codec): Iterator[Vector[String]] =
-    rowsR[Vector[String]](file, sep)
-
-  /** Strictly equivalent to calling `rows[Vector[String]](source, sep)`. */
-  def safeRowsR[A: RowReader](source: Source, sep: Char): Iterator[Vector[String]] =
-    rowsR[Vector[String]](source, sep)
-
-
-
-  // - Typeclass-based parsers -----------------------------------------------------------------------------------------
+    // - Typeclass-based parsers -----------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def rowsR[A: RowReader](file: File, sep: Char)(implicit c: Codec): Iterator[A] =
     rowsR(Source.fromFile(file), sep)

@@ -39,19 +39,19 @@ csv.unsafeRowsR("input.csv", ',')
 ```
 
 ### Safe parsing
-The various `safeRowsR` methods create a new `Vector[String]` instance for each row. They represent a safer, if somewhat
-less efficient alternative to `unsafeRowsR`.
+If safety is an issue (and efficiency is not), the `rowsR` methods can be used as follows:
 
 ```scala
-csv.safeRowsR("input.csv", ',')
+csv.rowsR[Vector[String]]("input.csv", ',')
   .drop(1)          // Drop the header
   .map(_(0).toLong) // Discard all but the first column, which is a long
 ```
 
-### Typeclass-based parsing
-If each row is to be turned into an object, consider declaring an implicit `RowReader` for your type.
+Implementations are available for `Vector` and `List`.
 
-For example:
+### Typeclass-based parsing
+The previous example is a specific usage of a more generic mechanism: the `RowReader` typeclass, which allows you to
+declare implicit parsers for any type:
 ```scala
 implicit val userReader = RowReader(r => User(r(0), r(1)))
 
@@ -59,8 +59,6 @@ case class User(first: String, last: String)
 
 csv.rowsR[User]("input.csv", ',')
 ```
-
-This is how the `safeRowsR` methods are implemented under the hood.
 
 Note that this approach can cause issues if the CSV data contains a header row. You can configure your `RowReader`
 instance to skip the first line in the stream by overriding its `hasHeader` method (or by calling `withHeader`, which
@@ -84,8 +82,8 @@ out.close()
 
 
 ### Typeclass-based writing
-Note that the previous example works because an implicit `RowWriter[List[String]]` is always in scope. Should you need
-to write something other than lists of strings, you can create your own `RowWriter` instance:
+The previous example works because an implicit `RowWriter[List[String]]` is always in scope. Should you need to write 
+something other than lists of strings, you can create your own `RowWriter` instance:
 
 ```scala
 implicit val userWriter = RowWriter(u => List(u.first, u.last))

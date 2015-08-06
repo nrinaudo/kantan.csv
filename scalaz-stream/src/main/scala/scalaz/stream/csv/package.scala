@@ -28,22 +28,6 @@ package object csv {
 
 
 
-  // - Safe sources ----------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  def safeRowsR(src: => Source, sep: Char): Process[Task, Vector[String]] =
-    rowsR[Vector[String]](src, sep)
-
-  def safeRowsR(file: String, sep: Char)(implicit c: Codec): Process[Task, Vector[String]] =
-    rowsR[Vector[String]](file, sep)
-
-  def safeRowsR(file: File, sep: Char)(implicit c: Codec): Process[Task, Vector[String]] =
-    rowsR[Vector[String]](file, sep)
-
-  def safeRowsR(in: InputStream, sep: Char)(implicit c: Codec): Process[Task, Vector[String]] =
-    rowsR[Vector[String]](in, sep)
-
-
-
   // - Typeclass-based sources -----------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def rowsR[A](src: => Source, sep: Char)(implicit r: RowReader[A]): Process[Task, A] = {
