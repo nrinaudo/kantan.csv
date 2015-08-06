@@ -1,6 +1,6 @@
 package com.nrinaudo.csv
 
-import java.io.{PrintWriter, Closeable, PrintStream}
+import java.io.{Closeable, PrintWriter}
 
 class CsvWriter[A] private[csv] (private val out: PrintWriter, val sep: Char, private val format: A => List[String])
   extends Closeable {
