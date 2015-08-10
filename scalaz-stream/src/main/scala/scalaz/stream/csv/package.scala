@@ -61,5 +61,5 @@ package object csv {
     rowsW(new FileOutputStream(file), sep)
 
   def rowsW[A: RowWriter](out: => OutputStream, sep: Char)(implicit c: Codec): Sink[Task, A] =
-    rowsW(new PrintStream(out, true, c.charSet.name()), sep)
+    rowsW(new PrintWriter(new OutputStreamWriter(out, c.charSet)), sep)
 }

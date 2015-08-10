@@ -5,10 +5,10 @@
 
 ## Getting it
 
-The current version is 0.1.2, which can be added to your project with the following line in your SBT build file:
+The current version is 0.1.3, which can be added to your project with the following line in your SBT build file:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "scalaz-stream-csv" % "0.1.2"
+libraryDependencies += "com.nrinaudo" %% "scalaz-stream-csv" % "0.1.3"
 ```
 
 

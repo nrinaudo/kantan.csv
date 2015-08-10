@@ -23,6 +23,7 @@ class CsvWriter[A] private[csv] (private val out: PrintWriter, val sep: Char, pr
 
   def write(a: A): CsvWriter[A] = {
     write(format(a))
+    out.flush()
     this
   }
 
