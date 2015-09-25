@@ -3,15 +3,13 @@ package scalaz.stream.csv
 import java.io.{PrintWriter, StringWriter}
 
 import com.nrinaudo.csv.scalacheck._
-
-import scala.io.Source
-import scalaz.concurrent.Task
-import scalaz.std.list._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
-import scalaz.stream.{Cause, Process}
+import scala.io.Source
+import scalaz.concurrent.Task
 import scalaz.stream.Process._
+import scalaz.stream.{Cause, Process}
 
 class SerializationSpec extends FunSuite with GeneratorDrivenPropertyChecks {
   def read(raw: String): List[List[String]] = scalaz.stream.csv.rowsR[List[String]](Source.fromString(raw), ',').runLog.run.toList

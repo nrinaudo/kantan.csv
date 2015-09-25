@@ -22,7 +22,7 @@ package object csv {
 
 
 
-    // - Typeclass-based parsers -----------------------------------------------------------------------------------------
+  // - Typeclass-based parsers -----------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def rowsR[A: RowReader](file: File, sep: Char)(implicit c: Codec): Iterator[A] =
     rowsR(Source.fromFile(file), sep)
@@ -42,7 +42,7 @@ package object csv {
   // -------------------------------------------------------------------------------------------------------------------
   def rowsW[A](out: PrintWriter, sep: Char)(implicit rw: RowWriter[A]): CsvWriter[A] = {
     rw.header.fold(new CsvWriter[A](out, sep, rw.write)) { h =>
-      val w = new CsvWriter[List[String]](out, sep, identity)
+      val w = new CsvWriter(out, sep, identity[Seq[String]])
       w.write(h)
       w.contramap(rw.write)
     }
