@@ -27,7 +27,7 @@ object Common extends Build {
 
   override val settings = super.settings ++
   Seq(organization      :=  "com.nrinaudo",
-      version            :=  "0.1.3",
+      version            :=  "0.1.4-SNAPSHOT",
       scalaVersion       :=  "2.11.7",
       scalacOptions      ++= Seq("-deprecation",
                                  "-encoding", "UTF-8",
