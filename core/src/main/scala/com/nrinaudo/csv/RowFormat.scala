@@ -2,6 +2,15 @@ package com.nrinaudo.csv
 
 import scala.collection.mutable.ArrayBuffer
 
+trait RowFormat[A] extends RowReader[A] with RowWriter[A] { self =>
+  override def withHeader(h: String*): RowWriter[A] = new RowFormat[A] {
+    override def write(a: A) = self.write(a)
+    override def read(row: ArrayBuffer[String]) = self.read(row)
+    override val header = if(h.isEmpty) None else Some(h)
+    override val hasHeader = h.nonEmpty
+  }
+}
+
 object RowFormat {
   implicit def apply[C](implicit r: RowReader[C], w: RowWriter[C]): RowFormat[C] = new RowFormat[C] {
     override def write(a: C) = w.write(a)
@@ -186,5 +195,3 @@ object RowFormat {
       i18, i19, i20, i21), RowWriter.caseWriter22(g)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14,
       i15, i16, i17, i18, i19, i20, i21))
 }
-
-trait RowFormat[A] extends RowReader[A] with RowWriter[A]

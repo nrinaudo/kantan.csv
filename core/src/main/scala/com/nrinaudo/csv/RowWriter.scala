@@ -2,24 +2,31 @@ package com.nrinaudo.csv
 
 import simulacrum.typeclass
 
+/** Typeclass used to turn instances of {{{A}}} into a CSV row.
+  *
+  * Note that the companion object has helpful functions for deriving instances by combining [[CellWriter]]s.
+  */
 @typeclass trait RowWriter[A] { self =>
   def write(a: A): Seq[String]
-  def header: Option[Seq[String]]
-
-  def withHeader(h: String*): RowWriter[A] = RowWriter(h, write _)
-  def noHeader: RowWriter[A] = RowWriter(write _)
-
   def contramap[B](f: B => A): RowWriter[B] = RowWriter(f andThen write _)
+
+  // - Header management -----------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  /** Returns the header row that should be used when writing CSV streams with this instance. */
+  def header: Option[Seq[String]]
+  def withHeader(h: String*) = RowWriter(h, write _)
+  def noHeader = RowWriter(write _)
 }
 
 object RowWriter {
-  def apply[A](f: A => Seq[String]): RowWriter[A] = apply(None, f)
+  def apply[A](f: A => Seq[String]): RowWriter[A] = RowWriter(None, f)
 
-  private def apply[A](header: Seq[String], f: A => Seq[String]): RowWriter[A] = apply(Some(header), f)
+  private def apply[A](header: Seq[String], f: A => Seq[String]): RowWriter[A] =
+    RowWriter(if(header.isEmpty) None else Some(header), f)
 
   private def apply[A](h: Option[Seq[String]], f: A => Seq[String]): RowWriter[A] = new RowWriter[A] {
     override def write(a: A) = f(a)
-    override def header = h
+    override val header = h
   }
 
   /** Specialised writer for sequences of strings: these do not need to be modified. */
