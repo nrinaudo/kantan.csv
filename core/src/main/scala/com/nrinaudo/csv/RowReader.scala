@@ -14,8 +14,7 @@ import scala.collection.mutable.ArrayBuffer
   def hasHeader: Boolean = false
 
   def map[B](f: A => B): RowReader[B] = RowReader(ss => f(read(ss)))
-  def withHeader: RowReader[A] = RowReader(true, read _)
-  def noHeader: RowReader[A] = RowReader(false, read _)
+  def skipHeader(h: Boolean): RowReader[A] = RowReader(h, read _)
 }
 
 object RowReader {

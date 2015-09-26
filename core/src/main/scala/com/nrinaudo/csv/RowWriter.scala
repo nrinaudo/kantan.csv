@@ -6,7 +6,7 @@ import simulacrum.typeclass
   def write(a: A): Seq[String]
   def header: Option[Seq[String]]
 
-  def withHeader(h: String*): RowWriter[A] = RowWriter(h.toList, write _)
+  def withHeader(h: String*): RowWriter[A] = RowWriter(h, write _)
   def noHeader: RowWriter[A] = RowWriter(write _)
 }
 
