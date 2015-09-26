@@ -26,23 +26,23 @@ object Common extends Build {
 
 
   override val settings = super.settings ++
-  Seq(organization      :=  "com.nrinaudo",
-      version            :=  "0.1.4-SNAPSHOT",
-      scalaVersion       :=  "2.11.7",
-      scalacOptions      ++= Seq("-deprecation",
-                                 "-encoding", "UTF-8",
-                                 "-feature",
-                                 "-language:existentials",
-                                 "-language:higherKinds",
-                                 "-language:implicitConversions",
-                                 "-unchecked",
-                                 "-Xfatal-warnings",
-                                 "-Xlint",
-                                 "-Yno-adapted-args",
-                                 "-Ywarn-dead-code",
-                                 "-Ywarn-numeric-widen",
-                                 "-Ywarn-value-discard",
-                                 "-Xfuture"),
-      incOptions         := incOptions.value.withNameHashing(true),
-      pomExtra           := pom
-    )}
+                          Seq(organization    :=  "com.nrinaudo",
+                            version           :=  "0.1.4-SNAPSHOT",
+                            scalaVersion      :=  "2.11.7",
+                            scalacOptions     ++= Seq("-deprecation",
+                              "-encoding", "UTF-8",
+                              "-feature",
+                              "-language:existentials",
+                              "-language:higherKinds",
+                              "-language:implicitConversions",
+                              "-unchecked",
+                              "-Xfatal-warnings",
+                              "-Xlint",
+                              "-Yno-adapted-args",
+                              "-Ywarn-dead-code",
+                              "-Ywarn-numeric-widen",
+                              "-Ywarn-value-discard",
+                              "-Xfuture"),
+                            incOptions         := incOptions.value.withNameHashing(true),
+                            pomExtra           := pom
+                          )}

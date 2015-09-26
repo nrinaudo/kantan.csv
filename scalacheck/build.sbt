@@ -1,3 +1,3 @@
 name                := "scalacheck-csv"
 
-libraryDependencies += "org.scalacheck"       %% "scalacheck" % "1.12.2"
+libraryDependencies += "org.scalacheck"       %% "scalacheck" % "1.12.5"

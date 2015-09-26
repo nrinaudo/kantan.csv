@@ -6,6 +6,6 @@ libraryDependencies += "com.github.mpilquist" %% "simulacrum" % "0.4.0"
 
 libraryDependencies += "org.scalatest"        %% "scalatest"  % "2.2.5"  % "test"
 
-libraryDependencies += "org.scalacheck"       %% "scalacheck" % "1.12.2" % "test"
+libraryDependencies += "org.scalacheck"       %% "scalacheck" % "1.12.5" % "test"
 
 
