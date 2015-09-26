@@ -8,6 +8,8 @@ import simulacrum.typeclass
 
   def withHeader(h: String*): RowWriter[A] = RowWriter(h, write _)
   def noHeader: RowWriter[A] = RowWriter(write _)
+
+  def contramap[B](f: B => A): RowWriter[B] = RowWriter(f andThen write _)
 }
 
 object RowWriter {

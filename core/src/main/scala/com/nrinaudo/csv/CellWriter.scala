@@ -2,6 +2,12 @@ package com.nrinaudo.csv
 
 import simulacrum.typeclass
 
+@typeclass trait CellWriter[A] {
+  def write(a: A): String
+
+  def contramap[B](f: B => A): CellWriter[B] = CellWriter(f andThen write _)
+}
+
 object CellWriter {
   def apply[A](f: A => String): CellWriter[A] = new CellWriter[A] {
     override def write(a: A) = f(a)
@@ -15,8 +21,4 @@ object CellWriter {
   implicit val short : CellWriter[Short]   = apply(_.toString)
   implicit val byte  : CellWriter[Byte]    = apply(_.toString)
   implicit val bool  : CellWriter[Boolean] = apply(_.toString)
-}
-
-@typeclass trait CellWriter[A] {
-  def write(a: A): String
 }
