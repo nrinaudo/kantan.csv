@@ -40,7 +40,7 @@ object RowReader {
   @inline private def r[A: CellReader](ss: ArrayBuffer[String], index: Int) = CellReader[A].read(ss(index))
 
   def caseReader1[A0: CellReader, R]
-      (f: (A0) => R)(i0: Int): RowReader[R] = apply(ss => f(r[A0](ss, i0)))
+      (f: (A0) => R): RowReader[R] = apply(ss => f(r[A0](ss, 0)))
 
   def caseReader2[A0: CellReader, A1: CellReader, R]
     (f: (A0, A1) => R)(i0: Int, i1: Int): RowReader[R] = apply(ss => f(r[A0](ss, i0), r[A1](ss, i1)))
@@ -204,6 +204,9 @@ object RowReader {
 
   // - Tuple readers ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  implicit def tuple1[A1: CellReader]: RowReader[Tuple1[A1]] =
+      caseReader1(Tuple1.apply[A1])
+
   implicit def tuple2[A1: CellReader, A2: CellReader]: RowReader[(A1, A2)] =
     caseReader2(Tuple2.apply[A1, A2])(0, 1)
 
