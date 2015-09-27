@@ -1,11 +1,10 @@
 package com.nrinaudo.csv
 
-import scala.collection.mutable.ArrayBuffer
 
 trait RowFormat[A] extends RowReader[A] with RowWriter[A] { self =>
   override def withHeader(h: String*): RowWriter[A] = new RowFormat[A] {
     override def write(a: A) = self.write(a)
-    override def read(row: ArrayBuffer[String]) = self.read(row)
+    override def read(row: Seq[String]) = self.read(row)
     override val header = if(h.isEmpty) None else Some(h)
     override val hasHeader = h.nonEmpty
   }
@@ -15,7 +14,7 @@ object RowFormat {
   implicit def apply[C](implicit r: RowReader[C], w: RowWriter[C]): RowFormat[C] = new RowFormat[C] {
     override def write(a: C) = w.write(a)
     override def header = w.header
-    override def read(row: ArrayBuffer[String]) = r.read(row)
+    override def read(row: Seq[String]) = r.read(row)
     override def hasHeader = r.hasHeader
   }
 

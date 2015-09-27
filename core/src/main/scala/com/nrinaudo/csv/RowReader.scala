@@ -3,14 +3,13 @@ package com.nrinaudo.csv
 import simulacrum.typeclass
 
 import scala.collection.generic.CanBuildFrom
-import scala.collection.mutable.ArrayBuffer
 
 /** Typeclass for reading the content of a CSV row.
   *
   * Default implementations are provided in the companion object.
   */
 @typeclass trait RowReader[A] { self =>
-  def read(row: ArrayBuffer[String]): A
+  def read(row: Seq[String]): A
   def hasHeader: Boolean = false
 
   def map[B](f: A => B): RowReader[B] = RowReader(ss => f(read(ss)))
@@ -18,10 +17,10 @@ import scala.collection.mutable.ArrayBuffer
 }
 
 object RowReader {
-  def apply[A](f: ArrayBuffer[String] => A): RowReader[A] = apply(false, f)
+  def apply[A](f: Seq[String] => A): RowReader[A] = apply(false, f)
 
-  private def apply[A](h: Boolean, f: ArrayBuffer[String] => A): RowReader[A] = new RowReader[A] {
-    override def read(row: ArrayBuffer[String]) = f(row)
+  private def apply[A](h: Boolean, f: Seq[String] => A): RowReader[A] = new RowReader[A] {
+    override def read(row: Seq[String]) = f(row)
     override def hasHeader = h
   }
 
@@ -36,7 +35,7 @@ object RowReader {
   // I am not proud of this, but I don't know of any other way to deal with non "curryable" types.
 
   /** Helper function to reduce the amount of boilerplate required by dealing with case classes. */
-  @inline private def r[A: CellReader](ss: ArrayBuffer[String], index: Int) = CellReader[A].read(ss(index))
+  @inline private def r[A: CellReader](ss: Seq[String], index: Int) = CellReader[A].read(ss(index))
 
   def caseReader1[A0: CellReader, R]
       (f: (A0) => R): RowReader[R] = apply(ss => f(r[A0](ss, 0)))
