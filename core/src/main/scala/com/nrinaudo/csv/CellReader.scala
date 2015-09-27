@@ -1,6 +1,6 @@
 package com.nrinaudo.csv
 
-import simulacrum.typeclass
+import simulacrum.{noop, typeclass}
 
 /** Typeclass used to reader the content of a single CSV cell.
   *
@@ -17,7 +17,7 @@ import simulacrum.typeclass
     * This can be useful if you just need a {{{CellReader}}} implementation that specialises an existing type - to add
     * a scalaz tag, say.
     */
-  def map[B](f: A => B): CellReader[B] = CellReader(str => f(read(str)))
+  @noop def map[B](f: A => B): CellReader[B] = CellReader(str => f(read(str)))
 }
 
 /** Provides default implementations and construction methods for {{{CellReader}}}. */

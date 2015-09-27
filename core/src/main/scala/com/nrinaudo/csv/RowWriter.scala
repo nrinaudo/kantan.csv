@@ -1,6 +1,6 @@
 package com.nrinaudo.csv
 
-import simulacrum.typeclass
+import simulacrum.{noop, typeclass}
 
 /** Typeclass used to turn instances of {{{A}}} into a CSV row.
   *
@@ -8,14 +8,14 @@ import simulacrum.typeclass
   */
 @typeclass trait RowWriter[A] { self =>
   def write(a: A): Seq[String]
-  def contramap[B](f: B => A): RowWriter[B] = RowWriter(f andThen write _)
+  @noop def contramap[B](f: B => A): RowWriter[B] = RowWriter(f andThen write _)
 
   // - Header management -----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** Returns the header row that should be used when writing CSV streams with this instance. */
-  def header: Option[Seq[String]]
-  def withHeader(h: String*) = RowWriter(h, write _)
-  def noHeader = RowWriter(write _)
+  @noop def header: Option[Seq[String]]
+  @noop def withHeader(h: String*) = RowWriter(h, write _)
+  @noop def noHeader = RowWriter(write _)
 }
 
 object RowWriter {

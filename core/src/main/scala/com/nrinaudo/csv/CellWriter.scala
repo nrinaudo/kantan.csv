@@ -1,11 +1,11 @@
 package com.nrinaudo.csv
 
-import simulacrum.typeclass
+import simulacrum.{noop, typeclass}
 
 @typeclass trait CellWriter[A] {
   def write(a: A): String
 
-  def contramap[B](f: B => A): CellWriter[B] = CellWriter(f andThen write _)
+  @noop def contramap[B](f: B => A): CellWriter[B] = CellWriter(f andThen write _)
 }
 
 object CellWriter {
