@@ -24,6 +24,9 @@ package object csv {
 
   // - Typeclass-based parsers -----------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  // TODO: do we want to add rowsRWithHeader variations? It's boilerplaty, but makes it easier for developers that
+  // don't want / don't know how to deal with typeclasses.
+
   def rowsR[A: RowReader](file: File, sep: Char)(implicit c: Codec): Iterator[A] =
     rowsR(Source.fromFile(file), sep)
 

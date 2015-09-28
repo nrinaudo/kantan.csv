@@ -102,7 +102,7 @@ own `RowReader` instance:
 
 ```scala
 implicit val userReader = new RowReader[User] {
-  // Alternatively, instead of calling toInt, you can use RowCell[Int].read.
+  // Alternatively, instead of calling toInt, you can use CellWriter[Int].read.
   // More on that later.
   override def read(row: Seq[String]): User = User(row(0), row(1),
                                               row(2).toInt, row(3).toBoolean)
@@ -113,7 +113,7 @@ csv.rowsR[User]("users.csv", ',')
 
 ### Reading individual cells
 All the standard mechanisms for reading a CSV row rely on instances of the `CellReader` typeclass to parse individual
-cells: as long as a type as an implicit `CellReader` instance in scope, it can be used as a case class field, tuple entry
+cells: as long as a type has an implicit `CellReader` instance in scope, it can be used as a case class field, tuple entry
 or collection content type.
 
 Should you require a type that isn't provided for by default, you can easily add support for it:
@@ -140,40 +140,134 @@ no telling what will break down the road.
 Still, when efficiency is paramount, it's possible to use the various `unsafeRowsR` methods to expose the underlying
 `ArrayBuffer[String]` and avoid creating new structures for each row. This is of course not compatible with the various
 mechanisms described above - you'll only get values of type `ArrayBuffer[String]` and will need to write your own
-cell / row parsing code if necessary. 
+cell / row parsing code if necessary.
+ 
+ 
+ 
+### Dealing with the header row
+The CSV format doesn't include a way to mark the first row as a header (and therefore skippable when parsing), and you
+need to know in advance whether or not your data contains one.
 
+Since CSV reading is handled as an `Iterator`, you'd think you can simply call `drop(1)` to skip the first row, but that
+unfortunately doesn't work as soon as you're working with types more complex than strings: if you expect an int in the
+first column, for example, it's doubtful that the first column of the header row will be a valid int and parsing will
+fail before you even get a chance to skip it.
 
-### Writing lists of strings
-Writing is achieved through one of the `rowsW` methods:
+The correct way to deal with the header row is by configuring the `RowReader` instance. By default, row readers consider
+that no header is present, but you can change that:
 
 ```scala
-val out = csv.rowsW[List[String]](System.out, ',')
-
-out.write(List("aaa", "bbb", "ccc"))
-out.write(List("zzz", "yyy", "xxx"))
-
-out.close()
+implicit val myReader = RowReader[User].skipHeader(true)
 ```
 
 
-### Typeclass-based writing
-The previous example works because an implicit `RowWriter[List[String]]` is always in scope. Should you need to write 
-something other than lists of strings, you can create your own `RowWriter` instance:
+## Writing
+Writing is achieved through one of the various `rowsW` methods. Just as with reading, writing tries to be as flexible
+as possible in the types that can handled.
+
+
+
+### Writing sequences
+Default implementations are provided for all sequence types (anything that extends `Seq`) of most standard types:
 
 ```scala
-implicit val userWriter = RowWriter((u: User) => List(u.first, u.last))
-
-csv.rowsW[User](System.out, ',')
-  .write(User("Locke", "Lamora"))
-  .write(User("Nicolas", "Rinaudo"))
+val out = csv.rowsW[List[Int]](System.out, ',')
+  .write(List(1, 2, 3))
+  .write(List(4, 5, 6))
   .close()
 ```
 
-CSV writing doesn't by default include a header row. This is configurable at the `RowWriter` level:
+The following standard types are supported by default:
+
+* String
+* Int
+* Float
+* Double
+* Long
+* Byte
+* Short
+* Boolean
+
+Adding more data types is straightforward and detailed in a later section.
+
+
+### Writing tuples
+CSV rows are seldom composed of a unique type, and are often better represented as tuples. Tuples of arity 1 to 22 are
+supported out of the box:
+
 ```scala
-val userWriterH = userWriter.withHeader("First Name", "Last Name")
+val out = csv.rowsW[(Int, String, Boolean)](System.out, ',')
+  .write((1, "a", true))
+  .write((2, "b", false))
+  .close()
+```
+
+The same standard types are supported as for sequences.
+
+
+### Writing case classes
+You'll often find yourself dealing with specialised case classes rather than more generic tuples. These are supported as
+well, although they require a bit more work: you need to create a dedicated instance of `RowWriter` and bring it as
+implicit in scope.
+
+```scala
+case class User(first: String, last: String, age: Int, female: Boolean)
+
+// The integer parameters tell caseWriter what field to map to what column - the first
+// integer is the index of the first User field, and so on.
+implicit val userWriter = RowReader.caseReader4(User.unapply)(0, 1, 2, 3)
+
+val out = csv.rowsW[(Int, String, Boolean)]("users.csv", ',')
+  .write(User("Steve", "Jones", 22, false))
+  .write(User("Jane", "Doe", 33, true))
+  .close()
+```
+
+### Writing anything else
+These examples all rely on the same underlying mechanism: `rowsW` expects an implicit `RowWriter` instance for the
+relevant types to be in scope. Should you need to writes values of a type that is not a collection, a tuple or a
+case class, you can always create your own `RowWriter`:
+
+```scala
+implicit val userWriter = new RowWriter[User] {
+  // Alternatively, instead of calling toString, you can use CellWriter[Int].write(u.age).
+  // More on that later.
+  override def write(u: User): Seq[String] =
+    List(u.first, u.last, u.age.toString, u.female.toString)
+}
+
+csv.rowsW[User]("users.csv", ',')
+  .write(User("Steve", "Jones", 22, false))
+  .write(User("Jane", "Doe", 33, true))
+  .close()
+```
+
+### Writing individual cells
+All the previous mechanisms for writing CSV rows rely on instances of the `CellWriter` typeclass to write individual
+cells: as long as a type has on implicit `CellWriter` in scope, it can be used as a case class field, tuple entry
+or collection content type.
+
+Should you require a type that isn't provided for by default, you can easily add support for it:
+
+```scala
+import java.util.Date
+import java.text.SimpleDateFormat
+
+implicit val dateWriter = new CellWriter[Date] {
+  override def read(d: Date): String =
+    new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(d)
+}
+
+csv.rowsW[(String, Int, Date)](System.out, ',')
+  .write(("a", 1, date1))
+  .write(("b", 2, date2))
+  .close()
 ```
 
 
-### Writing tuples or typeclasses
-Just like you can use `RowReader.caseReaderXXX` to derive readers for case classes, 
+
+### Dealing with the header row
+You might want to add a header row to the CSV files you write. This is handled at the `RowWriter` level:
+```scala
+implicit val myWriter = RowWriter[User].withHeader("First Name", "Last Name", "Age", "Female")
+```
