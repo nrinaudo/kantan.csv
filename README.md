@@ -106,7 +106,7 @@ own `RowReader` instance:
 
 ```scala
 implicit val userReader = new RowReader[User] {
-  // Alternatively, instead of calling toInt, you can use CellWriter[Int].read.
+  // Alternatively, instead of calling toInt, you can use CellReader[Int].read.
   // More on that later.
   override def read(row: Seq[String]): User = User(row(0), row(1),
                                               row(2).toInt, row(3).toBoolean)
