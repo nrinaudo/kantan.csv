@@ -24,42 +24,71 @@ package object csv {
 
   // - Typeclass-based parsers -----------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  // TODO: do we want to add rowsRWithHeader variations? It's boilerplaty, but makes it easier for developers that
-  // don't want / don't know how to deal with typeclasses.
+  /** Opens the specified file as CSV data.
+    *
+    * @param file   file to open.
+    * @param sep    CSV separator. Commas are usually a good default value, but Microsoft Excel defaults to environment
+    *               dependant values.
+    * @param header whether or not the specified file contains a header row.
+    */
+  def rowsR[A: RowReader](file: File, sep: Char, header: Boolean)(implicit c: Codec): Iterator[A] =
+    rowsR(Source.fromFile(file), sep, header)
 
-  def rowsR[A: RowReader](file: File, sep: Char)(implicit c: Codec): Iterator[A] =
-    rowsR(Source.fromFile(file), sep)
+  /** Opens the specified stream as CSV data.
+    *
+    * @param in     stream to open.
+    * @param sep    CSV separator. Commas are usually a good default value, but Microsoft Excel defaults to environment
+    *               dependant values.
+    * @param header whether or not the specified file contains a header row.
+    */
+  def rowsR[A: RowReader](in: InputStream, sep: Char, header: Boolean)(implicit c: Codec): Iterator[A] =
+    rowsR(Source.fromInputStream(in), sep, header)
 
-  def rowsR[A: RowReader](in: InputStream, sep: Char)(implicit c: Codec): Iterator[A] =
-    rowsR(Source.fromInputStream(in), sep)
+  /** Opens the file denoted by the specified path as CSV data.
+    *
+    * @param file   name of the file to open.
+    * @param sep    CSV separator. Commas are usually a good default value, but Microsoft Excel defaults to environment
+    *               dependant values.
+    * @param header whether or not the specified file contains a header row.
+    */
+  def rowsR[A: RowReader](file: String, sep: Char, header: Boolean)(implicit c: Codec): Iterator[A] =
+    rowsR(Source.fromFile(file), sep, header)
 
-  def rowsR[A: RowReader](file: String, sep: Char)(implicit c: Codec): Iterator[A] =
-    rowsR(Source.fromFile(file), sep)
-
-  def rowsR[A: RowReader](source: Source, sep: Char): Iterator[A] =
-    unsafeRowsR(source, sep).map(RowReader[A].read)
+  /** Opens the specified source as CSV data.
+    *
+    * @param source source to open.
+    * @param sep    CSV separator. Commas are usually a good default value, but Microsoft Excel defaults to environment
+    *               dependant values.
+    * @param header whether or not the specified file contains a header row.
+    */
+  def rowsR[A](source: Source, sep: Char, header: Boolean)(implicit r: RowReader[A]): Iterator[A] = {
+    val data = unsafeRowsR(source, sep)
+    if(header) data.drop(1).map(r.read)
+    else       data.map(r.read)
+  }
 
 
 
   // - Typeclass-based writers -----------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def rowsW[A](out: PrintWriter, sep: Char)(implicit rw: RowWriter[A]): CsvWriter[A] = {
-    rw.header.fold(new CsvWriter[A](out, sep, rw.write)) { h =>
+  def rowsW[A](out: PrintWriter, sep: Char, header: String*)(implicit rw: RowWriter[A]): CsvWriter[A] = {
+    if(header.isEmpty) new CsvWriter[A](out, sep, rw.write)
+    else {
       val w = new CsvWriter(out, sep, identity[Seq[String]])
-      w.write(h)
+      w.write(header)
       w.contramap(rw.write)
     }
   }
 
-  def rowsW[A: RowWriter](file: File, sep: Char)(implicit c: Codec): CsvWriter[A] =
-    rowsW(new FileOutputStream(file), sep)
+  def rowsW[A: RowWriter](file: File, sep: Char, header: String*)(implicit c: Codec): CsvWriter[A] =
+    rowsW(new FileOutputStream(file), sep, header:_*)
 
-  def rowsW[A: RowWriter](file: String, sep: Char)(implicit c: Codec): CsvWriter[A] =
-    rowsW(new FileOutputStream(file), sep)
+  def rowsW[A: RowWriter](file: String, sep: Char, header: String*)(implicit c: Codec): CsvWriter[A] =
+    rowsW(new FileOutputStream(file), sep, header:_*)
 
-  def rowsW[A: RowWriter](out: OutputStream, sep: Char)(implicit c: Codec): CsvWriter[A] =
-    rowsW(new PrintStream(out, true, c.charSet.name()), sep)
+  def rowsW[A: RowWriter](out: OutputStream, sep: Char, header: String*)(implicit c: Codec): CsvWriter[A] =
+    rowsW(new PrintWriter(new PrintStream(out, true, c.charSet.name())), sep, header:_*)
 
-  def rowsW[A: RowWriter](out: PrintStream, sep: Char): CsvWriter[A] =
-    rowsW(new PrintWriter(out), sep)
+  def rowsW[A: RowWriter](out: PrintStream, sep: Char, header: String*): CsvWriter[A] =
+    rowsW(new PrintWriter(out), sep, header:_*)
 }

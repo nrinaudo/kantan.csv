@@ -12,7 +12,7 @@ import scalaz.stream.Process._
 import scalaz.stream.{Cause, Process}
 
 class SerializationSpec extends FunSuite with GeneratorDrivenPropertyChecks {
-  def read(raw: String): List[List[String]] = scalaz.stream.csv.rowsR[List[String]](Source.fromString(raw), ',').runLog.run.toList
+  def read(raw: String): List[List[String]] = scalaz.stream.csv.rowsR[List[String]](Source.fromString(raw), ',', false).runLog.run.toList
   def write(data: List[List[String]]): String = {
     val sw = new StringWriter()
     val iterator = data.iterator

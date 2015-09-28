@@ -11,17 +11,11 @@ import scala.collection.generic.CanBuildFrom
 @typeclass trait RowReader[A] { self =>
   def read(row: Seq[String]): A
   @noop def map[B](f: A => B): RowReader[B] = RowReader(ss => f(read(ss)))
-
-  @noop def hasHeader: Boolean = false
-  @noop def skipHeader(h: Boolean): RowReader[A] = RowReader(h, read _)
 }
 
 object RowReader {
-  def apply[A](f: Seq[String] => A): RowReader[A] = apply(false, f)
-
-  private def apply[A](h: Boolean, f: Seq[String] => A): RowReader[A] = new RowReader[A] {
+  def apply[A](f: Seq[String] => A): RowReader[A] = new RowReader[A] {
     override def read(row: Seq[String]) = f(row)
-    override def hasHeader = h
   }
 
   /** Generic {{{RowReader}}} for collections. */

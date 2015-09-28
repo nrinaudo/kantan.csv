@@ -9,24 +9,11 @@ import simulacrum.{noop, typeclass}
 @typeclass trait RowWriter[A] { self =>
   def write(a: A): Seq[String]
   @noop def contramap[B](f: B => A): RowWriter[B] = RowWriter(f andThen write _)
-
-  // - Header management -----------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  /** Returns the header row that should be used when writing CSV streams with this instance. */
-  @noop def header: Option[Seq[String]]
-  @noop def withHeader(h: String*) = RowWriter(h, write _)
-  @noop def noHeader = RowWriter(write _)
 }
 
 object RowWriter {
-  def apply[A](f: A => Seq[String]): RowWriter[A] = RowWriter(None, f)
-
-  private def apply[A](header: Seq[String], f: A => Seq[String]): RowWriter[A] =
-    RowWriter(if(header.isEmpty) None else Some(header), f)
-
-  private def apply[A](h: Option[Seq[String]], f: A => Seq[String]): RowWriter[A] = new RowWriter[A] {
+  def apply[A](f: A => Seq[String]): RowWriter[A] = new RowWriter[A] {
     override def write(a: A) = f(a)
-    override val header = h
   }
 
   /** Specialised writer for sequences of strings: these do not need to be modified. */

@@ -6,7 +6,7 @@ import scala.io.Source
 
 private[csv] object tools {
   // Helper functions to turn a CSV stream into a List[List[String]].
-  def read(source: Source): List[List[String]] = rowsR[List[String]](source, ',').toList
+  def read(source: Source): List[List[String]] = rowsR[List[String]](source, ',', false).toList
   def readResource(str: String): List[List[String]] = read(Source.fromInputStream(getClass.getResourceAsStream(str)))
   def read(str: String): List[List[String]] = read(Source.fromString(str))
 

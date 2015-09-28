@@ -1,21 +1,11 @@
 package com.nrinaudo.csv
 
-
-trait RowFormat[A] extends RowReader[A] with RowWriter[A] { self =>
-  override def withHeader(h: String*): RowWriter[A] = new RowFormat[A] {
-    override def write(a: A) = self.write(a)
-    override def read(row: Seq[String]) = self.read(row)
-    override val header = if(h.isEmpty) None else Some(h)
-    override val hasHeader = h.nonEmpty
-  }
-}
+trait RowFormat[A] extends RowReader[A] with RowWriter[A]
 
 object RowFormat {
   implicit def apply[C](implicit r: RowReader[C], w: RowWriter[C]): RowFormat[C] = new RowFormat[C] {
     override def write(a: C) = w.write(a)
-    override def header = w.header
     override def read(row: Seq[String]) = r.read(row)
-    override def hasHeader = r.hasHeader
   }
 
   def caseFormat1[C, A0: CellFormat](f: A0 => C, g: C => Option[A0]): RowFormat[C] =

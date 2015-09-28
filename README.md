@@ -37,6 +37,7 @@ row to be represented as. It'll always be an `Iterator` of something, but what t
 the caller. The following sections explain how to control it.
 
 
+
 ### Reading rows as collections
 The simplest way to read a CSV row is as a collection of a standard type - a `List[String]`, say. This is supported out
 of the box by specifying the correct type argument to `rowsR`:
@@ -144,23 +145,6 @@ cell / row parsing code if necessary.
  
  
  
-### Dealing with the header row
-The CSV format doesn't include a way to mark the first row as a header (and therefore skippable when parsing), and you
-need to know in advance whether or not your data contains one.
-
-Since CSV reading is handled as an `Iterator`, you'd think you can simply call `drop(1)` to skip the first row, but that
-unfortunately doesn't work as soon as you're working with types more complex than strings: if you expect an int in the
-first column, for example, it's doubtful that the first column of the header row will be a valid int and parsing will
-fail before you even get a chance to skip it.
-
-The correct way to deal with the header row is by configuring the `RowReader` instance. By default, row readers consider
-that no header is present, but you can change that:
-
-```scala
-implicit val myReader = RowReader[User].skipHeader(true)
-```
-
-
 ## Writing
 Writing is achieved through one of the various `rowsW` methods. Just as with reading, writing tries to be as flexible
 as possible in the types that can handled.
@@ -262,12 +246,4 @@ csv.rowsW[(String, Int, Date)](System.out, ',')
   .write(("a", 1, date1))
   .write(("b", 2, date2))
   .close()
-```
-
-
-
-### Dealing with the header row
-You might want to add a header row to the CSV files you write. This is handled at the `RowWriter` level:
-```scala
-implicit val myWriter = RowWriter[User].withHeader("First Name", "Last Name", "Age", "Female")
 ```
