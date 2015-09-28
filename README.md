@@ -9,7 +9,8 @@ A [scalaz-stream](./scalaz-stream) implementation is available as a separate mod
 
 
 ## Getting it
-The current version is `0.1.4-SNAPSHOT`, which can be added to your project with the following line in your SBT build file:
+The current version is `0.1.4-SNAPSHOT`, which can be added to your project with the following line in your SBT build
+file:
 
 ```scala
 libraryDependencies += "com.nrinaudo" %% "scala-csv" % "0.1.4-SNAPSHOT"
@@ -24,16 +25,16 @@ imported. That is:
 ```scala
 import com.nrinaudo._
 
-// I'm using iso-8859-1 here because that's the encoding Excel uses when manipulating CSV files on my computer, but it
-// might be very different on other setups.
+// I'm using iso-8859-1 here because that's the encoding Excel uses when manipulating CSV
+// files on my computer, but it might be very different on other setups.
 implicit val codec = scala.io.Codec.ISO8859
 ```
 
 
 ## Reading
-Reading CSV files is done through one of the various `rowsR` methods, whose return type depend on what you need each
+Reading CSV files is done through one of the various `rowsR` methods, whose return type depends on what you need each
 row to be represented as. It'll always be an `Iterator` of something, but what that something is is entirely up to
-the caller. The following sections explain how to control this.
+the caller. The following sections explain how to control it.
 
 
 ### Reading rows as collections
@@ -64,7 +65,7 @@ Collections are nice, but they can only contain a single type. CVS rows tend to 
 often better represented as tuples.
 
 Tuples of any arity (up to 22, which as the time of writing is the maximum supported by scala) are supported out of the
-box, and works just as with collections:
+box, and work just as with collections:
 
 ```scala
 csv.rowsR[(String, Int, Float, Boolean)]("input.csv", ',')
@@ -85,8 +86,8 @@ writing.
 ```scala
 case class User(first: String, last: String, age: Int, female: Boolean)
 
-// The integer parameters tell caseReader what column to map to what field - the first integer is the index of the first
-// User field, and so on.
+// The integer parameters tell caseReader what column to map to what field - the first
+// integer is the index of the first User field, and so on.
 implicit val userReader = RowReader.caseReader4(User.apply)(0, 1, 2, 3)
 
 csv.rowsR[User]("users.csv", ',')
@@ -101,8 +102,10 @@ own `RowReader` instance:
 
 ```scala
 implicit val userReader = new RowReader[User] {
-  // Alternatively, instead of calling toInt, you can use RowCell[Int].read. More on that later.
-  override def read(row: Seq[String]): User = User(row(0), row(1), row(2).toInt, row(3).toBoolean)
+  // Alternatively, instead of calling toInt, you can use RowCell[Int].read.
+  // More on that later.
+  override def read(row: Seq[String]): User = User(row(0), row(1),
+                                              row(2).toInt, row(3).toBoolean)
 }
 
 csv.rowsR[User]("users.csv", ',')
@@ -110,7 +113,7 @@ csv.rowsR[User]("users.csv", ',')
 
 ### Reading individual cells
 All the standard mechanisms for reading a CSV row rely on instances of the `CellReader` typeclass to parse individual
-cell: as long as a type as an implicit `CellReader` instance in scope, it can be used as a case class field, tuple entry
+cells: as long as a type as an implicit `CellReader` instance in scope, it can be used as a case class field, tuple entry
 or collection content type.
 
 Should you require a type that isn't provided for by default, you can easily add support for it:
@@ -120,10 +123,12 @@ import java.util.Date
 import java.text.SimpleDateFormat
 
 implicit val dateReader = new CellReader[Date] {
-  override def read(s: String): Date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s)
+  override def read(s: String): Date =
+    new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s)
 }
 
 csv.rowsR[List[Date]]("dates.csv", ',')
+csv.rowsR[(Int, String, Date)]("input.csv", ',')
 ```
 
 ### Trading safety for efficiency
