@@ -4,6 +4,7 @@ import java.io.IOException
 
 import scala.collection.AbstractIterator
 import scala.collection.mutable.ArrayBuffer
+import scala.io.Source
 
 /** Defines the various possible states of a CSV parser. */
 private object CsvIterator {
@@ -15,8 +16,8 @@ private object CsvIterator {
   sealed trait Status
 }
 
-private[csv] class CsvIterator(data: Iterator[Char], separator: Char) extends AbstractIterator[ArrayBuffer[String]]
-                                                                              with Iterator[ArrayBuffer[String]] {
+private[csv] class CsvIterator(data: Source, separator: Char)
+  extends AbstractIterator[ArrayBuffer[String]] with Iterator[ArrayBuffer[String]] with AutoCloseable {
   import CsvIterator._
 
   /** Used to aggregate the content of the current cell. */
@@ -136,6 +137,11 @@ private[csv] class CsvIterator(data: Iterator[Char], separator: Char) extends Ab
 
     while(parseNext()) {}
 
+    // If we've finished parsing the whole stream, close it.
+    if(!hasNext) close()
+
     row
   }
+
+  override def close(): Unit = data.close()
 }
