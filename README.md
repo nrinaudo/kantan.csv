@@ -49,14 +49,15 @@ csv.rowsR[List[String]]("input.csv", ',')
 All collection types are supported (well, technically, all collections that have a `CanBuildFrom` instance), as well as
 the following standard types:
 
-* String
-* Int
-* Float
-* Double
-* Long
-* Byte
-* Short
-* Boolean
+* `String`
+* `Int`
+* `Float`
+* `Double`
+* `Long`
+* `Byte`
+* `Short`
+* `Boolean`
+* `Option` of any of the above.
 
 Other types can be added - the process is fairly straightforward and explained in depth in a later section.
 
@@ -174,14 +175,15 @@ val out = csv.rowsW[List[Int]](System.out, ',')
 
 The following standard types are supported by default:
 
-* String
-* Int
-* Float
-* Double
-* Long
-* Byte
-* Short
-* Boolean
+* `String`
+* `Int`
+* `Float`
+* `Double`
+* `Long`
+* `Byte`
+* `Short`
+* `Boolean`
+* `Option` of any of the above.
 
 Adding more data types is straightforward and detailed in a later section.
 
@@ -212,7 +214,7 @@ case class User(first: String, last: String, age: Int, female: Boolean)
 // integer is the index of the first User field, and so on.
 implicit val userWriter = RowReader.caseReader4(User.unapply)(0, 1, 2, 3)
 
-val out = csv.rowsW[(Int, String, Boolean)]("users.csv", ',')
+val out = csv.rowsW[User]("users.csv", ',')
   .write(User("Steve", "Jones", 22, false))
   .write(User("Jane", "Doe", 33, true))
   .close()

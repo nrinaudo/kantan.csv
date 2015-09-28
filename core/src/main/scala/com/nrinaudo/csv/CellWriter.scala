@@ -21,4 +21,6 @@ object CellWriter {
   implicit val short : CellWriter[Short]   = apply(_.toString)
   implicit val byte  : CellWriter[Byte]    = apply(_.toString)
   implicit val bool  : CellWriter[Boolean] = apply(_.toString)
+
+  implicit def opt[A: CellWriter]: CellWriter[Option[A]] = apply(oa => oa.map(CellWriter[A].write).getOrElse(""))
 }

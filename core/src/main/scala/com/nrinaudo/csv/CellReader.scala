@@ -35,4 +35,9 @@ object CellReader {
   implicit val short : CellReader[Short]   = apply(_.toShort)
   implicit val byte  : CellReader[Byte]    = apply(_.toByte)
   implicit val bool  : CellReader[Boolean] = apply(_.toBoolean)
+  
+  implicit def opt[A: CellReader]: CellReader[Option[A]] = apply { s =>
+    if(s.isEmpty) None
+    else          Some(CellReader[A].read(s))
+  }
 }
