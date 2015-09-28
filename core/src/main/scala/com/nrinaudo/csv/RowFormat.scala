@@ -8,6 +8,11 @@ object RowFormat {
     override def read(row: Seq[String]) = r.read(row)
   }
 
+  def apply[C](reader: Seq[String] => C, writer: C => Seq[String]): RowFormat[C] = new RowFormat[C] {
+    override def write(a: C) = writer(a)
+    override def read(row: Seq[String]) = reader(row)
+  }
+
   def caseFormat1[C, A0: CellFormat](f: A0 => C, g: C => Option[A0]): RowFormat[C] =
     RowFormat(RowReader.caseReader1(f), RowWriter.caseWriter1(g))
 

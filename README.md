@@ -94,6 +94,9 @@ implicit val userReader = RowReader.caseReader4(User.apply)(0, 1, 2, 3)
 csv.rowsR[User]("users.csv", ',')
 ```
 
+Note that should you need to both read and write instances of a case class, you might be better served by creating a
+`RowFormat` than a `RowReader`.
+
 ### Reading rows as whatever the hell you want
 These examples all use the same underlying mechanism: `rowsR` uses instances of the `RowReader` typeclass to turn a
 CSV row into values of a more useful type.
@@ -111,6 +114,10 @@ implicit val userReader = new RowReader[User] {
 
 csv.rowsR[User]("users.csv", ',')
 ```
+
+Note that should you need to both read and write values of your type, you might be better served by creating a
+`RowFormat` than a `RowReader`.
+
 
 ### Reading individual cells
 All the standard mechanisms for reading a CSV row rely on instances of the `CellReader` typeclass to parse individual
@@ -131,6 +138,10 @@ implicit val dateReader = new CellReader[Date] {
 csv.rowsR[List[Date]]("dates.csv", ',')
 csv.rowsR[(Int, String, Date)]("input.csv", ',')
 ```
+
+Note that should you need to both read and write values of your type, you might be better served by creating a
+`CellFormat` than a `CellReader`.
+
 
 ### Trading safety for efficiency
 At the lowest level, CSV parsing uses efficient but unsafe data structures - specifically, a single instance of 
@@ -207,6 +218,9 @@ val out = csv.rowsW[(Int, String, Boolean)]("users.csv", ',')
   .close()
 ```
 
+Note that should you need to both read and write values of your case class, you might be better served by creating a
+`RowFormat` than a `RowReader`.
+
 ### Writing anything else
 These examples all rely on the same underlying mechanism: `rowsW` expects an implicit `RowWriter` instance for the
 relevant types to be in scope. Should you need to writes values of a type that is not a collection, a tuple or a
@@ -225,6 +239,9 @@ csv.rowsW[User]("users.csv", ',')
   .write(User("Jane", "Doe", 33, true))
   .close()
 ```
+
+Note that should you need to both read and write values of your type, you might be better served by creating a
+`RowFormat` than a `RowReader`.
 
 ### Writing individual cells
 All the previous mechanisms for writing CSV rows rely on instances of the `CellWriter` typeclass to write individual
@@ -246,4 +263,32 @@ csv.rowsW[(String, Int, Date)](System.out, ',')
   .write(("a", 1, date1))
   .write(("b", 2, date2))
   .close()
+```
+
+Note that should you need to both read and write values of your type, you might be better served by creating a
+`CellFormat` than a `CellReader`.
+
+
+## Reading *and* writing: formats
+
+### Row formats
+The `RowFormat` typeclass brings `RowReader` and `RowWriter` together. It's a useful shortcut for when you'll need to
+create both a reader and a writer anyway:
+
+```scala
+// This'll allow you to read and write instances of User from and to CSV streams.
+implicit val userFormat = RowFormat.caseFormat4(User.apply, User.unapply)(0, 1, 2, 3)
+```
+
+### Cell formats
+Similarly, `CellFormat` brings `CellReader` and `CellWriter` together:
+
+```scala
+import java.util.Date
+import java.text.SimpleDateFormat
+
+implicit val dateFormat = CellFormat[Date](
+  s => new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s),
+  d => new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(d)
+)
 ```
