@@ -1,6 +1,6 @@
 package com.nrinaudo.csv
 
-import java.io.IOException
+import java.io.{Closeable, IOException}
 
 import scala.collection.AbstractIterator
 import scala.collection.mutable.ArrayBuffer
@@ -17,7 +17,7 @@ private object CsvIterator {
 }
 
 private[csv] class CsvIterator(data: Source, separator: Char)
-  extends AbstractIterator[ArrayBuffer[String]] with Iterator[ArrayBuffer[String]] with AutoCloseable {
+  extends AbstractIterator[ArrayBuffer[String]] with Iterator[ArrayBuffer[String]] with Closeable {
   import CsvIterator._
 
   /** Used to aggregate the content of the current cell. */
