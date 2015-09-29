@@ -61,7 +61,7 @@ the following standard types:
 * `BigInt`
 * `BigDecimal`
 * `Option` of any of the above
-* `Either` of any of the above
+* `Either` of any two of the above
 
 Other types can be added - the process is fairly straightforward and explained in depth in a later section.
 
@@ -191,7 +191,7 @@ The following standard types are supported by default:
 * `BigInt`
 * `BigDecimal`
 * `Option` of any of the above
-* `Either` of any of the above
+* `Either` of any two of the above
 
 Adding more data types is straightforward and detailed in a later section.
 
