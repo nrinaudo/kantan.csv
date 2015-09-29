@@ -27,15 +27,17 @@ object CellReader {
     override def read(a: String) = f(a)
   }
 
-  implicit val string: CellReader[String]  = apply(s => s)
-  implicit val int   : CellReader[Int]     = apply(_.toInt)
-  implicit val float : CellReader[Float]   = apply(_.toFloat)
-  implicit val double: CellReader[Double]  = apply(_.toDouble)
-  implicit val long  : CellReader[Long]    = apply(_.toLong)
-  implicit val short : CellReader[Short]   = apply(_.toShort)
-  implicit val byte  : CellReader[Byte]    = apply(_.toByte)
-  implicit val bool  : CellReader[Boolean] = apply(_.toBoolean)
-  
+  implicit val string: CellReader[String]     = apply(s => s)
+  implicit val int   : CellReader[Int]        = apply(_.toInt)
+  implicit val float : CellReader[Float]      = apply(_.toFloat)
+  implicit val double: CellReader[Double]     = apply(_.toDouble)
+  implicit val long  : CellReader[Long]       = apply(_.toLong)
+  implicit val short : CellReader[Short]      = apply(_.toShort)
+  implicit val byte  : CellReader[Byte]       = apply(_.toByte)
+  implicit val bool  : CellReader[Boolean]    = apply(_.toBoolean)
+  implicit val bigInt: CellReader[BigInt]     = apply(s => BigInt.apply(s))
+  implicit val bigDec: CellReader[BigDecimal] = apply(s => BigDecimal.apply(s))
+
   implicit def opt[A: CellReader]: CellReader[Option[A]] = apply { s =>
     if(s.isEmpty) None
     else          Some(CellReader[A].read(s))
