@@ -191,7 +191,7 @@ object RowReader {
     apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
       r[A7](ss, i7), r[A8](ss, i8), r[A9](ss, i9), r[A10](ss, i10), r[A11](ss, i11), r[A12](ss, i12), r[A13](ss, i13),
       r[A14](ss, i14),r[A15](ss, i15), r[A16](ss, i16), r[A17](ss, i17), r[A18](ss, i18), r[A19](ss, i19),
-      r[A20](ss, i20), r[A21](ss, 20)))
+      r[A20](ss, i20), r[A21](ss, i21)))
 
 
   // - Tuple readers ---------------------------------------------------------------------------------------------------
