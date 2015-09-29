@@ -1,7 +1,7 @@
 # scala-csv
 
-[![Build Status](https://travis-ci.org/nrinaudo/scala-csv.svg?branch=v1.0.4)](https://travis-ci.org/nrinaudo/scala-csv)
-[![codecov.io](http://codecov.io/github/nrinaudo/scala-csv/coverage.svg?branch=v1.0.4)](http://codecov.io/github/nrinaudo/scala-csv?branch=v1.0.4)
+[![Build Status](https://travis-ci.org/nrinaudo/scala-csv.svg?branch=v0.1.4)](https://travis-ci.org/nrinaudo/scala-csv)
+[![codecov.io](http://codecov.io/github/nrinaudo/scala-csv/coverage.svg?branch=v0.1.4)](http://codecov.io/github/nrinaudo/scala-csv?branch=v0.1.4)
 
 CSV is an unfortunate part of life. This attempts to alleviate the pain somewhat by letting developers treat CSV data
 as a simple iterator.
