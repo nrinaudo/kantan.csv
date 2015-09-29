@@ -2,6 +2,8 @@ package com.nrinaudo.csv
 
 import simulacrum.{noop, typeclass}
 
+import scala.util.Try
+
 /** Typeclass used to reader the content of a single CSV cell.
   *
   * Standard types are already provided for in the companion object.
@@ -28,6 +30,7 @@ object CellReader {
   }
 
   implicit val string: CellReader[String]     = apply(s => s)
+  implicit val char:   CellReader[Char]       = apply(s => if(s.length == 1) s(0) else throw new Exception(s"Not a valid char: $s"))
   implicit val int   : CellReader[Int]        = apply(_.toInt)
   implicit val float : CellReader[Float]      = apply(_.toFloat)
   implicit val double: CellReader[Double]     = apply(_.toDouble)
@@ -41,5 +44,9 @@ object CellReader {
   implicit def opt[A: CellReader]: CellReader[Option[A]] = apply { s =>
     if(s.isEmpty) None
     else          Some(CellReader[A].read(s))
+  }
+
+  implicit def either[A: CellReader, B: CellReader]: CellReader[Either[A, B]] = apply { s =>
+    Try(Left(CellReader[A].read(s))).getOrElse(Right(CellReader[B].read(s)))
   }
 }

@@ -14,6 +14,7 @@ object CellWriter {
   }
 
   implicit val string: CellWriter[String]     = apply(s => s)
+  implicit val char  : CellWriter[Char]       = apply(_.toString)
   implicit val int   : CellWriter[Int]        = apply(_.toString)
   implicit val float : CellWriter[Float]      = apply(_.toString)
   implicit val double: CellWriter[Double]     = apply(_.toString)
@@ -25,4 +26,8 @@ object CellWriter {
   implicit val bigDec: CellWriter[BigDecimal] = apply(_.toString())
 
   implicit def opt[A: CellWriter]: CellWriter[Option[A]] = apply(oa => oa.map(CellWriter[A].write).getOrElse(""))
+  implicit def either[A: CellWriter, B: CellWriter]: CellWriter[Either[A, B]] = apply(eab => eab match {
+    case Left(a)  => CellWriter[A].write(a)
+    case Right(b) => CellWriter[B].write(b)
+  })
 }

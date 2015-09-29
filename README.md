@@ -50,6 +50,7 @@ All collection types are supported (well, technically, all collections that have
 the following standard types:
 
 * `String`
+* `Char`
 * `Int`
 * `Float`
 * `Double`
@@ -57,7 +58,10 @@ the following standard types:
 * `Byte`
 * `Short`
 * `Boolean`
-* `Option` of any of the above.
+* `BigInt`
+* `BigDecimal`
+* `Option` of any of the above
+* `Either` of any of the above
 
 Other types can be added - the process is fairly straightforward and explained in depth in a later section.
 
@@ -176,6 +180,7 @@ val out = csv.rowsW[List[Int]](System.out, ',')
 The following standard types are supported by default:
 
 * `String`
+* `Char`
 * `Int`
 * `Float`
 * `Double`
@@ -183,7 +188,10 @@ The following standard types are supported by default:
 * `Byte`
 * `Short`
 * `Boolean`
-* `Option` of any of the above.
+* `BigInt`
+* `BigDecimal`
+* `Option` of any of the above
+* `Either` of any of the above
 
 Adding more data types is straightforward and detailed in a later section.
 

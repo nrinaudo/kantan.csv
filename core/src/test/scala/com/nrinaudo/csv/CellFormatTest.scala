@@ -39,6 +39,7 @@ abstract class CellFormatTest[A: CellFormat: Arbitrary] extends FunSuite with Ge
 }
 
 class StringFormatTest extends CellFormatTest[String]
+class CharFormatTest extends CellFormatTest[Char]
 class IntFormatTest extends CellFormatTest[Int]
 class BigIntFormatTest extends CellFormatTest[BigInt]
 class BigDecimalFormatTest extends CellFormatTest[BigDecimal]
@@ -49,3 +50,4 @@ class ShortFormatTest extends CellFormatTest[Short]
 class ByteFormatTest extends CellFormatTest[Byte]
 class BooleanFormatTest extends CellFormatTest[Boolean]
 class OptionFormatTest extends CellFormatTest[Option[Int]]
+class EitherFormatTest extends CellFormatTest[Either[Int, Char]]
