@@ -1,17 +1,20 @@
 package com.nrinaudo.csv
 
-import simulacrum.{noop, typeclass}
+import simulacrum.{op, noop, typeclass}
 
 /** Typeclass used to turn instances of {{{A}}} into a CSV row.
   *
   * Note that the companion object has helpful functions for deriving instances by combining [[CellWriter]]s.
   */
 @typeclass trait RowWriter[A] { self =>
-  def write(a: A): Seq[String]
+  @op("asCsvRow") def write(a: A): Seq[String]
   @noop def contramap[B](f: B => A): RowWriter[B] = RowWriter(f andThen write _)
 }
 
 object RowWriter {
+  import ops._
+  import CellWriter.ops._
+
   def apply[A](f: A => Seq[String]): RowWriter[A] = new RowWriter[A] {
     override def write(a: A) = f(a)
   }
@@ -20,16 +23,16 @@ object RowWriter {
   implicit def strSeq[M[X] <: Seq[X]]: RowWriter[M[String]] = RowWriter(ss => ss)
 
   implicit def either[A: RowWriter, B: RowWriter]: RowWriter[Either[A, B]] = RowWriter { ss => ss match {
-    case Left(a) => RowWriter[A].write(a)
-    case Right(b) => RowWriter[B].write(b)
+    case Left(a) => a.asCsvRow
+    case Right(b) => b.asCsvRow
   }}
 
 
   implicit def traversable[A: CellWriter, M[X] <: TraversableOnce[X]]: RowWriter[M[A]] = RowWriter { as =>
-    as.foldLeft(Seq.newBuilder[String]) { (acc, s) => acc += CellWriter[A].write(s) }.result()
+    as.foldLeft(Seq.newBuilder[String])((acc, a) => acc += a.asCsvCell).result()
   }
 
-  @inline private def w[A: CellWriter](a: A): String = CellWriter[A].write(a)
+  @inline private def w[A: CellWriter](a: A): String = a.asCsvCell
 
   def caseWriter1[C, A0: CellWriter](f: C => Option[A0]): RowWriter[C] =
     RowWriter(a => List(w(f(a).get)))

@@ -1,6 +1,6 @@
 package com.nrinaudo.csv
 
-import simulacrum.{noop, typeclass}
+import simulacrum.{op, noop, typeclass}
 
 import scala.util.Try
 
@@ -12,7 +12,7 @@ import scala.util.Try
   */
 @typeclass trait CellReader[A] {
   /** Turns the content of a CSV cell into an {{{A}}}. */
-  def read(a: String): A
+  @noop def read(a: String): A
 
   /** Creates a new {{{CellReader}}} that applies the specified function to the result of {{{read}}}.
     *

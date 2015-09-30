@@ -10,7 +10,7 @@ import scala.util.Try
   * Default implementations are provided in the companion object.
   */
 @typeclass trait RowReader[A] { self =>
-  def read(row: Seq[String]): A
+  @noop def read(row: Seq[String]): A
   @noop def map[B](f: A => B): RowReader[B] = RowReader(ss => f(read(ss)))
 }
 
@@ -25,9 +25,8 @@ object RowReader {
     RowReader(ss => Try(Left(RowReader[A].read(ss))).getOrElse(Right(RowReader[B].read(ss))))
 
   /** Generic {{{RowReader}}} for collections. */
-  implicit def collection[A: CellReader, M[X]](implicit cbf: CanBuildFrom[Nothing, A, M[A]]): RowReader[M[A]] = RowReader { ss =>
-    ss.foldLeft(cbf.apply()) { (acc, s) => acc += CellReader[A].read(s) }.result()
-  }
+  implicit def collection[A: CellReader, M[X]](implicit cbf: CanBuildFrom[Nothing, A, M[A]]): RowReader[M[A]] =
+    RowReader(ss => ss.foldLeft(cbf.apply())((acc, s) => acc += CellReader[A].read(s)).result())
 
 
   // - Case class readers ----------------------------------------------------------------------------------------------
@@ -38,62 +37,62 @@ object RowReader {
   @inline private def r[A: CellReader](ss: Seq[String], index: Int) = CellReader[A].read(ss(index))
 
   def caseReader1[A0: CellReader, R]
-      (f: (A0) => R): RowReader[R] = apply(ss => f(r[A0](ss, 0)))
+      (f: (A0) => R): RowReader[R] = RowReader(ss => f(r[A0](ss, 0)))
 
   def caseReader2[A0: CellReader, A1: CellReader, R]
-    (f: (A0, A1) => R)(i0: Int, i1: Int): RowReader[R] = apply(ss => f(r[A0](ss, i0), r[A1](ss, i1)))
+    (f: (A0, A1) => R)(i0: Int, i1: Int): RowReader[R] = RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1)))
 
   def caseReader3[A0: CellReader, A1: CellReader, A2: CellReader, R]
-  (f: (A0, A1, A2) => R)(i0: Int, i1: Int, i2: Int): RowReader[R] = apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2)))
+  (f: (A0, A1, A2) => R)(i0: Int, i1: Int, i2: Int): RowReader[R] = RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2)))
 
   def caseReader4[A0: CellReader, A1: CellReader, A2: CellReader, A3: CellReader, R]
   (f: (A0, A1, A2, A3) => R)(i0: Int, i1: Int, i2: Int, i3: Int):
-  RowReader[R] = apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3)))
+  RowReader[R] = RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3)))
 
   def caseReader5[A0: CellReader, A1: CellReader, A2: CellReader, A3: CellReader, A4: CellReader, R]
     (f: (A0, A1, A2, A3, A4) => R)(i0: Int, i1: Int, i2: Int, i3: Int, i4: Int):
-    RowReader[R] = apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4)))
+    RowReader[R] = RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4)))
 
   def caseReader6[A0: CellReader, A1: CellReader, A2: CellReader, A3: CellReader, A4: CellReader, A5: CellReader, R]
   (f: (A0, A1, A2, A3, A4, A5) => R)(i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int):
-  RowReader[R] = apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5)))
+  RowReader[R] = RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5)))
 
   def caseReader7[A0: CellReader, A1: CellReader, A2: CellReader, A3: CellReader, A4: CellReader, A5: CellReader,
   A6: CellReader, R](f: (A0, A1, A2, A3, A4, A5, A6) => R)(i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int):
-  RowReader[R] = apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5),
+  RowReader[R] = RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5),
     r[A6](ss, i6)))
 
   def caseReader8[A0: CellReader, A1: CellReader, A2: CellReader, A3: CellReader, A4: CellReader, A5: CellReader,
     A6: CellReader, A7: CellReader, R](f: (A0, A1, A2, A3, A4, A5, A6, A7) => R)
     (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int):
-    RowReader[R] = apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5),
+    RowReader[R] = RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5),
       r[A6](ss, i6), r[A7](ss, i7)))
 
   def caseReader9[A0: CellReader, A1: CellReader, A2: CellReader, A3: CellReader, A4: CellReader, A5: CellReader,
   A6: CellReader, A7: CellReader, A8: CellReader, R](f: (A0, A1, A2, A3, A4, A5, A6, A7, A8) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int):
-  RowReader[R] = apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5),
+  RowReader[R] = RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5),
     r[A6](ss, i6), r[A7](ss, i7), r[A8](ss, i8)))
 
   def caseReader10[A0: CellReader, A1: CellReader, A2: CellReader, A3: CellReader, A4: CellReader, A5: CellReader,
   A6: CellReader, A7: CellReader, A8: CellReader, A9: CellReader, R]
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int):
-  RowReader[R] = apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5),
+  RowReader[R] = RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5),
     r[A6](ss, i6), r[A7](ss, i7), r[A8](ss, i8), r[A9](ss, i9)))
 
   def caseReader11[A0: CellReader, A1: CellReader, A2: CellReader, A3: CellReader, A4: CellReader, A5: CellReader,
   A6: CellReader, A7: CellReader, A8: CellReader, A9: CellReader, A10: CellReader, R]
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int):
-  RowReader[R] = apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5),
+  RowReader[R] = RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5),
     r[A6](ss, i6), r[A7](ss, i7), r[A8](ss, i8), r[A9](ss, i9), r[A10](ss, i10)))
 
   def caseReader12[A0: CellReader, A1: CellReader, A2: CellReader, A3: CellReader, A4: CellReader, A5: CellReader,
   A6: CellReader, A7: CellReader, A8: CellReader, A9: CellReader, A10: CellReader, A11: CellReader, R]
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int):
-  RowReader[R] = apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5),
+  RowReader[R] = RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5),
     r[A6](ss, i6), r[A7](ss, i7), r[A8](ss, i8), r[A9](ss, i9), r[A10](ss, i10), r[A11](ss, i11)))
 
 
@@ -102,7 +101,7 @@ object RowReader {
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int): RowReader[R] =
-    apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
+    RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
       r[A7](ss, i7), r[A8](ss, i8), r[A9](ss, i9), r[A10](ss, i10), r[A11](ss, i11), r[A12](ss, i12)))
 
   def caseReader14[A0: CellReader, A1: CellReader, A2: CellReader, A3: CellReader, A4: CellReader, A5: CellReader,
@@ -111,7 +110,7 @@ object RowReader {
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int): RowReader[R] =
-    apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
+    RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
       r[A7](ss, i7), r[A8](ss, i8), r[A9](ss, i9), r[A10](ss, i10), r[A11](ss, i11), r[A12](ss, i12), r[A13](ss, i13)))
 
   def caseReader15[A0: CellReader, A1: CellReader, A2: CellReader, A3: CellReader, A4: CellReader, A5: CellReader,
@@ -120,7 +119,7 @@ object RowReader {
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int): RowReader[R] =
-    apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
+    RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
       r[A7](ss, i7), r[A8](ss, i8), r[A9](ss, i9), r[A10](ss, i10), r[A11](ss, i11), r[A12](ss, i12), r[A13](ss, i13),
       r[A14](ss, i14)))
 
@@ -130,7 +129,7 @@ object RowReader {
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int): RowReader[R] =
-    apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
+    RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
       r[A7](ss, i7), r[A8](ss, i8), r[A9](ss, i9), r[A10](ss, i10), r[A11](ss, i11), r[A12](ss, i12), r[A13](ss, i13),
       r[A14](ss, i14), r[A15](ss, i15)))
 
@@ -140,7 +139,7 @@ object RowReader {
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int): RowReader[R] =
-    apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
+    RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
       r[A7](ss, i7), r[A8](ss, i8), r[A9](ss, i9), r[A10](ss, i10), r[A11](ss, i11), r[A12](ss, i12), r[A13](ss, i13),
       r[A14](ss, i14),r[A15](ss, i15), r[A16](ss, i16)))
 
@@ -150,7 +149,7 @@ object RowReader {
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int): RowReader[R] =
-    apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
+    RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
       r[A7](ss, i7), r[A8](ss, i8), r[A9](ss, i9), r[A10](ss, i10), r[A11](ss, i11), r[A12](ss, i12), r[A13](ss, i13),
       r[A14](ss, i14),r[A15](ss, i15), r[A16](ss, i16), r[A17](ss, i17)))
 
@@ -160,7 +159,7 @@ object RowReader {
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int): RowReader[R] =
-    apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
+    RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
       r[A7](ss, i7), r[A8](ss, i8), r[A9](ss, i9), r[A10](ss, i10), r[A11](ss, i11), r[A12](ss, i12), r[A13](ss, i13),
       r[A14](ss, i14),r[A15](ss, i15), r[A16](ss, i16), r[A17](ss, i17), r[A18](ss, i18)))
 
@@ -171,7 +170,7 @@ object RowReader {
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int): RowReader[R] =
-    apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
+    RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
       r[A7](ss, i7), r[A8](ss, i8), r[A9](ss, i9), r[A10](ss, i10), r[A11](ss, i11), r[A12](ss, i12), r[A13](ss, i13),
       r[A14](ss, i14),r[A15](ss, i15), r[A16](ss, i16), r[A17](ss, i17), r[A18](ss, i18), r[A19](ss, i19)))
 
@@ -182,7 +181,7 @@ object RowReader {
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int, i20: Int): RowReader[R] =
-    apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
+    RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
       r[A7](ss, i7), r[A8](ss, i8), r[A9](ss, i9), r[A10](ss, i10), r[A11](ss, i11), r[A12](ss, i12), r[A13](ss, i13),
       r[A14](ss, i14),r[A15](ss, i15), r[A16](ss, i16), r[A17](ss, i17), r[A18](ss, i18), r[A19](ss, i19),
       r[A20](ss, i20)))
@@ -194,7 +193,7 @@ object RowReader {
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int, i20: Int, i21: Int): RowReader[R] =
-    apply(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
+    RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1), r[A2](ss, i2), r[A3](ss, i3), r[A4](ss, i4), r[A5](ss, i5), r[A6](ss, i6),
       r[A7](ss, i7), r[A8](ss, i8), r[A9](ss, i9), r[A10](ss, i10), r[A11](ss, i11), r[A12](ss, i12), r[A13](ss, i13),
       r[A14](ss, i14),r[A15](ss, i15), r[A16](ss, i16), r[A17](ss, i17), r[A18](ss, i18), r[A19](ss, i19),
       r[A20](ss, i20), r[A21](ss, i21)))
