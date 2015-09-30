@@ -2,16 +2,17 @@ package com.nrinaudo.csv
 
 import java.io._
 
-import simulacrum.typeclass
+import simulacrum.{op, noop, typeclass}
 
 import scala.io.Codec
 
 @typeclass trait CsvOutput[S] {
-  def printWriter(s: S): PrintWriter
-  def sink[A: RowWriter](s: S, separator: Char, header: Seq[String] = Seq.empty): CsvWriter[A] = {
-    if(header.isEmpty) new CsvWriter[A](printWriter(s), separator, RowWriter[A].write)
+  @noop def toPrintWriter(s: S): PrintWriter
+
+  @op("asCsvWriter") def writer[A: RowWriter](s: S, separator: Char, header: Seq[String] = Seq.empty): CsvWriter[A] = {
+    if(header.isEmpty) new CsvWriter[A](toPrintWriter(s), separator, RowWriter[A].write)
     else {
-      val w = new CsvWriter(printWriter(s), separator, identity[Seq[String]])
+      val w = new CsvWriter(toPrintWriter(s), separator, identity[Seq[String]])
       w.write(header)
       w.contramap(RowWriter[A].write)
     }
@@ -20,7 +21,7 @@ import scala.io.Codec
 
 object CsvOutput {
   def apply[S](f: S => PrintWriter): CsvOutput[S] = new CsvOutput[S] {
-    override def printWriter(s: S): PrintWriter = f(s)
+    override def toPrintWriter(s: S): PrintWriter = f(s)
   }
 
   implicit def file(implicit codec: Codec): CsvOutput[File] =
@@ -32,6 +33,6 @@ object CsvOutput {
   implicit def writer[A <: Writer]: CsvOutput[A] = CsvOutput(w => new PrintWriter(w))
 
   implicit val printWriter: CsvOutput[PrintWriter] = new CsvOutput[PrintWriter] {
-    override def printWriter(s: PrintWriter): PrintWriter = s
+    override def toPrintWriter(s: PrintWriter): PrintWriter = s
   }
 }

@@ -14,16 +14,11 @@ import scala.io.Source
 abstract class CsvWriterTest[A: RowFormat: Arbitrary] extends FunSuite with GeneratorDrivenPropertyChecks {
   def write(ss: List[A]): String = {
     val sw = new StringWriter()
-
-    ss.foldLeft(sw.sink[A](','))(_ write _).close()
-
-    //val out = rowsW[A](new PrintWriter(sw), ',')
-    //ss.foreach(out.write)
-    //out.close()
+    ss.foldLeft(sw.asCsvWriter[A](','))(_ write _).close()
     sw.toString
   }
 
-  def read(str: String): List[A] = str.rows[A](',', false).toList
+  def read(str: String): List[A] = str.asCsvRows[A](',', false).toList
 
   test("Serialized CSV data should be parsed correctly") {
     forAll { ss: List[A] =>
