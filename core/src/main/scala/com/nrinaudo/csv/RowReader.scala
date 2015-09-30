@@ -18,6 +18,8 @@ object RowReader {
     override def read(row: Seq[String]) = f(row)
   }
 
+  implicit val stringSeq: RowReader[Seq[String]] = RowReader(ss => ss)
+
   /** Generic {{{RowReader}}} for collections. */
   implicit def collection[A: CellReader, M[X]](implicit cbf: CanBuildFrom[Nothing, A, M[A]]): RowReader[M[A]] = apply { ss =>
     ss.foldLeft(cbf.apply()) { (acc, s) => acc += CellReader[A].read(s) }.result()

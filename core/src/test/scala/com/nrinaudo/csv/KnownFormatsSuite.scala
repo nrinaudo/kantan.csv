@@ -1,15 +1,13 @@
 package com.nrinaudo.csv
 
 import org.scalatest.FunSuite
-
-import scala.io.Source
+import com.nrinaudo.csv.ops._
 
 class KnownFormatsSuite extends FunSuite {
   implicit val carFormat = RowFormat.caseFormat5(Car.apply, Car.unapply)(1, 2, 3, 4, 0)
   case class Car(make: String, model: String, description: Option[String], price: Int, year: Int)
 
-  def read(res: String): List[Car] =
-    rowsR[Car](Source.fromInputStream(getClass.getResourceAsStream(res)), ',', true).toList
+  def read(res: String): List[Car] = getClass.getResourceAsStream(res).rows[Car](',', true).toList
 
   test("All known formats must be supported") {
     val raw = read("/raw.csv")

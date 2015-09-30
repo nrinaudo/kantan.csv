@@ -3,6 +3,7 @@ package com.nrinaudo.csv
 import java.io.{PrintWriter, StringWriter}
 
 import com.nrinaudo.csv.scalacheck._
+import com.nrinaudo.csv.ops._
 import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary._
 import org.scalatest.FunSuite
@@ -13,13 +14,16 @@ import scala.io.Source
 abstract class CsvWriterTest[A: RowFormat: Arbitrary] extends FunSuite with GeneratorDrivenPropertyChecks {
   def write(ss: List[A]): String = {
     val sw = new StringWriter()
-    val out = rowsW[A](new PrintWriter(sw), ',')
-    ss.foreach(out.write)
-    out.close()
+
+    ss.foldLeft(sw.sink[A](','))(_ write _).close()
+
+    //val out = rowsW[A](new PrintWriter(sw), ',')
+    //ss.foreach(out.write)
+    //out.close()
     sw.toString
   }
 
-  def read(str: String): List[A] = rowsR[A](Source.fromString(str), ',', false).toList
+  def read(str: String): List[A] = str.rows[A](',', false).toList
 
   test("Serialized CSV data should be parsed correctly") {
     forAll { ss: List[A] =>

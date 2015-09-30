@@ -1,13 +1,11 @@
 package com.nrinaudo.csv
 
 import org.scalatest.FunSuite
-
-import scala.io.Source
+import com.nrinaudo.csv.ops._
 
 class Rfc4180Suite extends FunSuite {
-  def csvIs(csv: String, expected: List[List[String]]): Unit = {
-    assert(rowsR[List[String]](Source.fromString(csv), ',', false).toList == expected)
-  }
+  def csvIs(csv: String, expected: List[List[String]]): Unit =
+    assert(csv.rows[List[String]](',', false).toList == expected)
 
   test("Each record is located on a separate line, delimited by a line break (CRLF)") {
     csvIs("aaa,bbb,ccc\r\nzzz,yyy,xxx\r\n", List(List("aaa", "bbb", "ccc"), List("zzz", "yyy", "xxx")))
