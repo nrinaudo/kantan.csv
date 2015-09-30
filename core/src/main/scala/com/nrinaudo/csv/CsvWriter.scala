@@ -6,9 +6,9 @@ class CsvWriter[A] private[csv] (private val out: PrintWriter, val sep: Char, pr
   extends Closeable {
 
   private def escape(str: String): String =
-    if(str.contains("\""))                                                  "\"" + str.replaceAll("\"", "\"\"") + "\""
-    else if (str.contains(sep) || str.contains("\n") || str.contains("\r")) "\"" + str + "\""
-    else                                                                    str
+    if(str.contains("\""))                                                 "\"" + str.replaceAll("\"", "\"\"") + "\""
+    else if(str.contains(sep) || str.contains("\n") || str.contains("\r")) "\"" + str + "\""
+    else                                                                   str
 
   private def write(ss: Seq[String]): Unit = ss.map(escape) match {
     case h :: t =>

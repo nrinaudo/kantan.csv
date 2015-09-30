@@ -14,7 +14,8 @@ private[csv] object tools {
   def write(ss: List[List[String]]): String = {
     val sw = new StringWriter()
     val out = rowsW[List[String]](new PrintWriter(sw), ',')
-    ss.foreach { s => out.write(s) }
+    ss.foreach(out.write)
+    out.close()
     sw.toString
   }
 }

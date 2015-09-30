@@ -1,19 +1,26 @@
 package com.nrinaudo.csv
 
 import org.scalatest.FunSuite
-import com.nrinaudo.csv.tools._
+
+import scala.io.Source
 
 class KnownFormatsSuite extends FunSuite {
+  implicit val carFormat = RowFormat.caseFormat5(Car.apply, Car.unapply)(1, 2, 3, 4, 0)
+  case class Car(make: String, model: String, description: Option[String], price: Int, year: Int)
+
+  def read(res: String): List[Car] =
+    rowsR[Car](Source.fromInputStream(getClass.getResourceAsStream(res)), ',', true).toList
+
   test("All known formats must be supported") {
-    val raw = readResource("/raw.csv")
+    val raw = read("/raw.csv")
 
     info("Excel for Mac")
-    assert(readResource("/excel_mac_12_0.csv") == raw)
+    assert(read("/excel_mac_12_0.csv") == raw)
 
     info("Numbers")
-    assert(readResource("/numbers_1_0_3.csv") == raw)
+    assert(read("/numbers_1_0_3.csv") == raw)
 
     info("Google Docs")
-    assert(readResource("/google_docs.csv") == raw)
+    assert(read("/google_docs.csv") == raw)
   }
 }
