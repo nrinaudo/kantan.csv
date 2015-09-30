@@ -17,9 +17,15 @@ object RowWriter {
   }
 
   /** Specialised writer for sequences of strings: these do not need to be modified. */
-  implicit def strSeq[M[X] <: Seq[X]]: RowWriter[M[String]] = apply { ss => ss }
+  implicit def strSeq[M[X] <: Seq[X]]: RowWriter[M[String]] = RowWriter(ss => ss)
 
-  implicit def traversable[A: CellWriter, M[X] <: TraversableOnce[X]]: RowWriter[M[A]] = apply { as =>
+  implicit def either[A: RowWriter, B: RowWriter]: RowWriter[Either[A, B]] = RowWriter { ss => ss match {
+    case Left(a) => RowWriter[A].write(a)
+    case Right(b) => RowWriter[B].write(b)
+  }}
+
+
+  implicit def traversable[A: CellWriter, M[X] <: TraversableOnce[X]]: RowWriter[M[A]] = RowWriter { as =>
     as.foldLeft(Seq.newBuilder[String]) { (acc, s) => acc += CellWriter[A].write(s) }.result()
   }
 

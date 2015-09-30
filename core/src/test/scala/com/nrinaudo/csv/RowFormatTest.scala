@@ -21,10 +21,11 @@ abstract class RowFormatTest[R: RowFormat: Arbitrary] extends FunSuite with Gene
 
 // - Collection tests --------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-class ListFormatTest extends RowFormatTest[List[Int]]
-class VectorFormatTest extends RowFormatTest[Vector[Int]]
-class SeqFormatTest extends RowFormatTest[Seq[Int]]
-class StreamFormatTest extends RowFormatTest[Stream[Int]]
+class ListRowFormatTest extends RowFormatTest[List[Int]]
+class VectorRowFormatTest extends RowFormatTest[Vector[Int]]
+class SeqRowFormatTest extends RowFormatTest[Seq[Int]]
+class StreamRowFormatTest extends RowFormatTest[Stream[Int]]
+class EitherRowFormatTest extends RowFormatTest[Either[List[Int], (Boolean, String)]]
 
 
 // - Tuple tests -------------------------------------------------------------------------------------------------------

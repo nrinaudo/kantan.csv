@@ -3,6 +3,7 @@ package com.nrinaudo.csv
 import simulacrum.{noop, typeclass}
 
 import scala.collection.generic.CanBuildFrom
+import scala.util.Try
 
 /** Typeclass for reading the content of a CSV row.
   *
@@ -20,8 +21,11 @@ object RowReader {
 
   implicit val stringSeq: RowReader[Seq[String]] = RowReader(ss => ss)
 
+  implicit def either[A: RowReader, B: RowReader]: RowReader[Either[A, B]] =
+    RowReader(ss => Try(Left(RowReader[A].read(ss))).getOrElse(Right(RowReader[B].read(ss))))
+
   /** Generic {{{RowReader}}} for collections. */
-  implicit def collection[A: CellReader, M[X]](implicit cbf: CanBuildFrom[Nothing, A, M[A]]): RowReader[M[A]] = apply { ss =>
+  implicit def collection[A: CellReader, M[X]](implicit cbf: CanBuildFrom[Nothing, A, M[A]]): RowReader[M[A]] = RowReader { ss =>
     ss.foldLeft(cbf.apply()) { (acc, s) => acc += CellReader[A].read(s) }.result()
   }
 
