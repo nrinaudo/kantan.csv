@@ -1,5 +1,5 @@
 import sbt._
-import Keys._
+import sbt.Keys._
 
 object Common extends Build {
   val pom = {
@@ -29,6 +29,8 @@ object Common extends Build {
                           Seq(organization    :=  "com.nrinaudo",
                             version           :=  "0.1.4-SNAPSHOT",
                             scalaVersion      :=  "2.11.7",
+                            addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0-M5" cross CrossVersion.full),
+                            libraryDependencies += "com.github.mpilquist" %% "simulacrum" % "0.4.0",
                             scalacOptions     ++= Seq("-deprecation",
                               "-encoding", "UTF-8",
                               "-feature",
