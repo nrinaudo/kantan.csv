@@ -15,20 +15,20 @@ object CellWriter {
     override def write(a: A) = f(a)
   }
 
-  implicit val string: CellWriter[String]     = apply(s => s)
-  implicit val char  : CellWriter[Char]       = apply(_.toString)
-  implicit val int   : CellWriter[Int]        = apply(_.toString)
-  implicit val float : CellWriter[Float]      = apply(_.toString)
-  implicit val double: CellWriter[Double]     = apply(_.toString)
-  implicit val long  : CellWriter[Long]       = apply(_.toString)
-  implicit val short : CellWriter[Short]      = apply(_.toString)
-  implicit val byte  : CellWriter[Byte]       = apply(_.toString)
-  implicit val bool  : CellWriter[Boolean]    = apply(_.toString)
-  implicit val bigInt: CellWriter[BigInt]     = apply(_.toString())
-  implicit val bigDec: CellWriter[BigDecimal] = apply(_.toString())
+  implicit val string: CellWriter[String]     = CellWriter(s => s)
+  implicit val char  : CellWriter[Char]       = CellWriter(_.toString)
+  implicit val int   : CellWriter[Int]        = CellWriter(_.toString)
+  implicit val float : CellWriter[Float]      = CellWriter(_.toString)
+  implicit val double: CellWriter[Double]     = CellWriter(_.toString)
+  implicit val long  : CellWriter[Long]       = CellWriter(_.toString)
+  implicit val short : CellWriter[Short]      = CellWriter(_.toString)
+  implicit val byte  : CellWriter[Byte]       = CellWriter(_.toString)
+  implicit val bool  : CellWriter[Boolean]    = CellWriter(_.toString)
+  implicit val bigInt: CellWriter[BigInt]     = CellWriter(_.toString())
+  implicit val bigDec: CellWriter[BigDecimal] = CellWriter(_.toString())
 
-  implicit def opt[A: CellWriter]: CellWriter[Option[A]] = apply(oa => oa.map(CellWriter[A].write).getOrElse(""))
-  implicit def either[A: CellWriter, B: CellWriter]: CellWriter[Either[A, B]] = apply(eab => eab match {
+  implicit def opt[A: CellWriter]: CellWriter[Option[A]] = CellWriter(oa => oa.map(CellWriter[A].write).getOrElse(""))
+  implicit def either[A: CellWriter, B: CellWriter]: CellWriter[Either[A, B]] = CellWriter(eab => eab match {
     case Left(a)  => a.asCsvCell
     case Right(b) => b.asCsvCell
   })

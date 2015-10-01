@@ -36,8 +36,7 @@ object RowReader {
   /** Helper function to reduce the amount of boilerplate required by dealing with case classes. */
   @inline private def r[A: CellReader](ss: Seq[String], index: Int) = CellReader[A].read(ss(index))
 
-  def caseReader1[A0: CellReader, R]
-      (f: (A0) => R): RowReader[R] = RowReader(ss => f(r[A0](ss, 0)))
+  def caseReader1[A0: CellReader, R](f: (A0) => R): RowReader[R] = RowReader(ss => f(r[A0](ss, 0)))
 
   def caseReader2[A0: CellReader, A1: CellReader, R]
     (f: (A0, A1) => R)(i0: Int, i1: Int): RowReader[R] = RowReader(ss => f(r[A0](ss, i0), r[A1](ss, i1)))

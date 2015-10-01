@@ -43,8 +43,8 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](2)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
       dest.toSeq
     }
 
@@ -54,9 +54,9 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](3)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
-      dest(i2) = CellWriter[A2].write(e._3)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
+      dest(i2) = e._3.asCsvCell
       dest.toSeq
     }
 
@@ -66,10 +66,10 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](4)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
-      dest(i2) = CellWriter[A2].write(e._3)
-      dest(i3) = CellWriter[A3].write(e._4)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
+      dest(i2) = e._3.asCsvCell
+      dest(i3) = e._4.asCsvCell
       dest.toSeq
     }
 
@@ -80,11 +80,11 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](5)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
-      dest(i2) = CellWriter[A2].write(e._3)
-      dest(i3) = CellWriter[A3].write(e._4)
-      dest(i4) = CellWriter[A4].write(e._5)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
+      dest(i2) = e._3.asCsvCell
+      dest(i3) = e._4.asCsvCell
+      dest(i4) = e._5.asCsvCell
       dest.toSeq
     }
 
@@ -95,12 +95,12 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](6)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
-      dest(i2) = CellWriter[A2].write(e._3)
-      dest(i3) = CellWriter[A3].write(e._4)
-      dest(i4) = CellWriter[A4].write(e._5)
-      dest(i5) = CellWriter[A5].write(e._6)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
+      dest(i2) = e._3.asCsvCell
+      dest(i3) = e._4.asCsvCell
+      dest(i4) = e._5.asCsvCell
+      dest(i5) = e._6.asCsvCell
       dest.toSeq
     }
 
@@ -112,13 +112,13 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](7)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
-      dest(i2) = CellWriter[A2].write(e._3)
-      dest(i3) = CellWriter[A3].write(e._4)
-      dest(i4) = CellWriter[A4].write(e._5)
-      dest(i5) = CellWriter[A5].write(e._6)
-      dest(i6) = CellWriter[A6].write(e._7)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
+      dest(i2) = e._3.asCsvCell
+      dest(i3) = e._4.asCsvCell
+      dest(i4) = e._5.asCsvCell
+      dest(i5) = e._6.asCsvCell
+      dest(i6) = e._7.asCsvCell
       dest.toSeq
     }
 
@@ -130,14 +130,14 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](8)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
-      dest(i2) = CellWriter[A2].write(e._3)
-      dest(i3) = CellWriter[A3].write(e._4)
-      dest(i4) = CellWriter[A4].write(e._5)
-      dest(i5) = CellWriter[A5].write(e._6)
-      dest(i6) = CellWriter[A6].write(e._7)
-      dest(i7) = CellWriter[A7].write(e._8)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
+      dest(i2) = e._3.asCsvCell
+      dest(i3) = e._4.asCsvCell
+      dest(i4) = e._5.asCsvCell
+      dest(i5) = e._6.asCsvCell
+      dest(i6) = e._7.asCsvCell
+      dest(i7) = e._8.asCsvCell
       dest.toSeq
     }
 
@@ -149,15 +149,15 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](9)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
-      dest(i2) = CellWriter[A2].write(e._3)
-      dest(i3) = CellWriter[A3].write(e._4)
-      dest(i4) = CellWriter[A4].write(e._5)
-      dest(i5) = CellWriter[A5].write(e._6)
-      dest(i6) = CellWriter[A6].write(e._7)
-      dest(i7) = CellWriter[A7].write(e._8)
-      dest(i8) = CellWriter[A8].write(e._9)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
+      dest(i2) = e._3.asCsvCell
+      dest(i3) = e._4.asCsvCell
+      dest(i4) = e._5.asCsvCell
+      dest(i5) = e._6.asCsvCell
+      dest(i6) = e._7.asCsvCell
+      dest(i7) = e._8.asCsvCell
+      dest(i8) = e._9.asCsvCell
       dest.toSeq
     }
 
@@ -169,16 +169,16 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](10)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
-      dest(i2) = CellWriter[A2].write(e._3)
-      dest(i3) = CellWriter[A3].write(e._4)
-      dest(i4) = CellWriter[A4].write(e._5)
-      dest(i5) = CellWriter[A5].write(e._6)
-      dest(i6) = CellWriter[A6].write(e._7)
-      dest(i7) = CellWriter[A7].write(e._8)
-      dest(i8) = CellWriter[A8].write(e._9)
-      dest(i9) = CellWriter[A9].write(e._10)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
+      dest(i2) = e._3.asCsvCell
+      dest(i3) = e._4.asCsvCell
+      dest(i4) = e._5.asCsvCell
+      dest(i5) = e._6.asCsvCell
+      dest(i6) = e._7.asCsvCell
+      dest(i7) = e._8.asCsvCell
+      dest(i8) = e._9.asCsvCell
+      dest(i9) = e._10.asCsvCell
       dest.toSeq
     }
 
@@ -190,17 +190,17 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](11)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
-      dest(i2) = CellWriter[A2].write(e._3)
-      dest(i3) = CellWriter[A3].write(e._4)
-      dest(i4) = CellWriter[A4].write(e._5)
-      dest(i5) = CellWriter[A5].write(e._6)
-      dest(i6) = CellWriter[A6].write(e._7)
-      dest(i7) = CellWriter[A7].write(e._8)
-      dest(i8) = CellWriter[A8].write(e._9)
-      dest(i9) = CellWriter[A9].write(e._10)
-      dest(i10) = CellWriter[A10].write(e._11)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
+      dest(i2) = e._3.asCsvCell
+      dest(i3) = e._4.asCsvCell
+      dest(i4) = e._5.asCsvCell
+      dest(i5) = e._6.asCsvCell
+      dest(i6) = e._7.asCsvCell
+      dest(i7) = e._8.asCsvCell
+      dest(i8) = e._9.asCsvCell
+      dest(i9) = e._10.asCsvCell
+      dest(i10) = e._11.asCsvCell
       dest.toSeq
     }
 
@@ -213,18 +213,18 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](12)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
-      dest(i2) = CellWriter[A2].write(e._3)
-      dest(i3) = CellWriter[A3].write(e._4)
-      dest(i4) = CellWriter[A4].write(e._5)
-      dest(i5) = CellWriter[A5].write(e._6)
-      dest(i6) = CellWriter[A6].write(e._7)
-      dest(i7) = CellWriter[A7].write(e._8)
-      dest(i8) = CellWriter[A8].write(e._9)
-      dest(i9) = CellWriter[A9].write(e._10)
-      dest(i10) = CellWriter[A10].write(e._11)
-      dest(i11) = CellWriter[A11].write(e._12)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
+      dest(i2) = e._3.asCsvCell
+      dest(i3) = e._4.asCsvCell
+      dest(i4) = e._5.asCsvCell
+      dest(i5) = e._6.asCsvCell
+      dest(i6) = e._7.asCsvCell
+      dest(i7) = e._8.asCsvCell
+      dest(i8) = e._9.asCsvCell
+      dest(i9) = e._10.asCsvCell
+      dest(i10) = e._11.asCsvCell
+      dest(i11) = e._12.asCsvCell
       dest.toSeq
     }
 
@@ -237,19 +237,19 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](13)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
-      dest(i2) = CellWriter[A2].write(e._3)
-      dest(i3) = CellWriter[A3].write(e._4)
-      dest(i4) = CellWriter[A4].write(e._5)
-      dest(i5) = CellWriter[A5].write(e._6)
-      dest(i6) = CellWriter[A6].write(e._7)
-      dest(i7) = CellWriter[A7].write(e._8)
-      dest(i8) = CellWriter[A8].write(e._9)
-      dest(i9) = CellWriter[A9].write(e._10)
-      dest(i10) = CellWriter[A10].write(e._11)
-      dest(i11) = CellWriter[A11].write(e._12)
-      dest(i12) = CellWriter[A12].write(e._13)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
+      dest(i2) = e._3.asCsvCell
+      dest(i3) = e._4.asCsvCell
+      dest(i4) = e._5.asCsvCell
+      dest(i5) = e._6.asCsvCell
+      dest(i6) = e._7.asCsvCell
+      dest(i7) = e._8.asCsvCell
+      dest(i8) = e._9.asCsvCell
+      dest(i9) = e._10.asCsvCell
+      dest(i10) = e._11.asCsvCell
+      dest(i11) = e._12.asCsvCell
+      dest(i12) = e._13.asCsvCell
       dest.toSeq
     }
 
@@ -263,20 +263,20 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](14)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
-      dest(i2) = CellWriter[A2].write(e._3)
-      dest(i3) = CellWriter[A3].write(e._4)
-      dest(i4) = CellWriter[A4].write(e._5)
-      dest(i5) = CellWriter[A5].write(e._6)
-      dest(i6) = CellWriter[A6].write(e._7)
-      dest(i7) = CellWriter[A7].write(e._8)
-      dest(i8) = CellWriter[A8].write(e._9)
-      dest(i9) = CellWriter[A9].write(e._10)
-      dest(i10) = CellWriter[A10].write(e._11)
-      dest(i11) = CellWriter[A11].write(e._12)
-      dest(i12) = CellWriter[A12].write(e._13)
-      dest(i13) = CellWriter[A13].write(e._14)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
+      dest(i2) = e._3.asCsvCell
+      dest(i3) = e._4.asCsvCell
+      dest(i4) = e._5.asCsvCell
+      dest(i5) = e._6.asCsvCell
+      dest(i6) = e._7.asCsvCell
+      dest(i7) = e._8.asCsvCell
+      dest(i8) = e._9.asCsvCell
+      dest(i9) = e._10.asCsvCell
+      dest(i10) = e._11.asCsvCell
+      dest(i11) = e._12.asCsvCell
+      dest(i12) = e._13.asCsvCell
+      dest(i13) = e._14.asCsvCell
       dest.toSeq
     }
 
@@ -290,21 +290,21 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](15)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
-      dest(i2) = CellWriter[A2].write(e._3)
-      dest(i3) = CellWriter[A3].write(e._4)
-      dest(i4) = CellWriter[A4].write(e._5)
-      dest(i5) = CellWriter[A5].write(e._6)
-      dest(i6) = CellWriter[A6].write(e._7)
-      dest(i7) = CellWriter[A7].write(e._8)
-      dest(i8) = CellWriter[A8].write(e._9)
-      dest(i9) = CellWriter[A9].write(e._10)
-      dest(i10) = CellWriter[A10].write(e._11)
-      dest(i11) = CellWriter[A11].write(e._12)
-      dest(i12) = CellWriter[A12].write(e._13)
-      dest(i13) = CellWriter[A13].write(e._14)
-      dest(i14) = CellWriter[A14].write(e._15)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
+      dest(i2) = e._3.asCsvCell
+      dest(i3) = e._4.asCsvCell
+      dest(i4) = e._5.asCsvCell
+      dest(i5) = e._6.asCsvCell
+      dest(i6) = e._7.asCsvCell
+      dest(i7) = e._8.asCsvCell
+      dest(i8) = e._9.asCsvCell
+      dest(i9) = e._10.asCsvCell
+      dest(i10) = e._11.asCsvCell
+      dest(i11) = e._12.asCsvCell
+      dest(i12) = e._13.asCsvCell
+      dest(i13) = e._14.asCsvCell
+      dest(i14) = e._15.asCsvCell
       dest.toSeq
     }
 
@@ -318,22 +318,22 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](16)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
-      dest(i2) = CellWriter[A2].write(e._3)
-      dest(i3) = CellWriter[A3].write(e._4)
-      dest(i4) = CellWriter[A4].write(e._5)
-      dest(i5) = CellWriter[A5].write(e._6)
-      dest(i6) = CellWriter[A6].write(e._7)
-      dest(i7) = CellWriter[A7].write(e._8)
-      dest(i8) = CellWriter[A8].write(e._9)
-      dest(i9) = CellWriter[A9].write(e._10)
-      dest(i10) = CellWriter[A10].write(e._11)
-      dest(i11) = CellWriter[A11].write(e._12)
-      dest(i12) = CellWriter[A12].write(e._13)
-      dest(i13) = CellWriter[A13].write(e._14)
-      dest(i14) = CellWriter[A14].write(e._15)
-      dest(i15) = CellWriter[A15].write(e._16)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
+      dest(i2) = e._3.asCsvCell
+      dest(i3) = e._4.asCsvCell
+      dest(i4) = e._5.asCsvCell
+      dest(i5) = e._6.asCsvCell
+      dest(i6) = e._7.asCsvCell
+      dest(i7) = e._8.asCsvCell
+      dest(i8) = e._9.asCsvCell
+      dest(i9) = e._10.asCsvCell
+      dest(i10) = e._11.asCsvCell
+      dest(i11) = e._12.asCsvCell
+      dest(i12) = e._13.asCsvCell
+      dest(i13) = e._14.asCsvCell
+      dest(i14) = e._15.asCsvCell
+      dest(i15) = e._16.asCsvCell
       dest.toSeq
     }
 
@@ -347,23 +347,23 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](17)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
-      dest(i2) = CellWriter[A2].write(e._3)
-      dest(i3) = CellWriter[A3].write(e._4)
-      dest(i4) = CellWriter[A4].write(e._5)
-      dest(i5) = CellWriter[A5].write(e._6)
-      dest(i6) = CellWriter[A6].write(e._7)
-      dest(i7) = CellWriter[A7].write(e._8)
-      dest(i8) = CellWriter[A8].write(e._9)
-      dest(i9) = CellWriter[A9].write(e._10)
-      dest(i10) = CellWriter[A10].write(e._11)
-      dest(i11) = CellWriter[A11].write(e._12)
-      dest(i12) = CellWriter[A12].write(e._13)
-      dest(i13) = CellWriter[A13].write(e._14)
-      dest(i14) = CellWriter[A14].write(e._15)
-      dest(i15) = CellWriter[A15].write(e._16)
-      dest(i16) = CellWriter[A16].write(e._17)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
+      dest(i2) = e._3.asCsvCell
+      dest(i3) = e._4.asCsvCell
+      dest(i4) = e._5.asCsvCell
+      dest(i5) = e._6.asCsvCell
+      dest(i6) = e._7.asCsvCell
+      dest(i7) = e._8.asCsvCell
+      dest(i8) = e._9.asCsvCell
+      dest(i9) = e._10.asCsvCell
+      dest(i10) = e._11.asCsvCell
+      dest(i11) = e._12.asCsvCell
+      dest(i12) = e._13.asCsvCell
+      dest(i13) = e._14.asCsvCell
+      dest(i14) = e._15.asCsvCell
+      dest(i15) = e._16.asCsvCell
+      dest(i16) = e._17.asCsvCell
       dest.toSeq
     }
 
@@ -377,24 +377,24 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](18)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
-      dest(i2) = CellWriter[A2].write(e._3)
-      dest(i3) = CellWriter[A3].write(e._4)
-      dest(i4) = CellWriter[A4].write(e._5)
-      dest(i5) = CellWriter[A5].write(e._6)
-      dest(i6) = CellWriter[A6].write(e._7)
-      dest(i7) = CellWriter[A7].write(e._8)
-      dest(i8) = CellWriter[A8].write(e._9)
-      dest(i9) = CellWriter[A9].write(e._10)
-      dest(i10) = CellWriter[A10].write(e._11)
-      dest(i11) = CellWriter[A11].write(e._12)
-      dest(i12) = CellWriter[A12].write(e._13)
-      dest(i13) = CellWriter[A13].write(e._14)
-      dest(i14) = CellWriter[A14].write(e._15)
-      dest(i15) = CellWriter[A15].write(e._16)
-      dest(i16) = CellWriter[A16].write(e._17)
-      dest(i17) = CellWriter[A17].write(e._18)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
+      dest(i2) = e._3.asCsvCell
+      dest(i3) = e._4.asCsvCell
+      dest(i4) = e._5.asCsvCell
+      dest(i5) = e._6.asCsvCell
+      dest(i6) = e._7.asCsvCell
+      dest(i7) = e._8.asCsvCell
+      dest(i8) = e._9.asCsvCell
+      dest(i9) = e._10.asCsvCell
+      dest(i10) = e._11.asCsvCell
+      dest(i11) = e._12.asCsvCell
+      dest(i12) = e._13.asCsvCell
+      dest(i13) = e._14.asCsvCell
+      dest(i14) = e._15.asCsvCell
+      dest(i15) = e._16.asCsvCell
+      dest(i16) = e._17.asCsvCell
+      dest(i17) = e._18.asCsvCell
       dest.toSeq
     }
 
@@ -409,25 +409,25 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](19)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
-      dest(i2) = CellWriter[A2].write(e._3)
-      dest(i3) = CellWriter[A3].write(e._4)
-      dest(i4) = CellWriter[A4].write(e._5)
-      dest(i5) = CellWriter[A5].write(e._6)
-      dest(i6) = CellWriter[A6].write(e._7)
-      dest(i7) = CellWriter[A7].write(e._8)
-      dest(i8) = CellWriter[A8].write(e._9)
-      dest(i9) = CellWriter[A9].write(e._10)
-      dest(i10) = CellWriter[A10].write(e._11)
-      dest(i11) = CellWriter[A11].write(e._12)
-      dest(i12) = CellWriter[A12].write(e._13)
-      dest(i13) = CellWriter[A13].write(e._14)
-      dest(i14) = CellWriter[A14].write(e._15)
-      dest(i15) = CellWriter[A15].write(e._16)
-      dest(i16) = CellWriter[A16].write(e._17)
-      dest(i17) = CellWriter[A17].write(e._18)
-      dest(i18) = CellWriter[A18].write(e._19)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
+      dest(i2) = e._3.asCsvCell
+      dest(i3) = e._4.asCsvCell
+      dest(i4) = e._5.asCsvCell
+      dest(i5) = e._6.asCsvCell
+      dest(i6) = e._7.asCsvCell
+      dest(i7) = e._8.asCsvCell
+      dest(i8) = e._9.asCsvCell
+      dest(i9) = e._10.asCsvCell
+      dest(i10) = e._11.asCsvCell
+      dest(i11) = e._12.asCsvCell
+      dest(i12) = e._13.asCsvCell
+      dest(i13) = e._14.asCsvCell
+      dest(i14) = e._15.asCsvCell
+      dest(i15) = e._16.asCsvCell
+      dest(i16) = e._17.asCsvCell
+      dest(i17) = e._18.asCsvCell
+      dest(i18) = e._19.asCsvCell
       dest.toSeq
     }
 
@@ -442,26 +442,26 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](20)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
-      dest(i2) = CellWriter[A2].write(e._3)
-      dest(i3) = CellWriter[A3].write(e._4)
-      dest(i4) = CellWriter[A4].write(e._5)
-      dest(i5) = CellWriter[A5].write(e._6)
-      dest(i6) = CellWriter[A6].write(e._7)
-      dest(i7) = CellWriter[A7].write(e._8)
-      dest(i8) = CellWriter[A8].write(e._9)
-      dest(i9) = CellWriter[A9].write(e._10)
-      dest(i10) = CellWriter[A10].write(e._11)
-      dest(i11) = CellWriter[A11].write(e._12)
-      dest(i12) = CellWriter[A12].write(e._13)
-      dest(i13) = CellWriter[A13].write(e._14)
-      dest(i14) = CellWriter[A14].write(e._15)
-      dest(i15) = CellWriter[A15].write(e._16)
-      dest(i16) = CellWriter[A16].write(e._17)
-      dest(i17) = CellWriter[A17].write(e._18)
-      dest(i18) = CellWriter[A18].write(e._19)
-      dest(i19) = CellWriter[A19].write(e._20)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
+      dest(i2) = e._3.asCsvCell
+      dest(i3) = e._4.asCsvCell
+      dest(i4) = e._5.asCsvCell
+      dest(i5) = e._6.asCsvCell
+      dest(i6) = e._7.asCsvCell
+      dest(i7) = e._8.asCsvCell
+      dest(i8) = e._9.asCsvCell
+      dest(i9) = e._10.asCsvCell
+      dest(i10) = e._11.asCsvCell
+      dest(i11) = e._12.asCsvCell
+      dest(i12) = e._13.asCsvCell
+      dest(i13) = e._14.asCsvCell
+      dest(i14) = e._15.asCsvCell
+      dest(i15) = e._16.asCsvCell
+      dest(i16) = e._17.asCsvCell
+      dest(i17) = e._18.asCsvCell
+      dest(i18) = e._19.asCsvCell
+      dest(i19) = e._20.asCsvCell
       dest.toSeq
     }
 
@@ -476,27 +476,27 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](21)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
-      dest(i2) = CellWriter[A2].write(e._3)
-      dest(i3) = CellWriter[A3].write(e._4)
-      dest(i4) = CellWriter[A4].write(e._5)
-      dest(i5) = CellWriter[A5].write(e._6)
-      dest(i6) = CellWriter[A6].write(e._7)
-      dest(i7) = CellWriter[A7].write(e._8)
-      dest(i8) = CellWriter[A8].write(e._9)
-      dest(i9) = CellWriter[A9].write(e._10)
-      dest(i10) = CellWriter[A10].write(e._11)
-      dest(i11) = CellWriter[A11].write(e._12)
-      dest(i12) = CellWriter[A12].write(e._13)
-      dest(i13) = CellWriter[A13].write(e._14)
-      dest(i14) = CellWriter[A14].write(e._15)
-      dest(i15) = CellWriter[A15].write(e._16)
-      dest(i16) = CellWriter[A16].write(e._17)
-      dest(i17) = CellWriter[A17].write(e._18)
-      dest(i18) = CellWriter[A18].write(e._19)
-      dest(i19) = CellWriter[A19].write(e._20)
-      dest(i20) = CellWriter[A20].write(e._21)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
+      dest(i2) = e._3.asCsvCell
+      dest(i3) = e._4.asCsvCell
+      dest(i4) = e._5.asCsvCell
+      dest(i5) = e._6.asCsvCell
+      dest(i6) = e._7.asCsvCell
+      dest(i7) = e._8.asCsvCell
+      dest(i8) = e._9.asCsvCell
+      dest(i9) = e._10.asCsvCell
+      dest(i10) = e._11.asCsvCell
+      dest(i11) = e._12.asCsvCell
+      dest(i12) = e._13.asCsvCell
+      dest(i13) = e._14.asCsvCell
+      dest(i14) = e._15.asCsvCell
+      dest(i15) = e._16.asCsvCell
+      dest(i16) = e._17.asCsvCell
+      dest(i17) = e._18.asCsvCell
+      dest(i18) = e._19.asCsvCell
+      dest(i19) = e._20.asCsvCell
+      dest(i20) = e._21.asCsvCell
       dest.toSeq
     }
 
@@ -511,28 +511,28 @@ object RowWriter {
       val e = f(a).get
       val dest = new Array[String](22)
 
-      dest(i0) = CellWriter[A0].write(e._1)
-      dest(i1) = CellWriter[A1].write(e._2)
-      dest(i2) = CellWriter[A2].write(e._3)
-      dest(i3) = CellWriter[A3].write(e._4)
-      dest(i4) = CellWriter[A4].write(e._5)
-      dest(i5) = CellWriter[A5].write(e._6)
-      dest(i6) = CellWriter[A6].write(e._7)
-      dest(i7) = CellWriter[A7].write(e._8)
-      dest(i8) = CellWriter[A8].write(e._9)
-      dest(i9) = CellWriter[A9].write(e._10)
-      dest(i10) = CellWriter[A10].write(e._11)
-      dest(i11) = CellWriter[A11].write(e._12)
-      dest(i12) = CellWriter[A12].write(e._13)
-      dest(i13) = CellWriter[A13].write(e._14)
-      dest(i14) = CellWriter[A14].write(e._15)
-      dest(i15) = CellWriter[A15].write(e._16)
-      dest(i16) = CellWriter[A16].write(e._17)
-      dest(i17) = CellWriter[A17].write(e._18)
-      dest(i18) = CellWriter[A18].write(e._19)
-      dest(i19) = CellWriter[A19].write(e._20)
-      dest(i20) = CellWriter[A20].write(e._21)
-      dest(i21) = CellWriter[A21].write(e._22)
+      dest(i0) = e._1.asCsvCell
+      dest(i1) = e._2.asCsvCell
+      dest(i2) = e._3.asCsvCell
+      dest(i3) = e._4.asCsvCell
+      dest(i4) = e._5.asCsvCell
+      dest(i5) = e._6.asCsvCell
+      dest(i6) = e._7.asCsvCell
+      dest(i7) = e._8.asCsvCell
+      dest(i8) = e._9.asCsvCell
+      dest(i9) = e._10.asCsvCell
+      dest(i10) = e._11.asCsvCell
+      dest(i11) = e._12.asCsvCell
+      dest(i12) = e._13.asCsvCell
+      dest(i13) = e._14.asCsvCell
+      dest(i14) = e._15.asCsvCell
+      dest(i15) = e._16.asCsvCell
+      dest(i16) = e._17.asCsvCell
+      dest(i17) = e._18.asCsvCell
+      dest(i18) = e._19.asCsvCell
+      dest(i19) = e._20.asCsvCell
+      dest(i20) = e._21.asCsvCell
+      dest(i21) = e._22.asCsvCell
       dest.toSeq
     }
 

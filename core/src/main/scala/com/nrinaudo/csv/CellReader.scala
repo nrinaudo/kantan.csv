@@ -19,7 +19,7 @@ import scala.util.Try
     * This can be useful if you just need a {{{CellReader}}} implementation that specialises an existing type - to add
     * a scalaz tag, say.
     */
-  @noop def map[B](f: A => B): CellReader[B] = CellReader(str => f(read(str)))
+  @noop def map[B](f: A => B): CellReader[B] = CellReader((read _) andThen f)
 }
 
 /** Provides default implementations and construction methods for {{{CellReader}}}. */
@@ -29,24 +29,23 @@ object CellReader {
     override def read(a: String) = f(a)
   }
 
-  implicit val string: CellReader[String]     = apply(s => s)
-  implicit val char:   CellReader[Char]       = apply(s => if(s.length == 1) s(0) else throw new Exception(s"Not a valid char: $s"))
-  implicit val int   : CellReader[Int]        = apply(_.toInt)
-  implicit val float : CellReader[Float]      = apply(_.toFloat)
-  implicit val double: CellReader[Double]     = apply(_.toDouble)
-  implicit val long  : CellReader[Long]       = apply(_.toLong)
-  implicit val short : CellReader[Short]      = apply(_.toShort)
-  implicit val byte  : CellReader[Byte]       = apply(_.toByte)
-  implicit val bool  : CellReader[Boolean]    = apply(_.toBoolean)
-  implicit val bigInt: CellReader[BigInt]     = apply(s => BigInt.apply(s))
-  implicit val bigDec: CellReader[BigDecimal] = apply(s => BigDecimal.apply(s))
+  implicit val string: CellReader[String]     = CellReader(s => s)
+  implicit val char:   CellReader[Char]       = CellReader(s => if(s.length == 1) s(0) else throw new Exception(s"Not a valid char: $s"))
+  implicit val int   : CellReader[Int]        = CellReader(_.toInt)
+  implicit val float : CellReader[Float]      = CellReader(_.toFloat)
+  implicit val double: CellReader[Double]     = CellReader(_.toDouble)
+  implicit val long  : CellReader[Long]       = CellReader(_.toLong)
+  implicit val short : CellReader[Short]      = CellReader(_.toShort)
+  implicit val byte  : CellReader[Byte]       = CellReader(_.toByte)
+  implicit val bool  : CellReader[Boolean]    = CellReader(_.toBoolean)
+  implicit val bigInt: CellReader[BigInt]     = CellReader(s => BigInt.apply(s))
+  implicit val bigDec: CellReader[BigDecimal] = CellReader(s => BigDecimal.apply(s))
 
-  implicit def opt[A: CellReader]: CellReader[Option[A]] = apply { s =>
+  implicit def opt[A: CellReader]: CellReader[Option[A]] = CellReader { s =>
     if(s.isEmpty) None
     else          Some(CellReader[A].read(s))
   }
 
-  implicit def either[A: CellReader, B: CellReader]: CellReader[Either[A, B]] = apply { s =>
-    Try(Left(CellReader[A].read(s))).getOrElse(Right(CellReader[B].read(s)))
-  }
+  implicit def either[A: CellReader, B: CellReader]: CellReader[Either[A, B]] =
+    CellReader(s => Try(Left(CellReader[A].read(s))).getOrElse(Right(CellReader[B].read(s))))
 }
