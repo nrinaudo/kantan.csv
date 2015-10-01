@@ -5,6 +5,7 @@ import org.scalacheck.Gen._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import CellFormatTest._
+import ops._
 
 object CellFormatTest {
   // This is necessary to prevent ScalaCheck from generating BigDecimal values that cannot be serialized because their
@@ -31,11 +32,35 @@ object CellFormatTest {
 }
 
 abstract class CellFormatTest[A: CellFormat: Arbitrary] extends FunSuite with GeneratorDrivenPropertyChecks {
-  test("Writing then reading data should leave it unchanged") {
+  test("read(write(a)) must be equal to a for any a") {
     forAll { a: A =>
       assert(CellReader[A].read(CellWriter[A].write(a)) == Some(a))
     }
   }
+
+  test("The covariant functor composition law must be respected") {
+    forAll { (a: A, f: A => Int) =>
+      assert(CellReader[A].read(a.asCsvCell).map(f) == CellReader[A].map(f).read(a.asCsvCell))
+    }
+  }
+
+  test("The covariant functor identity law must be respected") {
+    forAll { a: A =>
+      assert(CellReader[A].read(a.asCsvCell) == CellReader[A].map(identity).read(a.asCsvCell))
+    }
+  }
+
+  test("The contravariant functor composition law must be respected") {
+    forAll { (i: Int, f: Int => A) =>
+      assert(CellWriter[A].write(f(i)) == CellWriter[A].contramap[Int](f).write(i))
+    }
+  }
+
+    test("The contravariant functor identity law must be respected") {
+      forAll { a: A =>
+        assert(CellWriter[A].write(a) == CellWriter[A].contramap[A](identity).write(a))
+      }
+    }
 }
 
 class StringFormatTest extends CellFormatTest[String]
