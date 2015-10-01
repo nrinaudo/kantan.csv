@@ -27,10 +27,10 @@ object CsvOutput {
   implicit def file(implicit codec: Codec): CsvOutput[File] =
     CsvOutput(f => new PrintWriter(new OutputStreamWriter(new FileOutputStream(f), codec.charSet)))
 
-  implicit def outputStream(implicit codec: Codec): CsvOutput[OutputStream] =
+  implicit def outputStream[O <: OutputStream](implicit codec: Codec): CsvOutput[O] =
       CsvOutput(o => new PrintWriter(new OutputStreamWriter(o, codec.charSet)))
 
-  implicit def writer[A <: Writer]: CsvOutput[A] = CsvOutput(w => new PrintWriter(w))
+  implicit def writer[W <: Writer]: CsvOutput[W] = CsvOutput(w => new PrintWriter(w))
 
   implicit val printWriter: CsvOutput[PrintWriter] = new CsvOutput[PrintWriter] {
     override def toPrintWriter(s: PrintWriter): PrintWriter = s
