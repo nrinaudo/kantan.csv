@@ -56,11 +56,11 @@ abstract class CellFormatTest[A: CellFormat: Arbitrary] extends FunSuite with Ge
     }
   }
 
-    test("The contravariant functor identity law must be respected") {
-      forAll { a: A =>
-        assert(CellWriter[A].write(a) == CellWriter[A].contramap[A](identity).write(a))
-      }
+  test("The contravariant functor identity law must be respected") {
+    forAll { a: A =>
+      assert(CellWriter[A].write(a) == CellWriter[A].contramap[A](identity).write(a))
     }
+  }
 }
 
 class StringFormatTest extends CellFormatTest[String]

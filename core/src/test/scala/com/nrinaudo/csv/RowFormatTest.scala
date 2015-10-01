@@ -5,15 +5,40 @@ import org.scalacheck.Arbitrary._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import RowFormatTest._
+import ops._
 
 object RowFormatTest {
   implicit def tuple1[A: Arbitrary]: Arbitrary[Tuple1[A]] = Arbitrary(arbitrary[A].map(Tuple1.apply))
 }
 
 abstract class RowFormatTest[R: RowFormat: Arbitrary] extends FunSuite with GeneratorDrivenPropertyChecks {
-  test("Writing then reading data should leave it unchanged") {
+  test("read(write(r)) must be equal to r for any r") {
     forAll { r: R =>
-      assert(RowReader[R].read(RowWriter[R].write(r)) == Some(r))
+      assert(RowReader[R].read(r.asCsvRow) == Some(r))
+    }
+  }
+
+  test("The covariant functor composition law must be respected") {
+    forAll { (r: R, f: R => Int) =>
+      assert(RowReader[R].read(r.asCsvRow).map(f) == RowReader[R].map(f).read(r.asCsvRow))
+    }
+  }
+
+  test("The covariant functor identity law must be respected") {
+    forAll { r: R =>
+      assert(RowReader[R].read(r.asCsvRow) == RowReader[R].map(identity).read(r.asCsvRow))
+    }
+  }
+
+  test("The contravariant functor composition law must be respected") {
+    forAll { (i: Int, f: Int => R) =>
+      assert(RowWriter[R].write(f(i)) == RowWriter[R].contramap[Int](f).write(i))
+    }
+  }
+
+  test("The contravariant functor identity law must be respected") {
+    forAll { r: R =>
+      assert(RowWriter[R].write(r) == RowWriter[R].contramap[R](identity).write(r))
     }
   }
 }
