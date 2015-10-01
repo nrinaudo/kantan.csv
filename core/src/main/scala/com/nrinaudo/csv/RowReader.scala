@@ -15,7 +15,9 @@ import scala.collection.generic.CanBuildFrom
 
 object RowReader {
   def apply[A](f: Seq[String] => Option[A]): RowReader[A] = new RowReader[A] {
-    override def read(row: Seq[String]) = f(row)
+    override def read(row: Seq[String]) =
+      try { f(row) }
+      catch { case _: Exception => None }
   }
 
   implicit val stringSeq: RowReader[Seq[String]] = RowReader(ss => Some(ss))

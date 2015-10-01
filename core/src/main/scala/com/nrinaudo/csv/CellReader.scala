@@ -30,7 +30,9 @@ import scala.util.Try
 object CellReader {
   /** Creates a new instance of {{{CellReader}}} that uses the specified function to parse data. */
   def apply[A](f: String => Option[A]): CellReader[A] = new CellReader[A] {
-    override def read(a: String) = f(a)
+    override def read(a: String) =
+      try { f(a) }
+      catch { case _: Exception => None }
   }
 
   @inline private def toOpt[A](a: => A): Option[A] =
