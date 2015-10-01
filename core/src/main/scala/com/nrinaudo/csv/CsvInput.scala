@@ -7,7 +7,7 @@ import simulacrum.{noop, op, typeclass}
 
 import scala.io.{Codec, Source}
 
-@typeclass trait CsvInput[S] {
+@typeclass trait CsvInput[S] { self =>
   @noop def toSource(a: S): Source
 
   @op("asCsvRows") def rows[A: RowReader](s: S, separator: Char, header: Boolean): Iterator[Option[A]] = {
@@ -18,6 +18,8 @@ import scala.io.{Codec, Source}
 
   @op("asUnsafeCsvRows") def unsafeRows[A: RowReader](s: S, separator: Char, header: Boolean): Iterator[A] =
     rows[A](s, separator, header).map(_.get)
+
+  @noop def contramap[T](f: T => S): CsvInput[T] = CsvInput(t => self.toSource(f(t)))
 }
 
 object CsvInput {

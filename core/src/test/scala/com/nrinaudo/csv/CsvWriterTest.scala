@@ -1,6 +1,6 @@
 package com.nrinaudo.csv
 
-import java.io.{PrintWriter, StringWriter}
+import java.io.StringWriter
 
 import com.nrinaudo.csv.scalacheck._
 import com.nrinaudo.csv.ops._

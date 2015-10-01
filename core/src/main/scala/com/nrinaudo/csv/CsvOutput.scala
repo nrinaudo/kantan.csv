@@ -6,7 +6,7 @@ import simulacrum.{op, noop, typeclass}
 
 import scala.io.Codec
 
-@typeclass trait CsvOutput[S] {
+@typeclass trait CsvOutput[S] { self =>
   @noop def toPrintWriter(s: S): PrintWriter
 
   @op("asCsvWriter") def writer[A: RowWriter](s: S, separator: Char, header: Seq[String] = Seq.empty): CsvWriter[A] = {
@@ -17,6 +17,8 @@ import scala.io.Codec
       w.contramap(RowWriter[A].write)
     }
   }
+
+  @noop def contramap[T](f: T => S): CsvOutput[T] = CsvOutput(t => self.toPrintWriter(f(t)))
 }
 
 object CsvOutput {
@@ -25,14 +27,14 @@ object CsvOutput {
   }
 
   implicit def file(implicit codec: Codec): CsvOutput[File] =
-    CsvOutput(f => new PrintWriter(new OutputStreamWriter(new FileOutputStream(f), codec.charSet)))
+    CsvOutput[OutputStream].contramap(f => new FileOutputStream(f))
 
   implicit def outputStream[O <: OutputStream](implicit codec: Codec): CsvOutput[O] =
-      CsvOutput(o => new PrintWriter(new OutputStreamWriter(o, codec.charSet)))
+    CsvOutput[Writer].contramap(o => new OutputStreamWriter(o, codec.charSet))
 
   implicit def writer[W <: Writer]: CsvOutput[W] = CsvOutput(w => new PrintWriter(w))
 
   implicit val printWriter: CsvOutput[PrintWriter] = new CsvOutput[PrintWriter] {
-    override def toPrintWriter(s: PrintWriter): PrintWriter = s
+    override def toPrintWriter(s: PrintWriter) = s
   }
 }
