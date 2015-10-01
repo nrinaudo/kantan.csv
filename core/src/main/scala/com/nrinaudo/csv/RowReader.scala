@@ -38,10 +38,7 @@ object RowReader {
   // I am not proud of this, but I don't know of any other way to deal with non "curryable" types.
 
   /** Helper function to reduce the amount of boilerplate required by dealing with case classes. */
-  @inline private def r[A: CellReader](ss: Seq[String], index: Int): Option[A] =
-    if(ss.isDefinedAt(index)) CellReader[A].read(ss(index))
-    else                      None
-
+  @inline private def r[A: CellReader](ss: Seq[String], index: Int): Option[A] = CellReader[A].read(ss, index)
 
   def caseReader1[A0: CellReader, R](f: (A0) => R): RowReader[R] = RowReader(ss => r[A0](ss, 0).map(f))
 

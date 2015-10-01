@@ -14,6 +14,10 @@ import scala.util.Try
   /** Turns the content of a CSV cell into an {{{A}}}. */
   @noop def read(s: String): Option[A]
 
+  @noop def read(ss: Seq[String], index: Int): Option[A] =
+    if(ss.isDefinedAt(index)) read(ss(index))
+    else                      None
+
   /** Creates a new {{{CellReader}}} that applies the specified function to the result of {{{read}}}.
     *
     * This can be useful if you just need a {{{CellReader}}} implementation that specialises an existing type - to add

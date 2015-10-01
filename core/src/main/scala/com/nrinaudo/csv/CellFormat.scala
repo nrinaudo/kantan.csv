@@ -9,7 +9,7 @@ trait CellFormat[A] extends CellReader[A] with CellWriter[A]
 object CellFormat {
   /** Creates a {{{CellFormat}}} from an existing {{{CellReader}}} and {{{CellWriter}}}. */
   implicit def apply[A](implicit r: CellReader[A], w: CellWriter[A]): CellFormat[A] =
-    CellFormat(r.read _, w.write _)
+    CellFormat(s => r.read(s), a => w.write(a))
 
   def apply[A](reader: String => Option[A], writer: A => String): CellFormat[A] = new CellFormat[A] {
     override def read(a: String) = reader(a)
