@@ -9,8 +9,6 @@ import org.scalacheck.Arbitrary._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
-import scala.io.Source
-
 abstract class CsvWriterTest[A: RowFormat: Arbitrary] extends FunSuite with GeneratorDrivenPropertyChecks {
   def write(ss: List[A]): String = {
     val sw = new StringWriter()
@@ -18,7 +16,7 @@ abstract class CsvWriterTest[A: RowFormat: Arbitrary] extends FunSuite with Gene
     sw.toString
   }
 
-  def read(str: String): List[A] = str.asCsvRows[A](',', false).toList
+  def read(str: String): List[A] = str.asUnsafeCsvRows[A](',', false).toList
 
   test("Serialized CSV data should be parsed correctly") {
     forAll { ss: List[A] =>

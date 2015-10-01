@@ -9,11 +9,14 @@ import scala.io.{Codec, Source}
 @typeclass trait CsvInput[S] {
   @noop def toSource(a: S): Source
 
-  @op("asCsvRows") def rows[A: RowReader](s: S, separator: Char, header: Boolean): Iterator[A] = {
+  @op("asCsvRows") def rows[A: RowReader](s: S, separator: Char, header: Boolean): Iterator[Option[A]] = {
     val data = new CsvIterator(toSource(s), separator)
     if(header) data.drop(1).map(RowReader[A].read)
     else       data.map(RowReader[A].read)
   }
+
+  @op("asUnsafeCsvRows") def unsafeRows[A: RowReader](s: S, separator: Char, header: Boolean): Iterator[A] =
+    rows[A](s, separator, header).map(_.get)
 }
 
 object CsvInput {

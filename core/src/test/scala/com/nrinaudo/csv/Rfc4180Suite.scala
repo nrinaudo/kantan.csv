@@ -5,7 +5,7 @@ import com.nrinaudo.csv.ops._
 
 class Rfc4180Suite extends FunSuite {
   def csvIs(data: String, expected: List[List[String]]): Unit =
-    assert(data.asCsvRows[List[String]](',', false).toList == expected)
+    assert(data.asUnsafeCsvRows[List[String]](',', false).toList == expected)
 
   test("Each record is located on a separate line, delimited by a line break (CRLF)") {
     csvIs("aaa,bbb,ccc\r\nzzz,yyy,xxx\r\n", List(List("aaa", "bbb", "ccc"), List("zzz", "yyy", "xxx")))

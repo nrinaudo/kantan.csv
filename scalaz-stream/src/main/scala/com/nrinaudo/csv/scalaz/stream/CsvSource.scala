@@ -10,12 +10,15 @@ import scalaz.stream._
 @typeclass trait CsvSource[S] {
   @noop def toSource(s: S): Source
 
-  @op("asCsvSource") def source[A: RowReader](s: S, sep: Char, header: Boolean): Process[Task, A] = {
+  @op("asCsvSource") def source[A: RowReader](s: S, sep: Char, header: Boolean): Process[Task, Option[A]] = {
     io.resource(Task.delay(toSource(s)))(src => Task.delay(src.close())) { src =>
       lazy val lines = CsvInput[Source].rows(src, sep, header)
       Task.delay { if(lines.hasNext) lines.next() else throw Cause.Terminated(Cause.End) }
     }
   }
+
+  @op("asUnsafeCsvSource") def unsafeSource[A: RowReader](s: S, sep: Char, header: Boolean): Process[Task, A] =
+    source(s, sep, header).map(_.get)
 }
 
 object CsvSource {

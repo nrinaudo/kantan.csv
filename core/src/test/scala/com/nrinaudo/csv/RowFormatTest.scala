@@ -13,7 +13,7 @@ object RowFormatTest {
 abstract class RowFormatTest[R: RowFormat: Arbitrary] extends FunSuite with GeneratorDrivenPropertyChecks {
   test("Writing then reading data should leave it unchanged") {
     forAll { r: R =>
-      assert(RowReader[R].read(RowWriter[R].write(r)) == r)
+      assert(RowReader[R].read(RowWriter[R].write(r)) == Some(r))
     }
   }
 }

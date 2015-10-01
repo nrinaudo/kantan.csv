@@ -33,7 +33,7 @@ object CellFormatTest {
 abstract class CellFormatTest[A: CellFormat: Arbitrary] extends FunSuite with GeneratorDrivenPropertyChecks {
   test("Writing then reading data should leave it unchanged") {
     forAll { a: A =>
-      assert(CellReader[A].read(CellWriter[A].write(a)) == a)
+      assert(CellReader[A].read(CellWriter[A].write(a)) == Some(a))
     }
   }
 }

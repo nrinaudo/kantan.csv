@@ -5,7 +5,7 @@ trait RowFormat[A] extends RowReader[A] with RowWriter[A]
 object RowFormat {
   implicit def apply[C](implicit r: RowReader[C], w: RowWriter[C]): RowFormat[C] = apply(r.read _ , w.write _)
 
-  def apply[C](reader: Seq[String] => C, writer: C => Seq[String]): RowFormat[C] = new RowFormat[C] {
+  def apply[C](reader: Seq[String] => Option[C], writer: C => Seq[String]): RowFormat[C] = new RowFormat[C] {
     override def write(a: C) = writer(a)
     override def read(row: Seq[String]) = reader(row)
   }
