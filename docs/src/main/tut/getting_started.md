@@ -78,10 +78,10 @@ In this case though, the data would probably be better represented as a case cla
 case class Car(make: String, model: String, year: Int, price: Float, desc: Option[String])
 ```
 
-Case classes are also supported, but require slightly more work: you need to create an instance of `RowReader` for
-your case class. This is made easy by the various `RowReader.caseReaderXXX` methods:
+Case classes are also supported, but require slightly more work: you need to create an instance of `RowDecoder` for
+your case class. This is made easy by the various `RowDecoder.caseDecoderXXX` methods:
 
 ```tut:silent
-implicit val carReader = RowReader.caseReader5(Car.apply)(1, 2, 0, 4, 3)
+implicit val carDecoder = RowDecoder.caseDecoder5(Car.apply)(1, 2, 0, 4, 3)
 rawData.asCsvRows[Car](',', true)
 ```
