@@ -33,21 +33,17 @@ object CellDecoder {
       catch { case _: Exception => None }
   }
 
-  @inline private def toOpt[A](a: => A): Option[A] =
-    try { Some(a) }
-  catch { case _: Exception => None }
-
   implicit val string: CellDecoder[String]     = CellDecoder(s => Option(s))
   implicit val char:   CellDecoder[Char]       = CellDecoder(s => if(s.length == 1) Option(s(0)) else None)
-  implicit val int   : CellDecoder[Int]        = CellDecoder(s => toOpt(s.toInt))
-  implicit val float : CellDecoder[Float]      = CellDecoder(s => toOpt(s.toFloat))
-  implicit val double: CellDecoder[Double]     = CellDecoder(s => toOpt(s.toDouble))
-  implicit val long  : CellDecoder[Long]       = CellDecoder(s => toOpt(s.toLong))
-  implicit val short : CellDecoder[Short]      = CellDecoder(s => toOpt(s.toShort))
-  implicit val byte  : CellDecoder[Byte]       = CellDecoder(s => toOpt(s.toByte))
-  implicit val bool  : CellDecoder[Boolean]    = CellDecoder(s => toOpt(s.toBoolean))
-  implicit val bigInt: CellDecoder[BigInt]     = CellDecoder(s => toOpt(BigInt.apply(s)))
-  implicit val bigDec: CellDecoder[BigDecimal] = CellDecoder(s => toOpt(BigDecimal.apply(s)))
+  implicit val int   : CellDecoder[Int]        = CellDecoder(s => Option(s.toInt))
+  implicit val float : CellDecoder[Float]      = CellDecoder(s => Option(s.toFloat))
+  implicit val double: CellDecoder[Double]     = CellDecoder(s => Option(s.toDouble))
+  implicit val long  : CellDecoder[Long]       = CellDecoder(s => Option(s.toLong))
+  implicit val short : CellDecoder[Short]      = CellDecoder(s => Option(s.toShort))
+  implicit val byte  : CellDecoder[Byte]       = CellDecoder(s => Option(s.toByte))
+  implicit val bool  : CellDecoder[Boolean]    = CellDecoder(s => Option(s.toBoolean))
+  implicit val bigInt: CellDecoder[BigInt]     = CellDecoder(s => Option(BigInt.apply(s)))
+  implicit val bigDec: CellDecoder[BigDecimal] = CellDecoder(s => Option(BigDecimal.apply(s)))
 
   implicit def opt[A: CellDecoder]: CellDecoder[Option[A]] = CellDecoder { s =>
     if(s.isEmpty) Some(None)
