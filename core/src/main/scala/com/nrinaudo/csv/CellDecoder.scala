@@ -1,14 +1,12 @@
 package com.nrinaudo.csv
 
-import simulacrum.{op, noop, typeclass}
+import simulacrum.{noop, typeclass}
 
-import scala.util.Try
-
-/** Typeclass used to reader the content of a single CSV cell.
+/** Typeclass used to decode the content of a single CSV cell.
   *
   * Standard types are already provided for in the companion object.
   *
-  * See also the companion class, {{{CellWriter}}}, as well as {{{RowReader}}}, used to read wholes rows.
+  * See also the companion class, {{{CellEncoder}}}, as well as {{{RowDecoder}}}, used to read wholes rows.
   */
 @typeclass trait CellDecoder[A] {
   /** Turns the content of a CSV cell into an {{{A}}}. */
@@ -18,17 +16,17 @@ import scala.util.Try
     if(ss.isDefinedAt(index)) decode(ss(index))
     else                      None
 
-  /** Creates a new {{{CellReader}}} that applies the specified function to the result of {{{read}}}.
+  /** Creates a new {{{CellDecoder}}} that applies the specified function to the result of {{{read}}}.
     *
-    * This can be useful if you just need a {{{CellReader}}} implementation that specialises an existing type - to add
+    * This can be useful if you just need a {{{CellDecoder}}} implementation that specialises an existing type - to add
     * a scalaz tag, say.
     */
   @noop def map[B](f: A => B): CellDecoder[B] = CellDecoder(s => decode(s).map(f))
 }
 
-/** Provides default implementations and construction methods for {{{CellReader}}}. */
+/** Provides default implementations and construction methods for {{{CellDecoder}}}. */
 object CellDecoder {
-  /** Creates a new instance of {{{CellReader}}} that uses the specified function to parse data. */
+  /** Creates a new instance of {{{CellDecoder}}} that uses the specified function to parse data. */
   def apply[A](f: String => Option[A]): CellDecoder[A] = new CellDecoder[A] {
     override def decode(a: String) =
       try { f(a) }

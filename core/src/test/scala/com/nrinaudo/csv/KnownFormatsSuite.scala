@@ -4,7 +4,7 @@ import org.scalatest.FunSuite
 import com.nrinaudo.csv.ops._
 
 class KnownFormatsSuite extends FunSuite {
-  implicit val carFormat = RowFormat.caseFormat5(Car.apply, Car.unapply)(1, 2, 3, 4, 0)
+  implicit val carFormat = RowCodec.caseCodec5(Car.apply, Car.unapply)(1, 2, 3, 4, 0)
   case class Car(make: String, model: String, description: Option[String], price: Int, year: Int)
 
   def read(res: String): List[Car] = getClass.getResourceAsStream(res).asUnsafeCsvRows[Car](',', true).toList
