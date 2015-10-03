@@ -10,13 +10,13 @@ import scala.io.{Codec, Source}
 @typeclass trait CsvInput[S] { self =>
   @noop def toSource(a: S): Source
 
-  @op("asCsvRows") def rows[A: RowReader](s: S, separator: Char, header: Boolean): Iterator[Option[A]] = {
+  @op("asCsvRows") def rows[A: RowDecoder](s: S, separator: Char, header: Boolean): Iterator[Option[A]] = {
     val data = new CsvIterator(toSource(s), separator)
-    if(header) data.drop(1).map(RowReader[A].read)
-    else       data.map(RowReader[A].read)
+    if(header) data.drop(1).map(RowDecoder[A].decode)
+    else       data.map(RowDecoder[A].decode)
   }
 
-  @op("asUnsafeCsvRows") def unsafeRows[A: RowReader](s: S, separator: Char, header: Boolean): Iterator[A] =
+  @op("asUnsafeCsvRows") def unsafeRows[A: RowDecoder](s: S, separator: Char, header: Boolean): Iterator[A] =
     rows[A](s, separator, header).map(_.get)
 
   @noop def contramap[T](f: T => S): CsvInput[T] = CsvInput(t => self.toSource(f(t)))

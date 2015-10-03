@@ -4,10 +4,10 @@ import org.scalacheck.{Gen, Arbitrary}
 import org.scalacheck.Gen._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import CellFormatTest._
+import CellCodecTest._
 import ops._
 
-object CellFormatTest {
+object CellCodecTest {
   // This is necessary to prevent ScalaCheck from generating BigDecimal values that cannot be serialized because their
   // scale is higher than MAX_INT.
   // Note that this isn't actually an issue with ScalaCheck but with Scala itself, and is(?) fixed in Scala 2.12:
@@ -31,48 +31,48 @@ object CellFormatTest {
   }
 }
 
-abstract class CellFormatTest[A: CellFormat: Arbitrary] extends FunSuite with GeneratorDrivenPropertyChecks {
-  test("read(write(a)) must be equal to a for any a") {
+abstract class CellCodecTest[A: CellCodec: Arbitrary] extends FunSuite with GeneratorDrivenPropertyChecks {
+  test("decode(encode(a)) must be equal to a for any a") {
     forAll { a: A =>
-      assert(CellReader[A].read(CellWriter[A].write(a)) == Some(a))
+      assert(CellDecoder[A].decode(CellEncoder[A].encode(a)) == Some(a))
     }
   }
 
   test("The covariant functor composition law must be respected") {
     forAll { (a: A, f: A => Int) =>
-      assert(CellReader[A].read(a.asCsvCell).map(f) == CellReader[A].map(f).read(a.asCsvCell))
+      assert(CellDecoder[A].decode(a.asCsvCell).map(f) == CellDecoder[A].map(f).decode(a.asCsvCell))
     }
   }
 
   test("The covariant functor identity law must be respected") {
     forAll { a: A =>
-      assert(CellReader[A].read(a.asCsvCell) == CellReader[A].map(identity).read(a.asCsvCell))
+      assert(CellDecoder[A].decode(a.asCsvCell) == CellDecoder[A].map(identity).decode(a.asCsvCell))
     }
   }
 
   test("The contravariant functor composition law must be respected") {
     forAll { (i: Int, f: Int => A) =>
-      assert(CellWriter[A].write(f(i)) == CellWriter[A].contramap[Int](f).write(i))
+      assert(CellEncoder[A].encode(f(i)) == CellEncoder[A].contramap[Int](f).encode(i))
     }
   }
 
   test("The contravariant functor identity law must be respected") {
     forAll { a: A =>
-      assert(CellWriter[A].write(a) == CellWriter[A].contramap[A](identity).write(a))
+      assert(CellEncoder[A].encode(a) == CellEncoder[A].contramap[A](identity).encode(a))
     }
   }
 }
 
-class StringFormatTest extends CellFormatTest[String]
-class CharFormatTest extends CellFormatTest[Char]
-class IntFormatTest extends CellFormatTest[Int]
-class BigIntFormatTest extends CellFormatTest[BigInt]
-class BigDecimalFormatTest extends CellFormatTest[BigDecimal]
-class DoubleFormatTest extends CellFormatTest[Double]
-class LongFormatTest extends CellFormatTest[Long]
-class FloatFormatTest extends CellFormatTest[Float]
-class ShortFormatTest extends CellFormatTest[Short]
-class ByteFormatTest extends CellFormatTest[Byte]
-class BooleanFormatTest extends CellFormatTest[Boolean]
-class OptionFormatTest extends CellFormatTest[Option[Int]]
-class EitherFormatTest extends CellFormatTest[Either[Int, Boolean]]
+class StringFormatTest extends CellCodecTest[String]
+class CharFormatTest extends CellCodecTest[Char]
+class IntFormatTest extends CellCodecTest[Int]
+class BigIntFormatTest extends CellCodecTest[BigInt]
+class BigDecimalFormatTest extends CellCodecTest[BigDecimal]
+class DoubleFormatTest extends CellCodecTest[Double]
+class LongFormatTest extends CellCodecTest[Long]
+class FloatFormatTest extends CellCodecTest[Float]
+class ShortFormatTest extends CellCodecTest[Short]
+class ByteFormatTest extends CellCodecTest[Byte]
+class BooleanFormatTest extends CellCodecTest[Boolean]
+class OptionFormatTest extends CellCodecTest[Option[Int]]
+class EitherFormatTest extends CellCodecTest[Either[Int, Boolean]]
