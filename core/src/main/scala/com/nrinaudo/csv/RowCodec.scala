@@ -7,7 +7,7 @@ object RowCodec {
 
   def apply[C](decoder: Seq[String] => Option[C], encoder: C => Seq[String]): RowCodec[C] = new RowCodec[C] {
     override def encode(a: C) = encoder(a)
-    override def decode(row: Seq[String]) = decode(row)
+    override def decode(row: Seq[String]) = decoder(row)
   }
 
   def caseCodec1[C, A0: CellCodec](f: A0 => C, g: C => Option[A0]): RowCodec[C] =
