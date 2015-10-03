@@ -8,27 +8,27 @@ import scala.collection.generic.CanBuildFrom
   *
   * Default implementations are provided in the companion object.
   */
-@typeclass trait RowReader[A] { self =>
-  @noop def read(row: Seq[String]): Option[A]
-  @noop def map[B](f: A => B): RowReader[B] = RowReader(ss => read(ss).map(f))
+@typeclass trait RowDecoder[A] { self =>
+  @noop def decode(row: Seq[String]): Option[A]
+  @noop def map[B](f: A => B): RowDecoder[B] = RowDecoder(ss => decode(ss).map(f))
 }
 
-object RowReader {
-  def apply[A](f: Seq[String] => Option[A]): RowReader[A] = new RowReader[A] {
-    override def read(row: Seq[String]) =
+object RowDecoder {
+  def apply[A](f: Seq[String] => Option[A]): RowDecoder[A] = new RowDecoder[A] {
+    override def decode(row: Seq[String]) =
       try { f(row) }
       catch { case _: Exception => None }
   }
 
-  implicit val stringSeq: RowReader[Seq[String]] = RowReader(ss => Some(ss))
+  implicit val stringSeq: RowDecoder[Seq[String]] = RowDecoder(ss => Some(ss))
 
-  implicit def either[A: RowReader, B: RowReader]: RowReader[Either[A, B]] = RowReader { ss =>
-    RowReader[A].read(ss).map(a => Left(a): Either[A, B]).orElse(RowReader[B].read(ss).map(b => Right(b): Either[A, B]))
+  implicit def either[A: RowDecoder, B: RowDecoder]: RowDecoder[Either[A, B]] = RowDecoder { ss =>
+    RowDecoder[A].decode(ss).map(a => Left(a): Either[A, B]).orElse(RowDecoder[B].decode(ss).map(b => Right(b): Either[A, B]))
   }
 
   /** Generic {{{RowReader}}} for collections. */
-  implicit def collection[A: CellDecoder, M[X]](implicit cbf: CanBuildFrom[Nothing, A, M[A]]): RowReader[M[A]] =
-    RowReader(ss => ss.foldLeft(Option(cbf.apply())) { (racc, s) => for {
+  implicit def collection[A: CellDecoder, M[X]](implicit cbf: CanBuildFrom[Nothing, A, M[A]]): RowDecoder[M[A]] =
+    RowDecoder(ss => ss.foldLeft(Option(cbf.apply())) { (racc, s) => for {
       acc <- racc
       a   <- CellDecoder[A].decode(s)
     } yield acc += a
@@ -42,58 +42,58 @@ object RowReader {
   /** Helper function to reduce the amount of boilerplate required by dealing with case classes. */
   @inline private def r[A: CellDecoder](ss: Seq[String], index: Int): Option[A] = CellDecoder[A].decode(ss, index)
 
-  def caseReader1[A0: CellDecoder, R](f: (A0) => R): RowReader[R] = RowReader(ss => r[A0](ss, 0).map(f))
+  def caseReader1[A0: CellDecoder, R](f: (A0) => R): RowDecoder[R] = RowDecoder(ss => r[A0](ss, 0).map(f))
 
-  def caseReader2[A0: CellDecoder, A1: CellDecoder, R](f: (A0, A1) => R)(i0: Int, i1: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1)) yield f(f0, f1))
+  def caseReader2[A0: CellDecoder, A1: CellDecoder, R](f: (A0, A1) => R)(i0: Int, i1: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1)) yield f(f0, f1))
 
   def caseReader3[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, R]
-    (f: (A0, A1, A2) => R)(i0: Int, i1: Int, i2: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2)) yield f(f0, f1, f2))
+    (f: (A0, A1, A2) => R)(i0: Int, i1: Int, i2: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2)) yield f(f0, f1, f2))
 
   def caseReader4[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, R]
-  (f: (A0, A1, A2, A3) => R)(i0: Int, i1: Int, i2: Int, i3: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3)) yield
+  (f: (A0, A1, A2, A3) => R)(i0: Int, i1: Int, i2: Int, i3: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3)) yield
     f(f0, f1, f2, f3))
 
   def caseReader5[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, R]
-  (f: (A0, A1, A2, A3, A4) => R)(i0: Int, i1: Int, i2: Int, i3: Int, i4: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
+  (f: (A0, A1, A2, A3, A4) => R)(i0: Int, i1: Int, i2: Int, i3: Int, i4: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
                         f4 <- r[A4](ss, i4)) yield f(f0, f1, f2, f3, f4))
 
   def caseReader6[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder, R]
-  (f: (A0, A1, A2, A3, A4, A5) => R)(i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
+  (f: (A0, A1, A2, A3, A4, A5) => R)(i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5)) yield f(f0, f1, f2, f3, f4, f5))
 
   def caseReader7[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder,
   A6: CellDecoder, R](f: (A0, A1, A2, A3, A4, A5, A6) => R)
-                    (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
+                    (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6)) yield
     f(f0, f1, f2, f3, f4, f5, f6))
 
   def caseReader8[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder,
   A6: CellDecoder, A7: CellDecoder, R]
   (f: (A0, A1, A2, A3, A4, A5, A6, A7) => R)
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
+  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7)) yield
     f(f0, f1, f2, f3, f4, f5, f6, f7))
 
   def caseReader9[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder,
   A6: CellDecoder, A7: CellDecoder, A8: CellDecoder, R]
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8) => R)
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
+  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
                         f8 <- r[A8](ss, i8)) yield f(f0, f1, f2, f3, f4, f5, f6, f7, f8))
 
   def caseReader10[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder,
   A6: CellDecoder, A7: CellDecoder, A8: CellDecoder, A9: CellDecoder, R]
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9) => R)
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
+  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9))
       yield f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9))
@@ -101,8 +101,8 @@ object RowReader {
   def caseReader11[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder,
   A6: CellDecoder, A7: CellDecoder, A8: CellDecoder, A9: CellDecoder, A10: CellDecoder, R]
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10) => R)
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
+  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10))
       yield f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10))
@@ -111,8 +111,8 @@ object RowReader {
   A6: CellDecoder, A7: CellDecoder, A8: CellDecoder, A9: CellDecoder, A10: CellDecoder, A11: CellDecoder, R]
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int,
-   i10: Int, i11: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
+   i10: Int, i11: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11))
       yield f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11))
@@ -121,8 +121,8 @@ object RowReader {
   A6: CellDecoder, A7: CellDecoder, A8: CellDecoder, A9: CellDecoder, A10: CellDecoder, A11: CellDecoder, A12: CellDecoder, R]
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int,
-   i10: Int, i11: Int, i12: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
+   i10: Int, i11: Int, i12: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
                         f12 <- r[A12](ss, i12)) yield
@@ -132,8 +132,8 @@ object RowReader {
   A6: CellDecoder, A7: CellDecoder, A8: CellDecoder, A9: CellDecoder, A10: CellDecoder, A11: CellDecoder, A12: CellDecoder,
   A13: CellDecoder, R](f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13) => R)
                      (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int,
-                      i10: Int, i11: Int, i12: Int, i13: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
+                      i10: Int, i11: Int, i12: Int, i13: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
                         f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13)) yield
@@ -144,8 +144,8 @@ object RowReader {
   A13: CellDecoder, A14: CellDecoder, R]
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int, i13: Int, i14: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
+   i12: Int, i13: Int, i14: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
                         f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14)) yield
@@ -156,8 +156,8 @@ object RowReader {
   A13: CellDecoder, A14: CellDecoder, A15: CellDecoder, R]
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int, i13: Int, i14: Int, i15: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
+   i12: Int, i13: Int, i14: Int, i15: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
                         f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15)
@@ -168,8 +168,8 @@ object RowReader {
   A13: CellDecoder, A14: CellDecoder, A15: CellDecoder, A16: CellDecoder, R]
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
+   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
                         f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15);
@@ -181,8 +181,8 @@ object RowReader {
   A13: CellDecoder, A14: CellDecoder, A15: CellDecoder, A16: CellDecoder, A17: CellDecoder, R]
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
+   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
                         f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15);
@@ -194,8 +194,8 @@ object RowReader {
   A13: CellDecoder, A14: CellDecoder, A15: CellDecoder, A16: CellDecoder, A17: CellDecoder, A18: CellDecoder, R]
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
+   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
                         f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15);
@@ -208,8 +208,8 @@ object RowReader {
   A19: CellDecoder, R]
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
+   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
                         f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15);
@@ -222,8 +222,8 @@ object RowReader {
   A19: CellDecoder, A20: CellDecoder, R]
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int, i20: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
+   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int, i20: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
                         f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15);
@@ -237,8 +237,8 @@ object RowReader {
   A19: CellDecoder, A20: CellDecoder, A21: CellDecoder, R]
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int, i20: Int, i21: Int): RowReader[R] =
-    RowReader(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
+   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int, i20: Int, i21: Int): RowDecoder[R] =
+    RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
                         f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15);
@@ -249,108 +249,108 @@ object RowReader {
 
   // - Tuple readers ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def tuple1[A1: CellDecoder]: RowReader[Tuple1[A1]] =
+  implicit def tuple1[A1: CellDecoder]: RowDecoder[Tuple1[A1]] =
     caseReader1(Tuple1.apply[A1])
 
-  implicit def tuple2[A1: CellDecoder, A2: CellDecoder]: RowReader[(A1, A2)] =
+  implicit def tuple2[A1: CellDecoder, A2: CellDecoder]: RowDecoder[(A1, A2)] =
     caseReader2(Tuple2.apply[A1, A2])(0, 1)
 
-  implicit def tuple3[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder]: RowReader[(A1, A2, A3)] =
+  implicit def tuple3[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder]: RowDecoder[(A1, A2, A3)] =
     caseReader3(Tuple3.apply[A1, A2, A3])(0, 1, 2)
 
-  implicit def tuple4[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder]: RowReader[(A1, A2, A3, A4)] =
+  implicit def tuple4[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder]: RowDecoder[(A1, A2, A3, A4)] =
     caseReader4(Tuple4.apply[A1, A2, A3, A4])(0, 1, 2, 3)
 
   implicit def tuple5[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder]:
-  RowReader[(A1, A2, A3, A4, A5)] = caseReader5(Tuple5.apply[A1, A2, A3, A4, A5])(0, 1, 2, 3, 4)
+  RowDecoder[(A1, A2, A3, A4, A5)] = caseReader5(Tuple5.apply[A1, A2, A3, A4, A5])(0, 1, 2, 3, 4)
 
   implicit def tuple6[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder, A6: CellDecoder]:
-  RowReader[(A1, A2, A3, A4, A5, A6)] = caseReader6(Tuple6.apply[A1, A2, A3, A4, A5, A6])(0, 1, 2, 3, 4, 5)
+  RowDecoder[(A1, A2, A3, A4, A5, A6)] = caseReader6(Tuple6.apply[A1, A2, A3, A4, A5, A6])(0, 1, 2, 3, 4, 5)
 
   implicit def tuple7[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder, A6: CellDecoder,
-  A7: CellDecoder]: RowReader[(A1, A2, A3, A4, A5, A6, A7)] =
+  A7: CellDecoder]: RowDecoder[(A1, A2, A3, A4, A5, A6, A7)] =
     caseReader7(Tuple7.apply[A1, A2, A3, A4, A5, A6, A7])(0, 1, 2, 3, 4, 5, 6)
 
   implicit def tuple8[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder, A6: CellDecoder,
-  A7: CellDecoder, A8: CellDecoder]: RowReader[(A1, A2, A3, A4, A5, A6, A7, A8)] =
+  A7: CellDecoder, A8: CellDecoder]: RowDecoder[(A1, A2, A3, A4, A5, A6, A7, A8)] =
     caseReader8(Tuple8.apply[A1, A2, A3, A4, A5, A6, A7, A8])(0, 1, 2, 3, 4, 5, 6, 7)
 
   implicit def tuple9[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder, A6: CellDecoder,
-  A7: CellDecoder, A8: CellDecoder, A9: CellDecoder]: RowReader[(A1, A2, A3, A4, A5, A6, A7, A8, A9)] =
+  A7: CellDecoder, A8: CellDecoder, A9: CellDecoder]: RowDecoder[(A1, A2, A3, A4, A5, A6, A7, A8, A9)] =
     caseReader9(Tuple9.apply[A1, A2, A3, A4, A5, A6, A7, A8, A9])(0, 1, 2, 3, 4, 5, 6, 7, 8)
 
   implicit def tuple10[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder, A6: CellDecoder,
   A7: CellDecoder, A8: CellDecoder, A9: CellDecoder, A10: CellDecoder]:
-  RowReader[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10)] =
+  RowDecoder[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10)] =
     caseReader10(Tuple10.apply[A1, A2, A3, A4, A5, A6, A7, A8, A9, A10])(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
 
   implicit def tuple11[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder, A6: CellDecoder,
   A7: CellDecoder, A8: CellDecoder, A9: CellDecoder, A10: CellDecoder, A11: CellDecoder]:
-  RowReader[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11)] =
+  RowDecoder[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11)] =
     caseReader11(Tuple11.apply[A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11])(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 
   implicit def tuple12[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder, A6: CellDecoder,
   A7: CellDecoder, A8: CellDecoder, A9: CellDecoder, A10: CellDecoder, A11: CellDecoder, A12: CellDecoder]:
-  RowReader[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12)] =
+  RowDecoder[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12)] =
     caseReader12(Tuple12.apply[A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12])(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
 
   implicit def tuple13[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder, A6: CellDecoder,
   A7: CellDecoder, A8: CellDecoder, A9: CellDecoder, A10: CellDecoder, A11: CellDecoder, A12: CellDecoder, A13: CellDecoder]:
-  RowReader[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13)] =
+  RowDecoder[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13)] =
     caseReader13(Tuple13.apply[A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13])(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
       10, 11, 12)
 
   implicit def tuple14[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder, A6: CellDecoder,
   A7: CellDecoder, A8: CellDecoder, A9: CellDecoder, A10: CellDecoder, A11: CellDecoder, A12: CellDecoder, A13: CellDecoder,
-  A14: CellDecoder]: RowReader[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14)] =
+  A14: CellDecoder]: RowDecoder[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14)] =
     caseReader14(Tuple14.apply[A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14])(0, 1, 2, 3, 4, 5, 6, 7, 8,
       9, 10, 11, 12, 13)
 
   implicit def tuple15[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder, A6: CellDecoder,
   A7: CellDecoder, A8: CellDecoder, A9: CellDecoder, A10: CellDecoder, A11: CellDecoder, A12: CellDecoder, A13: CellDecoder,
-  A14: CellDecoder, A15: CellDecoder]: RowReader[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15)] =
+  A14: CellDecoder, A15: CellDecoder]: RowDecoder[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15)] =
     caseReader15(Tuple15.apply[A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15])(0, 1, 2, 3, 4, 5, 6,
       7, 8, 9, 10, 11, 12, 13, 14)
 
   implicit def tuple16[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder, A6: CellDecoder,
   A7: CellDecoder, A8: CellDecoder, A9: CellDecoder, A10: CellDecoder, A11: CellDecoder, A12: CellDecoder, A13: CellDecoder,
   A14: CellDecoder, A15: CellDecoder, A16: CellDecoder]:
-  RowReader[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16)] =
+  RowDecoder[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16)] =
     caseReader16(Tuple16.apply[A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16])(0, 1, 2, 3, 4,
       5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
 
   implicit def tuple17[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder, A6: CellDecoder,
   A7: CellDecoder, A8: CellDecoder, A9: CellDecoder, A10: CellDecoder, A11: CellDecoder, A12: CellDecoder, A13: CellDecoder,
   A14: CellDecoder, A15: CellDecoder, A16: CellDecoder, A17: CellDecoder]:
-  RowReader[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17)] =
+  RowDecoder[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17)] =
     caseReader17(Tuple17.apply[A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17])(0, 1, 2, 3,
       4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
 
   implicit def tuple18[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder, A6: CellDecoder,
   A7: CellDecoder, A8: CellDecoder, A9: CellDecoder, A10: CellDecoder, A11: CellDecoder, A12: CellDecoder, A13: CellDecoder,
   A14: CellDecoder, A15: CellDecoder, A16: CellDecoder, A17: CellDecoder, A18: CellDecoder]:
-  RowReader[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18)] =
+  RowDecoder[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18)] =
     caseReader18(Tuple18.apply[A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18])(0, 1,
       2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17)
 
   implicit def tuple19[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder, A6: CellDecoder,
   A7: CellDecoder, A8: CellDecoder, A9: CellDecoder, A10: CellDecoder, A11: CellDecoder, A12: CellDecoder, A13: CellDecoder,
   A14: CellDecoder, A15: CellDecoder, A16: CellDecoder, A17: CellDecoder, A18: CellDecoder, A19: CellDecoder]:
-  RowReader[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19)] =
+  RowDecoder[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19)] =
     caseReader19(Tuple19.apply[A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18,
       A19])(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18)
 
   implicit def tuple20[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder, A6: CellDecoder,
   A7: CellDecoder, A8: CellDecoder, A9: CellDecoder, A10: CellDecoder, A11: CellDecoder, A12: CellDecoder, A13: CellDecoder,
   A14: CellDecoder, A15: CellDecoder, A16: CellDecoder, A17: CellDecoder, A18: CellDecoder, A19: CellDecoder, A20: CellDecoder]:
-  RowReader[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20)] =
+  RowDecoder[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20)] =
     caseReader20(Tuple20.apply[A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19,
       A20])(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19)
 
   implicit def tuple21[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder, A6: CellDecoder,
   A7: CellDecoder, A8: CellDecoder, A9: CellDecoder, A10: CellDecoder, A11: CellDecoder, A12: CellDecoder, A13: CellDecoder,
   A14: CellDecoder, A15: CellDecoder, A16: CellDecoder, A17: CellDecoder, A18: CellDecoder, A19: CellDecoder,
-  A20: CellDecoder, A21: CellDecoder]: RowReader[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16,
+  A20: CellDecoder, A21: CellDecoder]: RowDecoder[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16,
     A17, A18, A19, A20, A21)] = caseReader21(Tuple21.apply[A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14,
     A15, A16, A17, A18, A19, A20, A21])(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
       15, 16, 17, 18, 19, 20)
@@ -358,7 +358,7 @@ object RowReader {
   implicit def tuple22[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder, A6: CellDecoder,
   A7: CellDecoder, A8: CellDecoder, A9: CellDecoder, A10: CellDecoder, A11: CellDecoder, A12: CellDecoder, A13: CellDecoder,
   A14: CellDecoder, A15: CellDecoder, A16: CellDecoder, A17: CellDecoder, A18: CellDecoder, A19: CellDecoder,
-  A20: CellDecoder, A21: CellDecoder, A22: CellDecoder]: RowReader[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12,
+  A20: CellDecoder, A21: CellDecoder, A22: CellDecoder]: RowDecoder[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12,
     A13, A14, A15, A16, A17, A18, A19, A20, A21, A22)] = caseReader22(Tuple22.apply[A1, A2, A3, A4, A5, A6, A7, A8, A9,
     A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22])(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
       15, 16, 17, 18, 19, 20, 21)

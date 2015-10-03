@@ -32,33 +32,33 @@ object CellCodecTest {
 }
 
 abstract class CellCodecTest[A: CellCodec: Arbitrary] extends FunSuite with GeneratorDrivenPropertyChecks {
-  test("read(write(a)) must be equal to a for any a") {
+  test("decode(encode(a)) must be equal to a for any a") {
     forAll { a: A =>
-      assert(CellDecoder[A].read(CellEncoder[A].write(a)) == Some(a))
+      assert(CellDecoder[A].decode(CellEncoder[A].encode(a)) == Some(a))
     }
   }
 
   test("The covariant functor composition law must be respected") {
     forAll { (a: A, f: A => Int) =>
-      assert(CellDecoder[A].read(a.asCsvCell).map(f) == CellDecoder[A].map(f).read(a.asCsvCell))
+      assert(CellDecoder[A].decode(a.asCsvCell).map(f) == CellDecoder[A].map(f).decode(a.asCsvCell))
     }
   }
 
   test("The covariant functor identity law must be respected") {
     forAll { a: A =>
-      assert(CellDecoder[A].read(a.asCsvCell) == CellDecoder[A].map(identity).read(a.asCsvCell))
+      assert(CellDecoder[A].decode(a.asCsvCell) == CellDecoder[A].map(identity).decode(a.asCsvCell))
     }
   }
 
   test("The contravariant functor composition law must be respected") {
     forAll { (i: Int, f: Int => A) =>
-      assert(CellEncoder[A].write(f(i)) == CellEncoder[A].contramap[Int](f).write(i))
+      assert(CellEncoder[A].encode(f(i)) == CellEncoder[A].contramap[Int](f).encode(i))
     }
   }
 
   test("The contravariant functor identity law must be respected") {
     forAll { a: A =>
-      assert(CellEncoder[A].write(a) == CellEncoder[A].contramap[A](identity).write(a))
+      assert(CellEncoder[A].encode(a) == CellEncoder[A].contramap[A](identity).encode(a))
     }
   }
 }
