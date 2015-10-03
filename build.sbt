@@ -8,4 +8,4 @@ lazy val scalazStream = Project(id   = "scalaz-stream",
 
 lazy val scalacheck = project
 
-lazy val doc = project dependsOn(core, scalazStream)
+lazy val docs = project dependsOn(core, scalazStream)
