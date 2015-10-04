@@ -2,7 +2,7 @@ package com.nrinaudo.csv
 
 import simulacrum.{op, noop, typeclass}
 
-/** Typeclass used to turn instances of {{{A}}} into a CSV row.
+/** Type class used to turn instances of {{{A}}} into a CSV row.
   *
   * Note that the companion object has helpful functions for deriving instances by combining [[CellEncoder]]s.
   */

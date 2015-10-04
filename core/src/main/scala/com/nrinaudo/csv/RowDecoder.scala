@@ -4,7 +4,7 @@ import simulacrum.{noop, typeclass}
 
 import scala.collection.generic.CanBuildFrom
 
-/** Typeclass for decoding the content of a CSV row.
+/** Type class for decoding the content of a CSV row.
   *
   * Default implementations are provided in the companion object.
   */
