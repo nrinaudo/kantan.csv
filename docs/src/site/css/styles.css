@@ -1,15 +1,12 @@
 body {
-	line-height: 1;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size:   13px;
-    background:  #fff;
+	line-height:    120%;
+    font-family:    "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size:      100%;
+    background:     #fff;
     margin:         0;
 	padding:        0;
 	border:         0;
-	font-size:      100%;
-	font:           inherit;
 	vertical-align: baseline;
-    font-family:      "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 #content {
@@ -27,8 +24,8 @@ body {
 }
 
 #home {
-    float: right !important;
-    padding-right: 0px;
+    float:         right !important;
+    padding-right: 0;
 }
 
 #navbar span {

@@ -1,8 +1,7 @@
 name: scala-csv
 markdown: redcarpet
 highlighter: pygments
-baseurl: /
-apidocs: /api/
+baseurl: /scala-csv/
 
 collections:
   tut:
