@@ -19,5 +19,5 @@ The API is very similar to the [core](../) one. The only specificity is that:
 * `rowsR` returns instances of `Process[Task, A]`.
 * `rowsW` returns instances of `Sink[Task, A]`.
 
-Aside from that, the same typeclasses are used for parsing / serialization, and everything should behave the same.
+Aside from that, the same type classes are used for parsing / serialization, and everything should behave the same.
 

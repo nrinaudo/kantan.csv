@@ -104,7 +104,7 @@ Note that should you need to both read and write instances of a case class, you 
 `RowFormat` than a `RowReader`.
 
 ### Reading rows as whatever the hell you want
-These examples all use the same underlying mechanism: `rowsR` uses instances of the `RowReader` typeclass to turn a
+These examples all use the same underlying mechanism: `rowsR` uses instances of the `RowReader` type class to turn a
 CSV row into values of a more useful type.
 
 Should you need to read rows in a way that isn't covered by one of the previous examples, you can always create your
@@ -126,7 +126,7 @@ Note that should you need to both read and write values of your type, you might 
 
 
 ### Reading individual cells
-All the standard mechanisms for reading a CSV row rely on instances of the `CellReader` typeclass to parse individual
+All the standard mechanisms for reading a CSV row rely on instances of the `CellReader` type class to parse individual
 cells: as long as a type has an implicit `CellReader` instance in scope, it can be used as a case class field, tuple entry
 or collection content type.
 
@@ -255,7 +255,7 @@ Note that should you need to both read and write values of your type, you might 
 `RowFormat` than a `RowReader`.
 
 ### Writing individual cells
-All the previous mechanisms for writing CSV rows rely on instances of the `CellWriter` typeclass to write individual
+All the previous mechanisms for writing CSV rows rely on instances of the `CellWriter` type class to write individual
 cells: as long as a type has on implicit `CellWriter` in scope, it can be used as a case class field, tuple entry
 or collection content type.
 
@@ -283,7 +283,7 @@ Note that should you need to both read and write values of your type, you might 
 ## Reading *and* writing: formats
 
 ### Row formats
-The `RowFormat` typeclass brings `RowReader` and `RowWriter` together. It's a useful shortcut for when you'll need to
+The `RowFormat` type class brings `RowReader` and `RowWriter` together. It's a useful shortcut for when you'll need to
 create both a reader and a writer anyway:
 
 ```scala

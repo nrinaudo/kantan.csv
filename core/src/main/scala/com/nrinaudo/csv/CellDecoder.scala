@@ -2,7 +2,7 @@ package com.nrinaudo.csv
 
 import simulacrum.{noop, typeclass}
 
-/** Typeclass used to decode the content of a single CSV cell.
+/** Type class used to decode the content of a single CSV cell.
   *
   * Standard types are already provided for in the companion object.
   *
