@@ -1,0 +1,49 @@
+body {
+	line-height: 1;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size:   13px;
+    background:  #fff;
+    margin:         0;
+	padding:        0;
+	border:         0;
+	font-size:      100%;
+	font:           inherit;
+	vertical-align: baseline;
+    font-family:      "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#content {
+    margin: 40px;
+}
+
+#navbar {
+    background-color: #27ae60;
+    height:           25px;
+    margin-bottom:    10px;
+    font-family:      "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size:        16px !important;
+    color:            #fff;
+    padding:          15px 40px 15px 40px;
+}
+
+#home {
+    float: right !important;
+    padding-right: 0px;
+}
+
+#navbar span {
+    font-size:       15pt;
+    vertical-align:  middle;
+    float:           left;
+    padding-right:   40px;
+
+}
+
+#navbar a {
+    text-decoration: none;
+    color:           #fff;
+}
+
+#navbar a:hover {
+    text-decoration: underline;
+}

@@ -1,4 +1,7 @@
-# Writing CSV data
+---
+layout: default
+title:  "Writing CSV data"
+---
 
 ```tut:invisible
 import com.nrinaudo.csv._
@@ -120,6 +123,7 @@ works thanks to the `CsvOutput` type class: any type `A` that has an implicit `C
 enriched with the `asCsvWriter` method.
 
 As a simple example, this is how you'd add support for writing CSV to `java.io.File`:
+
 ```tut
 import java.io._
 

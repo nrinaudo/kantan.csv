@@ -1,4 +1,8 @@
-# Parsing CSV Data
+---
+layout: default
+title:  "Parsing CSV Data"
+---
+
 
 ```tut:invisible
 import com.nrinaudo.csv._
@@ -10,7 +14,7 @@ implicit val codec = scala.io.Codec.ISO8859
 Over the course of this part of the tutorial, we'll be trying to parse the
 [wikipedia CSV example](https://en.wikipedia.org/wiki/Comma-separated_values#Example):
 
-```csv
+```
 Year,Make,Model,Description,Price
 1997,Ford,E350,"ac, abs, moon",3000.00
 1999,Chevy,"Venture ""Extended Edition""","",4900.00
@@ -25,7 +29,8 @@ A few things to note about this data:
 * each row is composed of various types: `Int` for the year, for example, or `Option[String]` for the description.
 * some of the more annoying corner cases of CSV are present: escaped double-quotes and multi-line rows.
 
-I have this data as a resource of this tutorial, so let's just declare it: 
+I have this data as a resource of this tutorial, so let's just declare it:
+ 
 ```tut
 val rawData = getClass.getResource("/wikipedia.csv")
 ```
@@ -33,6 +38,7 @@ val rawData = getClass.getResource("/wikipedia.csv")
 ## Rows as collections of strings
 The simplest way to represent a CSV row is as a collection of strings. You do that through the `asCsvRows` method
 that enriches any type that can be used as a source of CSV data:
+
 ```tut
 rawData.asCsvRows[List[String]](',', false).toList
 
@@ -40,6 +46,7 @@ rawData.asCsvRows[Set[String]](',', false).toList
 ```
 
 The `asCsvRows` method expects two parameters:
+
 * the character to use as column separator. `,` is fairly common, but you'll find a lot of `;` or more esoteric
   separators in the wild.
 * whether or not to skip the first row. Not terribly useful yet, but it'll become more important when we attempt to
@@ -58,6 +65,7 @@ Finally, pay attention to the return types in the previous example: where we ask
 got each row as an `DecodeResult[List[String]]`: rows that could not be parsed will be represented as failures rather
 than throw an exception that forcefully interrupts parsing. One possible use case is to filter out anything that isn't
 properly formatted:
+
 ```tut
 rawData.asCsvRows[List[String]](',', false).filter(_.isSuccess).toList
 ```
@@ -70,6 +78,7 @@ Should you rather fail early by throwing an exception at the first error, use `a
 Collections of strings are a nice start, but not entirely satisfactory: our example is composed of values that should
 be represented with more precise types. One simple way of doing that is asking to parse each row as a tuple (declared
 here as a type alias for the sake of legibility):
+
 ```tut
 type CarTuple = (Int, String, String, Option[String], Float)
 
@@ -91,11 +100,13 @@ The difference between the two is more obvious when using `asUnsafeCsvRows`.
 
 The following fails, since the first row is not a legal tuple. Note that we're trying to skip the first row, but that's
 too late: the iterator's `drop` method is called *after* the corresponding row is parsed.
+
 ```tut:fail
 rawData.asUnsafeCsvRows[CarTuple](',', false).drop(1).toList
 ```
 
 This, however, does not: the header row is skipped and the rest is valid.
+
 ```tut
 rawData.asUnsafeCsvRows[CarTuple](',', true).toList
 ```
@@ -106,6 +117,7 @@ Tuples are a definite improvement over collections of strings. More often than n
 working with more specific types, usually case classes that the rest of your code knows how to manipulate.
 
 Let's define such a case class for our example:
+
 ```tut
 case class Car(make: String, model: String, year: Int, price: Float, desc: Option[String])
 ```
@@ -115,6 +127,7 @@ inferred in a type-safe way (that I could find).
 
 You can however trivially create one using one of the `RowDecoder.caseDecoderXXX`, where XXX is the number of fields
 in your case class:
+
 ```tut
 implicit val carDecoder = RowDecoder.caseDecoder5(Car.apply)(1, 2, 0, 4, 3)
 rawData.asUnsafeCsvRows[Car](',', true).toList
@@ -133,6 +146,7 @@ rawData.asUnsafeCsvRows[Car](',', true).toList
 
 At this point, you can easily turn CSV data into an iterator over business specific types. This is where you can start
 actually doing interesting things with your data, such as finding the car that has a description and the highest price:
+
 ```tut
 rawData.asUnsafeCsvRows[Car](',', true).filter(_.desc.isDefined).maxBy(_.price)
 ```
@@ -148,6 +162,7 @@ to use them: if you need to turn something into a source of CSV data, just write
 it implicit, stick it in scope and you're done.
 
 As a simple example, this is how you'd turn all strings into sources of CSV data:
+
 ```tut
 implicit val stringInput = CsvInput((s: String) => scala.io.Source.fromString(s))
 "a,b,c\nd,e,f".asCsvRows[Seq[Char]](',', false).toList
@@ -175,6 +190,7 @@ CellDecoder(s => DecodeResult(new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm
 ```
 
 A lot of standard types are supported out of the box, including "complex" ones such as `Either` or `Option`:
+
 ```tut
 "a,2,c".asCsvRows[List[Either[Int,Char]]](',', false).toList
 

@@ -1,4 +1,8 @@
-# Getting Started
+---
+layout: default
+title:  "Getting Started"
+---
+
 This part of the tutorial tries to give you a quick overview of the features you're likely to need. For most users, it
 should be enough to get started, and likely to cover everything they ever need to know about working with CSV data.
 
@@ -13,6 +17,7 @@ libraryDependencies += "com.nrinaudo" %% "scala-csv" % "0.1.4-SNAPSHOT"
 
 ## Standard imports and implicits
 This tutorial assumes the following imports are present:
+
 ```tut:silent
 import com.nrinaudo.csv._
 import com.nrinaudo.csv.ops._
