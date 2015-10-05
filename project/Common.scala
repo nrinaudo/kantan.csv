@@ -26,9 +26,10 @@ object Common extends Build {
 
 
   override val settings = super.settings ++
-                          Seq(organization    :=  "com.nrinaudo",
-                            version           :=  "0.1.4-SNAPSHOT",
-                            scalaVersion      :=  "2.11.7",
+                          Seq(organization     :=  "com.nrinaudo",
+                            version            :=  "0.1.4-SNAPSHOT",
+                            scalaVersion       :=  "2.11.7",
+                            crossScalaVersions := Seq("2.10.5", "2.11.7"),
                             addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0-M5" cross CrossVersion.full),
                             libraryDependencies += "com.github.mpilquist" %% "simulacrum" % "0.4.0",
                             scalacOptions     ++= Seq("-deprecation",

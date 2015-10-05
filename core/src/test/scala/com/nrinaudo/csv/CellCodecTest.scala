@@ -14,11 +14,11 @@ object CellCodecTest {
   // https://github.com/scala/scala/pull/4320
   implicit lazy val arbBigDecimal: Arbitrary[BigDecimal] = {
     import java.math.MathContext._
-    val mcGen = oneOf(UNLIMITED, DECIMAL32, DECIMAL64, DECIMAL128)
+    val mcGen = oneOf(DECIMAL32, DECIMAL64, DECIMAL128)
     val bdGen = for {
       x <- Arbitrary.arbitrary[BigInt]
       mc <- mcGen
-      limit <- const(if(mc == UNLIMITED) 0 else math.max(x.abs.toString.length - mc.getPrecision, 0))
+      limit <- const(math.max(x.abs.toString.length - mc.getPrecision, 0))
       scale <- Gen.choose(Int.MinValue + limit , Int.MaxValue)
     } yield {
         try {

@@ -8,7 +8,7 @@ trait CellCodec[A] extends CellDecoder[A] with CellEncoder[A]
 
 object CellCodec {
   /** Creates a [[CellCodec]] from an existing [[CellDecoder]] and [[CellEncoder]]. */
-  implicit def apply[A](implicit r: CellDecoder[A], w: CellEncoder[A]): CellCodec[A] =
+  implicit def combine[A](implicit r: CellDecoder[A], w: CellEncoder[A]): CellCodec[A] =
     CellCodec(s => r.decode(s), a => w.encode(a))
 
   def apply[A](decoder: String => DecodeResult[A], encoder: A => String): CellCodec[A] = new CellCodec[A] {
