@@ -193,7 +193,7 @@ they're expected to contain is also type class based. In this case, the type cla
 
 The beauty of the pattern is that `RowDecoder` relies on `CellDecoder` for parsing individual cells. For example,
 dates are not supported (because there are so many formats they can be serialized as), but we've just added a
-`CellReader` instance for them, which allows us to write:
+`CellDecoder` instance for them, which allows us to write:
 
 ```tut
 "2012-01-01T12:00:00+0100,a".asCsvRows[(java.util.Date, Char)](',', false).toList
