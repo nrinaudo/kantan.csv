@@ -29,6 +29,8 @@ private[csv] class CsvIterator(data: Source, separator: Char)
   private val input: BufferedIterator[Char] = data.buffered
   /** Number of whitespace found at the end of and escaped cell. */
   private var wCount = 0
+  private var line = 0
+  private var column = 0
 
   /** Appends the content of current cell to the current row. */
   private def appendCell() = {
@@ -42,13 +44,23 @@ private[csv] class CsvIterator(data: Source, separator: Char)
     * Note that this might consume a character from the input stream if `c` is a line feed and the next character is a
     * line break.
     */
-  private def isLineBreak(c: Char): Boolean =
-    if(c == '\n') true
-    else if(c == '\r') {
-      if(input.hasNext && input.head == '\n') input.next()
+  private def isLineBreak(c: Char): Boolean = {
+    def resetLine(): Boolean = {
+      line  += 1
+      column = 0
       true
     }
-    else false
+
+    if(c == '\n') resetLine()
+    else if(c == '\r') {
+      if(input.hasNext && input.head == '\n') input.next()
+      resetLine()
+    }
+    else {
+      column += 1
+      false
+    }
+  }
 
   /** Attempts to read and interpret the next character in the stream.
     *
@@ -148,7 +160,7 @@ private[csv] class CsvIterator(data: Source, separator: Char)
         try { close() }
         catch { case _: Exception => }
 
-        DecodeResult.readFailure
+        DecodeResult.readFailure(line, column)
     }
   }
 

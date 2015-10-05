@@ -25,8 +25,8 @@ object DecodeResult {
   }
 
   /** Represents a failure to parse the CSV data (as opposed to one of the cells in a row). */
-  case object ReadFailure extends Failure {
-    override def get = throw new IOException("Invalid or corrupt CSV stream.")
+  case class ReadFailure(line: Int, col: Int) extends Failure {
+    override def get = throw new IOException(s"Invalid or corrupt CSV stream line $line column $col.")
   }
 
   /** Represents a failure to parse a cell in a CSV row. */
@@ -35,11 +35,11 @@ object DecodeResult {
   }
 
   def success[A](a: A): DecodeResult[A]  = Success(a)
-  def readFailure[A]: DecodeResult[A]    = ReadFailure
+  def readFailure[A](l: Int, c: Int): DecodeResult[A]    = ReadFailure(l, c)
   def decodeFailure[A]: DecodeResult[A]  = DecodeFailure
   def apply[A](a: => A): DecodeResult[A] =
     try { success(a) }
-    catch { case _: Exception => readFailure }
+    catch { case _: Exception => decodeFailure }
 }
 
 trait DecodeResult[+A] {
