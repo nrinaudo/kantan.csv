@@ -9,18 +9,16 @@ import scala.collection.generic.CanBuildFrom
   * Default implementations are provided in the companion object.
   */
 @typeclass trait RowDecoder[A] { self =>
-  @noop def decode(row: Seq[String]): Option[A]
+  @noop def decode(row: Seq[String]): DecodeResult[A]
   @noop def map[B](f: A => B): RowDecoder[B] = RowDecoder(ss => decode(ss).map(f))
 }
 
 object RowDecoder {
-  def apply[A](f: Seq[String] => Option[A]): RowDecoder[A] = new RowDecoder[A] {
-    override def decode(row: Seq[String]) =
-      try { f(row) }
-      catch { case _: Exception => None }
+  def apply[A](f: Seq[String] => DecodeResult[A]): RowDecoder[A] = new RowDecoder[A] {
+    override def decode(row: Seq[String]) = f(row)
   }
 
-  implicit val stringSeq: RowDecoder[Seq[String]] = RowDecoder(ss => Some(ss))
+  implicit val stringSeq: RowDecoder[Seq[String]] = RowDecoder(ss => DecodeResult.success(ss))
 
   implicit def either[A: RowDecoder, B: RowDecoder]: RowDecoder[Either[A, B]] = RowDecoder { ss =>
     RowDecoder[A].decode(ss).map(a => Left(a): Either[A, B]).orElse(RowDecoder[B].decode(ss).map(b => Right(b): Either[A, B]))
@@ -28,7 +26,7 @@ object RowDecoder {
 
   /** Generic {{{RowDecoder}}} for collections. */
   implicit def collection[A: CellDecoder, M[X]](implicit cbf: CanBuildFrom[Nothing, A, M[A]]): RowDecoder[M[A]] =
-    RowDecoder(ss => ss.foldLeft(Option(cbf.apply())) { (racc, s) => for {
+    RowDecoder(ss => ss.foldLeft(DecodeResult.success(cbf.apply())) { (racc, s) => for {
       acc <- racc
       a   <- CellDecoder[A].decode(s)
     } yield acc += a
@@ -40,7 +38,7 @@ object RowDecoder {
   // I am not proud of this, but I don't know of any other way to deal with non "curryable" types.
 
   /** Helper function to reduce the amount of boilerplate required by dealing with case classes. */
-  @inline private def r[A: CellDecoder](ss: Seq[String], index: Int): Option[A] = CellDecoder[A].decode(ss, index)
+  @inline private def r[A: CellDecoder](ss: Seq[String], index: Int): DecodeResult[A] = CellDecoder[A].decode(ss, index)
 
   def caseDecoder1[A0: CellDecoder, R](f: (A0) => R): RowDecoder[R] = RowDecoder(ss => r[A0](ss, 0).map(f))
 

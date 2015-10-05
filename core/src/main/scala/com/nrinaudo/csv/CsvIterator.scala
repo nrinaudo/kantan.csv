@@ -2,7 +2,6 @@ package com.nrinaudo.csv
 
 import java.io.{Closeable, IOException}
 
-import scala.collection.AbstractIterator
 import scala.collection.mutable.ArrayBuffer
 import scala.io.Source
 
@@ -17,7 +16,7 @@ private object CsvIterator {
 }
 
 private[csv] class CsvIterator(data: Source, separator: Char)
-  extends AbstractIterator[ArrayBuffer[String]] with Iterator[ArrayBuffer[String]] with Closeable {
+  extends Iterator[DecodeResult[ArrayBuffer[String]]] with Closeable {
   import CsvIterator._
 
   /** Used to aggregate the content of the current cell. */
@@ -132,15 +131,25 @@ private[csv] class CsvIterator(data: Source, separator: Char)
   }
 
   override def hasNext: Boolean = input.hasNext
-  override def next(): ArrayBuffer[String] = {
+  override def next(): DecodeResult[ArrayBuffer[String]] = {
     row.clear()
 
-    while(parseNext()) {}
+    try {
+      while(parseNext()) {}
 
-    // If we've finished parsing the whole stream, close it.
-    if(!hasNext) close()
+      // If we've finished parsing the whole stream, close it.
+      if(!hasNext) close()
 
-    row
+      DecodeResult.success(row)
+    }
+    catch {
+      case _: Exception =>
+        // Closes the underlying stream, ignores errors at this point.
+        try { close() }
+        catch { case _: Exception => }
+
+        DecodeResult.readFailure
+    }
   }
 
   override def close(): Unit = data.close()

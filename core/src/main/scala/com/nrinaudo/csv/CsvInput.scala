@@ -1,6 +1,6 @@
 package com.nrinaudo.csv
 
-import java.io.{File, InputStream}
+import java.io.{IOException, File, InputStream}
 import java.net.{URI, URL}
 
 import simulacrum.{noop, op, typeclass}
@@ -10,10 +10,10 @@ import scala.io.{Codec, Source}
 @typeclass trait CsvInput[S] { self =>
   @noop def toSource(a: S): Source
 
-  @op("asCsvRows") def rows[A: RowDecoder](s: S, separator: Char, header: Boolean): Iterator[Option[A]] = {
+  @op("asCsvRows") def rows[A: RowDecoder](s: S, separator: Char, header: Boolean): Iterator[DecodeResult[A]] = {
     val data = new CsvIterator(toSource(s), separator)
-    if(header) data.drop(1).map(RowDecoder[A].decode)
-    else       data.map(RowDecoder[A].decode)
+    if(header) data.drop(1).map(r => r.flatMap(RowDecoder[A].decode))
+    else       data.map(r => r.flatMap(RowDecoder[A].decode))
   }
 
   @op("asUnsafeCsvRows") def unsafeRows[A: RowDecoder](s: S, separator: Char, header: Boolean): Iterator[A] =

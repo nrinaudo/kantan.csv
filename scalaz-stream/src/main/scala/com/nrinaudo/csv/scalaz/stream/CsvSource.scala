@@ -1,6 +1,6 @@
 package com.nrinaudo.csv.scalaz.stream
 
-import com.nrinaudo.csv.{CsvInput, RowDecoder}
+import com.nrinaudo.csv.{DecodeResult, CsvInput, RowDecoder}
 import simulacrum.{op, noop, typeclass}
 
 import scala.io.Source
@@ -10,7 +10,7 @@ import scalaz.stream._
 @typeclass trait CsvSource[S] {
   @noop def toSource(s: S): Source
 
-  @op("asCsvSource") def source[A: RowDecoder](s: S, sep: Char, header: Boolean): Process[Task, Option[A]] = {
+  @op("asCsvSource") def source[A: RowDecoder](s: S, sep: Char, header: Boolean): Process[Task, DecodeResult[A]] = {
     io.resource(Task.delay(toSource(s)))(src => Task.delay(src.close())) { src =>
       lazy val lines = CsvInput[Source].rows(src, sep, header)
       Task.delay { if(lines.hasNext) lines.next() else throw Cause.Terminated(Cause.End) }

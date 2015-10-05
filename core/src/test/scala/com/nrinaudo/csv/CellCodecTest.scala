@@ -34,7 +34,7 @@ object CellCodecTest {
 abstract class CellCodecTest[A: CellCodec: Arbitrary] extends FunSuite with GeneratorDrivenPropertyChecks {
   test("decode(encode(a)) must be equal to a for any a") {
     forAll { a: A =>
-      assert(CellDecoder[A].decode(CellEncoder[A].encode(a)) == Some(a))
+      assert(CellDecoder[A].decode(CellEncoder[A].encode(a)) == DecodeResult.Success(a))
     }
   }
 

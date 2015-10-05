@@ -14,7 +14,7 @@ object RowCodecTest {
 abstract class RowCodecTest[R: RowCodec: Arbitrary] extends FunSuite with GeneratorDrivenPropertyChecks {
   test("decode(encode(r)) must be equal to r for any r") {
     forAll { r: R =>
-      assert(RowDecoder[R].decode(r.asCsvRow) == Some(r))
+      assert(RowDecoder[R].decode(r.asCsvRow) == DecodeResult.Success(r))
     }
   }
 

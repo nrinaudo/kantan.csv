@@ -11,7 +11,7 @@ object CellCodec {
   implicit def apply[A](implicit r: CellDecoder[A], w: CellEncoder[A]): CellCodec[A] =
     CellCodec(s => r.decode(s), a => w.encode(a))
 
-  def apply[A](decoder: String => Option[A], encoder: A => String): CellCodec[A] = new CellCodec[A] {
+  def apply[A](decoder: String => DecodeResult[A], encoder: A => String): CellCodec[A] = new CellCodec[A] {
     override def decode(a: String) = decoder(a)
     override def encode(a: A) = encoder(a)
   }
