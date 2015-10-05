@@ -3,6 +3,7 @@ package com.nrinaudo.csv
 import java.io.IOException
 
 object DecodeResult {
+  /** Represents a successful decoding result. */
   case class Success[A](result: A) extends DecodeResult[A] {
     override val isSuccess = true
     override def map[B](f: A => B) = Success(f(result))
@@ -10,20 +11,25 @@ object DecodeResult {
     override def getOrElse[B >: A](default: => B) = result
     override def orElse[B >: A](alternative: => DecodeResult[B]) = this
     override def get = result
+    override def toOption = Some(result)
   }
 
+  /** Common trait for failure cases. */
   trait Failure extends DecodeResult[Nothing] {
     override def isSuccess = false
     override def map[B](f: Nothing => B) = this
     override def flatMap[B](f: Nothing => DecodeResult[B]) = this
     override def getOrElse[B](default: => B) = default
     override def orElse[B](alternative: => DecodeResult[B]) = alternative
+    override def toOption = None
   }
 
+  /** Represents a failure to parse the CSV data (as opposed to one of the cells in a row). */
   case object ReadFailure extends Failure {
     override def get = throw new IOException("Invalid or corrupt CSV stream.")
   }
 
+  /** Represents a failure to parse a cell in a CSV row. */
   case object DecodeFailure extends Failure {
     override def get = throw new IOException("Invalid data found in CSV row.")
   }
@@ -43,4 +49,5 @@ trait DecodeResult[+A] {
   def orElse[B >: A](alternative: => DecodeResult[B]): DecodeResult[B]
   def getOrElse[B >: A](default: => B): B
   def get: A
+  def toOption: Option[A]
 }

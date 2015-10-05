@@ -132,9 +132,9 @@ private[csv] class CsvIterator(data: Source, separator: Char)
 
   override def hasNext: Boolean = input.hasNext
   override def next(): DecodeResult[ArrayBuffer[String]] = {
-    row.clear()
-
     try {
+      row.clear()
+
       while(parseNext()) {}
 
       // If we've finished parsing the whole stream, close it.
