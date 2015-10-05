@@ -22,6 +22,18 @@
 	  <div id="content">
           <h1>{{ page.title }}</h1>
           {{ content }}
+
+          {% if page.section == "tutorial" %}
+          <hr/>
+          Other tutorials:
+          <ul>
+          {% for x in site.tut %}
+          {% if page.url != x.url %}
+          <li><a href="{{ x.url }}">{{ x.title }}</a></li>
+          {% endif %}
+          {% endfor %}
+          </ul>
+          {% endif %}
 	  </div>
   </body>
 </html>

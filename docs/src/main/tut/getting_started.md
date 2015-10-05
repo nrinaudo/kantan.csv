@@ -1,6 +1,7 @@
 ---
 layout: default
 title:  "Getting Started"
+section: tutorial
 ---
 
 This part of the tutorial tries to give you a quick overview of the features you're likely to need. For most users, it

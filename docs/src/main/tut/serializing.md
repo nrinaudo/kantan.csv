@@ -1,6 +1,7 @@
 ---
 layout: default
 title:  "Writing CSV data"
+section: tutorial
 ---
 
 ```tut:invisible

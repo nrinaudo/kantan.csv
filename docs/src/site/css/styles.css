@@ -19,7 +19,6 @@ body {
     margin-bottom:    10px;
     font-family:      "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size:        16px !important;
-    color:            #fff;
     padding:          15px 40px 15px 40px;
 }
 
@@ -42,4 +41,12 @@ body {
 
 #navbar a:hover {
     text-decoration: underline;
+}
+
+pre {
+    white-space: pre-wrap;       /* CSS 3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
