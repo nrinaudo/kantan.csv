@@ -50,3 +50,8 @@ pre {
     white-space: -o-pre-wrap;    /* Opera 7 */
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
+
+a {
+    color: #27ae60;
+    text-decoration: none;
+}

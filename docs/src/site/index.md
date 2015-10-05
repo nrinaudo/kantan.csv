@@ -7,7 +7,7 @@ layout: default
 ## Motivation
 
 CSV is an unreasonably popular data exchange format. It suffers from poor (or at the very least late) standardisation,
-and is often a nightmare to work with when it contains more complex data than lists of numerical values.
+and is often a nightmare to work with when it contains more complex data than just lists of numerical values.
 
 I started writing {{ site.name }} when I realised I was spending more time dealing with the data _container_ than the
 data itself. The goal of {{ site.name }} is to abstract CSV away as much as possible and allow developers to describe
@@ -26,5 +26,5 @@ addressed, though.
 
 The following tutorials are available:
 {% for x in site.tut %}
-* [{{ x.title }}]({{ x.url }})
+* [{{ x.title }}]({{ site.baseurl }}{{ x.url }})
 {% endfor %}

@@ -102,8 +102,10 @@ The difference between the two is more obvious when using `asUnsafeCsvRows`.
 The following fails, since the first row is not a legal tuple. Note that we're trying to skip the first row, but that's
 too late: the iterator's `drop` method is called *after* the corresponding row is parsed.
 
-```tut:fail
-rawData.asUnsafeCsvRows[CarTuple](',', false).drop(1).toList
+```tut
+try {
+  rawData.asUnsafeCsvRows[CarTuple](',', false).drop(1).toList
+} catch { case e: Exception => e.getMessage }
 ```
 
 This, however, does not: the header row is skipped and the rest is valid.
