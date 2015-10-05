@@ -59,7 +59,7 @@ got each row as an `DecodeResult[List[String]]`: rows that could not be parsed w
 than throw an exception that forcefully interrupts parsing. One possible use case is to filter out anything that isn't
 properly formatted:
 ```tut
-rawData.asCsvRows[List[String]](',', false).filter(_.isDefined).toList
+rawData.asCsvRows[List[String]](',', false).filter(_.isSuccess).toList
 ```
 
 Should you rather fail early by throwing an exception at the first error, use `asUnsafeCsvRows` rather than
@@ -168,7 +168,7 @@ ISO 8601 dates:
 
 ```tut
 implicit val dateDecoder =
-CellDecoder(s => Option(new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s)))
+CellDecoder(s => DecodeResult(new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s)))
 
 "2012-01-01T12:00:00+0100,2013-01-01T12:00:00+0100,2014-01-01T12:00:00+0100".
   asCsvRows[Seq[java.util.Date]](',', false).toList

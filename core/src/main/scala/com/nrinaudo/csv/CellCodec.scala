@@ -1,13 +1,13 @@
 package com.nrinaudo.csv
 
-/** Combines {{{CellDecoder}}} and {{{CellEncoder}}}.
+/** Combines [[CellDecoder]] and [[CellEncoder]].
   *
-  * Instance for types that already have a {{{CellDecoder}}} and {{{CellEncoder}}} are derived automatically.
+  * Instance for types that already have a [[CellDecoder]] and [[CellEncoder]] are derived automatically.
   */
 trait CellCodec[A] extends CellDecoder[A] with CellEncoder[A]
 
 object CellCodec {
-  /** Creates a {{{CellCodec}}} from an existing {{{CellDecoder}}} and {{{CellEncoder}}}. */
+  /** Creates a [[CellCodec]] from an existing [[CellDecoder]] and [[CellEncoder]]. */
   implicit def apply[A](implicit r: CellDecoder[A], w: CellEncoder[A]): CellCodec[A] =
     CellCodec(s => r.decode(s), a => w.encode(a))
 

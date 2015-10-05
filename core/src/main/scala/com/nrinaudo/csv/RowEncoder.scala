@@ -2,10 +2,6 @@ package com.nrinaudo.csv
 
 import simulacrum.{op, noop, typeclass}
 
-/** Type class used to turn instances of {{{A}}} into a CSV row.
-  *
-  * Note that the companion object has helpful functions for deriving instances by combining [[CellEncoder]]s.
-  */
 @typeclass trait RowEncoder[A] { self =>
   @op("asCsvRow") def encode(a: A): Seq[String]
   @noop def contramap[B](f: B => A): RowEncoder[B] = RowEncoder(f andThen encode _)

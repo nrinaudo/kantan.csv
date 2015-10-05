@@ -24,7 +24,7 @@ object RowDecoder {
     RowDecoder[A].decode(ss).map(a => Left(a): Either[A, B]).orElse(RowDecoder[B].decode(ss).map(b => Right(b): Either[A, B]))
   }
 
-  /** Generic {{{RowDecoder}}} for collections. */
+  /** Generic `RowDecoder` for collections. */
   implicit def collection[A: CellDecoder, M[X]](implicit cbf: CanBuildFrom[Nothing, A, M[A]]): RowDecoder[M[A]] =
     RowDecoder(ss => ss.foldLeft(DecodeResult.success(cbf.apply())) { (racc, s) => for {
       acc <- racc

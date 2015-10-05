@@ -5,28 +5,26 @@ import simulacrum.{noop, typeclass}
 /** Type class used to decode the content of a single CSV cell.
   *
   * Standard types are already provided for in the companion object.
-  *
-  * See also the companion class, {{{CellEncoder}}}, as well as {{{RowDecoder}}}, used to read wholes rows.
   */
 @typeclass trait CellDecoder[A] {
-  /** Turns the content of a CSV cell into an {{{A}}}. */
+  /** Turns the content of a CSV cell into an `A`. */
   @noop def decode(s: String): DecodeResult[A]
 
   @noop def decode(ss: Seq[String], index: Int): DecodeResult[A] =
     if(ss.isDefinedAt(index)) decode(ss(index))
     else                      DecodeResult.DecodeFailure
 
-  /** Creates a new {{{CellDecoder}}} that applies the specified function to the result of {{{read}}}.
+  /** Creates a new [[CellDecoder]] that applies the specified function to the result of `read`.
     *
-    * This can be useful if you just need a {{{CellDecoder}}} implementation that specialises an existing type - to add
+    * This can be useful if you just need a [[CellDecoder]] implementation that specialises an existing type - to add
     * a scalaz tag, say.
     */
   @noop def map[B](f: A => B): CellDecoder[B] = CellDecoder(s => decode(s).map(f))
 }
 
-/** Provides default implementations and construction methods for {{{CellDecoder}}}. */
+/** Provides default implementations and construction methods for [[CellDecoder]]. */
 object CellDecoder {
-  /** Creates a new instance of {{{CellDecoder}}} that uses the specified function to parse data. */
+  /** Creates a new instance of [[CellDecoder]] that uses the specified function to parse data. */
   def apply[A](f: String => DecodeResult[A]): CellDecoder[A] = new CellDecoder[A] {
     override def decode(a: String) = f(a)
   }
