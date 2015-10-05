@@ -55,8 +55,8 @@ your data is composed of rows of floats for example, you can just request `List[
 like `List[Either[Boolean, Option[Float]]]`.
 
 Finally, pay attention to the return types in the previous example: where we asked for lists of strings, we actually
-got each row as an `Option[List[String]]`: rows that could not be parsed will be represented as `None` rather than
-throw an exception that forcefully interrupts parsing. One possible use case is to filter out anything that isn't
+got each row as an `DecodeResult[List[String]]`: rows that could not be parsed will be represented as failures rather
+than throw an exception that forcefully interrupts parsing. One possible use case is to filter out anything that isn't
 properly formatted:
 ```tut
 rawData.asCsvRows[List[String]](',', false).filter(_.isDefined).toList
@@ -64,8 +64,6 @@ rawData.asCsvRows[List[String]](',', false).filter(_.isDefined).toList
 
 Should you rather fail early by throwing an exception at the first error, use `asUnsafeCsvRows` rather than
 `asCsvRows`.
-
-Note that, at the time of writing at least, an exception will be thrown if the CSV data itself is not valid.
 
 
 ## Rows as tuples
