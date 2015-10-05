@@ -11,8 +11,8 @@ implicit val codec = scala.io.Codec.ISO8859
 ```
 
 ## Sample data
-In this part of the tutorial, we'll try to do the opposite as the previous one: instead of having CSV data to load
-in memory, we have the list of cars loaded in memory and need to write it out:
+In this tutorial, we'll try to do the opposite as the [parsing one]({{ site.baseurl }}/tut/parsing.html): instead of
+having CSV data to load in memory, we have the list of cars loaded in memory and need to write it out:
 
 ```tut
 case class Car(make: String, model: String, year: Int, price: Float, desc: Option[String])
@@ -24,7 +24,7 @@ val data = List(Car("Ford", "E350", 1997, 3000F, Some("ac, abs, moon")),
 ```
 
 ## The `CsvWriter` class
-All CSV serialisation is done through the `CsvWriter` class, instances of which you can retrieve through the
+All CSV serialisation is done through the [CsvWriter]({{ site.baseurl }}/api/#com.nrinaudo.csv.CsvWriter) class, instances of which you can retrieve through the
 `asCsvWriter` method that enriches types we can write to.
 
 In our examples, we'll write to a `java.io.StringWriter` - this'll allow us to see what was actually written. Other

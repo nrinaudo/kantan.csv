@@ -12,7 +12,7 @@ implicit val codec = scala.io.Codec.ISO8859
 ```
 
 ## Sample data
-Over the course of this part of the tutorial, we'll be trying to parse the
+Over the course of this tutorial, we'll be trying to parse the
 [wikipedia CSV example](https://en.wikipedia.org/wiki/Comma-separated_values#Example):
 
 ```
@@ -30,7 +30,7 @@ A few things to note about this data:
 * each row is composed of various types: `Int` for the year, for example, or `Option[String]` for the description.
 * some of the more annoying corner cases of CSV are present: escaped double-quotes and multi-line rows.
 
-I have this data as a resource of this tutorial, so let's just declare it:
+I have this data as a resource, so let's just declare it:
  
 ```tut
 val rawData = getClass.getResource("/wikipedia.csv")
@@ -71,8 +71,12 @@ properly formatted:
 rawData.asCsvRows[List[String]](',', false).filter(_.isSuccess).toList
 ```
 
-Should you rather fail early by throwing an exception at the first error, use `asUnsafeCsvRows` rather than
-`asCsvRows`.
+Alternatively, you can use `asUnsafeCsvRows` rather than `asCsvRows`. This will "flatten" the results, removing the
+`DecodeResult` layer but throwing an exception if any problem is encountered.
+
+```tut
+rawData.asUnsafeCsvRows[List[String]](',', false).toList
+```
 
 
 ## Rows as tuples
@@ -86,12 +90,12 @@ type CarTuple = (Int, String, String, Option[String], Float)
 rawData.asCsvRows[CarTuple](',', false).toList
 ```
 
-Note, however, that the first row comes back as `None`. Remember that our data contains a header row, composed of types
-that do not actually map to those we specified to `asCSvRows`.
+Note, however, that the first row comes back as `DecodeFailure`. Remember that our data contains a header, composed
+of types that do not actually map to those we specified to `asCSvRows`.
 
 Of course, you could just filter out any row that isn't properly parsed, but that's not quite right: there's a huge
-difference between a header row and a row that was expected to parse but didn't. The better solution is simply to
-pass `true` to the second parameter of `asCsvRows`, asking it to skip the first row:
+difference between a header and a row that was expected to parse but didn't. The better solution is simply to
+pass `true` to the second parameter of `asCsvRows`, asking it to skip the header:
 
 ```tut
 rawData.asCsvRows[CarTuple](',', true).toList
@@ -99,7 +103,7 @@ rawData.asCsvRows[CarTuple](',', true).toList
 
 The difference between the two is more obvious when using `asUnsafeCsvRows`.
 
-The following fails, since the first row is not a legal tuple. Note that we're trying to skip the first row, but that's
+The following fails, since the first row is not a legal tuple. Note that we're trying to skip the first row, but it's
 too late: the iterator's `drop` method is called *after* the corresponding row is parsed.
 
 ```tut
@@ -108,7 +112,7 @@ try {
 } catch { case e: Exception => e.getMessage }
 ```
 
-This, however, does not: the header row is skipped and the rest is valid.
+This, however, does not fail: the header is skipped and the rest is valid.
 
 ```tut
 rawData.asUnsafeCsvRows[CarTuple](',', true).toList
@@ -160,9 +164,9 @@ rawData.asUnsafeCsvRows[Car](',', true).filter(_.desc.isDefined).maxBy(_.price)
 One of the things this tutorial sort of glossed over is how our `rawData` variable was enriched with the
 `asCsvRows` method.
 
-Under the hood, this relies on the `CsvInput` type class. You don't really need to know what a type class is in order
-to use them: if you need to turn something into a source of CSV data, just write a `CsvInput` instance for it, make
-it implicit, stick it in scope and you're done.
+Under the hood, this relies on the [CsvInput]({{ site.baseurl }}/api/#com.nrinaudo.csv.CsvInput) type class.
+You don't really need to know what a type class is in order to use them: if you need to turn something into a source of
+CSV data, just write a `CsvInput` instance for it, make it implicit, stick it in scope and you're done.
 
 As a simple example, this is how you'd turn all strings into sources of CSV data:
 
@@ -172,17 +176,17 @@ implicit val stringInput = CsvInput((s: String) => scala.io.Source.fromString(s)
 ```
 
 Note that there actually already is such an instance available for strings, as well as for many other types (
-`java.io.File`, `java.net.URI`, `scala.io.Source`...). You can find an exhaustive list in the `CsvInput` companion
-object.
+`java.io.File`, `java.net.URI`, `scala.io.Source`...). You can find an exhaustive list in the 
+[CsvInput]({{ site.baseurl }}/api/#com.nrinaudo.csv.CsvInput$) companion object.
 
 
 ### CSV cell types
 Another thing that was given the hand-wavy treatment is how each cell is parsed. When requesting each row as a list
 of ints, for example, how do we know how to parse ints?
 
-This is also done through a type class (as is just about everything here, really): `CellDecoder`. If you need to add
-support for new types, just declare an implicit instance of `CellDecoder` for it. For example, if your CSV data contains
-ISO 8601 dates:
+This is also done through a type class (as is just about everything here, really):
+[CellDecoder]({{ site.baseurl }}/api/#com.nrinaudo.csv.CellDecoder). If you need to add support for new types, 
+declare an implicit instance of `CellDecoder` for it. For example, if your CSV data contains ISO 8601 dates:
 
 ```tut
 implicit val dateDecoder =
@@ -200,13 +204,13 @@ A lot of standard types are supported out of the box, including "complex" ones s
 "a,,c".asCsvRows[List[Option[Char]]](',', false).toList
 ```
 
-You can find the complete list in the `CellDecoder` companion object.
+You can find the complete list in the [CellDecoder]({{ site.baseurl }}/api/#com.nrinaudo.csv.CellDecoder$) companion object.
 
 
 ### CSV row types
 You might already have guessed that the magic of guessing how to parse entire CSV rows simply by knowing what types
 they're expected to contain is also type class based. In this case, the type class you're looking for is
-`RowDecoder`.
+[RowDecoder]({{ site.baseurl }}/api/#com.nrinaudo.csv.RowDecoder).
 
 The beauty of the pattern is that `RowDecoder` relies on `CellDecoder` for parsing individual cells. For example,
 dates are not supported (because there are so many formats they can be serialized as), but we've just added a
