@@ -24,14 +24,13 @@ body {
 }
 
 #home {
-    float:         right !important;
-    padding-right: 0;
+    float: left !important;
 }
 
 #navbar span {
     font-size:       15pt;
     vertical-align:  middle;
-    float:           left;
+    float:           right;
     padding-right:   40px;
 
 }
