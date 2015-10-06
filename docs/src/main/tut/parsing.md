@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Parsing CSV Data"
+title:  "Parsing CSV data"
 section: tutorial
 ---
 
