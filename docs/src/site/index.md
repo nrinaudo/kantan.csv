@@ -2,6 +2,9 @@
 layout: default
 ---
 
+[![Build Status](https://travis-ci.org/nrinaudo/scala-csv.svg?branch=v0.1.4)](https://travis-ci.org/nrinaudo/scala-csv)
+[![codecov.io](http://codecov.io/github/nrinaudo/scala-csv/coverage.svg?branch=v0.1.4)](http://codecov.io/github/nrinaudo/scala-csv?branch=v0.1.4)
+
 {{ site.name }} is a library for CSV parsing written in the [Scala programming language](http://www.scala-lang.org).
 
 ## Motivation
