@@ -55,3 +55,10 @@ a {
     color: #27ae60;
     text-decoration: none;
 }
+
+hr {
+    border:           none;
+    height:           1px;
+    color:            #333;
+    background-color: #333;
+}

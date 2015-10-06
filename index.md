@@ -30,14 +30,14 @@ CSV is an unreasonably popular data exchange format. It suffers from poor (or at
 and is often a nightmare to work with when it contains more complex data than just lists of numerical values.
 
 I started writing Tabulate when I realised I was spending more time dealing with the data _container_ than the
-data itself. The goal of {{ site.name }} is to abstract CSV away as much as possible and allow developers to describe
-their data, where it comes from and then just work with it.
+data itself. My goal is to abstract CSV away as much as possible and allow developers to describe their data and where
+it comes from, and then just work with it.
 
 Tabulate is meant to be [RFC](https://tools.ietf.org/html/rfc4180) compliant, but flexible enough that it should
 parse any sane variation on the format. Should you find CSV files that don't parse, please file an issue and I'll look
 into it.
 
-While I'm pretty happy with Tabulate, or at least the direction it's headed, I do not pretend that it'll fit
+While I'm pretty happy with Tabulate, or at least the direction it's headed, I do not pretend that it will fit
 all use cases. It fits mine, but might not work for everyone. I'm happy to hear suggestions on how this can be
 addressed, though.
  
