@@ -1,4 +1,4 @@
-name                := "scala-csv"
+name                := "tabulate"
 
 libraryDependencies += "org.scalatest"        %% "scalatest"  % "2.2.5"  % "test"
 

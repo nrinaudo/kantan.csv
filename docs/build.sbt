@@ -12,4 +12,4 @@ includeFilter in makeSite := "*.yml" | "*.md" | "*.html" | "*.css" | "*.png" | "
 
 ghpages.settings
 
-git.remoteRepo := "git@github.com:nrinaudo/scala-csv.git"
+git.remoteRepo := "git@github.com:nrinaudo/tabulate.git"

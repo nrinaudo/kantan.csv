@@ -1,7 +1,7 @@
-name: scala-csv
+name: Tabulate
 markdown: redcarpet
 highlighter: pygments
-baseurl: /scala-csv
+baseurl: /tabulate
 
 collections:
   tut:

@@ -1,4 +1,4 @@
-lazy val root = Project(id = "scala-csv",
+lazy val root = Project(id = "tabulate",
                         base = file(".")).aggregate(core, scalazStream, scalacheck)
   .settings(packagedArtifacts := Map.empty)
 

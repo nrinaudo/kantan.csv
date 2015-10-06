@@ -1,7 +1,7 @@
-# scala-csv
+# Tabulate
 
-[![Build Status](https://travis-ci.org/nrinaudo/scala-csv.svg?branch=v0.1.4)](https://travis-ci.org/nrinaudo/scala-csv)
-[![codecov.io](http://codecov.io/github/nrinaudo/scala-csv/coverage.svg?branch=v0.1.4)](http://codecov.io/github/nrinaudo/scala-csv?branch=v0.1.4)
+[![Build Status](https://travis-ci.org/nrinaudo/tabulate.svg?branch=v0.1.4)](https://travis-ci.org/nrinaudo/tabulate)
+[![codecov.io](http://codecov.io/github/nrinaudo/tabulate/coverage.svg?branch=v0.1.4)](http://codecov.io/github/nrinaudo/tabulate?branch=v0.1.4)
 
 CSV is an unfortunate part of life. This attempts to alleviate the pain somewhat by letting developers treat CSV data
 as a simple iterator.
@@ -14,7 +14,7 @@ The current version is `0.1.4-SNAPSHOT`, which can be added to your project with
 file:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "scala-csv" % "0.1.4-SNAPSHOT"
+libraryDependencies += "com.nrinaudo" %% "tabulate" % "0.1.4-SNAPSHOT"
 ```
 
 
