@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+    <title>{{ site.name }}{% if page.title %} - {{ page.title }}{% endif %}</title>
+
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/styles.css">
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/syntax.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+  </head>
+  <body>
+      <div id="navbar">
+          <span><a href="{{ site.baseurl }}/api">API</a></span>
+          <span><a href="https://github.com/nrinaudo/scala-csv/issues">Issues</a></span>
+          <span><a href="https://github.com/nrinaudo/scala-csv">Github</a></span>
+          <span id="home"><a href="{{ site.baseurl }}/">{{ site.name }}</a></span>
+      </div>
+
+	  <div id="content">
+          {% if page.title %}<h1>{{ page.title }}</h1>{% endif %}
+          {{ content }}
+
+          {% if page.section == "tutorial" %}
+          <hr/>
+          Other tutorials:
+          <ul>
+          {% for x in site.tut %}
+          {% if page.url != x.url %}
+          <li><a href="{{ site.baseurl }}{{ x.url }}">{{ x.title }}</a></li>
+          {% endif %}
+          {% endfor %}
+          </ul>
+          {% endif %}
+	  </div>
+  </body>
+</html>

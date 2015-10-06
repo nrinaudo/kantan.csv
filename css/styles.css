@@ -1,0 +1,57 @@
+body {
+	line-height:    120%;
+    font-family:    "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size:      100%;
+    background:     #fff;
+    margin:         0;
+	padding:        0;
+	border:         0;
+	vertical-align: baseline;
+}
+
+#content {
+    margin: 40px;
+}
+
+#navbar {
+    background-color: #27ae60;
+    height:           25px;
+    margin-bottom:    10px;
+    font-family:      "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size:        16px !important;
+    padding:          15px 40px 15px 40px;
+}
+
+#home {
+    float: left !important;
+}
+
+#navbar span {
+    font-size:       15pt;
+    vertical-align:  middle;
+    float:           right;
+    padding-right:   40px;
+
+}
+
+#navbar a {
+    text-decoration: none;
+    color:           #fff;
+}
+
+#navbar a:hover {
+    text-decoration: underline;
+}
+
+pre {
+    white-space: pre-wrap;       /* CSS 3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+a {
+    color: #27ae60;
+    text-decoration: none;
+}

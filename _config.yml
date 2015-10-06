@@ -1,0 +1,8 @@
+name: scala-csv
+markdown: redcarpet
+highlighter: pygments
+baseurl: /scala-csv
+
+collections:
+  tut:
+    output: true
