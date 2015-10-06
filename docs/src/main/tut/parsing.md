@@ -124,7 +124,7 @@ printCsv(rawData.asCsvRows[CarTuple](',', true))
 The difference between the two is more obvious when using `asUnsafeCsvRows`.
 
 The following fails, since the first row is not a legal tuple. Note that we're trying to skip the first row, but it's
-too late: the iterator's `drop` method is called *after* the corresponding row is parsed.
+too late: the iterator's `drop` method will skip over a row, but it still needs be parsed in order to be skipped.
 
 ```tut
 try {
@@ -185,7 +185,7 @@ One of the things this tutorial sort of glossed over is how our `rawData` variab
 `asCsvRows` method.
 
 Under the hood, this relies on the [CsvInput]({{ site.baseurl }}/api/#com.nrinaudo.csv.CsvInput) type class.
-You don't really need to know what a type class is in order to use them: if you need to turn something into a source of
+You don't really need to know what type classes are in order to use them: if you need to turn something into a source of
 CSV data, just write a `CsvInput` instance for it, make it implicit, stick it in scope and you're done.
 
 As a simple example, this is how you'd turn all strings into sources of CSV data:
