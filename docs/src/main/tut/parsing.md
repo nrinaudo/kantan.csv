@@ -48,15 +48,22 @@ Microsoft Excel, for instance, tends to change charset depending on the computer
 implicit val codec = scala.io.Codec.ISO8859
 ```
 
+Finally, in order for the various examples' output to be more readable, I'll be using the following function to print
+results out:
+
+```tut:silent
+def printCsv[A](csv: Iterator[A]): Unit = csv.foreach(a => println(s"- $a"))
+```
+
 
 ## Rows as collections of strings
 The simplest way to represent a CSV row is as a collection of strings. You do that through the `asCsvRows` method
 that enriches any type that can be used as a source of CSV data:
 
 ```tut
-rawData.asCsvRows[List[String]](',', false).toList
+printCsv(rawData.asCsvRows[List[String]](',', false))
 
-rawData.asCsvRows[Set[String]](',', false).toList
+printCsv(rawData.asCsvRows[Set[String]](',', false))
 ```
 
 The `asCsvRows` method expects two parameters:
@@ -81,14 +88,14 @@ than throw an exception that forcefully interrupts parsing. One possible use cas
 properly formatted:
 
 ```tut
-rawData.asCsvRows[List[String]](',', false).filter(_.isSuccess).toList
+printCsv(rawData.asCsvRows[List[String]](',', false).filter(_.isSuccess))
 ```
 
 Alternatively, you can use `asUnsafeCsvRows` rather than `asCsvRows`. This will "flatten" the results, removing the
 `DecodeResult` layer but throwing an exception if any problem is encountered.
 
 ```tut
-rawData.asUnsafeCsvRows[List[String]](',', false).toList
+printCsv(rawData.asUnsafeCsvRows[List[String]](',', false))
 ```
 
 
@@ -100,7 +107,7 @@ here as a type alias for the sake of legibility):
 ```tut
 type CarTuple = (Int, String, String, Option[String], Float)
 
-rawData.asCsvRows[CarTuple](',', false).toList
+printCsv(rawData.asCsvRows[CarTuple](',', false))
 ```
 
 Note, however, that the first row comes back as `DecodeFailure`. Remember that our data contains a header, composed
@@ -111,7 +118,7 @@ difference between a header and a row that was expected to parse but didn't. The
 pass `true` to the second parameter of `asCsvRows`, asking it to skip the header:
 
 ```tut
-rawData.asCsvRows[CarTuple](',', true).toList
+printCsv(rawData.asCsvRows[CarTuple](',', true))
 ```
 
 The difference between the two is more obvious when using `asUnsafeCsvRows`.
@@ -121,14 +128,14 @@ too late: the iterator's `drop` method is called *after* the corresponding row i
 
 ```tut
 try {
-  rawData.asUnsafeCsvRows[CarTuple](',', false).drop(1).toList
+  printCsv(rawData.asUnsafeCsvRows[CarTuple](',', false).drop(1))
 } catch { case e: Exception => e.getMessage }
 ```
 
 This, however, does not fail: the header is skipped and the rest is valid.
 
 ```tut
-rawData.asUnsafeCsvRows[CarTuple](',', true).toList
+printCsv(rawData.asUnsafeCsvRows[CarTuple](',', true))
 ```
 
 
@@ -150,7 +157,7 @@ in your case class:
 
 ```tut
 implicit val carDecoder = RowDecoder.caseDecoder5(Car.apply)(1, 2, 0, 4, 3)
-rawData.asUnsafeCsvRows[Car](',', true).toList
+printCsv(rawData.asUnsafeCsvRows[Car](',', true))
 ```
 
 Note the second parameter list: each int value corresponds to the index in a CSV row of the field at the corresponding
@@ -161,7 +168,7 @@ It's also worth noting that if you're also going to serialise your type to CSV, 
 
 ```tut
 implicit val carCodec = RowCodec.caseCodec5(Car.apply, Car.unapply)(1, 2, 0, 4, 3)
-rawData.asUnsafeCsvRows[Car](',', true).toList
+printCsv(rawData.asUnsafeCsvRows[Car](',', true))
 ```
 
 At this point, you can easily turn CSV data into an iterator over business specific types. This is where you can start
@@ -185,7 +192,7 @@ As a simple example, this is how you'd turn all strings into sources of CSV data
 
 ```tut
 implicit val stringInput = CsvInput((s: String) => scala.io.Source.fromString(s))
-"a,b,c\nd,e,f".asCsvRows[Seq[Char]](',', false).toList
+printCsv("a,b,c\nd,e,f".asCsvRows[Seq[Char]](',', false))
 ```
 
 Note that there actually already is such an instance available for strings, as well as for many other types (
@@ -202,19 +209,22 @@ This is also done through a type class (as is just about everything here, really
 declare an implicit instance of `CellDecoder` for it. For example, if your CSV data contains ISO 8601 dates:
 
 ```tut
-implicit val dateDecoder =
-CellDecoder(s => DecodeResult(new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s)))
+import java.util.Date
+import java.text.SimpleDateFormat
 
-"2012-01-01T12:00:00+0100,2013-01-01T12:00:00+0100,2014-01-01T12:00:00+0100".
-  asCsvRows[Seq[java.util.Date]](',', false).toList
+implicit val dateDecoder =
+CellDecoder(s => DecodeResult(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s)))
+
+printCsv("2012-01-01T12:00:00+0100,2013-01-01T12:00:00+0100,2014-01-01T12:00:00+0100".
+  asCsvRows[Seq[Date]](',', false))
 ```
 
 A lot of standard types are supported out of the box, including "complex" ones such as `Either` or `Option`:
 
 ```tut
-"a,2,c".asCsvRows[List[Either[Int,Char]]](',', false).toList
+printCsv("a,2,c".asCsvRows[List[Either[Int,Char]]](',', false))
 
-"a,,c".asCsvRows[List[Option[Char]]](',', false).toList
+printCsv("a,,c".asCsvRows[List[Option[Char]]](',', false))
 ```
 
 You can find the complete list in the [CellDecoder]({{ site.baseurl }}/api/#com.nrinaudo.csv.CellDecoder$) companion object.
@@ -230,7 +240,7 @@ dates are not supported (because there are so many formats they can be serialize
 `CellDecoder` instance for them, which allows us to write:
 
 ```tut
-"2012-01-01T12:00:00+0100,a".asCsvRows[(java.util.Date, Char)](',', false).toList
+printCsv("2012-01-01T12:00:00+0100,a".asCsvRows[(Date, Char)](',', false))
 ```
 
 The `RowDecoder` type class allows you to add parsing support for types that are not collections, tuples or case
@@ -248,5 +258,5 @@ implicit val p2dDecoder = RowDecoder { ss =>
   } yield new Point2D(x, y)
 }
 
-"1,2\n3,4".asCsvRows[Point2D](',', false).toList
+printCsv("1,2\n3,4".asCsvRows[Point2D](',', false))
 ```
