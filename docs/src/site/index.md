@@ -7,6 +7,23 @@ layout: default
 
 Tabulate is a library for CSV parsing written in the [Scala programming language](http://www.scala-lang.org).
 
+## Getting started
+
+Tabulate is currently available both for Scala 2.10 and 2.11.
+
+The current version is `0.1.4-SNAPSHOT`, which can be added to your project with the following line in your SBT build
+file:
+
+```scala
+libraryDependencies += "com.nrinaudo" %% "tabulate" % "0.1.4-SNAPSHOT"
+```
+
+A [scalaz-stream](https://github.com/scalaz/scalaz-stream) connector is also available through:
+
+```scala
+libraryDependencies += "com.nrinaudo" %% "tabulate-scalaz-stream" % "0.1.4-SNAPSHOT"
+```
+
 ## Motivation
 
 CSV is an unreasonably popular data exchange format. It suffers from poor (or at the very least late) standardisation,

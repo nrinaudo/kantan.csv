@@ -4,12 +4,6 @@ title:  "Writing CSV data"
 section: tutorial
 ---
 
-```tut:invisible
-import com.nrinaudo.csv._
-import com.nrinaudo.csv.ops._
-implicit val codec = scala.io.Codec.ISO8859
-```
-
 ## Sample data
 In this tutorial, we'll try to do the opposite as the [parsing one]({{ site.baseurl }}/tut/parsing.html): instead of
 having CSV data to load in memory, we have the list of cars loaded in memory and need to write it out:
@@ -21,6 +15,25 @@ val data = List(Car("Ford", "E350", 1997, 3000F, Some("ac, abs, moon")),
                 Car("Chevy", "Venture \"Extended Edition\"", 1999, 4900F, None),
                 Car("Chevy", "Venture \"Extended Edition, Very Large\"", 1999, 5000F, None),
                 Car("Jeep", "Grand Cherokee", 1996, 4799F, Some("MUST SELL!\nair, moon roof, loaded")))
+```
+
+## Setting up Tabulate
+The code in this tutorial requires the following imports:
+
+```tut:silent
+import com.nrinaudo.csv._
+import com.nrinaudo.csv.ops._
+```
+
+`com.nrinaudo.csv._` imports all the core classes, while `com.nrinaudo.csv.ops._` bring the various operators in scope.
+
+
+Additionally, most methods used to open CSV data for writing require an implicit `scala.io.Codec` to be in scope. I'll
+be using `ISO-LATIN-1` here, but bear in mind no single charset will work for all CSV data.
+Microsoft Excel, for instance, tends to change charset depending on the computer it's being executed on.
+
+```tut:silent
+implicit val codec = scala.io.Codec.ISO8859
 ```
 
 ## The `CsvWriter` class

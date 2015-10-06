@@ -4,13 +4,6 @@ title:  "Parsing CSV data"
 section: tutorial
 ---
 
-
-```tut:invisible
-import com.nrinaudo.csv._
-import com.nrinaudo.csv.ops._
-implicit val codec = scala.io.Codec.ISO8859
-```
-
 ## Sample data
 Over the course of this tutorial, we'll be trying to parse the
 [wikipedia CSV example](https://en.wikipedia.org/wiki/Comma-separated_values#Example):
@@ -26,8 +19,8 @@ air, moon roof, loaded",4799.00
 
 A few things to note about this data:
 
-* the first row is a header and not composed of the same types as the other ones.
 * each row is composed of various types: `Int` for the year, for example, or `Option[String]` for the description.
+* the first row is a header and not composed of the same types as the other ones.
 * some of the more annoying corner cases of CSV are present: escaped double-quotes and multi-line rows.
 
 I have this data as a resource, so let's just declare it:
@@ -35,6 +28,26 @@ I have this data as a resource, so let's just declare it:
 ```tut
 val rawData = getClass.getResource("/wikipedia.csv")
 ```
+
+## Setting up Tabulate
+The code in this tutorial requires the following imports:
+
+```tut:silent
+import com.nrinaudo.csv._
+import com.nrinaudo.csv.ops._
+```
+
+`com.nrinaudo.csv._` imports all the core classes, while `com.nrinaudo.csv.ops._` bring the various operators in scope.
+
+
+Additionally, most methods used to open CSV data for reading require an implicit `scala.io.Codec` to be in scope. I'll
+be using `ISO-LATIN-1` here, but bear in mind no single charset will work for all CSV data.
+Microsoft Excel, for instance, tends to change charset depending on the computer it's being executed on.
+
+```tut:silent
+implicit val codec = scala.io.Codec.ISO8859
+```
+
 
 ## Rows as collections of strings
 The simplest way to represent a CSV row is as a collection of strings. You do that through the `asCsvRows` method
