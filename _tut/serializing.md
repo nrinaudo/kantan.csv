@@ -154,7 +154,7 @@ here because our example is based on case classes, which have dedicated helper m
 
 ```scala
 scala> implicit val carEncoder= RowEncoder.caseEncoder5(Car.unapply)(1, 2, 0, 4, 3)
-carEncoder: com.nrinaudo.csv.RowEncoder[Car] = com.nrinaudo.csv.RowEncoder$$anon$2@50115ef1
+carEncoder: com.nrinaudo.csv.RowEncoder[Car] = com.nrinaudo.csv.RowEncoder$$anon$2@6aa685c3
 
 scala> val caseOut = new java.io.StringWriter
 caseOut: java.io.StringWriter =
@@ -206,7 +206,7 @@ The following is how you'd add support for serialising instances of `java.util.D
 ```scala
 scala> implicit val dateEncoder =
      |   CellEncoder((d: java.util.Date) => new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(d))
-dateEncoder: com.nrinaudo.csv.CellEncoder[java.util.Date] = com.nrinaudo.csv.CellEncoder$$anon$2@1782d0f9
+dateEncoder: com.nrinaudo.csv.CellEncoder[java.util.Date] = com.nrinaudo.csv.CellEncoder$$anon$2@549a592b
 ```
 
 Note that should you need both serialise and de-serialise dates, you should use the `CellCodec` type class instead -
