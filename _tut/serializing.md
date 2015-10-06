@@ -4,9 +4,6 @@ title:  "Writing CSV data"
 section: tutorial
 ---
 
-
-
-
 ## Sample data
 In this tutorial, we'll try to do the opposite as the [parsing one]({{ site.baseurl }}/tut/parsing.html): instead of
 having CSV data to load in memory, we have the list of cars loaded in memory and need to write it out:
@@ -22,6 +19,25 @@ scala> val data = List(Car("Ford", "E350", 1997, 3000F, Some("ac, abs, moon")),
 data: List[Car] =
 List(Car(Ford,E350,1997,3000.0,Some(ac, abs, moon)), Car(Chevy,Venture "Extended Edition",1999,4900.0,None), Car(Chevy,Venture "Extended Edition, Very Large",1999,5000.0,None), Car(Jeep,Grand Cherokee,1996,4799.0,Some(MUST SELL!
 air, moon roof, loaded)))
+```
+
+## Setting up Tabulate
+The code in this tutorial requires the following imports:
+
+```scala
+import com.nrinaudo.csv._
+import com.nrinaudo.csv.ops._
+```
+
+`com.nrinaudo.csv._` imports all the core classes, while `com.nrinaudo.csv.ops._` bring the various operators in scope.
+
+
+Additionally, most methods used to open CSV data for writing require an implicit `scala.io.Codec` to be in scope. I'll
+be using `ISO-LATIN-1` here, but bear in mind no single charset will work for all CSV data.
+Microsoft Excel, for instance, tends to change charset depending on the computer it's being executed on.
+
+```scala
+implicit val codec = scala.io.Codec.ISO8859
 ```
 
 ## The `CsvWriter` class
@@ -138,7 +154,7 @@ here because our example is based on case classes, which have dedicated helper m
 
 ```scala
 scala> implicit val carEncoder= RowEncoder.caseEncoder5(Car.unapply)(1, 2, 0, 4, 3)
-carEncoder: com.nrinaudo.csv.RowEncoder[Car] = com.nrinaudo.csv.RowEncoder$$anon$2@21f3c84e
+carEncoder: com.nrinaudo.csv.RowEncoder[Car] = com.nrinaudo.csv.RowEncoder$$anon$2@50115ef1
 
 scala> val caseOut = new java.io.StringWriter
 caseOut: java.io.StringWriter =
@@ -190,7 +206,7 @@ The following is how you'd add support for serialising instances of `java.util.D
 ```scala
 scala> implicit val dateEncoder =
      |   CellEncoder((d: java.util.Date) => new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(d))
-dateEncoder: com.nrinaudo.csv.CellEncoder[java.util.Date] = com.nrinaudo.csv.CellEncoder$$anon$2@1e5becc8
+dateEncoder: com.nrinaudo.csv.CellEncoder[java.util.Date] = com.nrinaudo.csv.CellEncoder$$anon$2@1782d0f9
 ```
 
 Note that should you need both serialise and de-serialise dates, you should use the `CellCodec` type class instead -
