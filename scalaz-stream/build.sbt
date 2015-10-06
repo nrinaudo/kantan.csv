@@ -1,4 +1,4 @@
-name                := "scalaz-stream-csv"
+name                := "tabulate-scalaz-stream"
 
 resolvers           += "Scalaz Bintray Repo" at "https://dl.bintray.com/scalaz/releases"
 

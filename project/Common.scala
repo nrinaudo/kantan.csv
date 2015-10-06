@@ -3,7 +3,7 @@ import sbt.Keys._
 
 object Common extends Build {
   val pom = {
-    <url>https://github.com/nrinaudo/scalaz-csv</url>
+    <url>https://nrinaudo.github.io/tabulate/</url>
       <licenses>
         <license>
           <name>MIT License</name>
@@ -11,9 +11,9 @@ object Common extends Build {
         </license>
       </licenses>
       <scm>
-        <connection>scm:git:github.com/nrinaudo/scalaz-csv.git</connection>
-        <developerConnection>scm:git:git@github.com:nrinaudo/scalaz-csv.git</developerConnection>
-        <url>github.com/nrinaudo/scalaz-csv.git</url>
+        <connection>scm:git:github.com/nrinaudo/tabulate.git</connection>
+        <developerConnection>scm:git:git@github.com:nrinaudo/tabulate.git</developerConnection>
+        <url>github.com/nrinaudo/tabulate.git</url>
       </scm>
       <developers>
         <developer>
