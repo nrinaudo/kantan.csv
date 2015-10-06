@@ -37,7 +37,7 @@ object RowEncoder {
                                                     (i0: Int, i1: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](2)
+      val dest = Array.fill(2)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
@@ -48,7 +48,7 @@ object RowEncoder {
                                                                     (i0: Int, i1: Int, i2: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](3)
+      val dest = Array.fill(3)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
@@ -60,7 +60,7 @@ object RowEncoder {
   (f: C => Option[(A0, A1, A2, A3)])(i0: Int, i1: Int, i2: Int, i3: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](4)
+      val dest = Array.fill(4)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
@@ -74,7 +74,7 @@ object RowEncoder {
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](5)
+      val dest = Array.fill(5)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
@@ -89,7 +89,7 @@ object RowEncoder {
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](6)
+      val dest = Array.fill(6)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
@@ -106,7 +106,7 @@ object RowEncoder {
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](7)
+      val dest = Array.fill(7)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
@@ -124,7 +124,7 @@ object RowEncoder {
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](8)
+      val dest = Array.fill(8)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
@@ -143,7 +143,7 @@ object RowEncoder {
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](9)
+      val dest = Array.fill(9)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
@@ -163,7 +163,7 @@ object RowEncoder {
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](10)
+      val dest = Array.fill(10)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
@@ -184,7 +184,7 @@ object RowEncoder {
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](11)
+      val dest = Array.fill(11)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
@@ -207,7 +207,7 @@ object RowEncoder {
   RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](12)
+      val dest = Array.fill(12)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
@@ -231,7 +231,7 @@ object RowEncoder {
    i12: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](13)
+      val dest = Array.fill(13)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
@@ -257,7 +257,7 @@ object RowEncoder {
    i12: Int, i13: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](14)
+      val dest = Array.fill(14)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
@@ -284,7 +284,7 @@ object RowEncoder {
    i12: Int, i13: Int, i14: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](15)
+      val dest = Array.fill(15)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
@@ -312,7 +312,7 @@ object RowEncoder {
    i12: Int, i13: Int, i14: Int, i15: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](16)
+      val dest = Array.fill(16)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
@@ -341,7 +341,7 @@ object RowEncoder {
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](17)
+      val dest = Array.fill(17)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
@@ -371,7 +371,7 @@ object RowEncoder {
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](18)
+      val dest = Array.fill(18)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
@@ -403,7 +403,7 @@ object RowEncoder {
                           i17: Int, i18: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](19)
+      val dest = Array.fill(19)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
@@ -436,7 +436,7 @@ object RowEncoder {
                                i17: Int, i18: Int, i19: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](20)
+      val dest = Array.fill(20)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
@@ -470,7 +470,7 @@ object RowEncoder {
                                     i17: Int, i18: Int, i19: Int, i20: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](21)
+      val dest = Array.fill(21)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
@@ -505,7 +505,7 @@ object RowEncoder {
                                          i17: Int, i18: Int, i19: Int, i20: Int, i21: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a).get
-      val dest = new Array[String](22)
+      val dest = Array.fill(22)("")
 
       dest(i0) = e._1.asCsvCell
       dest(i1) = e._2.asCsvCell
