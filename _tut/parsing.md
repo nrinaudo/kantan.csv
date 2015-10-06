@@ -175,7 +175,7 @@ in your case class:
 
 ```scala
 scala> implicit val carDecoder = RowDecoder.caseDecoder5(Car.apply)(1, 2, 0, 4, 3)
-carDecoder: com.nrinaudo.csv.RowDecoder[Car] = com.nrinaudo.csv.RowDecoder$$anon$2@5cfcfec4
+carDecoder: com.nrinaudo.csv.RowDecoder[Car] = com.nrinaudo.csv.RowDecoder$$anon$2@3a413fb0
 
 scala> rawData.asUnsafeCsvRows[Car](',', true).toList
 res8: List[Car] =
@@ -191,7 +191,7 @@ It's also worth noting that if you're also going to serialise your type to CSV, 
 
 ```scala
 scala> implicit val carCodec = RowCodec.caseCodec5(Car.apply, Car.unapply)(1, 2, 0, 4, 3)
-carCodec: com.nrinaudo.csv.RowCodec[Car] = com.nrinaudo.csv.RowCodec$$anon$1@174c2679
+carCodec: com.nrinaudo.csv.RowCodec[Car] = com.nrinaudo.csv.RowCodec$$anon$1@4475e070
 
 scala> rawData.asUnsafeCsvRows[Car](',', true).toList
 res9: List[Car] =
@@ -223,7 +223,7 @@ As a simple example, this is how you'd turn all strings into sources of CSV data
 
 ```scala
 scala> implicit val stringInput = CsvInput((s: String) => scala.io.Source.fromString(s))
-stringInput: com.nrinaudo.csv.CsvInput[String] = com.nrinaudo.csv.CsvInput$$anon$2@c87bafe
+stringInput: com.nrinaudo.csv.CsvInput[String] = com.nrinaudo.csv.CsvInput$$anon$2@13689994
 
 scala> "a,b,c\nd,e,f".asCsvRows[Seq[Char]](',', false).toList
 res11: List[com.nrinaudo.csv.DecodeResult[Seq[Char]]] = List(Success(Vector(a, b, c)), Success(Vector(d, e, f)))
@@ -245,7 +245,7 @@ declare an implicit instance of `CellDecoder` for it. For example, if your CSV d
 ```scala
 scala> implicit val dateDecoder =
      | CellDecoder(s => DecodeResult(new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s)))
-dateDecoder: com.nrinaudo.csv.CellDecoder[java.util.Date] = com.nrinaudo.csv.CellDecoder$$anon$2@368ceeb4
+dateDecoder: com.nrinaudo.csv.CellDecoder[java.util.Date] = com.nrinaudo.csv.CellDecoder$$anon$2@fb4cb1f
 
 scala> "2012-01-01T12:00:00+0100,2013-01-01T12:00:00+0100,2014-01-01T12:00:00+0100".
      |   asCsvRows[Seq[java.util.Date]](',', false).toList
@@ -294,7 +294,7 @@ scala> implicit val p2dDecoder = RowDecoder { ss =>
      |     y <- CellDecoder[Int].decode(ss, 1)
      |   } yield new Point2D(x, y)
      | }
-p2dDecoder: com.nrinaudo.csv.RowDecoder[Point2D] = com.nrinaudo.csv.RowDecoder$$anon$2@16eae6e
+p2dDecoder: com.nrinaudo.csv.RowDecoder[Point2D] = com.nrinaudo.csv.RowDecoder$$anon$2@7b1e9eeb
 
 scala> "1,2\n3,4".asCsvRows[Point2D](',', false).toList
 res16: List[com.nrinaudo.csv.DecodeResult[Point2D]] = List(Success((1,2)), Success((3,4)))
