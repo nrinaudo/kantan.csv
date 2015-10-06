@@ -4,19 +4,19 @@ title:  "Getting Started"
 section: tutorial
 ---
 
-scala-csv is currently available both for Scala 2.10 and 2.11.
+Tabulate is currently available both for Scala 2.10 and 2.11.
 
 The current version is `0.1.4-SNAPSHOT`, which can be added to your project with the following line in your SBT build
 file:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "scala-csv" % "0.1.4-SNAPSHOT"
+libraryDependencies += "com.nrinaudo" %% "tabulate" % "0.1.4-SNAPSHOT"
 ```
 
 A [scalaz-stream](https://github.com/scalaz/scalaz-stream) connector is also available through:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "scalaz-stream-csv" % "0.1.4-SNAPSHOT"
+libraryDependencies += "com.nrinaudo" %% "tabulate-scalaz-stream" % "0.1.4-SNAPSHOT"
 ```
 
 
