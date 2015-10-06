@@ -1,4 +1,5 @@
 import com.typesafe.sbt.SbtSite.SiteKeys._
+import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
 
 tutSettings
 
@@ -13,3 +14,5 @@ includeFilter in makeSite := "*.yml" | "*.md" | "*.html" | "*.css" | "*.png" | "
 ghpages.settings
 
 git.remoteRepo := "git@github.com:nrinaudo/tabulate.git"
+
+ghpagesNoJekyll := false
