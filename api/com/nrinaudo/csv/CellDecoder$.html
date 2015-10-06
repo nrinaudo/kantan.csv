@@ -51,7 +51,11 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides default implementations and construction methods for <a href="CellDecoder.html" class="extype" name="com.nrinaudo.csv.CellDecoder">CellDecoder</a>.</p></div><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Defines convenience methods for creating and retrieving instances of <code>CellDecoder</code>.</p><p>Implicit default implementations of standard types are also declared here, always bringing them in scope with a low
+priority.</p><p>These default implementations can also be useful when writing more complex instances: if you need to write a
+<code>CellDecoder[B]</code> and have both a <code>CellDecoder[A]</code> and a <code>A =&gt; B</code>, you need just use <a href="CellDecoder.html#map[B](f:A=&gt;B):com.nrinaudo.csv.CellDecoder[B]" class="extmbr" name="com.nrinaudo.csv.CellDecoder#map">CellDecoder.map</a> to create
+your implementation.
+</p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -268,7 +272,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns a cell into a <code>BigDecimal</code> value.</p>
     </li><li name="com.nrinaudo.csv.CellDecoder#bigInt" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="bigInt:com.nrinaudo.csv.CellDecoder[BigInt]"></a>
       <a id="bigInt:CellDecoder[BigInt]"></a>
@@ -285,7 +289,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns a cell into a <code>BigInt</code> value.</p>
     </li><li name="com.nrinaudo.csv.CellDecoder#bool" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="bool:com.nrinaudo.csv.CellDecoder[Boolean]"></a>
       <a id="bool:CellDecoder[Boolean]"></a>
@@ -302,7 +306,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns a cell into a <code>Boolean</code> value.</p>
     </li><li name="com.nrinaudo.csv.CellDecoder#byte" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="byte:com.nrinaudo.csv.CellDecoder[Byte]"></a>
       <a id="byte:CellDecoder[Byte]"></a>
@@ -319,7 +323,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns a cell into a <code>Byte</code> value.</p>
     </li><li name="com.nrinaudo.csv.CellDecoder#char" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="char:com.nrinaudo.csv.CellDecoder[Char]"></a>
       <a id="char:CellDecoder[Char]"></a>
@@ -336,7 +340,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns a cell into a <code>Char</code> value.</p>
     </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a>
       <a id="clone():AnyRef"></a>
@@ -376,7 +380,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns a cell into a <code>Double</code> value.</p>
     </li><li name="com.nrinaudo.csv.CellDecoder#either" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="either[A,B](implicitevidence$2:com.nrinaudo.csv.CellDecoder[A],implicitevidence$3:com.nrinaudo.csv.CellDecoder[B]):com.nrinaudo.csv.CellDecoder[Either[A,B]]"></a>
       <a id="either[A,B](CellDecoder[A],CellDecoder[B]):CellDecoder[Either[A,B]]"></a>
@@ -393,7 +397,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns a cell into an instance of <code>Either[A, B]</code>, provided <code>A</code> and <code>B</code> have an inplicit <code>CellDecoder</code> in scope.</p>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -467,7 +471,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns a cell into a <code>Float</code> value.</p>
     </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <a id="getClass():Class[_]"></a>
@@ -518,7 +522,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns a cell into an <code>Int</code> value.</p>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -552,7 +556,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns a cell into a <code>Long</code> value.</p>
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
       <a id="ne(AnyRef):Boolean"></a>
@@ -621,7 +625,7 @@
       </a>
     </span>
       
-    </li><li name="com.nrinaudo.csv.CellDecoder#opt" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.nrinaudo.csv.CellDecoder#opt" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="opt[A](implicitevidence$1:com.nrinaudo.csv.CellDecoder[A]):com.nrinaudo.csv.CellDecoder[Option[A]]"></a>
       <a id="opt[A](CellDecoder[A]):CellDecoder[Option[A]]"></a>
       <h4 class="signature">
@@ -637,7 +641,8 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns a cell into an instance of <code>Option[A]</code>, provided <code>A</code> has an implicit <code>CellDecoder</code> in scope.</p><div class="fullcomment"><div class="comment cmt"><p>Turns a cell into an instance of <code>Option[A]</code>, provided <code>A</code> has an implicit <code>CellDecoder</code> in scope.</p><p>Any non-empty string will map to <code>Some</code>, the empty string to <code>None</code>.
+</p></div></div>
     </li><li name="com.nrinaudo.csv.CellDecoder#short" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="short:com.nrinaudo.csv.CellDecoder[Short]"></a>
       <a id="short:CellDecoder[Short]"></a>
@@ -654,7 +659,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns a cell into a <code>Short</code> value.</p>
     </li><li name="com.nrinaudo.csv.CellDecoder#string" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="string:com.nrinaudo.csv.CellDecoder[String]"></a>
       <a id="string:CellDecoder[String]"></a>
@@ -671,7 +676,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns a cell into a <code>String</code> value.</p>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>

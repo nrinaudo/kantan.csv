@@ -100,7 +100,10 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Type class used to decode the content of a single CSV cell.</p><div class="fullcomment"><div class="comment cmt"><p>Type class used to decode the content of a single CSV cell.</p><p>Standard types are already provided for in the companion object.
+      <p class="shortcomment cmt">Decodes CSV cells into usable types.</p><div class="fullcomment"><div class="comment cmt"><p>Decodes CSV cells into usable types.</p><p>By itself, an instance of <code>CellDecoder</code> is not terribly interesting. It becomes useful when combined with
+<code>RowDecoder</code>, which relies on any implicit <code>CellDecoder</code> it has in scope to parse entire rows.</p><p>If, for example, you need to parse CSV data that contains ISO 8601 formatted dates, you can't immediately call
+<a href="CsvInput.html#rows[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:com.nrinaudo.csv.RowDecoder[A]):Iterator[com.nrinaudo.csv.DecodeResult[A]]" class="extmbr" name="com.nrinaudo.csv.CsvInput#rows">CsvInput.rows</a> with a type argument of <code>List[Date]</code>: dates are not supported natively (because they can be
+serialised in so many different ways).</p><p>This can be remedied simply by writing the following:</p><pre><span class="kw">implicit</span> <span class="kw">val</span> dateDecoder = CellDecoder(s <span class="kw">=&gt;</span> DecodeResult(<span class="kw">new</span> SimpleDateFormat(<span class="lit">"yyyy-MM-dd'T'HH:mm:ssZ"</span>).parse(s)))</pre><p>See the <a href="CellDecoder$.html" class="extype" name="com.nrinaudo.csv.CellDecoder">companion object</a> for default implementations and construction methods.
 </p></div></div>
     </li><li name="com.nrinaudo.csv.CellEncoder" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="CellEncoder[A]extendsAnyRef"></a>
@@ -119,7 +122,7 @@
       </a>
     </span>
       
-    </li><li name="com.nrinaudo.csv.CsvInput" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+    </li><li name="com.nrinaudo.csv.CsvInput" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="CsvInput[S]extendsAnyRef"></a>
       <a id="CsvInput[S]:CsvInput[S]"></a>
       <h4 class="signature">
@@ -135,7 +138,9 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns instances of <code>S</code> into valid sources of CSV data.</p><div class="fullcomment"><div class="comment cmt"><p>Turns instances of <code>S</code> into valid sources of CSV data.</p><p>Any type <code>S</code> that has a implicit instance of <code>CsvInput</code> in scope will be enriched by the <code>asCsvRows</code> and
+<code>asUnsafeCsvRows</code> methods (which map to <a href="CsvInput.html#rows[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:com.nrinaudo.csv.RowDecoder[A]):Iterator[com.nrinaudo.csv.DecodeResult[A]]" class="extmbr" name="com.nrinaudo.csv.CsvInput#rows">rows</a> and <a href="CsvInput.html#unsafeRows[A](s:S,separator:Char,header:Boolean)(implicitevidence$2:com.nrinaudo.csv.RowDecoder[A]):Iterator[A]" class="extmbr" name="com.nrinaudo.csv.CsvInput#unsafeRows">unsafeRows</a> respectively).</p><p>See the <a href="CsvInput$.html" class="extype" name="com.nrinaudo.csv.CsvInput">companion object</a> for default implementations and construction methods.
+</p></div></div>
     </li><li name="com.nrinaudo.csv.CsvOutput" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="CsvOutput[S]extendsAnyRef"></a>
       <a id="CsvOutput[S]:CsvOutput[S]"></a>
@@ -220,7 +225,16 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Type class for decoding the content of a CSV row.</p><div class="fullcomment"><div class="comment cmt"><p>Type class for decoding the content of a CSV row.</p><p>Default implementations are provided in the companion object.
+      <p class="shortcomment cmt">Decodes CSV rows into usable types.</p><div class="fullcomment"><div class="comment cmt"><p>Decodes CSV rows into usable types.</p><p>When implementing a custom <code>RowDecoder</code> instance, the correct way of parsing each cell is by retrieving a
+<code>CellDecoder</code> for the correct type and delegating the job to it, combining the result through <code>map</code> and <code>flatMap</code>
+(or for-comprehensions). For example:</p><pre><span class="kw">case</span> <span class="kw">class</span> Point2D(x: <span class="std">Int</span>, y: <span class="std">Int</span>)
+
+<span class="kw">implicit</span> <span class="kw">val</span> p2dDecoder = RowDecoder { ss <span class="kw">=&gt;</span>
+  <span class="kw">for</span> {
+    x <span class="kw">&lt;-</span> CellDecoder[<span class="std">Int</span>].decode(ss, <span class="num">0</span>)
+    y <span class="kw">&lt;-</span> CellDecoder[<span class="std">Int</span>].decode(ss, <span class="num">1</span>)
+  } <span class="kw">yield</span> <span class="kw">new</span> Point2D(x, y)
+}</pre><p>See the <a href="RowDecoder$.html" class="extype" name="com.nrinaudo.csv.RowDecoder">companion object</a> for default implementations and construction methods.
 </p></div></div>
     </li><li name="com.nrinaudo.csv.RowEncoder" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="RowEncoder[A]extendsAnyRef"></a>
@@ -263,7 +277,7 @@
       </a>
     </span>
       
-    </li><li name="com.nrinaudo.csv.CellDecoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.nrinaudo.csv.CellDecoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="CellDecoder"></a>
       <a id="CellDecoder:CellDecoder"></a>
       <h4 class="signature">
@@ -279,7 +293,11 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Provides default implementations and construction methods for <a href="CellDecoder.html" class="extype" name="com.nrinaudo.csv.CellDecoder">CellDecoder</a>.</p>
+      <p class="shortcomment cmt">Defines convenience methods for creating and retrieving instances of <code>CellDecoder</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines convenience methods for creating and retrieving instances of <code>CellDecoder</code>.</p><p>Implicit default implementations of standard types are also declared here, always bringing them in scope with a low
+priority.</p><p>These default implementations can also be useful when writing more complex instances: if you need to write a
+<code>CellDecoder[B]</code> and have both a <code>CellDecoder[A]</code> and a <code>A =&gt; B</code>, you need just use <a href="CellDecoder.html#map[B](f:A=&gt;B):com.nrinaudo.csv.CellDecoder[B]" class="extmbr" name="com.nrinaudo.csv.CellDecoder#map">CellDecoder.map</a> to create
+your implementation.
+</p></div></div>
     </li><li name="com.nrinaudo.csv.CellEncoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="CellEncoder"></a>
       <a id="CellEncoder:CellEncoder"></a>
@@ -297,7 +315,7 @@
       </a>
     </span>
       
-    </li><li name="com.nrinaudo.csv.CsvInput" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.nrinaudo.csv.CsvInput" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="CsvInput"></a>
       <a id="CsvInput:CsvInput"></a>
       <h4 class="signature">
@@ -313,7 +331,11 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Defines convenience methods for creating and retrieving instances of <code>CsvInput</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines convenience methods for creating and retrieving instances of <code>CsvInput</code>.</p><p>Implicit default implementations of standard types are also declared here, always bringing them in scope with a low
+priority.</p><p>These default implementations can also be useful when writing more complex instances: if you need to write a
+<code>CsvInput[T]</code> and have both a <code>CsvInput[S]</code> and a <code>T =&gt; S</code>, you need just use <a href="CsvInput.html#contramap[T](f:T=&gt;S):com.nrinaudo.csv.CsvInput[T]" class="extmbr" name="com.nrinaudo.csv.CsvInput#contramap">CsvInput.contramap</a> to create
+your implementation.
+</p></div></div>
     </li><li name="com.nrinaudo.csv.CsvOutput" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="CsvOutput"></a>
       <a id="CsvOutput:CsvOutput"></a>
@@ -365,7 +387,7 @@
       </a>
     </span>
       
-    </li><li name="com.nrinaudo.csv.RowDecoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.nrinaudo.csv.RowDecoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="RowDecoder"></a>
       <a id="RowDecoder:RowDecoder"></a>
       <h4 class="signature">
@@ -381,7 +403,11 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Defines convenience methods for creating and retrieving instances of <code>RowDecoder</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines convenience methods for creating and retrieving instances of <code>RowDecoder</code>.</p><p>Implicit default implementations of standard types are also declared here, always bringing them in scope with a low
+priority.</p><p>These default implementations can also be useful when writing more complex instances: if you need to write a
+<code>RowDecoder[B]</code> and have both a <code>RowDecoder[A]</code> and a <code>A =&gt; B</code>, you need just use <a href="RowDecoder.html#map[B](f:A=&gt;B):com.nrinaudo.csv.RowDecoder[B]" class="extmbr" name="com.nrinaudo.csv.RowDecoder#map">RowDecoder.map</a> to create
+your implementation.
+</p></div></div>
     </li><li name="com.nrinaudo.csv.RowEncoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="RowEncoder"></a>
       <a id="RowEncoder:RowEncoder"></a>

@@ -51,7 +51,16 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Type class for decoding the content of a CSV row.</p><p>Default implementations are provided in the companion object.
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Decodes CSV rows into usable types.</p><p>When implementing a custom <code>RowDecoder</code> instance, the correct way of parsing each cell is by retrieving a
+<code>CellDecoder</code> for the correct type and delegating the job to it, combining the result through <code>map</code> and <code>flatMap</code>
+(or for-comprehensions). For example:</p><pre><span class="kw">case</span> <span class="kw">class</span> Point2D(x: <span class="std">Int</span>, y: <span class="std">Int</span>)
+
+<span class="kw">implicit</span> <span class="kw">val</span> p2dDecoder = RowDecoder { ss <span class="kw">=&gt;</span>
+  <span class="kw">for</span> {
+    x <span class="kw">&lt;-</span> CellDecoder[<span class="std">Int</span>].decode(ss, <span class="num">0</span>)
+    y <span class="kw">&lt;-</span> CellDecoder[<span class="std">Int</span>].decode(ss, <span class="num">1</span>)
+  } <span class="kw">yield</span> <span class="kw">new</span> Point2D(x, y)
+}</pre><p>See the <a href="RowDecoder$.html" class="extype" name="com.nrinaudo.csv.RowDecoder">companion object</a> for default implementations and construction methods.
 </p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="com.nrinaudo.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="com.nrinaudo.csv.RowDecoder.A">A</span>]</dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
@@ -114,7 +123,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+      <p class="shortcomment cmt">Turns the content of a row into <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns the content of a row into <code>A</code>.</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@noop</span><span class="args">()</span>
               
         </dd></dl></div>
@@ -338,7 +347,8 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+      <p class="shortcomment cmt">Turns a <code>RowDecoder[A]</code> into a <code>RowDecoder[B]</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns a <code>RowDecoder[A]</code> into a <code>RowDecoder[B]</code>.</p><p>This allows developers to adapt existing instances of <code>RowDecoder</code> rather than write one from scratch.
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@noop</span><span class="args">()</span>
               
         </dd></dl></div>

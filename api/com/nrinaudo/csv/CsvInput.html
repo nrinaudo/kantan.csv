@@ -51,7 +51,9 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="com.nrinaudo.csv.CsvInput">CsvInput</a>[<span class="extype" name="com.nrinaudo.csv.CsvInput.S">S</span>]</dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Turns instances of <code>S</code> into valid sources of CSV data.</p><p>Any type <code>S</code> that has a implicit instance of <code>CsvInput</code> in scope will be enriched by the <code>asCsvRows</code> and
+<code>asUnsafeCsvRows</code> methods (which map to <a href="#rows[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:com.nrinaudo.csv.RowDecoder[A]):Iterator[com.nrinaudo.csv.DecodeResult[A]]" class="extmbr" name="com.nrinaudo.csv.CsvInput#rows">rows</a> and <a href="#unsafeRows[A](s:S,separator:Char,header:Boolean)(implicitevidence$2:com.nrinaudo.csv.RowDecoder[A]):Iterator[A]" class="extmbr" name="com.nrinaudo.csv.CsvInput#unsafeRows">unsafeRows</a> respectively).</p><p>See the <a href="CsvInput$.html" class="extype" name="com.nrinaudo.csv.CsvInput">companion object</a> for default implementations and construction methods.
+</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="com.nrinaudo.csv.CsvInput">CsvInput</a>[<span class="extype" name="com.nrinaudo.csv.CsvInput.S">S</span>]</dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -95,7 +97,7 @@
         <div id="values" class="values members">
               <h3>Abstract Value Members</h3>
               <ol><li name="com.nrinaudo.csv.CsvInput#toSource" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="toSource(a:S):scala.io.Source"></a>
+      <a id="toSource(s:S):scala.io.Source"></a>
       <a id="toSource(S):Source"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -103,14 +105,15 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toSource</span><span class="params">(<span name="a">a: <span class="extype" name="com.nrinaudo.csv.CsvInput.S">S</span></span>)</span><span class="result">: <span class="extype" name="scala.io.Source">Source</span></span>
+        <span class="name">toSource</span><span class="params">(<span name="s">s: <span class="extype" name="com.nrinaudo.csv.CsvInput.S">S</span></span>)</span><span class="result">: <span class="extype" name="scala.io.Source">Source</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#com.nrinaudo.csv.CsvInput@toSource(a:S):scala.io.Source" title="Permalink" target="_top">
+      <a href="../../../index.html#com.nrinaudo.csv.CsvInput@toSource(s:S):scala.io.Source" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+      <p class="shortcomment cmt">Turns the specified <code>S</code> into a source.</p><div class="fullcomment"><div class="comment cmt"><p>Turns the specified <code>S</code> into a source.</p><p>Other methods in this trait all rely on this to open and parse CSV data.
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@noop</span><span class="args">()</span>
               
         </dd></dl></div>
@@ -226,7 +229,8 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+      <p class="shortcomment cmt">Turns an instance of <code>CsvInput[S]</code> into one of <code>CsvInput[T]</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns an instance of <code>CsvInput[S]</code> into one of <code>CsvInput[T]</code>.</p><p>This allows developers to adapt existing instances of <code>CsvInput</code> rather than write one from scratch.
+One could, for example, write <code>CsvInput[URL]</code> by basing it on <code>CsvInput[InputStream]</code>:</p><pre><span class="kw">val</span> urlInput: CsvInput[URL] = CsvInput[InputStream].contramap((url: URL) <span class="kw">=&gt;</span> url.openStream())</pre></div><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@noop</span><span class="args">()</span>
               
         </dd></dl></div>
@@ -389,7 +393,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="com.nrinaudo.csv.CsvInput#rows" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.nrinaudo.csv.CsvInput#rows" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="rows[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:com.nrinaudo.csv.RowDecoder[A]):Iterator[com.nrinaudo.csv.DecodeResult[A]]"></a>
       <a id="rows[A](S,Char,Boolean)(RowDecoder[A]):Iterator[DecodeResult[A]]"></a>
       <h4 class="signature">
@@ -405,7 +409,20 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
+      <p class="shortcomment cmt">Turns the specified <code>S</code> into an iterator on <code>DecodeResult[A]</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns the specified <code>S</code> into an iterator on <code>DecodeResult[A]</code>.</p><p>This method is &quot;safe&quot;, in that it does not throw exceptions when errors are encountered. This comes with the small
+cost of having each row wrapped in a <code>DecodeResult</code> that then need to be unpacked. See <a href="#unsafeRows[A](s:S,separator:Char,header:Boolean)(implicitevidence$2:com.nrinaudo.csv.RowDecoder[A]):Iterator[A]" class="extmbr" name="com.nrinaudo.csv.CsvInput#unsafeRows">unsafeRows</a> for an
+alternative.</p><p>This method is also mapped to the <code>asCsvRows</code> one that enrich all types that have a valid <code>CsvInput</code> instance
+in scope. For example:</p><pre><span class="kw">implicit</span> <span class="kw">val</span> strSource: CsvSource[<span class="std">String</span>] = ???
+<span class="lit">"a,b,c"</span>.asCsvRows[<span class="std">List</span>[<span class="std">Char</span>]](<span class="lit">','</span>, <span class="kw">false</span>)</pre></div><dl class="paramcmts block"><dt class="tparam">A</dt><dd class="cmt"><p>type to parse each row as.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@op</span><span class="args">(<span>
       
+      <span class="symbol">&quot;asCsvRows&quot;</span>
+    </span>, <span>
+      
+      <span class="symbol">simulacrum.this.op.&lt;init&gt;$default$2</span>
+    </span>)</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
@@ -440,7 +457,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="com.nrinaudo.csv.CsvInput#unsafeRows" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.nrinaudo.csv.CsvInput#unsafeRows" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="unsafeRows[A](s:S,separator:Char,header:Boolean)(implicitevidence$2:com.nrinaudo.csv.RowDecoder[A]):Iterator[A]"></a>
       <a id="unsafeRows[A](S,Char,Boolean)(RowDecoder[A]):Iterator[A]"></a>
       <h4 class="signature">
@@ -456,7 +473,17 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
+      <p class="shortcomment cmt">Turns the specified <code>S</code> into an iterator on <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns the specified <code>S</code> into an iterator on <code>A</code>.</p><p>This is the &quot;unsafe&quot; version of <a href="#rows[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:com.nrinaudo.csv.RowDecoder[A]):Iterator[com.nrinaudo.csv.DecodeResult[A]]" class="extmbr" name="com.nrinaudo.csv.CsvInput#rows">rows</a>: it will throw as soon as an error is encountered.
+</p></div><dl class="paramcmts block"><dt class="tparam">A</dt><dd class="cmt"><p>type to parse each row as.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@op</span><span class="args">(<span>
       
+      <span class="symbol">&quot;asUnsafeCsvRows&quot;</span>
+    </span>, <span>
+      
+      <span class="symbol">simulacrum.this.op.&lt;init&gt;$default$2</span>
+    </span>)</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>

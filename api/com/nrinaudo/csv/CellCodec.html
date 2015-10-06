@@ -264,7 +264,9 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CellDecoder.html" class="extype" name="com.nrinaudo.csv.CellDecoder">CellDecoder</a></dd><dt>Annotations</dt><dd>
+      <p class="shortcomment cmt">Turns the content of the specified cell into an <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns the content of the specified cell into an <code>A</code>.</p><p>The purpose of this method is to protect against index out of bound exceptions. Should the specified index not
+exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="com.nrinaudo.csv.DecodeResult.DecodeFailure">DecodeResult.DecodeFailure</a> instance will be returned.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CellDecoder.html" class="extype" name="com.nrinaudo.csv.CellDecoder">CellDecoder</a></dd><dt>Annotations</dt><dd>
                 <span class="name">@noop</span><span class="args">()</span>
               
         </dd></dl></div>
@@ -392,8 +394,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Creates a new <a href="CellDecoder.html" class="extype" name="com.nrinaudo.csv.CellDecoder">CellDecoder</a> that applies the specified function to the result of <code>read</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new <a href="CellDecoder.html" class="extype" name="com.nrinaudo.csv.CellDecoder">CellDecoder</a> that applies the specified function to the result of <code>read</code>.</p><p>This can be useful if you just need a <a href="CellDecoder.html" class="extype" name="com.nrinaudo.csv.CellDecoder">CellDecoder</a> implementation that specialises an existing type - to add
-a scalaz tag, say.
+      <p class="shortcomment cmt">Turns an instance of <code>CsvInput[A]</code> into one of <code>CsvInput[B]</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns an instance of <code>CsvInput[A]</code> into one of <code>CsvInput[B]</code>.</p><p>This allows developers to adapt existing instances of <code>CellDecoder</code> rather than write one from scratch.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CellDecoder.html" class="extype" name="com.nrinaudo.csv.CellDecoder">CellDecoder</a></dd><dt>Annotations</dt><dd>
                 <span class="name">@noop</span><span class="args">()</span>
               

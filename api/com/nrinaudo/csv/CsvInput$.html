@@ -51,7 +51,11 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Defines convenience methods for creating and retrieving instances of <code>CsvInput</code>.</p><p>Implicit default implementations of standard types are also declared here, always bringing them in scope with a low
+priority.</p><p>These default implementations can also be useful when writing more complex instances: if you need to write a
+<code>CsvInput[T]</code> and have both a <code>CsvInput[S]</code> and a <code>T =&gt; S</code>, you need just use <a href="CsvInput.html#contramap[T](f:T=&gt;S):com.nrinaudo.csv.CsvInput[T]" class="extmbr" name="com.nrinaudo.csv.CsvInput#contramap">CsvInput.contramap</a> to create
+your implementation.
+</p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -234,7 +238,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Creates an instance of <code>CsvInput[S]</code> from the specified function.</p>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -268,7 +272,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns any array of bytes into a source of CSV data.</p>
     </li><li name="com.nrinaudo.csv.CsvInput#chars" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="chars:com.nrinaudo.csv.CsvInput[Array[Char]]"></a>
       <a id="chars:CsvInput[Array[Char]]"></a>
@@ -285,7 +289,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns any array of chars into a source of CSV data.</p>
     </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a>
       <a id="clone():AnyRef"></a>
@@ -359,7 +363,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns any <code>java.io.File</code> into a source of CSV data.</p>
     </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <a id="finalize():Unit"></a>
@@ -433,7 +437,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns any <code>java.io.InputStream</code> into a source of CSV data.</p>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -535,7 +539,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns any <code>scala.io.Source</code> into a source of CSV data.</p>
     </li><li name="com.nrinaudo.csv.CsvInput#string" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="string:com.nrinaudo.csv.CsvInput[String]"></a>
       <a id="string:CsvInput[String]"></a>
@@ -552,7 +556,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns any string into a source of CSV data.</p>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
@@ -603,7 +607,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns any <code>java.net.URI</code> into a source of CSV data.</p>
     </li><li name="com.nrinaudo.csv.CsvInput#url" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="url(implicitcodec:scala.io.Codec):com.nrinaudo.csv.CsvInput[java.net.URL]"></a>
       <a id="url(Codec):CsvInput[URL]"></a>
@@ -620,7 +624,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns any <code>java.net.URL</code> into a source of CSV data.</p>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>

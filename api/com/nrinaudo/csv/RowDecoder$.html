@@ -51,7 +51,11 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Defines convenience methods for creating and retrieving instances of <code>RowDecoder</code>.</p><p>Implicit default implementations of standard types are also declared here, always bringing them in scope with a low
+priority.</p><p>These default implementations can also be useful when writing more complex instances: if you need to write a
+<code>RowDecoder[B]</code> and have both a <code>RowDecoder[A]</code> and a <code>A =&gt; B</code>, you need just use <a href="RowDecoder.html#map[B](f:A=&gt;B):com.nrinaudo.csv.RowDecoder[B]" class="extmbr" name="com.nrinaudo.csv.RowDecoder#map">RowDecoder.map</a> to create
+your implementation.
+</p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -234,7 +238,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Creates a new instance of <a href="RowDecoder.html" class="extype" name="com.nrinaudo.csv.RowDecoder">RowDecoder</a> that uses the specified function to parse data.</p>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -665,8 +669,8 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Generic <code>RowDecoder</code> for collections.</p>
-    </li><li name="com.nrinaudo.csv.RowDecoder#either" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Parses a CSV row into a collection of <code>A</code>.</p>
+    </li><li name="com.nrinaudo.csv.RowDecoder#either" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="either[A,B](implicitevidence$1:com.nrinaudo.csv.RowDecoder[A],implicitevidence$2:com.nrinaudo.csv.RowDecoder[B]):com.nrinaudo.csv.RowDecoder[Either[A,B]]"></a>
       <a id="either[A,B](RowDecoder[A],RowDecoder[B]):RowDecoder[Either[A,B]]"></a>
       <h4 class="signature">
@@ -682,7 +686,9 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Parses a CSV row into an <code>Either[A, B]</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Parses a CSV row into an <code>Either[A, B]</code>.</p><p>This is done by first attempting to parse the row as an <code>A</code>. If that fails, we'll try parsing it as a <code>B</code>. If that
+fails as well, <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="com.nrinaudo.csv.DecodeResult.DecodeFailure">DecodeResult.DecodeFailure</a> will be returned.
+</p></div></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -875,7 +881,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Parses CSV rows as sequences of strings.</p>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
