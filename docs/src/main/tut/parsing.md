@@ -199,6 +199,9 @@ Note that there actually already is such an instance available for strings, as w
 `java.io.File`, `java.net.URI`, `scala.io.Source`...). You can find an exhaustive list in the 
 [CsvInput]({{ site.baseurl }}/api/#com.nrinaudo.csv.CsvInput$) companion object.
 
+A convenient way of creating new instances of `CsvInput` is by adapting existing ones - if you have
+a `CsvInput[A]` and a `B => A`, you need just call `contramap` to get a `CsvInput[B]`.
+
 
 ### CSV cell types
 Another thing that was given the hand-wavy treatment is how each cell is parsed. When requesting each row as a list
@@ -215,8 +218,7 @@ import java.text.SimpleDateFormat
 implicit val dateDecoder =
 CellDecoder(s => DecodeResult(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s)))
 
-printCsv("2012-01-01T12:00:00+0100,2013-01-01T12:00:00+0100,2014-01-01T12:00:00+0100".
-  asCsvRows[Seq[Date]](',', false))
+printCsv("2012-01-01T12:00:00+0100,2013-01-01T12:00:00+0100,2014-01-01T12:00:00+0100".asCsvRows[Seq[Date]](',', false))
 ```
 
 A lot of standard types are supported out of the box, including "complex" ones such as `Either` or `Option`:
@@ -227,8 +229,11 @@ printCsv("a,2,c".asCsvRows[List[Either[Int,Char]]](',', false))
 printCsv("a,,c".asCsvRows[List[Option[Char]]](',', false))
 ```
 
-You can find the complete list in the [CellDecoder]({{ site.baseurl }}/api/#com.nrinaudo.csv.CellDecoder$) companion object.
+You can find the complete list in the [CellDecoder]({{ site.baseurl }}/api/#com.nrinaudo.csv.CellDecoder$)
+companion object.
 
+Note that a convenient way of creating new instances of `CellDecoder` is by adapting existing ones - if you have
+a `CellDecoder[A]` and an `A => B`, you need just call `map` to get a `CellDecoder[B]`. 
 
 ### CSV row types
 You might already have guessed that the magic of guessing how to parse entire CSV rows simply by knowing what types
@@ -236,7 +241,7 @@ they're expected to contain is also type class based. In this case, the type cla
 [RowDecoder]({{ site.baseurl }}/api/#com.nrinaudo.csv.RowDecoder).
 
 The beauty of the pattern is that `RowDecoder` relies on `CellDecoder` for parsing individual cells. For example,
-dates are not supported (because there are so many formats they can be serialized as), but we've just added a
+dates are not supported (because there are so many ways they can be serialized), but we've just added a
 `CellDecoder` instance for them, which allows us to write:
 
 ```tut
@@ -260,3 +265,12 @@ implicit val p2dDecoder = RowDecoder { ss =>
 
 printCsv("1,2\n3,4".asCsvRows[Point2D](',', false))
 ```
+
+Note, however, that the various `RowDecoder.caseDecoderXXX` methods do not apply *only* to case classes. They're can
+easily be used for "normal" classes:
+
+```tut
+implicit val p2Decoder2 = RowDecoder.caseDecoder2((x: Int, y: Int) => new Point2D(x, y))(0, 1)
+```
+
+This is the idiomatic way of creating new instances of `RowDecoder`.

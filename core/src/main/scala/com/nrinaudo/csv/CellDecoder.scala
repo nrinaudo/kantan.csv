@@ -85,7 +85,11 @@ object CellDecoder {
     else          CellDecoder[A].decode(s).map(Option.apply)
   }
 
-  /** Turns a cell into an instance of `Either[A, B]`, provided `A` and `B` have an inplicit `CellDecoder` in scope. */
+  /** Turns a cell into an instance of `Either[A, B]`, provided `A` and `B` have an inplicit `CellDecoder` in scope.
+    *
+    * This is done by first attempting to parse the cell as an `A`. If that fails, we'll try parsing it as a `B`. If that
+    * fails as well, [[DecodeResult.DecodeFailure]] will be returned.
+    */
   implicit def either[A: CellDecoder, B: CellDecoder]: CellDecoder[Either[A, B]] =
     CellDecoder { s => CellDecoder[A].decode(s).map(a => Left(a): Either[A, B])
       .orElse(CellDecoder[B].decode(s).map(b => Right(b): Either[A, B]))
