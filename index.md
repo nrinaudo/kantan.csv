@@ -47,5 +47,7 @@ addressed, though.
 
 The following tutorials are available:
 {% for x in site.tut %}
+{% if x.status != "wip" %}
 * [{{ x.title }}]({{ site.baseurl }}{{ x.url }})
+{% endif %}
 {% endfor %}
