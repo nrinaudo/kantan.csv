@@ -404,7 +404,9 @@ your implementation.
       </a>
     </span>
       <p class="shortcomment cmt">Defines convenience methods for creating and retrieving instances of <code>RowDecoder</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines convenience methods for creating and retrieving instances of <code>RowDecoder</code>.</p><p>Implicit default implementations of standard types are also declared here, always bringing them in scope with a low
-priority.</p><p>These default implementations can also be useful when writing more complex instances: if you need to write a
+priority.</p><p>Case classes have special creation methods: <code>caseDecoderXXX</code>, where <code>XXX</code> is the number of fields in the case class.
+You can just pass a case class' companion object's <code>apply</code> method, the list of field indexes, and get a
+<code>RowDecoder</code>.</p><p>These default implementations can also be useful when writing more complex instances: if you need to write a
 <code>RowDecoder[B]</code> and have both a <code>RowDecoder[A]</code> and a <code>A =&gt; B</code>, you need just use <a href="RowDecoder.html#map[B](f:A=&gt;B):com.nrinaudo.csv.RowDecoder[B]" class="extmbr" name="com.nrinaudo.csv.RowDecoder#map">RowDecoder.map</a> to create
 your implementation.
 </p></div></div>

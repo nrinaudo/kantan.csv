@@ -381,7 +381,7 @@ your implementation.
       </a>
     </span>
       <p class="shortcomment cmt">Turns a cell into a <code>Double</code> value.</p>
-    </li><li name="com.nrinaudo.csv.CellDecoder#either" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.nrinaudo.csv.CellDecoder#either" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="either[A,B](implicitevidence$2:com.nrinaudo.csv.CellDecoder[A],implicitevidence$3:com.nrinaudo.csv.CellDecoder[B]):com.nrinaudo.csv.CellDecoder[Either[A,B]]"></a>
       <a id="either[A,B](CellDecoder[A],CellDecoder[B]):CellDecoder[Either[A,B]]"></a>
       <h4 class="signature">
@@ -397,7 +397,9 @@ your implementation.
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Turns a cell into an instance of <code>Either[A, B]</code>, provided <code>A</code> and <code>B</code> have an inplicit <code>CellDecoder</code> in scope.</p>
+      <p class="shortcomment cmt">Turns a cell into an instance of <code>Either[A, B]</code>, provided <code>A</code> and <code>B</code> have an inplicit <code>CellDecoder</code> in scope.</p><div class="fullcomment"><div class="comment cmt"><p>Turns a cell into an instance of <code>Either[A, B]</code>, provided <code>A</code> and <code>B</code> have an inplicit <code>CellDecoder</code> in scope.</p><p>This is done by first attempting to parse the cell as an <code>A</code>. If that fails, we'll try parsing it as a <code>B</code>. If that
+fails as well, <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="com.nrinaudo.csv.DecodeResult.DecodeFailure">DecodeResult.DecodeFailure</a> will be returned.
+</p></div></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
