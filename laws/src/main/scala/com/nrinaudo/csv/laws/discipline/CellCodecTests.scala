@@ -18,7 +18,7 @@ trait CellCodecTests[A] extends Laws {
     "decode identity" -> forAll(laws.decodeIdentity _),
     "encode identity" -> forAll(laws.encodeIdentity _),
     "decode composition" -> forAll(laws.decodeComposition[B, C] _),
-    "encode composition" -> forAll(laws.decodeComposition[B, C] _)
+    "encode composition" -> forAll(laws.encodeComposition[B, C] _)
   )
 }
 
