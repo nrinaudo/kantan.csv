@@ -1,5 +1,5 @@
 lazy val root = Project(id = "tabulate", base = file("."))
-  .aggregate(core, scalaz, scalazStream, laws, tests, docs)
+  .aggregate(core, cats, scalaz, scalazStream, laws, tests, docs)
   .settings(noPublishSettings:_*)
 
 
@@ -9,6 +9,8 @@ lazy val scalazStream = Project(id = "scalaz-stream", base = file("scalaz-stream
   .dependsOn(core, laws % "test")
 
 lazy val scalaz = project.dependsOn(core, laws % "test")
+
+lazy val cats = project.dependsOn(core, laws % "test")
 
 lazy val laws = project.dependsOn(core)
 

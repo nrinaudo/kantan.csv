@@ -1,12 +1,31 @@
 package com.nrinaudo.csv
 
 import com.nrinaudo.csv.ops._
+import _root_.scalaz.Alpha.A
 import _root_.scalaz.Maybe._
 import _root_.scalaz._
 import _root_.scalaz.syntax.either._
 import _root_.scalaz.syntax.maybe._
 
 package object scalaz {
+  // - DecodeResult ----------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit val decodeResultInstances: Monad[DecodeResult] = new Monad[DecodeResult] {
+    override def bind[A, B](fa: DecodeResult[A])(f: A => DecodeResult[B]) = fa.flatMap(f)
+    override def map[A, B](fa: DecodeResult[A])(f: A => B) = fa.map(f)
+    override def point[A](x: => A) = DecodeResult(x)
+  }
+
+  implicit def decodeResultEqual[A: Equal]: Equal[DecodeResult[A]] = new Equal[DecodeResult[A]] {
+    override def equal(a1: DecodeResult[A], a2: DecodeResult[A]) = (a1, a2) match {
+      case (DecodeResult.Success(a), DecodeResult.Success(b))                   => Equal[A].equal(a, b)
+      case (DecodeResult.ReadFailure(l1, c1), DecodeResult.ReadFailure(l2, c2)) => l1 == l2 && c1 == c2
+      case (DecodeResult.DecodeFailure, DecodeResult.DecodeFailure)             => true
+      case _                                                                    => false
+    }
+  }
+
+
   // - CellCodec -------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit val cellDecoder: Monad[CellDecoder] = new Monad[CellDecoder] {

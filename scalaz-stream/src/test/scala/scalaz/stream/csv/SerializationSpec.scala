@@ -2,7 +2,7 @@ package scalaz.stream.csv
 
 import java.io.StringWriter
 
-import com.nrinaudo.csv.scalacheck._
+import com.nrinaudo.csv.laws.discipline.arbitrary._
 import com.nrinaudo.csv.scalaz.stream.ops._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks

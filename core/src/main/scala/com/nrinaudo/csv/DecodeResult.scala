@@ -35,7 +35,7 @@ object DecodeResult {
   }
 
   def success[A](a: A): DecodeResult[A]  = Success(a)
-  def readFailure[A](l: Int, c: Int): DecodeResult[A]    = ReadFailure(l, c)
+  def readFailure[A](l: Int, c: Int): DecodeResult[A] = ReadFailure(l, c)
   def decodeFailure[A]: DecodeResult[A]  = DecodeFailure
   def apply[A](a: => A): DecodeResult[A] =
     try { success(a) }
