@@ -7,5 +7,5 @@ import org.typelevel.discipline.scalatest.Discipline
 
 class EitherTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   checkAll("Either[Int, Boolean]", CellCodecTests[Either[Int, Boolean]].cellCodec[Byte, Float])
-  checkAll("Either[(Int, Int, Int), (Boolean, String)]", RowCodecTests[Either[(Int, Int, Int), (Boolean, String)]].rowCodec[Byte, Float])
+  checkAll("Either[(Int, Int, Int), (Boolean, Float)]", RowCodecTests[Either[(Int, Int, Int), (Boolean, Float)]].rowCodec[Byte, String])
 }
