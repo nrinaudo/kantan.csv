@@ -16,7 +16,7 @@ lazy val laws = project.dependsOn(core)
 
 lazy val tests = project.dependsOn(laws % "test").settings(noPublishSettings:_*)
 
-lazy val docs = project.dependsOn(core, scalazStream)
+lazy val docs = project.dependsOn(core, scalazStream, laws, cats, scalaz)
   .settings(unidocSettings:_*)
   .settings(noPublishSettings:_*)
 

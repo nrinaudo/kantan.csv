@@ -2,7 +2,7 @@ package com.nrinaudo.csv.laws
 
 import java.io.StringWriter
 
-import com.nrinaudo.csv.{RowCodec, DecodeResult}
+import com.nrinaudo.csv.{CsvInput, RowCodec, DecodeResult}
 import com.nrinaudo.csv.ops._
 
 trait RowCodecLaws[A] {
@@ -26,7 +26,7 @@ trait RowCodecLaws[A] {
     as.foldLeft(sw.asCsvWriter[A](','))(_ write _).close()
 
     // Parses it, makes sure it didn't get "corrupt"
-    as == sw.toString.asUnsafeCsvRows[A](',', false).toList
+    as == CsvInput[String].unsafeRows[A](sw.toString, ',', false).toList
   }
 }
 

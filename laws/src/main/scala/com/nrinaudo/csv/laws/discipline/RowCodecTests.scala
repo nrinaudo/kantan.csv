@@ -2,7 +2,7 @@ package com.nrinaudo.csv.laws.discipline
 
 import com.nrinaudo.csv.RowCodec
 import com.nrinaudo.csv.laws.RowCodecLaws
-import org.scalacheck.{Arbitrary, Prop}
+import org.scalacheck.Arbitrary
 import org.scalacheck.Prop._
 import org.typelevel.discipline.Laws
 
