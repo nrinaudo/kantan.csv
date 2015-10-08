@@ -1,11 +1,10 @@
 package com.nrinaudo.csv.cats
 
 import algebra.Eq
-import cats.laws.discipline.{ArbitraryK, MonadTests}
+import cats.laws.discipline.MonadTests
 import com.nrinaudo.csv.{DecodeResult, CellDecoder}
 import com.nrinaudo.csv.laws.discipline.arbitrary._
 import com.nrinaudo.csv.cats.arbitrary._
-import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.{arbitrary => arb}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
