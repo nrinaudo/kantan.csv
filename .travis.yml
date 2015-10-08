@@ -8,7 +8,7 @@ jdk:
   - oraclejdk7
   - oraclejdk8
 script:
-  - sbt clean coverageAggregate
+  - sbt clean coverageAggregate test
 before_install:
   - pip install --user codecov
 after_success:
