@@ -9,7 +9,7 @@ import org.scalacheck.Arbitrary._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
-abstract class CsvWriterTest[A: RowCodec: Arbitrary] extends FunSuite with GeneratorDrivenPropertyChecks {
+abstract class CsvWriterTests[A: RowCodec: Arbitrary] extends FunSuite with GeneratorDrivenPropertyChecks {
   def write(ss: List[A]): String = {
     val sw = new StringWriter()
     ss.foldLeft(sw.asCsvWriter[A](','))(_ write _).close()
@@ -43,4 +43,4 @@ object TestData {
 }
 
 case class TestData(f1: Int, f2: Float, f3: String, f4: Boolean, f5: Option[Long], f6: BigInt, f7: Either[Option[Boolean], Double])
-class TestDataSpec extends CsvWriterTest[TestData]
+class TestDataSpec extends CsvWriterTests[TestData]

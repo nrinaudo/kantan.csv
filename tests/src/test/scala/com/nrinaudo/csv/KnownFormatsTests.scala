@@ -3,7 +3,7 @@ package com.nrinaudo.csv
 import org.scalatest.FunSuite
 import com.nrinaudo.csv.ops._
 
-class KnownFormatsSuite extends FunSuite {
+class KnownFormatsTests extends FunSuite {
   implicit val carFormat = RowCodec.caseCodec5(Car.apply, Car.unapply)(1, 2, 3, 4, 0)
   case class Car(make: String, model: String, description: Option[String], price: Int, year: Int)
 
