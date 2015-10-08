@@ -15,7 +15,7 @@ import cats.std.int._
 class CellDecoderTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   implicit def cellDecoderEq[A: Eq]: Eq[CellDecoder[A]] = new Eq[CellDecoder[A]] {
     def eqv(c1: CellDecoder[A], c2: CellDecoder[A]): Boolean =
-      equal.cellDecoder(c1, c2)(Eq[DecodeResult[A]].eqv)
+      equality.cellDecoder(c1, c2)(Eq[DecodeResult[A]].eqv)
   }
 
   checkAll("CellDecoder[Int]", MonadTests[CellDecoder].monad[Int, Int, Int])
