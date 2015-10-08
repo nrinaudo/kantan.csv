@@ -19,11 +19,14 @@ file:
 libraryDependencies += "com.nrinaudo" %% "tabulate" % "0.1.4-SNAPSHOT"
 ```
 
-A [scalaz-stream](https://github.com/scalaz/scalaz-stream) connector is also available through:
+The following modules are also available:
 
-```scala
-libraryDependencies += "com.nrinaudo" %% "tabulate-scalaz-stream" % "0.1.4-SNAPSHOT"
-```
+* `tabulate-scalaz`: codecs for [scalaz](https://github.com/scalaz/scalaz) specific types, type class instances.
+* `tabulate-scalaz-stream`: [scalaz-stream](https://github.com/scalaz/scalaz-stream) sources and sinks.
+* `tabulate-cats`: codecs for [cats](https://github.com/non/cats) specific types, type class instances.
+
+They can be imported simply by replacing `tabulate` in the sbt line by the name of the module.
+
 
 ## Motivation
 

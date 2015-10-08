@@ -6,7 +6,7 @@ section: tutorial
 
 ## Sample data
 In this tutorial, we'll try to do the opposite as the [parsing one]({{ site.baseurl }}/tut/parsing.html): instead of
-having CSV data to load in memory, we have the list of cars loaded in memory and need to write it out:
+having CSV data to load in memory, we have the list of cars and need to write it out:
 
 ```scala
 scala> case class Car(make: String, model: String, year: Int, price: Float, desc: Option[String])
@@ -40,12 +40,25 @@ Microsoft Excel, for instance, tends to change charset depending on the computer
 implicit val codec = scala.io.Codec.ISO8859
 ```
 
-## The `CsvWriter` class
-All CSV serialisation is done through the [CsvWriter]({{ site.baseurl }}/api/#com.nrinaudo.csv.CsvWriter) class, instances of which you can retrieve through the
-`asCsvWriter` method that enriches types we can write to.
+Finally, in order for the various examples' output to be more readable, I'll be using the following function to print
+results out:
 
-In our examples, we'll write to a `java.io.StringWriter` - this'll allow us to see what was actually written. Other
-types are supported - `java.io.File`, for example, or `java.io.OutputStream`.
+```scala
+scala> import java.io.StringWriter
+import java.io.StringWriter
+
+scala> def printCsv[A](as: List[A])(f: StringWriter => CsvWriter[A]): String = {
+     |   val out = new StringWriter()
+     |   as.foldLeft(f(out))(_ write _)
+     |   out.toString
+     | }
+printCsv: [A](as: List[A])(f: java.io.StringWriter => com.nrinaudo.csv.CsvWriter[A])String
+```
+
+## The `CsvWriter` class
+All CSV serialisation is done through the [CsvWriter]({{ site.baseurl }}/api/#com.nrinaudo.csv.CsvWriter) class,
+instances of which can be retrieved through the `asCsvWriter` method that enriches types we can write to.
+
 
 
 ## Writing collections of strings
@@ -53,18 +66,15 @@ The simplest way to serialise CSV data is as a list of collections of strings: e
 cell is a string. You just need to know how to turn each element of your input data into a list of strings. For example:
 
 ```scala
-scala> val strOut = new java.io.StringWriter()
-strOut: java.io.StringWriter =
+scala> def toStrings(c: Car): List[String] = List(c.year.toString, c.make, c.model, c.desc.getOrElse(""), c.price.toString)
+toStrings: (c: Car)List[String]
+```
 
-scala> val ss = data.map(c => List(c.year.toString, c.make, c.model, c.desc.getOrElse(""), c.price.toString)) 
-ss: List[List[String]] =
-List(List(1997, Ford, E350, ac, abs, moon, 3000.0), List(1999, Chevy, Venture "Extended Edition", "", 4900.0), List(1999, Chevy, Venture "Extended Edition, Very Large", "", 5000.0), List(1996, Jeep, Grand Cherokee, MUST SELL!
-air, moon roof, loaded, 4799.0))
+You can than just use this function to map over your list of cars and serialize it:
 
-scala> ss.foldLeft(strOut.asCsvWriter[Seq[String]](','))(_ write _).close
-
-scala> strOut.toString
-res1: String =
+```scala
+scala> printCsv(data.map(toStrings))(_.asCsvWriter[List[String]](','))
+res0: String =
 "1997,Ford,E350,"ac, abs, moon",3000.0
 1999,Chevy,"Venture ""Extended Edition""",,4900.0
 1999,Chevy,"Venture ""Extended Edition, Very Large""",,5000.0
@@ -75,6 +85,9 @@ air, moon roof, loaded",4799.0
 
 The `asCsvWriter` takes one value argument, the character to use as a column separator, and a type one: the type of
 of each row that will be passed to it.
+
+Note that due to the way I've set the `printCsv` method up, the type parameter can actually be inferred by the compiler
+and is not strictly necessary. I've left it there for clarity's sake, as it'll be required more often than not.
 
 
 ## Writing tuples
@@ -89,23 +102,16 @@ Let's turn our cars into tuples, declared as a type alias for the sake of brevit
 scala> type CarTuple = (Int, String, String, Option[String], Float)
 defined type alias CarTuple
 
-scala> val ts: List[CarTuple] = data.map(c => (c.year, c.make, c.model, c.desc, c.price))
-ts: List[CarTuple] =
-List((1997,Ford,E350,Some(ac, abs, moon),3000.0), (1999,Chevy,Venture "Extended Edition",None,4900.0), (1999,Chevy,Venture "Extended Edition, Very Large",None,5000.0), (1996,Jeep,Grand Cherokee,Some(MUST SELL!
-air, moon roof, loaded),4799.0))
+scala> def toTuples(c: Car): CarTuple = (c.year, c.make, c.model, c.desc, c.price)
+toTuples: (c: Car)CarTuple
 ```
 
 Serialising that list of tuples is done the way you'd expect, by specifying the right type to `asCsvWriter` and let it
 work out the rest:
 
 ```scala
-scala> val tupleOut = new java.io.StringWriter
-tupleOut: java.io.StringWriter =
-
-scala> ts.foldLeft(tupleOut.asCsvWriter[CarTuple](','))(_ write _).close
-
-scala> tupleOut.toString
-res3: String =
+scala> printCsv(data.map(toTuples))(_.asCsvWriter[CarTuple](','))
+res1: String =
 "1997,Ford,E350,"ac, abs, moon",3000.0
 1999,Chevy,"Venture ""Extended Edition""",,4900.0
 1999,Chevy,"Venture ""Extended Edition, Very Large""",,5000.0
@@ -126,16 +132,11 @@ row, which defaults to the empty sequence if not specified. If we'd wanted to ad
 way:
 
 ```scala
-scala> val headerOut = new java.io.StringWriter
-headerOut: java.io.StringWriter =
-
 scala> val header = List("Year", "Make", "Model", "Description", "Price")
 header: List[String] = List(Year, Make, Model, Description, Price)
 
-scala> ts.foldLeft(headerOut.asCsvWriter[CarTuple](',', header))(_ write _).close
-
-scala> headerOut.toString
-res5: String =
+scala> printCsv(data.map(toTuples))(_.asCsvWriter[CarTuple](',', header))
+res2: String =
 "Year,Make,Model,Description,Price
 1997,Ford,E350,"ac, abs, moon",3000.0
 1999,Chevy,"Venture ""Extended Edition""",,4900.0
@@ -154,15 +155,10 @@ here because our example is based on case classes, which have dedicated helper m
 
 ```scala
 scala> implicit val carEncoder= RowEncoder.caseEncoder5(Car.unapply)(1, 2, 0, 4, 3)
-carEncoder: com.nrinaudo.csv.RowEncoder[Car] = com.nrinaudo.csv.RowEncoder$$anon$2@c5f9653
+carEncoder: com.nrinaudo.csv.RowEncoder[Car] = com.nrinaudo.csv.RowEncoder$$anon$2@abd7958
 
-scala> val caseOut = new java.io.StringWriter
-caseOut: java.io.StringWriter =
-
-scala> data.foldLeft(caseOut.asCsvWriter[Car](','))(_ write _).close
-
-scala> caseOut.toString
-res7: String =
+scala> printCsv(data)(_.asCsvWriter[Car](','))
+res3: String =
 "1997,Ford,E350,"ac, abs, moon",3000.0
 1999,Chevy,"Venture ""Extended Edition""",,4900.0
 1999,Chevy,"Venture ""Extended Edition, Very Large""",,5000.0
@@ -180,8 +176,8 @@ second one that of the second field...
 
 ### CSV data sinks
 In this tutorial, we sort of took it for granted that `java.io.StringWriter` would have an `asCsvWriter` method. This
-works thanks to the `CsvOutput` type class: any type `A` that has an implicit `CsvOutput[A]` in scope will be
-enriched with the `asCsvWriter` method.
+works thanks to the [CsvOutput]({{ site.baseurl }}/api/#com.nrinaudo.csv.CsvOutput) type class: any type `A` that has an
+implicit `CsvOutput[A]` in scope will be enriched with the `asCsvWriter` method.
 
 As a simple example, this is how you'd add support for writing CSV to `java.io.File`:
 
@@ -195,18 +191,19 @@ fileOutput: (implicit c: scala.io.Codec)com.nrinaudo.csv.CsvOutput[java.io.File]
 ```
 
 Note that files are already supported, as well as a few other types. An exhaustive list can be found in the
-`CsvOutput` companion object.
+[CsvOutput]({{ site.baseurl }}/api/#com.nrinaudo.csv.CsvOutput$)  companion object.
 
 
 ### CSV cell types
 Another seemingly magical thing is how `CsvWriter` managed to guess how to turn each individual cell into a valid
-string representation. This is achieved through the `CellEncoder` type class.
+string representation. This is achieved through the [CellEncoder]({{ site.baseurl }}/api/#com.nrinaudo.csv.CellEncoder)
+type class.
 
 The following is how you'd add support for serialising instances of `java.util.Date` to their ISO 8601 representation:
+
 ```scala
-scala> implicit val dateEncoder =
-     |   CellEncoder((d: java.util.Date) => new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(d))
-dateEncoder: com.nrinaudo.csv.CellEncoder[java.util.Date] = com.nrinaudo.csv.CellEncoder$$anon$2@3a6d797
+scala> implicit val dateEncoder = CellEncoder((d: java.util.Date) => new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(d))
+dateEncoder: com.nrinaudo.csv.CellEncoder[java.util.Date] = com.nrinaudo.csv.CellEncoder$$anon$2@61051d5
 ```
 
 Note that should you need both serialise and de-serialise dates, you should use the `CellCodec` type class instead -
@@ -214,4 +211,5 @@ it's essentially a `CellEncoder` and a `CellDecoder` mixed into one.
 
 
 ### CSV row types
-Finally, `CsvWriter` relies on the `RowEncoder` type class to turn rows into actual CSV data.
+Finally, `CsvWriter` relies on the [RowEncoder]({{ site.baseurl }}/api/#com.nrinaudo.csv.RowEncoder) type class to turn
+rows into actual CSV data.
