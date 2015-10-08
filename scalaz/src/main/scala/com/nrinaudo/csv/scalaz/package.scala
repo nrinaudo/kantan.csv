@@ -18,7 +18,6 @@ package object scalaz {
     CellEncoder(ma => ma.map(CellEncoder[A].encode).getOrElse(""))
 
 
-
   // - \/ --------------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def eitherCellDecoder[A: CellDecoder, B: CellDecoder]: CellDecoder[A \/ B] =

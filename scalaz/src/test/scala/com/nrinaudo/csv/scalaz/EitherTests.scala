@@ -10,6 +10,6 @@ import _root_.scalaz.\/
 import _root_.scalaz.scalacheck.ScalazArbitrary._
 
 class EitherTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("Int \\/ Boolean", CellCodecTests[Int \/ Boolean].cellCodec[String, Float])
-  checkAll("(Int, Int, Int) \\/ (Boolean, String)", RowCodecTests[(Int, Int, Int) \/ (Boolean, String)].rowCodec[String, Float])
+  checkAll("Int \\/ Boolean", CellCodecTests[Int \/ Boolean].cellCodec[Byte, Float])
+  checkAll("(Int, Int, Int) \\/ (Boolean, String)", RowCodecTests[(Int, Int, Int) \/ (Boolean, String)].rowCodec[Byte, Float])
 }

@@ -1,6 +1,6 @@
 package com.nrinaudo.csv.laws
 
-import com.nrinaudo.csv.{RowCodec, CellCodec, DecodeResult}
+import com.nrinaudo.csv.{CellCodec, DecodeResult}
 import com.nrinaudo.csv.ops._
 
 trait CellCodecLaws[A] {
