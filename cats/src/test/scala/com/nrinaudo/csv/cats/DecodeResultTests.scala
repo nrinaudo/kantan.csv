@@ -14,7 +14,5 @@ import _root_.cats.laws.discipline.arbitrary._
 
 
 class DecodeResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-
-
   checkAll("DecodeResult[Int]", MonadTests[DecodeResult].monad[Int, Int, Int])
 }
