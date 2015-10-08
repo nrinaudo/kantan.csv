@@ -1,9 +1,6 @@
 package com.nrinaudo.csv
 
-import javafx.scene.control.Cell
-
 import com.nrinaudo.csv.ops._
-import _root_.scalaz.Alpha.A
 import _root_.scalaz.Maybe._
 import _root_.scalaz._
 import _root_.scalaz.syntax.either._
