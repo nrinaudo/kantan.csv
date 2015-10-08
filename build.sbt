@@ -1,5 +1,5 @@
 lazy val root = Project(id = "tabulate", base = file("."))
-  .aggregate(core, scalazStream, laws, tests, docs)
+  .aggregate(core, scalaz, scalazStream, laws, tests, docs)
   .settings(noPublishSettings:_*)
 
 
