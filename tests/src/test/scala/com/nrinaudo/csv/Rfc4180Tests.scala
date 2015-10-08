@@ -3,7 +3,7 @@ package com.nrinaudo.csv
 import org.scalatest.FunSuite
 import com.nrinaudo.csv.ops._
 
-class Rfc4180Suite extends FunSuite {
+class Rfc4180Tests extends FunSuite {
   def csvIs(data: String, expected: List[List[String]]): Unit =
     assert(data.asUnsafeCsvRows[List[String]](',', false).toList == expected)
 
