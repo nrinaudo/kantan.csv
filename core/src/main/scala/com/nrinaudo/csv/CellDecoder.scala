@@ -36,6 +36,8 @@ import simulacrum.{noop, typeclass}
     * This allows developers to adapt existing instances of `CellDecoder` rather than write one from scratch.
     */
   @noop def map[B](f: A => B): CellDecoder[B] = CellDecoder(s => decode(s).map(f))
+
+  @noop def flatMap[B](f: A => CellDecoder[B]): CellDecoder[B] = CellDecoder(s => decode(s).flatMap(a => f(a).decode(s)))
 }
 
 /** Defines convenience methods for creating and retrieving instances of `CellDecoder`.

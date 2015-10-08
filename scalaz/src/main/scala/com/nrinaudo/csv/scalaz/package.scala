@@ -1,12 +1,54 @@
 package com.nrinaudo.csv
 
+import javafx.scene.control.Cell
+
 import com.nrinaudo.csv.ops._
+import _root_.scalaz.Alpha.A
 import _root_.scalaz.Maybe._
-import _root_.scalaz.{Maybe, -\/, \/-, \/}
+import _root_.scalaz._
 import _root_.scalaz.syntax.either._
 import _root_.scalaz.syntax.maybe._
 
 package object scalaz {
+  // - CellCodec -------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit val cellDecoder: Monad[CellDecoder] = new Monad[CellDecoder] {
+    override def map[A, B](fa: CellDecoder[A])(f: A => B) = fa.map(f)
+    override def point[A](a: => A) = CellDecoder(_ => DecodeResult(a))
+    override def bind[A, B](fa: CellDecoder[A])(f: A => CellDecoder[B]) = fa.flatMap(f)
+  }
+
+  implicit val cellEncoder: Contravariant[CellEncoder] = new Contravariant[CellEncoder] {
+    override def contramap[A, B](r: CellEncoder[A])(f: B => A) = r.contramap(f)
+  }
+
+
+
+  // - RowCodec --------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit val rowDecoder: Monad[RowDecoder] = new Monad[RowDecoder] {
+    override def map[A, B](fa: RowDecoder[A])(f: A => B) = fa.map(f)
+    override def point[A](a: => A) = RowDecoder(_ => DecodeResult(a))
+    override def bind[A, B](fa: RowDecoder[A])(f: A => RowDecoder[B]) = fa.flatMap(f)
+  }
+
+  implicit val rowEncoder: Contravariant[RowEncoder] = new Contravariant[RowEncoder] {
+    override def contramap[A, B](r: RowEncoder[A])(f: B => A) = r.contramap(f)
+  }
+
+
+
+  // - CSV input / output ----------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit val csvInput: Contravariant[CsvInput] = new Contravariant[CsvInput] {
+    override def contramap[A, B](r: CsvInput[A])(f: B => A) = r.contramap(f)
+  }
+
+  implicit val csvOutput: Contravariant[CsvOutput] = new Contravariant[CsvOutput] {
+    override def contramap[A, B](r: CsvOutput[A])(f: B => A) = r.contramap(f)
+  }
+
+
   // - Maybe -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def maybeDecoder[A: CellDecoder]: CellDecoder[Maybe[A]] = CellDecoder { s =>
@@ -16,6 +58,7 @@ package object scalaz {
 
   implicit def maybeEncoder[A: CellEncoder]: CellEncoder[Maybe[A]] =
     CellEncoder(ma => ma.map(CellEncoder[A].encode).getOrElse(""))
+
 
 
   // - \/ --------------------------------------------------------------------------------------------------------------
@@ -36,7 +79,7 @@ package object scalaz {
     }
 
   implicit def eitherRowEncoder[A: RowEncoder, B: RowEncoder]: RowEncoder[A \/ B] = RowEncoder(eab => eab match {
-      case -\/(a)  => a.asCsvRow
-      case \/-(b)  => b.asCsvRow
-    })
+    case -\/(a)  => a.asCsvRow
+    case \/-(b)  => b.asCsvRow
+  })
 }

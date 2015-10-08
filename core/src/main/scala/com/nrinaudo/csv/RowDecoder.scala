@@ -31,6 +31,8 @@ import scala.collection.generic.CanBuildFrom
     * This allows developers to adapt existing instances of `RowDecoder` rather than write one from scratch.
     */
   @noop def map[B](f: A => B): RowDecoder[B] = RowDecoder(ss => decode(ss).map(f))
+
+  @noop def flatMap[B](f: A => RowDecoder[B]): RowDecoder[B] = RowDecoder(s => decode(s).flatMap(a => f(a).decode(s)))
 }
 
 /** Defines convenience methods for creating and retrieving instances of `RowDecoder`.
