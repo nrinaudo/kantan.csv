@@ -2,23 +2,24 @@ package com.nrinaudo.csv
 
 import java.io.{Closeable, PrintWriter}
 
-class CsvWriter[A] private[csv] (private val out: PrintWriter, val sep: Char, private val format: A => List[String])
+class CsvWriter[A] private[csv] (private val out: PrintWriter, val sep: Char, private val format: A => Seq[String])
   extends Closeable {
 
   private def escape(str: String): String =
-    if(str.contains("\""))                                                  "\"" + str.replaceAll("\"", "\"\"") + "\""
-    else if (str.contains(sep) || str.contains("\n") || str.contains("\r")) "\"" + str + "\""
-    else                                                                    str
+    if(str.contains("\""))                                                 s""""${str.replaceAll("\"", "\"\"")}""""
+    else if(str.contains(sep) || str.contains("\n") || str.contains("\r")) s""""$str""""
+    else                                                                   str
 
-  private def write(ss: List[String]): Unit = ss.map(escape) match {
-    case h :: t =>
+  private def write(ss: Seq[String]): Unit = {
+    val fs = ss.map(escape)
+    fs.headOption.foreach { h =>
       out.print(h)
-      t.foreach { a =>
+      fs.tail.foreach { a =>
         out.print(sep)
         out.print(a)
       }
       out.print("\r\n") // According to the RFC, \n alone is not valid.
-    case _ => // Empty rows are not printed.
+    }
   }
 
   def write(a: A): CsvWriter[A] = {

@@ -1,0 +1,8 @@
+name: Tabulate
+markdown: redcarpet
+highlighter: pygments
+baseurl: /tabulate
+
+collections:
+  tut:
+    output: true

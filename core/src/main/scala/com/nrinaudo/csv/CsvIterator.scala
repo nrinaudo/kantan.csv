@@ -1,9 +1,9 @@
 package com.nrinaudo.csv
 
-import java.io.IOException
+import java.io.{Closeable, IOException}
 
-import scala.collection.AbstractIterator
 import scala.collection.mutable.ArrayBuffer
+import scala.io.Source
 
 /** Defines the various possible states of a CSV parser. */
 private object CsvIterator {
@@ -15,8 +15,8 @@ private object CsvIterator {
   sealed trait Status
 }
 
-private[csv] class CsvIterator(data: Iterator[Char], separator: Char) extends AbstractIterator[ArrayBuffer[String]]
-                                                                              with Iterator[ArrayBuffer[String]] {
+private[csv] class CsvIterator(data: Source, separator: Char)
+  extends Iterator[DecodeResult[ArrayBuffer[String]]] with Closeable {
   import CsvIterator._
 
   /** Used to aggregate the content of the current cell. */
@@ -29,6 +29,8 @@ private[csv] class CsvIterator(data: Iterator[Char], separator: Char) extends Ab
   private val input: BufferedIterator[Char] = data.buffered
   /** Number of whitespace found at the end of and escaped cell. */
   private var wCount = 0
+  private var line = 0
+  private var column = 0
 
   /** Appends the content of current cell to the current row. */
   private def appendCell() = {
@@ -42,13 +44,23 @@ private[csv] class CsvIterator(data: Iterator[Char], separator: Char) extends Ab
     * Note that this might consume a character from the input stream if `c` is a line feed and the next character is a
     * line break.
     */
-  private def isLineBreak(c: Char): Boolean =
-    if(c == '\n') true
-    else if(c == '\r') {
-      if(input.hasNext && input.head == '\n') input.next()
+  private def isLineBreak(c: Char): Boolean = {
+    def resetLine(): Boolean = {
+      line  += 1
+      column = 0
       true
     }
-    else false
+
+    if(c == '\n') resetLine()
+    else if(c == '\r') {
+      if(input.hasNext && input.head == '\n') input.next()
+      resetLine()
+    }
+    else {
+      column += 1
+      false
+    }
+  }
 
   /** Attempts to read and interpret the next character in the stream.
     *
@@ -131,11 +143,26 @@ private[csv] class CsvIterator(data: Iterator[Char], separator: Char) extends Ab
   }
 
   override def hasNext: Boolean = input.hasNext
-  override def next(): ArrayBuffer[String] = {
-    row.clear()
+  override def next(): DecodeResult[ArrayBuffer[String]] = {
+    try {
+      row.clear()
 
-    while(parseNext()) {}
+      while(parseNext()) {}
 
-    row
+      // If we've finished parsing the whole stream, close it.
+      if(!hasNext) close()
+
+      DecodeResult.success(row)
+    }
+    catch {
+      case _: Exception =>
+        // Closes the underlying stream, ignores errors at this point.
+        try { close() }
+        catch { case _: Exception => }
+
+        DecodeResult.readFailure(line, column)
+    }
   }
+
+  override def close(): Unit = data.close()
 }

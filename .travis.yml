@@ -1,8 +1,15 @@
 language: scala
 scala:
-  - 2.11.6
+  - 2.10.5
+  - 2.11.7
 jdk:
   - openjdk6
   - openjdk7
   - oraclejdk7
   - oraclejdk8
+script:
+  - sbt clean coverage test coverageReport coverageAggregate
+before_install:
+  - pip install --user codecov
+after_success:
+  - codecov

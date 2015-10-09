@@ -1,9 +1,9 @@
 import sbt._
-import Keys._
+import sbt.Keys._
 
 object Common extends Build {
   val pom = {
-    <url>https://github.com/nrinaudo/scalaz-csv</url>
+    <url>https://nrinaudo.github.io/tabulate/</url>
       <licenses>
         <license>
           <name>MIT License</name>
@@ -11,9 +11,9 @@ object Common extends Build {
         </license>
       </licenses>
       <scm>
-        <connection>scm:git:github.com/nrinaudo/scalaz-csv.git</connection>
-        <developerConnection>scm:git:git@github.com:nrinaudo/scalaz-csv.git</developerConnection>
-        <url>github.com/nrinaudo/scalaz-csv.git</url>
+        <connection>scm:git:github.com/nrinaudo/tabulate.git</connection>
+        <developerConnection>scm:git:git@github.com:nrinaudo/tabulate.git</developerConnection>
+        <url>github.com/nrinaudo/tabulate.git</url>
       </scm>
       <developers>
         <developer>
@@ -26,23 +26,26 @@ object Common extends Build {
 
 
   override val settings = super.settings ++
-  Seq(organization      :=  "com.nrinaudo",
-      version            :=  "0.1.3",
-      scalaVersion       :=  "2.11.6",
-      scalacOptions      ++= Seq("-deprecation",
-                                 "-encoding", "UTF-8",
-                                 "-feature",
-                                 "-language:existentials",
-                                 "-language:higherKinds",
-                                 "-language:implicitConversions",
-                                 "-unchecked",
-                                 "-Xfatal-warnings",
-                                 "-Xlint",
-                                 "-Yno-adapted-args",
-                                 "-Ywarn-dead-code",
-                                 "-Ywarn-numeric-widen",
-                                 "-Ywarn-value-discard",
-                                 "-Xfuture"),
-      incOptions         := incOptions.value.withNameHashing(true),
-      pomExtra           := pom
-    )}
+                          Seq(organization     :=  "com.nrinaudo",
+                            version            :=  "0.1.4-SNAPSHOT",
+                            scalaVersion       :=  "2.11.7",
+                            crossScalaVersions := Seq("2.10.5", "2.11.7"),
+                            addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0-M5" cross CrossVersion.full),
+                            libraryDependencies += "com.github.mpilquist" %% "simulacrum" % "0.4.0",
+                            scalacOptions     ++= Seq("-deprecation",
+                              "-encoding", "UTF-8",
+                              "-feature",
+                              "-language:existentials",
+                              "-language:higherKinds",
+                              "-language:implicitConversions",
+                              "-unchecked",
+                              "-Xfatal-warnings",
+                              "-Xlint",
+                              "-Yno-adapted-args",
+                              "-Ywarn-dead-code",
+                              "-Ywarn-numeric-widen",
+                              "-Ywarn-value-discard",
+                              "-Xfuture"),
+                            incOptions         := incOptions.value.withNameHashing(true),
+                            pomExtra           := pom
+                          )}
