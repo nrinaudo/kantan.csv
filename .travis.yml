@@ -13,3 +13,10 @@ before_install:
   - pip install --user codecov
 after_success:
   - codecov
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/f56e0cf8b3d780bd65c3
+    on_success: change
+    on_failure: always
+    on_start: never
