@@ -51,7 +51,9 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Turns instances of <code>S</code> into CSV sources.</p><p>Any type <code>S</code> that has a implicit instance of <code>CsvSource</code> in scope will be enriched by the <code>asCsvSource</code> and
+<code>asUnsafeCsvSource</code> methods (which map to <a href="#source[A](s:S,sep:Char,header:Boolean)(implicitevidence$1:com.nrinaudo.csv.RowDecoder[A]):scalaz.stream.Process[scalaz.concurrent.Task,com.nrinaudo.csv.DecodeResult[A]]" class="extmbr" name="com.nrinaudo.csv.scalaz.stream.CsvSource#source">source</a> and <a href="#unsafeSource[A](s:S,sep:Char,header:Boolean)(implicitevidence$2:com.nrinaudo.csv.RowDecoder[A]):scalaz.stream.Process[scalaz.concurrent.Task,A]" class="extmbr" name="com.nrinaudo.csv.scalaz.stream.CsvSource#unsafeSource">unsafeSource</a> respectively).</p><p>Additionally, any type that has an instance of <code>CsvInput</code> in scope automatically gets an instance of <code>CsvSource</code>.
+</p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>

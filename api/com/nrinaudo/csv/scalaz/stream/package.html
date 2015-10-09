@@ -66,7 +66,7 @@
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="com.nrinaudo.csv.scalaz.stream.CsvSink" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+              <ol><li name="com.nrinaudo.csv.scalaz.stream.CsvSink" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="CsvSink[S]extendsAnyRef"></a>
       <a id="CsvSink[S]:CsvSink[S]"></a>
       <h4 class="signature">
@@ -82,8 +82,10 @@
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
-    </li><li name="com.nrinaudo.csv.scalaz.stream.CsvSource" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Turns instances of <code>S</code> into CSV sinks.</p><div class="fullcomment"><div class="comment cmt"><p>Turns instances of <code>S</code> into CSV sinks.</p><p>Any type <code>S</code> that has a implicit instance of <code>CsvSink</code> in scope will be enriched by the <code>asCsvSink</code> method (which
+maps to <a href="CsvSink.html#sink[A](s:S,sep:Char,header:Seq[String])(implicitevidence$1:com.nrinaudo.csv.RowEncoder[A]):scalaz.stream.Sink[scalaz.concurrent.Task,A]" class="extmbr" name="com.nrinaudo.csv.scalaz.stream.CsvSink#sink">sink</a>).</p><p>Additionally, any type that has an instance of <code>CsvOutput</code> in scope automatically gets an instance of <code>CsvSink</code>.
+</p></div></div>
+    </li><li name="com.nrinaudo.csv.scalaz.stream.CsvSource" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="CsvSource[S]extendsAnyRef"></a>
       <a id="CsvSource[S]:CsvSource[S]"></a>
       <h4 class="signature">
@@ -99,7 +101,9 @@
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns instances of <code>S</code> into CSV sources.</p><div class="fullcomment"><div class="comment cmt"><p>Turns instances of <code>S</code> into CSV sources.</p><p>Any type <code>S</code> that has a implicit instance of <code>CsvSource</code> in scope will be enriched by the <code>asCsvSource</code> and
+<code>asUnsafeCsvSource</code> methods (which map to <a href="CsvSource.html#source[A](s:S,sep:Char,header:Boolean)(implicitevidence$1:com.nrinaudo.csv.RowDecoder[A]):scalaz.stream.Process[scalaz.concurrent.Task,com.nrinaudo.csv.DecodeResult[A]]" class="extmbr" name="com.nrinaudo.csv.scalaz.stream.CsvSource#source">source</a> and <a href="CsvSource.html#unsafeSource[A](s:S,sep:Char,header:Boolean)(implicitevidence$2:com.nrinaudo.csv.RowDecoder[A]):scalaz.stream.Process[scalaz.concurrent.Task,A]" class="extmbr" name="com.nrinaudo.csv.scalaz.stream.CsvSource#unsafeSource">unsafeSource</a> respectively).</p><p>Additionally, any type that has an instance of <code>CsvInput</code> in scope automatically gets an instance of <code>CsvSource</code>.
+</p></div></div>
     </li></ol>
             </div>
 

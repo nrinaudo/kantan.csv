@@ -51,7 +51,9 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Turns instances of <code>S</code> into CSV sinks.</p><p>Any type <code>S</code> that has a implicit instance of <code>CsvSink</code> in scope will be enriched by the <code>asCsvSink</code> method (which
+maps to <a href="#sink[A](s:S,sep:Char,header:Seq[String])(implicitevidence$1:com.nrinaudo.csv.RowEncoder[A]):scalaz.stream.Sink[scalaz.concurrent.Task,A]" class="extmbr" name="com.nrinaudo.csv.scalaz.stream.CsvSink#sink">sink</a>).</p><p>Additionally, any type that has an instance of <code>CsvOutput</code> in scope automatically gets an instance of <code>CsvSink</code>.
+</p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
