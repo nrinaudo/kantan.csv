@@ -26,8 +26,7 @@ A few things to note about this data:
 I have this data as a resource, so let's just declare it:
  
 ```scala
-scala> val rawData = getClass.getResource("/wikipedia.csv")
-rawData: java.net.URL = file:/Users/nicolasrinaudo/dev/nrinaudo/tabulate/docs/target/scala-2.11/classes/wikipedia.csv
+val rawData = getClass.getResource("/wikipedia.csv")
 ```
 
 ## Setting up Tabulate
@@ -126,13 +125,17 @@ air, moon roof, loaded, 4799.00)
 
 ## Rows as tuples
 Collections of strings are a nice start, but not entirely satisfactory: our example is composed of values that should
-be represented with more precise types. One simple way of doing that is asking to parse each row as a tuple (declared
-here as a type alias for the sake of legibility):
+be represented with more precise types. One simple way of doing that is asking to parse each row as a tuple.
+
+First, let's declare a type alias for the sake of legibility:
 
 ```scala
-scala> type CarTuple = (Int, String, String, Option[String], Float)
-defined type alias CarTuple
+type CarTuple = (Int, String, String, Option[String], Float)
+```
 
+We can now write:
+
+```scala
 scala> printCsv(rawData.asCsvRows[CarTuple](',', false))
 - DecodeFailure
 - Success((1997,Ford,E350,Some(ac, abs, moon),3000.0))
@@ -189,8 +192,7 @@ working with more specific types, usually case classes that the rest of your cod
 Let's define such a case class for our example:
 
 ```scala
-scala> case class Car(make: String, model: String, year: Int, price: Float, desc: Option[String])
-defined class Car
+case class Car(make: String, model: String, year: Int, price: Float, desc: Option[String])
 ```
 
 The process is slightly more involved than what we've seen so far, as decoders for case classes cannot be automatically
@@ -200,9 +202,12 @@ You can however trivially create one using one of the `RowDecoder.caseDecoderXXX
 in your case class:
 
 ```scala
-scala> implicit val carDecoder = RowDecoder.caseDecoder5(Car.apply)(1, 2, 0, 4, 3)
-carDecoder: com.nrinaudo.csv.RowDecoder[Car] = com.nrinaudo.csv.RowDecoder$$anon$2@2a4580f4
+implicit val carDecoder = RowDecoder.caseDecoder5(Car.apply)(1, 2, 0, 4, 3)
+```
 
+This allows us to parse cars as follows:
+
+```scala
 scala> printCsv(rawData.asUnsafeCsvRows[Car](',', true))
 - Car(Ford,E350,1997,3000.0,Some(ac, abs, moon))
 - Car(Chevy,Venture "Extended Edition",1999,4900.0,None)
@@ -218,15 +223,7 @@ It's also worth noting that if you're also going to serialise your type to CSV, 
 `RowCodec` instead:
 
 ```scala
-scala> implicit val carCodec = RowCodec.caseCodec5(Car.apply, Car.unapply)(1, 2, 0, 4, 3)
-carCodec: com.nrinaudo.csv.RowCodec[Car] = com.nrinaudo.csv.RowCodec$$anon$1@714e2b70
-
-scala> printCsv(rawData.asUnsafeCsvRows[Car](',', true))
-- Car(Ford,E350,1997,3000.0,Some(ac, abs, moon))
-- Car(Chevy,Venture "Extended Edition",1999,4900.0,None)
-- Car(Chevy,Venture "Extended Edition, Very Large",1999,5000.0,None)
-- Car(Jeep,Grand Cherokee,1996,4799.0,Some(MUST SELL!
-air, moon roof, loaded))
+implicit val carCodec = RowCodec.caseCodec5(Car.apply, Car.unapply)(1, 2, 0, 4, 3)
 ```
 
 At this point, you can easily turn CSV data into an iterator over business specific types. This is where you can start
@@ -234,7 +231,7 @@ actually doing interesting things with your data, such as finding the car that h
 
 ```scala
 scala> rawData.asUnsafeCsvRows[Car](',', true).filter(_.desc.isDefined).maxBy(_.price)
-res10: Car =
+res9: Car =
 Car(Jeep,Grand Cherokee,1996,4799.0,Some(MUST SELL!
 air, moon roof, loaded))
 ```
@@ -252,9 +249,12 @@ CSV data, just write a `CsvInput` instance for it, make it implicit, stick it in
 As a simple example, this is how you'd turn all strings into sources of CSV data:
 
 ```scala
-scala> implicit val stringInput = CsvInput((s: String) => scala.io.Source.fromString(s))
-stringInput: com.nrinaudo.csv.CsvInput[String] = com.nrinaudo.csv.CsvInput$$anon$2@1f97af2
+implicit val stringInput = CsvInput((s: String) => scala.io.Source.fromString(s))
+```
 
+We can now write:
+
+```scala
 scala> printCsv("a,b,c\nd,e,f".asCsvRows[Seq[Char]](',', false))
 - Success(Vector(a, b, c))
 - Success(Vector(d, e, f))
@@ -277,16 +277,16 @@ This is also done through a type class (as is just about everything here, really
 declare an implicit instance of `CellDecoder` for it. For example, if your CSV data contains ISO 8601 dates:
 
 ```scala
-scala> import java.util.Date
 import java.util.Date
-
-scala> import java.text.SimpleDateFormat
 import java.text.SimpleDateFormat
 
-scala> implicit val dateDecoder =
-     | CellDecoder(s => DecodeResult(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s)))
-dateDecoder: com.nrinaudo.csv.CellDecoder[java.util.Date] = com.nrinaudo.csv.CellDecoder$$anon$2@240241c9
+implicit val dateDecoder =
+CellDecoder(s => DecodeResult(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s)))
+```
 
+We can now parse rows of dates:
+
+```scala
 scala> printCsv("2012-01-01T12:00:00+0100,2013-01-01T12:00:00+0100,2014-01-01T12:00:00+0100".asCsvRows[Seq[Date]](',', false))
 - Success(Vector(Sun Jan 01 12:00:00 CET 2012, Tue Jan 01 12:00:00 CET 2013, Wed Jan 01 12:00:00 CET 2014))
 ```
@@ -325,19 +325,21 @@ The `RowDecoder` type class allows you to add parsing support for types that are
 classes:
 
 ```scala
-scala> class Point2D(val x: Int, val y: Int) {
-     |   override def toString = s"($x,$y)"
-     | }
-defined class Point2D
+class Point2D(val x: Int, val y: Int) {
+  override def toString = s"($x,$y)"
+}
 
-scala> implicit val p2dDecoder = RowDecoder { ss =>
-     |   for {
-     |     x <- CellDecoder[Int].decode(ss, 0)
-     |     y <- CellDecoder[Int].decode(ss, 1)
-     |   } yield new Point2D(x, y)
-     | }
-p2dDecoder: com.nrinaudo.csv.RowDecoder[Point2D] = com.nrinaudo.csv.RowDecoder$$anon$2@59b1052e
+implicit val p2dDecoder = RowDecoder { ss =>
+  for {
+    x <- CellDecoder[Int].decode(ss, 0)
+    y <- CellDecoder[Int].decode(ss, 1)
+  } yield new Point2D(x, y)
+}
+```
 
+We can now write:
+
+```scala
 scala> printCsv("1,2\n3,4".asCsvRows[Point2D](',', false))
 - Success((1,2))
 - Success((3,4))
@@ -347,8 +349,7 @@ Note, however, that the various `RowDecoder.caseDecoderXXX` methods do not apply
 easily be used for "normal" classes:
 
 ```scala
-scala> implicit val p2Decoder2 = RowDecoder.caseDecoder2((x: Int, y: Int) => new Point2D(x, y))(0, 1)
-p2Decoder2: com.nrinaudo.csv.RowDecoder[Point2D] = com.nrinaudo.csv.RowDecoder$$anon$2@77024659
+implicit val p2Decoder2 = RowDecoder.caseDecoder2((x: Int, y: Int) => new Point2D(x, y))(0, 1)
 ```
 
 This is the idiomatic way of creating new instances of `RowDecoder`.
