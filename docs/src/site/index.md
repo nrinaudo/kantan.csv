@@ -6,7 +6,8 @@ layout: default
 [![codecov.io](http://codecov.io/github/nrinaudo/tabulate/coverage.svg?branch=v0.1.4)](http://codecov.io/github/nrinaudo/tabulate?branch=v0.1.4)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/nrinaudo/tabulate_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/nrinaudo/tabulate_2.11)
 
-Tabulate is a library for CSV parsing written in the [Scala programming language](http://www.scala-lang.org).
+Tabulate is a library for CSV parsing and serialisation written in the
+[Scala programming language](http://www.scala-lang.org).
 
 ## Getting started
 
@@ -51,7 +52,7 @@ into it.
 While I'm pretty happy with Tabulate, or at least the direction it's headed, I do not pretend that it will fit
 all use cases. It fits mine, but might not work for everyone. I'm happy to hear suggestions on how this can be
 addressed, though.
- 
+
 
 ## Tutorials
 
