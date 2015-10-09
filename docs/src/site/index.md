@@ -19,6 +19,13 @@ file:
 libraryDependencies += "com.nrinaudo" %% "tabulate" % "0.1.4-SNAPSHOT"
 ```
 
+Note that since the current version is a snapshot, you might need to add the Sonatype snapshots repository to your
+buildfile:
+
+```scala
+resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
+```
+
 The following modules are also available:
 
 * `tabulate-scalaz`: codecs for [scalaz](https://github.com/scalaz/scalaz) specific types, type class instances.
