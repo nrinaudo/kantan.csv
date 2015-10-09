@@ -5,6 +5,7 @@ layout: default
 [![Build Status](https://travis-ci.org/nrinaudo/tabulate.svg?branch=master)](https://travis-ci.org/nrinaudo/tabulate)
 [![codecov.io](http://codecov.io/github/nrinaudo/tabulate/coverage.svg?branch=master)](http://codecov.io/github/nrinaudo/tabulate?branch=master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/nrinaudo/tabulate_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/nrinaudo/tabulate_2.11)
+[![Join the chat at https://gitter.im/nrinaudo/tabulate](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/nrinaudo/tabulate)
 
 Tabulate is a library for CSV parsing and serialisation written in the
 [Scala programming language](http://www.scala-lang.org).
