@@ -73,7 +73,7 @@ following code:
 
 ```scala
 scala> rawData.asUnsafeCsvSource[Car](',', true)
-res0: scalaz.stream.Process[scalaz.concurrent.Task,Car] = Append(Await(scalaz.concurrent.Task@2d119a14,<function1>,<function1>),Vector(<function1>))
+res0: scalaz.stream.Process[scalaz.concurrent.Task,Car] = Append(Await(scalaz.concurrent.Task@667adce6,<function1>,<function1>),Vector(<function1>))
 ```
 
 We set the arbitrary goal of filtering out all cars that have an empty description, which is done trivially:

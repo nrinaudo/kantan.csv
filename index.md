@@ -2,8 +2,8 @@
 layout: default
 ---
 
-[![Build Status](https://travis-ci.org/nrinaudo/tabulate.svg?branch=v0.1.4)](https://travis-ci.org/nrinaudo/tabulate)
-[![codecov.io](http://codecov.io/github/nrinaudo/tabulate/coverage.svg?branch=v0.1.4)](http://codecov.io/github/nrinaudo/tabulate?branch=v0.1.4)
+[![Build Status](https://travis-ci.org/nrinaudo/tabulate.svg?branch=master)](https://travis-ci.org/nrinaudo/tabulate)
+[![codecov.io](http://codecov.io/github/nrinaudo/tabulate/coverage.svg?branch=master)](http://codecov.io/github/nrinaudo/tabulate?branch=v0.1.4)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/nrinaudo/tabulate_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/nrinaudo/tabulate_2.11)
 
 Tabulate is a library for CSV parsing and serialisation written in the
@@ -13,24 +13,21 @@ Tabulate is a library for CSV parsing and serialisation written in the
 
 Tabulate is currently available both for Scala 2.10 and 2.11.
 
-The current version is `0.1.4-SNAPSHOT`, which can be added to your project with one or more of the following line(s)
+The current version is `0.1.4`, which can be added to your project with one or more of the following line(s)
 in your SBT build file:
 
 ```scala
-// The current version is a SNAPSHOT and lives in a special repository.
-resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
-
 // Core library, included automatically if any other module is imported.
-libraryDependencies += "com.nrinaudo" %% "tabulate" % "0.1.4-SNAPSHOT"
+libraryDependencies += "com.nrinaudo" %% "tabulate" % "0.1.4"
 
 // Provides cats type class instances for tabulate, and vice versa.
-libraryDependencies += "com.nrinaudo" %% "tabulate-scalaz" % "0.1.4-SNAPSHOT"
+libraryDependencies += "com.nrinaudo" %% "tabulate-scalaz" % "0.1.4"
 
 // Treat CSV data as sources and sinks.
-libraryDependencies += "com.nrinaudo" %% "tabulate-scalaz-stream" % "0.1.4-SNAPSHOT"
+libraryDependencies += "com.nrinaudo" %% "tabulate-scalaz-stream" % "0.1.4"
 
 // Provides cats type class instances for tabulate, and vice versa.
-libraryDependencies += "com.nrinaudo" %% "tabulate-cats" % "0.1.4-SNAPSHOT"
+libraryDependencies += "com.nrinaudo" %% "tabulate-cats" % "0.1.4"
 ```
 
 
