@@ -174,7 +174,11 @@ The following is how you'd add support for serialising instances of `java.util.D
 import java.util.Date
 import java.text.SimpleDateFormat
 
-implicit val dateEncoder = CellEncoder((d: Date) => new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(d))
+// Note that this is a def and not a val.
+// SimpleDateFormat, in a burst of genius, carries state and is not thread safe.
+def iso8601: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+
+implicit val dateEncoder = CellEncoder((d: Date) => iso8601.format(d))
 ```
 
 We can now write:
@@ -184,9 +188,44 @@ printCsv(List(Seq(new Date(), new Date(System.currentTimeMillis + 86400000))))(_
 ```
 
 Note that should you need both serialise and de-serialise dates, you should use the `CellCodec` type class instead -
-it's essentially a `CellEncoder` and a `CellDecoder` mixed into one.
+it's essentially a `CellEncoder` and a `CellDecoder` mixed into one:
+
+```tut:silent
+implicit val dateCodec = CellCodec(s => DecodeResult(iso8601.parse(s)), (d: Date) => iso8601.format(d))
+```
 
 
 ### CSV row types
 Finally, `CsvWriter` relies on the [RowEncoder]({{ site.baseurl }}/api/#com.nrinaudo.csv.RowEncoder) type class to turn
 rows into actual CSV data.
+
+The beauty of this pattern is that all these type classes seamlessly compose: `RowEncoder` relies on instances of
+`CellEncoder`, which allows us to add global support to any type we desire.
+
+For example, Tabulate does not support dates by default. We have, however, put a `CellDecoder[Date]` in scope in the
+previous section, which allows us to write, say, `(Date, Date)` instances without any additional code:
+
+```tut
+printCsv(List((new Date(), new Date(System.currentTimeMillis + 86400000))))(_.asCsvWriter[(Date, Date)](','))
+```
+
+You can also add support for brand new row types that are not collections, tuples or case classes:
+
+```tut:silent
+class Point2D(val x: Int, val y: Int)
+
+implicit val p2dEncoder = RowEncoder((p2d: Point2D) => Seq(p2d.x.toString, p2d.y.toString))
+```
+
+This allows us to write the following:
+
+```tut
+printCsv(List(new Point2D(1, 2), new Point2D(3, 4)))(_.asCsvWriter[Point2D](','))
+```
+
+Note, however, that the various `RowEncoder.caseEncoderXXX` methods do not apply *only* to case classes. They can easily
+be used for "normal" classes:
+
+```tut:silent
+implicit val p2Encoder2 = RowEncoder.caseEncoder2((p: Point2D) => Some((p.x, p.y)))(0, 1)
+```
