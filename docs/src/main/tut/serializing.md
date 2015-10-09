@@ -36,30 +36,41 @@ Microsoft Excel, for instance, tends to change charset depending on the computer
 implicit val codec = scala.io.Codec.ISO8859
 ```
 
-Finally, in order for the various examples' output to be more readable, I'll be using the following function to print
-results out:
-
-```tut
-import java.io.StringWriter
-
-def printCsv[A](as: List[A])(f: StringWriter => CsvWriter[A]): String = {
-  val out = new StringWriter()
-  as.foldLeft(f(out))(_ write _)
-  out.toString
-}
-```
 
 ## The `CsvWriter` class
 All CSV serialisation is done through the [CsvWriter]({{ site.baseurl }}/api/#com.nrinaudo.csv.CsvWriter) class,
 instances of which can be retrieved through the `asCsvWriter` method that enriches types we can write to.
 
+In order for the various examples' output to be more readable, I'll be using the following function to print
+results out:
+
+```tut:silent
+import java.io.StringWriter
+
+def printCsv[A](as: List[A])(f: StringWriter => CsvWriter[A]): String = {
+  val out = new StringWriter()
+  
+  // Go through each a in as, write it to f(out), then close it.
+  as.foldLeft(f(out))(_ write _).close()
+    
+  out.toString
+}
+```
+
+This gives you a fairly good idea of how `CsvWriter` works. You essentially need two methods:
+
+* `write`, which takes an `A` for a `CsvWriter[A]` and writes it as a CSV row.
+* `close`, which releases whatever resources were open once the whole data has been written.
+
+Note that `CsvWriter` is meant to allow a fluent programming style: `write` returns the `CsvWriter` itself, allowing
+you to chain calls (this is what the above example does in the fold, but it might not be obvious until pointed out).
 
 
 ## Writing collections of strings
 The simplest way to serialise CSV data is as a list of collections of strings: each row is a list of cells, and each
 cell is a string. You just need to know how to turn each element of your input data into a list of strings. For example:
 
-```tut
+```tut:silent
 def toStrings(c: Car): List[String] = List(c.year.toString, c.make, c.model, c.desc.getOrElse(""), c.price.toString)
 ```
 
@@ -84,7 +95,7 @@ A better solution is to work with tuples and let `CsvWriter` work out how to tur
 
 Let's turn our cars into tuples, declared as a type alias for the sake of brevity:
 
-```tut
+```tut:silent
 type CarTuple = (Int, String, String, Option[String], Float)
 
 def toTuples(c: Car): CarTuple = (c.year, c.make, c.model, c.desc, c.price)
@@ -98,7 +109,7 @@ printCsv(data.map(toTuples))(_.asCsvWriter[CarTuple](','))
 ```
 
 As you can see, we didn't have to turn empty descriptions in `None`, nor call `toString` on non-string values. Just line
-the types up correctly and the rest just works out.
+the types up correctly and everything works out.
 
 We seem to have lost the ability to add a header row, however: it was easy before - a header row is a sequence of
 strings, our data was sequences of strings, we could just stick it in there and the types would work out. Not anymore,
@@ -123,12 +134,13 @@ here because our example is based on case classes, which have dedicated helper m
 ```tut
 implicit val carEncoder= RowEncoder.caseEncoder5(Car.unapply)(1, 2, 0, 4, 3)
 
-printCsv(data)(_.asCsvWriter[Car](','))
+printCsv(data)(_.asCsvWriter[Car](',', header))
 ```
 
-Note that `caseEncoder5` ends in a number: that's the number of fields in your case class. The list of integers maps
-each field to its corresponding column in the CSV data. That is, the first int is the index of the first field, the
-second one that of the second field...
+Note that the name `caseEncoder5` ends in a number: that's the number of fields in your case class.
+
+The list of integers maps each field to its corresponding column in the CSV data. That is, the first int is the index of
+the first field, the second one that of the second field...
 
 
 ## Advanced topics
@@ -140,7 +152,7 @@ implicit `CsvOutput[A]` in scope will be enriched with the `asCsvWriter` method.
 
 As a simple example, this is how you'd add support for writing CSV to `java.io.File`:
 
-```tut
+```tut:silent
 import java.io._
 
 implicit def fileOutput(implicit c: scala.io.Codec) =
@@ -158,8 +170,17 @@ type class.
 
 The following is how you'd add support for serialising instances of `java.util.Date` to their ISO 8601 representation:
 
+```tut:silent
+import java.util.Date
+import java.text.SimpleDateFormat
+
+implicit val dateEncoder = CellEncoder((d: Date) => new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(d))
+```
+
+We can now write:
+
 ```tut
-implicit val dateEncoder = CellEncoder((d: java.util.Date) => new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(d))
+printCsv(List(Seq(new Date(), new Date(System.currentTimeMillis + 86400000))))(_.asCsvWriter[Seq[Date]](','))
 ```
 
 Note that should you need both serialise and de-serialise dates, you should use the `CellCodec` type class instead -

@@ -25,7 +25,7 @@ A few things to note about this data:
 
 I have this data as a resource, so let's just declare it:
  
-```tut
+```tut:silent
 val rawData = getClass.getResource("/wikipedia.csv")
 ```
 
@@ -101,12 +101,17 @@ printCsv(rawData.asUnsafeCsvRows[List[String]](',', false))
 
 ## Rows as tuples
 Collections of strings are a nice start, but not entirely satisfactory: our example is composed of values that should
-be represented with more precise types. One simple way of doing that is asking to parse each row as a tuple (declared
-here as a type alias for the sake of legibility):
+be represented with more precise types. One simple way of doing that is asking to parse each row as a tuple.
+
+First, let's declare a type alias for the sake of legibility:
+
+```tut:silent
+type CarTuple = (Int, String, String, Option[String], Float)
+```
+
+We can now write:
 
 ```tut
-type CarTuple = (Int, String, String, Option[String], Float)
-
 printCsv(rawData.asCsvRows[CarTuple](',', false))
 ```
 
@@ -145,7 +150,7 @@ working with more specific types, usually case classes that the rest of your cod
 
 Let's define such a case class for our example:
 
-```tut
+```tut:silent
 case class Car(make: String, model: String, year: Int, price: Float, desc: Option[String])
 ```
 
@@ -155,8 +160,13 @@ inferred in a type-safe way (that I could find).
 You can however trivially create one using one of the `RowDecoder.caseDecoderXXX`, where XXX is the number of fields
 in your case class:
 
-```tut
+```tut:silent
 implicit val carDecoder = RowDecoder.caseDecoder5(Car.apply)(1, 2, 0, 4, 3)
+```
+
+This allows us to parse cars as follows:
+
+```tut
 printCsv(rawData.asUnsafeCsvRows[Car](',', true))
 ```
 
@@ -166,9 +176,8 @@ position. That is, the first value is the index of the first field, the second v
 It's also worth noting that if you're also going to serialise your type to CSV, you're probably better off using
 `RowCodec` instead:
 
-```tut
+```tut:silent
 implicit val carCodec = RowCodec.caseCodec5(Car.apply, Car.unapply)(1, 2, 0, 4, 3)
-printCsv(rawData.asUnsafeCsvRows[Car](',', true))
 ```
 
 At this point, you can easily turn CSV data into an iterator over business specific types. This is where you can start
@@ -190,8 +199,13 @@ CSV data, just write a `CsvInput` instance for it, make it implicit, stick it in
 
 As a simple example, this is how you'd turn all strings into sources of CSV data:
 
-```tut
+```tut:silent
 implicit val stringInput = CsvInput((s: String) => scala.io.Source.fromString(s))
+```
+
+We can now write:
+
+```tut
 printCsv("a,b,c\nd,e,f".asCsvRows[Seq[Char]](',', false))
 ```
 
@@ -211,13 +225,17 @@ This is also done through a type class (as is just about everything here, really
 [CellDecoder]({{ site.baseurl }}/api/#com.nrinaudo.csv.CellDecoder). If you need to add support for new types, 
 declare an implicit instance of `CellDecoder` for it. For example, if your CSV data contains ISO 8601 dates:
 
-```tut
+```tut:silent
 import java.util.Date
 import java.text.SimpleDateFormat
 
 implicit val dateDecoder =
 CellDecoder(s => DecodeResult(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s)))
+```
 
+We can now parse rows of dates:
+
+```tut
 printCsv("2012-01-01T12:00:00+0100,2013-01-01T12:00:00+0100,2014-01-01T12:00:00+0100".asCsvRows[Seq[Date]](',', false))
 ```
 
@@ -251,7 +269,7 @@ printCsv("2012-01-01T12:00:00+0100,a".asCsvRows[(Date, Char)](',', false))
 The `RowDecoder` type class allows you to add parsing support for types that are not collections, tuples or case
 classes:
 
-```tut
+```tut:silent
 class Point2D(val x: Int, val y: Int) {
   override def toString = s"($x,$y)"
 }
@@ -262,14 +280,18 @@ implicit val p2dDecoder = RowDecoder { ss =>
     y <- CellDecoder[Int].decode(ss, 1)
   } yield new Point2D(x, y)
 }
+```
 
+We can now write:
+
+```tut
 printCsv("1,2\n3,4".asCsvRows[Point2D](',', false))
 ```
 
 Note, however, that the various `RowDecoder.caseDecoderXXX` methods do not apply *only* to case classes. They're can
 easily be used for "normal" classes:
 
-```tut
+```tut:silent
 implicit val p2Decoder2 = RowDecoder.caseDecoder2((x: Int, y: Int) => new Point2D(x, y))(0, 1)
 ```
 
