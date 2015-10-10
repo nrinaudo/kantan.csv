@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/nrinaudo/tabulate.svg?branch=master)](https://travis-ci.org/nrinaudo/tabulate)
 [![codecov.io](http://codecov.io/github/nrinaudo/tabulate/coverage.svg?branch=master)](http://codecov.io/github/nrinaudo/tabulate?branch=v0.1.4)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.nrinaudo/tabulate_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.nrinaudo/tabulate_2.11)
-[![Join the chat at https://gitter.im/nrinaudo/tabulate](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/nrinaudo/tabulate)
+[![Join the chat at https://gitter.im/nrinaudo/tabulate](https://img.shields.io/badge/gitter-join%20chat-52c435.svg)](https://gitter.im/nrinaudo/tabulate)
 
 CSV is an unfortunate part of life. This attempts to alleviate the pain somewhat by letting developers treat CSV data
 as a simple iterator.
