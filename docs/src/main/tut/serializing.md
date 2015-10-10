@@ -214,7 +214,7 @@ You can also add support for brand new row types that are not collections, tuple
 ```tut:silent
 class Point2D(val x: Int, val y: Int)
 
-implicit val p2dEncoder = RowEncoder((p2d: Point2D) => Seq(p2d.x.toString, p2d.y.toString))
+implicit val p2dEncoder = RowEncoder((p2d: Point2D) => Seq(p2d.x.asCsvCell, p2d.y.asCsvCell))
 ```
 
 This allows us to write the following:
