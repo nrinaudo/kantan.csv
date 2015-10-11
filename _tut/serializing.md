@@ -161,7 +161,7 @@ here because our example is based on case classes, which have dedicated helper m
 
 ```scala
 scala> implicit val carEncoder= RowEncoder.caseEncoder5(Car.unapply)(1, 2, 0, 4, 3)
-carEncoder: com.nrinaudo.csv.RowEncoder[Car] = com.nrinaudo.csv.RowEncoder$$anon$2@294c810
+carEncoder: com.nrinaudo.csv.RowEncoder[Car] = com.nrinaudo.csv.RowEncoder$$anon$2@44829bb2
 
 scala> printCsv(data)(_.asCsvWriter[Car](',', header))
 res5: String =
@@ -223,7 +223,7 @@ We can now write:
 ```scala
 scala> printCsv(List(Seq(new Date(), new Date(System.currentTimeMillis + 86400000))))(_.asCsvWriter[Seq[Date]](','))
 res11: String =
-"2015-10-10T04:48:11+0200,2015-10-11T04:48:11+0200
+"2015-10-11T09:22:38+0200,2015-10-12T09:22:38+0200
 "
 ```
 
@@ -248,7 +248,7 @@ previous section, which allows us to write, say, `(Date, Date)` instances withou
 ```scala
 scala> printCsv(List((new Date(), new Date(System.currentTimeMillis + 86400000))))(_.asCsvWriter[(Date, Date)](','))
 res12: String =
-"2015-10-10T04:48:11+0200,2015-10-11T04:48:11+0200
+"2015-10-11T09:22:38+0200,2015-10-12T09:22:38+0200
 "
 ```
 
@@ -257,7 +257,7 @@ You can also add support for brand new row types that are not collections, tuple
 ```scala
 class Point2D(val x: Int, val y: Int)
 
-implicit val p2dEncoder = RowEncoder((p2d: Point2D) => Seq(p2d.x.toString, p2d.y.toString))
+implicit val p2dEncoder = RowEncoder((p2d: Point2D) => Seq(p2d.x.asCsvCell, p2d.y.asCsvCell))
 ```
 
 This allows us to write the following:
