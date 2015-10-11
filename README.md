@@ -1,7 +1,7 @@
 # Tabulate
 
 [![Build Status](https://travis-ci.org/nrinaudo/tabulate.svg?branch=master)](https://travis-ci.org/nrinaudo/tabulate)
-[![codecov.io](http://codecov.io/github/nrinaudo/tabulate/coverage.svg?branch=master)](http://codecov.io/github/nrinaudo/tabulate?branch=v0.1.4)
+[![codecov.io](http://codecov.io/github/nrinaudo/tabulate/coverage.svg?branch=master)](http://codecov.io/github/nrinaudo/tabulate)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.nrinaudo/tabulate_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.nrinaudo/tabulate_2.11)
 [![Join the chat at https://gitter.im/nrinaudo/tabulate](https://img.shields.io/badge/gitter-join%20chat-52c435.svg)](https://gitter.im/nrinaudo/tabulate)
 
