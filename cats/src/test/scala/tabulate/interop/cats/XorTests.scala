@@ -1,4 +1,4 @@
-package tabulate.cats
+package tabulate.interop.cats
 
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks

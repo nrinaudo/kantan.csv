@@ -1,4 +1,4 @@
-package tabulate
+package tabulate.interop
 
 import tabulate._
 import ops._

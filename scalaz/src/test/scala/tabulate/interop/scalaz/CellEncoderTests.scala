@@ -1,4 +1,4 @@
-package tabulate.scalaz
+package tabulate.interop.scalaz
 
 import tabulate.CellEncoder
 import tabulate.laws.discipline.arbitrary

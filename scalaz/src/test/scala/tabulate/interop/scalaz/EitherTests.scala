@@ -1,4 +1,4 @@
-package tabulate.scalaz
+package tabulate.interop.scalaz
 
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks

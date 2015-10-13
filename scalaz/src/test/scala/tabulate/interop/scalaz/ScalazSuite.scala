@@ -1,4 +1,4 @@
-package tabulate.scalaz
+package tabulate.interop.scalaz
 
 import org.scalacheck.Properties
 import org.scalatest.FunSuite

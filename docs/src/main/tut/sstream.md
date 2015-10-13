@@ -33,15 +33,15 @@ The scalaz-stream integration requires the following imports:
 
 ```tut:silent
 import tabulate._
-import tabulate.scalaz.stream._
-import tabulate.scalaz.stream.ops._
+import interop.scalaz.stream._
+import interop.scalaz.stream.ops._
 ```
 
 This tutorial also uses the scalaz `Maybe` type, which is supported through the following imports:
 
 ```tut:silent
-import _root_.scalaz.Maybe
-import tabulate.scalaz._
+import scalaz.Maybe
+import interop.scalaz._
 ```
 
 We also need to declare what charset the CSV should be read / written as:

@@ -1,4 +1,4 @@
-package tabulate.scalaz.stream
+package tabulate.interop.scalaz.stream
 
 import ops._
 import tabulate.laws.discipline.arbitrary

@@ -1,4 +1,4 @@
-package tabulate.cats
+package tabulate.interop.cats
 
 import tabulate.{DecodeResult, RowDecoder, CellDecoder}
 import tabulate.laws.discipline.arbitrary._

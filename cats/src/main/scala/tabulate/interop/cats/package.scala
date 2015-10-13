@@ -1,9 +1,10 @@
-package tabulate
+package tabulate.interop
 
-import ops._
+import tabulate.ops._
 import _root_.cats.{Eq, Monad}
 import _root_.cats.functor.Contravariant
 import _root_.cats.data.Xor
+import tabulate._
 
 /** Declares various type class instances for bridging `tabulate` and `cats`. */
 package object cats {

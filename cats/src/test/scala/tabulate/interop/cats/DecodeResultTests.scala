@@ -1,4 +1,4 @@
-package tabulate.cats
+package tabulate.interop.cats
 
 import arbitrary._
 import cats.laws.discipline.MonadTests
