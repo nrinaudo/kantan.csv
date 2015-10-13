@@ -1,11 +1,5 @@
 name                := "tabulate-scalaz-stream"
 
-resolvers           += "Scalaz Bintray Repo" at "https://dl.bintray.com/scalaz/releases"
+libraryDependencies += "org.scalaz.stream" %% "scalaz-stream" % "0.8"
 
-addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0-M5" cross CrossVersion.full)
-
-libraryDependencies += "org.scalaz.stream"    %% "scalaz-stream" % "0.8"
-
-libraryDependencies += "org.scalatest"        %% "scalatest"     % "3.0.0-M7" % "test"
-
-libraryDependencies += "org.scalacheck"       %% "scalacheck"    % "1.12.5"   % "test"
+libraryDependencies += "org.scalatest"     %% "scalatest"     % "3.0.0-M7" % "test"
