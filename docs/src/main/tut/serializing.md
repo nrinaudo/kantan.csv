@@ -21,11 +21,12 @@ val data = List(Car("Ford", "E350", 1997, 3000F, Some("ac, abs, moon")),
 The code in this tutorial requires the following imports:
 
 ```tut:silent
-import com.nrinaudo.csv._
-import com.nrinaudo.csv.ops._
+import com.nrinaudo.tabulate._
+import com.nrinaudo.tabulate.ops._
 ```
 
-`com.nrinaudo.csv._` imports all the core classes, while `com.nrinaudo.csv.ops._` bring the various operators in scope.
+`com.nrinaudo.tabulate._` imports all the core classes, while `com.nrinaudo.tabulate.ops._` bring the various operators
+in scope.
 
 
 Additionally, most methods used to open CSV data for writing require an implicit `scala.io.Codec` to be in scope. I'll
@@ -38,7 +39,7 @@ implicit val codec = scala.io.Codec.ISO8859
 
 
 ## The `CsvWriter` class
-All CSV serialisation is done through the [CsvWriter]({{ site.baseurl }}/api/#com.nrinaudo.csv.CsvWriter) class,
+All CSV serialisation is done through the [CsvWriter]({{ site.baseurl }}/api/#com.nrinaudo.tabulate.CsvWriter) class,
 instances of which can be retrieved through the `asCsvWriter` method that enriches types we can write to.
 
 In order for the various examples' output to be more readable, I'll be using the following function to print
@@ -147,7 +148,7 @@ the first field, the second one that of the second field...
 
 ### CSV data sinks
 In this tutorial, we sort of took it for granted that `java.io.StringWriter` would have an `asCsvWriter` method. This
-works thanks to the [CsvOutput]({{ site.baseurl }}/api/#com.nrinaudo.csv.CsvOutput) type class: any type `A` that has an
+works thanks to the [CsvOutput]({{ site.baseurl }}/api/#com.nrinaudo.tabulate.CsvOutput) type class: any type `A` that has an
 implicit `CsvOutput[A]` in scope will be enriched with the `asCsvWriter` method.
 
 As a simple example, this is how you'd add support for writing CSV to `java.io.File`:
@@ -160,12 +161,12 @@ implicit def fileOutput(implicit c: scala.io.Codec) =
 ```
 
 Note that files are already supported, as well as a few other types. An exhaustive list can be found in the
-[CsvOutput]({{ site.baseurl }}/api/#com.nrinaudo.csv.CsvOutput$)  companion object.
+[CsvOutput]({{ site.baseurl }}/api/#com.nrinaudo.tabulate.CsvOutput$)  companion object.
 
 
 ### CSV cell types
 Another seemingly magical thing is how `CsvWriter` managed to guess how to turn each individual cell into a valid
-string representation. This is achieved through the [CellEncoder]({{ site.baseurl }}/api/#com.nrinaudo.csv.CellEncoder)
+string representation. This is achieved through the [CellEncoder]({{ site.baseurl }}/api/#com.nrinaudo.tabulate.CellEncoder)
 type class.
 
 The following is how you'd add support for serialising instances of `java.util.Date` to their ISO 8601 representation:
@@ -196,7 +197,7 @@ implicit val dateCodec = CellCodec(s => DecodeResult(iso8601.parse(s)), (d: Date
 
 
 ### CSV row types
-Finally, `CsvWriter` relies on the [RowEncoder]({{ site.baseurl }}/api/#com.nrinaudo.csv.RowEncoder) type class to turn
+Finally, `CsvWriter` relies on the [RowEncoder]({{ site.baseurl }}/api/#com.nrinaudo.tabulate.RowEncoder) type class to turn
 rows into actual CSV data.
 
 The beauty of this pattern is that all these type classes seamlessly compose: `RowEncoder` relies on instances of

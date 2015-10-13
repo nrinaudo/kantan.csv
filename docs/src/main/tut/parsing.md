@@ -33,11 +33,12 @@ val rawData = getClass.getResource("/wikipedia.csv")
 The code in this tutorial requires the following imports:
 
 ```tut:silent
-import com.nrinaudo.csv._
-import com.nrinaudo.csv.ops._
+import com.nrinaudo.tabulate._
+import com.nrinaudo.tabulate.ops._
 ```
 
-`com.nrinaudo.csv._` imports all the core classes, while `com.nrinaudo.csv.ops._` bring the various operators in scope.
+`com.nrinaudo.tabulate._` imports all the core classes, while `com.nrinaudo.tabulate.ops._` bring the various operators
+in scope.
 
 
 Additionally, most methods used to open CSV data for reading require an implicit `scala.io.Codec` to be in scope. I'll
@@ -193,7 +194,7 @@ rawData.asUnsafeCsvRows[Car](',', true).filter(_.desc.isDefined).maxBy(_.price)
 One of the things this tutorial sort of glossed over is how our `rawData` variable was enriched with the
 `asCsvRows` method.
 
-Under the hood, this relies on the [CsvInput]({{ site.baseurl }}/api/#com.nrinaudo.csv.CsvInput) type class.
+Under the hood, this relies on the [CsvInput]({{ site.baseurl }}/api/#com.nrinaudo.tabulate.CsvInput) type class.
 You don't really need to know what type classes are in order to use them: if you need to turn something into a source of
 CSV data, just write a `CsvInput` instance for it, make it implicit, stick it in scope and you're done.
 
@@ -211,7 +212,7 @@ printCsv("a,b,c\nd,e,f".asCsvRows[Seq[Char]](',', false))
 
 Note that there actually already is such an instance available for strings, as well as for many other types (
 `java.io.File`, `java.net.URI`, `scala.io.Source`...). You can find an exhaustive list in the 
-[CsvInput]({{ site.baseurl }}/api/#com.nrinaudo.csv.CsvInput$) companion object.
+[CsvInput]({{ site.baseurl }}/api/#com.nrinaudo.tabulate.CsvInput$) companion object.
 
 A convenient way of creating new instances of `CsvInput` is by adapting existing ones - if you have
 a `CsvInput[A]` and a `B => A`, you need just call `contramap` to get a `CsvInput[B]`.
@@ -222,7 +223,7 @@ Another thing that was given the hand-wavy treatment is how each cell is parsed.
 of ints, for example, how do we know how to parse ints?
 
 This is also done through a type class (as is just about everything here, really):
-[CellDecoder]({{ site.baseurl }}/api/#com.nrinaudo.csv.CellDecoder). If you need to add support for new types, 
+[CellDecoder]({{ site.baseurl }}/api/#com.nrinaudo.tabulate.CellDecoder). If you need to add support for new types, 
 declare an implicit instance of `CellDecoder` for it. For example, if your CSV data contains ISO 8601 dates:
 
 ```tut:silent
@@ -247,7 +248,7 @@ printCsv("a,2,c".asCsvRows[List[Either[Int,Char]]](',', false))
 printCsv("a,,c".asCsvRows[List[Option[Char]]](',', false))
 ```
 
-You can find the complete list in the [CellDecoder]({{ site.baseurl }}/api/#com.nrinaudo.csv.CellDecoder$)
+You can find the complete list in the [CellDecoder]({{ site.baseurl }}/api/#com.nrinaudo.tabulate.CellDecoder$)
 companion object.
 
 Note that a convenient way of creating new instances of `CellDecoder` is by adapting existing ones - if you have
@@ -256,7 +257,7 @@ a `CellDecoder[A]` and an `A => B`, you need just call `map` to get a `CellDecod
 ### CSV row types
 You might already have guessed that the magic of guessing how to parse entire CSV rows simply by knowing what types
 they're expected to contain is also type class based. In this case, the type class you're looking for is
-[RowDecoder]({{ site.baseurl }}/api/#com.nrinaudo.csv.RowDecoder).
+[RowDecoder]({{ site.baseurl }}/api/#com.nrinaudo.tabulate.RowDecoder).
 
 The beauty of the pattern is that `RowDecoder` relies on `CellDecoder` for parsing individual cells. For example,
 dates are not supported (because there are so many ways they can be serialized), but we've just added a
