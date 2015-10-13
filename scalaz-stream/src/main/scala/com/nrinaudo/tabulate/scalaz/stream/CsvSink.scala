@@ -18,7 +18,7 @@ import scalaz.stream._
 @typeclass trait CsvSink[S] {
   @noop def toPrintWriter(s: S): PrintWriter
 
-  @op("asCsvSink") def sink[A: RowEncoder](s: S, sep: Char, header: Seq[String]): Sink[Task, A] =
+  @op("asCsvSink") def sink[A: RowEncoder](s: S, sep: Char, header: Seq[String] = Seq.empty): Sink[Task, A] =
     io.resource(Task.delay(CsvOutput[PrintWriter].writer(toPrintWriter(s), sep, header)))(out => Task.delay(out.close()))(
       out => Task.now((a: A) => Task.delay { out.write(a); () })
     )
