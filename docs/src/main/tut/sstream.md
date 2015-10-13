@@ -32,16 +32,16 @@ val rawData = getClass.getResource("/wikipedia.csv")
 The scalaz-stream integration requires the following imports:
 
 ```tut:silent
-import com.nrinaudo.tabulate._
-import com.nrinaudo.tabulate.scalaz.stream._
-import com.nrinaudo.tabulate.scalaz.stream.ops._
+import tabulate._
+import tabulate.scalaz.stream._
+import tabulate.scalaz.stream.ops._
 ```
 
 This tutorial also uses the scalaz `Maybe` type, which is supported through the following imports:
 
 ```tut:silent
 import _root_.scalaz.Maybe
-import com.nrinaudo.tabulate.scalaz._
+import tabulate.scalaz._
 ```
 
 We also need to declare what charset the CSV should be read / written as:
