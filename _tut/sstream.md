@@ -32,16 +32,16 @@ val rawData = getClass.getResource("/wikipedia.csv")
 The scalaz-stream integration requires the following imports:
 
 ```scala
-import com.nrinaudo.csv._
-import com.nrinaudo.csv.scalaz.stream._
-import com.nrinaudo.csv.scalaz.stream.ops._
+import tabulate._
+import interop.scalaz.stream._
+import interop.scalaz.stream.ops._
 ```
 
 This tutorial also uses the scalaz `Maybe` type, which is supported through the following imports:
 
 ```scala
-import _root_.scalaz.Maybe
-import com.nrinaudo.csv.scalaz._
+import scalaz.Maybe
+import interop.scalaz._
 ```
 
 We also need to declare what charset the CSV should be read / written as:
@@ -73,7 +73,7 @@ following code:
 
 ```scala
 scala> rawData.asUnsafeCsvSource[Car](',', true)
-res0: scalaz.stream.Process[scalaz.concurrent.Task,Car] = Append(Await(scalaz.concurrent.Task@7c0f4446,<function1>,<function1>),Vector(<function1>))
+res0: scalaz.stream.Process[scalaz.concurrent.Task,Car] = Append(Await(scalaz.concurrent.Task@432f11e1,<function1>,<function1>),Vector(<function1>))
 ```
 
 We set the arbitrary goal of filtering out all cars that have an empty description, which is done trivially:

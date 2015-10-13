@@ -1,0 +1,382 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>scalaz - tabulate.interop.scalaz</title>
+          <meta name="description" content="scalaz - tabulate.interop.scalaz" />
+          <meta name="keywords" content="scalaz tabulate.interop.scalaz" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../index.html';
+            var hash = 'tabulate.interop.scalaz.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img alt="Package" src="../../../lib/package_big.png" />
+        <p id="owner"><a href="../../package.html" class="extype" name="tabulate">tabulate</a>.<a href="../package.html" class="extype" name="tabulate.interop">interop</a></p>
+        <h1>scalaz</h1><span class="permalink">
+      <a href="../../../index.html#tabulate.interop.scalaz.package" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">scalaz</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Declares various type class instances for bridging <code>tabulate</code> and <code>scalaz</code>.</p></div><div class="toggleContainer block">
+          <span class="toggle">Linear Supertypes</span>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        <div id="order">
+              <span class="filtertype">Ordering</span>
+              <ol>
+                
+                <li class="alpha in"><span>Alphabetic</span></li>
+                <li class="inherit out"><span>By inheritance</span></li>
+              </ol>
+            </div>
+        <div id="ancestors">
+                <span class="filtertype">Inherited<br />
+                </span>
+                <ol id="linearization">
+                  <li class="in" name="tabulate.interop.scalaz"><span>scalaz</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                </ol>
+              </div><div id="ancestors">
+            <span class="filtertype"></span>
+            <ol>
+              <li class="hideall out"><span>Hide All</span></li>
+              <li class="showall in"><span>Show all</span></li>
+            </ol>
+          </div>
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="tabulate.interop.scalaz#cellDecoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="cellDecoder:scalaz.Monad[tabulate.CellDecoder]"></a>
+      <a id="cellDecoder:Monad[CellDecoder]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">cellDecoder</span><span class="result">: <span class="extype" name="scalaz.Monad">Monad</span>[<a href="../../CellDecoder.html" class="extype" name="tabulate.CellDecoder">CellDecoder</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.interop.scalaz.package@cellDecoder:scalaz.Monad[tabulate.CellDecoder]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"><code>Monad</code> instance for <a href="../../CellDecoder.html" class="extype" name="tabulate.CellDecoder">CellDecoder</a>.</p>
+    </li><li name="tabulate.interop.scalaz#cellEncoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="cellEncoder:scalaz.Contravariant[tabulate.CellEncoder]"></a>
+      <a id="cellEncoder:Contravariant[CellEncoder]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">cellEncoder</span><span class="result">: <span class="extype" name="scalaz.Contravariant">Contravariant</span>[<a href="../../CellEncoder.html" class="extype" name="tabulate.CellEncoder">CellEncoder</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.interop.scalaz.package@cellEncoder:scalaz.Contravariant[tabulate.CellEncoder]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"><code>Contravariant</code> instance for <a href="../../CellEncoder.html" class="extype" name="tabulate.CellEncoder">CellEncoder</a>.</p>
+    </li><li name="tabulate.interop.scalaz#csvInput" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="csvInput:scalaz.Contravariant[tabulate.CsvInput]"></a>
+      <a id="csvInput:Contravariant[CsvInput]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">csvInput</span><span class="result">: <span class="extype" name="scalaz.Contravariant">Contravariant</span>[<a href="../../CsvInput.html" class="extype" name="tabulate.CsvInput">CsvInput</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.interop.scalaz.package@csvInput:scalaz.Contravariant[tabulate.CsvInput]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"><code>Contravariant</code> instance for <a href="../../CsvInput.html" class="extype" name="tabulate.CsvInput">CsvInput</a>.</p>
+    </li><li name="tabulate.interop.scalaz#csvOutput" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="csvOutput:scalaz.Contravariant[tabulate.CsvOutput]"></a>
+      <a id="csvOutput:Contravariant[CsvOutput]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">csvOutput</span><span class="result">: <span class="extype" name="scalaz.Contravariant">Contravariant</span>[<a href="../../CsvOutput.html" class="extype" name="tabulate.CsvOutput">CsvOutput</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.interop.scalaz.package@csvOutput:scalaz.Contravariant[tabulate.CsvOutput]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"><code>Contravariant</code> instance for <a href="../../CsvOutput.html" class="extype" name="tabulate.CsvOutput">CsvOutput</a>.</p>
+    </li><li name="tabulate.interop.scalaz#decodeResultEqual" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="decodeResultEqual[A](implicitevidence$1:scalaz.Equal[A]):scalaz.Equal[tabulate.DecodeResult[A]]"></a>
+      <a id="decodeResultEqual[A](Equal[A]):Equal[DecodeResult[A]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">decodeResultEqual</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="scalaz.Equal">Equal</span>[<span class="extype" name="tabulate.interop.scalaz.decodeResultEqual.A">A</span>]</span>)</span><span class="result">: <span class="extype" name="scalaz.Equal">Equal</span>[<a href="../../DecodeResult.html" class="extype" name="tabulate.DecodeResult">DecodeResult</a>[<span class="extype" name="tabulate.interop.scalaz.decodeResultEqual.A">A</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.interop.scalaz.package@decodeResultEqual[A](implicitevidence$1:scalaz.Equal[A]):scalaz.Equal[tabulate.DecodeResult[A]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"><code>Equal</code> instance for <a href="../../DecodeResult.html" class="extype" name="tabulate.DecodeResult">DecodeResult</a>.</p>
+    </li><li name="tabulate.interop.scalaz#decodeResultInstances" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="decodeResultInstances:scalaz.Monad[tabulate.DecodeResult]"></a>
+      <a id="decodeResultInstances:Monad[DecodeResult]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">decodeResultInstances</span><span class="result">: <span class="extype" name="scalaz.Monad">Monad</span>[<a href="../../DecodeResult.html" class="extype" name="tabulate.DecodeResult">DecodeResult</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.interop.scalaz.package@decodeResultInstances:scalaz.Monad[tabulate.DecodeResult]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"><code>Monad</code> instance for <a href="../../DecodeResult.html" class="extype" name="tabulate.DecodeResult">DecodeResult</a>.</p>
+    </li><li name="tabulate.interop.scalaz#eitherCellDecoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="eitherCellDecoder[A,B](implicitevidence$4:tabulate.CellDecoder[A],implicitevidence$5:tabulate.CellDecoder[B]):tabulate.CellDecoder[scalaz.\/[A,B]]"></a>
+      <a id="eitherCellDecoder[A,B](CellDecoder[A],CellDecoder[B]):CellDecoder[\/[A,B]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eitherCellDecoder</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../../CellDecoder.html" class="extype" name="tabulate.CellDecoder">CellDecoder</a>[<span class="extype" name="tabulate.interop.scalaz.eitherCellDecoder.A">A</span>]</span>, <span name="arg1">arg1: <a href="../../CellDecoder.html" class="extype" name="tabulate.CellDecoder">CellDecoder</a>[<span class="extype" name="tabulate.interop.scalaz.eitherCellDecoder.B">B</span>]</span>)</span><span class="result">: <a href="../../CellDecoder.html" class="extype" name="tabulate.CellDecoder">CellDecoder</a>[<span class="extype" name="scalaz.\/">\/</span>[<span class="extype" name="tabulate.interop.scalaz.eitherCellDecoder.A">A</span>, <span class="extype" name="tabulate.interop.scalaz.eitherCellDecoder.B">B</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.interop.scalaz.package@eitherCellDecoder[A,B](implicitevidence$4:tabulate.CellDecoder[A],implicitevidence$5:tabulate.CellDecoder[B]):tabulate.CellDecoder[scalaz.\/[A,B]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"><a href="../../CellDecoder.html" class="extype" name="tabulate.CellDecoder">CellDecoder</a> instance for <code>\/</code>.</p>
+    </li><li name="tabulate.interop.scalaz#eitherCellEncoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="eitherCellEncoder[A,B](implicitevidence$6:tabulate.CellEncoder[A],implicitevidence$7:tabulate.CellEncoder[B]):tabulate.CellEncoder[scalaz.\/[A,B]]"></a>
+      <a id="eitherCellEncoder[A,B](CellEncoder[A],CellEncoder[B]):CellEncoder[\/[A,B]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eitherCellEncoder</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../../CellEncoder.html" class="extype" name="tabulate.CellEncoder">CellEncoder</a>[<span class="extype" name="tabulate.interop.scalaz.eitherCellEncoder.A">A</span>]</span>, <span name="arg1">arg1: <a href="../../CellEncoder.html" class="extype" name="tabulate.CellEncoder">CellEncoder</a>[<span class="extype" name="tabulate.interop.scalaz.eitherCellEncoder.B">B</span>]</span>)</span><span class="result">: <a href="../../CellEncoder.html" class="extype" name="tabulate.CellEncoder">CellEncoder</a>[<span class="extype" name="scalaz.\/">\/</span>[<span class="extype" name="tabulate.interop.scalaz.eitherCellEncoder.A">A</span>, <span class="extype" name="tabulate.interop.scalaz.eitherCellEncoder.B">B</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.interop.scalaz.package@eitherCellEncoder[A,B](implicitevidence$6:tabulate.CellEncoder[A],implicitevidence$7:tabulate.CellEncoder[B]):tabulate.CellEncoder[scalaz.\/[A,B]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"><a href="../../CellEncoder.html" class="extype" name="tabulate.CellEncoder">CellEncoder</a> instance for <code>\/</code>.</p>
+    </li><li name="tabulate.interop.scalaz#eitherRowDecoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="eitherRowDecoder[A,B](implicitevidence$8:tabulate.RowDecoder[A],implicitevidence$9:tabulate.RowDecoder[B]):tabulate.RowDecoder[scalaz.\/[A,B]]"></a>
+      <a id="eitherRowDecoder[A,B](RowDecoder[A],RowDecoder[B]):RowDecoder[\/[A,B]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eitherRowDecoder</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../../RowDecoder.html" class="extype" name="tabulate.RowDecoder">RowDecoder</a>[<span class="extype" name="tabulate.interop.scalaz.eitherRowDecoder.A">A</span>]</span>, <span name="arg1">arg1: <a href="../../RowDecoder.html" class="extype" name="tabulate.RowDecoder">RowDecoder</a>[<span class="extype" name="tabulate.interop.scalaz.eitherRowDecoder.B">B</span>]</span>)</span><span class="result">: <a href="../../RowDecoder.html" class="extype" name="tabulate.RowDecoder">RowDecoder</a>[<span class="extype" name="scalaz.\/">\/</span>[<span class="extype" name="tabulate.interop.scalaz.eitherRowDecoder.A">A</span>, <span class="extype" name="tabulate.interop.scalaz.eitherRowDecoder.B">B</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.interop.scalaz.package@eitherRowDecoder[A,B](implicitevidence$8:tabulate.RowDecoder[A],implicitevidence$9:tabulate.RowDecoder[B]):tabulate.RowDecoder[scalaz.\/[A,B]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"><a href="../../RowDecoder.html" class="extype" name="tabulate.RowDecoder">RowDecoder</a> instance for <code>\/</code>.</p>
+    </li><li name="tabulate.interop.scalaz#eitherRowEncoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="eitherRowEncoder[A,B](implicitevidence$10:tabulate.RowEncoder[A],implicitevidence$11:tabulate.RowEncoder[B]):tabulate.RowEncoder[scalaz.\/[A,B]]"></a>
+      <a id="eitherRowEncoder[A,B](RowEncoder[A],RowEncoder[B]):RowEncoder[\/[A,B]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eitherRowEncoder</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../../RowEncoder.html" class="extype" name="tabulate.RowEncoder">RowEncoder</a>[<span class="extype" name="tabulate.interop.scalaz.eitherRowEncoder.A">A</span>]</span>, <span name="arg1">arg1: <a href="../../RowEncoder.html" class="extype" name="tabulate.RowEncoder">RowEncoder</a>[<span class="extype" name="tabulate.interop.scalaz.eitherRowEncoder.B">B</span>]</span>)</span><span class="result">: <a href="../../RowEncoder.html" class="extype" name="tabulate.RowEncoder">RowEncoder</a>[<span class="extype" name="scalaz.\/">\/</span>[<span class="extype" name="tabulate.interop.scalaz.eitherRowEncoder.A">A</span>, <span class="extype" name="tabulate.interop.scalaz.eitherRowEncoder.B">B</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.interop.scalaz.package@eitherRowEncoder[A,B](implicitevidence$10:tabulate.RowEncoder[A],implicitevidence$11:tabulate.RowEncoder[B]):tabulate.RowEncoder[scalaz.\/[A,B]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"><a href="../../RowEncoder.html" class="extype" name="tabulate.RowEncoder">RowEncoder</a> instance for <code>\/</code>.</p>
+    </li><li name="tabulate.interop.scalaz#maybeDecoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="maybeDecoder[A](implicitevidence$2:tabulate.CellDecoder[A]):tabulate.CellDecoder[scalaz.Maybe[A]]"></a>
+      <a id="maybeDecoder[A](CellDecoder[A]):CellDecoder[Maybe[A]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">maybeDecoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../../CellDecoder.html" class="extype" name="tabulate.CellDecoder">CellDecoder</a>[<span class="extype" name="tabulate.interop.scalaz.maybeDecoder.A">A</span>]</span>)</span><span class="result">: <a href="../../CellDecoder.html" class="extype" name="tabulate.CellDecoder">CellDecoder</a>[<span class="extype" name="scalaz.Maybe">Maybe</span>[<span class="extype" name="tabulate.interop.scalaz.maybeDecoder.A">A</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.interop.scalaz.package@maybeDecoder[A](implicitevidence$2:tabulate.CellDecoder[A]):tabulate.CellDecoder[scalaz.Maybe[A]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"><a href="../../CellDecoder.html" class="extype" name="tabulate.CellDecoder">CellDecoder</a> instance for <code>Maybe</code>.</p>
+    </li><li name="tabulate.interop.scalaz#maybeEncoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="maybeEncoder[A](implicitevidence$3:tabulate.CellEncoder[A]):tabulate.CellEncoder[scalaz.Maybe[A]]"></a>
+      <a id="maybeEncoder[A](CellEncoder[A]):CellEncoder[Maybe[A]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">maybeEncoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../../CellEncoder.html" class="extype" name="tabulate.CellEncoder">CellEncoder</a>[<span class="extype" name="tabulate.interop.scalaz.maybeEncoder.A">A</span>]</span>)</span><span class="result">: <a href="../../CellEncoder.html" class="extype" name="tabulate.CellEncoder">CellEncoder</a>[<span class="extype" name="scalaz.Maybe">Maybe</span>[<span class="extype" name="tabulate.interop.scalaz.maybeEncoder.A">A</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.interop.scalaz.package@maybeEncoder[A](implicitevidence$3:tabulate.CellEncoder[A]):tabulate.CellEncoder[scalaz.Maybe[A]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"><a href="../../CellEncoder.html" class="extype" name="tabulate.CellEncoder">CellEncoder</a> instance for <code>Maybe</code>.</p>
+    </li><li name="tabulate.interop.scalaz#rowDecoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="rowDecoder:scalaz.Monad[tabulate.RowDecoder]"></a>
+      <a id="rowDecoder:Monad[RowDecoder]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">rowDecoder</span><span class="result">: <span class="extype" name="scalaz.Monad">Monad</span>[<a href="../../RowDecoder.html" class="extype" name="tabulate.RowDecoder">RowDecoder</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.interop.scalaz.package@rowDecoder:scalaz.Monad[tabulate.RowDecoder]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"><code>Monad</code> instance for <a href="../../RowDecoder.html" class="extype" name="tabulate.RowDecoder">RowDecoder</a>.</p>
+    </li><li name="tabulate.interop.scalaz#rowEncoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="rowEncoder:scalaz.Contravariant[tabulate.RowEncoder]"></a>
+      <a id="rowEncoder:Contravariant[RowEncoder]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">rowEncoder</span><span class="result">: <span class="extype" name="scalaz.Contravariant">Contravariant</span>[<a href="../../RowEncoder.html" class="extype" name="tabulate.RowEncoder">RowEncoder</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.interop.scalaz.package@rowEncoder:scalaz.Contravariant[tabulate.RowEncoder]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"><code>Contravariant</code> instance for <a href="../../CellEncoder.html" class="extype" name="tabulate.CellEncoder">CellEncoder</a>.</p>
+    </li><li name="tabulate.interop.scalaz.stream" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="stream"></a>
+      <a id="stream:stream"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="stream/package.html"><span class="name">stream</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.interop.scalaz.package@stream" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        <div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+            </div>
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

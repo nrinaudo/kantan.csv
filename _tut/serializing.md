@@ -25,11 +25,11 @@ air, moon roof, loaded)))
 The code in this tutorial requires the following imports:
 
 ```scala
-import com.nrinaudo.csv._
-import com.nrinaudo.csv.ops._
+import tabulate._
+import tabulate.ops._
 ```
 
-`com.nrinaudo.csv._` imports all the core classes, while `com.nrinaudo.csv.ops._` bring the various operators in scope.
+`tabulate._` imports all the core classes, while `tabulate.ops._` bring the various operators in scope.
 
 
 Additionally, most methods used to open CSV data for writing require an implicit `scala.io.Codec` to be in scope. I'll
@@ -42,7 +42,7 @@ implicit val codec = scala.io.Codec.ISO8859
 
 
 ## The `CsvWriter` class
-All CSV serialisation is done through the [CsvWriter]({{ site.baseurl }}/api/#com.nrinaudo.csv.CsvWriter) class,
+All CSV serialisation is done through the [CsvWriter]({{ site.baseurl }}/api/#tabulate.CsvWriter) class,
 instances of which can be retrieved through the `asCsvWriter` method that enriches types we can write to.
 
 In order for the various examples' output to be more readable, I'll be using the following function to print
@@ -161,7 +161,7 @@ here because our example is based on case classes, which have dedicated helper m
 
 ```scala
 scala> implicit val carEncoder= RowEncoder.caseEncoder5(Car.unapply)(1, 2, 0, 4, 3)
-carEncoder: com.nrinaudo.csv.RowEncoder[Car] = com.nrinaudo.csv.RowEncoder$$anon$2@44829bb2
+carEncoder: tabulate.RowEncoder[Car] = tabulate.RowEncoder$$anon$2@11a32d0d
 
 scala> printCsv(data)(_.asCsvWriter[Car](',', header))
 res5: String =
@@ -184,7 +184,7 @@ the first field, the second one that of the second field...
 
 ### CSV data sinks
 In this tutorial, we sort of took it for granted that `java.io.StringWriter` would have an `asCsvWriter` method. This
-works thanks to the [CsvOutput]({{ site.baseurl }}/api/#com.nrinaudo.csv.CsvOutput) type class: any type `A` that has an
+works thanks to the [CsvOutput]({{ site.baseurl }}/api/#tabulate.CsvOutput) type class: any type `A` that has an
 implicit `CsvOutput[A]` in scope will be enriched with the `asCsvWriter` method.
 
 As a simple example, this is how you'd add support for writing CSV to `java.io.File`:
@@ -197,12 +197,12 @@ implicit def fileOutput(implicit c: scala.io.Codec) =
 ```
 
 Note that files are already supported, as well as a few other types. An exhaustive list can be found in the
-[CsvOutput]({{ site.baseurl }}/api/#com.nrinaudo.csv.CsvOutput$)  companion object.
+[CsvOutput]({{ site.baseurl }}/api/#tabulate.CsvOutput$)  companion object.
 
 
 ### CSV cell types
 Another seemingly magical thing is how `CsvWriter` managed to guess how to turn each individual cell into a valid
-string representation. This is achieved through the [CellEncoder]({{ site.baseurl }}/api/#com.nrinaudo.csv.CellEncoder)
+string representation. This is achieved through the [CellEncoder]({{ site.baseurl }}/api/#tabulate.CellEncoder)
 type class.
 
 The following is how you'd add support for serialising instances of `java.util.Date` to their ISO 8601 representation:
@@ -223,7 +223,7 @@ We can now write:
 ```scala
 scala> printCsv(List(Seq(new Date(), new Date(System.currentTimeMillis + 86400000))))(_.asCsvWriter[Seq[Date]](','))
 res11: String =
-"2015-10-11T09:22:38+0200,2015-10-12T09:22:38+0200
+"2015-10-13T21:54:57+0200,2015-10-14T21:54:57+0200
 "
 ```
 
@@ -236,7 +236,7 @@ implicit val dateCodec = CellCodec(s => DecodeResult(iso8601.parse(s)), (d: Date
 
 
 ### CSV row types
-Finally, `CsvWriter` relies on the [RowEncoder]({{ site.baseurl }}/api/#com.nrinaudo.csv.RowEncoder) type class to turn
+Finally, `CsvWriter` relies on the [RowEncoder]({{ site.baseurl }}/api/#tabulate.RowEncoder) type class to turn
 rows into actual CSV data.
 
 The beauty of this pattern is that all these type classes seamlessly compose: `RowEncoder` relies on instances of
@@ -248,7 +248,7 @@ previous section, which allows us to write, say, `(Date, Date)` instances withou
 ```scala
 scala> printCsv(List((new Date(), new Date(System.currentTimeMillis + 86400000))))(_.asCsvWriter[(Date, Date)](','))
 res12: String =
-"2015-10-11T09:22:38+0200,2015-10-12T09:22:38+0200
+"2015-10-13T21:54:57+0200,2015-10-14T21:54:57+0200
 "
 ```
 
