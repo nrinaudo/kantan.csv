@@ -5,7 +5,7 @@ lazy val root = Project(id = "tabulate", base = file("."))
 lazy val core = project
 
 lazy val scalazStream = Project(id = "scalaz-stream", base = file("scalaz-stream"))
-  .dependsOn(core, laws % "test")
+  .dependsOn(core, scalaz, laws % "test")
 
 lazy val scalaz = project.dependsOn(core, laws % "test")
 
