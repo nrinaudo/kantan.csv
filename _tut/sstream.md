@@ -22,10 +22,10 @@ Year,Make,Model,Description,Price
 air, moon roof, loaded",4799.00
 ```
 
-This is available as a resource, so let's just a get the URL to that:
+This is available as a resource, so let's just get a URL to that:
  
 ```scala
-val rawData = getClass.getResource("/wikipedia.csv")
+val rawData: java.net.URL = getClass.getResource("/wikipedia.csv")
 ```
 
 ## Setting up Tabulate
@@ -72,16 +72,14 @@ Since `java.net.URL` has a valid instance of `CsvInput`, we can turn `rawData` i
 following code:
 
 ```scala
-scala> rawData.asUnsafeCsvSource[Car](',', true)
-res0: scalaz.stream.Process[scalaz.concurrent.Task,Car] = Append(Await(scalaz.concurrent.Task@432f11e1,<function1>,<function1>),Vector(<function1>))
+rawData.asUnsafeCsvSource[Car](',', true)
 ```
 
 We set the arbitrary goal of filtering out all cars that have an empty description, which is done trivially:
 
 ```scala
-scala> rawData.asUnsafeCsvSource[Car](',', true).
-     |   filter(_.desc.isJust)
-res1: scalaz.stream.Process[scalaz.concurrent.Task,Car] = Append(Halt(End),Vector(<function1>))
+rawData.asUnsafeCsvSource[Car](',', true).
+  filter(_.desc.isJust)
 ```
 
 Finally, we want to write the remaining cars as CSV. For our example, we'll write it to a `StringWriter`, which will
