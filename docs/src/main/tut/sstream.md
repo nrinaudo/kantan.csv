@@ -22,10 +22,10 @@ Year,Make,Model,Description,Price
 air, moon roof, loaded",4799.00
 ```
 
-This is available as a resource, so let's just a get the URL to that:
+This is available as a resource, so let's just get a URL to that:
  
 ```tut:silent
-val rawData = getClass.getResource("/wikipedia.csv")
+val rawData: java.net.URL = getClass.getResource("/wikipedia.csv")
 ```
 
 ## Setting up Tabulate
@@ -71,13 +71,13 @@ implicit val carCodec = RowCodec.caseCodec5(Car.apply, Car.unapply)(1, 2, 0, 4, 
 Since `java.net.URL` has a valid instance of `CsvInput`, we can turn `rawData` into a `Process[Task, Car]` with the
 following code:
 
-```tut
+```tut:silent
 rawData.asUnsafeCsvSource[Car](',', true)
 ```
 
 We set the arbitrary goal of filtering out all cars that have an empty description, which is done trivially:
 
-```tut
+```tut:silent
 rawData.asUnsafeCsvSource[Car](',', true).
   filter(_.desc.isJust)
 ```
