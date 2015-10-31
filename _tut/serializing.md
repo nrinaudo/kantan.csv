@@ -161,7 +161,7 @@ here because our example is based on case classes, which have dedicated helper m
 
 ```scala
 scala> implicit val carEncoder= RowEncoder.caseEncoder5(Car.unapply)(1, 2, 0, 4, 3)
-carEncoder: tabulate.RowEncoder[Car] = tabulate.RowEncoder$$anon$2@5dfe3764
+carEncoder: tabulate.RowEncoder[Car] = tabulate.RowEncoder$$anon$2@470bd9fb
 
 scala> printCsv(data)(_.asCsvWriter[Car](',', header))
 res5: String =
@@ -223,7 +223,7 @@ We can now write:
 ```scala
 scala> printCsv(List(Seq(new Date(), new Date(System.currentTimeMillis + 86400000))))(_.asCsvWriter[Seq[Date]](','))
 res11: String =
-"2015-10-31T22:53:03+0100,2015-11-01T22:53:03+0100
+"2015-10-31T23:01:23+0100,2015-11-01T23:01:23+0100
 "
 ```
 
@@ -248,7 +248,7 @@ previous section, which allows us to write, say, `(Date, Date)` instances withou
 ```scala
 scala> printCsv(List((new Date(), new Date(System.currentTimeMillis + 86400000))))(_.asCsvWriter[(Date, Date)](','))
 res12: String =
-"2015-10-31T22:53:04+0100,2015-11-01T22:53:04+0100
+"2015-10-31T23:01:23+0100,2015-11-01T23:01:23+0100
 "
 ```
 
