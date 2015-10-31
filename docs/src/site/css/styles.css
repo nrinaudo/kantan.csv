@@ -56,7 +56,8 @@ pre {
 }
 
 a {
-    color: #27ae60;
+    #    color: #27ae60;
+    color: #2980b9;
     text-decoration: none;
 }
 
@@ -68,7 +69,7 @@ hr {
 }
 
 h1, h2, h3 {
-    border-bottom: 1px solid #dfdedc;
+    border-bottom: 1px solid #2980b9;
     color: #2980b9;
 }
 
@@ -78,7 +79,7 @@ h1 {
     padding-bottom: 10px;
 }
 
-h2 {
+h2, h3 {
     margin-bottom: 5px;
     margin-top: 30px;
     padding-bottom: 5px;
