@@ -1,7 +1,7 @@
 body {
 	line-height:    120%;
     font-family:    "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size:      100%;
+    font-size:      14px;
     background:     #fff;
     margin:         0;
 	padding:        0;
@@ -10,7 +10,7 @@ body {
 }
 
 #content {
-    margin: 40px;
+    margin: 40px 100px 40px 100px;
 }
 
 #navbar {
@@ -19,7 +19,7 @@ body {
     margin-bottom:    10px;
     font-family:      "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size:        16px !important;
-    padding:          15px 40px 15px 40px;
+    padding:          15px 100px 15px 100px;
 }
 
 #home {
@@ -30,8 +30,10 @@ body {
     font-size:       15pt;
     vertical-align:  middle;
     float:           right;
-    padding-right:   40px;
+}
 
+#navbar span.external {
+    padding-left:    30px;
 }
 
 #navbar a {
@@ -44,11 +46,13 @@ body {
 }
 
 pre {
+    border: 1px solid #dfdedc;
     white-space: pre-wrap;       /* CSS 3 */
     white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
     white-space: -pre-wrap;      /* Opera 4-6 */
     white-space: -o-pre-wrap;    /* Opera 7 */
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    font-size: 13px;
 }
 
 a {
@@ -61,4 +65,21 @@ hr {
     height:           1px;
     color:            #333;
     background-color: #333;
+}
+
+h1, h2, h3 {
+    border-bottom: 1px solid #dfdedc;
+    color: #2980b9;
+}
+
+h1 {
+    margin-bottom: 10px;
+    margin-top: 30px;
+    padding-bottom: 10px;
+}
+
+h2 {
+    margin-bottom: 5px;
+    margin-top: 30px;
+    padding-bottom: 5px;
 }
