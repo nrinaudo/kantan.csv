@@ -9,7 +9,7 @@ site.addMappingsToSiteDir(tut, "_tut")
 
 site.addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), "api")
 
-includeFilter in makeSite := "*.yml" | "*.md" | "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js"
+includeFilter in makeSite := "*.yml" | "*.md" | "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.eot" | "*.svg" | "*.ttf" | "*.woff" | "*.woff2" | "*.otf"
 
 ghpages.settings
 
