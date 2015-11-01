@@ -10,16 +10,16 @@ body {
 }
 
 #content {
-    margin: 40px 100px 40px 100px;
+    margin: 40px 7% 40px 7%;
 }
 
 #navbar {
-    background-color: #27ae60;
+    background-color: #2980b9;
     height:           25px;
     margin-bottom:    10px;
     font-family:      "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size:        16px !important;
-    padding:          15px 100px 15px 100px;
+    padding:          15px 7% 15px 7%;
 }
 
 #home {
@@ -27,6 +27,8 @@ body {
 }
 
 #navbar span {
+    display:         inline-block;
+    line-height:     normal;
     font-size:       15pt;
     vertical-align:  middle;
     float:           right;
@@ -56,7 +58,6 @@ pre {
 }
 
 a {
-    #    color: #27ae60;
     color: #2980b9;
     text-decoration: none;
 }
@@ -83,4 +84,27 @@ h2, h3 {
     margin-bottom: 5px;
     margin-top: 30px;
     padding-bottom: 5px;
+}
+
+time {
+    font-size: 10px;
+    color: #a09b96;
+    padding-bottom: 200px;
+    text-transform: uppercase;
+}
+
+div.title {
+    margin-top: 5px;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+ul.archive {
+    padding: 0;
+    list-style-type: none;
+}
+
+ul.archive li {
+    border-bottom: 1px solid #dfdedc;
+    margin-bottom: 30px;
 }
