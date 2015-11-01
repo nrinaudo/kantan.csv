@@ -38,27 +38,23 @@ body {
     padding-left:    30px;
 }
 
-#navbar span.external a:hover {
+#navbar a:hover {
     color:              #e74c3c;
-    transition:         all 200ms ease-in-out;
-    -webkit-transition: all 200ms ease-in-out;
-    -moz-transition:    all 200ms ease-in-out;
-    -o-transition:      all 200ms ease-in-out;
-    -ms-transition:     all 200ms ease-in-out;
+    transition:         all 100ms ease-in-out;
+    -webkit-transition: all 100ms ease-in-out;
+    -moz-transition:    all 100ms ease-in-out;
+    -o-transition:      all 100ms ease-in-out;
+    -ms-transition:     all 100ms ease-in-out;
 }
 
 #navbar a {
     text-decoration:    none;
     color:              #fff;
-    transition:         all 200ms ease-in-out;
-    -webkit-transition: all 200ms ease-in-out;
-    -moz-transition:    all 200ms ease-in-out;
-    -o-transition:      all 200ms ease-in-out;
-    -ms-transition:     all 200ms ease-in-out;
-}
-
-#navbar a:hover {
-    text-decoration: underline;
+    transition:         all 100ms ease-in-out;
+    -webkit-transition: all 100ms ease-in-out;
+    -moz-transition:    all 100ms ease-in-out;
+    -o-transition:      all 100ms ease-in-out;
+    -ms-transition:     all 100ms ease-in-out;
 }
 
 pre {
