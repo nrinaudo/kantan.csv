@@ -4,30 +4,60 @@ import tabulate.ops._
 import shapeless._
 
 package object generic {
-  // - ADT encoding ----------------------------------------------------------------------------------------------------
+  // - ADT cell encoding ------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def coproductEncoder[H: RowEncoder, T <: Coproduct: RowEncoder]: RowEncoder[H :+: T] =
+  implicit def coproductCellEncoder[H: CellEncoder, T <: Coproduct: CellEncoder]: CellEncoder[H :+: T] =
+    CellEncoder((a: H :+: T) => a match {
+      case Inl(h) => h.asCsvCell
+      case Inr(t) => t.asCsvCell
+    })
+
+  implicit val cnilCellEncoder: CellEncoder[CNil] =
+    CellEncoder((_: CNil) => sys.error("trying to encode CNil, this should not happen"))
+
+  implicit def adtCellEncoder[A, R <: Coproduct](implicit gen: Generic.Aux[A, R], e: CellEncoder[R]): CellEncoder[A] =
+    CellEncoder(a => e.encode(gen.to(a)))
+
+
+
+  // - ADT cell decoding ------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit def coproductCellDecoder[H: CellDecoder, T <: Coproduct: CellDecoder]: CellDecoder[H :+: T] = CellDecoder(row =>
+    CellDecoder[H].decode(row).map(Inl.apply).orElse(CellDecoder[T].decode(row).map(Inr.apply))
+  )
+
+  implicit val cnilCellDecoder: CellDecoder[CNil] = CellDecoder(_ => DecodeResult.decodeFailure)
+
+  implicit def adtCellDecoder[A, R <: Coproduct](implicit gen: Generic.Aux[A, R], d: CellDecoder[R]): CellDecoder[A] =
+    CellDecoder(row => d.decode(row).map(gen.from))
+
+
+
+  // - ADT row encoding ------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit def coproductRowEncoder[H: RowEncoder, T <: Coproduct: RowEncoder]: RowEncoder[H :+: T] =
     RowEncoder((a: H :+: T) => a match {
       case Inl(h) => h.asCsvRow
       case Inr(t) => t.asCsvRow
     })
 
-  implicit val cnilEncoder: RowEncoder[CNil] = RowEncoder((_: CNil) => sys.error("trying to encode CNil, this should not happen"))
+  implicit val cnilRowEncoder: RowEncoder[CNil] =
+    RowEncoder((_: CNil) => sys.error("trying to encode CNil, this should not happen"))
 
-  implicit def adtEncoder[A, R <: Coproduct](implicit gen: Generic.Aux[A, R], e: RowEncoder[R]): RowEncoder[A] =
+  implicit def adtRowEncoder[A, R <: Coproduct](implicit gen: Generic.Aux[A, R], e: RowEncoder[R]): RowEncoder[A] =
     RowEncoder(a => e.encode(gen.to(a)))
 
 
 
-  // - ADT decoding ----------------------------------------------------------------------------------------------------
+  // - ADT row decoding ------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def coproductDecoder[H: RowDecoder, T <: Coproduct: RowDecoder]: RowDecoder[H :+: T] = RowDecoder(row =>
+  implicit def coproductRowDecoder[H: RowDecoder, T <: Coproduct: RowDecoder]: RowDecoder[H :+: T] = RowDecoder(row =>
     RowDecoder[H].decode(row).map(Inl.apply).orElse(RowDecoder[T].decode(row).map(Inr.apply))
   )
 
-  implicit val cnilDecoder: RowDecoder[CNil] = RowDecoder(_ => DecodeResult.decodeFailure)
+  implicit val cnilRowDecoder: RowDecoder[CNil] = RowDecoder(_ => DecodeResult.decodeFailure)
 
-  implicit def adtDecoder[A, R <: Coproduct](implicit gen: Generic.Aux[A, R], d: RowDecoder[R]): RowDecoder[A] =
+  implicit def adtRowDecoder[A, R <: Coproduct](implicit gen: Generic.Aux[A, R], d: RowDecoder[R]): RowDecoder[A] =
     RowDecoder(row => d.decode(row).map(gen.from))
 
 
