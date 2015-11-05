@@ -1,6 +1,6 @@
 package tabulate
 
-import ops._
+import CellEncoder.ops._
 
 import simulacrum.{noop, op, typeclass}
 
@@ -19,8 +19,8 @@ object RowEncoder {
   implicit def strSeq[M[X] <: Seq[X]]: RowEncoder[M[String]] = RowEncoder(ss => ss)
 
   implicit def either[A: RowEncoder, B: RowEncoder]: RowEncoder[Either[A, B]] = RowEncoder { ss => ss match {
-    case Left(a) => a.asCsvRow
-    case Right(b) => b.asCsvRow
+    case Left(a) => RowEncoder[A].encode(a)
+    case Right(b) => RowEncoder[B].encode(b)
   }}
 
 
