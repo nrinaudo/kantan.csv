@@ -9,8 +9,10 @@ import simulacrum.{noop, op, typeclass}
   @noop def contramap[B](f: B => A): RowEncoder[B] = RowEncoder(f andThen encode _)
 }
 
-object RowEncoder {
+@export.imports[RowEncoder]
+trait LowPriorityRowEncoders
 
+object RowEncoder extends LowPriorityRowEncoders {
   def apply[A](f: A => Seq[String]): RowEncoder[A] = new RowEncoder[A] {
     override def encode(a: A) = f(a)
   }

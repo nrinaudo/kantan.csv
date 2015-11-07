@@ -36,6 +36,9 @@ import scala.collection.generic.CanBuildFrom
   @noop def flatMap[B](f: A => RowDecoder[B]): RowDecoder[B] = RowDecoder(s => decode(s).flatMap(a => f(a).decode(s)))
 }
 
+@export.imports[RowDecoder]
+trait LowPriorityRowDecoders
+
 /** Defines convenience methods for creating and retrieving instances of `RowDecoder`.
   *
   * Implicit default implementations of standard types are also declared here, always bringing them in scope with a low
@@ -49,7 +52,7 @@ import scala.collection.generic.CanBuildFrom
   * `RowDecoder[B]` and have both a `RowDecoder[A]` and a `A => B`, you need just use [[RowDecoder.map]] to create
   * your implementation.
   */
-object RowDecoder {
+object RowDecoder extends LowPriorityRowDecoders {
   /** Creates a new instance of [[RowDecoder]] that uses the specified function to parse data. */
   def apply[A](f: Seq[String] => DecodeResult[A]): RowDecoder[A] = new RowDecoder[A] {
     override def decode(row: Seq[String]) = f(row)

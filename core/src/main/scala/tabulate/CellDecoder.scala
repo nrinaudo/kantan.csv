@@ -2,6 +2,47 @@ package tabulate
 
 import simulacrum.{noop, typeclass}
 
+/** Decodes CSV cells into usable types.
+  *
+  * By itself, an instance of `CellDecoder` is not terribly interesting. It becomes useful when combined with
+  * `RowDecoder`, which relies on any implicit `CellDecoder` it has in scope to parse entire rows.
+  *
+  * If, for example, you need to parse CSV data that contains ISO 8601 formatted dates, you can't immediately call
+  * [[CsvInput.rows]] with a type argument of `List[Date]`: dates are not supported natively (because they can be
+  * serialised in so many different ways).
+  *
+  * This can be remedied simply by writing the following:
+  * {{{
+  *   implicit val dateDecoder = CellDecoder(s => DecodeResult(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s)))
+  * }}}
+  *
+  * See the [[CellDecoder$ companion object]] for default implementations and construction methods.
+  */
+@typeclass trait CellDecoder[A] {
+  /** Turns the content of a CSV cell into an `A`. */
+  @noop def decode(s: String): DecodeResult[A]
+
+  /** Turns the content of the specified cell into an `A`.
+    *
+    * The purpose of this method is to protect against index out of bound exceptions. Should the specified index not
+    * exist, a [[DecodeResult.DecodeFailure]] instance will be returned.
+    */
+  @noop def decode(ss: Seq[String], index: Int): DecodeResult[A] =
+    if(ss.isDefinedAt(index)) decode(ss(index))
+    else                      DecodeResult.DecodeFailure
+
+  /** Turns an instance of `CsvInput[A]` into one of `CsvInput[B]`.
+    *
+    * This allows developers to adapt existing instances of `CellDecoder` rather than write one from scratch.
+    */
+  @noop def map[B](f: A => B): CellDecoder[B] = CellDecoder(s => decode(s).map(f))
+
+  @noop def flatMap[B](f: A => CellDecoder[B]): CellDecoder[B] = CellDecoder(s => decode(s).flatMap(a => f(a).decode(s)))
+}
+
+@export.imports[CellDecoder]
+trait LowPriorityCellDecoders
+
 /** Defines convenience methods for creating and retrieving instances of `CellDecoder`.
   *
   * Implicit default implementations of standard types are also declared here, always bringing them in scope with a low
@@ -11,7 +52,7 @@ import simulacrum.{noop, typeclass}
   * `CellDecoder[B]` and have both a `CellDecoder[A]` and a `A => B`, you need just use [[CellDecoder.map]] to create
   * your implementation.
   */
-object CellDecoder {
+object CellDecoder extends LowPriorityCellDecoders {
   /** Creates a new instance of [[CellDecoder]] that uses the specified function to parse data. */
   def apply[A](f: String => DecodeResult[A]): CellDecoder[A] = new CellDecoder[A] {
     override def decode(a: String) = f(a)
@@ -58,42 +99,4 @@ object CellDecoder {
     CellDecoder { s => CellDecoder[A].decode(s).map(a => Left(a): Either[A, B])
       .orElse(CellDecoder[B].decode(s).map(b => Right(b): Either[A, B]))
     }
-}
-
-/** Decodes CSV cells into usable types.
-  *
-  * By itself, an instance of `CellDecoder` is not terribly interesting. It becomes useful when combined with
-  * `RowDecoder`, which relies on any implicit `CellDecoder` it has in scope to parse entire rows.
-  *
-  * If, for example, you need to parse CSV data that contains ISO 8601 formatted dates, you can't immediately call
-  * [[CsvInput.rows]] with a type argument of `List[Date]`: dates are not supported natively (because they can be
-  * serialised in so many different ways).
-  *
-  * This can be remedied simply by writing the following:
-  * {{{
-  *   implicit val dateDecoder = CellDecoder(s => DecodeResult(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s)))
-  * }}}
-  *
-  * See the [[CellDecoder$ companion object]] for default implementations and construction methods.
-  */
-@typeclass trait CellDecoder[A] {
-  /** Turns the content of a CSV cell into an `A`. */
-  @noop def decode(s: String): DecodeResult[A]
-
-  /** Turns the content of the specified cell into an `A`.
-    *
-    * The purpose of this method is to protect against index out of bound exceptions. Should the specified index not
-    * exist, a [[DecodeResult.DecodeFailure]] instance will be returned.
-    */
-  @noop def decode(ss: Seq[String], index: Int): DecodeResult[A] =
-    if(ss.isDefinedAt(index)) decode(ss(index))
-    else                      DecodeResult.DecodeFailure
-
-  /** Turns an instance of `CsvInput[A]` into one of `CsvInput[B]`.
-    *
-    * This allows developers to adapt existing instances of `CellDecoder` rather than write one from scratch.
-    */
-  @noop def map[B](f: A => B): CellDecoder[B] = CellDecoder(s => decode(s).map(f))
-
-  @noop def flatMap[B](f: A => CellDecoder[B]): CellDecoder[B] = CellDecoder(s => decode(s).flatMap(a => f(a).decode(s)))
 }

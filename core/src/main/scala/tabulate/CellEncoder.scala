@@ -2,7 +2,16 @@ package tabulate
 
 import simulacrum.{noop, op, typeclass}
 
-object CellEncoder {
+@typeclass trait CellEncoder[A] {
+  @op("asCsvCell") def encode(a: A): String
+
+  @noop def contramap[B](f: B => A): CellEncoder[B] = CellEncoder(f andThen encode _)
+}
+
+@export.imports[CellEncoder]
+trait LowPriorityCellEncoders
+
+object CellEncoder extends LowPriorityCellEncoders {
   import ops._
 
   def apply[A](f: A => String): CellEncoder[A] = new CellEncoder[A] {
@@ -26,10 +35,4 @@ object CellEncoder {
     case Left(a)  => a.asCsvCell
     case Right(b) => b.asCsvCell
   })
-}
-
-@typeclass trait CellEncoder[A] {
-  @op("asCsvCell") def encode(a: A): String
-
-  @noop def contramap[B](f: B => A): CellEncoder[B] = CellEncoder(f andThen encode _)
 }

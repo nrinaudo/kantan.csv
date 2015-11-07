@@ -1,5 +1,12 @@
 package tabulate
 
+/** Combines [[CellDecoder]] and [[CellEncoder]].
+  *
+  * Instance for types that already have a [[CellDecoder]] and [[CellEncoder]] are derived automatically.
+  */
+trait CellCodec[A] extends CellDecoder[A] with CellEncoder[A]
+
+@export.exports(Subclass)
 object CellCodec {
   /** Creates a [[CellCodec]] from an existing [[CellDecoder]] and [[CellEncoder]]. */
   implicit def combine[A](implicit r: CellDecoder[A], w: CellEncoder[A]): CellCodec[A] =
@@ -10,9 +17,3 @@ object CellCodec {
     override def encode(a: A) = encoder(a)
   }
 }
-
-/** Combines [[CellDecoder]] and [[CellEncoder]].
-  *
-  * Instance for types that already have a [[CellDecoder]] and [[CellEncoder]] are derived automatically.
-  */
-trait CellCodec[A] extends CellDecoder[A] with CellEncoder[A]

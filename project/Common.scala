@@ -31,7 +31,12 @@ object Common extends Build {
                             scalaVersion       := "2.11.7",
                             crossScalaVersions := Seq("2.10.6", "2.11.7"),
                             addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0-M5" cross CrossVersion.full),
-                            libraryDependencies += "com.github.mpilquist" %% "simulacrum" % "0.4.0" % "provided",
+                            libraryDependencies ++= Seq(
+                              "org.typelevel" %% "export-hook" % "1.0.2",
+                              "org.scala-lang" % "scala-reflect" % scalaVersion.value % "provided",
+                              compilerPlugin("org.scalamacros" % "paradise" % "2.1.0-M5" cross CrossVersion.full),
+                              "com.github.mpilquist" %% "simulacrum" % "0.4.0" % "provided"
+                            ),
                             scalacOptions     ++= Seq("-deprecation",
                               "-target:jvm-1.7",
                               "-encoding", "UTF-8",
