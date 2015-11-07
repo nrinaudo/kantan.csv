@@ -61,20 +61,19 @@ package object generic {
     RowDecoder(row => d.decode(row).map(gen.from))
 
 
-  // - Case class encoding ---------------------------------------------------------------------------------------------
+  // - Case class row encoding -----------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def hlistEncoder[H: CellEncoder, T <: HList: RowEncoder]: RowEncoder[H :: T] = RowEncoder((a: H :: T) => a match {
+  implicit def hlistRowEncoder[H: CellEncoder, T <: HList: RowEncoder]: RowEncoder[H :: T] = RowEncoder((a: H :: T) => a match {
     case h :: t => h.asCsvCell +: t.asCsvRow
   })
 
-  implicit val hnilEncoder: RowEncoder[HNil] = RowEncoder(_ => Seq.empty)
+  implicit val hnilRowEncoder: RowEncoder[HNil] = RowEncoder(_ => Seq.empty)
 
-  implicit def caseClassEncoder[A, R <: HList](implicit gen: Generic.Aux[A, R], c: RowEncoder[R]): RowEncoder[A] =
+  implicit def caseClassRowEncoder[A, R <: HList](implicit gen: Generic.Aux[A, R], c: RowEncoder[R]): RowEncoder[A] =
     RowEncoder(a => c.encode(gen.to(a)))
 
 
-
-  // - Case class decoding ---------------------------------------------------------------------------------------------
+  // - Case class row decoding -----------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def hlistDecoder[H: CellDecoder, T <: HList: RowDecoder]: RowDecoder[H :: T] = RowDecoder(row =>
     row.headOption.map(s =>
@@ -87,5 +86,24 @@ package object generic {
   implicit val hnilDecoder: RowDecoder[HNil] = RowDecoder(_ => DecodeResult.success(HNil))
 
   implicit def caseClassDecoder[A, R <: HList](implicit gen: Generic.Aux[A, R], d: RowDecoder[R]): RowDecoder[A] =
-    RowDecoder(a => d.decode(a).map(gen.from))
+    RowDecoder(s => d.decode(s).map(gen.from))
+
+
+
+  // - Case class cell encoding ----------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  // Thanks Travis Brown for that one:
+  // http://stackoverflow.com/questions/33563111/deriving-type-class-instances-for-case-classes-with-exactly-one-field
+  implicit def caseClassCellEncoder[A, R, H](implicit gen: Generic.Aux[A, R], ev: R <:< (H :: HNil), e: CellEncoder[H]): CellEncoder[A] =
+    CellEncoder((a: A) => ev(gen.to(a)) match {
+      case h :: t => e.encode(h)
+    })
+
+
+  // - Case class cell decoding ----------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  /*
+  implicit def caseClassCellDecoder[A, R, H](implicit gen: Generic.Aux[A, R], ev: R <:< (H :: HNil), d: CellDecoder[H]): CellDecoder[A] =
+    CellDecoder(s => d.decode(s).map(h => gen.from((h :: HNil).asInstanceOf[R])))
+    */
 }
