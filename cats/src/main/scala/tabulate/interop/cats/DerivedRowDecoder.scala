@@ -8,7 +8,6 @@ trait DerivedRowDecoder[A] extends RowDecoder[A]
 
 @exports
 object DerivedRowDecoder {
-  /** [[RowDecoder]] instance for `Xor`. */
   implicit def xorRowDecoder[A: RowDecoder, B: RowDecoder]: RowDecoder[Xor[A, B]] =
     RowDecoder { s => RowDecoder[A].decode(s).map(a => Xor.Left(a))
       .orElse(RowDecoder[B].decode(s).map(b => Xor.Right(b)))
