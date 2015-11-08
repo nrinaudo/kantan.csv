@@ -1,10 +1,8 @@
 package tabulate.interop
 
 import tabulate._
-import ops._
-import _root_.scalaz.Maybe._
+
 import _root_.scalaz._
-import _root_.scalaz.Scalaz._
 
 
 /** Declares various type class instances for bridging `tabulate` and `scalaz`. */
@@ -71,53 +69,5 @@ package object scalaz {
   /** `Contravariant` instance for [[CsvOutput]]. */
   implicit val csvOutput: Contravariant[CsvOutput] = new Contravariant[CsvOutput] {
     override def contramap[A, B](r: CsvOutput[A])(f: B => A) = r.contramap(f)
-  }
-
-
-  // - Maybe -----------------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  /** [[CellDecoder]] instance for `Maybe`. */
-  implicit def maybeDecoder[A: CellDecoder]: CellDecoder[Maybe[A]] = CellDecoder { s =>
-    if(s.isEmpty) DecodeResult.success(empty)
-    else          CellDecoder[A].decode(s).map(just)
-  }
-
-  /** [[CellEncoder]] instance for `Maybe`. */
-  implicit def maybeEncoder[A: CellEncoder]: CellEncoder[Maybe[A]] =
-    CellEncoder(ma => ma.map(CellEncoder[A].encode).getOrElse(""))
-
-
-
-  // - \/ --------------------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  /** [[CellDecoder]] instance for `\/`. */
-  implicit def eitherCellDecoder[A: CellDecoder, B: CellDecoder]: CellDecoder[A \/ B] =
-    CellDecoder { s => CellDecoder[A].decode(s).map(_.left[B])
-      .orElse(CellDecoder[B].decode(s).map(_.right[A]))
-    }
-
-  /** [[CellEncoder]] instance for `\/`. */
-  implicit def eitherCellEncoder[A: CellEncoder, B: CellEncoder]: CellEncoder[A \/ B] = CellEncoder(eab => eab match {
-    case -\/(a)  => a.asCsvCell
-    case \/-(b)  => b.asCsvCell
-  })
-
-  /** [[RowDecoder]] instance for `\/`. */
-  implicit def eitherRowDecoder[A: RowDecoder, B: RowDecoder]: RowDecoder[A \/ B] =
-    RowDecoder { s => RowDecoder[A].decode(s).map(_.left[B])
-      .orElse(RowDecoder[B].decode(s).map(_.right[A]))
-    }
-
-  /** [[RowEncoder]] instance for `\/`. */
-  implicit def eitherRowEncoder[A: RowEncoder, B: RowEncoder]: RowEncoder[A \/ B] = RowEncoder(eab => eab match {
-    case -\/(a)  => a.asCsvRow
-    case \/-(b)  => b.asCsvRow
-  })
-
-
-  // - Misc. -----------------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  implicit def foldableRowEncoder[A: CellEncoder, F[_]: Foldable]: RowEncoder[F[A]] = new RowEncoder[F[A]] {
-    override def encode(as: F[A]): Seq[String] = Foldable[F].foldLeft(as, Seq.newBuilder[String])((acc, a) => acc += a.asCsvCell).result()
   }
 }
