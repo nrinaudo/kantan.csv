@@ -1,10 +1,9 @@
 package tabulate.interop
 
-import tabulate.ops._
-import _root_.cats.{Functor, Foldable, Eq, Monad}
 import _root_.cats.functor.Contravariant
-import _root_.cats.data.Xor
+import _root_.cats.{Eq, Monad}
 import tabulate._
+import tabulate.ops._
 
 /** Declares various type class instances for bridging `tabulate` and `cats`. */
 package object cats {
@@ -69,41 +68,5 @@ package object cats {
   /** `Contravariant` instance for [[CsvOutput]]. */
   implicit val csvOutput: Contravariant[CsvOutput] = new Contravariant[CsvOutput] {
     override def contramap[A, B](r: CsvOutput[A])(f: B => A) = r.contramap(f)
-  }
-
-
-
-  // - Xor -------------------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  /** [[CellDecoder]] instance for `Xor`. */
-  implicit def xorCellDecoder[A: CellDecoder, B: CellDecoder]: CellDecoder[Xor[A, B]] =
-    CellDecoder { s => CellDecoder[A].decode(s).map(a => Xor.Left(a))
-      .orElse(CellDecoder[B].decode(s).map(b => Xor.Right(b)))
-    }
-
-  /** [[CellEncoder]] instance for `Xor`. */
-  implicit def xorCellEncoder[A: CellEncoder, B: CellEncoder]: CellEncoder[Xor[A, B]] = CellEncoder(eab => eab match {
-    case Xor.Left(a)  => a.asCsvCell
-    case Xor.Right(b)  => b.asCsvCell
-  })
-
-  /** [[RowDecoder]] instance for `Xor`. */
-  implicit def xorRowDecoder[A: RowDecoder, B: RowDecoder]: RowDecoder[Xor[A, B]] =
-    RowDecoder { s => RowDecoder[A].decode(s).map(a => Xor.Left(a))
-      .orElse(RowDecoder[B].decode(s).map(b => Xor.Right(b)))
-    }
-
-  /** [[RowEncoder]] instance for `Xor`. */
-  implicit def xorRowEncoder[A: RowEncoder, B: RowEncoder]: RowEncoder[Xor[A, B]] = RowEncoder(eab => eab match {
-    case Xor.Left(a)  => a.asCsvRow
-    case Xor.Right(b)  => b.asCsvRow
-  })
-
-
-
-  // - Misc. -----------------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  implicit def foldableRowEncoder[A: CellEncoder, F[_]: Foldable]: RowEncoder[F[A]] = new RowEncoder[F[A]] {
-    override def encode(as: F[A]): Seq[String] = Foldable[F].foldLeft(as, Seq.newBuilder[String])((acc, a) => acc += a.asCsvCell).result()
   }
 }
