@@ -21,7 +21,10 @@ import scala.io.Codec
   @noop def contramap[T](f: T => S): CsvOutput[T] = CsvOutput(t => self.toPrintWriter(f(t)))
 }
 
-object CsvOutput {
+@export.imports[CsvOutput]
+trait LowPriorityCsvOutputs
+
+object CsvOutput extends LowPriorityCsvOutputs {
   def apply[S](f: S => PrintWriter): CsvOutput[S] = new CsvOutput[S] {
     override def toPrintWriter(s: S): PrintWriter = f(s)
   }

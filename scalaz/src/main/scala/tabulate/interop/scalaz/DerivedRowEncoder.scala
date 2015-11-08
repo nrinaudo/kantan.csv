@@ -4,7 +4,7 @@ import export.exports
 import tabulate.{RowEncoder, CellEncoder}
 import tabulate.ops._
 
-import scalaz.{\/-, -\/, \/, Foldable}
+import scalaz._
 
 trait DerivedRowEncoder[A] extends RowEncoder[A]
 
@@ -14,7 +14,6 @@ object DerivedRowEncoder {
     override def encode(as: F[A]): Seq[String] = Foldable[F].foldLeft(as, Seq.newBuilder[String])((acc, a) => acc += a.asCsvCell).result()
   }
 
-  /** [[RowEncoder]] instance for `\/`. */
   implicit def eitherRowEncoder[A: RowEncoder, B: RowEncoder]: RowEncoder[A \/ B] = RowEncoder(eab => eab match {
     case -\/(a)  => a.asCsvRow
     case \/-(b)  => b.asCsvRow

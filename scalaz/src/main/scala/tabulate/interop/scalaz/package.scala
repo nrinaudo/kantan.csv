@@ -4,7 +4,6 @@ import tabulate._
 
 import _root_.scalaz._
 
-
 /** Declares various type class instances for bridging `tabulate` and `scalaz`. */
 package object scalaz {
   // - DecodeResult ----------------------------------------------------------------------------------------------------

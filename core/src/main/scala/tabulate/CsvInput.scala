@@ -7,39 +7,6 @@ import simulacrum.{op, noop, typeclass}
 
 import scala.io.{Codec, Source}
 
-/** Defines convenience methods for creating and retrieving instances of `CsvInput`.
-  *
-  * Implicit default implementations of standard types are also declared here, always bringing them in scope with a low
-  * priority.
-  *
-  * These default implementations can also be useful when writing more complex instances: if you need to write a
-  * `CsvInput[T]` and have both a `CsvInput[S]` and a `T => S`, you need just use [[CsvInput.contramap]] to create
-  * your implementation.
-  */
-object CsvInput {
-  /** Creates an instance of `CsvInput[S]` from the specified function. */
-  def apply[S](f: S => Source): CsvInput[S] = new CsvInput[S] {
-    override def toSource(a: S): Source = f(a)
-  }
-
-  /** Turns any `java.io.File` into a source of CSV data. */
-  implicit def file(implicit codec: Codec): CsvInput[File] = CsvInput(f => Source.fromFile(f))
-  /** Turns any `java.io.InputStream` into a source of CSV data. */
-  implicit def inputStream[I <: InputStream](implicit codec: Codec): CsvInput[I] = CsvInput(i => Source.fromInputStream(i))
-  /** Turns any array of bytes into a source of CSV data. */
-  implicit def bytes(implicit codec: Codec): CsvInput[Array[Byte]] = CsvInput(bs => Source.fromBytes(bs))
-  /** Turns any `java.net.URL` into a source of CSV data. */
-  implicit def url(implicit codec: Codec): CsvInput[URL] = CsvInput(u => Source.fromURL(u))
-  /** Turns any `java.net.URI` into a source of CSV data. */
-  implicit def uri(implicit codec: Codec): CsvInput[URI] = CsvInput(u => Source.fromURI(u))
-  /** Turns any array of chars into a source of CSV data. */
-  implicit val chars: CsvInput[Array[Char]] = CsvInput(cs => Source.fromChars(cs))
-  /** Turns any string into a source of CSV data. */
-  implicit val string: CsvInput[String] = CsvInput(s => Source.fromString(s))
-  /** Turns any `scala.io.Source` into a source of CSV data. */
-  implicit val source: CsvInput[Source] = CsvInput(s => s)
-}
-
 /** Turns instances of `S` into valid sources of CSV data.
   *
   * Any type `S` that has a implicit instance of `CsvInput` in scope will be enriched by the `asCsvRows` and
@@ -93,4 +60,40 @@ object CsvInput {
     * }}}
     */
   @noop def contramap[T](f: T => S): CsvInput[T] = CsvInput(t => self.toSource(f(t)))
+}
+
+@export.imports[CsvInput]
+trait LowPriorityCsvInputs
+
+/** Defines convenience methods for creating and retrieving instances of `CsvInput`.
+  *
+  * Implicit default implementations of standard types are also declared here, always bringing them in scope with a low
+  * priority.
+  *
+  * These default implementations can also be useful when writing more complex instances: if you need to write a
+  * `CsvInput[T]` and have both a `CsvInput[S]` and a `T => S`, you need just use [[CsvInput.contramap]] to create
+  * your implementation.
+  */
+object CsvInput extends LowPriorityCsvInputs {
+  /** Creates an instance of `CsvInput[S]` from the specified function. */
+  def apply[S](f: S => Source): CsvInput[S] = new CsvInput[S] {
+    override def toSource(a: S): Source = f(a)
+  }
+
+  /** Turns any `java.io.File` into a source of CSV data. */
+  implicit def file(implicit codec: Codec): CsvInput[File] = CsvInput(f => Source.fromFile(f))
+  /** Turns any `java.io.InputStream` into a source of CSV data. */
+  implicit def inputStream[I <: InputStream](implicit codec: Codec): CsvInput[I] = CsvInput(i => Source.fromInputStream(i))
+  /** Turns any array of bytes into a source of CSV data. */
+  implicit def bytes(implicit codec: Codec): CsvInput[Array[Byte]] = CsvInput(bs => Source.fromBytes(bs))
+  /** Turns any `java.net.URL` into a source of CSV data. */
+  implicit def url(implicit codec: Codec): CsvInput[URL] = CsvInput(u => Source.fromURL(u))
+  /** Turns any `java.net.URI` into a source of CSV data. */
+  implicit def uri(implicit codec: Codec): CsvInput[URI] = CsvInput(u => Source.fromURI(u))
+  /** Turns any array of chars into a source of CSV data. */
+  implicit val chars: CsvInput[Array[Char]] = CsvInput(cs => Source.fromChars(cs))
+  /** Turns any string into a source of CSV data. */
+  implicit val string: CsvInput[String] = CsvInput(s => Source.fromString(s))
+  /** Turns any `scala.io.Source` into a source of CSV data. */
+  implicit val source: CsvInput[Source] = CsvInput(s => s)
 }
