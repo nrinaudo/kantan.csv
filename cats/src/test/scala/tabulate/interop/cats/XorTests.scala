@@ -4,6 +4,7 @@ import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
+import codecs._
 import _root_.cats.data.Xor
 import _root_.cats.laws.discipline.arbitrary._
 import tabulate.laws.discipline.{RowCodecTests, CellCodecTests}
