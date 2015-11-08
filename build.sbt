@@ -16,8 +16,7 @@ val scalazStreamVersion  = "0.8"
 lazy val buildSettings = Seq(
   organization       := "com.nrinaudo",
   scalaVersion       := "2.11.7",
-  crossScalaVersions := Seq("2.10.6", "2.11.7"),
-  incOptions         := incOptions.value.withNameHashing(true)
+  crossScalaVersions := Seq("2.10.6", "2.11.7")
 )
 
 lazy val compilerOptions = Seq("-deprecation",
@@ -43,7 +42,8 @@ lazy val baseSettings = Seq(
     "org.scala-lang"        % "scala-reflect" % scalaVersion.value  % "provided",
     "com.github.mpilquist" %% "simulacrum"    % simulacrumVersion % "provided",
     compilerPlugin("org.scalamacros" % "paradise" % macroParadiseVersion cross CrossVersion.full)
-  )
+  ),
+  incOptions         := incOptions.value.withNameHashing(true)
 )
 
 lazy val noPublishSettings = Seq(
