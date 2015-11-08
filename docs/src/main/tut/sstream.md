@@ -41,7 +41,7 @@ This tutorial also uses the scalaz `Maybe` type, which is supported through the 
 
 ```tut:silent
 import scalaz.Maybe
-import interop.scalaz._
+import interop.scalaz.codecs._
 ```
 
 We also need to declare what charset the CSV should be read / written as:
