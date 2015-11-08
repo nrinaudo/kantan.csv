@@ -113,4 +113,11 @@ package object scalaz {
     case -\/(a)  => a.asCsvRow
     case \/-(b)  => b.asCsvRow
   })
+
+
+  // - Misc. -----------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit def foldableRowEncoder[A: CellEncoder, F[_]: Foldable]: RowEncoder[F[A]] = new RowEncoder[F[A]] {
+    override def encode(as: F[A]): Seq[String] = Foldable[F].foldLeft(as, Seq.newBuilder[String])((acc, a) => acc += a.asCsvCell).result()
+  }
 }

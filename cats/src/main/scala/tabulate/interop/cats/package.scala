@@ -1,7 +1,7 @@
 package tabulate.interop
 
 import tabulate.ops._
-import _root_.cats.{Eq, Monad}
+import _root_.cats.{Functor, Foldable, Eq, Monad}
 import _root_.cats.functor.Contravariant
 import _root_.cats.data.Xor
 import tabulate._
@@ -98,4 +98,12 @@ package object cats {
     case Xor.Left(a)  => a.asCsvRow
     case Xor.Right(b)  => b.asCsvRow
   })
+
+
+
+  // - Misc. -----------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit def foldableRowEncoder[A: CellEncoder, F[_]: Foldable]: RowEncoder[F[A]] = new RowEncoder[F[A]] {
+    override def encode(as: F[A]): Seq[String] = Foldable[F].foldLeft(as, Seq.newBuilder[String])((acc, a) => acc += a.asCsvCell).result()
+  }
 }
