@@ -162,6 +162,11 @@ lazy val tests = project
   .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
   .dependsOn(core, laws % "test")
 
+lazy val benchmark = project
+  .settings(allSettings: _*)
+  .settings(noPublishSettings: _*)
+  .enablePlugins(JmhPlugin)
+  .dependsOn(core)
 
 lazy val docs = project
   .settings(allSettings: _*)
@@ -179,3 +184,5 @@ lazy val docs = project
   )
   .settings(noPublishSettings:_*)
   .dependsOn(core, scalazStream, laws, cats, scalaz, generic)
+
+addCommandAlias("runBench", "benchmark/jmh:run -i 10 -wi 10 -f 2 -t 1 -rf csv")
