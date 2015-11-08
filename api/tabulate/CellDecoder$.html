@@ -47,7 +47,7 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">CellDecoder</span>
+        <span class="name">CellDecoder</span><span class="result"> extends <a href="LowPriorityCellDecoders.html" class="extype" name="tabulate.LowPriorityCellDecoders">LowPriorityCellDecoders</a></span>
       </span>
       </h4>
       
@@ -57,7 +57,7 @@ priority.</p><p>These default implementations can also be useful when writing mo
 your implementation.
 </p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="LowPriorityCellDecoders.html" class="extype" name="tabulate.LowPriorityCellDecoders">LowPriorityCellDecoders</a>, <a href="LowPriorityCellDecoders$$fresh$macro$7.html" class="extype" name="tabulate.LowPriorityCellDecoders.fresh$macro$7">fresh$macro$7</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -75,7 +75,7 @@ your implementation.
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="tabulate.CellDecoder"><span>CellDecoder</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="tabulate.CellDecoder"><span>CellDecoder</span></li><li class="in" name="tabulate.LowPriorityCellDecoders"><span>LowPriorityCellDecoders</span></li><li class="in" name="tabulate.LowPriorityCellDecoders.fresh$macro$7"><span>fresh$macro$7</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -474,6 +474,23 @@ fails as well, <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="
       </a>
     </span>
       <p class="shortcomment cmt">Turns a cell into a <code>Float</code> value.</p>
+    </li><li name="tabulate.LowPriorityCellDecoders#fresh$macro$8" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="fresh$macro$8[fresh$macro$9]:tabulate.CellDecoder[fresh$macro$9]"></a>
+      <a id="fresh$macro$8[fresh$macro$9]:CellDecoder[fresh$macro$9]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit macro </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">fresh$macro$8</span><span class="tparams">[<span name="fresh$macro$9">fresh$macro$9</span>]</span><span class="result">: <a href="CellDecoder.html" class="extype" name="tabulate.CellDecoder">CellDecoder</a>[<span class="extype" name="tabulate.LowPriorityCellDecoders.fresh$macro$8.fresh$macro$9">fresh$macro$9</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#tabulate.CellDecoder$@fresh$macro$8[fresh$macro$9]:tabulate.CellDecoder[fresh$macro$9]" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="LowPriorityCellDecoders.html" class="extype" name="tabulate.LowPriorityCellDecoders">LowPriorityCellDecoders</a></dd></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <a id="getClass():Class[_]"></a>
@@ -713,6 +730,23 @@ fails as well, <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="tabulate.CellDecoder#uuid" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="uuid:tabulate.CellDecoder[java.util.UUID]"></a>
+      <a id="uuid:CellDecoder[UUID]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">uuid</span><span class="result">: <a href="CellDecoder.html" class="extype" name="tabulate.CellDecoder">CellDecoder</a>[<span class="extype" name="java.util.UUID">UUID</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#tabulate.CellDecoder$@uuid:tabulate.CellDecoder[java.util.UUID]" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Turns a cell into a <code>UUID</code> value.</p>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>
@@ -791,7 +825,11 @@ fails as well, <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyRef">
+        <div class="parent" name="tabulate.LowPriorityCellDecoders">
+              <h3>Inherited from <a href="LowPriorityCellDecoders.html" class="extype" name="tabulate.LowPriorityCellDecoders">LowPriorityCellDecoders</a></h3>
+            </div><div class="parent" name="tabulate.LowPriorityCellDecoders.fresh$macro$7">
+              <h3>Inherited from <a href="LowPriorityCellDecoders$$fresh$macro$7.html" class="extype" name="tabulate.LowPriorityCellDecoders.fresh$macro$7">fresh$macro$7</a></h3>
+            </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>

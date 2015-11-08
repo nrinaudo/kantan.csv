@@ -1,22 +1,22 @@
 <!DOCTYPE html >
 <html>
         <head>
-          <title>CellDecoder - tabulate.CellDecoder</title>
-          <meta name="description" content="CellDecoder - tabulate.CellDecoder" />
-          <meta name="keywords" content="CellDecoder tabulate.CellDecoder" />
+          <title>DerivedCellEncoder - tabulate.generic.DerivedCellEncoder</title>
+          <meta name="description" content="DerivedCellEncoder - tabulate.generic.DerivedCellEncoder" />
+          <meta name="keywords" content="DerivedCellEncoder tabulate.generic.DerivedCellEncoder" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
-      <link href="../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
-      <link href="../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
-      <script type="text/javascript" src="../lib/jquery.js" id="jquery-js"></script>
-      <script type="text/javascript" src="../lib/jquery-ui.js"></script>
-      <script type="text/javascript" src="../lib/template.js"></script>
-      <script type="text/javascript" src="../lib/tools.tooltip.js"></script>
+      <link href="../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../lib/template.js"></script>
+      <script type="text/javascript" src="../../lib/tools.tooltip.js"></script>
       
       <script type="text/javascript">
          if(top === self) {
-            var url = '../index.html';
-            var hash = 'tabulate.CellDecoder';
+            var url = '../../index.html';
+            var hash = 'tabulate.generic.DerivedCellEncoder';
             var anchor = window.location.hash;
             var anchor_opt = '';
             if (anchor.length >= 1)
@@ -28,15 +28,15 @@
         </head>
         <body class="type">
       <div id="definition">
-        <a href="CellDecoder$.html" title="See companion object"><img alt="Trait/Object" src="../lib/trait_to_object_big.png" /></a>
-        <p id="owner"><a href="package.html" class="extype" name="tabulate">tabulate</a></p>
-        <h1><a href="CellDecoder$.html" title="See companion object">CellDecoder</a></h1><h3><span class="morelinks"><div>
+        <a href="DerivedCellEncoder$.html" title="See companion object"><img alt="Trait/Object" src="../../lib/trait_to_object_big.png" /></a>
+        <p id="owner"><a href="../package.html" class="extype" name="tabulate">tabulate</a>.<a href="package.html" class="extype" name="tabulate.generic">generic</a></p>
+        <h1><a href="DerivedCellEncoder$.html" title="See companion object">DerivedCellEncoder</a></h1><h3><span class="morelinks"><div>
             Related Docs:
-            <a href="CellDecoder$.html" title="See companion object">object CellDecoder</a>
-            | <a href="package.html" class="extype" name="tabulate">package tabulate</a>
+            <a href="DerivedCellEncoder$.html" title="See companion object">object DerivedCellEncoder</a>
+            | <a href="package.html" class="extype" name="tabulate.generic">package generic</a>
           </div></span></h3><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       </div>
@@ -47,21 +47,14 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">CellDecoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">DerivedCellEncoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="../CellEncoder.html" class="extype" name="tabulate.CellEncoder">CellEncoder</a>[<span class="extype" name="tabulate.generic.DerivedCellEncoder.A">A</span>]</span>
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Decodes CSV cells into usable types.</p><p>By itself, an instance of <code>CellDecoder</code> is not terribly interesting. It becomes useful when combined with
-<code>RowDecoder</code>, which relies on any implicit <code>CellDecoder</code> it has in scope to parse entire rows.</p><p>If, for example, you need to parse CSV data that contains ISO 8601 formatted dates, you can't immediately call
-<a href="CsvInput.html#rows[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:tabulate.RowDecoder[A]):Iterator[tabulate.DecodeResult[A]]" class="extmbr" name="tabulate.CsvInput#rows">CsvInput.rows</a> with a type argument of <code>List[Date]</code>: dates are not supported natively (because they can be
-serialised in so many different ways).</p><p>This can be remedied simply by writing the following:</p><pre><span class="kw">implicit</span> <span class="kw">val</span> dateDecoder = CellDecoder(s <span class="kw">=&gt;</span> DecodeResult(<span class="kw">new</span> SimpleDateFormat(<span class="lit">"yyyy-MM-dd'T'HH:mm:ssZ"</span>).parse(s)))</pre><p>See the <a href="CellDecoder$.html" class="extype" name="tabulate.CellDecoder">companion object</a> for default implementations and construction methods.
-</p></div><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
-        </div><div class="toggleContainer block">
-            <span class="toggle">Known Subclasses</span>
-            <div class="subClasses hiddenContent"><a href="CellCodec.html" class="extype" name="tabulate.CellCodec">CellCodec</a>, <a href="generic/DerivedCellDecoder.html" class="extype" name="tabulate.generic.DerivedCellDecoder">DerivedCellDecoder</a></div>
-          </div></div>
+          <div class="superTypes hiddenContent"><a href="../CellEncoder.html" class="extype" name="tabulate.CellEncoder">CellEncoder</a>[<span class="extype" name="tabulate.generic.DerivedCellEncoder.A">A</span>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div></div>
         
 
       <div id="mbrsel">
@@ -78,7 +71,7 @@ serialised in so many different ways).</p><p>This can be remedied simply by writ
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="tabulate.CellDecoder"><span>CellDecoder</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="tabulate.generic.DerivedCellEncoder"><span>DerivedCellEncoder</span></li><li class="in" name="tabulate.CellEncoder"><span>CellEncoder</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -101,26 +94,23 @@ serialised in so many different ways).</p><p>This can be remedied simply by writ
 
         <div id="values" class="values members">
               <h3>Abstract Value Members</h3>
-              <ol><li name="tabulate.CellDecoder#decode" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="decode(s:String):tabulate.DecodeResult[A]"></a>
-      <a id="decode(String):DecodeResult[A]"></a>
+              <ol><li name="tabulate.CellEncoder#encode" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="encode(a:A):String"></a>
+      <a id="encode(A):String"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">abstract </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">decode</span><span class="params">(<span name="s">s: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="DecodeResult.html" class="extype" name="tabulate.DecodeResult">DecodeResult</a>[<span class="extype" name="tabulate.CellDecoder.A">A</span>]</span>
+        <span class="name">encode</span><span class="params">(<span name="a">a: <span class="extype" name="tabulate.generic.DerivedCellEncoder.A">A</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@decode(s:String):tabulate.DecodeResult[A]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@encode(a:A):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Turns the content of a CSV cell into an <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns the content of a CSV cell into an <code>A</code>.</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@noop</span><span class="args">()</span>
-              
-        </dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../CellEncoder.html" class="extype" name="tabulate.CellEncoder">CellEncoder</a></dd></dl></div>
     </li></ol>
             </div>
 
@@ -138,8 +128,8 @@ serialised in so many different ways).</p><p>This can be remedied simply by writ
         <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@!=(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@!=(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -155,8 +145,8 @@ serialised in so many different ways).</p><p>This can be remedied simply by writ
         <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@##():Int" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@##():Int" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -172,8 +162,8 @@ serialised in so many different ways).</p><p>This can be remedied simply by writ
         <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@==(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@==(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -189,8 +179,8 @@ serialised in so many different ways).</p><p>This can be remedied simply by writ
         <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@asInstanceOf[T0]:T0" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@asInstanceOf[T0]:T0" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -206,36 +196,34 @@ serialised in so many different ways).</p><p>This can be remedied simply by writ
         <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@clone():Object" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@clone():Object" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="tabulate.CellDecoder#decode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="decode(ss:Seq[String],index:Int):tabulate.DecodeResult[A]"></a>
-      <a id="decode(Seq[String],Int):DecodeResult[A]"></a>
+    </li><li name="tabulate.CellEncoder#contramap" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="contramap[B](f:B=&gt;A):tabulate.CellEncoder[B]"></a>
+      <a id="contramap[B]((B)⇒A):CellEncoder[B]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">decode</span><span class="params">(<span name="ss">ss: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="index">index: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="DecodeResult.html" class="extype" name="tabulate.DecodeResult">DecodeResult</a>[<span class="extype" name="tabulate.CellDecoder.A">A</span>]</span>
+        <span class="name">contramap</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="tabulate.CellEncoder.contramap.B">B</span>) ⇒ <span class="extype" name="tabulate.generic.DerivedCellEncoder.A">A</span></span>)</span><span class="result">: <a href="../CellEncoder.html" class="extype" name="tabulate.CellEncoder">CellEncoder</a>[<span class="extype" name="tabulate.CellEncoder.contramap.B">B</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@decode(ss:Seq[String],index:Int):tabulate.DecodeResult[A]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@contramap[B](f:B=&gt;A):tabulate.CellEncoder[B]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Turns the content of the specified cell into an <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns the content of the specified cell into an <code>A</code>.</p><p>The purpose of this method is to protect against index out of bound exceptions. Should the specified index not
-exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabulate.DecodeResult.DecodeFailure">DecodeResult.DecodeFailure</a> instance will be returned.
-</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../CellEncoder.html" class="extype" name="tabulate.CellEncoder">CellEncoder</a></dd><dt>Annotations</dt><dd>
                 <span class="name">@noop</span><span class="args">()</span>
               
         </dd></dl></div>
@@ -251,8 +239,8 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -268,8 +256,8 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@equals(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@equals(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -285,35 +273,15 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@finalize():Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@finalize():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="symbol">classOf[java.lang.Throwable]</span>
     </span>)</span>
-              
-        </dd></dl></div>
-    </li><li name="tabulate.CellDecoder#flatMap" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="flatMap[B](f:A=&gt;tabulate.CellDecoder[B]):tabulate.CellDecoder[B]"></a>
-      <a id="flatMap[B]((A)⇒CellDecoder[B]):CellDecoder[B]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">flatMap</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="tabulate.CellDecoder.A">A</span>) ⇒ <a href="" class="extype" name="tabulate.CellDecoder">CellDecoder</a>[<span class="extype" name="tabulate.CellDecoder.flatMap.B">B</span>]</span>)</span><span class="result">: <a href="" class="extype" name="tabulate.CellDecoder">CellDecoder</a>[<span class="extype" name="tabulate.CellDecoder.flatMap.B">B</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@flatMap[B](f:A=&gt;tabulate.CellDecoder[B]):tabulate.CellDecoder[B]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@noop</span><span class="args">()</span>
               
         </dd></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -328,8 +296,8 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@getClass():Class[_]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@getClass():Class[_]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -345,8 +313,8 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@hashCode():Int" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@hashCode():Int" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -362,32 +330,11 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="tabulate.CellDecoder#map" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="map[B](f:A=&gt;B):tabulate.CellDecoder[B]"></a>
-      <a id="map[B]((A)⇒B):CellDecoder[B]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">map</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="tabulate.CellDecoder.A">A</span>) ⇒ <span class="extype" name="tabulate.CellDecoder.map.B">B</span></span>)</span><span class="result">: <a href="" class="extype" name="tabulate.CellDecoder">CellDecoder</a>[<span class="extype" name="tabulate.CellDecoder.map.B">B</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@map[B](f:A=&gt;B):tabulate.CellDecoder[B]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Turns an instance of <code>CsvInput[A]</code> into one of <code>CsvInput[B]</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns an instance of <code>CsvInput[A]</code> into one of <code>CsvInput[B]</code>.</p><p>This allows developers to adapt existing instances of <code>CellDecoder</code> rather than write one from scratch.
-</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@noop</span><span class="args">()</span>
-              
-        </dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
       <a id="ne(AnyRef):Boolean"></a>
@@ -400,8 +347,8 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -417,8 +364,8 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@notify():Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@notify():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -434,8 +381,8 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@notifyAll():Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@notifyAll():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -451,8 +398,8 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -468,8 +415,8 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@toString():String" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@toString():String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -485,8 +432,8 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@wait():Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@wait():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -508,8 +455,8 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -531,8 +478,8 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CellDecoder@wait(x$1:Long):Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#tabulate.generic.DerivedCellEncoder@wait(x$1:Long):Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -551,7 +498,9 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyRef">
+        <div class="parent" name="tabulate.CellEncoder">
+              <h3>Inherited from <a href="../CellEncoder.html" class="extype" name="tabulate.CellEncoder">CellEncoder</a>[<span class="extype" name="tabulate.generic.DerivedCellEncoder.A">A</span>]</h3>
+            </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
