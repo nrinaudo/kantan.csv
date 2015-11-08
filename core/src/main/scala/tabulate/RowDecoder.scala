@@ -37,7 +37,15 @@ import scala.collection.generic.CanBuildFrom
 }
 
 @export.imports[RowDecoder]
-trait LowPriorityRowDecoders
+trait LowPriorityRowDecoders {
+  /** Parses a CSV row into a collection of `A`. */
+  implicit def collection[A: CellDecoder, M[X]](implicit cbf: CanBuildFrom[Nothing, A, M[A]]): RowDecoder[M[A]] =
+    RowDecoder(ss => ss.foldLeft(DecodeResult.success(cbf.apply())) { (racc, s) => for {
+      acc <- racc
+      a   <- CellDecoder[A].decode(s)
+    } yield acc += a
+    }.map(_.result()))
+}
 
 /** Defines convenience methods for creating and retrieving instances of `RowDecoder`.
   *
@@ -61,6 +69,7 @@ object RowDecoder extends LowPriorityRowDecoders {
   /** Parses CSV rows as sequences of strings. */
   implicit val stringSeq: RowDecoder[Seq[String]] = RowDecoder(ss => DecodeResult.success(ss))
 
+
   /** Parses a CSV row into an `Either[A, B]`.
     *
     * This is done by first attempting to parse the row as an `A`. If that fails, we'll try parsing it as a `B`. If that
@@ -70,13 +79,6 @@ object RowDecoder extends LowPriorityRowDecoders {
     RowDecoder[A].decode(ss).map(a => Left(a): Either[A, B]).orElse(RowDecoder[B].decode(ss).map(b => Right(b): Either[A, B]))
   }
 
-  /** Parses a CSV row into a collection of `A`. */
-  implicit def collection[A: CellDecoder, M[X]](implicit cbf: CanBuildFrom[Nothing, A, M[A]]): RowDecoder[M[A]] =
-    RowDecoder(ss => ss.foldLeft(DecodeResult.success(cbf.apply())) { (racc, s) => for {
-      acc <- racc
-      a   <- CellDecoder[A].decode(s)
-    } yield acc += a
-    }.map(_.result()))
 
 
   // - Case class decoders ---------------------------------------------------------------------------------------------
@@ -95,34 +97,34 @@ object RowDecoder extends LowPriorityRowDecoders {
 
   /** Creates a `RowDecoder` for a case class with 3 fields. */
   def caseDecoder3[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, R]
-    (f: (A0, A1, A2) => R)(i0: Int, i1: Int, i2: Int): RowDecoder[R] =
+  (f: (A0, A1, A2) => R)(i0: Int, i1: Int, i2: Int): RowDecoder[R] =
     RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2)) yield f(f0, f1, f2))
 
   /** Creates a `RowDecoder` for a case class with 4 fields. */
   def caseDecoder4[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, R]
   (f: (A0, A1, A2, A3) => R)(i0: Int, i1: Int, i2: Int, i3: Int): RowDecoder[R] =
     RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3)) yield
-    f(f0, f1, f2, f3))
+      f(f0, f1, f2, f3))
 
   /** Creates a `RowDecoder` for a case class with 5 fields. */
   def caseDecoder5[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, R]
   (f: (A0, A1, A2, A3, A4) => R)(i0: Int, i1: Int, i2: Int, i3: Int, i4: Int): RowDecoder[R] =
     RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
-                        f4 <- r[A4](ss, i4)) yield f(f0, f1, f2, f3, f4))
+                         f4 <- r[A4](ss, i4)) yield f(f0, f1, f2, f3, f4))
 
   /** Creates a `RowDecoder` for a case class with 6 fields. */
   def caseDecoder6[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder, R]
   (f: (A0, A1, A2, A3, A4, A5) => R)(i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): RowDecoder[R] =
     RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
-                        f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5)) yield f(f0, f1, f2, f3, f4, f5))
+                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5)) yield f(f0, f1, f2, f3, f4, f5))
 
   /** Creates a `RowDecoder` for a case class with 7 fields. */
   def caseDecoder7[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder,
   A6: CellDecoder, R](f: (A0, A1, A2, A3, A4, A5, A6) => R)
-                    (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): RowDecoder[R] =
+                     (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): RowDecoder[R] =
     RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
-                        f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6)) yield
-    f(f0, f1, f2, f3, f4, f5, f6))
+                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6)) yield
+      f(f0, f1, f2, f3, f4, f5, f6))
 
   /** Creates a `RowDecoder` for a case class with 8 fields. */
   def caseDecoder8[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder,
@@ -130,8 +132,8 @@ object RowDecoder extends LowPriorityRowDecoders {
   (f: (A0, A1, A2, A3, A4, A5, A6, A7) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int): RowDecoder[R] =
     RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
-                        f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7)) yield
-    f(f0, f1, f2, f3, f4, f5, f6, f7))
+                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7)) yield
+      f(f0, f1, f2, f3, f4, f5, f6, f7))
 
   /** Creates a `RowDecoder` for a case class with 9 fields. */
   def caseDecoder9[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder,
@@ -139,8 +141,8 @@ object RowDecoder extends LowPriorityRowDecoders {
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int): RowDecoder[R] =
     RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
-                        f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
-                        f8 <- r[A8](ss, i8)) yield f(f0, f1, f2, f3, f4, f5, f6, f7, f8))
+                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
+                         f8 <- r[A8](ss, i8)) yield f(f0, f1, f2, f3, f4, f5, f6, f7, f8))
 
   /** Creates a `RowDecoder` for a case class with 10 fields. */
   def caseDecoder10[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder,
@@ -148,8 +150,8 @@ object RowDecoder extends LowPriorityRowDecoders {
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int): RowDecoder[R] =
     RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
-                        f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
-                        f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9))
+                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
+                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9))
       yield f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9))
 
   /** Creates a `RowDecoder` for a case class with 11 fields. */
@@ -158,8 +160,8 @@ object RowDecoder extends LowPriorityRowDecoders {
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10) => R)
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int): RowDecoder[R] =
     RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
-                        f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
-                        f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10))
+                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
+                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10))
       yield f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10))
 
   /** Creates a `RowDecoder` for a case class with 12 fields. */
@@ -169,8 +171,8 @@ object RowDecoder extends LowPriorityRowDecoders {
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int,
    i10: Int, i11: Int): RowDecoder[R] =
     RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
-                        f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
-                        f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11))
+                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
+                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11))
       yield f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11))
 
   /** Creates a `RowDecoder` for a case class with 13 fields. */
@@ -180,22 +182,22 @@ object RowDecoder extends LowPriorityRowDecoders {
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int,
    i10: Int, i11: Int, i12: Int): RowDecoder[R] =
     RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
-                        f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
-                        f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
-                        f12 <- r[A12](ss, i12)) yield
-    f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12))
+                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
+                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
+                         f12 <- r[A12](ss, i12)) yield
+      f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12))
 
   /** Creates a `RowDecoder` for a case class with 14 fields. */
   def caseDecoder14[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder,
   A6: CellDecoder, A7: CellDecoder, A8: CellDecoder, A9: CellDecoder, A10: CellDecoder, A11: CellDecoder, A12: CellDecoder,
   A13: CellDecoder, R](f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13) => R)
-                     (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int,
-                      i10: Int, i11: Int, i12: Int, i13: Int): RowDecoder[R] =
+                      (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int,
+                       i10: Int, i11: Int, i12: Int, i13: Int): RowDecoder[R] =
     RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
-                        f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
-                        f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
-                        f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13)) yield
-    f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13))
+                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
+                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
+                         f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13)) yield
+      f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13))
 
   /** Creates a `RowDecoder` for a case class with 15 fields. */
   def caseDecoder15[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder,
@@ -205,10 +207,10 @@ object RowDecoder extends LowPriorityRowDecoders {
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int): RowDecoder[R] =
     RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
-                        f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
-                        f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
-                        f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14)) yield
-    f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14))
+                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
+                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
+                         f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14)) yield
+      f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14))
 
   /** Creates a `RowDecoder` for a case class with 16 fields. */
   def caseDecoder16[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder,
@@ -218,9 +220,9 @@ object RowDecoder extends LowPriorityRowDecoders {
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int): RowDecoder[R] =
     RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
-                        f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
-                        f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
-                        f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15)
+                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
+                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
+                         f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15)
     ) yield f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15))
 
   /** Creates a `RowDecoder` for a case class with 17 fields. */
@@ -231,11 +233,11 @@ object RowDecoder extends LowPriorityRowDecoders {
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int): RowDecoder[R] =
     RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
-                        f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
-                        f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
-                        f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15);
-                        f16 <- r[A16](ss, i16)) yield
-    f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16))
+                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
+                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
+                         f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15);
+                         f16 <- r[A16](ss, i16)) yield
+      f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16))
 
   /** Creates a `RowDecoder` for a case class with 18 fields. */
   def caseDecoder18[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder,
@@ -245,11 +247,11 @@ object RowDecoder extends LowPriorityRowDecoders {
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int): RowDecoder[R] =
     RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
-                        f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
-                        f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
-                        f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15);
-                        f16 <- r[A16](ss, i16); f17 <- r[A17](ss, i17)) yield
-    f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17))
+                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
+                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
+                         f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15);
+                         f16 <- r[A16](ss, i16); f17 <- r[A17](ss, i17)) yield
+      f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17))
 
   /** Creates a `RowDecoder` for a case class with 19 fields. */
   def caseDecoder19[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder,
@@ -259,11 +261,11 @@ object RowDecoder extends LowPriorityRowDecoders {
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int): RowDecoder[R] =
     RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
-                        f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
-                        f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
-                        f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15);
-                        f16 <- r[A16](ss, i16); f17 <- r[A17](ss, i17); f18 <- r[A18](ss, i18)) yield
-    f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18))
+                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
+                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
+                         f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15);
+                         f16 <- r[A16](ss, i16); f17 <- r[A17](ss, i17); f18 <- r[A18](ss, i18)) yield
+      f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18))
 
   /** Creates a `RowDecoder` for a case class with 20 fields. */
   def caseDecoder20[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder,
@@ -274,10 +276,10 @@ object RowDecoder extends LowPriorityRowDecoders {
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int): RowDecoder[R] =
     RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
-                        f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
-                        f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
-                        f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15);
-                        f16 <- r[A16](ss, i16); f17 <- r[A17](ss, i17); f18 <- r[A18](ss, i18); f19 <- r[A19](ss, i19)
+                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
+                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
+                         f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15);
+                         f16 <- r[A16](ss, i16); f17 <- r[A17](ss, i17); f18 <- r[A18](ss, i18); f19 <- r[A19](ss, i19)
     ) yield f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18, f19))
 
   /** Creates a `RowDecoder` for a case class with 21 fields. */
@@ -289,12 +291,12 @@ object RowDecoder extends LowPriorityRowDecoders {
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int, i20: Int): RowDecoder[R] =
     RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
-                        f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
-                        f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
-                        f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15);
-                        f16 <- r[A16](ss, i16); f17 <- r[A17](ss, i17); f18 <- r[A18](ss, i18); f19 <- r[A19](ss, i19);
-                        f20 <- r[A20](ss, i20)) yield
-    f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18, f19, f20))
+                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
+                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
+                         f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15);
+                         f16 <- r[A16](ss, i16); f17 <- r[A17](ss, i17); f18 <- r[A18](ss, i18); f19 <- r[A19](ss, i19);
+                         f20 <- r[A20](ss, i20)) yield
+      f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18, f19, f20))
 
   /** Creates a `RowDecoder` for a case class with 22 fields. */
   def caseDecoder22[A0: CellDecoder, A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder,
@@ -305,12 +307,12 @@ object RowDecoder extends LowPriorityRowDecoders {
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int, i20: Int, i21: Int): RowDecoder[R] =
     RowDecoder(ss => for(f0 <- r[A0](ss, i0); f1 <- r[A1](ss, i1); f2 <- r[A2](ss, i2); f3 <- r[A3](ss, i3);
-                        f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
-                        f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
-                        f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15);
-                        f16 <- r[A16](ss, i16); f17 <- r[A17](ss, i17); f18 <- r[A18](ss, i18); f19 <- r[A19](ss, i19);
-                        f20 <- r[A20](ss, i20); f21 <- r[A21](ss, i21)) yield
-    f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18, f19, f20, f21))
+                         f4 <- r[A4](ss, i4); f5 <- r[A5](ss, i5); f6 <- r[A6](ss, i6); f7 <- r[A7](ss, i7);
+                         f8 <- r[A8](ss, i8); f9 <- r[A9](ss, i9); f10 <- r[A10](ss, i10); f11 <- r[A11](ss, i11);
+                         f12 <- r[A12](ss, i12); f13 <- r[A13](ss, i13); f14 <- r[A14](ss, i14); f15 <- r[A15](ss, i15);
+                         f16 <- r[A16](ss, i16); f17 <- r[A17](ss, i17); f18 <- r[A18](ss, i18); f19 <- r[A19](ss, i19);
+                         f20 <- r[A20](ss, i20); f21 <- r[A21](ss, i21)) yield
+      f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18, f19, f20, f21))
 
 
   // - Tuple decoders --------------------------------------------------------------------------------------------------
@@ -440,7 +442,7 @@ object RowDecoder extends LowPriorityRowDecoders {
   A20: CellDecoder, A21: CellDecoder]: RowDecoder[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16,
     A17, A18, A19, A20, A21)] = caseDecoder21(Tuple21.apply[A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14,
     A15, A16, A17, A18, A19, A20, A21])(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
-      15, 16, 17, 18, 19, 20)
+    15, 16, 17, 18, 19, 20)
 
   /** Turns a row into a 22-uple. */
   implicit def tuple22[A1: CellDecoder, A2: CellDecoder, A3: CellDecoder, A4: CellDecoder, A5: CellDecoder, A6: CellDecoder,
@@ -449,5 +451,5 @@ object RowDecoder extends LowPriorityRowDecoders {
   A20: CellDecoder, A21: CellDecoder, A22: CellDecoder]: RowDecoder[(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12,
     A13, A14, A15, A16, A17, A18, A19, A20, A21, A22)] = caseDecoder22(Tuple22.apply[A1, A2, A3, A4, A5, A6, A7, A8, A9,
     A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22])(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
-      15, 16, 17, 18, 19, 20, 21)
+    15, 16, 17, 18, 19, 20, 21)
 }

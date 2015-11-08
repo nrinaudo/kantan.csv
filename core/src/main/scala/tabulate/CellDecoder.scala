@@ -1,5 +1,7 @@
 package tabulate
 
+import java.util.UUID
+
 import simulacrum.{noop, typeclass}
 
 /** Decodes CSV cells into usable types.
@@ -80,6 +82,8 @@ object CellDecoder extends LowPriorityCellDecoders {
   implicit val bigInt: CellDecoder[BigInt]     = CellDecoder(s => DecodeResult(BigInt.apply(s)))
   /** Turns a cell into a `BigDecimal` value. */
   implicit val bigDec: CellDecoder[BigDecimal] = CellDecoder(s => DecodeResult(BigDecimal.apply(s)))
+  /** Turns a cell into a `UUID` value. */
+  implicit val uuid  : CellDecoder[UUID]       = CellDecoder(s => DecodeResult(UUID.fromString(s)))
 
   /** Turns a cell into an instance of `Option[A]`, provided `A` has an implicit `CellDecoder` in scope.
     *

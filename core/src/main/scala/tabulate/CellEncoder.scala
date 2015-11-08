@@ -1,5 +1,7 @@
 package tabulate
 
+import java.util.UUID
+
 import simulacrum.{noop, op, typeclass}
 
 @typeclass trait CellEncoder[A] {
@@ -27,8 +29,9 @@ object CellEncoder extends LowPriorityCellEncoders {
   implicit val short : CellEncoder[Short]      = CellEncoder(_.toString)
   implicit val byte  : CellEncoder[Byte]       = CellEncoder(_.toString)
   implicit val bool  : CellEncoder[Boolean]    = CellEncoder(_.toString)
-  implicit val bigInt: CellEncoder[BigInt]     = CellEncoder(_.toString())
-  implicit val bigDec: CellEncoder[BigDecimal] = CellEncoder(_.toString())
+  implicit val bigInt: CellEncoder[BigInt]     = CellEncoder(_.toString)
+  implicit val bigDec: CellEncoder[BigDecimal] = CellEncoder(_.toString)
+  implicit val uuid  : CellEncoder[UUID]       = CellEncoder(_.toString)
 
   implicit def opt[A: CellEncoder]: CellEncoder[Option[A]] = CellEncoder(oa => oa.map(CellEncoder[A].encode).getOrElse(""))
   implicit def either[A: CellEncoder, B: CellEncoder]: CellEncoder[Either[A, B]] = CellEncoder(eab => eab match {

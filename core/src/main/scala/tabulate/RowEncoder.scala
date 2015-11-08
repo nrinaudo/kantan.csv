@@ -10,7 +10,11 @@ import simulacrum.{noop, op, typeclass}
 }
 
 @export.imports[RowEncoder]
-trait LowPriorityRowEncoders
+trait LowPriorityRowEncoders {
+  implicit def traversable[A: CellEncoder, M[X] <: TraversableOnce[X]]: RowEncoder[M[A]] = RowEncoder { as =>
+    as.foldLeft(Seq.newBuilder[String])((acc, a) => acc += a.asCsvCell).result()
+  }
+}
 
 object RowEncoder extends LowPriorityRowEncoders {
   def apply[A](f: A => Seq[String]): RowEncoder[A] = new RowEncoder[A] {
@@ -24,11 +28,6 @@ object RowEncoder extends LowPriorityRowEncoders {
     case Left(a) => RowEncoder[A].encode(a)
     case Right(b) => RowEncoder[B].encode(b)
   }}
-
-
-  implicit def traversable[A: CellEncoder, M[X] <: TraversableOnce[X]]: RowEncoder[M[A]] = RowEncoder { as =>
-    as.foldLeft(Seq.newBuilder[String])((acc, a) => acc += a.asCsvCell).result()
-  }
 
   @inline private def w[A: CellEncoder](a: A): String = a.asCsvCell
 
