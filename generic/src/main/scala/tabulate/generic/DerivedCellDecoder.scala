@@ -1,7 +1,6 @@
 package tabulate.generic
 
 import shapeless._
-import simulacrum.noop
 import tabulate.{DecodeResult, CellDecoder}
 import tabulate.ops._
 
@@ -25,7 +24,6 @@ object DerivedCellDecoder {
 
   implicit def adtCellDecoder[A, R <: Coproduct](implicit gen: Generic.Aux[A, R], d: CellDecoder[R]): DerivedCellDecoder[A] =
     DerivedCellDecoder(row => d.decode(row).map(gen.from))
-
 
 
 
