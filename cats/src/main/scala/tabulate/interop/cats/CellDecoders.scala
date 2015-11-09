@@ -2,7 +2,7 @@ package tabulate.interop.cats
 
 import cats.data.Xor
 import export.{export, exports}
-import tabulate.{DecodeResult, CellDecoder}
+import tabulate.CellDecoder
 
 @exports
 object CellDecoders {
