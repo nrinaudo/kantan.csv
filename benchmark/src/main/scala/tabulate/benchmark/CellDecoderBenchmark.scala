@@ -1,11 +1,14 @@
 package tabulate.benchmark
 
 import org.openjdk.jmh.annotations._
-import tabulate.{DecodeResult, CellDecoder}
+import tabulate.CellDecoder
 
 @State(Scope.Thread)
 @BenchmarkMode(Array(Mode.Throughput))
-class CellDecoderBenchmark extends CellData {
+class CellDecoderBenchmark extends BenchData {
   @Benchmark
-  def decodeInt: List[DecodeResult[Int]] = encodedInts.map(s => CellDecoder[Int].decode(s))
+  def decodeInt = encodedInts.map(s => CellDecoder[Int].decode(s))
+
+  @Benchmark
+  def decodeOptions = encodedOptions.map(s => CellDecoder[Option[Int]].decode(s))
 }
