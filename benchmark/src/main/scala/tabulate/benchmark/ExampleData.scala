@@ -16,7 +16,7 @@ class ExampleData {
     out.toString
   }
 
-  @inline def parse[A: RowDecoder](s: String): List[DecodeResult[A]] = s.asCsvRows[A](',', false).toList
+  @inline def parse[A: RowDecoder](s: String): List[DecodeResult[A]] = CsvInput[String].rows[A](s, ',', false).toList
 
   @inline def encodeCell[A: CellEncoder](as: List[A]): List[String] = as.map(_.asCsvCell)
   @inline def encodeRow[A: RowEncoder](as: List[A]): List[Seq[String]] = as.map(_.asCsvRow)

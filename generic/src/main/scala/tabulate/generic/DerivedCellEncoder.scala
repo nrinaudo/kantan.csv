@@ -32,9 +32,12 @@ object DerivedCellEncoder {
 
   // - Case class cell encoding ----------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  implicit def caseClass0CellEncoder[A, R <: HNil](implicit gen: Generic.Aux[A, R]): DerivedCellEncoder[A] =
+    DerivedCellEncoder((_: A) => "")
+
   // Thanks Travis Brown for that one:
   // http://stackoverflow.com/questions/33563111/deriving-type-class-instances-for-case-classes-with-exactly-one-field
-  implicit def caseClassCellEncoder[A, R, H](implicit gen: Generic.Aux[A, R], ev: R <:< (H :: HNil), e: CellEncoder[H]): DerivedCellEncoder[A] =
+  implicit def caseClass1CellEncoder[A, R, H](implicit gen: Generic.Aux[A, R], ev: R <:< (H :: HNil), e: CellEncoder[H]): DerivedCellEncoder[A] =
     DerivedCellEncoder((a: A) => ev(gen.to(a)) match {
       case h :: t => e.encode(h)
     })
