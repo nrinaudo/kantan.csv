@@ -2,5 +2,5 @@ package tabulate.interop.scalaz
 
 import export.reexports
 
-@reexports[DerivedCellDecoder, DerivedCellEncoder, DerivedRowDecoder, DerivedRowEncoder]
+@reexports(CellDecoders, RowDecoders, CellEncoders, RowEncoders)
 object codecs
