@@ -5,10 +5,10 @@ import tabulate.ops._
 
 @State(Scope.Thread)
 @BenchmarkMode(Array(Mode.Throughput))
-class CellEncoderBenchmark extends BenchData {
+class CellEncoderBenchmark extends ExampleData {
   @Benchmark
-  def encodeInt = ints.map(_.asCsvCell)
+  def encodeInt = encodeCell(ints)
 
   @Benchmark
-  def encodeOptions = options.map(_.asCsvCell)
+  def encodeOptions = encodeCell(options)
 }
