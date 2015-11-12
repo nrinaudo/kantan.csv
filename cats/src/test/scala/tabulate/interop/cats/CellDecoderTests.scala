@@ -1,9 +1,8 @@
 package tabulate.interop.cats
 
-import arbitrary._
+import tabulate.laws.discipline.arbitrary._
 import algebra.Eq
 import cats.laws.discipline.MonadTests
-import org.scalacheck.Arbitrary.{arbitrary => arb}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline

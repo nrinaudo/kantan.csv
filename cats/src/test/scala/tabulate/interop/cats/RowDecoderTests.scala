@@ -1,6 +1,6 @@
 package tabulate.interop.cats
 
-import arbitrary._
+import tabulate.laws.discipline.arbitrary._
 
 import algebra.Eq
 import cats.laws.discipline.MonadTests

@@ -1,9 +1,9 @@
 import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
 import com.typesafe.sbt.SbtSite.SiteKeys._
 
-val catsVersion          = "0.2.0"
-val exportHookVersion    = "1.0.3-SNAPSHOT"
-val simulacrumVersion    = "0.4.0"
+val catsVersion          = "0.3.0"
+val exportHookVersion    = "1.1.0"
+val simulacrumVersion    = "0.5.0"
 val macroParadiseVersion = "2.1.0-M5"
 val scalaCheckVersion    = "1.12.5"
 val disciplineVersion    = "0.4"
@@ -37,7 +37,7 @@ lazy val compilerOptions = Seq("-deprecation",
 
 lazy val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
-  resolvers += Resolver.sonatypeRepo("snapshots"),
+  //resolvers += Resolver.sonatypeRepo("snapshots"),
   libraryDependencies ++= Seq(
     "org.typelevel"        %% "export-hook"   % exportHookVersion,
     "org.scala-lang"        % "scala-reflect" % scalaVersion.value  % "provided",
@@ -118,7 +118,7 @@ lazy val generic = project
     "org.scalatest" %% "scalatest" % scalatestVersion % "test"
   ))
   .settings(allSettings: _*)
-  .dependsOn(core)
+  .dependsOn(core, laws % "test")
 
 lazy val scalaz = project
   .settings(
