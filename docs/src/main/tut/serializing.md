@@ -8,7 +8,7 @@ section: tutorial
 In this tutorial, we'll try to do the opposite as the [parsing one]({{ site.baseurl }}/tut/parsing.html): instead of
 having CSV data to load in memory, we have the list of cars and need to write it out:
 
-```tut
+```tut:silent
 case class Car(make: String, model: String, year: Int, price: Float, desc: Option[String])
 
 val data = List(Car("Ford", "E350", 1997, 3000F, Some("ac, abs, moon")),

@@ -44,6 +44,4 @@ xor2.asCsvCell
 ## Derived row codecs
 
 ```tut
-Option("foo").asCsvRow
-Option(null).asCsvRow
 ```

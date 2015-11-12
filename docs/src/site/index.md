@@ -21,7 +21,7 @@ in your SBT build file:
 // Core library, included automatically if any other module is imported.
 libraryDependencies += "com.nrinaudo" %% "tabulate" % "0.1.6"
 
-// Provides cats type class instances for tabulate, and vice versa.
+// Provides scalaz type class instances for tabulate, and vice versa.
 libraryDependencies += "com.nrinaudo" %% "tabulate-scalaz" % "0.1.6"
 
 // Treat CSV data as sources and sinks.
