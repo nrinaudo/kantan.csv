@@ -17,9 +17,13 @@ trait RowCodecTests[A] extends Laws {
     "decode identity" -> forAll(laws.decodeIdentity _),
     "encode identity" -> forAll(laws.encodeIdentity _),
     "decode composition" -> forAll(laws.decodeComposition[B, C] _),
-    "encode composition" -> forAll(laws.encodeComposition[B, C] _),
-    "csv reversibility" -> forAll(laws.csvReversibility _)
+    "encode composition" -> forAll(laws.encodeComposition[B, C] _)
   )
+
+  def reversibleRowCodec[B: Arbitrary, C: Arbitrary]: RuleSet = new DefaultRuleSet(
+    name = "reversibleRowCodec",
+    parent = Some(rowCodec[B, C]),
+    "csv reversibility" -> forAll(laws.csvReversibility _))
 }
 
 object RowCodecTests {

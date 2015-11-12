@@ -11,5 +11,5 @@ import tabulate.laws.discipline.{RowCodecTests, CellCodecTests}
 
 class XorTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   checkAll("Xor[Int, Boolean]", CellCodecTests[Xor[Int, Boolean]].cellCodec[Byte, Float])
-  checkAll("Xor[(Int, Int, Int), (Boolean, Float)]", RowCodecTests[Xor[(Int, Int, Int), (Boolean, Float)]].rowCodec[Byte, String])
+  checkAll("Xor[(Int, Int, Int), (Boolean, Float)]", RowCodecTests[Xor[(Int, Int, Int), (Boolean, Float)]].reversibleRowCodec[Byte, String])
 }

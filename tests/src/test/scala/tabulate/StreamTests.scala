@@ -10,5 +10,5 @@ import tabulate.laws.discipline.RowCodecTests
 class StreamTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   implicit val arb: Arbitrary[Stream[Int]] = Arbitrary(Gen.nonEmptyContainerOf[Stream, Int](arbitrary[Int]))
 
-  checkAll("Stream[Int]", RowCodecTests[Stream[Int]].rowCodec[List[String], List[Float]])
+  checkAll("Stream[Int]", RowCodecTests[Stream[Int]].reversibleRowCodec[List[String], List[Float]])
 }
