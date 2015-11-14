@@ -20,7 +20,8 @@ class DerivedRowCodecTests extends FunSuite with GeneratorDrivenPropertyChecks w
   implicit val arbFoo: Arbitrary[Foo] = Arbitrary(Gen.oneOf(arbBar.arbitrary, arbBaz.arbitrary))
   implicit def arbWrap[A: Arbitrary]: Arbitrary[Wrapper[A]] = Arbitrary(Arbitrary.arbitrary[A].map(a => Wrapper(a)))
 
-  checkAll("Wrapper", RowCodecTests[Wrapper[(Int, Int)]].rowCodec[Byte, Float])
+  checkAll("Wrapper[(Int, Int)]", RowCodecTests[Wrapper[(Int, Int)]].rowCodec[Byte, Float])
+  checkAll("Wrapper[Foo]", RowCodecTests[Wrapper[Foo]].rowCodec[Byte, Float])
   checkAll("Bar", RowCodecTests[Bar.type].rowCodec[Byte, Float])
   checkAll("Foo", RowCodecTests[Foo].rowCodec[Byte, String])
 }
