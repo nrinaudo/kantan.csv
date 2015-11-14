@@ -14,6 +14,8 @@ trait LowPriorityRowEncoders {
   implicit def traversable[A: CellEncoder, M[X] <: TraversableOnce[X]]: RowEncoder[M[A]] = RowEncoder { as =>
     as.foldLeft(Seq.newBuilder[String])((acc, a) => acc += a.asCsvCell).result()
   }
+
+  implicit def cellEncoder[A: CellEncoder]: RowEncoder[A] = RowEncoder(a => Seq(a.asCsvCell))
 }
 
 object RowEncoder extends LowPriorityRowEncoders {
