@@ -59,9 +59,9 @@ is involved. No nasty type error at runtime, if the code compiles, it will execu
 ## Derived row codecs
 
 ```tut
-Maybe.just(1).asCsvRow
-Maybe.empty[Int].asCsvRow
+Maybe.just((1, 2)).asCsvRow
+Maybe.empty[(Int, Int)].asCsvRow
 
-Seq("1", "1").parseCsvRow[Maybe[(Int, Int)]]
+Seq("1", "2").parseCsvRow[Maybe[(Int, Int)]]
 Seq("").parseCsvRow[Maybe[(Int, Int)]]
 ```
