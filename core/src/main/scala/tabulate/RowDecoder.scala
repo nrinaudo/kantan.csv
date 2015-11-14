@@ -79,6 +79,11 @@ object RowDecoder extends LowPriorityRowDecoders {
     RowDecoder[A].decode(ss).map(a => Left(a): Either[A, B]).orElse(RowDecoder[B].decode(ss).map(b => Right(b): Either[A, B]))
   }
 
+  implicit def option[A: RowDecoder]: RowDecoder[Option[A]] = RowDecoder { ss =>
+    if(ss.isEmpty) DecodeResult.success(None)
+    else           RowDecoder[A].decode(ss).map(a => Some(a))
+  }
+
 
 
   // - Case class decoders ---------------------------------------------------------------------------------------------

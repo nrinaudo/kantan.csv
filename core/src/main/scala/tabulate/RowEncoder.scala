@@ -29,6 +29,9 @@ object RowEncoder extends LowPriorityRowEncoders {
     case Right(b) => RowEncoder[B].encode(b)
   }}
 
+  implicit def option[A: RowEncoder]: RowEncoder[Option[A]] =
+    RowEncoder(_.map(a => RowEncoder[A].encode(a)).getOrElse(Seq.empty))
+
   @inline private def w[A: CellEncoder](a: A): String = a.asCsvCell
 
   def caseEncoder1[C, A0: CellEncoder](f: C => Option[A0]): RowEncoder[C] =
