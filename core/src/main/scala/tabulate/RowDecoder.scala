@@ -45,6 +45,10 @@ trait LowPriorityRowDecoders {
       a   <- CellDecoder[A].decode(s)
     } yield acc += a
     }.map(_.result()))
+
+  implicit def cellDecoder[A: CellDecoder]: RowDecoder[A] = RowDecoder(ss =>
+    ss.headOption.map(h => if(ss.tail.isEmpty) CellDecoder[A].decode(h) else DecodeResult.decodeFailure).getOrElse(DecodeResult.decodeFailure)
+  )
 }
 
 /** Defines convenience methods for creating and retrieving instances of `RowDecoder`.
