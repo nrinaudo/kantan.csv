@@ -14,34 +14,54 @@ Once that's done, the following import is necessary:
 
 ```tut:silent
 import tabulate.generic.codecs._
-```
-
-We'll also be using the normal imports across the course of this tutorial:
-
-```tut:silent
-import tabulate._
 import tabulate.ops._
 ```
 
+`tabulate.ops._` brings in the various operators we'll need in this tutorial, while `tabulate.generic.codecs` contains
+all the automatic type class instance derivations.
+
+
 ## Derived cell codecs
-Tabulate is now capable of deriving cell encoders and decoders for sum types, such as sealed families of case classes.
+With this setup, we've now allowed Tabulate to derive cell codecs for some algebraic data types (referred to as ADTs
+in the rest of this document). Note the *some* in the previous sentence: we can't create cell codecs for product types,
+for instance, as that would mean storing more than one value per CSV cell.
 
-A good example of that is cats' `Xor` type. This has dedicated support in the `tabulate-cats` library, but we can
-now use the power of automatic derivation:
+As a first step, let's create a type that we need to derive instances for: `Maybe`, a simplified implementation of the
+standard library's [Option](http://www.scala-lang.org/api/current/index.html#scala.Option).
 
-```tut
-import cats.data._, cats.data.Xor._
+```tut:silent
+sealed trait Maybe[+A]
 
-val xor1: Xor[Int, Boolean] = Xor.right(true)
-xor1.asCsvCell
+object Maybe {
+  case class Just[A](a: A) extends Maybe[A]
+  case object Empty extends Maybe[Nothing]
 
-val xor2: Xor[Int, Boolean] = Xor.left(10)
-xor2.asCsvCell
+  def just[A](a: A): Maybe[A] = Just(a)
+  def empty[A]: Maybe[A] = Empty
+}
 ```
 
+While we *could* write a `CellEncoder` and `CellDecoder` instance for this type by hand, there is no need: the `generic`
+module is capable of automatically deriving such instances for us.
+
+```tut
+Maybe.just(1).asCsvCell
+Maybe.empty[Int].asCsvCell
+
+"1".parseCsvCell[Maybe[Int]]
+"".parseCsvCell[Maybe[Int]]
+```
+
+It's important to stress that these instances are generated at *compile* time and that absolutely no runtime reflection
+is involved. No nasty type error at runtime, if the code compiles, it will execute nicely.
 
 
 ## Derived row codecs
 
 ```tut
+Maybe.just(1).asCsvRow
+Maybe.empty[Int].asCsvRow
+
+Seq("1", "1").parseCsvRow[Maybe[(Int, Int)]]
+Seq("").parseCsvRow[Maybe[(Int, Int)]]
 ```
