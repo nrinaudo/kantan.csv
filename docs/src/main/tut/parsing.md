@@ -154,11 +154,12 @@ Let's define such a case class for our example:
 case class Car(make: String, model: String, year: Int, price: Float, desc: Option[String])
 ```
 
-The process is slightly more involved than what we've seen so far, as decoders for case classes cannot be automatically
-inferred in a type-safe way (that I could find). 
+The process is slightly more involved than what we've seen so far, unless you're willing to depend on
+[shapeless](https://github.com/milessabin/shapeless) and use Tabulate's [generic](./generic.html) module to derive
+a decoder automatically.
 
-You can however trivially create one using one of the `RowDecoder.caseDecoderXXX`, where XXX is the number of fields
-in your case class:
+If you're not, you can still trivially create one using one of the `RowDecoder.caseDecoderXXX`, where XXX is the number
+of fields in your case class:
 
 ```tut:silent
 implicit val carDecoder = RowDecoder.caseDecoder5(Car.apply)(1, 2, 0, 4, 3)

@@ -142,6 +142,9 @@ Note that the name `caseEncoder5` ends in a number: that's the number of fields 
 The list of integers maps each field to its corresponding column in the CSV data. That is, the first int is the index of
 the first field, the second one that of the second field...
 
+It's worth noting that the new [generic](./generic.html) module can take care of this automatically, provided you don't
+mind extra dependencies, increased compile times and loss of flexibility - automatic derivation means you can't decide
+the order in which fields are serialised anymore.
 
 ## Advanced topics
 
