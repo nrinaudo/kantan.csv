@@ -29,13 +29,12 @@ object CsvOutput extends LowPriorityCsvOutputs {
     override def toPrintWriter(s: S): PrintWriter = f(s)
   }
 
-  implicit def file(implicit codec: Codec): CsvOutput[File] =
-    CsvOutput[OutputStream].contramap(f => new FileOutputStream(f))
-
   implicit def outputStream[O <: OutputStream](implicit codec: Codec): CsvOutput[O] =
-    CsvOutput[Writer].contramap(o => new OutputStreamWriter(o, codec.charSet))
+    writer.contramap(o => new OutputStreamWriter(o, codec.charSet))
 
-  implicit def writer[W <: Writer]: CsvOutput[W] = CsvOutput(w => new PrintWriter(w))
+  implicit def file(implicit codec: Codec): CsvOutput[File] = outputStream.contramap(f => new FileOutputStream(f))
+
+  implicit def writer[W <: Writer]: CsvOutput[W] = printWriter.contramap(w => new PrintWriter(w))
 
   implicit val printWriter: CsvOutput[PrintWriter] = new CsvOutput[PrintWriter] {
     override def toPrintWriter(s: PrintWriter) = s
