@@ -161,7 +161,7 @@ lazy val cats = project
 lazy val tests = project
   .settings(allSettings: _*)
   .settings(noPublishSettings: _*)
-  .settings(ScoverageSbtPlugin.ScoverageKeys.coverageExcludedPackages := "tabulate\\.laws\\..*")
+  .settings(coverageExcludedPackages := "tabulate\\.laws\\..*")
   .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
   .dependsOn(core, laws % "test")
 
