@@ -1,8 +1,7 @@
 package tabulate.generic
 
 import shapeless._
-import tabulate.{DecodeResult, CellDecoder}
-import tabulate.ops._
+import tabulate.{CellDecoder, DecodeResult}
 
 trait DerivedCellDecoder[A] extends CellDecoder[A]
 

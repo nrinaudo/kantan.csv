@@ -2,7 +2,7 @@ package tabulate.generic
 
 import shapeless._
 import tabulate.ops._
-import tabulate.{DecodeResult, CellEncoder, RowEncoder}
+import tabulate.{CellEncoder, RowEncoder}
 
 trait DerivedRowEncoder[A] extends RowEncoder[A]
 
