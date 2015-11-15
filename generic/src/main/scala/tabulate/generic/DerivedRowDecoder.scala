@@ -26,7 +26,7 @@ object DerivedRowDecoder {
 
   implicit val hnil: DerivedRowDecoder[HNil] = DerivedRowDecoder(_ => DecodeResult.success(HNil))
 
-  // Case objects or case classes of arity 1 are a special case: they only decode empty strings.
+  // Case objects or case classes of arity 0 are a special case: they only decode empty strings.
   implicit def caseObject[A, R <: HNil](implicit gen: Generic.Aux[A, R], ev: HNil =:= R): DerivedRowDecoder[A] =
     DerivedRowDecoder(s => if(s.isEmpty) DecodeResult.success(gen.from(ev(HNil))) else DecodeResult.decodeFailure)
 

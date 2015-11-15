@@ -23,7 +23,7 @@ object DerivedRowEncoder {
 
   implicit val hnil: DerivedRowEncoder[HNil] = DerivedRowEncoder(_ => Seq.empty)
 
-  // Case objects or case classes of arity 1 are a special case: they only encode to empty sequences.
+  // Case objects or case classes of arity 0 are a special case: they only encode to empty sequences.
   implicit def caseObject[A, R <: HNil](implicit gen: Generic.Aux[A, R], ev: HNil =:= R): DerivedRowEncoder[A] =
     DerivedRowEncoder(_ => Seq.empty)
 
