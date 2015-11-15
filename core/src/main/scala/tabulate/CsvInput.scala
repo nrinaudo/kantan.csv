@@ -7,6 +7,9 @@ import simulacrum.{op, noop, typeclass}
 
 import scala.io.{Codec, Source}
 
+// TODO: it would be nicer for Source not to be a requirement - CsvIterator could take an Iterator[Char] and a close
+// function, for example
+
 /** Turns instances of `S` into valid sources of CSV data.
   *
   * Any type `S` that has a implicit instance of `CsvInput` in scope will be enriched by the `asCsvRows` and
@@ -80,20 +83,20 @@ object CsvInput extends LowPriorityCsvInputs {
     override def toSource(a: S): Source = f(a)
   }
 
-  /** Turns any `java.io.File` into a source of CSV data. */
-  implicit def file(implicit codec: Codec): CsvInput[File] = CsvInput(f => Source.fromFile(f))
-  /** Turns any `java.io.InputStream` into a source of CSV data. */
-  implicit def inputStream[I <: InputStream](implicit codec: Codec): CsvInput[I] = CsvInput(i => Source.fromInputStream(i))
-  /** Turns any array of bytes into a source of CSV data. */
-  implicit def bytes(implicit codec: Codec): CsvInput[Array[Byte]] = CsvInput(bs => Source.fromBytes(bs))
-  /** Turns any `java.net.URL` into a source of CSV data. */
-  implicit def url(implicit codec: Codec): CsvInput[URL] = CsvInput(u => Source.fromURL(u))
-  /** Turns any `java.net.URI` into a source of CSV data. */
-  implicit def uri(implicit codec: Codec): CsvInput[URI] = CsvInput(u => Source.fromURI(u))
-  /** Turns any array of chars into a source of CSV data. */
-  implicit val chars: CsvInput[Array[Char]] = CsvInput(cs => Source.fromChars(cs))
-  /** Turns any string into a source of CSV data. */
-  implicit val string: CsvInput[String] = CsvInput(s => Source.fromString(s))
   /** Turns any `scala.io.Source` into a source of CSV data. */
   implicit val source: CsvInput[Source] = CsvInput(s => s)
+  /** Turns any `java.io.File` into a source of CSV data. */
+  implicit def file(implicit codec: Codec): CsvInput[File] = source.contramap(Source.fromFile)
+  /** Turns any `java.io.InputStream` into a source of CSV data. */
+  implicit def inputStream[I <: InputStream](implicit codec: Codec): CsvInput[I] = source.contramap(Source.fromInputStream)
+  /** Turns any array of bytes into a source of CSV data. */
+  implicit def bytes(implicit codec: Codec): CsvInput[Array[Byte]] = source.contramap(Source.fromBytes)
+  /** Turns any `java.net.URL` into a source of CSV data. */
+  implicit def url(implicit codec: Codec): CsvInput[URL] = source.contramap(Source.fromURL)
+  /** Turns any `java.net.URI` into a source of CSV data. */
+  implicit def uri(implicit codec: Codec): CsvInput[URI] = source.contramap(Source.fromURI)
+  /** Turns any array of chars into a source of CSV data. */
+  implicit val chars: CsvInput[Array[Char]] = source.contramap(Source.fromChars)
+  /** Turns any string into a source of CSV data. */
+  implicit val string: CsvInput[String] = source.contramap(Source.fromString)
 }
