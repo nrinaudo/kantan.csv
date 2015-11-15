@@ -29,11 +29,11 @@ object DerivedRowEncoder {
 
   // Case classes of arity 1 are a special case: if the unique field has a row encoder, than we can consider that the
   // whole case class encodes exactly as its field does.
-  implicit def caseClass1[A, R, H](implicit gen: Generic.Aux[A, R], ev: R <:< (H :: HNil), eh: DerivedRowEncoder[H]): DerivedRowEncoder[A] =
+  implicit def caseClass1[A, H, R <: HList](implicit gen: Generic.Aux[A, R], ev: R <:< (H :: HNil), eh: DerivedRowEncoder[H]): DerivedRowEncoder[A] =
     DerivedRowEncoder(a => eh.encode(ev(gen.to(a)).head))
 
   // Case class of arity >= 2
-  implicit def caseClass[A, H, R <: HList](implicit gen: Generic.Aux[A, R], ev: R <:< (H :: HList), er: DerivedRowEncoder[R]): DerivedRowEncoder[A] =
+  implicit def caseClassN[A, H1, H2, R <: HList](implicit gen: Generic.Aux[A, R], ev: R <:< (H1 :: H2 :: HList), er: DerivedRowEncoder[R]): DerivedRowEncoder[A] =
     DerivedRowEncoder(a => er.encode(gen.to(a)))
 
 

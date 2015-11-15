@@ -32,12 +32,11 @@ object DerivedRowDecoder {
 
   // Case classes of arity 1 are a special case: if the unique field has a row decoder, than we can consider that the
   // whole case class decodes exactly as its field does.
-  implicit def caseClass1[A, R, H](implicit gen: Generic.Aux[A, R], ev: (H :: HNil) =:= R, dh: DerivedRowDecoder[H]): DerivedRowDecoder[A] =
+  implicit def caseClass1[A, H, R <: HList](implicit gen: Generic.Aux[A, R], ev: (H :: HNil) =:= R, dh: DerivedRowDecoder[H]): DerivedRowDecoder[A] =
     DerivedRowDecoder(s => dh.decode(s).map(h => gen.from(ev(h :: HNil))))
 
-  // The implicits here are a bit weird, but it's the only way I found to disambiguate between empty and non-empty
-  // HLists. This is necessary to deal with case objects or case classes of arity 0.
-  implicit def caseClass[A, H, R <: HList](implicit gen: Generic.Aux[A, R], ev: R <:< (H :: HList), dr: DerivedRowDecoder[R]): DerivedRowDecoder[A] =
+  // Case class of arity 2+
+  implicit def caseClassN[A, H1, H2, R <: HList](implicit gen: Generic.Aux[A, R], ev: R <:< (H1 :: H2 :: HList), dr: DerivedRowDecoder[R]): DerivedRowDecoder[A] =
     DerivedRowDecoder(s => dr.decode(s).map(gen.from))
 
 
