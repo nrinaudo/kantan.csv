@@ -19,6 +19,8 @@ import simulacrum.{noop, typeclass}
   * }}}
   *
   * See the [[CellDecoder$ companion object]] for default implementations and construction methods.
+  *
+  * @see [[http://nrinaudo.github.io/tabulate/tut/parsing.html Tutorial]]
   */
 @typeclass trait CellDecoder[A] {
   /** Turns the content of a CSV cell into an `A`. */
@@ -33,7 +35,7 @@ import simulacrum.{noop, typeclass}
     if(ss.isDefinedAt(index)) decode(ss(index))
     else                      DecodeResult.DecodeFailure
 
-  /** Turns an instance of `CsvInput[A]` into one of `CsvInput[B]`.
+  /** Turns an instance of `CellDecoder[A]` into one of `CellDecoder[B]`.
     *
     * This allows developers to adapt existing instances of `CellDecoder` rather than write one from scratch.
     */
@@ -42,6 +44,7 @@ import simulacrum.{noop, typeclass}
   @noop def flatMap[B](f: A => CellDecoder[B]): CellDecoder[B] = CellDecoder(s => decode(s).flatMap(a => f(a).decode(s)))
 }
 
+/** Low priority implicit decoders. */
 @export.imports[CellDecoder]
 trait LowPriorityCellDecoders
 
