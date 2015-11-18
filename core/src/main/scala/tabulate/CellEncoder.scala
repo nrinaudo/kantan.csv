@@ -39,8 +39,6 @@ import simulacrum.{noop, op, typeclass}
 trait LowPriorityCellEncoders
 
 object CellEncoder extends LowPriorityCellEncoders {
-  import ops._
-
   /** Creates a new `CellEncoder` from the specified function. */
   def apply[A](f: A => String): CellEncoder[A] = new CellEncoder[A] {
     override def encode(a: A) = f(a)
@@ -76,7 +74,7 @@ object CellEncoder extends LowPriorityCellEncoders {
 
   /** Turns an `Either[A, B]` into a CSV cell, provided both `A` and `B` have a `CellEncoder`. */
   implicit def either[A: CellEncoder, B: CellEncoder]: CellEncoder[Either[A, B]] = CellEncoder(eab => eab match {
-    case Left(a)  => a.asCsvCell
-    case Right(b) => b.asCsvCell
+    case Left(a)  => CellEncoder[A].encode(a)
+    case Right(b) => CellEncoder[B].encode(b)
   })
 }
