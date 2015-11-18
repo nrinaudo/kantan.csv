@@ -30,7 +30,7 @@ libraryDependencies += "com.nrinaudo" %% "tabulate-scalaz-stream" % "0.1.6"
 // Provides cats type class instances for tabulate, and vice versa.
 libraryDependencies += "com.nrinaudo" %% "tabulate-cats" % "0.1.6"
 
-// Derive type class instances automatically.
+// Automatic type class instances derivation.
 libraryDependencies += "com.nrinaudo" %% "tabulate-generic" % "0.1.6"
 ```
 
