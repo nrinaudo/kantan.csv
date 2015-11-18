@@ -15,10 +15,10 @@ object DerivedCellEncoder {
 
   // - ADT derivation --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def coproduct[H: CellEncoder, T <: Coproduct: DerivedCellEncoder]: DerivedCellEncoder[H :+: T] =
+  implicit def coproduct[H, T <: Coproduct](implicit eh: CellEncoder[H], et: DerivedCellEncoder[T]): DerivedCellEncoder[H :+: T] =
     DerivedCellEncoder((a: H :+: T) => a match {
-      case Inl(h) => h.asCsvCell
-      case Inr(t) => t.asCsvCell
+      case Inl(h) => eh.encode(h)
+      case Inr(t) => et.encode(t)
     })
 
   implicit val cnil: DerivedCellEncoder[CNil] =

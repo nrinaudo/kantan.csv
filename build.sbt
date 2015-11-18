@@ -1,5 +1,6 @@
 import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
 import com.typesafe.sbt.SbtSite.SiteKeys._
+import UnidocKeys._
 
 val catsVersion          = "0.3.0"
 val exportHookVersion    = "1.1.0"
@@ -176,6 +177,9 @@ lazy val docs = project
   .settings(site.settings: _*)
   .settings(ghpages.settings: _*)
   .settings(unidocSettings: _*)
+  .settings(
+    unidocProjectFilter in (ScalaUnidoc, unidoc) := inAnyProject -- inProjects(benchmark)
+  )
   .settings(tutSettings: _*)
   .settings(
     site.addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), "api"),

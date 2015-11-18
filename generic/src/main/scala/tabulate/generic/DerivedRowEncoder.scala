@@ -16,9 +16,9 @@ object DerivedRowEncoder {
 
   // - Case class derivation -------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def hlist[H: CellEncoder, T <: HList: DerivedRowEncoder]: DerivedRowEncoder[H :: T] =
+  implicit def hlist[H, T <: HList](implicit eh: CellEncoder[H], et: DerivedRowEncoder[T]): DerivedRowEncoder[H :: T] =
     DerivedRowEncoder((a: H :: T) => a match {
-      case h :: t => h.asCsvCell +: t.asCsvRow
+      case h :: t => eh.encode(h) +: et.encode(t)
     })
 
   implicit val hnil: DerivedRowEncoder[HNil] = DerivedRowEncoder(_ => Seq.empty)

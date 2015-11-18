@@ -6,12 +6,12 @@ import ops._
 trait CellCodecLaws[A] {
   implicit def codec: CellCodec[A]
 
-  def encodeReversibility(a: A): Boolean = codec.decode(a.asCsvCell) == DecodeResult.Success(a)
+  def encodeReversibility(a: A): Boolean = codec.decode(codec.encode(a)) == DecodeResult.Success(a)
 
-  def decodeIdentity(a: A): Boolean = codec.decode(a.asCsvCell) == codec.map(identity).decode(a.asCsvCell)
+  def decodeIdentity(a: A): Boolean = codec.decode(codec.encode(a)) == codec.map(identity).decode(codec.encode(a))
 
   def decodeComposition[B, C](a: A, f: A => B, g: B => C): Boolean =
-    codec.map(f andThen g).decode(a.asCsvCell) == codec.map(f).map(g).decode(a.asCsvCell)
+    codec.map(f andThen g).decode(codec.encode(a)) == codec.map(f).map(g).decode(codec.encode(a))
 
   def encodeIdentity(a: A): Boolean = codec.encode(a) == codec.contramap[A](identity).encode(a)
 
