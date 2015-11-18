@@ -55,7 +55,7 @@
 <code>RowDecoder</code>, which relies on any implicit <code>CellDecoder</code> it has in scope to parse entire rows.</p><p>If, for example, you need to parse CSV data that contains ISO 8601 formatted dates, you can't immediately call
 <a href="CsvInput.html#rows[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:tabulate.RowDecoder[A]):Iterator[tabulate.DecodeResult[A]]" class="extmbr" name="tabulate.CsvInput#rows">CsvInput.rows</a> with a type argument of <code>List[Date]</code>: dates are not supported natively (because they can be
 serialised in so many different ways).</p><p>This can be remedied simply by writing the following:</p><pre><span class="kw">implicit</span> <span class="kw">val</span> dateDecoder = CellDecoder(s <span class="kw">=&gt;</span> DecodeResult(<span class="kw">new</span> SimpleDateFormat(<span class="lit">"yyyy-MM-dd'T'HH:mm:ssZ"</span>).parse(s)))</pre><p>See the <a href="CellDecoder$.html" class="extype" name="tabulate.CellDecoder">companion object</a> for default implementations and construction methods.
-</p></div><div class="toggleContainer block">
+</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="http://nrinaudo.github.io/tabulate/tut/parsing.html" target="_blank">Tutorial</a></p></span></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div><div class="toggleContainer block">
@@ -383,7 +383,7 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Turns an instance of <code>CsvInput[A]</code> into one of <code>CsvInput[B]</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns an instance of <code>CsvInput[A]</code> into one of <code>CsvInput[B]</code>.</p><p>This allows developers to adapt existing instances of <code>CellDecoder</code> rather than write one from scratch.
+      <p class="shortcomment cmt">Turns an instance of <code>CellDecoder[A]</code> into one of <code>CellDecoder[B]</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns an instance of <code>CellDecoder[A]</code> into one of <code>CellDecoder[B]</code>.</p><p>This allows developers to adapt existing instances of <code>CellDecoder</code> rather than write one from scratch.
 </p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@noop</span><span class="args">()</span>
               

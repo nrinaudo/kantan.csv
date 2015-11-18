@@ -51,7 +51,10 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Encodes values of type <code>A</code> into CSV cells.</p><p><code>CellEncoder</code> instances aren't meant to be used directly, but rather provide the backbone of the <a href="RowEncoder.html" class="extype" name="tabulate.RowEncoder">RowEncoder</a>
+mechanism.</p><p>If you're working with data that contains dates and need to serialise these to valid ISO 8601 strings, for example,
+you'll need to create a custom <code>CellEncoder[Date]</code>:</p><pre><span class="kw">implicit</span> <span class="kw">val</span> dateEncoder = CellEncoder((d: Date) <span class="kw">=&gt;</span> <span class="kw">new</span> SimpleDateFormat(<span class="lit">"yyyy-MM-dd'T'HH:mm:ssZ"</span>).format(d))</pre><p>Once this is done, Tabulate will be capable of serialising date fields without any further work. The following, for
+example, will create a <a href="RowEncoder.html" class="extype" name="tabulate.RowEncoder">RowEncoder</a> for triples of type <code>(Int, String, Date)</code>:</p><pre>RowEncoder[(<span class="std">Int</span>, <span class="std">String</span>, Date)]</pre></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="http://nrinaudo.github.io/tabulate/tut/serializing.html" target="_blank">Tutorial</a></p></span></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div><div class="toggleContainer block">
@@ -97,7 +100,7 @@
 
         <div id="values" class="values members">
               <h3>Abstract Value Members</h3>
-              <ol><li name="tabulate.CellEncoder#encode" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+              <ol><li name="tabulate.CellEncoder#encode" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="encode(a:A):String"></a>
       <a id="encode(A):String"></a>
       <h4 class="signature">
@@ -113,7 +116,16 @@
         <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
+      <p class="shortcomment cmt">Turns the specified <code>A</code> into a CSV cell.</p><div class="fullcomment"><div class="comment cmt"><p>Turns the specified <code>A</code> into a CSV cell.</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@op</span><span class="args">(<span>
       
+      <span class="symbol">&quot;asCsvCell&quot;</span>
+    </span>, <span>
+      
+      <span class="symbol">simulacrum.this.op.&lt;init&gt;$default$2</span>
+    </span>)</span>
+              
+        </dd></dl></div>
     </li></ol>
             </div>
 
@@ -226,7 +238,8 @@
         <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+      <p class="shortcomment cmt">Turns a <code>CellEncoder[A]</code> into a <code>CellEncoder[B]</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns a <code>CellEncoder[A]</code> into a <code>CellEncoder[B]</code>.</p><p>This allows developers to adapt existing instance of <code>CellDecoder</code> rather than write new ones.
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@noop</span><span class="args">()</span>
               
         </dd></dl></div>

@@ -147,19 +147,19 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="tabulate.generic.DerivedRowEncoder#adtRowEncoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="adtRowEncoder[A,R&lt;:shapeless.Coproduct](implicitgen:shapeless.Generic.Aux[A,R],implicite:tabulate.RowEncoder[R]):tabulate.generic.DerivedRowEncoder[A]"></a>
-      <a id="adtRowEncoder[A,R&lt;:Coproduct](Aux[A,R],RowEncoder[R]):DerivedRowEncoder[A]"></a>
+    </li><li name="tabulate.generic.DerivedRowEncoder#adt" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="adt[A,R&lt;:shapeless.Coproduct](implicitgen:shapeless.Generic.Aux[A,R],impliciter:tabulate.generic.DerivedRowEncoder[R]):tabulate.generic.DerivedRowEncoder[A]"></a>
+      <a id="adt[A,R&lt;:Coproduct](Aux[A,R],DerivedRowEncoder[R]):DerivedRowEncoder[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">adtRowEncoder</span><span class="tparams">[<span name="A">A</span>, <span name="R">R &lt;: <span class="extype" name="shapeless.Coproduct">Coproduct</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="gen">gen: <span class="extype" name="shapeless.Generic.Aux">Aux</span>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.adtRowEncoder.A">A</span>, <span class="extype" name="tabulate.generic.DerivedRowEncoder.adtRowEncoder.R">R</span>]</span>, <span name="e">e: <a href="../RowEncoder.html" class="extype" name="tabulate.RowEncoder">RowEncoder</a>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.adtRowEncoder.R">R</span>]</span>)</span><span class="result">: <a href="DerivedRowEncoder.html" class="extype" name="tabulate.generic.DerivedRowEncoder">DerivedRowEncoder</a>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.adtRowEncoder.A">A</span>]</span>
+        <span class="name">adt</span><span class="tparams">[<span name="A">A</span>, <span name="R">R &lt;: <span class="extype" name="shapeless.Coproduct">Coproduct</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="gen">gen: <span class="extype" name="shapeless.Generic.Aux">Aux</span>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.adt.A">A</span>, <span class="extype" name="tabulate.generic.DerivedRowEncoder.adt.R">R</span>]</span>, <span name="er">er: <a href="DerivedRowEncoder.html" class="extype" name="tabulate.generic.DerivedRowEncoder">DerivedRowEncoder</a>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.adt.R">R</span>]</span>)</span><span class="result">: <a href="DerivedRowEncoder.html" class="extype" name="tabulate.generic.DerivedRowEncoder">DerivedRowEncoder</a>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.adt.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#tabulate.generic.DerivedRowEncoder$@adtRowEncoder[A,R&lt;:shapeless.Coproduct](implicitgen:shapeless.Generic.Aux[A,R],implicite:tabulate.RowEncoder[R]):tabulate.generic.DerivedRowEncoder[A]" title="Permalink" target="_top">
+      <a href="../../index.html#tabulate.generic.DerivedRowEncoder$@adt[A,R&lt;:shapeless.Coproduct](implicitgen:shapeless.Generic.Aux[A,R],impliciter:tabulate.generic.DerivedRowEncoder[R]):tabulate.generic.DerivedRowEncoder[A]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -198,19 +198,53 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="tabulate.generic.DerivedRowEncoder#caseClassRowEncoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="caseClassRowEncoder[A,R&lt;:shapeless.HList](implicitgen:shapeless.Generic.Aux[A,R],implicitc:tabulate.RowEncoder[R]):tabulate.generic.DerivedRowEncoder[A]"></a>
-      <a id="caseClassRowEncoder[A,R&lt;:HList](Aux[A,R],RowEncoder[R]):DerivedRowEncoder[A]"></a>
+    </li><li name="tabulate.generic.DerivedRowEncoder#caseClass1" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="caseClass1[A,H,R&lt;:shapeless.HList](implicitgen:shapeless.Generic.Aux[A,R],implicitev:&lt;:&lt;[R,shapeless.::[H,shapeless.HNil]],impliciteh:tabulate.generic.DerivedRowEncoder[H]):tabulate.generic.DerivedRowEncoder[A]"></a>
+      <a id="caseClass1[A,H,R&lt;:HList](Aux[A,R],&lt;:&lt;[R,::[H,HNil]],DerivedRowEncoder[H]):DerivedRowEncoder[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">caseClassRowEncoder</span><span class="tparams">[<span name="A">A</span>, <span name="R">R &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="gen">gen: <span class="extype" name="shapeless.Generic.Aux">Aux</span>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.caseClassRowEncoder.A">A</span>, <span class="extype" name="tabulate.generic.DerivedRowEncoder.caseClassRowEncoder.R">R</span>]</span>, <span name="c">c: <a href="../RowEncoder.html" class="extype" name="tabulate.RowEncoder">RowEncoder</a>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.caseClassRowEncoder.R">R</span>]</span>)</span><span class="result">: <a href="DerivedRowEncoder.html" class="extype" name="tabulate.generic.DerivedRowEncoder">DerivedRowEncoder</a>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.caseClassRowEncoder.A">A</span>]</span>
+        <span class="name">caseClass1</span><span class="tparams">[<span name="A">A</span>, <span name="H">H</span>, <span name="R">R &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="gen">gen: <span class="extype" name="shapeless.Generic.Aux">Aux</span>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.caseClass1.A">A</span>, <span class="extype" name="tabulate.generic.DerivedRowEncoder.caseClass1.R">R</span>]</span>, <span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.caseClass1.R">R</span>, <span class="extype" name="shapeless.::">::</span>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.caseClass1.H">H</span>, <span class="extype" name="shapeless.HNil">HNil</span>]]</span>, <span name="eh">eh: <a href="DerivedRowEncoder.html" class="extype" name="tabulate.generic.DerivedRowEncoder">DerivedRowEncoder</a>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.caseClass1.H">H</span>]</span>)</span><span class="result">: <a href="DerivedRowEncoder.html" class="extype" name="tabulate.generic.DerivedRowEncoder">DerivedRowEncoder</a>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.caseClass1.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#tabulate.generic.DerivedRowEncoder$@caseClassRowEncoder[A,R&lt;:shapeless.HList](implicitgen:shapeless.Generic.Aux[A,R],implicitc:tabulate.RowEncoder[R]):tabulate.generic.DerivedRowEncoder[A]" title="Permalink" target="_top">
+      <a href="../../index.html#tabulate.generic.DerivedRowEncoder$@caseClass1[A,H,R&lt;:shapeless.HList](implicitgen:shapeless.Generic.Aux[A,R],implicitev:&lt;:&lt;[R,shapeless.::[H,shapeless.HNil]],impliciteh:tabulate.generic.DerivedRowEncoder[H]):tabulate.generic.DerivedRowEncoder[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.generic.DerivedRowEncoder#caseClassN" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="caseClassN[A,H1,H2,R&lt;:shapeless.HList](implicitgen:shapeless.Generic.Aux[A,R],implicitev:&lt;:&lt;[R,shapeless.::[H1,shapeless.::[H2,shapeless.HList]]],impliciter:tabulate.generic.DerivedRowEncoder[R]):tabulate.generic.DerivedRowEncoder[A]"></a>
+      <a id="caseClassN[A,H1,H2,R&lt;:HList](Aux[A,R],&lt;:&lt;[R,::[H1,::[H2,HList]]],DerivedRowEncoder[R]):DerivedRowEncoder[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">caseClassN</span><span class="tparams">[<span name="A">A</span>, <span name="H1">H1</span>, <span name="H2">H2</span>, <span name="R">R &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="gen">gen: <span class="extype" name="shapeless.Generic.Aux">Aux</span>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.caseClassN.A">A</span>, <span class="extype" name="tabulate.generic.DerivedRowEncoder.caseClassN.R">R</span>]</span>, <span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.caseClassN.R">R</span>, <span class="extype" name="shapeless.::">::</span>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.caseClassN.H1">H1</span>, <span class="extype" name="shapeless.::">::</span>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.caseClassN.H2">H2</span>, <span class="extype" name="shapeless.HList">HList</span>]]]</span>, <span name="er">er: <a href="DerivedRowEncoder.html" class="extype" name="tabulate.generic.DerivedRowEncoder">DerivedRowEncoder</a>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.caseClassN.R">R</span>]</span>)</span><span class="result">: <a href="DerivedRowEncoder.html" class="extype" name="tabulate.generic.DerivedRowEncoder">DerivedRowEncoder</a>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.caseClassN.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.generic.DerivedRowEncoder$@caseClassN[A,H1,H2,R&lt;:shapeless.HList](implicitgen:shapeless.Generic.Aux[A,R],implicitev:&lt;:&lt;[R,shapeless.::[H1,shapeless.::[H2,shapeless.HList]]],impliciter:tabulate.generic.DerivedRowEncoder[R]):tabulate.generic.DerivedRowEncoder[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.generic.DerivedRowEncoder#caseObject" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="caseObject[A,R&lt;:shapeless.HNil](implicitgen:shapeless.Generic.Aux[A,R],implicitev:=:=[shapeless.HNil,R]):tabulate.generic.DerivedRowEncoder[A]"></a>
+      <a id="caseObject[A,R&lt;:HNil](Aux[A,R],=:=[HNil,R]):DerivedRowEncoder[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">caseObject</span><span class="tparams">[<span name="A">A</span>, <span name="R">R &lt;: <span class="extype" name="shapeless.HNil">HNil</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="gen">gen: <span class="extype" name="shapeless.Generic.Aux">Aux</span>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.caseObject.A">A</span>, <span class="extype" name="tabulate.generic.DerivedRowEncoder.caseObject.R">R</span>]</span>, <span name="ev">ev: <span class="extype" name="scala.Predef.=:=">=:=</span>[<span class="extype" name="shapeless.HNil">HNil</span>, <span class="extype" name="tabulate.generic.DerivedRowEncoder.caseObject.R">R</span>]</span>)</span><span class="result">: <a href="DerivedRowEncoder.html" class="extype" name="tabulate.generic.DerivedRowEncoder">DerivedRowEncoder</a>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.caseObject.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.generic.DerivedRowEncoder$@caseObject[A,R&lt;:shapeless.HNil](implicitgen:shapeless.Generic.Aux[A,R],implicitev:=:=[shapeless.HNil,R]):tabulate.generic.DerivedRowEncoder[A]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -238,36 +272,36 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="tabulate.generic.DerivedRowEncoder#cnilRowEncoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="cnilRowEncoder:tabulate.generic.DerivedRowEncoder[shapeless.CNil]"></a>
-      <a id="cnilRowEncoder:DerivedRowEncoder[CNil]"></a>
+    </li><li name="tabulate.generic.DerivedRowEncoder#cnil" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="cnil:tabulate.generic.DerivedRowEncoder[shapeless.CNil]"></a>
+      <a id="cnil:DerivedRowEncoder[CNil]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">cnilRowEncoder</span><span class="result">: <a href="DerivedRowEncoder.html" class="extype" name="tabulate.generic.DerivedRowEncoder">DerivedRowEncoder</a>[<span class="extype" name="shapeless.CNil">CNil</span>]</span>
+        <span class="name">cnil</span><span class="result">: <a href="DerivedRowEncoder.html" class="extype" name="tabulate.generic.DerivedRowEncoder">DerivedRowEncoder</a>[<span class="extype" name="shapeless.CNil">CNil</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#tabulate.generic.DerivedRowEncoder$@cnilRowEncoder:tabulate.generic.DerivedRowEncoder[shapeless.CNil]" title="Permalink" target="_top">
+      <a href="../../index.html#tabulate.generic.DerivedRowEncoder$@cnil:tabulate.generic.DerivedRowEncoder[shapeless.CNil]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
-    </li><li name="tabulate.generic.DerivedRowEncoder#coproductRowEncoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="coproductRowEncoder[H,T&lt;:shapeless.Coproduct](implicitevidence$3:tabulate.RowEncoder[H],implicitevidence$4:tabulate.RowEncoder[T]):tabulate.generic.DerivedRowEncoder[shapeless.:+:[H,T]]"></a>
-      <a id="coproductRowEncoder[H,T&lt;:Coproduct](RowEncoder[H],RowEncoder[T]):DerivedRowEncoder[:+:[H,T]]"></a>
+    </li><li name="tabulate.generic.DerivedRowEncoder#coproduct" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="coproduct[H,T&lt;:shapeless.Coproduct](impliciteh:tabulate.RowEncoder[H],implicitet:tabulate.generic.DerivedRowEncoder[T]):tabulate.generic.DerivedRowEncoder[shapeless.:+:[H,T]]"></a>
+      <a id="coproduct[H,T&lt;:Coproduct](RowEncoder[H],DerivedRowEncoder[T]):DerivedRowEncoder[:+:[H,T]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">coproductRowEncoder</span><span class="tparams">[<span name="H">H</span>, <span name="T">T &lt;: <span class="extype" name="shapeless.Coproduct">Coproduct</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../RowEncoder.html" class="extype" name="tabulate.RowEncoder">RowEncoder</a>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.coproductRowEncoder.H">H</span>]</span>, <span name="arg1">arg1: <a href="../RowEncoder.html" class="extype" name="tabulate.RowEncoder">RowEncoder</a>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.coproductRowEncoder.T">T</span>]</span>)</span><span class="result">: <a href="DerivedRowEncoder.html" class="extype" name="tabulate.generic.DerivedRowEncoder">DerivedRowEncoder</a>[<span class="extype" name="shapeless.:+:">:+:</span>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.coproductRowEncoder.H">H</span>, <span class="extype" name="tabulate.generic.DerivedRowEncoder.coproductRowEncoder.T">T</span>]]</span>
+        <span class="name">coproduct</span><span class="tparams">[<span name="H">H</span>, <span name="T">T &lt;: <span class="extype" name="shapeless.Coproduct">Coproduct</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="eh">eh: <a href="../RowEncoder.html" class="extype" name="tabulate.RowEncoder">RowEncoder</a>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.coproduct.H">H</span>]</span>, <span name="et">et: <a href="DerivedRowEncoder.html" class="extype" name="tabulate.generic.DerivedRowEncoder">DerivedRowEncoder</a>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.coproduct.T">T</span>]</span>)</span><span class="result">: <a href="DerivedRowEncoder.html" class="extype" name="tabulate.generic.DerivedRowEncoder">DerivedRowEncoder</a>[<span class="extype" name="shapeless.:+:">:+:</span>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.coproduct.H">H</span>, <span class="extype" name="tabulate.generic.DerivedRowEncoder.coproduct.T">T</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#tabulate.generic.DerivedRowEncoder$@coproductRowEncoder[H,T&lt;:shapeless.Coproduct](implicitevidence$3:tabulate.RowEncoder[H],implicitevidence$4:tabulate.RowEncoder[T]):tabulate.generic.DerivedRowEncoder[shapeless.:+:[H,T]]" title="Permalink" target="_top">
+      <a href="../../index.html#tabulate.generic.DerivedRowEncoder$@coproduct[H,T&lt;:shapeless.Coproduct](impliciteh:tabulate.RowEncoder[H],implicitet:tabulate.generic.DerivedRowEncoder[T]):tabulate.generic.DerivedRowEncoder[shapeless.:+:[H,T]]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -380,36 +414,36 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="tabulate.generic.DerivedRowEncoder#hlistRowEncoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="hlistRowEncoder[H,T&lt;:shapeless.HList](implicitevidence$1:tabulate.CellEncoder[H],implicitevidence$2:tabulate.RowEncoder[T]):tabulate.generic.DerivedRowEncoder[shapeless.::[H,T]]"></a>
-      <a id="hlistRowEncoder[H,T&lt;:HList](CellEncoder[H],RowEncoder[T]):DerivedRowEncoder[::[H,T]]"></a>
+    </li><li name="tabulate.generic.DerivedRowEncoder#hlist" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="hlist[H,T&lt;:shapeless.HList](impliciteh:tabulate.CellEncoder[H],implicitet:tabulate.generic.DerivedRowEncoder[T]):tabulate.generic.DerivedRowEncoder[shapeless.::[H,T]]"></a>
+      <a id="hlist[H,T&lt;:HList](CellEncoder[H],DerivedRowEncoder[T]):DerivedRowEncoder[::[H,T]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hlistRowEncoder</span><span class="tparams">[<span name="H">H</span>, <span name="T">T &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../CellEncoder.html" class="extype" name="tabulate.CellEncoder">CellEncoder</a>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.hlistRowEncoder.H">H</span>]</span>, <span name="arg1">arg1: <a href="../RowEncoder.html" class="extype" name="tabulate.RowEncoder">RowEncoder</a>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.hlistRowEncoder.T">T</span>]</span>)</span><span class="result">: <a href="DerivedRowEncoder.html" class="extype" name="tabulate.generic.DerivedRowEncoder">DerivedRowEncoder</a>[<span class="extype" name="shapeless.::">::</span>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.hlistRowEncoder.H">H</span>, <span class="extype" name="tabulate.generic.DerivedRowEncoder.hlistRowEncoder.T">T</span>]]</span>
+        <span class="name">hlist</span><span class="tparams">[<span name="H">H</span>, <span name="T">T &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="eh">eh: <a href="../CellEncoder.html" class="extype" name="tabulate.CellEncoder">CellEncoder</a>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.hlist.H">H</span>]</span>, <span name="et">et: <a href="DerivedRowEncoder.html" class="extype" name="tabulate.generic.DerivedRowEncoder">DerivedRowEncoder</a>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.hlist.T">T</span>]</span>)</span><span class="result">: <a href="DerivedRowEncoder.html" class="extype" name="tabulate.generic.DerivedRowEncoder">DerivedRowEncoder</a>[<span class="extype" name="shapeless.::">::</span>[<span class="extype" name="tabulate.generic.DerivedRowEncoder.hlist.H">H</span>, <span class="extype" name="tabulate.generic.DerivedRowEncoder.hlist.T">T</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#tabulate.generic.DerivedRowEncoder$@hlistRowEncoder[H,T&lt;:shapeless.HList](implicitevidence$1:tabulate.CellEncoder[H],implicitevidence$2:tabulate.RowEncoder[T]):tabulate.generic.DerivedRowEncoder[shapeless.::[H,T]]" title="Permalink" target="_top">
+      <a href="../../index.html#tabulate.generic.DerivedRowEncoder$@hlist[H,T&lt;:shapeless.HList](impliciteh:tabulate.CellEncoder[H],implicitet:tabulate.generic.DerivedRowEncoder[T]):tabulate.generic.DerivedRowEncoder[shapeless.::[H,T]]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
-    </li><li name="tabulate.generic.DerivedRowEncoder#hnilRowEncoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="hnilRowEncoder:tabulate.generic.DerivedRowEncoder[shapeless.HNil]"></a>
-      <a id="hnilRowEncoder:DerivedRowEncoder[HNil]"></a>
+    </li><li name="tabulate.generic.DerivedRowEncoder#hnil" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="hnil:tabulate.generic.DerivedRowEncoder[shapeless.HNil]"></a>
+      <a id="hnil:DerivedRowEncoder[HNil]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">hnilRowEncoder</span><span class="result">: <a href="DerivedRowEncoder.html" class="extype" name="tabulate.generic.DerivedRowEncoder">DerivedRowEncoder</a>[<span class="extype" name="shapeless.HNil">HNil</span>]</span>
+        <span class="name">hnil</span><span class="result">: <a href="DerivedRowEncoder.html" class="extype" name="tabulate.generic.DerivedRowEncoder">DerivedRowEncoder</a>[<span class="extype" name="shapeless.HNil">HNil</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#tabulate.generic.DerivedRowEncoder$@hnilRowEncoder:tabulate.generic.DerivedRowEncoder[shapeless.HNil]" title="Permalink" target="_top">
+      <a href="../../index.html#tabulate.generic.DerivedRowEncoder$@hnil:tabulate.generic.DerivedRowEncoder[shapeless.HNil]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>

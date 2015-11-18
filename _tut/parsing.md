@@ -37,7 +37,7 @@ import tabulate._
 import tabulate.ops._
 ```
 
-`tabulate._` imports all the core classes, while `tabulate.ops._` bring the various operators in scope.
+`tabulate._` imports all the core classes, while `tabulate.ops._` brings the various operators in scope.
 
 
 Additionally, most methods used to open CSV data for reading require an implicit `scala.io.Codec` to be in scope. I'll
@@ -48,33 +48,28 @@ Microsoft Excel, for instance, tends to change charset depending on the computer
 implicit val codec = scala.io.Codec.ISO8859
 ```
 
-Finally, in order for the various examples' output to be more readable, I'll be using the following function to print
-results out:
-
-```scala
-def printCsv[A](csv: Iterator[A]): Unit = csv.foreach(a => println(s"- $a"))
-```
-
 
 ## Rows as collections of strings
 The simplest way to represent a CSV row is as a collection of strings. You do that through the `asCsvRows` method
 that enriches any type that can be used as a source of CSV data:
 
 ```scala
-scala> printCsv(rawData.asCsvRows[List[String]](',', false))
-- Success(List(Year, Make, Model, Description, Price))
-- Success(List(1997, Ford, E350, ac, abs, moon, 3000.00))
-- Success(List(1999, Chevy, Venture "Extended Edition", , 4900.00))
-- Success(List(1999, Chevy, Venture "Extended Edition, Very Large", , 5000.00))
-- Success(List(1996, Jeep, Grand Cherokee, MUST SELL!
+scala> rawData.asCsvRows[List[String]](',', false).mkString("\n")
+res0: String =
+Success(List(Year, Make, Model, Description, Price))
+Success(List(1997, Ford, E350, ac, abs, moon, 3000.00))
+Success(List(1999, Chevy, Venture "Extended Edition", , 4900.00))
+Success(List(1999, Chevy, Venture "Extended Edition, Very Large", , 5000.00))
+Success(List(1996, Jeep, Grand Cherokee, MUST SELL!
 air, moon roof, loaded, 4799.00))
 
-scala> printCsv(rawData.asCsvRows[Set[String]](',', false))
-- Success(Set(Make, Description, Price, Year, Model))
-- Success(Set(ac, abs, moon, 1997, 3000.00, E350, Ford))
-- Success(Set(, Chevy, 1999, Venture "Extended Edition", 4900.00))
-- Success(Set(, 5000.00, Venture "Extended Edition, Very Large", Chevy, 1999))
-- Success(Set(1996, MUST SELL!
+scala> rawData.asCsvRows[Set[String]](',', false).mkString("\n")
+res1: String =
+Success(Set(Make, Description, Price, Year, Model))
+Success(Set(ac, abs, moon, 1997, 3000.00, E350, Ford))
+Success(Set(, Chevy, 1999, Venture "Extended Edition", 4900.00))
+Success(Set(, 5000.00, Venture "Extended Edition, Very Large", Chevy, 1999))
+Success(Set(1996, MUST SELL!
 air, moon roof, loaded, 4799.00, Grand Cherokee, Jeep))
 ```
 
@@ -87,7 +82,8 @@ The `asCsvRows` method expects two parameters:
   
 The type parameter describes how each CSV row should be represented. In the previous example, we've used `List[String]`
 and `Set[String]`, but you should be able to use any standard collection class (technically, any collection that has
-a `CanBuildFrom` instance, but I think that's every one of them).
+a [CanBuildFrom](http://www.scala-lang.org/api/current/#scala.collection.generic.CanBuildFrom) instance, but I think
+that's every one of them).
 
 Other sections of this tutorial give examples of how to use more complex types, but more often than not, you'll find
 that you can just stick whatever assemblage of standard types you want in there and have it work out of the box. If
@@ -100,12 +96,13 @@ than throw an exception that forcefully interrupts parsing. One possible use cas
 properly formatted:
 
 ```scala
-scala> printCsv(rawData.asCsvRows[List[String]](',', false).filter(_.isSuccess))
-- Success(List(Year, Make, Model, Description, Price))
-- Success(List(1997, Ford, E350, ac, abs, moon, 3000.00))
-- Success(List(1999, Chevy, Venture "Extended Edition", , 4900.00))
-- Success(List(1999, Chevy, Venture "Extended Edition, Very Large", , 5000.00))
-- Success(List(1996, Jeep, Grand Cherokee, MUST SELL!
+scala> rawData.asCsvRows[List[String]](',', false).filter(_.isSuccess).mkString("\n")
+res2: String =
+Success(List(Year, Make, Model, Description, Price))
+Success(List(1997, Ford, E350, ac, abs, moon, 3000.00))
+Success(List(1999, Chevy, Venture "Extended Edition", , 4900.00))
+Success(List(1999, Chevy, Venture "Extended Edition, Very Large", , 5000.00))
+Success(List(1996, Jeep, Grand Cherokee, MUST SELL!
 air, moon roof, loaded, 4799.00))
 ```
 
@@ -113,12 +110,13 @@ Alternatively, you can use `asUnsafeCsvRows` rather than `asCsvRows`. This will 
 `DecodeResult` layer but throwing an exception if any problem is encountered.
 
 ```scala
-scala> printCsv(rawData.asUnsafeCsvRows[List[String]](',', false))
-- List(Year, Make, Model, Description, Price)
-- List(1997, Ford, E350, ac, abs, moon, 3000.00)
-- List(1999, Chevy, Venture "Extended Edition", , 4900.00)
-- List(1999, Chevy, Venture "Extended Edition, Very Large", , 5000.00)
-- List(1996, Jeep, Grand Cherokee, MUST SELL!
+scala> rawData.asUnsafeCsvRows[List[String]](',', false).mkString("\n")
+res3: String =
+List(Year, Make, Model, Description, Price)
+List(1997, Ford, E350, ac, abs, moon, 3000.00)
+List(1999, Chevy, Venture "Extended Edition", , 4900.00)
+List(1999, Chevy, Venture "Extended Edition, Very Large", , 5000.00)
+List(1996, Jeep, Grand Cherokee, MUST SELL!
 air, moon roof, loaded, 4799.00)
 ```
 
@@ -136,12 +134,13 @@ type CarTuple = (Int, String, String, Option[String], Float)
 We can now write:
 
 ```scala
-scala> printCsv(rawData.asCsvRows[CarTuple](',', false))
-- DecodeFailure
-- Success((1997,Ford,E350,Some(ac, abs, moon),3000.0))
-- Success((1999,Chevy,Venture "Extended Edition",None,4900.0))
-- Success((1999,Chevy,Venture "Extended Edition, Very Large",None,5000.0))
-- Success((1996,Jeep,Grand Cherokee,Some(MUST SELL!
+scala> rawData.asCsvRows[CarTuple](',', false).mkString("\n")
+res4: String =
+DecodeFailure
+Success((1997,Ford,E350,Some(ac, abs, moon),3000.0))
+Success((1999,Chevy,Venture "Extended Edition",None,4900.0))
+Success((1999,Chevy,Venture "Extended Edition, Very Large",None,5000.0))
+Success((1996,Jeep,Grand Cherokee,Some(MUST SELL!
 air, moon roof, loaded),4799.0))
 ```
 
@@ -153,11 +152,12 @@ difference between a header and a row that was expected to parse but didn't. The
 pass `true` to the second parameter of `asCsvRows`, asking it to skip the header:
 
 ```scala
-scala> printCsv(rawData.asCsvRows[CarTuple](',', true))
-- Success((1997,Ford,E350,Some(ac, abs, moon),3000.0))
-- Success((1999,Chevy,Venture "Extended Edition",None,4900.0))
-- Success((1999,Chevy,Venture "Extended Edition, Very Large",None,5000.0))
-- Success((1996,Jeep,Grand Cherokee,Some(MUST SELL!
+scala> rawData.asCsvRows[CarTuple](',', true).mkString("\n")
+res5: String =
+Success((1997,Ford,E350,Some(ac, abs, moon),3000.0))
+Success((1999,Chevy,Venture "Extended Edition",None,4900.0))
+Success((1999,Chevy,Venture "Extended Edition, Very Large",None,5000.0))
+Success((1996,Jeep,Grand Cherokee,Some(MUST SELL!
 air, moon roof, loaded),4799.0))
 ```
 
@@ -168,19 +168,20 @@ too late: the iterator's `drop` method will skip over a row, but it still needs 
 
 ```scala
 scala> try {
-     |   printCsv(rawData.asUnsafeCsvRows[CarTuple](',', false).drop(1))
+     |   rawData.asUnsafeCsvRows[CarTuple](',', false).drop(1).mkString("\n")
      | } catch { case e: Exception => e.getMessage }
-res6: Any = Invalid data found in CSV row.
+res6: String = Invalid data found in CSV row.
 ```
 
 This, however, does not fail: the header is skipped and the rest is valid.
 
 ```scala
-scala> printCsv(rawData.asUnsafeCsvRows[CarTuple](',', true))
-- (1997,Ford,E350,Some(ac, abs, moon),3000.0)
-- (1999,Chevy,Venture "Extended Edition",None,4900.0)
-- (1999,Chevy,Venture "Extended Edition, Very Large",None,5000.0)
-- (1996,Jeep,Grand Cherokee,Some(MUST SELL!
+scala> rawData.asUnsafeCsvRows[CarTuple](',', true).mkString("\n")
+res7: String =
+(1997,Ford,E350,Some(ac, abs, moon),3000.0)
+(1999,Chevy,Venture "Extended Edition",None,4900.0)
+(1999,Chevy,Venture "Extended Edition, Very Large",None,5000.0)
+(1996,Jeep,Grand Cherokee,Some(MUST SELL!
 air, moon roof, loaded),4799.0)
 ```
 
@@ -195,24 +196,26 @@ Let's define such a case class for our example:
 case class Car(make: String, model: String, year: Int, price: Float, desc: Option[String])
 ```
 
-The process is slightly more involved than what we've seen so far, as decoders for case classes cannot be automatically
-inferred in a type-safe way (that I could find). 
+The process is slightly more involved than what we've seen so far, unless you're willing to depend on
+[shapeless](https://github.com/milessabin/shapeless) and use Tabulate's [generic](./generic.html) module to derive
+a decoder automatically.
 
-You can however trivially create one using one of the `RowDecoder.caseDecoderXXX`, where XXX is the number of fields
-in your case class:
+If you're not, you can still trivially create one using one of the `RowDecoder.decoderXXX`, where XXX is the number
+of fields in your case class:
 
 ```scala
-implicit val carDecoder = RowDecoder.caseDecoder5(Car.apply)(1, 2, 0, 4, 3)
+implicit val carDecoder = RowDecoder.decoder5(Car.apply)(1, 2, 0, 4, 3)
 ```
 
 This allows us to parse cars as follows:
 
 ```scala
-scala> printCsv(rawData.asUnsafeCsvRows[Car](',', true))
-- Car(Ford,E350,1997,3000.0,Some(ac, abs, moon))
-- Car(Chevy,Venture "Extended Edition",1999,4900.0,None)
-- Car(Chevy,Venture "Extended Edition, Very Large",1999,5000.0,None)
-- Car(Jeep,Grand Cherokee,1996,4799.0,Some(MUST SELL!
+scala> rawData.asUnsafeCsvRows[Car](',', true).mkString("\n")
+res8: String =
+Car(Ford,E350,1997,3000.0,Some(ac, abs, moon))
+Car(Chevy,Venture "Extended Edition",1999,4900.0,None)
+Car(Chevy,Venture "Extended Edition, Very Large",1999,5000.0,None)
+Car(Jeep,Grand Cherokee,1996,4799.0,Some(MUST SELL!
 air, moon roof, loaded))
 ```
 
@@ -255,9 +258,10 @@ implicit val stringInput = CsvInput((s: String) => scala.io.Source.fromString(s)
 We can now write:
 
 ```scala
-scala> printCsv("a,b,c\nd,e,f".asCsvRows[Seq[Char]](',', false))
-- Success(Vector(a, b, c))
-- Success(Vector(d, e, f))
+scala> "a,b,c\nd,e,f".asCsvRows[Seq[Char]](',', false).mkString("\n")
+res10: String =
+Success(Vector(a, b, c))
+Success(Vector(d, e, f))
 ```
 
 Note that there actually already is such an instance available for strings, as well as for many other types (
@@ -280,25 +284,24 @@ declare an implicit instance of `CellDecoder` for it. For example, if your CSV d
 import java.util.Date
 import java.text.SimpleDateFormat
 
-implicit val dateDecoder =
-CellDecoder(s => DecodeResult(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s)))
+implicit val dateDecoder = CellDecoder(s => DecodeResult(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s)))
 ```
 
 We can now parse rows of dates:
 
 ```scala
-scala> printCsv("2012-01-01T12:00:00+0100,2013-01-01T12:00:00+0100,2014-01-01T12:00:00+0100".asCsvRows[Seq[Date]](',', false))
-- Success(Vector(Sun Jan 01 12:00:00 CET 2012, Tue Jan 01 12:00:00 CET 2013, Wed Jan 01 12:00:00 CET 2014))
+scala> "2012-01-01T12:00:00+0100,2013-01-01T12:00:00+0100,2014-01-01T12:00:00+0100".asCsvRows[Seq[Date]](',', false).mkString("\n")
+res12: String = Success(Vector(Sun Jan 01 12:00:00 CET 2012, Tue Jan 01 12:00:00 CET 2013, Wed Jan 01 12:00:00 CET 2014))
 ```
 
 A lot of standard types are supported out of the box, including "complex" ones such as `Either` or `Option`:
 
 ```scala
-scala> printCsv("a,2,c".asCsvRows[List[Either[Int,Char]]](',', false))
-- Success(List(Right(a), Left(2), Right(c)))
+scala> "a,2,c".asCsvRows[List[Either[Int,Char]]](',', false).mkString("\n")
+res13: String = Success(List(Right(a), Left(2), Right(c)))
 
-scala> printCsv("a,,c".asCsvRows[List[Option[Char]]](',', false))
-- Success(List(Some(a), None, Some(c)))
+scala> "a,,c".asCsvRows[List[Option[Char]]](',', false).mkString("\n")
+res14: String = Success(List(Some(a), None, Some(c)))
 ```
 
 You can find the complete list in the [CellDecoder]({{ site.baseurl }}/api/#tabulate.CellDecoder$)
@@ -317,8 +320,8 @@ dates are not supported (because there are so many ways they can be serialized),
 `CellDecoder` instance for them, which allows us to write:
 
 ```scala
-scala> printCsv("2012-01-01T12:00:00+0100,a".asCsvRows[(Date, Char)](',', false))
-- Success((Sun Jan 01 12:00:00 CET 2012,a))
+scala> "2012-01-01T12:00:00+0100,a".asCsvRows[(Date, Char)](',', false).mkString("\n")
+res15: String = Success((Sun Jan 01 12:00:00 CET 2012,a))
 ```
 
 The `RowDecoder` type class allows you to add parsing support for types that are not collections, tuples or case
@@ -340,16 +343,17 @@ implicit val p2dDecoder = RowDecoder { ss =>
 We can now write:
 
 ```scala
-scala> printCsv("1,2\n3,4".asCsvRows[Point2D](',', false))
-- Success((1,2))
-- Success((3,4))
+scala> "1,2\n3,4".asCsvRows[Point2D](',', false).mkString("\n")
+res17: String =
+Success((1,2))
+Success((3,4))
 ```
 
-Note, however, that the various `RowDecoder.caseDecoderXXX` methods do not apply *only* to case classes. They're can
+Note, however, that the various `RowDecoder.decoderXXX` methods do not apply *only* to case classes. They're can
 easily be used for "normal" classes:
 
 ```scala
-implicit val p2Decoder2 = RowDecoder.caseDecoder2((x: Int, y: Int) => new Point2D(x, y))(0, 1)
+implicit val p2Decoder2 = RowDecoder.decoder2((x: Int, y: Int) => new Point2D(x, y))(0, 1)
 ```
 
 This is the idiomatic way of creating new instances of `RowDecoder`.

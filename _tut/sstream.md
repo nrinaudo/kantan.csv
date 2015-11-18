@@ -29,11 +29,16 @@ val rawData: java.net.URL = getClass.getResource("/wikipedia.csv")
 ```
 
 ## Setting up Tabulate
-The scalaz-stream integration requires the following imports:
+The scalaz-stream integration must be declared as a depedency in your SBT file:
+
+```scala
+libraryDependencies += "com.nrinaudo" %% "tabulate-scalaz-stream" % "0.1.6"
+```
+
+Additionally, the following imports are necessary:
 
 ```scala
 import tabulate._
-import interop.scalaz.stream._
 import interop.scalaz.stream.ops._
 ```
 
@@ -41,7 +46,7 @@ This tutorial also uses the scalaz `Maybe` type, which is supported through the 
 
 ```scala
 import scalaz.Maybe
-import interop.scalaz._
+import interop.scalaz.codecs._
 ```
 
 We also need to declare what charset the CSV should be read / written as:

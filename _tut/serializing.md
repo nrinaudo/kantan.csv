@@ -9,16 +9,12 @@ In this tutorial, we'll try to do the opposite as the [parsing one]({{ site.base
 having CSV data to load in memory, we have the list of cars and need to write it out:
 
 ```scala
-scala> case class Car(make: String, model: String, year: Int, price: Float, desc: Option[String])
-defined class Car
+case class Car(make: String, model: String, year: Int, price: Float, desc: Option[String])
 
-scala> val data = List(Car("Ford", "E350", 1997, 3000F, Some("ac, abs, moon")),
-     |                 Car("Chevy", "Venture \"Extended Edition\"", 1999, 4900F, None),
-     |                 Car("Chevy", "Venture \"Extended Edition, Very Large\"", 1999, 5000F, None),
-     |                 Car("Jeep", "Grand Cherokee", 1996, 4799F, Some("MUST SELL!\nair, moon roof, loaded")))
-data: List[Car] =
-List(Car(Ford,E350,1997,3000.0,Some(ac, abs, moon)), Car(Chevy,Venture "Extended Edition",1999,4900.0,None), Car(Chevy,Venture "Extended Edition, Very Large",1999,5000.0,None), Car(Jeep,Grand Cherokee,1996,4799.0,Some(MUST SELL!
-air, moon roof, loaded)))
+val data = List(Car("Ford", "E350", 1997, 3000F, Some("ac, abs, moon")),
+                Car("Chevy", "Venture \"Extended Edition\"", 1999, 4900F, None),
+                Car("Chevy", "Venture \"Extended Edition, Very Large\"", 1999, 5000F, None),
+                Car("Jeep", "Grand Cherokee", 1996, 4799F, Some("MUST SELL!\nair, moon roof, loaded")))
 ```
 
 ## Setting up Tabulate
@@ -82,7 +78,7 @@ You can than just use this function to map over your list of cars and serialize 
 
 ```scala
 scala> printCsv(data.map(toStrings))(_.asCsvWriter[List[String]](','))
-res1: String =
+res2: String =
 "1997,Ford,E350,"ac, abs, moon",3000.0
 1999,Chevy,"Venture ""Extended Edition""",,4900.0
 1999,Chevy,"Venture ""Extended Edition, Very Large""",,5000.0
@@ -117,7 +113,7 @@ work out the rest:
 
 ```scala
 scala> printCsv(data.map(toTuples))(_.asCsvWriter[CarTuple](','))
-res3: String =
+res4: String =
 "1997,Ford,E350,"ac, abs, moon",3000.0
 1999,Chevy,"Venture ""Extended Edition""",,4900.0
 1999,Chevy,"Venture ""Extended Edition, Very Large""",,5000.0
@@ -142,7 +138,7 @@ scala> val header = List("Year", "Make", "Model", "Description", "Price")
 header: List[String] = List(Year, Make, Model, Description, Price)
 
 scala> printCsv(data.map(toTuples))(_.asCsvWriter[CarTuple](',', header))
-res4: String =
+res5: String =
 "Year,Make,Model,Description,Price
 1997,Ford,E350,"ac, abs, moon",3000.0
 1999,Chevy,"Venture ""Extended Edition""",,4900.0
@@ -161,10 +157,10 @@ here because our example is based on case classes, which have dedicated helper m
 
 ```scala
 scala> implicit val carEncoder= RowEncoder.caseEncoder5(Car.unapply)(1, 2, 0, 4, 3)
-carEncoder: tabulate.RowEncoder[Car] = tabulate.RowEncoder$$anon$2@48a5099c
+carEncoder: tabulate.RowEncoder[Car] = tabulate.RowEncoder$$anon$2@4ca344da
 
 scala> printCsv(data)(_.asCsvWriter[Car](',', header))
-res5: String =
+res6: String =
 "Year,Make,Model,Description,Price
 1997,Ford,E350,"ac, abs, moon",3000.0
 1999,Chevy,"Venture ""Extended Edition""",,4900.0
@@ -179,6 +175,9 @@ Note that the name `caseEncoder5` ends in a number: that's the number of fields 
 The list of integers maps each field to its corresponding column in the CSV data. That is, the first int is the index of
 the first field, the second one that of the second field...
 
+It's worth noting that the new [generic](./generic.html) module can take care of this automatically, provided you don't
+mind extra dependencies, increased compile times and loss of flexibility - automatic derivation means you can't decide
+the order in which fields are serialised anymore.
 
 ## Advanced topics
 
@@ -222,8 +221,8 @@ We can now write:
 
 ```scala
 scala> printCsv(List(Seq(new Date(), new Date(System.currentTimeMillis + 86400000))))(_.asCsvWriter[Seq[Date]](','))
-res11: String =
-"2015-11-08T15:31:59+0100,2015-11-09T15:31:59+0100
+res12: String =
+"2015-11-18T20:59:03+0100,2015-11-19T20:59:03+0100
 "
 ```
 
@@ -247,8 +246,8 @@ previous section, which allows us to write, say, `(Date, Date)` instances withou
 
 ```scala
 scala> printCsv(List((new Date(), new Date(System.currentTimeMillis + 86400000))))(_.asCsvWriter[(Date, Date)](','))
-res12: String =
-"2015-11-08T15:31:59+0100,2015-11-09T15:31:59+0100
+res13: String =
+"2015-11-18T20:59:03+0100,2015-11-19T20:59:03+0100
 "
 ```
 
@@ -264,15 +263,15 @@ This allows us to write the following:
 
 ```scala
 scala> printCsv(List(new Point2D(1, 2), new Point2D(3, 4)))(_.asCsvWriter[Point2D](','))
-res14: String =
+res15: String =
 "1,2
 3,4
 "
 ```
 
-Note, however, that the various `RowEncoder.caseEncoderXXX` methods do not apply *only* to case classes. They can easily
-be used for "normal" classes:
+Note, however, that the various `RowEncoder.encoderXXX` methods remove the need for manual encoding of each cell and
+are more straightforward to use:
 
 ```scala
-implicit val p2Encoder2 = RowEncoder.caseEncoder2((p: Point2D) => Some((p.x, p.y)))(0, 1)
+RowEncoder.encoder2((p: Point2D) => (p.x, p.y))(0, 1)
 ```

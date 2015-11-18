@@ -147,19 +147,19 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="tabulate.generic.DerivedCellDecoder#adtCellDecoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="adtCellDecoder[A,R&lt;:shapeless.Coproduct](implicitgen:shapeless.Generic.Aux[A,R],implicitd:tabulate.CellDecoder[R]):tabulate.generic.DerivedCellDecoder[A]"></a>
-      <a id="adtCellDecoder[A,R&lt;:Coproduct](Aux[A,R],CellDecoder[R]):DerivedCellDecoder[A]"></a>
+    </li><li name="tabulate.generic.DerivedCellDecoder#adt" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="adt[A,R&lt;:shapeless.Coproduct](implicitgen:shapeless.Generic.Aux[A,R],implicitdr:tabulate.generic.DerivedCellDecoder[R]):tabulate.generic.DerivedCellDecoder[A]"></a>
+      <a id="adt[A,R&lt;:Coproduct](Aux[A,R],DerivedCellDecoder[R]):DerivedCellDecoder[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">adtCellDecoder</span><span class="tparams">[<span name="A">A</span>, <span name="R">R &lt;: <span class="extype" name="shapeless.Coproduct">Coproduct</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="gen">gen: <span class="extype" name="shapeless.Generic.Aux">Aux</span>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.adtCellDecoder.A">A</span>, <span class="extype" name="tabulate.generic.DerivedCellDecoder.adtCellDecoder.R">R</span>]</span>, <span name="d">d: <a href="../CellDecoder.html" class="extype" name="tabulate.CellDecoder">CellDecoder</a>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.adtCellDecoder.R">R</span>]</span>)</span><span class="result">: <a href="DerivedCellDecoder.html" class="extype" name="tabulate.generic.DerivedCellDecoder">DerivedCellDecoder</a>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.adtCellDecoder.A">A</span>]</span>
+        <span class="name">adt</span><span class="tparams">[<span name="A">A</span>, <span name="R">R &lt;: <span class="extype" name="shapeless.Coproduct">Coproduct</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="gen">gen: <span class="extype" name="shapeless.Generic.Aux">Aux</span>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.adt.A">A</span>, <span class="extype" name="tabulate.generic.DerivedCellDecoder.adt.R">R</span>]</span>, <span name="dr">dr: <a href="DerivedCellDecoder.html" class="extype" name="tabulate.generic.DerivedCellDecoder">DerivedCellDecoder</a>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.adt.R">R</span>]</span>)</span><span class="result">: <a href="DerivedCellDecoder.html" class="extype" name="tabulate.generic.DerivedCellDecoder">DerivedCellDecoder</a>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.adt.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#tabulate.generic.DerivedCellDecoder$@adtCellDecoder[A,R&lt;:shapeless.Coproduct](implicitgen:shapeless.Generic.Aux[A,R],implicitd:tabulate.CellDecoder[R]):tabulate.generic.DerivedCellDecoder[A]" title="Permalink" target="_top">
+      <a href="../../index.html#tabulate.generic.DerivedCellDecoder$@adt[A,R&lt;:shapeless.Coproduct](implicitgen:shapeless.Generic.Aux[A,R],implicitdr:tabulate.generic.DerivedCellDecoder[R]):tabulate.generic.DerivedCellDecoder[A]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -198,19 +198,36 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="tabulate.generic.DerivedCellDecoder#caseClassCellDecoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="caseClassCellDecoder[A,R,H](implicitgen:shapeless.Generic.Aux[A,R],implicitev:=:=[shapeless.::[H,shapeless.HNil],R],implicitd:tabulate.CellDecoder[H]):tabulate.generic.DerivedCellDecoder[A]"></a>
-      <a id="caseClassCellDecoder[A,R,H](Aux[A,R],=:=[::[H,HNil],R],CellDecoder[H]):DerivedCellDecoder[A]"></a>
+    </li><li name="tabulate.generic.DerivedCellDecoder#caseClass" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="caseClass[A,R,H](implicitgen:shapeless.Generic.Aux[A,R],implicitev:=:=[shapeless.::[H,shapeless.HNil],R],implicitdh:tabulate.CellDecoder[H]):tabulate.generic.DerivedCellDecoder[A]"></a>
+      <a id="caseClass[A,R,H](Aux[A,R],=:=[::[H,HNil],R],CellDecoder[H]):DerivedCellDecoder[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">caseClassCellDecoder</span><span class="tparams">[<span name="A">A</span>, <span name="R">R</span>, <span name="H">H</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="gen">gen: <span class="extype" name="shapeless.Generic.Aux">Aux</span>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.caseClassCellDecoder.A">A</span>, <span class="extype" name="tabulate.generic.DerivedCellDecoder.caseClassCellDecoder.R">R</span>]</span>, <span name="ev">ev: <span class="extype" name="scala.Predef.=:=">=:=</span>[<span class="extype" name="shapeless.::">::</span>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.caseClassCellDecoder.H">H</span>, <span class="extype" name="shapeless.HNil">HNil</span>], <span class="extype" name="tabulate.generic.DerivedCellDecoder.caseClassCellDecoder.R">R</span>]</span>, <span name="d">d: <a href="../CellDecoder.html" class="extype" name="tabulate.CellDecoder">CellDecoder</a>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.caseClassCellDecoder.H">H</span>]</span>)</span><span class="result">: <a href="DerivedCellDecoder.html" class="extype" name="tabulate.generic.DerivedCellDecoder">DerivedCellDecoder</a>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.caseClassCellDecoder.A">A</span>]</span>
+        <span class="name">caseClass</span><span class="tparams">[<span name="A">A</span>, <span name="R">R</span>, <span name="H">H</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="gen">gen: <span class="extype" name="shapeless.Generic.Aux">Aux</span>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.caseClass.A">A</span>, <span class="extype" name="tabulate.generic.DerivedCellDecoder.caseClass.R">R</span>]</span>, <span name="ev">ev: <span class="extype" name="scala.Predef.=:=">=:=</span>[<span class="extype" name="shapeless.::">::</span>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.caseClass.H">H</span>, <span class="extype" name="shapeless.HNil">HNil</span>], <span class="extype" name="tabulate.generic.DerivedCellDecoder.caseClass.R">R</span>]</span>, <span name="dh">dh: <a href="../CellDecoder.html" class="extype" name="tabulate.CellDecoder">CellDecoder</a>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.caseClass.H">H</span>]</span>)</span><span class="result">: <a href="DerivedCellDecoder.html" class="extype" name="tabulate.generic.DerivedCellDecoder">DerivedCellDecoder</a>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.caseClass.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#tabulate.generic.DerivedCellDecoder$@caseClassCellDecoder[A,R,H](implicitgen:shapeless.Generic.Aux[A,R],implicitev:=:=[shapeless.::[H,shapeless.HNil],R],implicitd:tabulate.CellDecoder[H]):tabulate.generic.DerivedCellDecoder[A]" title="Permalink" target="_top">
+      <a href="../../index.html#tabulate.generic.DerivedCellDecoder$@caseClass[A,R,H](implicitgen:shapeless.Generic.Aux[A,R],implicitev:=:=[shapeless.::[H,shapeless.HNil],R],implicitdh:tabulate.CellDecoder[H]):tabulate.generic.DerivedCellDecoder[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.generic.DerivedCellDecoder#caseObject" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="caseObject[A,R&lt;:shapeless.HNil](implicitgen:shapeless.Generic.Aux[A,R],implicitev:=:=[shapeless.HNil,R]):tabulate.generic.DerivedCellDecoder[A]"></a>
+      <a id="caseObject[A,R&lt;:HNil](Aux[A,R],=:=[HNil,R]):DerivedCellDecoder[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">caseObject</span><span class="tparams">[<span name="A">A</span>, <span name="R">R &lt;: <span class="extype" name="shapeless.HNil">HNil</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="gen">gen: <span class="extype" name="shapeless.Generic.Aux">Aux</span>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.caseObject.A">A</span>, <span class="extype" name="tabulate.generic.DerivedCellDecoder.caseObject.R">R</span>]</span>, <span name="ev">ev: <span class="extype" name="scala.Predef.=:=">=:=</span>[<span class="extype" name="shapeless.HNil">HNil</span>, <span class="extype" name="tabulate.generic.DerivedCellDecoder.caseObject.R">R</span>]</span>)</span><span class="result">: <a href="DerivedCellDecoder.html" class="extype" name="tabulate.generic.DerivedCellDecoder">DerivedCellDecoder</a>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.caseObject.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.generic.DerivedCellDecoder$@caseObject[A,R&lt;:shapeless.HNil](implicitgen:shapeless.Generic.Aux[A,R],implicitev:=:=[shapeless.HNil,R]):tabulate.generic.DerivedCellDecoder[A]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -238,36 +255,36 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="tabulate.generic.DerivedCellDecoder#cnilCellDecoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="cnilCellDecoder:tabulate.generic.DerivedCellDecoder[shapeless.CNil]"></a>
-      <a id="cnilCellDecoder:DerivedCellDecoder[CNil]"></a>
+    </li><li name="tabulate.generic.DerivedCellDecoder#cnil" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="cnil:tabulate.generic.DerivedCellDecoder[shapeless.CNil]"></a>
+      <a id="cnil:DerivedCellDecoder[CNil]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">cnilCellDecoder</span><span class="result">: <a href="DerivedCellDecoder.html" class="extype" name="tabulate.generic.DerivedCellDecoder">DerivedCellDecoder</a>[<span class="extype" name="shapeless.CNil">CNil</span>]</span>
+        <span class="name">cnil</span><span class="result">: <a href="DerivedCellDecoder.html" class="extype" name="tabulate.generic.DerivedCellDecoder">DerivedCellDecoder</a>[<span class="extype" name="shapeless.CNil">CNil</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#tabulate.generic.DerivedCellDecoder$@cnilCellDecoder:tabulate.generic.DerivedCellDecoder[shapeless.CNil]" title="Permalink" target="_top">
+      <a href="../../index.html#tabulate.generic.DerivedCellDecoder$@cnil:tabulate.generic.DerivedCellDecoder[shapeless.CNil]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
-    </li><li name="tabulate.generic.DerivedCellDecoder#coproductCellDecoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="coproductCellDecoder[H,T&lt;:shapeless.Coproduct](implicitevidence$1:tabulate.CellDecoder[H],implicitevidence$2:tabulate.CellDecoder[T]):tabulate.generic.DerivedCellDecoder[shapeless.:+:[H,T]]"></a>
-      <a id="coproductCellDecoder[H,T&lt;:Coproduct](CellDecoder[H],CellDecoder[T]):DerivedCellDecoder[:+:[H,T]]"></a>
+    </li><li name="tabulate.generic.DerivedCellDecoder#coproduct" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="coproduct[H,T&lt;:shapeless.Coproduct](implicitdh:tabulate.CellDecoder[H],implicitdt:tabulate.generic.DerivedCellDecoder[T]):tabulate.generic.DerivedCellDecoder[shapeless.:+:[H,T]]"></a>
+      <a id="coproduct[H,T&lt;:Coproduct](CellDecoder[H],DerivedCellDecoder[T]):DerivedCellDecoder[:+:[H,T]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">coproductCellDecoder</span><span class="tparams">[<span name="H">H</span>, <span name="T">T &lt;: <span class="extype" name="shapeless.Coproduct">Coproduct</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../CellDecoder.html" class="extype" name="tabulate.CellDecoder">CellDecoder</a>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.coproductCellDecoder.H">H</span>]</span>, <span name="arg1">arg1: <a href="../CellDecoder.html" class="extype" name="tabulate.CellDecoder">CellDecoder</a>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.coproductCellDecoder.T">T</span>]</span>)</span><span class="result">: <a href="DerivedCellDecoder.html" class="extype" name="tabulate.generic.DerivedCellDecoder">DerivedCellDecoder</a>[<span class="extype" name="shapeless.:+:">:+:</span>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.coproductCellDecoder.H">H</span>, <span class="extype" name="tabulate.generic.DerivedCellDecoder.coproductCellDecoder.T">T</span>]]</span>
+        <span class="name">coproduct</span><span class="tparams">[<span name="H">H</span>, <span name="T">T &lt;: <span class="extype" name="shapeless.Coproduct">Coproduct</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="dh">dh: <a href="../CellDecoder.html" class="extype" name="tabulate.CellDecoder">CellDecoder</a>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.coproduct.H">H</span>]</span>, <span name="dt">dt: <a href="DerivedCellDecoder.html" class="extype" name="tabulate.generic.DerivedCellDecoder">DerivedCellDecoder</a>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.coproduct.T">T</span>]</span>)</span><span class="result">: <a href="DerivedCellDecoder.html" class="extype" name="tabulate.generic.DerivedCellDecoder">DerivedCellDecoder</a>[<span class="extype" name="shapeless.:+:">:+:</span>[<span class="extype" name="tabulate.generic.DerivedCellDecoder.coproduct.H">H</span>, <span class="extype" name="tabulate.generic.DerivedCellDecoder.coproduct.T">T</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#tabulate.generic.DerivedCellDecoder$@coproductCellDecoder[H,T&lt;:shapeless.Coproduct](implicitevidence$1:tabulate.CellDecoder[H],implicitevidence$2:tabulate.CellDecoder[T]):tabulate.generic.DerivedCellDecoder[shapeless.:+:[H,T]]" title="Permalink" target="_top">
+      <a href="../../index.html#tabulate.generic.DerivedCellDecoder$@coproduct[H,T&lt;:shapeless.Coproduct](implicitdh:tabulate.CellDecoder[H],implicitdt:tabulate.generic.DerivedCellDecoder[T]):tabulate.generic.DerivedCellDecoder[shapeless.:+:[H,T]]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>

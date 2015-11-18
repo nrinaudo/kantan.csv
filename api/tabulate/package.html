@@ -104,8 +104,8 @@
 <code>RowDecoder</code>, which relies on any implicit <code>CellDecoder</code> it has in scope to parse entire rows.</p><p>If, for example, you need to parse CSV data that contains ISO 8601 formatted dates, you can't immediately call
 <a href="CsvInput.html#rows[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:tabulate.RowDecoder[A]):Iterator[tabulate.DecodeResult[A]]" class="extmbr" name="tabulate.CsvInput#rows">CsvInput.rows</a> with a type argument of <code>List[Date]</code>: dates are not supported natively (because they can be
 serialised in so many different ways).</p><p>This can be remedied simply by writing the following:</p><pre><span class="kw">implicit</span> <span class="kw">val</span> dateDecoder = CellDecoder(s <span class="kw">=&gt;</span> DecodeResult(<span class="kw">new</span> SimpleDateFormat(<span class="lit">"yyyy-MM-dd'T'HH:mm:ssZ"</span>).parse(s)))</pre><p>See the <a href="CellDecoder$.html" class="extype" name="tabulate.CellDecoder">companion object</a> for default implementations and construction methods.
-</p></div></div>
-    </li><li name="tabulate.CellEncoder" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="http://nrinaudo.github.io/tabulate/tut/parsing.html" target="_blank">Tutorial</a></p></span></dd></dl></div>
+    </li><li name="tabulate.CellEncoder" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="CellEncoder[A]extendsAnyRef"></a>
       <a id="CellEncoder[A]:CellEncoder[A]"></a>
       <h4 class="signature">
@@ -121,7 +121,10 @@ serialised in so many different ways).</p><p>This can be remedied simply by writ
         <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Encodes values of type <code>A</code> into CSV cells.</p><div class="fullcomment"><div class="comment cmt"><p>Encodes values of type <code>A</code> into CSV cells.</p><p><code>CellEncoder</code> instances aren't meant to be used directly, but rather provide the backbone of the <a href="RowEncoder.html" class="extype" name="tabulate.RowEncoder">RowEncoder</a>
+mechanism.</p><p>If you're working with data that contains dates and need to serialise these to valid ISO 8601 strings, for example,
+you'll need to create a custom <code>CellEncoder[Date]</code>:</p><pre><span class="kw">implicit</span> <span class="kw">val</span> dateEncoder = CellEncoder((d: Date) <span class="kw">=&gt;</span> <span class="kw">new</span> SimpleDateFormat(<span class="lit">"yyyy-MM-dd'T'HH:mm:ssZ"</span>).format(d))</pre><p>Once this is done, Tabulate will be capable of serialising date fields without any further work. The following, for
+example, will create a <a href="RowEncoder.html" class="extype" name="tabulate.RowEncoder">RowEncoder</a> for triples of type <code>(Int, String, Date)</code>:</p><pre>RowEncoder[(<span class="std">Int</span>, <span class="std">String</span>, Date)]</pre></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="http://nrinaudo.github.io/tabulate/tut/serializing.html" target="_blank">Tutorial</a></p></span></dd></dl></div>
     </li><li name="tabulate.CsvInput" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="CsvInput[S]extendsAnyRef"></a>
       <a id="CsvInput[S]:CsvInput[S]"></a>
@@ -193,7 +196,7 @@ serialised in so many different ways).</p><p>This can be remedied simply by writ
     </span>
       
     </li><li name="tabulate.LowPriorityCellDecoders" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="LowPriorityCellDecodersextendsLowPriorityCellDecoders.fresh$macro$7"></a>
+      <a id="LowPriorityCellDecodersextendsLowPriorityCellDecoders.fresh$macro$3"></a>
       <a id="LowPriorityCellDecoders:LowPriorityCellDecoders"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -201,16 +204,16 @@ serialised in so many different ways).</p><p>This can be remedied simply by writ
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="LowPriorityCellDecoders.html"><span class="name">LowPriorityCellDecoders</span></a><span class="result"> extends <a href="LowPriorityCellDecoders$$fresh$macro$7.html" class="extype" name="tabulate.LowPriorityCellDecoders.fresh$macro$7">fresh$macro$7</a></span>
+        <a href="LowPriorityCellDecoders.html"><span class="name">LowPriorityCellDecoders</span></a><span class="result"> extends <a href="LowPriorityCellDecoders$$fresh$macro$3.html" class="extype" name="tabulate.LowPriorityCellDecoders.fresh$macro$3">fresh$macro$3</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.package@LowPriorityCellDecodersextendsLowPriorityCellDecoders.fresh$macro$7" title="Permalink" target="_top">
+      <a href="../index.html#tabulate.package@LowPriorityCellDecodersextendsLowPriorityCellDecoders.fresh$macro$3" title="Permalink" target="_top">
         <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Low priority implicit decoders.</p>
     </li><li name="tabulate.LowPriorityCellEncoders" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="LowPriorityCellEncodersextendsLowPriorityCellEncoders.fresh$macro$4"></a>
+      <a id="LowPriorityCellEncodersextendsLowPriorityCellEncoders.fresh$macro$6"></a>
       <a id="LowPriorityCellEncoders:LowPriorityCellEncoders"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -218,16 +221,50 @@ serialised in so many different ways).</p><p>This can be remedied simply by writ
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="LowPriorityCellEncoders.html"><span class="name">LowPriorityCellEncoders</span></a><span class="result"> extends <a href="LowPriorityCellEncoders$$fresh$macro$4.html" class="extype" name="tabulate.LowPriorityCellEncoders.fresh$macro$4">fresh$macro$4</a></span>
+        <a href="LowPriorityCellEncoders.html"><span class="name">LowPriorityCellEncoders</span></a><span class="result"> extends <a href="LowPriorityCellEncoders$$fresh$macro$6.html" class="extype" name="tabulate.LowPriorityCellEncoders.fresh$macro$6">fresh$macro$6</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.package@LowPriorityCellEncodersextendsLowPriorityCellEncoders.fresh$macro$4" title="Permalink" target="_top">
+      <a href="../index.html#tabulate.package@LowPriorityCellEncodersextendsLowPriorityCellEncoders.fresh$macro$6" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Low priority implicit encoders.</p>
+    </li><li name="tabulate.LowPriorityCsvInputs" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="LowPriorityCsvInputsextendsLowPriorityCsvInputs.fresh$macro$9"></a>
+      <a id="LowPriorityCsvInputs:LowPriorityCsvInputs"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="LowPriorityCsvInputs.html"><span class="name">LowPriorityCsvInputs</span></a><span class="result"> extends <a href="LowPriorityCsvInputs$$fresh$macro$9.html" class="extype" name="tabulate.LowPriorityCsvInputs.fresh$macro$9">fresh$macro$9</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#tabulate.package@LowPriorityCsvInputsextendsLowPriorityCsvInputs.fresh$macro$9" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.LowPriorityCsvOutputs" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="LowPriorityCsvOutputsextendsLowPriorityCsvOutputs.fresh$macro$12"></a>
+      <a id="LowPriorityCsvOutputs:LowPriorityCsvOutputs"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="LowPriorityCsvOutputs.html"><span class="name">LowPriorityCsvOutputs</span></a><span class="result"> extends <a href="LowPriorityCsvOutputs$$fresh$macro$12.html" class="extype" name="tabulate.LowPriorityCsvOutputs.fresh$macro$12">fresh$macro$12</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#tabulate.package@LowPriorityCsvOutputsextendsLowPriorityCsvOutputs.fresh$macro$12" title="Permalink" target="_top">
         <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="tabulate.LowPriorityRowDecoders" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="LowPriorityRowDecodersextendsLowPriorityRowDecoders.fresh$macro$10"></a>
+      <a id="LowPriorityRowDecodersextendsLowPriorityRowDecoders.fresh$macro$18"></a>
       <a id="LowPriorityRowDecoders:LowPriorityRowDecoders"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -235,16 +272,16 @@ serialised in so many different ways).</p><p>This can be remedied simply by writ
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="LowPriorityRowDecoders.html"><span class="name">LowPriorityRowDecoders</span></a><span class="result"> extends <a href="LowPriorityRowDecoders$$fresh$macro$10.html" class="extype" name="tabulate.LowPriorityRowDecoders.fresh$macro$10">fresh$macro$10</a></span>
+        <a href="LowPriorityRowDecoders.html"><span class="name">LowPriorityRowDecoders</span></a><span class="result"> extends <a href="LowPriorityRowDecoders$$fresh$macro$18.html" class="extype" name="tabulate.LowPriorityRowDecoders.fresh$macro$18">fresh$macro$18</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.package@LowPriorityRowDecodersextendsLowPriorityRowDecoders.fresh$macro$10" title="Permalink" target="_top">
+      <a href="../index.html#tabulate.package@LowPriorityRowDecodersextendsLowPriorityRowDecoders.fresh$macro$18" title="Permalink" target="_top">
         <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="tabulate.LowPriorityRowEncoders" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="LowPriorityRowEncodersextendsLowPriorityRowEncoders.fresh$macro$1"></a>
+      <a id="LowPriorityRowEncodersextendsLowPriorityRowEncoders.fresh$macro$15"></a>
       <a id="LowPriorityRowEncoders:LowPriorityRowEncoders"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -252,10 +289,10 @@ serialised in so many different ways).</p><p>This can be remedied simply by writ
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="LowPriorityRowEncoders.html"><span class="name">LowPriorityRowEncoders</span></a><span class="result"> extends <a href="LowPriorityRowEncoders$$fresh$macro$1.html" class="extype" name="tabulate.LowPriorityRowEncoders.fresh$macro$1">fresh$macro$1</a></span>
+        <a href="LowPriorityRowEncoders.html"><span class="name">LowPriorityRowEncoders</span></a><span class="result"> extends <a href="LowPriorityRowEncoders$$fresh$macro$15.html" class="extype" name="tabulate.LowPriorityRowEncoders.fresh$macro$15">fresh$macro$15</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.package@LowPriorityRowEncodersextendsLowPriorityRowEncoders.fresh$macro$1" title="Permalink" target="_top">
+      <a href="../index.html#tabulate.package@LowPriorityRowEncodersextendsLowPriorityRowEncoders.fresh$macro$15" title="Permalink" target="_top">
         <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -392,7 +429,7 @@ your implementation.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a href="CsvInput$.html"><span class="name">CsvInput</span></a>
+        <a href="CsvInput$.html"><span class="name">CsvInput</span></a><span class="result"> extends <a href="LowPriorityCsvInputs.html" class="extype" name="tabulate.LowPriorityCsvInputs">LowPriorityCsvInputs</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.package@CsvInput" title="Permalink" target="_top">
@@ -413,7 +450,7 @@ your implementation.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a href="CsvOutput$.html"><span class="name">CsvOutput</span></a>
+        <a href="CsvOutput$.html"><span class="name">CsvOutput</span></a><span class="result"> extends <a href="LowPriorityCsvOutputs.html" class="extype" name="tabulate.LowPriorityCsvOutputs">LowPriorityCsvOutputs</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.package@CsvOutput" title="Permalink" target="_top">
@@ -468,6 +505,40 @@ your implementation.
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.package@LowPriorityCellEncoders" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.LowPriorityCsvInputs" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LowPriorityCsvInputs"></a>
+      <a id="LowPriorityCsvInputs:LowPriorityCsvInputs"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="LowPriorityCsvInputs$.html"><span class="name">LowPriorityCsvInputs</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#tabulate.package@LowPriorityCsvInputs" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.LowPriorityCsvOutputs" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LowPriorityCsvOutputs"></a>
+      <a id="LowPriorityCsvOutputs:LowPriorityCsvOutputs"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="LowPriorityCsvOutputs$.html"><span class="name">LowPriorityCsvOutputs</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#tabulate.package@LowPriorityCsvOutputs" title="Permalink" target="_top">
         <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -540,7 +611,7 @@ your implementation.
       </a>
     </span>
       <p class="shortcomment cmt">Defines convenience methods for creating and retrieving instances of <code>RowDecoder</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines convenience methods for creating and retrieving instances of <code>RowDecoder</code>.</p><p>Implicit default implementations of standard types are also declared here, always bringing them in scope with a low
-priority.</p><p>Case classes have special creation methods: <code>caseDecoderXXX</code>, where <code>XXX</code> is the number of fields in the case class.
+priority.</p><p>Case classes have special creation methods: <code>decoderXXX</code>, where <code>XXX</code> is the number of fields in the case class.
 You can just pass a case class' companion object's <code>apply</code> method, the list of field indexes, and get a
 <code>RowDecoder</code>.</p><p>These default implementations can also be useful when writing more complex instances: if you need to write a
 <code>RowDecoder[B]</code> and have both a <code>RowDecoder[A]</code> and a <code>A =&gt; B</code>, you need just use <a href="RowDecoder.html#map[B](f:A=&gt;B):tabulate.RowDecoder[B]" class="extmbr" name="tabulate.RowDecoder#map">RowDecoder.map</a> to create
