@@ -12,10 +12,10 @@ import simulacrum.{noop, op, typeclass}
 @export.imports[RowEncoder]
 trait LowPriorityRowEncoders {
   implicit def traversable[A: CellEncoder, M[X] <: TraversableOnce[X]]: RowEncoder[M[A]] = RowEncoder { as =>
-    as.foldLeft(Seq.newBuilder[String])((acc, a) => acc += a.asCsvCell).result()
+    as.foldLeft(Seq.newBuilder[String])((acc, a) => acc += CellEncoder[A].encode(a)).result()
   }
 
-  implicit def cellEncoder[A: CellEncoder]: RowEncoder[A] = RowEncoder(a => Seq(a.asCsvCell))
+  implicit def cellEncoder[A: CellEncoder]: RowEncoder[A] = RowEncoder(a => Seq(CellEncoder[A].encode(a)))
 }
 
 object RowEncoder extends LowPriorityRowEncoders {
@@ -35,15 +35,15 @@ object RowEncoder extends LowPriorityRowEncoders {
     RowEncoder(_.map(a => RowEncoder[A].encode(a)).getOrElse(Seq.empty))
 
   def encoder1[C, A0: CellEncoder](f: C => A0): RowEncoder[C] =
-    RowEncoder(a => List(f(a).asCsvCell))
+    RowEncoder(a => List(CellEncoder[A0].encode(f(a))))
 
   def encoder2[C, A0: CellEncoder, A1: CellEncoder](f: C => (A0, A1))(i0: Int, i1: Int): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(2)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
       dest.toSeq
     }
 
@@ -53,9 +53,9 @@ object RowEncoder extends LowPriorityRowEncoders {
       val e = f(a)
       val dest = Array.fill(3)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
-      dest(i2) = e._3.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i2) = CellEncoder[A2].encode(e._3)
       dest.toSeq
     }
 
@@ -65,10 +65,10 @@ object RowEncoder extends LowPriorityRowEncoders {
       val e = f(a)
       val dest = Array.fill(4)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
-      dest(i2) = e._3.asCsvCell
-      dest(i3) = e._4.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i2) = CellEncoder[A2].encode(e._3)
+      dest(i3) = CellEncoder[A3].encode(e._4)
       dest.toSeq
     }
 
@@ -79,11 +79,11 @@ object RowEncoder extends LowPriorityRowEncoders {
       val e = f(a)
       val dest = Array.fill(5)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
-      dest(i2) = e._3.asCsvCell
-      dest(i3) = e._4.asCsvCell
-      dest(i4) = e._5.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i2) = CellEncoder[A2].encode(e._3)
+      dest(i3) = CellEncoder[A3].encode(e._4)
+      dest(i4) = CellEncoder[A4].encode(e._5)
       dest.toSeq
     }
 
@@ -94,12 +94,12 @@ object RowEncoder extends LowPriorityRowEncoders {
       val e = f(a)
       val dest = Array.fill(6)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
-      dest(i2) = e._3.asCsvCell
-      dest(i3) = e._4.asCsvCell
-      dest(i4) = e._5.asCsvCell
-      dest(i5) = e._6.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i2) = CellEncoder[A2].encode(e._3)
+      dest(i3) = CellEncoder[A3].encode(e._4)
+      dest(i4) = CellEncoder[A4].encode(e._5)
+      dest(i5) = CellEncoder[A5].encode(e._6)
       dest.toSeq
     }
 
@@ -111,13 +111,13 @@ object RowEncoder extends LowPriorityRowEncoders {
       val e = f(a)
       val dest = Array.fill(7)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
-      dest(i2) = e._3.asCsvCell
-      dest(i3) = e._4.asCsvCell
-      dest(i4) = e._5.asCsvCell
-      dest(i5) = e._6.asCsvCell
-      dest(i6) = e._7.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i2) = CellEncoder[A2].encode(e._3)
+      dest(i3) = CellEncoder[A3].encode(e._4)
+      dest(i4) = CellEncoder[A4].encode(e._5)
+      dest(i5) = CellEncoder[A5].encode(e._6)
+      dest(i6) = CellEncoder[A6].encode(e._7)
       dest.toSeq
     }
 
@@ -129,14 +129,14 @@ object RowEncoder extends LowPriorityRowEncoders {
       val e = f(a)
       val dest = Array.fill(8)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
-      dest(i2) = e._3.asCsvCell
-      dest(i3) = e._4.asCsvCell
-      dest(i4) = e._5.asCsvCell
-      dest(i5) = e._6.asCsvCell
-      dest(i6) = e._7.asCsvCell
-      dest(i7) = e._8.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i2) = CellEncoder[A2].encode(e._3)
+      dest(i3) = CellEncoder[A3].encode(e._4)
+      dest(i4) = CellEncoder[A4].encode(e._5)
+      dest(i5) = CellEncoder[A5].encode(e._6)
+      dest(i6) = CellEncoder[A6].encode(e._7)
+      dest(i7) = CellEncoder[A7].encode(e._8)
       dest.toSeq
     }
 
@@ -148,15 +148,15 @@ object RowEncoder extends LowPriorityRowEncoders {
       val e = f(a)
       val dest = Array.fill(9)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
-      dest(i2) = e._3.asCsvCell
-      dest(i3) = e._4.asCsvCell
-      dest(i4) = e._5.asCsvCell
-      dest(i5) = e._6.asCsvCell
-      dest(i6) = e._7.asCsvCell
-      dest(i7) = e._8.asCsvCell
-      dest(i8) = e._9.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i2) = CellEncoder[A2].encode(e._3)
+      dest(i3) = CellEncoder[A3].encode(e._4)
+      dest(i4) = CellEncoder[A4].encode(e._5)
+      dest(i5) = CellEncoder[A5].encode(e._6)
+      dest(i6) = CellEncoder[A6].encode(e._7)
+      dest(i7) = CellEncoder[A7].encode(e._8)
+      dest(i8) = CellEncoder[A8].encode(e._9)
       dest.toSeq
     }
 
@@ -168,16 +168,16 @@ object RowEncoder extends LowPriorityRowEncoders {
       val e = f(a)
       val dest = Array.fill(10)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
-      dest(i2) = e._3.asCsvCell
-      dest(i3) = e._4.asCsvCell
-      dest(i4) = e._5.asCsvCell
-      dest(i5) = e._6.asCsvCell
-      dest(i6) = e._7.asCsvCell
-      dest(i7) = e._8.asCsvCell
-      dest(i8) = e._9.asCsvCell
-      dest(i9) = e._10.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i2) = CellEncoder[A2].encode(e._3)
+      dest(i3) = CellEncoder[A3].encode(e._4)
+      dest(i4) = CellEncoder[A4].encode(e._5)
+      dest(i5) = CellEncoder[A5].encode(e._6)
+      dest(i6) = CellEncoder[A6].encode(e._7)
+      dest(i7) = CellEncoder[A7].encode(e._8)
+      dest(i8) = CellEncoder[A8].encode(e._9)
+      dest(i9) = CellEncoder[A9].encode(e._10)
       dest.toSeq
     }
 
@@ -189,17 +189,17 @@ object RowEncoder extends LowPriorityRowEncoders {
       val e = f(a)
       val dest = Array.fill(11)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
-      dest(i2) = e._3.asCsvCell
-      dest(i3) = e._4.asCsvCell
-      dest(i4) = e._5.asCsvCell
-      dest(i5) = e._6.asCsvCell
-      dest(i6) = e._7.asCsvCell
-      dest(i7) = e._8.asCsvCell
-      dest(i8) = e._9.asCsvCell
-      dest(i9) = e._10.asCsvCell
-      dest(i10) = e._11.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i2) = CellEncoder[A2].encode(e._3)
+      dest(i3) = CellEncoder[A3].encode(e._4)
+      dest(i4) = CellEncoder[A4].encode(e._5)
+      dest(i5) = CellEncoder[A5].encode(e._6)
+      dest(i6) = CellEncoder[A6].encode(e._7)
+      dest(i7) = CellEncoder[A7].encode(e._8)
+      dest(i8) = CellEncoder[A8].encode(e._9)
+      dest(i9) = CellEncoder[A9].encode(e._10)
+      dest(i10) = CellEncoder[A10].encode(e._11)
       dest.toSeq
     }
 
@@ -212,18 +212,18 @@ object RowEncoder extends LowPriorityRowEncoders {
       val e = f(a)
       val dest = Array.fill(12)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
-      dest(i2) = e._3.asCsvCell
-      dest(i3) = e._4.asCsvCell
-      dest(i4) = e._5.asCsvCell
-      dest(i5) = e._6.asCsvCell
-      dest(i6) = e._7.asCsvCell
-      dest(i7) = e._8.asCsvCell
-      dest(i8) = e._9.asCsvCell
-      dest(i9) = e._10.asCsvCell
-      dest(i10) = e._11.asCsvCell
-      dest(i11) = e._12.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i2) = CellEncoder[A2].encode(e._3)
+      dest(i3) = CellEncoder[A3].encode(e._4)
+      dest(i4) = CellEncoder[A4].encode(e._5)
+      dest(i5) = CellEncoder[A5].encode(e._6)
+      dest(i6) = CellEncoder[A6].encode(e._7)
+      dest(i7) = CellEncoder[A7].encode(e._8)
+      dest(i8) = CellEncoder[A8].encode(e._9)
+      dest(i9) = CellEncoder[A9].encode(e._10)
+      dest(i10) = CellEncoder[A10].encode(e._11)
+      dest(i11) = CellEncoder[A11].encode(e._12)
       dest.toSeq
     }
 
@@ -236,19 +236,19 @@ object RowEncoder extends LowPriorityRowEncoders {
       val e = f(a)
       val dest = Array.fill(13)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
-      dest(i2) = e._3.asCsvCell
-      dest(i3) = e._4.asCsvCell
-      dest(i4) = e._5.asCsvCell
-      dest(i5) = e._6.asCsvCell
-      dest(i6) = e._7.asCsvCell
-      dest(i7) = e._8.asCsvCell
-      dest(i8) = e._9.asCsvCell
-      dest(i9) = e._10.asCsvCell
-      dest(i10) = e._11.asCsvCell
-      dest(i11) = e._12.asCsvCell
-      dest(i12) = e._13.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i2) = CellEncoder[A2].encode(e._3)
+      dest(i3) = CellEncoder[A3].encode(e._4)
+      dest(i4) = CellEncoder[A4].encode(e._5)
+      dest(i5) = CellEncoder[A5].encode(e._6)
+      dest(i6) = CellEncoder[A6].encode(e._7)
+      dest(i7) = CellEncoder[A7].encode(e._8)
+      dest(i8) = CellEncoder[A8].encode(e._9)
+      dest(i9) = CellEncoder[A9].encode(e._10)
+      dest(i10) = CellEncoder[A10].encode(e._11)
+      dest(i11) = CellEncoder[A11].encode(e._12)
+      dest(i12) = CellEncoder[A12].encode(e._13)
       dest.toSeq
     }
 
@@ -262,20 +262,20 @@ object RowEncoder extends LowPriorityRowEncoders {
       val e = f(a)
       val dest = Array.fill(14)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
-      dest(i2) = e._3.asCsvCell
-      dest(i3) = e._4.asCsvCell
-      dest(i4) = e._5.asCsvCell
-      dest(i5) = e._6.asCsvCell
-      dest(i6) = e._7.asCsvCell
-      dest(i7) = e._8.asCsvCell
-      dest(i8) = e._9.asCsvCell
-      dest(i9) = e._10.asCsvCell
-      dest(i10) = e._11.asCsvCell
-      dest(i11) = e._12.asCsvCell
-      dest(i12) = e._13.asCsvCell
-      dest(i13) = e._14.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i2) = CellEncoder[A2].encode(e._3)
+      dest(i3) = CellEncoder[A3].encode(e._4)
+      dest(i4) = CellEncoder[A4].encode(e._5)
+      dest(i5) = CellEncoder[A5].encode(e._6)
+      dest(i6) = CellEncoder[A6].encode(e._7)
+      dest(i7) = CellEncoder[A7].encode(e._8)
+      dest(i8) = CellEncoder[A8].encode(e._9)
+      dest(i9) = CellEncoder[A9].encode(e._10)
+      dest(i10) = CellEncoder[A10].encode(e._11)
+      dest(i11) = CellEncoder[A11].encode(e._12)
+      dest(i12) = CellEncoder[A12].encode(e._13)
+      dest(i13) = CellEncoder[A13].encode(e._14)
       dest.toSeq
     }
 
@@ -289,21 +289,21 @@ object RowEncoder extends LowPriorityRowEncoders {
       val e = f(a)
       val dest = Array.fill(15)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
-      dest(i2) = e._3.asCsvCell
-      dest(i3) = e._4.asCsvCell
-      dest(i4) = e._5.asCsvCell
-      dest(i5) = e._6.asCsvCell
-      dest(i6) = e._7.asCsvCell
-      dest(i7) = e._8.asCsvCell
-      dest(i8) = e._9.asCsvCell
-      dest(i9) = e._10.asCsvCell
-      dest(i10) = e._11.asCsvCell
-      dest(i11) = e._12.asCsvCell
-      dest(i12) = e._13.asCsvCell
-      dest(i13) = e._14.asCsvCell
-      dest(i14) = e._15.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i2) = CellEncoder[A2].encode(e._3)
+      dest(i3) = CellEncoder[A3].encode(e._4)
+      dest(i4) = CellEncoder[A4].encode(e._5)
+      dest(i5) = CellEncoder[A5].encode(e._6)
+      dest(i6) = CellEncoder[A6].encode(e._7)
+      dest(i7) = CellEncoder[A7].encode(e._8)
+      dest(i8) = CellEncoder[A8].encode(e._9)
+      dest(i9) = CellEncoder[A9].encode(e._10)
+      dest(i10) = CellEncoder[A10].encode(e._11)
+      dest(i11) = CellEncoder[A11].encode(e._12)
+      dest(i12) = CellEncoder[A12].encode(e._13)
+      dest(i13) = CellEncoder[A13].encode(e._14)
+      dest(i14) = CellEncoder[A14].encode(e._15)
       dest.toSeq
     }
 
@@ -317,22 +317,22 @@ object RowEncoder extends LowPriorityRowEncoders {
       val e = f(a)
       val dest = Array.fill(16)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
-      dest(i2) = e._3.asCsvCell
-      dest(i3) = e._4.asCsvCell
-      dest(i4) = e._5.asCsvCell
-      dest(i5) = e._6.asCsvCell
-      dest(i6) = e._7.asCsvCell
-      dest(i7) = e._8.asCsvCell
-      dest(i8) = e._9.asCsvCell
-      dest(i9) = e._10.asCsvCell
-      dest(i10) = e._11.asCsvCell
-      dest(i11) = e._12.asCsvCell
-      dest(i12) = e._13.asCsvCell
-      dest(i13) = e._14.asCsvCell
-      dest(i14) = e._15.asCsvCell
-      dest(i15) = e._16.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i2) = CellEncoder[A2].encode(e._3)
+      dest(i3) = CellEncoder[A3].encode(e._4)
+      dest(i4) = CellEncoder[A4].encode(e._5)
+      dest(i5) = CellEncoder[A5].encode(e._6)
+      dest(i6) = CellEncoder[A6].encode(e._7)
+      dest(i7) = CellEncoder[A7].encode(e._8)
+      dest(i8) = CellEncoder[A8].encode(e._9)
+      dest(i9) = CellEncoder[A9].encode(e._10)
+      dest(i10) = CellEncoder[A10].encode(e._11)
+      dest(i11) = CellEncoder[A11].encode(e._12)
+      dest(i12) = CellEncoder[A12].encode(e._13)
+      dest(i13) = CellEncoder[A13].encode(e._14)
+      dest(i14) = CellEncoder[A14].encode(e._15)
+      dest(i15) = CellEncoder[A15].encode(e._16)
       dest.toSeq
     }
 
@@ -346,23 +346,23 @@ object RowEncoder extends LowPriorityRowEncoders {
       val e = f(a)
       val dest = Array.fill(17)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
-      dest(i2) = e._3.asCsvCell
-      dest(i3) = e._4.asCsvCell
-      dest(i4) = e._5.asCsvCell
-      dest(i5) = e._6.asCsvCell
-      dest(i6) = e._7.asCsvCell
-      dest(i7) = e._8.asCsvCell
-      dest(i8) = e._9.asCsvCell
-      dest(i9) = e._10.asCsvCell
-      dest(i10) = e._11.asCsvCell
-      dest(i11) = e._12.asCsvCell
-      dest(i12) = e._13.asCsvCell
-      dest(i13) = e._14.asCsvCell
-      dest(i14) = e._15.asCsvCell
-      dest(i15) = e._16.asCsvCell
-      dest(i16) = e._17.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i2) = CellEncoder[A2].encode(e._3)
+      dest(i3) = CellEncoder[A3].encode(e._4)
+      dest(i4) = CellEncoder[A4].encode(e._5)
+      dest(i5) = CellEncoder[A5].encode(e._6)
+      dest(i6) = CellEncoder[A6].encode(e._7)
+      dest(i7) = CellEncoder[A7].encode(e._8)
+      dest(i8) = CellEncoder[A8].encode(e._9)
+      dest(i9) = CellEncoder[A9].encode(e._10)
+      dest(i10) = CellEncoder[A10].encode(e._11)
+      dest(i11) = CellEncoder[A11].encode(e._12)
+      dest(i12) = CellEncoder[A12].encode(e._13)
+      dest(i13) = CellEncoder[A13].encode(e._14)
+      dest(i14) = CellEncoder[A14].encode(e._15)
+      dest(i15) = CellEncoder[A15].encode(e._16)
+      dest(i16) = CellEncoder[A16].encode(e._17)
       dest.toSeq
     }
 
@@ -376,24 +376,24 @@ object RowEncoder extends LowPriorityRowEncoders {
       val e = f(a)
       val dest = Array.fill(18)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
-      dest(i2) = e._3.asCsvCell
-      dest(i3) = e._4.asCsvCell
-      dest(i4) = e._5.asCsvCell
-      dest(i5) = e._6.asCsvCell
-      dest(i6) = e._7.asCsvCell
-      dest(i7) = e._8.asCsvCell
-      dest(i8) = e._9.asCsvCell
-      dest(i9) = e._10.asCsvCell
-      dest(i10) = e._11.asCsvCell
-      dest(i11) = e._12.asCsvCell
-      dest(i12) = e._13.asCsvCell
-      dest(i13) = e._14.asCsvCell
-      dest(i14) = e._15.asCsvCell
-      dest(i15) = e._16.asCsvCell
-      dest(i16) = e._17.asCsvCell
-      dest(i17) = e._18.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i2) = CellEncoder[A2].encode(e._3)
+      dest(i3) = CellEncoder[A3].encode(e._4)
+      dest(i4) = CellEncoder[A4].encode(e._5)
+      dest(i5) = CellEncoder[A5].encode(e._6)
+      dest(i6) = CellEncoder[A6].encode(e._7)
+      dest(i7) = CellEncoder[A7].encode(e._8)
+      dest(i8) = CellEncoder[A8].encode(e._9)
+      dest(i9) = CellEncoder[A9].encode(e._10)
+      dest(i10) = CellEncoder[A10].encode(e._11)
+      dest(i11) = CellEncoder[A11].encode(e._12)
+      dest(i12) = CellEncoder[A12].encode(e._13)
+      dest(i13) = CellEncoder[A13].encode(e._14)
+      dest(i14) = CellEncoder[A14].encode(e._15)
+      dest(i15) = CellEncoder[A15].encode(e._16)
+      dest(i16) = CellEncoder[A16].encode(e._17)
+      dest(i17) = CellEncoder[A17].encode(e._18)
       dest.toSeq
     }
 
@@ -408,25 +408,25 @@ object RowEncoder extends LowPriorityRowEncoders {
       val e = f(a)
       val dest = Array.fill(19)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
-      dest(i2) = e._3.asCsvCell
-      dest(i3) = e._4.asCsvCell
-      dest(i4) = e._5.asCsvCell
-      dest(i5) = e._6.asCsvCell
-      dest(i6) = e._7.asCsvCell
-      dest(i7) = e._8.asCsvCell
-      dest(i8) = e._9.asCsvCell
-      dest(i9) = e._10.asCsvCell
-      dest(i10) = e._11.asCsvCell
-      dest(i11) = e._12.asCsvCell
-      dest(i12) = e._13.asCsvCell
-      dest(i13) = e._14.asCsvCell
-      dest(i14) = e._15.asCsvCell
-      dest(i15) = e._16.asCsvCell
-      dest(i16) = e._17.asCsvCell
-      dest(i17) = e._18.asCsvCell
-      dest(i18) = e._19.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i2) = CellEncoder[A2].encode(e._3)
+      dest(i3) = CellEncoder[A3].encode(e._4)
+      dest(i4) = CellEncoder[A4].encode(e._5)
+      dest(i5) = CellEncoder[A5].encode(e._6)
+      dest(i6) = CellEncoder[A6].encode(e._7)
+      dest(i7) = CellEncoder[A7].encode(e._8)
+      dest(i8) = CellEncoder[A8].encode(e._9)
+      dest(i9) = CellEncoder[A9].encode(e._10)
+      dest(i10) = CellEncoder[A10].encode(e._11)
+      dest(i11) = CellEncoder[A11].encode(e._12)
+      dest(i12) = CellEncoder[A12].encode(e._13)
+      dest(i13) = CellEncoder[A13].encode(e._14)
+      dest(i14) = CellEncoder[A14].encode(e._15)
+      dest(i15) = CellEncoder[A15].encode(e._16)
+      dest(i16) = CellEncoder[A16].encode(e._17)
+      dest(i17) = CellEncoder[A17].encode(e._18)
+      dest(i18) = CellEncoder[A18].encode(e._19)
       dest.toSeq
     }
 
@@ -441,26 +441,26 @@ object RowEncoder extends LowPriorityRowEncoders {
       val e = f(a)
       val dest = Array.fill(20)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
-      dest(i2) = e._3.asCsvCell
-      dest(i3) = e._4.asCsvCell
-      dest(i4) = e._5.asCsvCell
-      dest(i5) = e._6.asCsvCell
-      dest(i6) = e._7.asCsvCell
-      dest(i7) = e._8.asCsvCell
-      dest(i8) = e._9.asCsvCell
-      dest(i9) = e._10.asCsvCell
-      dest(i10) = e._11.asCsvCell
-      dest(i11) = e._12.asCsvCell
-      dest(i12) = e._13.asCsvCell
-      dest(i13) = e._14.asCsvCell
-      dest(i14) = e._15.asCsvCell
-      dest(i15) = e._16.asCsvCell
-      dest(i16) = e._17.asCsvCell
-      dest(i17) = e._18.asCsvCell
-      dest(i18) = e._19.asCsvCell
-      dest(i19) = e._20.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i2) = CellEncoder[A2].encode(e._3)
+      dest(i3) = CellEncoder[A3].encode(e._4)
+      dest(i4) = CellEncoder[A4].encode(e._5)
+      dest(i5) = CellEncoder[A5].encode(e._6)
+      dest(i6) = CellEncoder[A6].encode(e._7)
+      dest(i7) = CellEncoder[A7].encode(e._8)
+      dest(i8) = CellEncoder[A8].encode(e._9)
+      dest(i9) = CellEncoder[A9].encode(e._10)
+      dest(i10) = CellEncoder[A10].encode(e._11)
+      dest(i11) = CellEncoder[A11].encode(e._12)
+      dest(i12) = CellEncoder[A12].encode(e._13)
+      dest(i13) = CellEncoder[A13].encode(e._14)
+      dest(i14) = CellEncoder[A14].encode(e._15)
+      dest(i15) = CellEncoder[A15].encode(e._16)
+      dest(i16) = CellEncoder[A16].encode(e._17)
+      dest(i17) = CellEncoder[A17].encode(e._18)
+      dest(i18) = CellEncoder[A18].encode(e._19)
+      dest(i19) = CellEncoder[A19].encode(e._20)
       dest.toSeq
     }
 
@@ -475,27 +475,27 @@ object RowEncoder extends LowPriorityRowEncoders {
       val e = f(a)
       val dest = Array.fill(21)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
-      dest(i2) = e._3.asCsvCell
-      dest(i3) = e._4.asCsvCell
-      dest(i4) = e._5.asCsvCell
-      dest(i5) = e._6.asCsvCell
-      dest(i6) = e._7.asCsvCell
-      dest(i7) = e._8.asCsvCell
-      dest(i8) = e._9.asCsvCell
-      dest(i9) = e._10.asCsvCell
-      dest(i10) = e._11.asCsvCell
-      dest(i11) = e._12.asCsvCell
-      dest(i12) = e._13.asCsvCell
-      dest(i13) = e._14.asCsvCell
-      dest(i14) = e._15.asCsvCell
-      dest(i15) = e._16.asCsvCell
-      dest(i16) = e._17.asCsvCell
-      dest(i17) = e._18.asCsvCell
-      dest(i18) = e._19.asCsvCell
-      dest(i19) = e._20.asCsvCell
-      dest(i20) = e._21.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i2) = CellEncoder[A2].encode(e._3)
+      dest(i3) = CellEncoder[A3].encode(e._4)
+      dest(i4) = CellEncoder[A4].encode(e._5)
+      dest(i5) = CellEncoder[A5].encode(e._6)
+      dest(i6) = CellEncoder[A6].encode(e._7)
+      dest(i7) = CellEncoder[A7].encode(e._8)
+      dest(i8) = CellEncoder[A8].encode(e._9)
+      dest(i9) = CellEncoder[A9].encode(e._10)
+      dest(i10) = CellEncoder[A10].encode(e._11)
+      dest(i11) = CellEncoder[A11].encode(e._12)
+      dest(i12) = CellEncoder[A12].encode(e._13)
+      dest(i13) = CellEncoder[A13].encode(e._14)
+      dest(i14) = CellEncoder[A14].encode(e._15)
+      dest(i15) = CellEncoder[A15].encode(e._16)
+      dest(i16) = CellEncoder[A16].encode(e._17)
+      dest(i17) = CellEncoder[A17].encode(e._18)
+      dest(i18) = CellEncoder[A18].encode(e._19)
+      dest(i19) = CellEncoder[A19].encode(e._20)
+      dest(i20) = CellEncoder[A20].encode(e._21)
       dest.toSeq
     }
 
@@ -510,28 +510,28 @@ object RowEncoder extends LowPriorityRowEncoders {
       val e = f(a)
       val dest = Array.fill(22)("")
 
-      dest(i0) = e._1.asCsvCell
-      dest(i1) = e._2.asCsvCell
-      dest(i2) = e._3.asCsvCell
-      dest(i3) = e._4.asCsvCell
-      dest(i4) = e._5.asCsvCell
-      dest(i5) = e._6.asCsvCell
-      dest(i6) = e._7.asCsvCell
-      dest(i7) = e._8.asCsvCell
-      dest(i8) = e._9.asCsvCell
-      dest(i9) = e._10.asCsvCell
-      dest(i10) = e._11.asCsvCell
-      dest(i11) = e._12.asCsvCell
-      dest(i12) = e._13.asCsvCell
-      dest(i13) = e._14.asCsvCell
-      dest(i14) = e._15.asCsvCell
-      dest(i15) = e._16.asCsvCell
-      dest(i16) = e._17.asCsvCell
-      dest(i17) = e._18.asCsvCell
-      dest(i18) = e._19.asCsvCell
-      dest(i19) = e._20.asCsvCell
-      dest(i20) = e._21.asCsvCell
-      dest(i21) = e._22.asCsvCell
+      dest(i0) = CellEncoder[A0].encode(e._1)
+      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i2) = CellEncoder[A2].encode(e._3)
+      dest(i3) = CellEncoder[A3].encode(e._4)
+      dest(i4) = CellEncoder[A4].encode(e._5)
+      dest(i5) = CellEncoder[A5].encode(e._6)
+      dest(i6) = CellEncoder[A6].encode(e._7)
+      dest(i7) = CellEncoder[A7].encode(e._8)
+      dest(i8) = CellEncoder[A8].encode(e._9)
+      dest(i9) = CellEncoder[A9].encode(e._10)
+      dest(i10) = CellEncoder[A10].encode(e._11)
+      dest(i11) = CellEncoder[A11].encode(e._12)
+      dest(i12) = CellEncoder[A12].encode(e._13)
+      dest(i13) = CellEncoder[A13].encode(e._14)
+      dest(i14) = CellEncoder[A14].encode(e._15)
+      dest(i15) = CellEncoder[A15].encode(e._16)
+      dest(i16) = CellEncoder[A16].encode(e._17)
+      dest(i17) = CellEncoder[A17].encode(e._18)
+      dest(i18) = CellEncoder[A18].encode(e._19)
+      dest(i19) = CellEncoder[A19].encode(e._20)
+      dest(i20) = CellEncoder[A20].encode(e._21)
+      dest(i21) = CellEncoder[A21].encode(e._22)
       dest.toSeq
     }
 
