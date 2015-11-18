@@ -9,13 +9,12 @@ import scalaz.{Maybe, Scalaz, \/}, Scalaz._
 @exports
 object CellDecoders {
   @export(Instantiated)
-  implicit def eitherCellDecoder[A: CellDecoder, B: CellDecoder]: CellDecoder[A \/ B] =
-CellDecoder(s => CellDecoder[A].decode(s).map(_.left[B])
-      .orElse(CellDecoder[B].decode(s).map(_.right[A])))
+  implicit def eitherCellDecoder[A, B](implicit da: CellDecoder[A], db: CellDecoder[B]): CellDecoder[A \/ B] =
+    CellDecoder(s => da.decode(s).map(_.left[B]).orElse(db.decode(s).map(_.right[A])))
 
   @export(Instantiated)
-  implicit def maybeDecoder[A: CellDecoder]: CellDecoder[Maybe[A]] = CellDecoder { s =>
+  implicit def maybeDecoder[A](implicit da: CellDecoder[A]): CellDecoder[Maybe[A]] = CellDecoder { s =>
     if(s.isEmpty) DecodeResult.success(empty)
-    else          CellDecoder[A].decode(s).map(just)
+    else          da.decode(s).map(just)
   }
 }

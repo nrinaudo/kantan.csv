@@ -15,8 +15,8 @@ object DerivedCellDecoder {
 
   // - ADT derivation --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def coproduct[H: CellDecoder, T <: Coproduct: DerivedCellDecoder]: DerivedCellDecoder[H :+: T] =
-    DerivedCellDecoder(row => CellDecoder[H].decode(row).map(Inl.apply).orElse(CellDecoder[T].decode(row).map(Inr.apply))
+  implicit def coproduct[H, T <: Coproduct](implicit dh: CellDecoder[H], dt: DerivedCellDecoder[T]): DerivedCellDecoder[H :+: T] =
+    DerivedCellDecoder(row => dh.decode(row).map(Inl.apply).orElse(dt.decode(row).map(Inr.apply))
   )
 
   implicit val cnil: DerivedCellDecoder[CNil] = DerivedCellDecoder(_ => DecodeResult.decodeFailure)

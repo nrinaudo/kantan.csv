@@ -1,7 +1,6 @@
 package tabulate.generic
 
 import shapeless._
-import tabulate.ops._
 import tabulate.{CellEncoder, RowEncoder}
 
 trait DerivedRowEncoder[A] extends RowEncoder[A]
@@ -40,10 +39,10 @@ object DerivedRowEncoder {
 
   // - ADT derivation --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def coproduct[H: RowEncoder, T <: Coproduct: DerivedRowEncoder]: DerivedRowEncoder[H :+: T] =
+  implicit def coproduct[H, T <: Coproduct](implicit eh: RowEncoder[H], et: DerivedRowEncoder[T]): DerivedRowEncoder[H :+: T] =
     DerivedRowEncoder((a: H :+: T) => a match {
-      case Inl(h) => h.asCsvRow
-      case Inr(t) => t.asCsvRow
+      case Inl(h) => eh.encode(h)
+      case Inr(t) => et.encode(t)
     })
 
   implicit val cnil: DerivedRowEncoder[CNil] =

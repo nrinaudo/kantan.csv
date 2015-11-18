@@ -17,8 +17,7 @@ object CellEncoders {
   }
 
   @export(Instantiated)
-  implicit def maybeEncoder[A](implicit ea: CellEncoder[A]): CellEncoder[Maybe[A]] =
-    new CellEncoder[Maybe[A]] {
-      override def encode(a: Maybe[A]) = a.map(ea.encode).getOrElse("")
-    }
+  implicit def maybeEncoder[A](implicit ea: CellEncoder[A]): CellEncoder[Maybe[A]] = new CellEncoder[Maybe[A]] {
+    override def encode(a: Maybe[A]) = a.map(ea.encode).getOrElse("")
+  }
 }

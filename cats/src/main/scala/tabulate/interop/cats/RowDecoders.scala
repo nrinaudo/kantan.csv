@@ -7,7 +7,6 @@ import tabulate.RowDecoder
 @exports
 object RowDecoders {
   @export(Instantiated)
-  implicit def xorRowDecoder[A: RowDecoder, B: RowDecoder]: RowDecoder[Xor[A, B]] =
-    RowDecoder(row => RowDecoder[A].decode(row).map(a => Xor.Left(a))
-          .orElse(RowDecoder[B].decode(row).map(b => Xor.Right(b))))
+  implicit def xorRowDecoder[A, B](implicit da: RowDecoder[A], db: RowDecoder[B]): RowDecoder[Xor[A, B]] =
+    RowDecoder(row => da.decode(row).map(a => Xor.Left(a)).orElse(db.decode(row).map(b => Xor.Right(b))))
 }

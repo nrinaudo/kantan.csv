@@ -7,7 +7,6 @@ import tabulate.CellDecoder
 @exports
 object CellDecoders {
   @export(Instantiated)
-  implicit def xorCellDecoder[A: CellDecoder, B: CellDecoder]: CellDecoder[Xor[A, B]] =
-    CellDecoder(s => CellDecoder[A].decode(s).map(a => Xor.Left(a))
-      .orElse(CellDecoder[B].decode(s).map(b => Xor.Right(b))))
+  implicit def xorCellDecoder[A, B](implicit da: CellDecoder[A], db: CellDecoder[B]): CellDecoder[Xor[A, B]] =
+    CellDecoder(s => da.decode(s).map(a => Xor.Left(a)).orElse(db.decode(s).map(b => Xor.Right(b))))
 }

@@ -2,7 +2,6 @@ package tabulate.generic
 
 import shapeless._
 import tabulate.{CellDecoder, DecodeResult, RowDecoder}
-import tabulate.ops._
 
 trait DerivedRowDecoder[A] extends RowDecoder[A]
 
@@ -16,13 +15,14 @@ object DerivedRowDecoder {
 
   // - Case class derivation -------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def hlist[H: CellDecoder, T <: HList: DerivedRowDecoder]: DerivedRowDecoder[H :: T] = DerivedRowDecoder(row =>
-    row.headOption.map(s =>
-      for {
-        h <- s.parseCsvCell[H]
-        t <- row.tail.parseCsvRow[T]
-      } yield h :: t
-    ).getOrElse(DecodeResult.decodeFailure))
+  implicit def hlist[H, T <: HList](implicit dh: CellDecoder[H], dt: DerivedRowDecoder[T]): DerivedRowDecoder[H :: T] =
+    DerivedRowDecoder(row =>
+      row.headOption.map(s =>
+        for {
+          h <- dh.decode(s)
+          t <- dt.decode(row.tail)
+        } yield h :: t
+      ).getOrElse(DecodeResult.decodeFailure))
 
   implicit val hnil: DerivedRowDecoder[HNil] = DerivedRowDecoder(_ => DecodeResult.success(HNil))
 
@@ -43,9 +43,8 @@ object DerivedRowDecoder {
 
   // - ADT derivation --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def coproduct[H: RowDecoder, T <: Coproduct: DerivedRowDecoder]: DerivedRowDecoder[H :+: T] = DerivedRowDecoder(row =>
-    RowDecoder[H].decode(row).map(Inl.apply).orElse(RowDecoder[T].decode(row).map(Inr.apply))
-  )
+  implicit def coproduct[H, T <: Coproduct](implicit dh: RowDecoder[H], dt: DerivedRowDecoder[T]): DerivedRowDecoder[H :+: T] =
+    DerivedRowDecoder(row => dh.decode(row).map(Inl.apply).orElse(dt.decode(row).map(Inr.apply)))
 
   implicit val cnil: DerivedRowDecoder[CNil] = DerivedRowDecoder(_ => DecodeResult.decodeFailure)
 

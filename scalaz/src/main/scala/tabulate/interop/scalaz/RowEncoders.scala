@@ -17,4 +17,9 @@ object RowEncoders {
   @export(Instantiated)
   implicit def foldableRowEncoder[A, F[_]](implicit ea: CellEncoder[A], F: Foldable[F]): RowEncoder[F[A]] =
     RowEncoder(as => F.foldLeft(as, Seq.newBuilder[String])((acc, a) => acc += ea.encode(a)).result())
+
+  @export(Instantiated)
+  implicit def maybeEncoder[A](implicit ea: RowEncoder[A]): RowEncoder[Maybe[A]] = new RowEncoder[Maybe[A]] {
+    override def encode(a: Maybe[A]) = a.map(ea.encode).getOrElse(Seq.empty)
+  }
 }
