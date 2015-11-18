@@ -12,50 +12,50 @@ object RowCodec {
   }
 
   def codec1[C, A0: CellCodec](f: A0 => C, g: C => A0): RowCodec[C] =
-    combine(RowDecoder.caseDecoder1(f), RowEncoder.encoder1(g))
+    combine(RowDecoder.decoder1(f), RowEncoder.encoder1(g))
 
   def codec2[C, A0: CellCodec, A1: CellCodec](f: (A0, A1) => C, g: C => (A0, A1))
                                              (i0: Int, i1: Int): RowCodec[C] =
-    combine(RowDecoder.caseDecoder2(f)(i0, i1), RowEncoder.encoder2(g)(i0, i1))
+    combine(RowDecoder.decoder2(f)(i0, i1), RowEncoder.encoder2(g)(i0, i1))
 
   def codec3[C, A0: CellCodec, A1: CellCodec, A2: CellCodec](f: (A0, A1, A2) => C, g: C => (A0, A1, A2))
                                                             (i0: Int, i1: Int, i2: Int): RowCodec[C] =
-    combine(RowDecoder.caseDecoder3(f)(i0, i1, i2), RowEncoder.encoder3(g)(i0, i1, i2))
+    combine(RowDecoder.decoder3(f)(i0, i1, i2), RowEncoder.encoder3(g)(i0, i1, i2))
 
   def codec4[C, A0: CellCodec, A1: CellCodec, A2: CellCodec, A3: CellCodec]
   (f: (A0, A1, A2, A3) => C, g: C => (A0, A1, A2, A3))
   (i0: Int, i1: Int, i2: Int, i3: Int): RowCodec[C] =
-    combine(RowDecoder.caseDecoder4(f)(i0, i1, i2, i3), RowEncoder.encoder4(g)(i0, i1, i2, i3))
+    combine(RowDecoder.decoder4(f)(i0, i1, i2, i3), RowEncoder.encoder4(g)(i0, i1, i2, i3))
 
   def codec5[C, A0: CellCodec, A1: CellCodec, A2: CellCodec, A3: CellCodec, A4: CellCodec]
   (f: (A0, A1, A2, A3, A4) => C, g: C => (A0, A1, A2, A3, A4))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int): RowCodec[C] =
-    combine(RowDecoder.caseDecoder5(f)(i0, i1, i2, i3, i4), RowEncoder.encoder5(g)(i0, i1, i2, i3, i4))
+    combine(RowDecoder.decoder5(f)(i0, i1, i2, i3, i4), RowEncoder.encoder5(g)(i0, i1, i2, i3, i4))
 
   def codec6[C, A0: CellCodec, A1: CellCodec, A2: CellCodec, A3: CellCodec, A4: CellCodec, A5: CellCodec]
   (f: (A0, A1, A2, A3, A4, A5) => C, g: C => (A0, A1, A2, A3, A4, A5))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): RowCodec[C] =
-    combine(RowDecoder.caseDecoder6(f)(i0, i1, i2, i3, i4, i5),
+    combine(RowDecoder.decoder6(f)(i0, i1, i2, i3, i4, i5),
       RowEncoder.encoder6(g)(i0, i1, i2, i3, i4, i5))
 
   def codec7[C, A0: CellCodec, A1: CellCodec, A2: CellCodec, A3: CellCodec, A4: CellCodec, A5: CellCodec,
   A6: CellCodec](f: (A0, A1, A2, A3, A4, A5, A6) => C, g: C => (A0, A1, A2, A3, A4, A5, A6))
                 (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): RowCodec[C] =
-    combine(RowDecoder.caseDecoder7(f)(i0, i1, i2, i3, i4, i5, i6),
+    combine(RowDecoder.decoder7(f)(i0, i1, i2, i3, i4, i5, i6),
       RowEncoder.encoder7(g)(i0, i1, i2, i3, i4, i5, i6))
 
   def codec8[C, A0: CellCodec, A1: CellCodec, A2: CellCodec, A3: CellCodec, A4: CellCodec, A5: CellCodec,
   A6: CellCodec, A7: CellCodec]
   (f: (A0, A1, A2, A3, A4, A5, A6, A7) => C, g: C => (A0, A1, A2, A3, A4, A5, A6, A7))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int): RowCodec[C] =
-    combine(RowDecoder.caseDecoder8(f)(i0, i1, i2, i3, i4, i5, i6, i7),
+    combine(RowDecoder.decoder8(f)(i0, i1, i2, i3, i4, i5, i6, i7),
       RowEncoder.encoder8(g)(i0, i1, i2, i3, i4, i5, i6, i7))
 
   def codec9[C, A0: CellCodec, A1: CellCodec, A2: CellCodec, A3: CellCodec, A4: CellCodec, A5: CellCodec,
   A6: CellCodec, A7: CellCodec, A8: CellCodec]
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8) => C, g: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int): RowCodec[C] =
-    combine(RowDecoder.caseDecoder9(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8),
+    combine(RowDecoder.decoder9(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8),
       RowEncoder.encoder9(g)(i0, i1, i2, i3, i4, i5, i6, i7, i8))
 
   def codec10[C, A0: CellCodec, A1: CellCodec, A2: CellCodec, A3: CellCodec, A4: CellCodec, A5: CellCodec,
@@ -63,7 +63,7 @@ object RowCodec {
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9) => C,
    g: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int): RowCodec[C] =
-    combine(RowDecoder.caseDecoder10(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9),
+    combine(RowDecoder.decoder10(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9),
       RowEncoder.encoder10(g)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9))
 
   def codec11[C, A0: CellCodec, A1: CellCodec, A2: CellCodec, A3: CellCodec, A4: CellCodec, A5: CellCodec,
@@ -71,7 +71,7 @@ object RowCodec {
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10) => C,
    g: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int): RowCodec[C] =
-    combine(RowDecoder.caseDecoder11(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10),
+    combine(RowDecoder.decoder11(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10),
       RowEncoder.encoder11(g)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10))
 
   def codec12[C, A0: CellCodec, A1: CellCodec, A2: CellCodec, A3: CellCodec, A4: CellCodec, A5: CellCodec,
@@ -79,7 +79,7 @@ object RowCodec {
   (f: (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11) => C,
    g: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int):
-  RowCodec[C] = combine(RowDecoder.caseDecoder12(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11),
+  RowCodec[C] = combine(RowDecoder.decoder12(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11),
     RowEncoder.encoder12(g)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11))
 
   def codec13[C, A0: CellCodec, A1: CellCodec, A2: CellCodec, A3: CellCodec, A4: CellCodec, A5: CellCodec,
@@ -88,7 +88,7 @@ object RowCodec {
    g: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int): RowCodec[C] =
-    combine(RowDecoder.caseDecoder13(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12),
+    combine(RowDecoder.decoder13(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12),
       RowEncoder.encoder13(g)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12))
 
   def codec14[C, A0: CellCodec, A1: CellCodec, A2: CellCodec, A3: CellCodec, A4: CellCodec, A5: CellCodec,
@@ -98,7 +98,7 @@ object RowCodec {
    g: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int): RowCodec[C] =
-    combine(RowDecoder.caseDecoder14(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13),
+    combine(RowDecoder.decoder14(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13),
       RowEncoder.encoder14(g)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13))
 
   def codec15[C, A0: CellCodec, A1: CellCodec, A2: CellCodec, A3: CellCodec, A4: CellCodec, A5: CellCodec,
@@ -108,7 +108,7 @@ object RowCodec {
    g: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int): RowCodec[C] =
-    combine(RowDecoder.caseDecoder15(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14),
+    combine(RowDecoder.decoder15(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14),
       RowEncoder.encoder15(g)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14))
 
   def codec16[C, A0: CellCodec, A1: CellCodec, A2: CellCodec, A3: CellCodec, A4: CellCodec, A5: CellCodec,
@@ -118,7 +118,7 @@ object RowCodec {
    g: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int): RowCodec[C] =
-    combine(RowDecoder.caseDecoder16(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15),
+    combine(RowDecoder.decoder16(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15),
       RowEncoder.encoder16(g)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15))
 
   def codec17[C, A0: CellCodec, A1: CellCodec, A2: CellCodec, A3: CellCodec, A4: CellCodec, A5: CellCodec,
@@ -128,7 +128,7 @@ object RowCodec {
    g: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int): RowCodec[C] =
-    combine(RowDecoder.caseDecoder17(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16),
+    combine(RowDecoder.decoder17(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16),
       RowEncoder.encoder17(g)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16))
 
   def codec18[C, A0: CellCodec, A1: CellCodec, A2: CellCodec, A3: CellCodec, A4: CellCodec, A5: CellCodec,
@@ -138,7 +138,7 @@ object RowCodec {
    g: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int): RowCodec[C] =
-    combine(RowDecoder.caseDecoder18(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17),
+    combine(RowDecoder.decoder18(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17),
       RowEncoder.encoder18(g)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17))
 
   def codec19[C, A0: CellCodec, A1: CellCodec, A2: CellCodec, A3: CellCodec, A4: CellCodec, A5: CellCodec,
@@ -148,7 +148,7 @@ object RowCodec {
    g: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int): RowCodec[C] =
-    combine(RowDecoder.caseDecoder19(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17,
+    combine(RowDecoder.decoder19(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17,
       i18), RowEncoder.encoder19(g)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14,
       i15, i16, i17, i18))
 
@@ -159,7 +159,7 @@ object RowCodec {
    g: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int): RowCodec[C] =
-    combine(RowDecoder.caseDecoder20(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17,
+    combine(RowDecoder.decoder20(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17,
       i18, i19), RowEncoder.encoder20(g)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14,
       i15, i16, i17, i18, i19))
 
@@ -171,7 +171,7 @@ object RowCodec {
    g: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int, i20: Int): RowCodec[C] =
-    combine(RowDecoder.caseDecoder21(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17,
+    combine(RowDecoder.decoder21(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17,
       i18, i19, i20), RowEncoder.encoder21(g)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14,
       i15, i16, i17, i18, i19, i20))
 
@@ -183,7 +183,7 @@ object RowCodec {
    g: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int, i20: Int, i21: Int): RowCodec[C] =
-    combine(RowDecoder.caseDecoder22(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17,
+    combine(RowDecoder.decoder22(f)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17,
       i18, i19, i20, i21), RowEncoder.encoder22(g)(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14,
       i15, i16, i17, i18, i19, i20, i21))
 
