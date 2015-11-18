@@ -226,9 +226,9 @@ This allows us to write the following:
 printCsv(List(new Point2D(1, 2), new Point2D(3, 4)))(_.asCsvWriter[Point2D](','))
 ```
 
-Note, however, that the various `RowEncoder.caseEncoderXXX` methods do not apply *only* to case classes. They can easily
-be used for "normal" classes:
+Note, however, that the various `RowEncoder.encoderXXX` methods remove the need for manual encoding of each cell and
+are more straightforward to use:
 
 ```tut:silent
-implicit val p2Encoder2 = RowEncoder.caseEncoder2((p: Point2D) => Some((p.x, p.y)))(0, 1)
+RowEncoder.encoder2((p: Point2D) => (p.x, p.y))(0, 1)
 ```
