@@ -77,6 +77,7 @@ lazy val publishSettings = Seq(
 lazy val allSettings = buildSettings ++ baseSettings ++ publishSettings
 
 lazy val root = Project(id = "tabulate", base = file("."))
+  .settings(moduleName := "root")
   .settings(allSettings)
   .settings(noPublishSettings)
   .settings(
