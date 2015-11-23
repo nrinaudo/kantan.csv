@@ -92,7 +92,7 @@ lazy val root = Project(id = "tabulate", base = file("."))
 
 lazy val core = project
   .settings(
-    moduleName := "tabulate-core",
+    moduleName := "tabulate",
     name       := "core"
   )
   .settings(allSettings: _*)
