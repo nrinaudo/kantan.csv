@@ -5,7 +5,7 @@ import UnidocKeys._
 val catsVersion          = "0.3.0"
 val exportHookVersion    = "1.1.0"
 val simulacrumVersion    = "0.5.0"
-val macroParadiseVersion = "2.1.0-M5"
+val macroParadiseVersion = "2.1.0"
 val scalaCheckVersion    = "1.12.5"
 val disciplineVersion    = "0.4"
 val shapelessVersion     = "2.2.5"
@@ -115,11 +115,11 @@ lazy val generic = project
     moduleName := "tabulate-generic",
     name       := "generic"
   )
+  .settings(allSettings: _*)
   .settings(libraryDependencies ++= Seq(
     "com.chuusai"   %% "shapeless" % shapelessVersion,
     "org.scalatest" %% "scalatest" % scalatestVersion % "test"
   ))
-  .settings(allSettings: _*)
   .dependsOn(core, laws % "test")
 
 lazy val scalaz = project
