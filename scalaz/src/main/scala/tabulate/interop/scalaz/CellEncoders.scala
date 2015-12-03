@@ -7,7 +7,7 @@ import scalaz.{-\/, Maybe, \/, \/-}
 
 @exports
 object CellEncoders {
-  @export(Instantiated)
+  @export(Orphan)
   implicit def eitherCellEncoder[A, B](implicit ea: CellEncoder[A], eb: CellEncoder[B]): CellEncoder[A \/ B] =
   new CellEncoder[\/[A, B]] {
     override def encode(eab: \/[A, B]) = eab match {
@@ -16,7 +16,7 @@ object CellEncoders {
       }
   }
 
-  @export(Instantiated)
+  @export(Orphan)
   implicit def maybeEncoder[A](implicit ea: CellEncoder[A]): CellEncoder[Maybe[A]] = new CellEncoder[Maybe[A]] {
     override def encode(a: Maybe[A]) = a.map(ea.encode).getOrElse("")
   }

@@ -6,7 +6,7 @@ import tabulate.CellEncoder
 
 @exports
 object CellEncoders {
-  @export(Instantiated)
+  @export(Orphan)
   implicit def xorCellEncoder[A, B](implicit ea: CellEncoder[A], eb: CellEncoder[B]): CellEncoder[Xor[A, B]] =
     CellEncoder(eab => eab match {
       case Xor.Left(a)  => ea.encode(a)

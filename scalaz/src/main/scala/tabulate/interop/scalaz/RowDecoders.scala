@@ -9,11 +9,11 @@ import scalaz.{Maybe, \/}
 
 @exports
 object RowDecoders {
-  @export(Instantiated)
+  @export(Orphan)
   implicit def eitherRowDecoder[A, B](implicit da: RowDecoder[A], db: RowDecoder[B]): RowDecoder[A \/ B] =
     RowDecoder(row => da.decode(row).map(_.left[B]).orElse(db.decode(row).map(_.right[A])))
 
-  @export(Instantiated)
+  @export(Orphan)
   implicit def maybeDecoder[A](implicit da: RowDecoder[A]): RowDecoder[Maybe[A]] = RowDecoder { row =>
     if(row.isEmpty) DecodeResult.success(empty)
     else            da.decode(row).map(just)

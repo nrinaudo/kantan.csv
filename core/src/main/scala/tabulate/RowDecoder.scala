@@ -95,7 +95,8 @@ object RowDecoder extends LowPriorityRowDecoders {
   // I am not proud of this, but I don't know of any other way to deal with non "curryable" types.
 
   /** Helper function to reduce the amount of boilerplate required by dealing with case classes. */
-  @inline private def r[A: CellDecoder](ss: Seq[String], index: Int): DecodeResult[A] = CellDecoder[A].decode(ss, index)
+  @inline private def r[A](ss: Seq[String], index: Int)(implicit da: CellDecoder[A]): DecodeResult[A] =
+    da.decode(ss, index)
 
   /** Creates a `RowDecoder` for a case class with 1 field. */
   def decoder1[A0: CellDecoder, R](f: A0 => R): RowDecoder[R] = RowDecoder(ss => r[A0](ss, 0).map(f))
