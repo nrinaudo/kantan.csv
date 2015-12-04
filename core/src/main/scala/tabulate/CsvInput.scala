@@ -1,14 +1,11 @@
 package tabulate
 
-import java.io.{InputStream, File}
+import java.io.{IOException, File}
 import java.net.{URI, URL}
 
-import simulacrum.{op, noop, typeclass}
+import simulacrum.{noop, op, typeclass}
 
 import scala.io.{Codec, Source}
-
-// TODO: it would be nicer for Source not to be a requirement - CsvIterator could take an Iterator[Char] and a close
-// function, for example
 
 /** Turns instances of `S` into valid sources of CSV data.
   *
@@ -18,11 +15,11 @@ import scala.io.{Codec, Source}
   * See the [[CsvInput$ companion object]] for default implementations and construction methods.
   */
 @typeclass trait CsvInput[S] { self =>
-  /** Turns the specified `S` into a source.
+  /** Turns the specified `S` into a [[CsvData]].
     *
     * Other methods in this trait all rely on this to open and parse CSV data.
     */
-  @noop def toSource(s: S): Source
+  @noop def toCsvData(s: S): CsvData
 
   /** Turns the specified `S` into an iterator on `DecodeResult[A]`.
     *
@@ -33,17 +30,14 @@ import scala.io.{Codec, Source}
     * This method is also mapped to the `asCsvRows` one that enrich all types that have a valid `CsvInput` instance
     * in scope. For example:
     * {{{
-    *   implicit val strSource: CsvSource[String] = ???
+    *   implicit val strInput: CsvInput[String] = ???
     *   "a,b,c".asCsvRows[List[Char]](',', false)
     * }}}
     *
     * @tparam A type to parse each row as.
     */
-  @op("asCsvRows") def rows[A: RowDecoder](s: S, separator: Char, header: Boolean): Iterator[DecodeResult[A]] = {
-    val data = new CsvIterator(toSource(s), separator)
-    if(header) data.drop(1).map(r => r.flatMap(RowDecoder[A].decode))
-    else       data.map(r => r.flatMap(RowDecoder[A].decode))
-  }
+  @op("asCsvRows") def rows[A: RowDecoder](s: S, separator: Char, header: Boolean): Iterator[DecodeResult[A]] =
+    toCsvData(s).asRows(separator, header)
 
   /** Turns the specified `S` into an iterator on `A`.
     *
@@ -52,7 +46,7 @@ import scala.io.{Codec, Source}
     * @tparam A type to parse each row as.
     */
   @op("asUnsafeCsvRows") def unsafeRows[A: RowDecoder](s: S, separator: Char, header: Boolean): Iterator[A] =
-    rows[A](s, separator, header).map(_.get)
+    rows[A](s, separator, header).map(_.getOrElse(throw new IOException("Illegal CSV data found")))
 
   /** Turns an instance of `CsvInput[S]` into one of `CsvInput[T]`.
     *
@@ -62,7 +56,7 @@ import scala.io.{Codec, Source}
     *   val urlInput: CsvInput[URL] = CsvInput[InputStream].contramap((url: URL) => url.openStream())
     * }}}
     */
-  @noop def contramap[T](f: T => S): CsvInput[T] = CsvInput(t => self.toSource(f(t)))
+  @noop def contramap[T](f: T => S): CsvInput[T] = CsvInput(t => self.toCsvData(f(t)))
 }
 
 @export.imports[CsvInput]
@@ -79,24 +73,20 @@ trait LowPriorityCsvInputs
   */
 object CsvInput extends LowPriorityCsvInputs {
   /** Creates an instance of `CsvInput[S]` from the specified function. */
-  def apply[S](f: S => Source): CsvInput[S] = new CsvInput[S] {
-    override def toSource(a: S): Source = f(a)
+  def apply[S](f: S => CsvData): CsvInput[S] = new CsvInput[S] {
+    override def toCsvData(a: S): CsvData = f(a)
   }
 
-  /** Turns any `scala.io.Source` into a source of CSV data. */
-  implicit val source: CsvInput[Source] = CsvInput(s => s)
   /** Turns any `java.io.File` into a source of CSV data. */
-  implicit def file(implicit codec: Codec): CsvInput[File] = source.contramap(Source.fromFile)
-  /** Turns any `java.io.InputStream` into a source of CSV data. */
-  implicit def inputStream[I <: InputStream](implicit codec: Codec): CsvInput[I] = source.contramap(Source.fromInputStream)
+  implicit def file(implicit codec: Codec): CsvInput[File] = CsvInput(f => CsvData(Source.fromFile(f)))
   /** Turns any array of bytes into a source of CSV data. */
-  implicit def bytes(implicit codec: Codec): CsvInput[Array[Byte]] = source.contramap(Source.fromBytes)
+  implicit def bytes(implicit codec: Codec): CsvInput[Array[Byte]] = CsvInput(b => CsvData(Source.fromBytes(b)))
   /** Turns any `java.net.URL` into a source of CSV data. */
-  implicit def url(implicit codec: Codec): CsvInput[URL] = source.contramap(Source.fromURL)
+  implicit def url(implicit codec: Codec): CsvInput[URL] = CsvInput(u => CsvData(Source.fromURL(u)))
   /** Turns any `java.net.URI` into a source of CSV data. */
-  implicit def uri(implicit codec: Codec): CsvInput[URI] = source.contramap(Source.fromURI)
+  implicit def uri(implicit codec: Codec): CsvInput[URI] = CsvInput(u => CsvData(Source.fromURI(u)))
   /** Turns any array of chars into a source of CSV data. */
-  implicit val chars: CsvInput[Array[Char]] = source.contramap(Source.fromChars)
+  implicit val chars: CsvInput[Array[Char]] = CsvInput(c => CsvData(Source.fromChars(c)))
   /** Turns any string into a source of CSV data. */
-  implicit val string: CsvInput[String] = source.contramap(Source.fromString)
+  implicit val string: CsvInput[String] = CsvInput(s => CsvData(Source.fromString(s)))
 }

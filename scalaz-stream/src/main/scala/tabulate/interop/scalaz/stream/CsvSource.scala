@@ -1,9 +1,8 @@
 package tabulate.interop.scalaz.stream
 
-import simulacrum.{op, noop, typeclass}
-import tabulate.{CsvInput, DecodeResult, RowDecoder}
+import simulacrum.{noop, op, typeclass}
+import tabulate.{CsvData, CsvInput, DecodeResult, RowDecoder}
 
-import scala.io.Source
 import scalaz.concurrent.Task
 import scalaz.stream._
 
@@ -15,17 +14,17 @@ import scalaz.stream._
   * Additionally, any type that has an instance of `CsvInput` in scope automatically gets an instance of `CsvSource`.
   */
 @typeclass trait CsvSource[S] {
-  @noop def toSource(s: S): Source
+  @noop def toCsvData(s: S): CsvData
 
   @op("asCsvSource") def source[A: RowDecoder](s: S, sep: Char, header: Boolean): Process[Task, DecodeResult[A]] =
-    io.iteratorR(Task.delay(toSource(s)))(src => Task.delay(src.close()))(src => Task.delay(CsvInput[Source].rows[A](src, sep, header)))
-  
+    io.iteratorR(Task.delay(toCsvData(s)))(src => Task.delay(src.close()))(src => Task.delay(src.asRows[A](sep, header)))
+
   @op("asUnsafeCsvSource") def unsafeSource[A: RowDecoder](s: S, sep: Char, header: Boolean): Process[Task, A] =
     source(s, sep, header).map(_.get)
 }
 
 object CsvSource {
   implicit def fromInput[S: CsvInput]: CsvSource[S] = new CsvSource[S] {
-    override def toSource(s: S): Source = CsvInput[S].toSource(s)
+    override def toCsvData(s: S) = CsvInput[S].toCsvData(s)
   }
 }

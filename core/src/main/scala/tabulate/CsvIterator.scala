@@ -15,7 +15,7 @@ private object CsvIterator {
   sealed trait Status
 }
 
-private[tabulate] class CsvIterator(data: Source, separator: Char)
+private[tabulate] class CsvIterator(data: CsvData, separator: Char)
   extends Iterator[DecodeResult[ArrayBuffer[String]]] with Closeable {
   import CsvIterator._
 

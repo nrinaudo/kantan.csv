@@ -1,7 +1,7 @@
 package tabulate.interop
 
 import _root_.cats.functor.Contravariant
-import _root_.cats.{Eq, Monad}
+import _root_.cats._
 import tabulate._
 
 /** Declares various type class instances for bridging `tabulate` and `cats`. */
