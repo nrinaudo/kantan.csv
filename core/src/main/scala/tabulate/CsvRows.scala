@@ -14,6 +14,13 @@ object CsvRows {
   }
 }
 
+/** Mutable collection of CSV rows.
+  *
+  * This class is very similar to an `Iterator`, with an added [[close]] method to close the underlying source of CSV
+  * data.
+  *
+  * Implementations are expected to call [[close]] when no more data is available to be read.
+  */
 trait CsvRows[+A] extends TraversableOnce[A] with Closeable { self =>
   def hasNext: Boolean
   def next(): A
@@ -23,7 +30,10 @@ trait CsvRows[+A] extends TraversableOnce[A] with Closeable { self =>
   // - Useful methods --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def drop(n: Int): CsvRows[A] =
-    if(n > 0 && hasNext) drop(n - 1)
+    if(n > 0 && hasNext) {
+      next()
+      drop(n - 1)
+    }
     else this
 
   def dropWhile(p: A => Boolean): CsvRows[A] = {
@@ -80,7 +90,7 @@ trait CsvRows[+A] extends TraversableOnce[A] with Closeable { self =>
   // -------------------------------------------------------------------------------------------------------------------
   override def foreach[U](f: A => U): Unit = while(hasNext) f(next())
   override def seq: TraversableOnce[A] = this
-  override def hasDefiniteSize: Boolean = false
+  override def hasDefiniteSize: Boolean = isEmpty
 
   override def copyToArray[B >: A](xs: Array[B], start: Int, len: Int): Unit = {
     var i = start

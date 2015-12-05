@@ -11,12 +11,17 @@ import tabulate.laws.discipline.arbitrary._
 
 import scala.io.Source
 
-class CsvDataTests extends FunSuite with GeneratorDrivenPropertyChecks {
-  private def write(csv: List[List[String]]): String = {
+object CsvDataTests {
+  def write(csv: List[List[String]]): String = {
     val out = new StringWriter
     csv.foldLeft(out.asCsvWriter[List[String]](','))(_ write _).close()
     out.toString
   }
+}
+
+
+class CsvDataTests extends FunSuite with GeneratorDrivenPropertyChecks {
+  import CsvDataTests._
 
   test("CsvData created from a Source should behave as expected") {
     forAll(csv) { csv =>
