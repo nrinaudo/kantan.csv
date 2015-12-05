@@ -31,9 +31,10 @@ object CsvData {
 }
 
 trait CsvData extends Iterator[Char] with Closeable {
-  def asRows[A](separator: Char, header: Boolean)(implicit da: RowDecoder[A]): Iterator[DecodeResult[A]] = {
-    val data = new CsvIterator(this, separator)
-    if(header) data.drop(1).map(r => r.flatMap(da.decode))
-    else       data.map(r => r.flatMap(da.decode))
+  def asRows[A](separator: Char, header: Boolean)(implicit da: RowDecoder[A]): CsvRows[DecodeResult[A]] = {
+    val data = CsvRows(this, separator)
+
+    if(header && data.hasNext) data.next()
+    data.map(r => r.flatMap(da.decode))
   }
 }

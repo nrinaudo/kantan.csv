@@ -17,7 +17,7 @@ import scalaz.stream._
   @noop def toCsvData(s: S): CsvData
 
   @op("asCsvSource") def source[A: RowDecoder](s: S, sep: Char, header: Boolean): Process[Task, DecodeResult[A]] =
-    io.iteratorR(Task.delay(toCsvData(s)))(src => Task.delay(src.close()))(src => Task.delay(src.asRows[A](sep, header)))
+    io.iteratorR(Task.delay(toCsvData(s)))(src => Task.delay(src.close()))(src => Task.delay(src.asRows[A](sep, header).toIterator))
 
   @op("asUnsafeCsvSource") def unsafeSource[A: RowDecoder](s: S, sep: Char, header: Boolean): Process[Task, A] =
     source(s, sep, header).map(_.get)
