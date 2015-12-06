@@ -27,7 +27,7 @@ class CsvRowsTests extends FunSuite with GeneratorDrivenPropertyChecks {
 
   val csvAndIndex: Gen[(List[List[String]], Int)] = for {
     data  <- csv.suchThat(_.length > 1)
-    index <- Gen.choose(1, data.length - 1)
+    index <- Gen.choose(1, data.length)
   } yield (data, index)
 
   test("drop should behave as expected") {
