@@ -73,11 +73,11 @@ trait CsvRows[+A] extends TraversableOnce[A] with Closeable { self =>
   }
 
   def filter(p: A => Boolean): CsvRows[A] = new CsvRows[A] {
-    var n = find(p)
+    var n = self.find(p)
     override def hasNext: Boolean = n.isDefined
     override def next(): A = {
       val r = n.getOrElse(CsvRows.empty.next())
-      n = find(p)
+      n = self.find(p)
       r
     }
     override def close(): Unit = self.close()

@@ -47,34 +47,31 @@ class CsvRowsTests extends FunSuite with GeneratorDrivenPropertyChecks {
 
   test("forall should return true when all entries match the predicate") {
     forAll(alphaCsv) { csv =>
-      asCsvRows(csv).foreach { row =>
-        assert(row.forall(!_.contains("1")))
-      }
-
+      assert(asCsvRows(csv).forall(_.forall(!_.contains("1"))))
     }
   }
 
   test("forall should return false when at least one entry does not match the predicate") {
     forAll(alphaCsv) { csv =>
-      asCsvRows(csv).foreach { row =>
-        assert(!row.forall(_.forall(a => 97 > a || a > 122)))
-      }
+      assert(!asCsvRows(csv).forall(_.forall(_.forall(a => 97 > a || a > 122))))
     }
   }
 
   test("find should find an element that matches the predicate") {
     forAll(alphaCsv) { csv =>
-      asCsvRows(csv).foreach { row =>
-        assert(row.find(s => s.exists(a => 97 <= a && a <= 122)).isDefined)
-      }
+      assert(asCsvRows(csv).find(_.exists(s => s.exists(a => 97 <= a && a <= 122))).isDefined)
     }
   }
 
   test("find should not find anything when no element matches the predicate") {
     forAll(alphaCsv) { csv =>
-      asCsvRows(csv).foreach { row =>
-        assert(row.find(s => s.exists(a => 97 > a || a > 122)).isEmpty)
-      }
+      assert(asCsvRows(csv).find(_.exists(s => s.exists(a => 97 > a || a > 122))).isEmpty)
+    }
+  }
+
+  test("filter should behave as expected") {
+    forAll(alphaCsv) { csv =>
+      assert(asCsvRows(csv).filter(_.length > 5).forall(_.length > 5))
     }
   }
 
