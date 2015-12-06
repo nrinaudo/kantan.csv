@@ -36,10 +36,33 @@ trait CsvRows[+A] extends TraversableOnce[A] with Closeable { self =>
     }
     else this
 
-  def dropWhile(p: A => Boolean): CsvRows[A] = {
-    while(hasNext && p(next())) {}
-    this
-  }
+  def dropWhile(p: A => Boolean): CsvRows[A] =
+    // Empty rows: nothing to drop
+    if(isEmpty) this
+    else {
+      // Looks for the first element that does not match p.
+      var n = self.next()
+      while(self.hasNext && p(n)) n = self.next()
+
+      // No such element, return the empty stream.
+      if(isEmpty && p(n)) this
+
+      // We've found one such element, returns a bit of a mess of a CsvRows that'll first return it, then whatever is
+      // left in the stream.
+      else new CsvRows[A] {
+        var done = false
+
+        override def hasNext: Boolean = !done || self.hasNext
+        override def close() = self.close()
+
+        override def next(): A =
+          if(done) self.next()
+          else {
+            done = true
+            n
+          }
+      }
+    }
 
   def take(n: Int): CsvRows[A] = new CsvRows[A] {
     var count = n

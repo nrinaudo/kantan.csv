@@ -36,6 +36,12 @@ class CsvRowsTests extends FunSuite with GeneratorDrivenPropertyChecks {
     }
   }
 
+  test("dropWhile should behave as expected") {
+    forAll(csvWith(Gen.identifier.suchThat(_.nonEmpty))) { csv =>
+      assert(asCsvRows(csv).dropWhile(_.length % 2 == 0).toList == csv.dropWhile(_.length % 2 == 0))
+    }
+  }
+
   test("take should behave as expected") {
     forAll(csvAndIndex) { case (csv, index) =>
       assert(asCsvRows(csv).take(index).toList == csv.take(index))
@@ -91,7 +97,7 @@ class CsvRowsTests extends FunSuite with GeneratorDrivenPropertyChecks {
     forAll(alphaCsv) { csv =>
       assert(asCsvRows(csv).withFilter(_.length > 5).forall(_.length > 5))
     }
-    }
+  }
 
   test("isTraversableAgain should return false") {
     forAll(csv) { csv =>
