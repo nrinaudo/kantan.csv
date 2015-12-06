@@ -1,12 +1,11 @@
 package tabulate
 
-import ops._
 import org.scalacheck.Gen
-
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import tabulate.CsvDataTests._
 import tabulate.laws.discipline.arbitrary._
-import CsvDataTests._
+import tabulate.ops._
 
 class CsvRowsTests extends FunSuite with GeneratorDrivenPropertyChecks {
   private def asCsvRows(csv: List[List[String]]): CsvRows[List[String]] =
@@ -40,6 +39,46 @@ class CsvRowsTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("take should behave as expected") {
     forAll(csvAndIndex) { case (csv, index) =>
       assert(asCsvRows(csv).take(index).toList == csv.take(index))
+    }
+  }
+
+  def csvWith[A](ag: Gen[A]): Gen[List[List[String]]] = Gen.nonEmptyListOf(Gen.nonEmptyListOf(ag.map(_.toString)))
+  val alphaCsv: Gen[List[List[String]]] = csvWith(Gen.nonEmptyListOf(Gen.alphaLowerChar).map(_.mkString))
+
+  test("forall should return true when all entries match the predicate") {
+    forAll(alphaCsv) { csv =>
+      asCsvRows(csv).foreach { row =>
+        assert(row.forall(!_.contains("1")))
+      }
+
+    }
+  }
+
+  test("forall should return false when at least one entry does not match the predicate") {
+    forAll(alphaCsv) { csv =>
+      asCsvRows(csv).foreach { row =>
+        assert(!row.forall(_.forall(a => 97 > a || a > 122)))
+      }
+    }
+  }
+
+  test("find should find an element that matches the predicate") {
+    forAll(alphaCsv) { csv =>
+      asCsvRows(csv).foreach { row =>
+        if(!row.find(s => s.exists(a => 97 <= a && a <= 122)).isDefined)
+          println(row)
+        assert(row.find(s => s.exists(a => 97 <= a && a <= 122)).isDefined)
+      }
+    }
+  }
+
+  test("find should not find anything when no element matches the predicate") {
+    forAll(alphaCsv) { csv =>
+      asCsvRows(csv).foreach { row =>
+        if(!row.find(s => s.exists(a => 97 > a || a > 122)).isEmpty)
+          println(row)
+        assert(row.find(s => s.exists(a => 97 > a || a > 122)).isEmpty)
+      }
     }
   }
 
