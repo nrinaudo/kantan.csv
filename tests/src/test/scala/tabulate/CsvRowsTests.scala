@@ -69,11 +69,29 @@ class CsvRowsTests extends FunSuite with GeneratorDrivenPropertyChecks {
     }
   }
 
+  test("exists should return true when at least one element matches the predicate") {
+    forAll(alphaCsv) { csv =>
+      assert(asCsvRows(csv).exists(_.exists(s => s.exists(a => 97 <= a && a <= 122))))
+    }
+  }
+
+  test("exists should return false when no element matches the predicate") {
+    forAll(alphaCsv) { csv =>
+      assert(!asCsvRows(csv).exists(_.exists(s => s.exists(a => 97 > a && a > 122))))
+    }
+  }
+
   test("filter should behave as expected") {
     forAll(alphaCsv) { csv =>
       assert(asCsvRows(csv).filter(_.length > 5).forall(_.length > 5))
     }
   }
+
+  test("withFilter should behave as expected") {
+    forAll(alphaCsv) { csv =>
+      assert(asCsvRows(csv).withFilter(_.length > 5).forall(_.length > 5))
+    }
+    }
 
   test("isTraversableAgain should return false") {
     forAll(csv) { csv =>
