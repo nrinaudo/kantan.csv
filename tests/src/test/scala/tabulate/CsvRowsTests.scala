@@ -65,8 +65,6 @@ class CsvRowsTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("find should find an element that matches the predicate") {
     forAll(alphaCsv) { csv =>
       asCsvRows(csv).foreach { row =>
-        if(!row.find(s => s.exists(a => 97 <= a && a <= 122)).isDefined)
-          println(row)
         assert(row.find(s => s.exists(a => 97 <= a && a <= 122)).isDefined)
       }
     }
@@ -75,8 +73,6 @@ class CsvRowsTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("find should not find anything when no element matches the predicate") {
     forAll(alphaCsv) { csv =>
       asCsvRows(csv).foreach { row =>
-        if(!row.find(s => s.exists(a => 97 > a || a > 122)).isEmpty)
-          println(row)
         assert(row.find(s => s.exists(a => 97 > a || a > 122)).isEmpty)
       }
     }
