@@ -48,6 +48,15 @@ class CsvRowsTests extends FunSuite with GeneratorDrivenPropertyChecks {
     }
   }
 
+  test("take should fail when taking more data than available") {
+    forAll(csv) { csv =>
+      val rows = asCsvRows(csv).take(csv.length + 1)
+      (0 to csv.length).foreach { _ => rows.next() }
+      intercept[NoSuchElementException] { rows.next() }
+      ()
+    }
+  }
+
   def csvWith[A](ag: Gen[A]): Gen[List[List[String]]] = Gen.nonEmptyListOf(Gen.nonEmptyListOf(ag.map(_.toString)))
   val alphaCsv: Gen[List[List[String]]] = csvWith(Gen.nonEmptyListOf(Gen.alphaLowerChar).map(_.mkString))
 
