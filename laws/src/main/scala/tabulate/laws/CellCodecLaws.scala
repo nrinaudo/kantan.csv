@@ -1,7 +1,6 @@
 package tabulate.laws
 
-import tabulate.{ops, DecodeResult, CellCodec}
-import ops._
+import tabulate.{CellCodec, DecodeResult}
 
 trait CellCodecLaws[A] {
   implicit def codec: CellCodec[A]
