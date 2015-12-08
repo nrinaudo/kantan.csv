@@ -92,9 +92,9 @@ object CellDecoder extends LowPriorityCellDecoders {
     *
     * Any non-empty string will map to `Some`, the empty string to `None`.
     */
-  implicit def opt[A: CellDecoder]: CellDecoder[Option[A]] = CellDecoder { s =>
+  implicit def opt[A](implicit da: CellDecoder[A]): CellDecoder[Option[A]] = CellDecoder { s =>
     if(s.isEmpty) DecodeResult.success(None)
-    else          CellDecoder[A].decode(s).map(Option.apply)
+    else          da.decode(s).map(Option.apply)
   }
 
   /** Turns a cell into an instance of `Either[A, B]`, provided `A` and `B` have an inplicit `CellDecoder` in scope.
@@ -102,8 +102,8 @@ object CellDecoder extends LowPriorityCellDecoders {
     * This is done by first attempting to parse the cell as an `A`. If that fails, we'll try parsing it as a `B`. If that
     * fails as well, [[DecodeResult.DecodeFailure]] will be returned.
     */
-  implicit def either[A: CellDecoder, B: CellDecoder]: CellDecoder[Either[A, B]] =
-    CellDecoder { s => CellDecoder[A].decode(s).map(a => Left(a): Either[A, B])
-      .orElse(CellDecoder[B].decode(s).map(b => Right(b): Either[A, B]))
+  implicit def either[A, B](implicit da: CellDecoder[A], db: CellDecoder[B]): CellDecoder[Either[A, B]] =
+    CellDecoder { s => da.decode(s).map(a => Left(a): Either[A, B])
+      .orElse(db.decode(s).map(b => Right(b): Either[A, B]))
     }
 }
