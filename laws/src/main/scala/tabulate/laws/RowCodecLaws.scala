@@ -20,13 +20,13 @@ trait RowCodecLaws[A] {
   def encodeComposition[B, C](c: C, f: B => A, g: C => B): Boolean =
     codec.contramap(g andThen f).encode(c) == codec.contramap(f).contramap(g).encode(c)
 
-  def csvReversibility(as: List[A]): Boolean = {
+  def csvReversibility(as: List[A], header: List[String]): Boolean = {
     // Writes as as CSV
     val sw = new StringWriter()
-    as.foldLeft(sw.asCsvWriter[A](','))(_ write _).close()
+    as.foldLeft(sw.asCsvWriter[A](',', header))(_ write _).close()
 
     // Parses it, makes sure it didn't get "corrupt"
-    as == CsvInput[String].unsafeRows[A](sw.toString, ',', false).toList
+    as == CsvInput[String].unsafeRows[A](sw.toString, ',', true).toList
   }
 }
 

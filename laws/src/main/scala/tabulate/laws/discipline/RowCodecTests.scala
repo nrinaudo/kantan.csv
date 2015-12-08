@@ -1,6 +1,6 @@
 package tabulate.laws.discipline
 
-import org.scalacheck.Arbitrary
+import org.scalacheck.{Gen, Arbitrary}
 import org.scalacheck.Prop._
 import org.typelevel.discipline.Laws
 import tabulate.RowCodec
@@ -20,10 +20,14 @@ trait RowCodecTests[A] extends Laws {
     "encode composition" -> forAll(laws.encodeComposition[B, C] _)
   )
 
-  def reversibleRowCodec[B: Arbitrary, C: Arbitrary]: RuleSet = new DefaultRuleSet(
-    name = "reversibleRowCodec",
-    parent = Some(rowCodec[B, C]),
-    "csv reversibility" -> forAll(laws.csvReversibility _))
+  def reversibleRowCodec[B: Arbitrary, C: Arbitrary]: RuleSet = {
+    // Overrides the default Arbitrary[List[String]] to generate non-empty lists of non-empty strings.
+    implicit val header = Arbitrary(Gen.nonEmptyListOf(Gen.nonEmptyListOf(Gen.alphaNumChar).map(_.mkString)))
+    new DefaultRuleSet(
+      name = "reversibleRowCodec",
+      parent = Some(rowCodec[B, C]),
+      "csv reversibility" -> forAll(laws.csvReversibility _))
+  }
 }
 
 object RowCodecTests {
