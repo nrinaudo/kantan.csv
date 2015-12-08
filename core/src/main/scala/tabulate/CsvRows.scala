@@ -8,7 +8,7 @@ object CsvRows {
   def apply(data: CsvData, separator: Char): CsvRows[DecodeResult[Seq[String]]] = new DataRows(data, separator)
 
   val empty: CsvRows[Nothing] = new CsvRows[Nothing] {
-    override def next() = throw new NoSuchElementException("next on empty CSV rows")
+    override def readNext() = throw new NoSuchElementException("next on empty CSV rows")
     override def hasNext = false
     override def close() = {}
   }
@@ -18,13 +18,24 @@ object CsvRows {
   *
   * This class is very similar to an `Iterator`, with an added [[close]] method to close the underlying source of CSV
   * data.
-  *
-  * Implementations are expected to call [[close]] when no more data is available to be read.
   */
 trait CsvRows[+A] extends TraversableOnce[A] with Closeable { self =>
   def hasNext: Boolean
-  def next(): A
+  protected def readNext(): A
   def close(): Unit
+
+  def next(): A = {
+    val a = {
+      try { readNext() }
+      catch {
+        case e: Throwable =>
+          close()
+          throw e
+      }
+    }
+    if(!hasNext) close()
+    a
+  }
 
 
   // - Useful methods --------------------------------------------------------------------------------------------------
@@ -55,8 +66,8 @@ trait CsvRows[+A] extends TraversableOnce[A] with Closeable { self =>
         override def hasNext: Boolean = !done || self.hasNext
         override def close() = self.close()
 
-        override def next(): A =
-          if(done) self.next()
+        override def readNext(): A =
+          if(done) self.readNext()
           else {
             done = true
             n
@@ -67,9 +78,9 @@ trait CsvRows[+A] extends TraversableOnce[A] with Closeable { self =>
   def take(n: Int): CsvRows[A] = new CsvRows[A] {
     var count = n
     override def hasNext: Boolean = count > 0 && self.hasNext
-    override def next(): A = {
+    override def readNext(): A = {
       if(count > 0) {
-        val a = self.next()
+        val a = self.readNext()
         count -= 1
         a
       }
@@ -83,7 +94,7 @@ trait CsvRows[+A] extends TraversableOnce[A] with Closeable { self =>
   // -------------------------------------------------------------------------------------------------------------------
   def map[B](f: A => B): CsvRows[B] = new CsvRows[B] {
     override def hasNext: Boolean = self.hasNext
-    override def next(): B = f(self.next())
+    override def readNext(): B = f(self.readNext())
     override def close(): Unit = self.close()
   }
 
@@ -91,15 +102,15 @@ trait CsvRows[+A] extends TraversableOnce[A] with Closeable { self =>
     private var cur: CsvRows[B] = CsvRows.empty
 
     override def hasNext: Boolean = cur.hasNext || self.hasNext && { cur = f(self.next()); hasNext}
-    override def next(): B = cur.next()
+    override def readNext(): B = cur.readNext()
     override def close(): Unit = self.close()
   }
 
   def filter(p: A => Boolean): CsvRows[A] = new CsvRows[A] {
     var n = self.find(p)
     override def hasNext: Boolean = n.isDefined
-    override def next(): A = {
-      val r = n.getOrElse(CsvRows.empty.next())
+    override def readNext(): A = {
+      val r = n.getOrElse(CsvRows.empty.readNext())
       n = self.find(p)
       r
     }
@@ -288,24 +299,16 @@ private class DataRows(val data: CsvData, separator: Char) extends CsvRows[Decod
   }
 
   override def hasNext: Boolean = input.hasNext
-  override def next(): DecodeResult[Seq[String]] = {
+  override def readNext(): DecodeResult[Seq[String]] = {
     try {
       row.clear()
 
       while(parseNext()) {}
 
-      // If we've finished parsing the whole stream, close it.
-      if(!hasNext) close()
-
       DecodeResult.success(row)
     }
     catch {
-      case _: Exception =>
-        // Closes the underlying stream, ignores errors at this point.
-        try { close() }
-        catch { case _: Exception => }
-
-        DecodeResult.readFailure(line, column)
+      case _: Exception => DecodeResult.readFailure(line, column)
     }
   }
 
