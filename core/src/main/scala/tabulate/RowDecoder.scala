@@ -39,15 +39,15 @@ import scala.collection.generic.CanBuildFrom
 @export.imports[RowDecoder]
 trait LowPriorityRowDecoders {
   /** Parses a CSV row into a collection of `A`. */
-  implicit def collection[A: CellDecoder, M[X]](implicit cbf: CanBuildFrom[Nothing, A, M[A]]): RowDecoder[M[A]] =
+  implicit def collection[A, M[X]](implicit da: CellDecoder[A], cbf: CanBuildFrom[Nothing, A, M[A]]): RowDecoder[M[A]] =
     RowDecoder(ss => ss.foldLeft(DecodeResult.success(cbf.apply())) { (racc, s) => for {
       acc <- racc
-      a   <- CellDecoder[A].decode(s)
+      a   <- da.decode(s)
     } yield acc += a
     }.map(_.result()))
 
-  implicit def cellDecoder[A: CellDecoder]: RowDecoder[A] = RowDecoder(ss =>
-    ss.headOption.map(h => if(ss.tail.isEmpty) CellDecoder[A].decode(h) else DecodeResult.decodeFailure).getOrElse(DecodeResult.decodeFailure)
+  implicit def cellDecoder[A](da: CellDecoder[A]): RowDecoder[A] = RowDecoder(ss =>
+    ss.headOption.map(h => if(ss.tail.isEmpty) da.decode(h) else DecodeResult.decodeFailure).getOrElse(DecodeResult.decodeFailure)
   )
 }
 
@@ -79,13 +79,14 @@ object RowDecoder extends LowPriorityRowDecoders {
     * This is done by first attempting to parse the row as an `A`. If that fails, we'll try parsing it as a `B`. If that
     * fails as well, [[DecodeResult.DecodeFailure]] will be returned.
     */
-  implicit def either[A: RowDecoder, B: RowDecoder]: RowDecoder[Either[A, B]] = RowDecoder { ss =>
-    RowDecoder[A].decode(ss).map(a => Left(a): Either[A, B]).orElse(RowDecoder[B].decode(ss).map(b => Right(b): Either[A, B]))
-  }
+  implicit def either[A, B](implicit da: RowDecoder[A], db: RowDecoder[B]): RowDecoder[Either[A, B]] =
+    RowDecoder { ss =>
+      da.decode(ss).map(a => Left(a): Either[A, B]).orElse(db.decode(ss).map(b => Right(b): Either[A, B]))
+    }
 
-  implicit def option[A: RowDecoder]: RowDecoder[Option[A]] = RowDecoder { ss =>
+  implicit def option[A](da: RowDecoder[A]): RowDecoder[Option[A]] = RowDecoder { ss =>
     if(ss.isEmpty) DecodeResult.success(None)
-    else           RowDecoder[A].decode(ss).map(a => Some(a))
+    else           da.decode(ss).map(a => Some(a))
   }
 
 

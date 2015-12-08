@@ -70,11 +70,13 @@ object CellEncoder extends LowPriorityCellEncoders {
   implicit val uuid  : CellEncoder[UUID]       = CellEncoder(_.toString)
 
   /** Turns an `Option[A]` into a CSV cell, provided `A` has a `CellEncoder`. */
-  implicit def opt[A: CellEncoder]: CellEncoder[Option[A]] = CellEncoder(oa => oa.map(CellEncoder[A].encode).getOrElse(""))
+  implicit def opt[A](implicit ea: CellEncoder[A]): CellEncoder[Option[A]] =
+    CellEncoder(oa => oa.map(ea.encode).getOrElse(""))
 
   /** Turns an `Either[A, B]` into a CSV cell, provided both `A` and `B` have a `CellEncoder`. */
-  implicit def either[A: CellEncoder, B: CellEncoder]: CellEncoder[Either[A, B]] = CellEncoder(eab => eab match {
-    case Left(a)  => CellEncoder[A].encode(a)
-    case Right(b) => CellEncoder[B].encode(b)
-  })
+  implicit def either[A, B](implicit ea: CellEncoder[A], eb: CellEncoder[B]): CellEncoder[Either[A, B]] =
+    CellEncoder(eab => eab match {
+      case Left(a)  => ea.encode(a)
+      case Right(b) => eb.encode(b)
+    })
 }
