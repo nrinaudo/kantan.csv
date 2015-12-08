@@ -1,7 +1,5 @@
 package tabulate
 
-import CellEncoder.ops._
-
 import simulacrum.{noop, op, typeclass}
 
 @typeclass trait RowEncoder[A] { self =>
@@ -11,11 +9,10 @@ import simulacrum.{noop, op, typeclass}
 
 @export.imports[RowEncoder]
 trait LowPriorityRowEncoders {
-  implicit def traversable[A: CellEncoder, M[X] <: TraversableOnce[X]]: RowEncoder[M[A]] = RowEncoder { as =>
-    as.foldLeft(Seq.newBuilder[String])((acc, a) => acc += CellEncoder[A].encode(a)).result()
-  }
+  implicit def traversable[A, M[X] <: TraversableOnce[X]](implicit ea: CellEncoder[A]): RowEncoder[M[A]] =
+    RowEncoder { as => as.foldLeft(Seq.newBuilder[String])((acc, a) => acc += ea.encode(a)).result() }
 
-  implicit def cellEncoder[A: CellEncoder]: RowEncoder[A] = RowEncoder(a => Seq(CellEncoder[A].encode(a)))
+  implicit def cellEncoder[A](implicit ea: CellEncoder[A]): RowEncoder[A] = RowEncoder(a => Seq(ea.encode(a)))
 }
 
 object RowEncoder extends LowPriorityRowEncoders {
@@ -26,204 +23,225 @@ object RowEncoder extends LowPriorityRowEncoders {
   /** Specialised encoder for sequences of strings: these do not need to be modified. */
   implicit def strSeq[M[X] <: Seq[X]]: RowEncoder[M[String]] = RowEncoder(ss => ss)
 
-  implicit def either[A: RowEncoder, B: RowEncoder]: RowEncoder[Either[A, B]] = RowEncoder { ss => ss match {
-    case Left(a) => RowEncoder[A].encode(a)
-    case Right(b) => RowEncoder[B].encode(b)
-  }}
+  implicit def either[A, B](implicit ea: RowEncoder[A], eb: RowEncoder[B]): RowEncoder[Either[A, B]] =
+    RowEncoder { ss => ss match {
+      case Left(a) => ea.encode(a)
+      case Right(b) => eb.encode(b)
+    }}
 
-  implicit def option[A: RowEncoder]: RowEncoder[Option[A]] =
-    RowEncoder(_.map(a => RowEncoder[A].encode(a)).getOrElse(Seq.empty))
+  implicit def option[A](implicit ea: RowEncoder[A]): RowEncoder[Option[A]] =
+    RowEncoder(_.map(a => ea.encode(a)).getOrElse(Seq.empty))
 
-  def encoder1[C, A0: CellEncoder](f: C => A0): RowEncoder[C] =
-    RowEncoder(a => List(CellEncoder[A0].encode(f(a))))
+  def encoder1[C, A0: CellEncoder](f: C => A0)(implicit a0: CellEncoder[A0]): RowEncoder[C] =
+    RowEncoder(a => List(a0.encode(f(a))))
 
-  def encoder2[C, A0: CellEncoder, A1: CellEncoder](f: C => (A0, A1))(i0: Int, i1: Int): RowEncoder[C] =
+  def encoder2[C, A0: CellEncoder, A1: CellEncoder](f: C => (A0, A1))(i0: Int, i1: Int)
+                                                   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(2)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
       dest.toSeq
     }
 
-  def encoder3[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder](f: C => (A0, A1, A2))
-                                                                    (i0: Int, i1: Int, i2: Int): RowEncoder[C] =
+  def encoder3[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder]
+  (f: C => (A0, A1, A2))(i0: Int, i1: Int, i2: Int)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(3)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
-      dest(i2) = CellEncoder[A2].encode(e._3)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
+      dest(i2) = a2.encode(e._3)
       dest.toSeq
     }
 
   def encoder4[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder]
-  (f: C => (A0, A1, A2, A3))(i0: Int, i1: Int, i2: Int, i3: Int): RowEncoder[C] =
+  (f: C => (A0, A1, A2, A3))(i0: Int, i1: Int, i2: Int, i3: Int)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(4)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
-      dest(i2) = CellEncoder[A2].encode(e._3)
-      dest(i3) = CellEncoder[A3].encode(e._4)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
+      dest(i2) = a2.encode(e._3)
+      dest(i3) = a3.encode(e._4)
       dest.toSeq
     }
 
   def encoder5[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder]
   (f: C => (A0, A1, A2, A3, A4))
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int): RowEncoder[C] =
+  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4]):
+  RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(5)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
-      dest(i2) = CellEncoder[A2].encode(e._3)
-      dest(i3) = CellEncoder[A3].encode(e._4)
-      dest(i4) = CellEncoder[A4].encode(e._5)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
+      dest(i2) = a2.encode(e._3)
+      dest(i3) = a3.encode(e._4)
+      dest(i4) = a4.encode(e._5)
       dest.toSeq
     }
 
   def encoder6[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder]
   (f: C => (A0, A1, A2, A3, A4, A5))
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): RowEncoder[C] =
+  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(6)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
-      dest(i2) = CellEncoder[A2].encode(e._3)
-      dest(i3) = CellEncoder[A3].encode(e._4)
-      dest(i4) = CellEncoder[A4].encode(e._5)
-      dest(i5) = CellEncoder[A5].encode(e._6)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
+      dest(i2) = a2.encode(e._3)
+      dest(i3) = a3.encode(e._4)
+      dest(i4) = a4.encode(e._5)
+      dest(i5) = a5.encode(e._6)
       dest.toSeq
     }
 
   def encoder7[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder]
   (f: C => (A0, A1, A2, A3, A4, A5, A6))
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): RowEncoder[C] =
+  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(7)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
-      dest(i2) = CellEncoder[A2].encode(e._3)
-      dest(i3) = CellEncoder[A3].encode(e._4)
-      dest(i4) = CellEncoder[A4].encode(e._5)
-      dest(i5) = CellEncoder[A5].encode(e._6)
-      dest(i6) = CellEncoder[A6].encode(e._7)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
+      dest(i2) = a2.encode(e._3)
+      dest(i3) = a3.encode(e._4)
+      dest(i4) = a4.encode(e._5)
+      dest(i5) = a5.encode(e._6)
+      dest(i6) = a6.encode(e._7)
       dest.toSeq
     }
 
   def encoder8[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder]
   (f: C => (A0, A1, A2, A3, A4, A5, A6, A7))
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int): RowEncoder[C] =
+  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(8)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
-      dest(i2) = CellEncoder[A2].encode(e._3)
-      dest(i3) = CellEncoder[A3].encode(e._4)
-      dest(i4) = CellEncoder[A4].encode(e._5)
-      dest(i5) = CellEncoder[A5].encode(e._6)
-      dest(i6) = CellEncoder[A6].encode(e._7)
-      dest(i7) = CellEncoder[A7].encode(e._8)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
+      dest(i2) = a2.encode(e._3)
+      dest(i3) = a3.encode(e._4)
+      dest(i4) = a4.encode(e._5)
+      dest(i5) = a5.encode(e._6)
+      dest(i6) = a6.encode(e._7)
+      dest(i7) = a7.encode(e._8)
       dest.toSeq
     }
 
   def encoder9[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder]
   (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8))
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int): RowEncoder[C] =
+  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(9)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
-      dest(i2) = CellEncoder[A2].encode(e._3)
-      dest(i3) = CellEncoder[A3].encode(e._4)
-      dest(i4) = CellEncoder[A4].encode(e._5)
-      dest(i5) = CellEncoder[A5].encode(e._6)
-      dest(i6) = CellEncoder[A6].encode(e._7)
-      dest(i7) = CellEncoder[A7].encode(e._8)
-      dest(i8) = CellEncoder[A8].encode(e._9)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
+      dest(i2) = a2.encode(e._3)
+      dest(i3) = a3.encode(e._4)
+      dest(i4) = a4.encode(e._5)
+      dest(i5) = a5.encode(e._6)
+      dest(i6) = a6.encode(e._7)
+      dest(i7) = a7.encode(e._8)
+      dest(i8) = a8.encode(e._9)
       dest.toSeq
     }
 
   def encoder10[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder]
   (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9))
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int): RowEncoder[C] =
+  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(10)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
-      dest(i2) = CellEncoder[A2].encode(e._3)
-      dest(i3) = CellEncoder[A3].encode(e._4)
-      dest(i4) = CellEncoder[A4].encode(e._5)
-      dest(i5) = CellEncoder[A5].encode(e._6)
-      dest(i6) = CellEncoder[A6].encode(e._7)
-      dest(i7) = CellEncoder[A7].encode(e._8)
-      dest(i8) = CellEncoder[A8].encode(e._9)
-      dest(i9) = CellEncoder[A9].encode(e._10)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
+      dest(i2) = a2.encode(e._3)
+      dest(i3) = a3.encode(e._4)
+      dest(i4) = a4.encode(e._5)
+      dest(i5) = a5.encode(e._6)
+      dest(i6) = a6.encode(e._7)
+      dest(i7) = a7.encode(e._8)
+      dest(i8) = a8.encode(e._9)
+      dest(i9) = a9.encode(e._10)
       dest.toSeq
     }
 
   def encoder11[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder]
   (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10))
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int): RowEncoder[C] =
+  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(11)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
-      dest(i2) = CellEncoder[A2].encode(e._3)
-      dest(i3) = CellEncoder[A3].encode(e._4)
-      dest(i4) = CellEncoder[A4].encode(e._5)
-      dest(i5) = CellEncoder[A5].encode(e._6)
-      dest(i6) = CellEncoder[A6].encode(e._7)
-      dest(i7) = CellEncoder[A7].encode(e._8)
-      dest(i8) = CellEncoder[A8].encode(e._9)
-      dest(i9) = CellEncoder[A9].encode(e._10)
-      dest(i10) = CellEncoder[A10].encode(e._11)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
+      dest(i2) = a2.encode(e._3)
+      dest(i3) = a3.encode(e._4)
+      dest(i4) = a4.encode(e._5)
+      dest(i5) = a5.encode(e._6)
+      dest(i6) = a6.encode(e._7)
+      dest(i7) = a7.encode(e._8)
+      dest(i8) = a8.encode(e._9)
+      dest(i9) = a9.encode(e._10)
+      dest(i10) = a10.encode(e._11)
       dest.toSeq
     }
 
   def encoder12[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder]
   (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11))
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int):
-  RowEncoder[C] =
+  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(12)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
-      dest(i2) = CellEncoder[A2].encode(e._3)
-      dest(i3) = CellEncoder[A3].encode(e._4)
-      dest(i4) = CellEncoder[A4].encode(e._5)
-      dest(i5) = CellEncoder[A5].encode(e._6)
-      dest(i6) = CellEncoder[A6].encode(e._7)
-      dest(i7) = CellEncoder[A7].encode(e._8)
-      dest(i8) = CellEncoder[A8].encode(e._9)
-      dest(i9) = CellEncoder[A9].encode(e._10)
-      dest(i10) = CellEncoder[A10].encode(e._11)
-      dest(i11) = CellEncoder[A11].encode(e._12)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
+      dest(i2) = a2.encode(e._3)
+      dest(i3) = a3.encode(e._4)
+      dest(i4) = a4.encode(e._5)
+      dest(i5) = a5.encode(e._6)
+      dest(i6) = a6.encode(e._7)
+      dest(i7) = a7.encode(e._8)
+      dest(i8) = a8.encode(e._9)
+      dest(i9) = a9.encode(e._10)
+      dest(i10) = a10.encode(e._11)
+      dest(i11) = a11.encode(e._12)
       dest.toSeq
     }
 
@@ -231,24 +249,27 @@ object RowEncoder extends LowPriorityRowEncoders {
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder]
   (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int): RowEncoder[C] =
+   i12: Int)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(13)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
-      dest(i2) = CellEncoder[A2].encode(e._3)
-      dest(i3) = CellEncoder[A3].encode(e._4)
-      dest(i4) = CellEncoder[A4].encode(e._5)
-      dest(i5) = CellEncoder[A5].encode(e._6)
-      dest(i6) = CellEncoder[A6].encode(e._7)
-      dest(i7) = CellEncoder[A7].encode(e._8)
-      dest(i8) = CellEncoder[A8].encode(e._9)
-      dest(i9) = CellEncoder[A9].encode(e._10)
-      dest(i10) = CellEncoder[A10].encode(e._11)
-      dest(i11) = CellEncoder[A11].encode(e._12)
-      dest(i12) = CellEncoder[A12].encode(e._13)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
+      dest(i2) = a2.encode(e._3)
+      dest(i3) = a3.encode(e._4)
+      dest(i4) = a4.encode(e._5)
+      dest(i5) = a5.encode(e._6)
+      dest(i6) = a6.encode(e._7)
+      dest(i7) = a7.encode(e._8)
+      dest(i8) = a8.encode(e._9)
+      dest(i9) = a9.encode(e._10)
+      dest(i10) = a10.encode(e._11)
+      dest(i11) = a11.encode(e._12)
+      dest(i12) = a12.encode(e._13)
       dest.toSeq
     }
 
@@ -257,25 +278,28 @@ object RowEncoder extends LowPriorityRowEncoders {
   A13: CellEncoder]
   (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int, i13: Int): RowEncoder[C] =
+   i12: Int, i13: Int)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(14)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
-      dest(i2) = CellEncoder[A2].encode(e._3)
-      dest(i3) = CellEncoder[A3].encode(e._4)
-      dest(i4) = CellEncoder[A4].encode(e._5)
-      dest(i5) = CellEncoder[A5].encode(e._6)
-      dest(i6) = CellEncoder[A6].encode(e._7)
-      dest(i7) = CellEncoder[A7].encode(e._8)
-      dest(i8) = CellEncoder[A8].encode(e._9)
-      dest(i9) = CellEncoder[A9].encode(e._10)
-      dest(i10) = CellEncoder[A10].encode(e._11)
-      dest(i11) = CellEncoder[A11].encode(e._12)
-      dest(i12) = CellEncoder[A12].encode(e._13)
-      dest(i13) = CellEncoder[A13].encode(e._14)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
+      dest(i2) = a2.encode(e._3)
+      dest(i3) = a3.encode(e._4)
+      dest(i4) = a4.encode(e._5)
+      dest(i5) = a5.encode(e._6)
+      dest(i6) = a6.encode(e._7)
+      dest(i7) = a7.encode(e._8)
+      dest(i8) = a8.encode(e._9)
+      dest(i9) = a9.encode(e._10)
+      dest(i10) = a10.encode(e._11)
+      dest(i11) = a11.encode(e._12)
+      dest(i12) = a12.encode(e._13)
+      dest(i13) = a13.encode(e._14)
       dest.toSeq
     }
 
@@ -284,26 +308,30 @@ object RowEncoder extends LowPriorityRowEncoders {
   A13: CellEncoder, A14: CellEncoder]
   (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int, i13: Int, i14: Int): RowEncoder[C] =
+   i12: Int, i13: Int, i14: Int)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14]):
+  RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(15)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
-      dest(i2) = CellEncoder[A2].encode(e._3)
-      dest(i3) = CellEncoder[A3].encode(e._4)
-      dest(i4) = CellEncoder[A4].encode(e._5)
-      dest(i5) = CellEncoder[A5].encode(e._6)
-      dest(i6) = CellEncoder[A6].encode(e._7)
-      dest(i7) = CellEncoder[A7].encode(e._8)
-      dest(i8) = CellEncoder[A8].encode(e._9)
-      dest(i9) = CellEncoder[A9].encode(e._10)
-      dest(i10) = CellEncoder[A10].encode(e._11)
-      dest(i11) = CellEncoder[A11].encode(e._12)
-      dest(i12) = CellEncoder[A12].encode(e._13)
-      dest(i13) = CellEncoder[A13].encode(e._14)
-      dest(i14) = CellEncoder[A14].encode(e._15)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
+      dest(i2) = a2.encode(e._3)
+      dest(i3) = a3.encode(e._4)
+      dest(i4) = a4.encode(e._5)
+      dest(i5) = a5.encode(e._6)
+      dest(i6) = a6.encode(e._7)
+      dest(i7) = a7.encode(e._8)
+      dest(i8) = a8.encode(e._9)
+      dest(i9) = a9.encode(e._10)
+      dest(i10) = a10.encode(e._11)
+      dest(i11) = a11.encode(e._12)
+      dest(i12) = a12.encode(e._13)
+      dest(i13) = a13.encode(e._14)
+      dest(i14) = a14.encode(e._15)
       dest.toSeq
     }
 
@@ -312,27 +340,31 @@ object RowEncoder extends LowPriorityRowEncoders {
   A13: CellEncoder, A14: CellEncoder, A15: CellEncoder]
   (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int, i13: Int, i14: Int, i15: Int): RowEncoder[C] =
+   i12: Int, i13: Int, i14: Int, i15: Int)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
+   a15: CellEncoder[A15]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(16)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
-      dest(i2) = CellEncoder[A2].encode(e._3)
-      dest(i3) = CellEncoder[A3].encode(e._4)
-      dest(i4) = CellEncoder[A4].encode(e._5)
-      dest(i5) = CellEncoder[A5].encode(e._6)
-      dest(i6) = CellEncoder[A6].encode(e._7)
-      dest(i7) = CellEncoder[A7].encode(e._8)
-      dest(i8) = CellEncoder[A8].encode(e._9)
-      dest(i9) = CellEncoder[A9].encode(e._10)
-      dest(i10) = CellEncoder[A10].encode(e._11)
-      dest(i11) = CellEncoder[A11].encode(e._12)
-      dest(i12) = CellEncoder[A12].encode(e._13)
-      dest(i13) = CellEncoder[A13].encode(e._14)
-      dest(i14) = CellEncoder[A14].encode(e._15)
-      dest(i15) = CellEncoder[A15].encode(e._16)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
+      dest(i2) = a2.encode(e._3)
+      dest(i3) = a3.encode(e._4)
+      dest(i4) = a4.encode(e._5)
+      dest(i5) = a5.encode(e._6)
+      dest(i6) = a6.encode(e._7)
+      dest(i7) = a7.encode(e._8)
+      dest(i8) = a8.encode(e._9)
+      dest(i9) = a9.encode(e._10)
+      dest(i10) = a10.encode(e._11)
+      dest(i11) = a11.encode(e._12)
+      dest(i12) = a12.encode(e._13)
+      dest(i13) = a13.encode(e._14)
+      dest(i14) = a14.encode(e._15)
+      dest(i15) = a15.encode(e._16)
       dest.toSeq
     }
 
@@ -341,28 +373,32 @@ object RowEncoder extends LowPriorityRowEncoders {
   A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder]
   (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int): RowEncoder[C] =
+   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
+   a15: CellEncoder[A15], a16: CellEncoder[A16]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(17)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
-      dest(i2) = CellEncoder[A2].encode(e._3)
-      dest(i3) = CellEncoder[A3].encode(e._4)
-      dest(i4) = CellEncoder[A4].encode(e._5)
-      dest(i5) = CellEncoder[A5].encode(e._6)
-      dest(i6) = CellEncoder[A6].encode(e._7)
-      dest(i7) = CellEncoder[A7].encode(e._8)
-      dest(i8) = CellEncoder[A8].encode(e._9)
-      dest(i9) = CellEncoder[A9].encode(e._10)
-      dest(i10) = CellEncoder[A10].encode(e._11)
-      dest(i11) = CellEncoder[A11].encode(e._12)
-      dest(i12) = CellEncoder[A12].encode(e._13)
-      dest(i13) = CellEncoder[A13].encode(e._14)
-      dest(i14) = CellEncoder[A14].encode(e._15)
-      dest(i15) = CellEncoder[A15].encode(e._16)
-      dest(i16) = CellEncoder[A16].encode(e._17)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
+      dest(i2) = a2.encode(e._3)
+      dest(i3) = a3.encode(e._4)
+      dest(i4) = a4.encode(e._5)
+      dest(i5) = a5.encode(e._6)
+      dest(i6) = a6.encode(e._7)
+      dest(i7) = a7.encode(e._8)
+      dest(i8) = a8.encode(e._9)
+      dest(i9) = a9.encode(e._10)
+      dest(i10) = a10.encode(e._11)
+      dest(i11) = a11.encode(e._12)
+      dest(i12) = a12.encode(e._13)
+      dest(i13) = a13.encode(e._14)
+      dest(i14) = a14.encode(e._15)
+      dest(i15) = a15.encode(e._16)
+      dest(i16) = a16.encode(e._17)
       dest.toSeq
     }
 
@@ -371,167 +407,190 @@ object RowEncoder extends LowPriorityRowEncoders {
   A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder, A17: CellEncoder]
   (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17))
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int): RowEncoder[C] =
+   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
+   a15: CellEncoder[A15], a16: CellEncoder[A16], a17: CellEncoder[A17]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(18)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
-      dest(i2) = CellEncoder[A2].encode(e._3)
-      dest(i3) = CellEncoder[A3].encode(e._4)
-      dest(i4) = CellEncoder[A4].encode(e._5)
-      dest(i5) = CellEncoder[A5].encode(e._6)
-      dest(i6) = CellEncoder[A6].encode(e._7)
-      dest(i7) = CellEncoder[A7].encode(e._8)
-      dest(i8) = CellEncoder[A8].encode(e._9)
-      dest(i9) = CellEncoder[A9].encode(e._10)
-      dest(i10) = CellEncoder[A10].encode(e._11)
-      dest(i11) = CellEncoder[A11].encode(e._12)
-      dest(i12) = CellEncoder[A12].encode(e._13)
-      dest(i13) = CellEncoder[A13].encode(e._14)
-      dest(i14) = CellEncoder[A14].encode(e._15)
-      dest(i15) = CellEncoder[A15].encode(e._16)
-      dest(i16) = CellEncoder[A16].encode(e._17)
-      dest(i17) = CellEncoder[A17].encode(e._18)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
+      dest(i2) = a2.encode(e._3)
+      dest(i3) = a3.encode(e._4)
+      dest(i4) = a4.encode(e._5)
+      dest(i5) = a5.encode(e._6)
+      dest(i6) = a6.encode(e._7)
+      dest(i7) = a7.encode(e._8)
+      dest(i8) = a8.encode(e._9)
+      dest(i9) = a9.encode(e._10)
+      dest(i10) = a10.encode(e._11)
+      dest(i11) = a11.encode(e._12)
+      dest(i12) = a12.encode(e._13)
+      dest(i13) = a13.encode(e._14)
+      dest(i14) = a14.encode(e._15)
+      dest(i15) = a15.encode(e._16)
+      dest(i16) = a16.encode(e._17)
+      dest(i17) = a17.encode(e._18)
       dest.toSeq
     }
 
   def encoder19[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
   A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder, A17: CellEncoder, A18: CellEncoder]
-  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14,
-    A15, A16, A17, A18))(i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int,
-                         i9: Int, i10: Int, i11: Int, i12: Int, i13: Int, i14: Int, i15: Int, i16: Int,
-                         i17: Int, i18: Int): RowEncoder[C] =
+  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18))
+  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
+   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
+   a15: CellEncoder[A15], a16: CellEncoder[A16], a17: CellEncoder[A17], a18: CellEncoder[A18]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(19)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
-      dest(i2) = CellEncoder[A2].encode(e._3)
-      dest(i3) = CellEncoder[A3].encode(e._4)
-      dest(i4) = CellEncoder[A4].encode(e._5)
-      dest(i5) = CellEncoder[A5].encode(e._6)
-      dest(i6) = CellEncoder[A6].encode(e._7)
-      dest(i7) = CellEncoder[A7].encode(e._8)
-      dest(i8) = CellEncoder[A8].encode(e._9)
-      dest(i9) = CellEncoder[A9].encode(e._10)
-      dest(i10) = CellEncoder[A10].encode(e._11)
-      dest(i11) = CellEncoder[A11].encode(e._12)
-      dest(i12) = CellEncoder[A12].encode(e._13)
-      dest(i13) = CellEncoder[A13].encode(e._14)
-      dest(i14) = CellEncoder[A14].encode(e._15)
-      dest(i15) = CellEncoder[A15].encode(e._16)
-      dest(i16) = CellEncoder[A16].encode(e._17)
-      dest(i17) = CellEncoder[A17].encode(e._18)
-      dest(i18) = CellEncoder[A18].encode(e._19)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
+      dest(i2) = a2.encode(e._3)
+      dest(i3) = a3.encode(e._4)
+      dest(i4) = a4.encode(e._5)
+      dest(i5) = a5.encode(e._6)
+      dest(i6) = a6.encode(e._7)
+      dest(i7) = a7.encode(e._8)
+      dest(i8) = a8.encode(e._9)
+      dest(i9) = a9.encode(e._10)
+      dest(i10) = a10.encode(e._11)
+      dest(i11) = a11.encode(e._12)
+      dest(i12) = a12.encode(e._13)
+      dest(i13) = a13.encode(e._14)
+      dest(i14) = a14.encode(e._15)
+      dest(i15) = a15.encode(e._16)
+      dest(i16) = a16.encode(e._17)
+      dest(i17) = a17.encode(e._18)
+      dest(i18) = a18.encode(e._19)
       dest.toSeq
     }
 
   def encoder20[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
   A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder, A17: CellEncoder, A18: CellEncoder,
-  A19: CellEncoder](f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14,
-    A15, A16, A17, A18, A19))(i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int,
-                              i9: Int, i10: Int, i11: Int, i12: Int, i13: Int, i14: Int, i15: Int, i16: Int,
-                              i17: Int, i18: Int, i19: Int): RowEncoder[C] =
+  A19: CellEncoder]
+  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19))
+  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
+   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
+   a15: CellEncoder[A15], a16: CellEncoder[A16], a17: CellEncoder[A17], a18: CellEncoder[A18], a19: CellEncoder[A19]):
+  RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(20)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
-      dest(i2) = CellEncoder[A2].encode(e._3)
-      dest(i3) = CellEncoder[A3].encode(e._4)
-      dest(i4) = CellEncoder[A4].encode(e._5)
-      dest(i5) = CellEncoder[A5].encode(e._6)
-      dest(i6) = CellEncoder[A6].encode(e._7)
-      dest(i7) = CellEncoder[A7].encode(e._8)
-      dest(i8) = CellEncoder[A8].encode(e._9)
-      dest(i9) = CellEncoder[A9].encode(e._10)
-      dest(i10) = CellEncoder[A10].encode(e._11)
-      dest(i11) = CellEncoder[A11].encode(e._12)
-      dest(i12) = CellEncoder[A12].encode(e._13)
-      dest(i13) = CellEncoder[A13].encode(e._14)
-      dest(i14) = CellEncoder[A14].encode(e._15)
-      dest(i15) = CellEncoder[A15].encode(e._16)
-      dest(i16) = CellEncoder[A16].encode(e._17)
-      dest(i17) = CellEncoder[A17].encode(e._18)
-      dest(i18) = CellEncoder[A18].encode(e._19)
-      dest(i19) = CellEncoder[A19].encode(e._20)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
+      dest(i2) = a2.encode(e._3)
+      dest(i3) = a3.encode(e._4)
+      dest(i4) = a4.encode(e._5)
+      dest(i5) = a5.encode(e._6)
+      dest(i6) = a6.encode(e._7)
+      dest(i7) = a7.encode(e._8)
+      dest(i8) = a8.encode(e._9)
+      dest(i9) = a9.encode(e._10)
+      dest(i10) = a10.encode(e._11)
+      dest(i11) = a11.encode(e._12)
+      dest(i12) = a12.encode(e._13)
+      dest(i13) = a13.encode(e._14)
+      dest(i14) = a14.encode(e._15)
+      dest(i15) = a15.encode(e._16)
+      dest(i16) = a16.encode(e._17)
+      dest(i17) = a17.encode(e._18)
+      dest(i18) = a18.encode(e._19)
+      dest(i19) = a19.encode(e._20)
       dest.toSeq
     }
 
   def encoder21[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
   A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder, A17: CellEncoder, A18: CellEncoder, A19: CellEncoder,
-  A20: CellEncoder](f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14,
-    A15, A16, A17, A18, A19, A20))(i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int,
-                                   i9: Int, i10: Int, i11: Int, i12: Int, i13: Int, i14: Int, i15: Int, i16: Int,
-                                   i17: Int, i18: Int, i19: Int, i20: Int): RowEncoder[C] =
+  A20: CellEncoder]
+  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20))
+  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
+   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int, i20: Int)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
+   a15: CellEncoder[A15], a16: CellEncoder[A16], a17: CellEncoder[A17], a18: CellEncoder[A18], a19: CellEncoder[A19],
+   a20: CellEncoder[A20]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(21)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
-      dest(i2) = CellEncoder[A2].encode(e._3)
-      dest(i3) = CellEncoder[A3].encode(e._4)
-      dest(i4) = CellEncoder[A4].encode(e._5)
-      dest(i5) = CellEncoder[A5].encode(e._6)
-      dest(i6) = CellEncoder[A6].encode(e._7)
-      dest(i7) = CellEncoder[A7].encode(e._8)
-      dest(i8) = CellEncoder[A8].encode(e._9)
-      dest(i9) = CellEncoder[A9].encode(e._10)
-      dest(i10) = CellEncoder[A10].encode(e._11)
-      dest(i11) = CellEncoder[A11].encode(e._12)
-      dest(i12) = CellEncoder[A12].encode(e._13)
-      dest(i13) = CellEncoder[A13].encode(e._14)
-      dest(i14) = CellEncoder[A14].encode(e._15)
-      dest(i15) = CellEncoder[A15].encode(e._16)
-      dest(i16) = CellEncoder[A16].encode(e._17)
-      dest(i17) = CellEncoder[A17].encode(e._18)
-      dest(i18) = CellEncoder[A18].encode(e._19)
-      dest(i19) = CellEncoder[A19].encode(e._20)
-      dest(i20) = CellEncoder[A20].encode(e._21)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
+      dest(i2) = a2.encode(e._3)
+      dest(i3) = a3.encode(e._4)
+      dest(i4) = a4.encode(e._5)
+      dest(i5) = a5.encode(e._6)
+      dest(i6) = a6.encode(e._7)
+      dest(i7) = a7.encode(e._8)
+      dest(i8) = a8.encode(e._9)
+      dest(i9) = a9.encode(e._10)
+      dest(i10) = a10.encode(e._11)
+      dest(i11) = a11.encode(e._12)
+      dest(i12) = a12.encode(e._13)
+      dest(i13) = a13.encode(e._14)
+      dest(i14) = a14.encode(e._15)
+      dest(i15) = a15.encode(e._16)
+      dest(i16) = a16.encode(e._17)
+      dest(i17) = a17.encode(e._18)
+      dest(i18) = a18.encode(e._19)
+      dest(i19) = a19.encode(e._20)
+      dest(i20) = a20.encode(e._21)
+
       dest.toSeq
     }
 
   def encoder22[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
   A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder, A17: CellEncoder, A18: CellEncoder, A19: CellEncoder,
-  A20: CellEncoder, A21: CellEncoder](f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14,
-    A15, A16, A17, A18, A19, A20, A21))(i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int,
-                                        i9: Int, i10: Int, i11: Int, i12: Int, i13: Int, i14: Int, i15: Int, i16: Int,
-                                        i17: Int, i18: Int, i19: Int, i20: Int, i21: Int): RowEncoder[C] =
+  A20: CellEncoder, A21: CellEncoder]
+  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21))
+  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
+   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int, i20: Int, i21: Int)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
+   a15: CellEncoder[A15], a16: CellEncoder[A16], a17: CellEncoder[A17], a18: CellEncoder[A18], a19: CellEncoder[A19],
+   a20: CellEncoder[A20], a21: CellEncoder[A21]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
       val dest = Array.fill(22)("")
 
-      dest(i0) = CellEncoder[A0].encode(e._1)
-      dest(i1) = CellEncoder[A1].encode(e._2)
-      dest(i2) = CellEncoder[A2].encode(e._3)
-      dest(i3) = CellEncoder[A3].encode(e._4)
-      dest(i4) = CellEncoder[A4].encode(e._5)
-      dest(i5) = CellEncoder[A5].encode(e._6)
-      dest(i6) = CellEncoder[A6].encode(e._7)
-      dest(i7) = CellEncoder[A7].encode(e._8)
-      dest(i8) = CellEncoder[A8].encode(e._9)
-      dest(i9) = CellEncoder[A9].encode(e._10)
-      dest(i10) = CellEncoder[A10].encode(e._11)
-      dest(i11) = CellEncoder[A11].encode(e._12)
-      dest(i12) = CellEncoder[A12].encode(e._13)
-      dest(i13) = CellEncoder[A13].encode(e._14)
-      dest(i14) = CellEncoder[A14].encode(e._15)
-      dest(i15) = CellEncoder[A15].encode(e._16)
-      dest(i16) = CellEncoder[A16].encode(e._17)
-      dest(i17) = CellEncoder[A17].encode(e._18)
-      dest(i18) = CellEncoder[A18].encode(e._19)
-      dest(i19) = CellEncoder[A19].encode(e._20)
-      dest(i20) = CellEncoder[A20].encode(e._21)
-      dest(i21) = CellEncoder[A21].encode(e._22)
+      dest(i0) = a0.encode(e._1)
+      dest(i1) = a1.encode(e._2)
+      dest(i2) = a2.encode(e._3)
+      dest(i3) = a3.encode(e._4)
+      dest(i4) = a4.encode(e._5)
+      dest(i5) = a5.encode(e._6)
+      dest(i6) = a6.encode(e._7)
+      dest(i7) = a7.encode(e._8)
+      dest(i8) = a8.encode(e._9)
+      dest(i9) = a9.encode(e._10)
+      dest(i10) = a10.encode(e._11)
+      dest(i11) = a11.encode(e._12)
+      dest(i12) = a12.encode(e._13)
+      dest(i13) = a13.encode(e._14)
+      dest(i14) = a14.encode(e._15)
+      dest(i15) = a15.encode(e._16)
+      dest(i16) = a16.encode(e._17)
+      dest(i17) = a17.encode(e._18)
+      dest(i18) = a18.encode(e._19)
+      dest(i19) = a19.encode(e._20)
+      dest(i20) = a20.encode(e._21)
+      dest(i21) = a21.encode(e._22)
       dest.toSeq
     }
 
