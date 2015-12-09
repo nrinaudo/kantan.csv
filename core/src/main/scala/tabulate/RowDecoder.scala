@@ -84,7 +84,7 @@ object RowDecoder extends LowPriorityRowDecoders {
       da.decode(ss).map(a => Left(a): Either[A, B]).orElse(db.decode(ss).map(b => Right(b): Either[A, B]))
     }
 
-  implicit def option[A](da: RowDecoder[A]): RowDecoder[Option[A]] = RowDecoder { ss =>
+  implicit def option[A](implicit da: RowDecoder[A]): RowDecoder[Option[A]] = RowDecoder { ss =>
     if(ss.isEmpty) DecodeResult.success(None)
     else           da.decode(ss).map(a => Some(a))
   }
