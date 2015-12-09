@@ -24,7 +24,7 @@ import scalaz.stream._
 }
 
 object CsvSource {
-  implicit def fromInput[S: CsvInput]: CsvSource[S] = new CsvSource[S] {
-    override def toCsvData(s: S) = CsvInput[S].toCsvData(s)
+  implicit def fromInput[S](implicit is: CsvInput[S]): CsvSource[S] = new CsvSource[S] {
+    override def toCsvData(s: S) = is.toCsvData(s)
   }
 }

@@ -19,13 +19,13 @@ import scalaz.stream._
   @noop def toPrintWriter(s: S): PrintWriter
 
   @op("asCsvSink") def sink[A: RowEncoder](s: S, sep: Char, header: Seq[String] = Seq.empty): Sink[Task, A] =
-    io.resource(Task.delay(CsvOutput[PrintWriter].writer(toPrintWriter(s), sep, header)))(out => Task.delay(out.close()))(
+    io.resource(Task.delay(CsvOutput.printWriter.writer(toPrintWriter(s), sep, header)))(out => Task.delay(out.close()))(
       out => Task.now((a: A) => Task.delay { out.write(a); () })
     )
 }
 
 object CsvSink {
-  implicit def fromOutput[S: CsvOutput]: CsvSink[S] = new CsvSink[S] {
-    override def toPrintWriter(s: S): PrintWriter = CsvOutput[S].toPrintWriter(s)
+  implicit def fromOutput[S](implicit os: CsvOutput[S]): CsvSink[S] = new CsvSink[S] {
+    override def toPrintWriter(s: S): PrintWriter = os.toPrintWriter(s)
   }
 }
