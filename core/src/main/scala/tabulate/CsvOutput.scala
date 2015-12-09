@@ -9,16 +9,18 @@ import scala.io.Codec
 @typeclass trait CsvOutput[S] { self =>
   @noop def toPrintWriter(s: S): PrintWriter
 
-  @op("asCsvWriter") def writer[A: RowEncoder](s: S, separator: Char, header: Seq[String] = Seq.empty): CsvWriter[A] = {
+  @op("asCsvWriter")
+  def writer[A](s: S, separator: Char, header: Seq[String] = Seq.empty)(implicit ea: RowEncoder[A]): CsvWriter[A] = {
     if(header.isEmpty) new CsvWriter[A](toPrintWriter(s), separator, RowEncoder[A].encode)
     else {
       val w = new CsvWriter(toPrintWriter(s), separator, identity[Seq[String]])
       w.write(header)
-      w.contramap(RowEncoder[A].encode)
+      w.contramap(ea.encode)
     }
   }
 
-  @noop def contramap[T](f: T => S): CsvOutput[T] = CsvOutput(t => self.toPrintWriter(f(t)))
+  @noop
+  def contramap[T](f: T => S): CsvOutput[T] = CsvOutput(t => self.toPrintWriter(f(t)))
 }
 
 @export.imports[CsvOutput]

@@ -5,10 +5,10 @@ object ops extends CsvInput.ToCsvInputOps
                    with RowEncoder.ToRowEncoderOps
                    with CellEncoder.ToCellEncoderOps {
   implicit class CellDecoderOps(val str: String) extends AnyVal {
-    def parseCsvCell[A: CellDecoder]: DecodeResult[A] = CellDecoder[A].decode(str)
+    def parseCsvCell[A](implicit da: CellDecoder[A]): DecodeResult[A] = da.decode(str)
   }
 
   implicit class RowDecoderOps(val row: Seq[String]) extends AnyVal {
-    def parseCsvRow[A: RowDecoder]: DecodeResult[A] = RowDecoder[A].decode(row)
+    def parseCsvRow[A](implicit da: RowDecoder[A]): DecodeResult[A] = da.decode(row)
   }
 }
