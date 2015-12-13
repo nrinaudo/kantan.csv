@@ -46,7 +46,7 @@ trait LowPriorityRowDecoders {
     } yield acc += a
     }.map(_.result()))
 
-  implicit def cellDecoder[A](da: CellDecoder[A]): RowDecoder[A] = RowDecoder(ss =>
+  implicit def cellDecoder[A](implicit da: CellDecoder[A]): RowDecoder[A] = RowDecoder(ss =>
     ss.headOption.map(h => if(ss.tail.isEmpty) da.decode(h) else DecodeResult.decodeFailure).getOrElse(DecodeResult.decodeFailure)
   )
 }
