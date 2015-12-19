@@ -2,6 +2,7 @@ import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
 import com.typesafe.sbt.SbtSite.SiteKeys._
 import UnidocKeys._
 
+val argonautVersion      = "6.1"
 val catsVersion          = "0.3.0"
 val exportHookVersion    = "1.1.0"
 val simulacrumVersion    = "0.5.0"
@@ -164,7 +165,10 @@ lazy val tests = project
   .settings(allSettings: _*)
   .settings(noPublishSettings: _*)
   .settings(coverageExcludedPackages := "tabulate\\.laws\\..*")
-  .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
+  .settings(libraryDependencies ++= Seq(
+    "org.scalatest" %% "scalatest" % scalatestVersion % "test",
+    "io.argonaut"   %% "argonaut"  % argonautVersion  % "test"
+  ))
   .dependsOn(core, laws % "test")
 
 lazy val benchmark = project

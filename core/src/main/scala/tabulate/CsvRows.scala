@@ -48,7 +48,7 @@ trait CsvRows[+A] extends TraversableOnce[A] with Closeable { self =>
     else this
 
   def dropWhile(p: A => Boolean): CsvRows[A] =
-    // Empty rows: nothing to drop
+  // Empty rows: nothing to drop
     if(isEmpty) this
     else {
       // Looks for the first element that does not match p.
@@ -170,6 +170,15 @@ private object DataRows {
     case object LeavingEscape extends Status
   }
   sealed trait Status
+
+  object LineBreak {
+    case object CR extends LineBreak
+    case object LF extends LineBreak
+    case object CRLF extends LineBreak
+    case object Other extends LineBreak
+  }
+
+  sealed trait LineBreak
 }
 
 private class DataRows(val data: CsvData, separator: Char) extends CsvRows[DecodeResult[Seq[String]]] {
@@ -195,28 +204,37 @@ private class DataRows(val data: CsvData, separator: Char) extends CsvRows[Decod
     row
   }
 
+  private def lineBreakType(c: Char): LineBreak = {
+    def resetLine(): Unit = {
+      line  += 1
+      column = 0
+    }
+
+    if(c == '\n') {
+      resetLine()
+      LineBreak.LF
+    }
+    else if(c == '\r') {
+      val t = if(input.hasNext && input.head == '\n') {
+        input.next()
+        LineBreak.CRLF
+      }
+      else LineBreak.CR
+      resetLine()
+      t
+    }
+    else {
+      column += 1
+      LineBreak.Other
+    }
+  }
+
   /** Checks whether the specified character is a line break.
     *
     * Note that this might consume a character from the input stream if `c` is a line feed and the next character is a
     * line break.
     */
-  private def isLineBreak(c: Char): Boolean = {
-    def resetLine(): Boolean = {
-      line  += 1
-      column = 0
-      true
-    }
-
-    if(c == '\n') resetLine()
-    else if(c == '\r') {
-      if(input.hasNext && input.head == '\n') input.next()
-      resetLine()
-    }
-    else {
-      column += 1
-      false
-    }
-  }
+  private def isLineBreak(c: Char): Boolean = lineBreakType(c) != LineBreak.Other
 
   /** Attempts to read and interpret the next character in the stream.
     *
@@ -256,9 +274,12 @@ private class DataRows(val data: CsvData, separator: Char) extends CsvRows[Decod
       // ---------------------------------------------------------------------------------------------------------------
       case Status.Escaping =>
         if(c == '"')            status = Status.LeavingEscape
-        else if(isLineBreak(c)) cell += '\n'
-        else                    cell += c
-
+        else lineBreakType(c) match {
+          case LineBreak.Other => cell += c
+          case LineBreak.CR    => cell += '\r'
+          case LineBreak.LF    => cell += '\n'
+          case LineBreak.CRLF  => cell ++= "\r\n"
+        }
         true
 
 

@@ -11,15 +11,15 @@ class KnownFormatsTests extends FunSuite {
   def read(res: String): List[Car] = getClass.getResource(res).asUnsafeCsvRows[Car](',', true).toList
 
   test("All known formats must be supported") {
-    val raw = read("/raw.csv")
+    val raw = read("/known/raw.csv")
 
     info("Excel for Mac")
-    assert(read("/excel_mac_12_0.csv") == raw)
+    assert(read("/known/excel_mac_12_0.csv") == raw)
 
     info("Numbers")
-    assert(read("/numbers_1_0_3.csv") == raw)
+    assert(read("/known/numbers_1_0_3.csv") == raw)
 
     info("Google Docs")
-    assert(read("/google_docs.csv") == raw)
+    assert(read("/known/google_docs.csv") == raw)
   }
 }

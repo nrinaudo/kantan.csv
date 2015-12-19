@@ -51,7 +51,7 @@ class Rfc4180Tests extends FunSuite {
 
   test("Fields containing line breaks (CRLF), double quotes, and commas should be enclosed in double-quotes.") {
     info("line break")
-    csvIs("\"aaa\",\"b\r\nbb\",\"ccc\"\r\nzzz,yyy,xxx", List(List("aaa", "b\nbb", "ccc"), List("zzz", "yyy", "xxx")))
+    csvIs("\"aaa\",\"b\r\nbb\",\"ccc\"\r\nzzz,yyy,xxx", List(List("aaa", "b\r\nbb", "ccc"), List("zzz", "yyy", "xxx")))
 
     info("double quote")
     csvIs("\"aaa\",\"b\"\"bb\",\"ccc\"\r\nzzz,yyy,xxx", List(List("aaa", "b\"bb", "ccc"), List("zzz", "yyy", "xxx")))
