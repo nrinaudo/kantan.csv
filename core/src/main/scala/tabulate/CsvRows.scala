@@ -187,7 +187,7 @@ private class DataRows(val data: CsvData, separator: Char) extends CsvRows[Decod
   /** Used to aggregate the content of the current cell. */
   private val cell = new StringBuilder
   /** Used to aggregate the content of the current row. */
-  private val row = ArrayBuffer[String]()
+  private val row: ArrayBuffer[String] = ArrayBuffer[String]()
   /** Parser status. */
   private var status: Status = Status.Normal
   /** Iterator on the CSV data. We need this to be buffered to deal with possible `\r\n` sequences. */
