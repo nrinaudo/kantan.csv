@@ -1,11 +1,12 @@
 package tabulate
 
-import java.io.{IOException, Closeable}
+import java.io.Closeable
 
+import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer
 
 object CsvRows {
-  def apply(data: CsvData, separator: Char): CsvRows[DecodeResult[Seq[String]]] = new DataRows(data, separator)
+  def apply(data: CsvData, separator: Char): CsvRows[DecodeResult[Seq[String]]] = DataRows(data, separator)
 
   val empty: CsvRows[Nothing] = new CsvRows[Nothing] {
     override def readNext() = throw new NoSuchElementException("next on empty CSV rows")
@@ -164,174 +165,127 @@ trait CsvRows[+A] extends TraversableOnce[A] with Closeable { self =>
 }
 
 private object DataRows {
-  object Status {
-    case object Normal extends Status
-    case object Escaping extends Status
-    case object LeavingEscape extends Status
-  }
-  sealed trait Status
+  // Possible reasons for breaking off a cell or row.
+  case object Separator extends Break
+  case object CR extends Break
+  case object LF extends Break
+  case object EOF extends Break
+  sealed trait Break
 
-  object LineBreak {
-    case object CR extends LineBreak
-    case object LF extends LineBreak
-    case object CRLF extends LineBreak
-    case object Other extends LineBreak
-  }
-
-  sealed trait LineBreak
+  // Possible outcomes of parsing the beginning of a cell.
+  case class Finished(reason: Break) extends CellStart
+  val CSeparator = Finished(Separator)
+  val CCR = Finished(CR)
+  val CLF = Finished(LF)
+  val CEOF = Finished(EOF)
+  case object Escaped extends CellStart
+  case object Raw extends CellStart
+  sealed trait CellStart
 }
 
-private class DataRows(val data: CsvData, separator: Char) extends CsvRows[DecodeResult[Seq[String]]] {
-  import DataRows._
-
-  /** Used to aggregate the content of the current cell. */
+private case class DataRows(data: CsvData, separator: Char) extends CsvRows[DecodeResult[Seq[String]]] {
   private val cell = new StringBuilder
-  /** Used to aggregate the content of the current row. */
-  private val row: ArrayBuffer[String] = ArrayBuffer[String]()
-  /** Parser status. */
-  private var status: Status = Status.Normal
-  /** Iterator on the CSV data. We need this to be buffered to deal with possible `\r\n` sequences. */
-  private val input: BufferedIterator[Char] = data.buffered
-  /** Number of whitespace found at the end of and escaped cell. */
-  private var wCount = 0
-  private var line = 0
-  private var column = 0
+  private val row  = ArrayBuffer[String]()
+  var buffer: Char = _
+  var leftover = false
 
-  /** Appends the content of current cell to the current row. */
-  private def appendCell() = {
+  @tailrec
+  final def cellStart(c: Char): DataRows.CellStart = c match {
+    case `separator` => DataRows.CSeparator
+    case '\r'        => DataRows.CCR
+    case '\n'        => DataRows.CLF
+    case '"'         =>
+      cell.clear()
+      DataRows.Escaped
+    case _ =>
+      cell.append(c)
+      if(data.hasNext) {
+        if(c.isWhitespace) cellStart(data.next())
+        else DataRows.Raw
+      }
+      else DataRows.CEOF
+  }
+
+  @inline
+  final def nextCell(c: Char): DataRows.Break = cellStart(c) match {
+    case DataRows.Raw         => rawCell
+    case DataRows.Escaped     => escapedCell(false)
+    case DataRows.Finished(r) => r
+  }
+
+  @tailrec
+  final def escapedCellEnd(c: Char): DataRows.Break = c match {
+    case `separator`         => DataRows.Separator
+    case '\r'                => DataRows.CR
+    case '\n'                => DataRows.LF
+    case _ if c.isWhitespace =>
+      if(data.hasNext) escapedCellEnd(data.next())
+      else             DataRows.EOF
+    case _                    => sys.error("illegal CSV data")
+  }
+
+  @tailrec
+  final def escapedCell(prev: Boolean): DataRows.Break = {
+    if(data.hasNext) {
+      val c = data.next()
+
+      if(c == '"') {
+        if(prev) {
+          cell.append('"')
+          escapedCell(false)
+        }
+        else escapedCell(true)
+      }
+
+      // End of escaped cell. We might have to skip some whitespace.
+      else if(prev) escapedCellEnd(c)
+      else {
+        cell.append(c)
+        escapedCell(false)
+      }
+    }
+    else DataRows.EOF
+  }
+
+  @tailrec
+  final def rawCell: DataRows.Break =
+    if(data.hasNext) data.next() match {
+      case `separator` => DataRows.Separator
+      case '\r'        => DataRows.CR
+      case '\n'        => DataRows.LF
+      case c           =>
+        cell.append(c)
+        rawCell
+    }
+    else DataRows.EOF
+
+  final def nextRow(): Unit = {
+    var n = {
+      if(leftover)          nextCell(buffer)
+      else if(data.hasNext) nextCell(data.next())
+      else                  DataRows.EOF
+    }
+
+    while(n == DataRows.Separator) {
+      row += cell.result()
+      cell.clear()
+      n = if(data.hasNext) nextCell(data.next()) else DataRows.EOF
+    }
+
     row += cell.result()
     cell.clear()
-    row
-  }
 
-  private def lineBreakType(c: Char): LineBreak = {
-    def resetLine(): Unit = {
-      line  += 1
-      column = 0
-    }
-
-    if(c == '\n') {
-      resetLine()
-      LineBreak.LF
-    }
-    else if(c == '\r') {
-      val t = if(input.hasNext && input.head == '\n') {
-        input.next()
-        LineBreak.CRLF
-      }
-      else LineBreak.CR
-      resetLine()
-      t
-    }
-    else {
-      column += 1
-      LineBreak.Other
+    if(n == DataRows.CR && data.hasNext) {
+      buffer   = data.next()
+      leftover = buffer != '\n'
     }
   }
 
-  /** Checks whether the specified character is a line break.
-    *
-    * Note that this might consume a character from the input stream if `c` is a line feed and the next character is a
-    * line break.
-    */
-  private def isLineBreak(c: Char): Boolean = lineBreakType(c) != LineBreak.Other
-
-  /** Attempts to read and interpret the next character in the stream.
-    *
-    * @return `false` if the stream is empty, `true` otherwise.
-    */
-  private def parseNext(): Boolean = if(input.hasNext) {
-    val c = input.next()
-
-    status match {
-      // - Normal status -----------------------------------------------------------------------------------------------
-      // ---------------------------------------------------------------------------------------------------------------
-      case Status.Normal =>
-        if(isLineBreak(c)) {
-          appendCell()
-          false
-        }
-
-        else {
-          // Separator character: we've found a new cell in the current row.
-          if(c == separator) appendCell()
-
-          // Escape character: if at the beginning of the cell, marks it as an escaped cell. Otherwise, treats it as
-          // a normal character.
-          else if(c == '"') {
-            if(cell.isEmpty) status = Status.Escaping
-            else cell += c
-          }
-
-          // Regular character, appended to the current cell.
-          else cell += c
-          true
-        }
-
-
-
-      // - Within escaped content --------------------------------------------------------------------------------------
-      // ---------------------------------------------------------------------------------------------------------------
-      case Status.Escaping =>
-        if(c == '"')            status = Status.LeavingEscape
-        else lineBreakType(c) match {
-          case LineBreak.Other => cell += c
-          case LineBreak.CR    => cell += '\r'
-          case LineBreak.LF    => cell += '\n'
-          case LineBreak.CRLF  => cell ++= "\r\n"
-        }
-        true
-
-
-
-      // - Ending escape mode ------------------------------------------------------------------------------------------
-      // ---------------------------------------------------------------------------------------------------------------
-      case Status.LeavingEscape =>
-        if(isLineBreak(c)) {
-          appendCell()
-          wCount = 0
-          status = Status.Normal
-          false
-        }
-        // This means that 2 " characters were found in escape mode: that's an escaped ".
-        else {
-          if(c == '"' && wCount == 0) {
-            cell += '"'
-            wCount = 0
-            status = Status.Escaping
-          }
-
-          // End of escaped cell.
-          else if(c == separator) {
-            appendCell()
-            wCount = 0
-            status = Status.Normal
-          }
-          else if(c.isWhitespace) wCount += 1
-          else throw new IOException(s"Illegal CSV format: unexpected character '$c'")
-          true
-        }
-    }
+  override def hasNext: Boolean = data.hasNext
+  override protected def readNext(): DecodeResult[Seq[String]] = {
+    row.clear()
+    nextRow()
+    DecodeResult(row)
   }
-  else if(status == Status.Escaping) throw new IOException("Illegal CSV format: non-terminated escape sequence")
-  else {
-    if(cell.nonEmpty || row.nonEmpty) appendCell()
-    false
-  }
-
-  override def hasNext: Boolean = input.hasNext
-  override def readNext(): DecodeResult[Seq[String]] = {
-    try {
-      row.clear()
-
-      while(parseNext()) {}
-
-      DecodeResult.success(row)
-    }
-    catch {
-      case _: Exception => DecodeResult.readFailure(line, column)
-    }
-  }
-
-  override def close(): Unit = data.close()
+  override def close()  = data.close()
 }

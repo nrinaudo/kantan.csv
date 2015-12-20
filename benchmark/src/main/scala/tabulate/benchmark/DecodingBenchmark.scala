@@ -3,10 +3,10 @@ package tabulate.benchmark
 import java.io.{StringReader, StringWriter}
 import java.util.concurrent.TimeUnit
 
-import com.univocity.parsers.csv.{CsvParser, CsvParserSettings}
 import org.openjdk.jmh.annotations._
 import tabulate.ops._
 
+// benchmark/jmh:run -i 5 -wi 1 -f 1 -t 1 -rf csv -prof stack:detailLine=true;lines=10;period=5 tabulate.benchmark.DecodingBenchmark
 @State(Scope.Thread)
 @BenchmarkMode(Array(Mode.AverageTime))
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
@@ -42,6 +42,22 @@ class DecodingBenchmark {
 
   // - Benchmarks ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  /* TODO:
+  Jackson CSV parser
+  SuperCSV
+  JCSV Parser
+  SimpleFlatMapper CSV parser
+  Data pipeline
+  Apache Commons CSV
+  Simple CSV parser
+  Java CSV Parser
+  Oster Miller CSV parser
+  Esperio CSV parser
+  Way IO Parser
+  Gen-Java CSV
+  Bean IO Parser
+   */
+
   @Benchmark
   def tabulate: List[Input] = inputAsCsv.asUnsafeCsvRows[Input](',', false).toList
 
@@ -57,6 +73,7 @@ class DecodingBenchmark {
 
   @Benchmark
   def univocity: List[Input] = {
+    import com.univocity.parsers.csv._
     val parser = new CsvParser(new CsvParserSettings)
     parser.beginParsing(new StringReader(inputAsCsv))
 

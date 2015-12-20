@@ -27,6 +27,8 @@ class SerializationSpec extends FunSuite with GeneratorDrivenPropertyChecks {
   }
 
   test("Serialized CSV data should be parsed correctly") {
-    forAll(csv) { ss: List[List[String]] => assert(read(write(ss)) == ss) }
+    forAll(csv) { ss: List[List[String]] =>
+      assert(read(write(ss)) == ss)
+    }
   }
 }
