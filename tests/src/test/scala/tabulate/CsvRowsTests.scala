@@ -3,13 +3,12 @@ package tabulate
 import org.scalacheck.Gen
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import tabulate.CsvDataTests._
 import tabulate.laws.discipline.arbitrary._
 import tabulate.ops._
 
 class CsvRowsTests extends FunSuite with GeneratorDrivenPropertyChecks {
   private def asCsvRows(csv: List[List[String]]): CsvRows[List[String]] =
-    write(csv).asCsvRows[List[String]](',', false).map(_.get)
+    csv.asCsvString(',').asCsvRows[List[String]](',', false).map(_.get)
 
   test("empty.next should throw an exception") {
     intercept[NoSuchElementException] { CsvRows.empty.next() }
@@ -51,7 +50,7 @@ class CsvRowsTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("take should fail when taking more data than available") {
     forAll(csv) { csv =>
       val rows = asCsvRows(csv).take(csv.length + 1)
-      (0 to csv.length).foreach { _ => rows.next() }
+      csv.indices.foreach { _ => rows.next() }
       intercept[NoSuchElementException] { rows.next() }
       ()
     }

@@ -1,9 +1,15 @@
 package tabulate
 
-import java.io.Closeable
+import java.io.{Reader, Closeable}
 
 object CsvRows {
-  def apply(data: CsvData, separator: Char): CsvRows[DecodeResult[Seq[String]]] = CsvParser(data, separator)
+  def apply[A](reader: Reader, separator: Char, header: Boolean)(implicit da: RowDecoder[A]): CsvRows[DecodeResult[A]] = {
+    val data: CsvRows[DecodeResult[Seq[String]]] = CsvParser(reader, separator)
+
+    if(header && data.hasNext) data.next()
+
+    data.map(r => r.flatMap(da.decode))
+  }
 
   val empty: CsvRows[Nothing] = new CsvRows[Nothing] {
     override def readNext() = throw new NoSuchElementException("next on empty CSV rows")

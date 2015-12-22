@@ -1,5 +1,7 @@
 package tabulate
 
+import java.io.StringWriter
+
 import simulacrum.{noop, op, typeclass}
 
 @typeclass trait RowEncoder[A] { self =>

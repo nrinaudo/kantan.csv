@@ -1,6 +1,6 @@
 package tabulate
 
-import java.io.{IOException, File}
+import java.io._
 import java.net.{URI, URL}
 
 import simulacrum.{noop, op, typeclass}
@@ -15,11 +15,11 @@ import scala.io.{Codec, Source}
   * See the [[CsvInput$ companion object]] for default implementations and construction methods.
   */
 @typeclass trait CsvInput[S] { self =>
-  /** Turns the specified `S` into a [[CsvData]].
+  /** Turns the specified `S` into a `Reader`.
     *
     * Other methods in this trait all rely on this to open and parse CSV data.
     */
-  @noop def toCsvData(s: S): CsvData
+  @noop def open(s: S): Reader
 
   /** Turns the specified `S` into an iterator on `DecodeResult[A]`.
     *
@@ -37,7 +37,7 @@ import scala.io.{Codec, Source}
     * @tparam A type to parse each row as.
     */
   @op("asCsvRows") def rows[A: RowDecoder](s: S, separator: Char, header: Boolean): CsvRows[DecodeResult[A]] =
-    toCsvData(s).asRows(separator, header)
+    CsvRows(open(s), separator, header)
 
   /** Turns the specified `S` into an iterator on `A`.
     *
@@ -56,7 +56,7 @@ import scala.io.{Codec, Source}
     *   val urlInput: CsvInput[URL] = CsvInput[InputStream].contramap((url: URL) => url.openStream())
     * }}}
     */
-  @noop def contramap[T](f: T => S): CsvInput[T] = CsvInput(t => self.toCsvData(f(t)))
+  @noop def contramap[T](f: T => S): CsvInput[T] = CsvInput.fromReader(t => self.open(f(t)))
 }
 
 @export.imports[CsvInput]
@@ -73,20 +73,24 @@ trait LowPriorityCsvInputs
   */
 object CsvInput extends LowPriorityCsvInputs {
   /** Creates an instance of `CsvInput[S]` from the specified function. */
-  def apply[S](f: S => CsvData): CsvInput[S] = new CsvInput[S] {
-    override def toCsvData(a: S): CsvData = f(a)
+  def fromReader[S](f: S => Reader): CsvInput[S] = new CsvInput[S] {
+    override def open(a: S) = f(a)
+  }
+
+  def fromStream[S](f: S => InputStream)(implicit codec: Codec): CsvInput[S] = new CsvInput[S] {
+    override def open(s: S) = new InputStreamReader(f(s), codec.charSet)
   }
 
   /** Turns any `java.io.File` into a source of CSV data. */
-  implicit def file(implicit codec: Codec): CsvInput[File] = CsvInput(f => CsvData(Source.fromFile(f)))
+  implicit def file(implicit codec: Codec): CsvInput[File] = fromStream(f => new FileInputStream(f))
   /** Turns any array of bytes into a source of CSV data. */
-  implicit def bytes(implicit codec: Codec): CsvInput[Array[Byte]] = CsvInput(b => CsvData(Source.fromBytes(b)))
+  implicit def bytes(implicit codec: Codec): CsvInput[Array[Byte]] = fromStream(b => new ByteArrayInputStream(b))
   /** Turns any `java.net.URL` into a source of CSV data. */
-  implicit def url(implicit codec: Codec): CsvInput[URL] = CsvInput(u => CsvData(Source.fromURL(u)))
+  implicit def url(implicit codec: Codec): CsvInput[URL] = fromStream(u => u.openStream())
   /** Turns any `java.net.URI` into a source of CSV data. */
-  implicit def uri(implicit codec: Codec): CsvInput[URI] = CsvInput(u => CsvData(Source.fromURI(u)))
+  implicit def uri(implicit codec: Codec): CsvInput[URI] = file.contramap(u => new File(u))
   /** Turns any array of chars into a source of CSV data. */
-  implicit val chars: CsvInput[Array[Char]] = CsvInput(c => CsvData(Source.fromChars(c)))
+  implicit val chars: CsvInput[Array[Char]] = fromReader(c => new CharArrayReader(c))
   /** Turns any string into a source of CSV data. */
-  implicit val string: CsvInput[String] = CsvInput(s => CsvData(Source.fromString(s)))
+  implicit val string: CsvInput[String] = fromReader(s => new StringReader(s))
 }

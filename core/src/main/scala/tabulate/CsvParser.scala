@@ -1,5 +1,7 @@
 package tabulate
 
+import java.io.Reader
+
 import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer
 
@@ -22,27 +24,84 @@ private object CsvParser {
   sealed trait CellStart
 }
 
-private[tabulate] case class CsvParser(data: CsvData, separator: Char) extends CsvRows[DecodeResult[Seq[String]]] {
+private[tabulate] case class CsvParser(data: Reader, separator: Char) extends CsvRows[DecodeResult[Seq[String]]] {
   private val cell = new StringBuilder
   private val row  = ArrayBuffer[String]()
-  var buffer: Char = _
-  var leftover = false
+
+  private var leftover: Char = _
+  private var hasLeftover: Boolean = false
+
+  private var mark: Int = 0
+  private var index: Int = 0
+  private var length: Int = 0
+  private val characters: Array[Char] = new Array[Char](2048)
+
+  @inline
+  private def dumpCell(): Unit = {
+    if(index != mark) cell.appendAll(characters, mark, index - mark - 1)
+    ()
+  }
+
+  private def endCell(): Unit = {
+    if(cell.isEmpty) {
+      if(index != mark) row += new String(characters, mark, index - mark - 1)
+    }
+    else {
+      dumpCell()
+      row += cell.toString()
+      cell.clear()
+    }
+    mark = index
+  }
+
+  def nextChar(): Char = {
+    val c = characters(index)
+    index += 1
+    c
+  }
+
+  final def hasNextChar: Boolean = {
+    if(length < 0) false
+    else if(index < length) true
+    else {
+      if(index != mark) cell.appendAll(characters, mark, index - mark)
+      length = data.read(characters)
+      mark   = 0
+      index  = 0
+      length > 0
+    }
+  }
 
   @tailrec
   final def cellStart(c: Char): CsvParser.CellStart = c match {
-    case `separator` => CsvParser.CSeparator
-    case '\r'        => CsvParser.CCR
-    case '\n'        => CsvParser.CLF
+    // Separator: empty cell, but a next one is coming.
+    case `separator` =>
+      endCell()
+      CsvParser.CSeparator
+
+    // CR: empty cell, end of row.
+    case '\r' =>
+      endCell()
+      CsvParser.CCR
+
+    // LF: empty cell, end of row.
+    case '\n'        =>
+      endCell()
+      CsvParser.CLF
+
+    // ": start of escaped cell.
     case '"'         =>
-      cell.clear()
+      mark = index
       CsvParser.Escaped
+
+    // whitespace: unsure, either whitespace before an escaped cell or part of a raw cell.
+    case _ if c.isWhitespace =>
+      if(hasNextChar) cellStart(nextChar())
+      else            CsvParser.CEOF
+
+    // Anything else: raw cell.
     case _ =>
-      cell.append(c)
-      if(data.hasNext) {
-        if(c.isWhitespace) cellStart(data.next())
-        else CsvParser.Raw
-      }
-      else CsvParser.CEOF
+      CsvParser.Raw
   }
 
   @inline
@@ -53,22 +112,56 @@ private[tabulate] case class CsvParser(data: CsvData, separator: Char) extends C
   }
 
   @tailrec
+  final def rawCell: CsvParser.Break =
+    if(hasNextChar) nextChar() match {
+      case `separator` =>
+        endCell()
+        CsvParser.Separator
+
+      case '\r' =>
+        endCell()
+        CsvParser.CR
+
+      case '\n' =>
+        endCell()
+        CsvParser.LF
+
+      case c => rawCell
+    }
+    else {
+      endCell()
+      CsvParser.EOF
+    }
+
+  @tailrec
   final def escapedCellEnd(c: Char): CsvParser.Break = c match {
-    case `separator`         => CsvParser.Separator
-    case '\r'                => CsvParser.CR
-    case '\n'                => CsvParser.LF
+    case `separator` =>
+      endCell()
+      CsvParser.Separator
+
+    case '\r' =>
+      endCell()
+      CsvParser.CR
+
+    case '\n' =>
+      endCell()
+      CsvParser.LF
+
     case _ if c.isWhitespace =>
-      if(data.hasNext) escapedCellEnd(data.next())
-      else             CsvParser.EOF
+      if(hasNextChar) escapedCellEnd(nextChar())
+      else            CsvParser.EOF
+
     case _                    => sys.error("illegal CSV data")
   }
 
   @tailrec
   final def escapedCell(prev: Boolean): CsvParser.Break = {
-    if(data.hasNext) {
-      val c = data.next()
+    if(hasNextChar) {
+      val c = nextChar()
 
       if(c == '"') {
+        dumpCell()
+        mark = index
         if(prev) {
           cell.append('"')
           escapedCell(false)
@@ -78,52 +171,43 @@ private[tabulate] case class CsvParser(data: CsvData, separator: Char) extends C
 
       // End of escaped cell. We might have to skip some whitespace.
       else if(prev) escapedCellEnd(c)
-      else {
-        cell.append(c)
-        escapedCell(false)
-      }
+
+      else escapedCell(false)
     }
-    else CsvParser.EOF
+    else {
+      endCell()
+      CsvParser.EOF
+    }
   }
 
   @tailrec
-  final def rawCell: CsvParser.Break =
-    if(data.hasNext) data.next() match {
-      case `separator` => CsvParser.Separator
-      case '\r'        => CsvParser.CR
-      case '\n'        => CsvParser.LF
-      case c           =>
-        cell.append(c)
-        rawCell
-    }
-    else CsvParser.EOF
+  final def nextRow(c: Char): Unit = {
+    nextCell(c) match {
+      case CsvParser.Separator =>
+        if(hasNextChar) nextRow(nextChar())
+        else {
+          row += ""
+          ()
+        }
+      case CsvParser.CR if hasNextChar =>
+        leftover = nextChar()
+        if(leftover == '\n') {
+          mark += 1
+        }
+        else hasLeftover = true
 
-  final def nextRow(): Unit = {
-    var n = {
-      if(leftover)          nextCell(buffer)
-      else if(data.hasNext) nextCell(data.next())
-      else                  CsvParser.EOF
-    }
-
-    while(n == CsvParser.Separator) {
-      row += cell.result()
-      cell.clear()
-      n = if(data.hasNext) nextCell(data.next()) else CsvParser.EOF
-    }
-
-    row += cell.result()
-    cell.clear()
-
-    if(n == CsvParser.CR && data.hasNext) {
-      buffer   = data.next()
-      leftover = buffer != '\n'
+      case _ =>
+        hasLeftover = false
+        ()
     }
   }
 
-  override def hasNext: Boolean = data.hasNext
+  override def hasNext: Boolean = hasNextChar || hasLeftover
   override protected def readNext(): DecodeResult[Seq[String]] = {
     row.clear()
-    nextRow()
+    if(hasLeftover) nextRow(leftover)
+    else if(hasNextChar) nextRow(nextChar())
+    else throw new NoSuchElementException
     DecodeResult(row)
   }
   override def close()  = data.close()

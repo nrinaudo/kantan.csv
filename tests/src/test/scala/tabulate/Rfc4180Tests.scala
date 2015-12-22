@@ -63,4 +63,5 @@ class Rfc4180Tests extends FunSuite {
   test("If double-quotes are used to enclose fields, then a double-quote appearing inside a field must be escaped by preceding it with another double quote.") {
     csvIs("\"aaa\",\"b\"\"bb\",\"ccc\"", List(List("aaa", "b\"bb", "ccc")))
   }
+
 }

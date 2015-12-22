@@ -1,5 +1,7 @@
 package tabulate
 
+import java.io.StringWriter
+
 object ops extends CsvInput.ToCsvInputOps
                    with CsvOutput.ToCsvOutputOps
                    with RowEncoder.ToRowEncoderOps
@@ -10,5 +12,10 @@ object ops extends CsvInput.ToCsvInputOps
 
   implicit class RowDecoderOps(val row: Seq[String]) extends AnyVal {
     def parseCsvRow[A](implicit da: RowDecoder[A]): DecodeResult[A] = da.decode(row)
+  }
+
+  implicit class TraversableOps[A](val rows: Traversable[A])(implicit ea: RowEncoder[A]) {
+    def asCsvString(sep: Char, header: Seq[String] = Seq.empty): String =
+      new StringWriter().writeCsv(rows, sep, header).toString
   }
 }

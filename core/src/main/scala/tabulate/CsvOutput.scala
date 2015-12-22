@@ -21,6 +21,12 @@ import scala.io.Codec
 
   @noop
   def contramap[T](f: T => S): CsvOutput[T] = CsvOutput(t => self.toPrintWriter(f(t)))
+
+  @op("writeCsv")
+  def write[A: RowEncoder](out: S, rows: Traversable[A], sep: Char, header: Seq[String] = Seq.empty): S = {
+    rows.foldLeft(writer(out, sep, header))(_ write _).close()
+    out
+  }
 }
 
 @export.imports[CsvOutput]
