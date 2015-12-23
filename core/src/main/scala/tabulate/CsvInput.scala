@@ -19,7 +19,7 @@ import scala.io.{Codec, Source}
     *
     * Other methods in this trait all rely on this to open and parse CSV data.
     */
-  @noop def open(s: S): Reader
+  @noop def reader(s: S): Reader
 
   /** Turns the specified `S` into an iterator on `DecodeResult[A]`.
     *
@@ -37,7 +37,7 @@ import scala.io.{Codec, Source}
     * @tparam A type to parse each row as.
     */
   @op("asCsvRows") def rows[A: RowDecoder](s: S, separator: Char, header: Boolean): CsvRows[DecodeResult[A]] =
-    CsvRows(open(s), separator, header)
+    CsvRows(reader(s), separator, header)
 
   /** Turns the specified `S` into an iterator on `A`.
     *
@@ -56,7 +56,7 @@ import scala.io.{Codec, Source}
     *   val urlInput: CsvInput[URL] = CsvInput[InputStream].contramap((url: URL) => url.openStream())
     * }}}
     */
-  @noop def contramap[T](f: T => S): CsvInput[T] = CsvInput.fromReader(t => self.open(f(t)))
+  @noop def contramap[T](f: T => S): CsvInput[T] = CsvInput.fromReader(t => self.reader(f(t)))
 }
 
 @export.imports[CsvInput]
@@ -74,11 +74,11 @@ trait LowPriorityCsvInputs
 object CsvInput extends LowPriorityCsvInputs {
   /** Creates an instance of `CsvInput[S]` from the specified function. */
   def fromReader[S](f: S => Reader): CsvInput[S] = new CsvInput[S] {
-    override def open(a: S) = f(a)
+    override def reader(a: S) = f(a)
   }
 
   def fromStream[S](f: S => InputStream)(implicit codec: Codec): CsvInput[S] = new CsvInput[S] {
-    override def open(s: S) = new InputStreamReader(f(s), codec.charSet)
+    override def reader(s: S) = new InputStreamReader(f(s), codec.charSet)
   }
 
   /** Turns any `java.io.File` into a source of CSV data. */

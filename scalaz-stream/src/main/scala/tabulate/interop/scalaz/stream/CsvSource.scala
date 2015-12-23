@@ -16,10 +16,10 @@ import scalaz.stream._
   * Additionally, any type that has an instance of `CsvInput` in scope automatically gets an instance of `CsvSource`.
   */
 @typeclass trait CsvSource[S] {
-  @noop def open(s: S): Reader
+  @noop def reader(s: S): Reader
 
   @op("asCsvSource") def source[A: RowDecoder](s: S, sep: Char, header: Boolean): Process[Task, DecodeResult[A]] =
-    io.iteratorR(Task.delay(CsvRows(open(s), sep, header)))(csv => Task.delay(csv.close()))(csv => Task.delay(csv.toIterator))
+    io.iteratorR(Task.delay(CsvRows(reader(s), sep, header)))(csv => Task.delay(csv.close()))(csv => Task.delay(csv.toIterator))
 
   @op("asUnsafeCsvSource") def unsafeSource[A: RowDecoder](s: S, sep: Char, header: Boolean): Process[Task, A] =
     source(s, sep, header).map(_.get)
@@ -27,6 +27,6 @@ import scalaz.stream._
 
 object CsvSource {
   implicit def fromInput[S](implicit is: CsvInput[S]): CsvSource[S] = new CsvSource[S] {
-    override def open(s: S) = is.open(s)
+    override def reader(s: S) = is.reader(s)
   }
 }

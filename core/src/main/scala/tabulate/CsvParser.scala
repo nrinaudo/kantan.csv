@@ -24,7 +24,7 @@ private object CsvParser {
   sealed trait CellStart
 }
 
-private[tabulate] case class CsvParser(data: Reader, separator: Char) extends CsvRows[DecodeResult[Seq[String]]] {
+private[tabulate] class CsvParser(val data: Reader, val separator: Char) extends CsvRows[DecodeResult[Seq[String]]] {
   private val cell = new StringBuilder
   private val row  = ArrayBuffer[String]()
 
@@ -60,7 +60,7 @@ private[tabulate] case class CsvParser(data: Reader, separator: Char) extends Cs
     c
   }
 
-  final def hasNextChar: Boolean = {
+  final def hasNextChar: Boolean =
     if(length < 0) false
     else if(index < length) true
     else {
@@ -70,7 +70,6 @@ private[tabulate] case class CsvParser(data: Reader, separator: Char) extends Cs
       index  = 0
       length > 0
     }
-  }
 
   @tailrec
   final def cellStart(c: Char): CsvParser.CellStart = c match {
@@ -114,20 +113,25 @@ private[tabulate] case class CsvParser(data: Reader, separator: Char) extends Cs
   @tailrec
   final def rawCell: CsvParser.Break =
     if(hasNextChar) nextChar() match {
+      // Separator: cell finished.
       case `separator` =>
         endCell()
         CsvParser.Separator
 
+      // CR: cell finished, we need to check for a trailing \n
       case '\r' =>
         endCell()
         CsvParser.CR
 
+      // LF: cell finished.
       case '\n' =>
         endCell()
         CsvParser.LF
 
-      case c => rawCell
+      // Anything else: part of the cell.
+      case _ => rawCell
     }
+    // EOF: cell finished.
     else {
       endCell()
       CsvParser.EOF
@@ -155,7 +159,7 @@ private[tabulate] case class CsvParser(data: Reader, separator: Char) extends Cs
   }
 
   @tailrec
-  final def escapedCell(prev: Boolean): CsvParser.Break = {
+  final def escapedCell(prev: Boolean): CsvParser.Break =
     if(hasNextChar) {
       val c = nextChar()
 
@@ -178,28 +182,34 @@ private[tabulate] case class CsvParser(data: Reader, separator: Char) extends Cs
       endCell()
       CsvParser.EOF
     }
-  }
 
   @tailrec
-  final def nextRow(c: Char): Unit = {
-    nextCell(c) match {
-      case CsvParser.Separator =>
-        if(hasNextChar) nextRow(nextChar())
-        else {
-          row += ""
-          ()
-        }
-      case CsvParser.CR if hasNextChar =>
-        leftover = nextChar()
-        if(leftover == '\n') {
-          mark += 1
-        }
-        else hasLeftover = true
-
-      case _ =>
-        hasLeftover = false
+  final def nextRow(c: Char): Unit = nextCell(c) match {
+    // Cell finished, row not done.
+    case CsvParser.Separator =>
+      if(hasNextChar) nextRow(nextChar())
+        // The next cell is empty AND there is no further data to read.
+      else {
+        row += ""
         ()
-    }
+      }
+
+      // Row finished, might have a trailing LF.
+    case CsvParser.CR if hasNextChar =>
+      leftover = nextChar()
+
+      // The leftover char is a LF: skip it.
+      if(leftover == '\n') {
+        hasLeftover = false
+        mark += 1
+      }
+
+      else hasLeftover = true
+
+      // Row finished, no trailing LF.
+    case _ =>
+      hasLeftover = false
+      ()
   }
 
   override def hasNext: Boolean = hasNextChar || hasLeftover

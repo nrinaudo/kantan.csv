@@ -1,8 +1,8 @@
 package tabulate
 
-import java.io.{Closeable, PrintWriter}
+import java.io.{Writer, Closeable, PrintWriter}
 
-class CsvWriter[A] private[tabulate] (private val out: PrintWriter, val sep: Char, private val format: A => Seq[String])
+class CsvWriter[A] private[tabulate] (private val out: Writer, val sep: Char, private val format: A => Seq[String])
   extends Closeable {
 
   private def escape(str: String): String =
@@ -13,12 +13,12 @@ class CsvWriter[A] private[tabulate] (private val out: PrintWriter, val sep: Cha
   private def write(ss: Seq[String]): Unit = {
     val fs = ss.map(escape)
     fs.headOption.foreach { h =>
-      out.print(h)
+      out.write(h)
       fs.tail.foreach { a =>
-        out.print(sep)
-        out.print(a)
+        out.write(sep.toInt)
+        out.write(a)
       }
-      out.print("\r\n") // According to the RFC, \n alone is not valid.
+      out.write("\r\n") // According to the RFC, \n alone is not valid.
     }
   }
 

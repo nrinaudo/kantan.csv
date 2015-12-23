@@ -4,17 +4,19 @@ import java.io.StringWriter
 import java.util.concurrent.TimeUnit
 
 import org.openjdk.jmh.annotations._
-import tabulate.CsvInput
 import tabulate.ops._
 
-/** Used to profile various aspects of tabulate. */
 @State(Scope.Thread)
 @BenchmarkMode(Array(Mode.AverageTime))
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
-class Profiling {
+class EncodingBenchmark {
   @Benchmark
-  def decode() = CsvInput.string.unsafeRows[CsvEntry](strData, ',', false).toList
+  def tabulate() = new StringWriter().writeCsv(rawData, ',').toString
 
   @Benchmark
-  def encode() = new StringWriter().writeCsv(rawData, ',').toString
+  def productCollections() = {
+    val out = new StringWriter()
+    com.github.marklister.collections.io.Utils.CsvOutput(rawData).writeCsv(out)
+    out.toString
+  }
 }

@@ -1,6 +1,6 @@
 package tabulate.interop.scalaz.stream
 
-import java.io.PrintWriter
+import java.io.Writer
 
 import simulacrum.{op, noop, typeclass}
 import tabulate.{CsvOutput, RowEncoder}
@@ -16,16 +16,16 @@ import scalaz.stream._
   * Additionally, any type that has an instance of `CsvOutput` in scope automatically gets an instance of `CsvSink`.
   */
 @typeclass trait CsvSink[S] {
-  @noop def toPrintWriter(s: S): PrintWriter
+  @noop def writer(s: S): Writer
 
   @op("asCsvSink") def sink[A: RowEncoder](s: S, sep: Char, header: Seq[String] = Seq.empty): Sink[Task, A] =
-    io.resource(Task.delay(CsvOutput.printWriter.writer(toPrintWriter(s), sep, header)))(out => Task.delay(out.close()))(
+    io.resource(Task.delay(CsvOutput.writer.csvWriter(writer(s), sep, header)))(out => Task.delay(out.close()))(
       out => Task.now((a: A) => Task.delay { out.write(a); () })
     )
 }
 
 object CsvSink {
   implicit def fromOutput[S](implicit os: CsvOutput[S]): CsvSink[S] = new CsvSink[S] {
-    override def toPrintWriter(s: S): PrintWriter = os.toPrintWriter(s)
+    override def writer(s: S) = os.writer(s)
   }
 }
