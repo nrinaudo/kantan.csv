@@ -3,6 +3,7 @@ package tabulate.benchmark
 import java.io.{StringWriter, Writer}
 import java.util.concurrent.TimeUnit
 
+import org.apache.commons.csv.CSVFormat
 import org.openjdk.jmh.annotations._
 import tabulate.ops._
 
@@ -28,6 +29,15 @@ class EncodingBenchmark {
     val out = new StringWriter()
     val writer = new com.opencsv.CSVWriter(out, ',')
     write { a => writer.writeNext(a) }
+    writer.close()
+    out.close()
+  }
+
+  @Benchmark
+  def commonsCsv() = {
+    val out = new StringWriter()
+    val writer = new org.apache.commons.csv.CSVPrinter(out, CSVFormat.RFC4180)
+    write { a => writer.printRecords(a) }
     writer.close()
     out.close()
   }
