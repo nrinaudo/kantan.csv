@@ -53,4 +53,17 @@ class EncodingBenchmark {
     writer.close()
     out.close()
   }
+
+  @Benchmark
+  def univocity() = {
+    import com.univocity.parsers.csv._
+
+    val out = new StringWriter()
+    val writer = new CsvWriter(out, new CsvWriterSettings())
+    write { a =>
+      writer.writeRow(a:_*)
+    }
+    writer.close()
+    out.close()
+  }
 }
