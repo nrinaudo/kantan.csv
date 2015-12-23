@@ -41,19 +41,17 @@ class CsvWriter[A] private[tabulate] (private val out: Writer, val sep: Char, pr
   }
 
   private def write(ss: Seq[String]): Unit = {
-    ss.headOption.foreach { h =>
-      safeWrite(h)
-      ss.tail.foreach { a =>
-        out.write(sep.toInt)
-        safeWrite(a)
-      }
-      out.write("\r\n") // According to the RFC, \n alone is not valid.
+    var first = true
+    for(s <- ss) {
+      if(first) first = false
+      else out.write(sep.toInt)
+      safeWrite(s)
     }
+    if(!first) out.write("\r\n") // According to the RFC, \n alone is not valid.
   }
 
   def write(a: A): CsvWriter[A] = {
     write(format(a))
-    out.flush()
     this
   }
 
