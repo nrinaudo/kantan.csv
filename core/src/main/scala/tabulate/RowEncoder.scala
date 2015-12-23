@@ -1,7 +1,5 @@
 package tabulate
 
-import java.io.StringWriter
-
 import simulacrum.{noop, op, typeclass}
 
 @typeclass trait RowEncoder[A] { self =>
@@ -41,7 +39,7 @@ object RowEncoder extends LowPriorityRowEncoders {
                                                    (implicit a0: CellEncoder[A0], a1: CellEncoder[A1]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(2)("")
+      val dest = new Array[String](2)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
@@ -53,7 +51,7 @@ object RowEncoder extends LowPriorityRowEncoders {
   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(3)("")
+      val dest = new Array[String](3)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
@@ -66,7 +64,7 @@ object RowEncoder extends LowPriorityRowEncoders {
   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(4)("")
+      val dest = new Array[String](4)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
@@ -82,7 +80,7 @@ object RowEncoder extends LowPriorityRowEncoders {
   RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(5)("")
+      val dest = new Array[String](5)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
@@ -99,7 +97,7 @@ object RowEncoder extends LowPriorityRowEncoders {
    a5: CellEncoder[A5]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(6)("")
+      val dest = new Array[String](6)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
@@ -118,7 +116,7 @@ object RowEncoder extends LowPriorityRowEncoders {
    a5: CellEncoder[A5], a6: CellEncoder[A6]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(7)("")
+      val dest = new Array[String](7)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
@@ -138,7 +136,7 @@ object RowEncoder extends LowPriorityRowEncoders {
    a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(8)("")
+      val dest = new Array[String](8)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
@@ -159,7 +157,7 @@ object RowEncoder extends LowPriorityRowEncoders {
    a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(9)("")
+      val dest = new Array[String](9)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
@@ -181,7 +179,7 @@ object RowEncoder extends LowPriorityRowEncoders {
    a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(10)("")
+      val dest = new Array[String](10)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
@@ -205,7 +203,7 @@ object RowEncoder extends LowPriorityRowEncoders {
    a10: CellEncoder[A10]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(11)("")
+      val dest = new Array[String](11)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
@@ -230,7 +228,7 @@ object RowEncoder extends LowPriorityRowEncoders {
    a10: CellEncoder[A10], a11: CellEncoder[A11]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(12)("")
+      val dest = new Array[String](12)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
@@ -257,7 +255,7 @@ object RowEncoder extends LowPriorityRowEncoders {
    a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(13)("")
+      val dest = new Array[String](13)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
@@ -286,7 +284,7 @@ object RowEncoder extends LowPriorityRowEncoders {
    a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(14)("")
+      val dest = new Array[String](14)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
@@ -317,7 +315,7 @@ object RowEncoder extends LowPriorityRowEncoders {
   RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(15)("")
+      val dest = new Array[String](15)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
@@ -349,7 +347,7 @@ object RowEncoder extends LowPriorityRowEncoders {
    a15: CellEncoder[A15]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(16)("")
+      val dest = new Array[String](16)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
@@ -382,7 +380,7 @@ object RowEncoder extends LowPriorityRowEncoders {
    a15: CellEncoder[A15], a16: CellEncoder[A16]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(17)("")
+      val dest = new Array[String](17)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
@@ -416,7 +414,7 @@ object RowEncoder extends LowPriorityRowEncoders {
    a15: CellEncoder[A15], a16: CellEncoder[A16], a17: CellEncoder[A17]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(18)("")
+      val dest = new Array[String](18)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
@@ -451,7 +449,7 @@ object RowEncoder extends LowPriorityRowEncoders {
    a15: CellEncoder[A15], a16: CellEncoder[A16], a17: CellEncoder[A17], a18: CellEncoder[A18]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(19)("")
+      val dest = new Array[String](19)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
@@ -489,7 +487,7 @@ object RowEncoder extends LowPriorityRowEncoders {
   RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(20)("")
+      val dest = new Array[String](20)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
@@ -528,7 +526,7 @@ object RowEncoder extends LowPriorityRowEncoders {
    a20: CellEncoder[A20]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(21)("")
+      val dest = new Array[String](21)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
@@ -569,7 +567,7 @@ object RowEncoder extends LowPriorityRowEncoders {
    a20: CellEncoder[A20], a21: CellEncoder[A21]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
-      val dest = Array.fill(22)("")
+      val dest = new Array[String](22)
 
       dest(i0) = a0.encode(e._1)
       dest(i1) = a1.encode(e._2)
