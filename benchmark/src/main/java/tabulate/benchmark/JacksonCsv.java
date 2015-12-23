@@ -8,17 +8,28 @@
 
 package tabulate.benchmark;
 
+import com.fasterxml.jackson.databind.SequenceWriter;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvParser;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.io.Writer;
 import java.util.Iterator;
 
-public class JacksonParser {
+public class JacksonCsv {
+    private static final CsvMapper MAPPER;
+
+    static {
+        MAPPER  = new CsvMapper();
+        MAPPER.enable(CsvParser.Feature.WRAP_AS_ARRAY);
+    }
+
     public static Iterator<String[]> parse(Reader reader) throws IOException {
-        CsvMapper mapper = new CsvMapper();
-        mapper.enable(CsvParser.Feature.WRAP_AS_ARRAY);
-        return mapper.reader(String[].class).readValues(reader);
+        return MAPPER.readerFor(String[].class).readValues(reader);
+    }
+
+    public static SequenceWriter write(Writer writer) throws IOException {
+        return MAPPER.writer().writeValues(writer);
     }
 }

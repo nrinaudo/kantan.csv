@@ -1,6 +1,6 @@
 package tabulate.benchmark
 
-import java.io.{StringWriter, Writer}
+import java.io.StringWriter
 import java.util.concurrent.TimeUnit
 
 import org.apache.commons.csv.CSVFormat
@@ -38,6 +38,18 @@ class EncodingBenchmark {
     val out = new StringWriter()
     val writer = new org.apache.commons.csv.CSVPrinter(out, CSVFormat.RFC4180)
     write { a => writer.printRecords(a) }
+    writer.close()
+    out.close()
+  }
+
+  @Benchmark
+  def jacksonCsv() = {
+    val out = new StringWriter()
+    val writer = JacksonCsv.write(out)
+    write { a =>
+      writer.write(a)
+      ()
+    }
     writer.close()
     out.close()
   }

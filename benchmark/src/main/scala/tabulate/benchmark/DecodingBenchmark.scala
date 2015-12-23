@@ -55,7 +55,7 @@ class DecodingBenchmark {
 
   @Benchmark
   def jacksonCsv() =
-    new CsvIterator(JacksonParser.parse(new StringReader(strData)))(it =>
+    new CsvIterator(JacksonCsv.parse(new StringReader(strData)))(it =>
       if(it.hasNext) it.next()
       else           null
     ).toList
