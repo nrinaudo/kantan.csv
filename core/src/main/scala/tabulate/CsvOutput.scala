@@ -24,7 +24,7 @@ import scala.io.Codec
 
   @op("writeCsv")
   def write[A: RowEncoder](out: S, rows: Traversable[A], sep: Char, header: Seq[String] = Seq.empty): S = {
-    rows.foldLeft(csvWriter(out, sep, header))(_ write _).close()
+    csvWriter(out, sep, header).write(rows).close()
     out
   }
 }

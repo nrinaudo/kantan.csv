@@ -55,6 +55,11 @@ class CsvWriter[A] private[tabulate] (private val out: Writer, val sep: Char, pr
     this
   }
 
+  def write(as: Traversable[A]): CsvWriter[A] = {
+    for(a <- as) write(format(a))
+    this
+  }
+
   override def close(): Unit = out.close()
 
   def contramap[B](f: B => A): CsvWriter[B] = new CsvWriter[B](out, sep, f andThen format)
