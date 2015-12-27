@@ -12,12 +12,13 @@ class CommonsEngine extends ReaderEngine with WriterEngine {
   private def formatFor(sep: Char): CSVFormat = CSVFormat.RFC4180.withDelimiter(sep)
 
   override def readerFor(reader: Reader, separator: Char) = {
-    val csv = formatFor(separator).parse(reader).iterator()
+    val parser = formatFor(separator).parse(reader)
+    val csv = parser.iterator()
 
     new CsvReader[DecodeResult[Seq[String]]] {
       override def hasNext = csv.hasNext
       override protected def readNext() = DecodeResult(csv.next().asScala.toSeq)
-      override def close() = reader.close()
+      override def close() = parser.close()
     }
   }
 
