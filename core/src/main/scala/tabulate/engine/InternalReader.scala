@@ -1,11 +1,13 @@
-package tabulate
+package tabulate.engine
 
 import java.io.Reader
+
+import tabulate.{CsvReader, DecodeResult}
 
 import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer
 
-private object InternalParser {
+private object InternalReader {
   // Possible reasons for breaking off a cell or row.
   case object Separator extends Break
   case object CR extends Break
@@ -24,7 +26,7 @@ private object InternalParser {
   sealed trait CellStart
 }
 
-private[tabulate] class InternalParser(val data: Reader, val separator: Char) extends CsvRows[DecodeResult[Seq[String]]] {
+private[engine] class InternalReader(val data: Reader, val separator: Char) extends CsvReader[DecodeResult[Seq[String]]] {
   private val cell = new StringBuilder
   private val row  = ArrayBuffer[String]()
 
@@ -72,61 +74,61 @@ private[tabulate] class InternalParser(val data: Reader, val separator: Char) ex
     }
 
   @tailrec
-  final def cellStart(c: Char): InternalParser.CellStart = c match {
+  final def cellStart(c: Char): InternalReader.CellStart = c match {
     // Separator: empty cell, but a next one is coming.
     case `separator` =>
       endCell()
-      InternalParser.CSeparator
+      InternalReader.CSeparator
 
     // CR: empty cell, end of row.
     case '\r' =>
       endCell()
-      InternalParser.CCR
+      InternalReader.CCR
 
     // LF: empty cell, end of row.
     case '\n'        =>
       endCell()
-      InternalParser.CLF
+      InternalReader.CLF
 
     // ": start of escaped cell.
     case '"'         =>
       mark = index
-      InternalParser.Escaped
+      InternalReader.Escaped
 
     // whitespace: unsure, either whitespace before an escaped cell or part of a raw cell.
     case _ if c.isWhitespace =>
       if(hasNextChar) cellStart(nextChar())
-      else            InternalParser.CEOF
+      else            InternalReader.CEOF
 
     // Anything else: raw cell.
     case _ =>
-      InternalParser.Raw
+      InternalReader.Raw
   }
 
   @inline
-  final def nextCell(c: Char): InternalParser.Break = cellStart(c) match {
-    case InternalParser.Raw         => rawCell
-    case InternalParser.Escaped     => escapedCell(false)
-    case InternalParser.Finished(r) => r
+  final def nextCell(c: Char): InternalReader.Break = cellStart(c) match {
+    case InternalReader.Raw         => rawCell
+    case InternalReader.Escaped     => escapedCell(false)
+    case InternalReader.Finished(r) => r
   }
 
   @tailrec
-  final def rawCell: InternalParser.Break =
+  final def rawCell: InternalReader.Break =
     if(hasNextChar) nextChar() match {
       // Separator: cell finished.
       case `separator` =>
         endCell()
-        InternalParser.Separator
+        InternalReader.Separator
 
       // CR: cell finished, we need to check for a trailing \n
       case '\r' =>
         endCell()
-        InternalParser.CR
+        InternalReader.CR
 
       // LF: cell finished.
       case '\n' =>
         endCell()
-        InternalParser.LF
+        InternalReader.LF
 
       // Anything else: part of the cell.
       case _ => rawCell
@@ -134,32 +136,32 @@ private[tabulate] class InternalParser(val data: Reader, val separator: Char) ex
     // EOF: cell finished.
     else {
       endCell()
-      InternalParser.EOF
+      InternalReader.EOF
     }
 
   @tailrec
-  final def escapedCellEnd(c: Char): InternalParser.Break = c match {
+  final def escapedCellEnd(c: Char): InternalReader.Break = c match {
     case `separator` =>
       endCell()
-      InternalParser.Separator
+      InternalReader.Separator
 
     case '\r' =>
       endCell()
-      InternalParser.CR
+      InternalReader.CR
 
     case '\n' =>
       endCell()
-      InternalParser.LF
+      InternalReader.LF
 
     case _ if c.isWhitespace =>
       if(hasNextChar) escapedCellEnd(nextChar())
-      else            InternalParser.EOF
+      else            InternalReader.EOF
 
     case _                    => sys.error("illegal CSV data")
   }
 
   @tailrec
-  final def escapedCell(prev: Boolean): InternalParser.Break =
+  final def escapedCell(prev: Boolean): InternalReader.Break =
     if(hasNextChar) {
       val c = nextChar()
 
@@ -180,13 +182,13 @@ private[tabulate] class InternalParser(val data: Reader, val separator: Char) ex
     }
     else {
       endCell()
-      InternalParser.EOF
+      InternalReader.EOF
     }
 
   @tailrec
   final def nextRow(c: Char): Unit = nextCell(c) match {
     // Cell finished, row not done.
-    case InternalParser.Separator =>
+    case InternalReader.Separator =>
       if(hasNextChar) nextRow(nextChar())
         // The next cell is empty AND there is no further data to read.
       else {
@@ -195,7 +197,7 @@ private[tabulate] class InternalParser(val data: Reader, val separator: Char) ex
       }
 
       // Row finished, might have a trailing LF.
-    case InternalParser.CR if hasNextChar =>
+    case InternalReader.CR if hasNextChar =>
       leftover = nextChar()
 
       // The leftover char is a LF: skip it.

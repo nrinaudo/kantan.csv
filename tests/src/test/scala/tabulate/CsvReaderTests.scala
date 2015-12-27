@@ -6,21 +6,21 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import tabulate.laws.discipline.arbitrary._
 import tabulate.ops._
 
-class CsvRowsTests extends FunSuite with GeneratorDrivenPropertyChecks {
-  private def asCsvRows(csv: List[List[String]]): CsvRows[List[String]] =
+class CsvReaderTests extends FunSuite with GeneratorDrivenPropertyChecks {
+  private def asCsvRows(csv: List[List[String]]): CsvReader[List[String]] =
     csv.asCsvString(',').asCsvRows[List[String]](',', false).map(_.get)
 
   test("empty.next should throw an exception") {
-    intercept[NoSuchElementException] { CsvRows.empty.next() }
+    intercept[NoSuchElementException] { CsvReader.empty.next() }
     ()
   }
 
   test("empty.hasNext should be false") {
-    assert(!CsvRows.empty.hasNext)
+    assert(!CsvReader.empty.hasNext)
   }
 
   test("empty.close should do nothing") {
-    CsvRows.empty.close()
+    CsvReader.empty.close()
   }
 
 

@@ -1,6 +1,7 @@
 package tabulate.interop.scalaz.stream
 
 import ops._
+import tabulate.CsvWriter
 import tabulate.laws.discipline.arbitrary
 import arbitrary._
 import java.io.StringWriter
@@ -21,7 +22,7 @@ class SerializationSpec extends FunSuite with GeneratorDrivenPropertyChecks {
     val iterator = data.iterator
 
     Process.repeatEval(Task.delay { if(iterator.hasNext) iterator.next() else throw Cause.Terminated(Cause.End) })
-      .to(sw.asCsvSink(',', Seq.empty)).run.run
+      .to(CsvSink[List[String]](sw, ',', Seq.empty)).run.run
 
     sw.toString
   }

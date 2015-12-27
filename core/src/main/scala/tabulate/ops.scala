@@ -15,7 +15,10 @@ object ops extends CsvInput.ToCsvInputOps
   }
 
   implicit class TraversableOps[A](val rows: Traversable[A])(implicit ea: RowEncoder[A]) {
-    def asCsvString(sep: Char, header: Seq[String] = Seq.empty): String =
-      new StringWriter().writeCsv(rows, sep, header).toString
+    def asCsvString(sep: Char, header: Seq[String] = Seq.empty): String = {
+      val out = new StringWriter()
+      CsvWriter(out, sep, header).write(rows)
+      out.toString
+    }
   }
 }

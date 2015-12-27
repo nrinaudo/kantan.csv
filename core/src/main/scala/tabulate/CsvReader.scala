@@ -1,29 +1,15 @@
 package tabulate
 
-import java.io.{Reader, Closeable}
+import java.io.{Closeable, Reader}
 
-object CsvRows {
-  def apply[A](reader: Reader, separator: Char, header: Boolean)(implicit da: RowDecoder[A], parser: CsvParser): CsvRows[DecodeResult[A]] = {
-    val data: CsvRows[DecodeResult[Seq[String]]] = new InternalParser(reader, separator)
-
-    if(header && data.hasNext) data.next()
-
-    data.map(r => r.flatMap(da.decode))
-  }
-
-  val empty: CsvRows[Nothing] = new CsvRows[Nothing] {
-    override def readNext() = throw new NoSuchElementException("next on empty CSV rows")
-    override def hasNext = false
-    override def close() = {}
-  }
-}
+import tabulate.engine.ReaderEngine
 
 /** Mutable collection of CSV rows.
   *
   * This class is very similar to an `Iterator`, with an added [[close]] method to close the underlying source of CSV
   * data.
   */
-trait CsvRows[+A] extends TraversableOnce[A] with Closeable { self =>
+trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self =>
   def hasNext: Boolean
   protected def readNext(): A
   def close(): Unit
@@ -44,14 +30,14 @@ trait CsvRows[+A] extends TraversableOnce[A] with Closeable { self =>
 
   // - Useful methods --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def drop(n: Int): CsvRows[A] =
+  def drop(n: Int): CsvReader[A] =
     if(n > 0 && hasNext) {
       next()
       drop(n - 1)
     }
     else this
 
-  def dropWhile(p: A => Boolean): CsvRows[A] =
+  def dropWhile(p: A => Boolean): CsvReader[A] =
   // Empty rows: nothing to drop
     if(isEmpty) this
     else {
@@ -64,7 +50,7 @@ trait CsvRows[+A] extends TraversableOnce[A] with Closeable { self =>
 
       // We've found one such element, returns a bit of a mess of a CsvRows that'll first return it, then whatever is
       // left in the stream.
-      else new CsvRows[A] {
+      else new CsvReader[A] {
         var done = false
 
         override def hasNext: Boolean = !done || self.hasNext
@@ -79,7 +65,7 @@ trait CsvRows[+A] extends TraversableOnce[A] with Closeable { self =>
       }
     }
 
-  def take(n: Int): CsvRows[A] = new CsvRows[A] {
+  def take(n: Int): CsvReader[A] = new CsvReader[A] {
     var count = n
     override def hasNext: Boolean = count > 0 && self.hasNext
     override def readNext(): A = {
@@ -88,7 +74,7 @@ trait CsvRows[+A] extends TraversableOnce[A] with Closeable { self =>
         count -= 1
         a
       }
-      else CsvRows.empty.next()
+      else CsvReader.empty.next()
     }
     override def close(): Unit = self.close()
   }
@@ -96,32 +82,32 @@ trait CsvRows[+A] extends TraversableOnce[A] with Closeable { self =>
 
   // - Monadic operations ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def map[B](f: A => B): CsvRows[B] = new CsvRows[B] {
+  def map[B](f: A => B): CsvReader[B] = new CsvReader[B] {
     override def hasNext: Boolean = self.hasNext
     override def readNext(): B = f(self.readNext())
     override def close(): Unit = self.close()
   }
 
-  def flatMap[B](f: A => CsvRows[B]): CsvRows[B] = new CsvRows[B] {
-    private var cur: CsvRows[B] = CsvRows.empty
+  def flatMap[B](f: A => CsvReader[B]): CsvReader[B] = new CsvReader[B] {
+    private var cur: CsvReader[B] = CsvReader.empty
 
     override def hasNext: Boolean = cur.hasNext || self.hasNext && { cur = f(self.next()); hasNext}
     override def readNext(): B = cur.readNext()
     override def close(): Unit = self.close()
   }
 
-  def filter(p: A => Boolean): CsvRows[A] = new CsvRows[A] {
+  def filter(p: A => Boolean): CsvReader[A] = new CsvReader[A] {
     var n = self.find(p)
     override def hasNext: Boolean = n.isDefined
     override def readNext(): A = {
-      val r = n.getOrElse(CsvRows.empty.readNext())
+      val r = n.getOrElse(CsvReader.empty.readNext())
       n = self.find(p)
       r
     }
     override def close(): Unit = self.close()
   }
 
-  def withFilter(p: A => Boolean): CsvRows[A] = filter(p)
+  def withFilter(p: A => Boolean): CsvReader[A] = filter(p)
 
 
   // - TraversableOnce -------------------------------------------------------------------------------------------------
@@ -165,4 +151,20 @@ trait CsvRows[+A] extends TraversableOnce[A] with Closeable { self =>
     override def next(): A = self.next()
   }
   override def isTraversableAgain: Boolean = false
+}
+
+object CsvReader {
+  def apply[A](reader: Reader, separator: Char, header: Boolean)(implicit da: RowDecoder[A], engine: ReaderEngine): CsvReader[DecodeResult[A]] = {
+    val data: CsvReader[DecodeResult[Seq[String]]] = engine.readerFor(reader, separator)
+
+    if(header && data.hasNext) data.next()
+
+    data.map(r => r.flatMap(da.decode))
+  }
+
+  val empty: CsvReader[Nothing] = new CsvReader[Nothing] {
+    override def readNext() = throw new NoSuchElementException("next on empty CSV rows")
+    override def hasNext = false
+    override def close() = {}
+  }
 }
