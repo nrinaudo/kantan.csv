@@ -93,7 +93,7 @@ lazy val root = Project(id = "tabulate", base = file("."))
       |import tabulate.generic.codecs._
     """.stripMargin
   )
-  .aggregate(core, cats, scalaz, scalazStream, laws, tests, docs, generic)
+  .aggregate(core, cats, scalaz, scalazStream, laws, tests, docs, generic, benchmark, jackson, commons, opencsv)
   .dependsOn(core, generic, scalaz, cats)
 
 lazy val core = project
