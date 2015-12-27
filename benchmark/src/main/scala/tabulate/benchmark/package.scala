@@ -1,6 +1,5 @@
 package tabulate
 
-import java.io.StringWriter
 import tabulate.ops._
 
 package object benchmark {
@@ -11,9 +10,5 @@ package object benchmark {
     else           (i, "Character \"" + i.toChar + "\"\nhas code point \r\n" + i, true, i / 100F)
   )
 
-  val strData: String = {
-    val out = new StringWriter()
-    rawData.foldLeft(out.asCsvWriter[CsvEntry](','))((out, a) => out.write(a)).close()
-    out.toString
-  }
+  val strData: String = rawData.asCsvString(',')
 }

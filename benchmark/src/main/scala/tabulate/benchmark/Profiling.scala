@@ -1,6 +1,5 @@
 package tabulate.benchmark
 
-import java.io.StringWriter
 import java.util.concurrent.TimeUnit
 
 import org.openjdk.jmh.annotations._
@@ -16,5 +15,5 @@ class Profiling {
   def decode() = CsvInput.string.unsafeRows[CsvEntry](strData, ',', false).toList
 
   @Benchmark
-  def encode() = new StringWriter().writeCsv(rawData, ',').toString
+  def encode() = rawData.asCsvString(',')
 }

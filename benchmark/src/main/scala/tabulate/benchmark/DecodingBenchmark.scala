@@ -13,14 +13,14 @@ class DecodingBenchmark {
   // - Helpers ---------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   class CsvIterator[A](iterator: A)(f: A => Array[String]) extends Iterator[CsvEntry] {
-      var n = f(iterator)
-      override def hasNext: Boolean = n != null
-      override def next(): CsvEntry = {
-        val temp = n
-        n = f(iterator)
-        toTuple(temp)
-      }
+    var n = f(iterator)
+    override def hasNext: Boolean = n != null
+    override def next(): CsvEntry = {
+      val temp = n
+      n = f(iterator)
+      toTuple(temp)
     }
+  }
 
   def toTuple(row: Array[String]): CsvEntry = (row(0).toInt, row(1), row(2).toBoolean, row(3).toFloat)
 
@@ -28,8 +28,27 @@ class DecodingBenchmark {
   // - Benchmarks ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   @Benchmark
-  def tabulate() =
+  def tabulateInternal() =
     CsvInput.string.unsafeRows[CsvEntry](strData, ',', false).toList
+
+  @Benchmark
+  def tabulateJackson() = {
+    import tabulate.engine.jackson._
+    CsvInput.string.unsafeRows[CsvEntry](strData, ',', false).toList
+  }
+
+  @Benchmark
+  def tabulateOpencsv() = {
+    import tabulate.engine.opencsv._
+    CsvInput.string.unsafeRows[CsvEntry](strData, ',', false).toList
+  }
+
+  @Benchmark
+  def tabulateCommons() = {
+    import tabulate.engine.commons._
+    CsvInput.string.unsafeRows[CsvEntry](strData, ',', false).toList
+  }
+
 
   // Note: we must call trim on the input since product-collections does not accept the last row ending with a line
   // break. I believe that to be a bug.
@@ -42,7 +61,7 @@ class DecodingBenchmark {
     new CsvIterator(new com.opencsv.CSVReader(new StringReader(strData)))(_.readNext()).toList
 
   @Benchmark
-  def commonsCsv() = {
+  def commons() = {
     val csv = org.apache.commons.csv.CSVFormat.RFC4180.parse(new StringReader(strData)).iterator()
     new Iterator[CsvEntry] {
       override def hasNext = csv.hasNext
@@ -54,7 +73,7 @@ class DecodingBenchmark {
   }
 
   @Benchmark
-  def jacksonCsv() =
+  def jackson() =
     new CsvIterator(JacksonCsv.parse(new StringReader(strData)))(it =>
       if(it.hasNext) it.next()
       else           null

@@ -15,7 +15,25 @@ class EncodingBenchmark {
     rawData.foreach { entry => f(Array(entry._1.toString, entry._2.toString, entry._3.toString, entry._4.toString)) }
 
   @Benchmark
-  def tabulate() = new StringWriter().writeCsv(rawData, ',').close()
+  def tabulateInternal() = rawData.asCsvString(',')
+
+  @Benchmark
+  def tabulateJackson() = {
+    import tabulate.engine.jackson._
+    rawData.asCsvString(',')
+  }
+
+  @Benchmark
+  def tabulateOpencsv() = {
+    import tabulate.engine.opencsv._
+    rawData.asCsvString(',')
+  }
+
+  @Benchmark
+  def tabulateCommons() = {
+    import tabulate.engine.commons._
+    rawData.asCsvString(',')
+  }
 
   @Benchmark
   def productCollections() = {
@@ -34,7 +52,7 @@ class EncodingBenchmark {
   }
 
   @Benchmark
-  def commonsCsv() = {
+  def commons() = {
     val out = new StringWriter()
     val writer = new org.apache.commons.csv.CSVPrinter(out, CSVFormat.RFC4180)
     write { a => writer.printRecords(a) }
@@ -43,7 +61,7 @@ class EncodingBenchmark {
   }
 
   @Benchmark
-  def jacksonCsv() = {
+  def jackson() = {
     val out = new StringWriter()
     val writer = JacksonCsv.write(out)
     write { a =>
