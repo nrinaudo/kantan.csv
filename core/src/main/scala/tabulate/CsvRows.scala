@@ -3,8 +3,8 @@ package tabulate
 import java.io.{Reader, Closeable}
 
 object CsvRows {
-  def apply[A](reader: Reader, separator: Char, header: Boolean)(implicit da: RowDecoder[A]): CsvRows[DecodeResult[A]] = {
-    val data: CsvRows[DecodeResult[Seq[String]]] = new CsvParser(reader, separator)
+  def apply[A](reader: Reader, separator: Char, header: Boolean)(implicit da: RowDecoder[A], parser: CsvParser): CsvRows[DecodeResult[A]] = {
+    val data: CsvRows[DecodeResult[Seq[String]]] = new InternalParser(reader, separator)
 
     if(header && data.hasNext) data.next()
 

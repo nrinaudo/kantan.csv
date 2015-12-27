@@ -36,7 +36,7 @@ import scala.io.{Codec, Source}
     *
     * @tparam A type to parse each row as.
     */
-  @op("asCsvRows") def rows[A: RowDecoder](s: S, separator: Char, header: Boolean): CsvRows[DecodeResult[A]] =
+  @op("asCsvRows") def rows[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit parser: CsvParser): CsvRows[DecodeResult[A]] =
     CsvRows(reader(s), separator, header)
 
   /** Turns the specified `S` into an iterator on `A`.

@@ -3,7 +3,7 @@ package tabulate.interop.scalaz.stream
 import java.io.Reader
 
 import simulacrum.{noop, op, typeclass}
-import tabulate.{CsvRows, CsvInput, DecodeResult, RowDecoder}
+import tabulate._
 
 import scalaz.concurrent.Task
 import scalaz.stream._
@@ -18,7 +18,7 @@ import scalaz.stream._
 @typeclass trait CsvSource[S] {
   @noop def reader(s: S): Reader
 
-  @op("asCsvSource") def source[A: RowDecoder](s: S, sep: Char, header: Boolean): Process[Task, DecodeResult[A]] =
+  @op("asCsvSource") def source[A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit parser: CsvParser): Process[Task, DecodeResult[A]] =
     io.iteratorR(Task.delay(CsvRows(reader(s), sep, header)))(csv => Task.delay(csv.close()))(csv => Task.delay(csv.toIterator))
 
   @op("asUnsafeCsvSource") def unsafeSource[A: RowDecoder](s: S, sep: Char, header: Boolean): Process[Task, A] =
