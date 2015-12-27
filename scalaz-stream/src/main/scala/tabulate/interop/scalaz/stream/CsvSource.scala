@@ -22,7 +22,7 @@ import scalaz.stream._
   @op("asCsvSource") def source[A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit engine: ReaderEngine): Process[Task, DecodeResult[A]] =
     CsvSource[A](reader(s), sep, header)
 
-  @op("asUnsafeCsvSource") def unsafeSource[A: RowDecoder](s: S, sep: Char, header: Boolean): Process[Task, A] =
+  @op("asUnsafeCsvSource") def unsafeSource[A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit engine: ReaderEngine): Process[Task, A] =
     source(s, sep, header).map(_.get)
 }
 

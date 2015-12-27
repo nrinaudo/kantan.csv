@@ -2,12 +2,10 @@ package tabulate.interop.scalaz.stream
 
 import java.io.Writer
 
-import simulacrum.{op, noop, typeclass}
+import simulacrum.{noop, op, typeclass}
 import tabulate.engine.WriterEngine
-import tabulate.{CsvWriter, CsvOutput, RowEncoder}
+import tabulate.{CsvOutput, CsvWriter, RowEncoder}
 
-import scalaz.Alpha.S
-import scalaz.Sink
 import scalaz.concurrent.Task
 import scalaz.stream._
 

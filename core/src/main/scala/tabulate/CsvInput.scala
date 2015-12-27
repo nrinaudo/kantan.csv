@@ -37,7 +37,7 @@ import scala.io.{Codec, Source}
     *
     * @tparam A type to parse each row as.
     */
-  @op("asCsvRows") def rows[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit parser: ReaderEngine): CsvReader[DecodeResult[A]] =
+  @op("asCsvRows") def rows[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[DecodeResult[A]] =
     CsvReader(reader(s), separator, header)
 
   /** Turns the specified `S` into an iterator on `A`.
@@ -46,7 +46,7 @@ import scala.io.{Codec, Source}
     *
     * @tparam A type to parse each row as.
     */
-  @op("asUnsafeCsvRows") def unsafeRows[A: RowDecoder](s: S, separator: Char, header: Boolean): CsvReader[A] =
+  @op("asUnsafeCsvRows") def unsafeRows[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[A] =
     rows[A](s, separator, header).map(_.getOrElse(throw new IOException("Illegal CSV data found")))
 
   /** Turns an instance of `CsvInput[S]` into one of `CsvInput[T]`.
