@@ -103,6 +103,42 @@ lazy val core = project
   )
   .settings(allSettings: _*)
 
+lazy val jackson = project
+  .settings(
+      moduleName := "tabulate-jackson",
+      name       := "jackson"
+    )
+    .settings(libraryDependencies ++= Seq(
+      "com.fasterxml.jackson.dataformat" %  "jackson-dataformat-csv" % jacksonCsvVersion,
+      "org.scalatest"                    %% "scalatest"              % scalatestVersion % "test"
+    ))
+    .settings(allSettings: _*)
+    .dependsOn(core)
+
+lazy val commons = project
+  .settings(
+      moduleName := "tabulate-commons",
+      name       := "commons"
+    )
+    .settings(libraryDependencies ++= Seq(
+      "org.apache.commons" %  "commons-csv" % commonsCsvVersion,
+      "org.scalatest"      %% "scalatest"   % scalatestVersion % "test"
+    ))
+    .settings(allSettings: _*)
+    .dependsOn(core)
+
+lazy val opencsv = project
+  .settings(
+      moduleName := "tabulate-opencsv",
+      name       := "opencsv"
+    )
+    .settings(libraryDependencies ++= Seq(
+      "com.opencsv"   %  "opencsv"   % opencsvVersion,
+      "org.scalatest" %% "scalatest" % scalatestVersion % "test"
+    ))
+    .settings(allSettings: _*)
+    .dependsOn(core)
+
 lazy val laws = project
   .settings(
     moduleName := "tabulate-laws",
