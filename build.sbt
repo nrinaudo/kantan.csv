@@ -217,12 +217,9 @@ lazy val benchmark = project
   .enablePlugins(JmhPlugin)
   .settings(libraryDependencies ++= Seq(
     "com.github.marklister"            %% "product-collections"    % productCollectionVersion,
-    "com.opencsv"                      %  "opencsv"                % opencsvVersion,
-    "com.univocity"                    %  "univocity-parsers"      % univocityVersion,
-    "com.fasterxml.jackson.dataformat" %  "jackson-dataformat-csv" % jacksonCsvVersion,
-    "org.apache.commons"               % "commons-csv"             % commonsCsvVersion
+    "com.univocity"                    %  "univocity-parsers"      % univocityVersion
   ))
-  .dependsOn(core)
+  .dependsOn(core, jackson, opencsv, commons)
 
 lazy val docs = project
   .settings(allSettings: _*)
