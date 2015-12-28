@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit
 
 import org.apache.commons.csv.CSVFormat
 import org.openjdk.jmh.annotations._
+import tabulate.engine.WriterEngine
 import tabulate.engine.jackson.JacksonCsv
 import tabulate.ops._
 
@@ -15,26 +16,19 @@ class Encoding {
   def write[A](f: Array[String] => Unit): Unit =
     rawData.foreach { entry => f(Array(entry._1.toString, entry._2.toString, entry._3.toString, entry._4.toString)) }
 
-  @Benchmark
-  def tabulateInternal() = rawData.asCsvString(',')
+  def tabulateEngine(implicit engine: WriterEngine) = rawData.asCsvString(',')
 
   @Benchmark
-  def tabulateJackson() = {
-    import tabulate.engine.jackson._
-    rawData.asCsvString(',')
-  }
+  def tabulateInternal() = tabulateEngine
 
   @Benchmark
-  def tabulateOpencsv() = {
-    import tabulate.engine.opencsv._
-    rawData.asCsvString(',')
-  }
+  def tabulateJackson() = tabulateEngine(tabulate.engine.jackson.engine)
 
   @Benchmark
-  def tabulateCommons() = {
-    import tabulate.engine.commons._
-    rawData.asCsvString(',')
-  }
+  def tabulateOpencsv() = tabulateEngine(tabulate.engine.opencsv.engine)
+
+  @Benchmark
+  def tabulateCommons() = tabulateEngine(tabulate.engine.commons.engine)
 
   @Benchmark
   def productCollections() = {
