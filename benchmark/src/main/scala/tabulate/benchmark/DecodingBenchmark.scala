@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit
 
 import org.openjdk.jmh.annotations._
 import tabulate.CsvInput
+import tabulate.engine.jackson.JacksonCsv
 
 @State(Scope.Thread)
 @BenchmarkMode(Array(Mode.AverageTime))
@@ -74,7 +75,7 @@ class DecodingBenchmark {
 
   @Benchmark
   def jackson() =
-    new CsvIterator(JacksonCsv.parse(new StringReader(strData)))(it =>
+    new CsvIterator(JacksonCsv.parse(new StringReader(strData), ','))(it =>
       if(it.hasNext) it.next()
       else           null
     ).toList

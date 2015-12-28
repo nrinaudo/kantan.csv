@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit
 
 import org.apache.commons.csv.CSVFormat
 import org.openjdk.jmh.annotations._
+import tabulate.engine.jackson.JacksonCsv
 import tabulate.ops._
 
 @State(Scope.Thread)
@@ -63,7 +64,7 @@ class EncodingBenchmark {
   @Benchmark
   def jackson() = {
     val out = new StringWriter()
-    val writer = JacksonCsv.write(out)
+    val writer = JacksonCsv.write(out, ',')
     write { a =>
       writer.write(a)
       ()

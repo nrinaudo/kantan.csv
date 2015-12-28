@@ -16,8 +16,8 @@ object ops extends CsvInput.ToCsvInputOps
     def parseCsvRow[A](implicit da: RowDecoder[A]): DecodeResult[A] = da.decode(row)
   }
 
-  implicit class TraversableOps[A](val rows: Traversable[A])(implicit ea: RowEncoder[A], engine: WriterEngine) {
-    def asCsvString(sep: Char, header: Seq[String] = Seq.empty): String = {
+  implicit class TraversableOps[A: RowEncoder](val rows: Traversable[A]) {
+    def asCsvString(sep: Char, header: Seq[String] = Seq.empty)(implicit engine: WriterEngine): String = {
       val out = new StringWriter()
       CsvWriter(out, sep, header).write(rows)
       out.toString
