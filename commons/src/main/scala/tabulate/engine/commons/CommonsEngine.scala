@@ -1,12 +1,15 @@
 package tabulate.engine.commons
 
 import java.io.{Reader, Writer}
-import org.apache.commons.csv.{CSVPrinter, CSVFormat}
 
-import scala.collection.JavaConverters._
-
+import org.apache.commons.csv.{CSVFormat, CSVPrinter, CSVRecord}
 import tabulate.engine.{ReaderEngine, WriterEngine}
 import tabulate.{CsvReader, CsvWriter, DecodeResult}
+
+private class CsvSeq(rec: CSVRecord) extends IndexedSeq[String] {
+  override def length: Int = rec.size()
+  override def apply(idx: Int): String = rec.get(idx)
+}
 
 class CommonsEngine extends ReaderEngine with WriterEngine {
   private def formatFor(sep: Char): CSVFormat = CSVFormat.RFC4180.withDelimiter(sep)
@@ -17,7 +20,7 @@ class CommonsEngine extends ReaderEngine with WriterEngine {
 
     new CsvReader[DecodeResult[Seq[String]]] {
       override def hasNext = csv.hasNext
-      override protected def readNext() = DecodeResult(csv.next().asScala.toSeq)
+      override protected def readNext() = DecodeResult(new CsvSeq(csv.next()))
       override def close() = parser.close()
     }
   }
