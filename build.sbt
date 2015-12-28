@@ -241,5 +241,5 @@ lazy val docs = project
   .settings(noPublishSettings:_*)
   .dependsOn(core, scalazStream, laws, cats, scalaz, generic)
 
-addCommandAlias("runBench",    "benchmark/jmh:run -i 10 -wi 10 -f 2 -t 1 -rf csv -rff benchmarks.csv .*Benchmark.*")
-addCommandAlias("runProfiler", "benchmark/jmh:run -i 10 -wi 5 -f 1 -t 1 -prof stack:detailLine=true;lines=1;period=5 tabulate.benchmark.Profiling")
+addCommandAlias("runBench",    "benchmark/jmh:run -i 10 -wi 10 -f 2 -t 1 -rf csv -rff benchmarks.csv")
+addCommandAlias("runProfiler", "benchmark/jmh:run -i 10 -wi 5 -f 1 -t 1 -o profiler.txt -prof stack:detailLine=true;lines=5;period=1 tabulate.benchmark.*tabulate.*")

@@ -5,12 +5,13 @@ import java.util.concurrent.TimeUnit
 
 import org.openjdk.jmh.annotations._
 import tabulate.CsvInput
+import tabulate.engine.ReaderEngine
 import tabulate.engine.jackson.JacksonCsv
 
 @State(Scope.Thread)
 @BenchmarkMode(Array(Mode.AverageTime))
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
-class DecodingBenchmark {
+class Decoding {
   // - Helpers ---------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   class CsvIterator[A](iterator: A)(f: A => Array[String]) extends Iterator[CsvEntry] {
@@ -28,27 +29,20 @@ class DecodingBenchmark {
 
   // - Benchmarks ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  @Benchmark
-  def tabulateInternal() =
-    CsvInput.string.unsafeRows[CsvEntry](strData, ',', false).toList
+  def tabulateEngine(implicit engine: ReaderEngine) = CsvInput.string.unsafeRows[CsvEntry](strData, ',', false).toList
 
   @Benchmark
-  def tabulateJackson() = {
-    import tabulate.engine.jackson._
-    CsvInput.string.unsafeRows[CsvEntry](strData, ',', false).toList
-  }
+  def tabulateInternal() = tabulateEngine
+
 
   @Benchmark
-  def tabulateOpencsv() = {
-    import tabulate.engine.opencsv._
-    CsvInput.string.unsafeRows[CsvEntry](strData, ',', false).toList
-  }
+  def tabulateJackson() = tabulateEngine(tabulate.engine.jackson.engine)
 
   @Benchmark
-  def tabulateCommons() = {
-    import tabulate.engine.commons._
-    CsvInput.string.unsafeRows[CsvEntry](strData, ',', false).toList
-  }
+  def tabulateOpencsv() = tabulateEngine(tabulate.engine.opencsv.engine)
+
+  @Benchmark
+  def tabulateCommons() = tabulateEngine(tabulate.engine.commons.engine)
 
 
   // Note: we must call trim on the input since product-collections does not accept the last row ending with a line
