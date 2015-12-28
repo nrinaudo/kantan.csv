@@ -6,6 +6,8 @@ import com.opencsv._
 import tabulate.engine.{ReaderEngine, WriterEngine}
 import tabulate.{CsvWriter, CsvReader, DecodeResult}
 
+import scala.collection.mutable
+
 class OpenCsvEngine extends ReaderEngine with WriterEngine {
   override def readerFor(reader: Reader, separator: Char) = {
     val csv = new CSVReader(reader, separator)
@@ -14,7 +16,7 @@ class OpenCsvEngine extends ReaderEngine with WriterEngine {
       var n: Array[String] = csv.readNext()
       override def hasNext = n != null
       override protected def readNext() = {
-        val buffer = DecodeResult(genericWrapArray(n))
+        val buffer = DecodeResult(mutable.WrappedArray.make(n))
         n = csv.readNext()
         buffer
       }
