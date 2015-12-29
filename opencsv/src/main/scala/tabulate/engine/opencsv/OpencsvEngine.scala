@@ -8,8 +8,14 @@ import tabulate.{CsvReader, CsvWriter, DecodeResult}
 
 import scala.collection.mutable
 
+// TODO: known bugs
+// - \r\n is not preserved within quoted cells, it's turned into \n (csv spectrum test)
+// - unescaped double quotes are not supported.
+
 class OpenCsvEngine extends ReaderEngine with WriterEngine {
   override def readerFor(reader: Reader, separator: Char) = {
+    // Note that using the `null` character as escape is a bit of a cheat, but it kind of works, mostly. Escaping is not
+    // part of the CSV format, but I found no other way to disable it.
     val csv = new CSVReader(reader, separator, '"', '\u0000', 0, false, false, false)
 
     new CsvReader[DecodeResult[Seq[String]]] {
