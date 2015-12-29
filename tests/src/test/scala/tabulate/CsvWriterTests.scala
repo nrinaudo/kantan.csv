@@ -13,20 +13,20 @@ class CsvWriterTests extends FunSuite with GeneratorDrivenPropertyChecks {
   val separatorCsv: Gen[List[List[String]]] = csvWith(Gen.listOf(Gen.oneOf(Gen.choose(97.toChar, 122.toChar), Gen.const(','))))
 
   test("writing should behave properly on alpha-numeric strings") {
-    forAll(alphaNumCsv) { csv => assert(csv.asCsvString(',').asUnsafeCsvRows[List[String]](',', false).toList == csv) }
+    forAll(alphaNumCsv) { csv => assert(csv.asCsvString(',').unsafeReadCsv[List[String], List](',', false) == csv) }
   }
 
   test("writing should behave properly on strings with line breaks") {
-    forAll(lineBreakCsv) { csv => assert(csv.asCsvString(',').asUnsafeCsvRows[List[String]](',', false).toList == csv) }
+    forAll(lineBreakCsv) { csv => assert(csv.asCsvString(',').unsafeReadCsv[List[String], List](',', false) == csv) }
   }
 
   test("writing should behave properly on strings with separators") {
-    forAll(separatorCsv) { csv => assert(csv.asCsvString(',').asUnsafeCsvRows[List[String]](',', false).toList == csv) }
+    forAll(separatorCsv) { csv => assert(csv.asCsvString(',').unsafeReadCsv[List[String], List](',', false) == csv) }
   }
 
   test("writing should behave properly on strings with double quotes") {
     forAll(doubleQuoteCsv) { csv =>
-      assert(csv.asCsvString(',').asUnsafeCsvRows[List[String]](',', false).toList == csv)
+      assert(csv.asCsvString(',').unsafeReadCsv[List[String], List](',', false) == csv)
     }
   }
 }

@@ -10,7 +10,7 @@ class CsvSpectrumTests extends FunSuite {
     "quotes_and_newlines", "simple", "simple_crlf", "utf8")
 
   def csvAsMap(name: String): List[Map[String, String]] = {
-    val (h :: b) = getClass.getResource(s"/csv-spectrum/csvs/$name.csv").asUnsafeCsvRows[List[String]](',', false).toList
+    val (h :: b) = getClass.getResource(s"/csv-spectrum/csvs/$name.csv").unsafeReadCsv[List[String], List](',', false)
 
     b.map(row => h.zip(row).foldLeft(Map.empty[String, String])((acc, tuple) => acc + tuple))
   }

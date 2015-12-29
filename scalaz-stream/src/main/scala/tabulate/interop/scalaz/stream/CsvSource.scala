@@ -34,6 +34,6 @@ object CsvSource {
     CsvSource(CsvReader[A](reader, sep, header))
 
   implicit def fromInput[S](implicit is: CsvInput[S]): CsvSource[S] = new CsvSource[S] {
-    override def reader(s: S) = is.reader(s)
+    override def reader(s: S) = is.open(s)
   }
 }

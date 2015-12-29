@@ -3,10 +3,11 @@ package tabulate
 import java.io._
 import java.net.{URI, URL}
 
-import simulacrum.{noop, op, typeclass}
+import simulacrum.{op, noop, typeclass}
 import tabulate.engine.ReaderEngine
 
-import scala.io.{Codec, Source}
+import scala.collection.generic.CanBuildFrom
+import scala.io.Codec
 
 /** Turns instances of `S` into valid sources of CSV data.
   *
@@ -20,12 +21,13 @@ import scala.io.{Codec, Source}
     *
     * Other methods in this trait all rely on this to open and parse CSV data.
     */
-  @noop def reader(s: S): Reader
+  @noop
+  def open(s: S): Reader
 
   /** Turns the specified `S` into an iterator on `DecodeResult[A]`.
     *
     * This method is "safe", in that it does not throw exceptions when errors are encountered. This comes with the small
-    * cost of having each row wrapped in a `DecodeResult` that then need to be unpacked. See [[unsafeRows]] for an
+    * cost of having each row wrapped in a `DecodeResult` that then need to be unpacked. See [[unsafeReader]] for an
     * alternative.
     *
     * This method is also mapped to the `asCsvRows` one that enrich all types that have a valid `CsvInput` instance
@@ -37,17 +39,28 @@ import scala.io.{Codec, Source}
     *
     * @tparam A type to parse each row as.
     */
-  @op("asCsvRows") def rows[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[DecodeResult[A]] =
-    CsvReader(reader(s), separator, header)
+  @op("asCsvReader")
+  def reader[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[DecodeResult[A]] =
+    CsvReader(open(s), separator, header)
 
   /** Turns the specified `S` into an iterator on `A`.
     *
-    * This is the "unsafe" version of [[rows]]: it will throw as soon as an error is encountered.
+    * This is the "unsafe" version of [[reader]]: it will throw as soon as an error is encountered.
     *
     * @tparam A type to parse each row as.
     */
-  @op("asUnsafeCsvRows") def unsafeRows[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[A] =
-    rows[A](s, separator, header).map(_.getOrElse(throw new IOException("Illegal CSV data found")))
+  @op("asUnsafeCsvReader")
+  def unsafeReader[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[A] =
+    reader[A](s, separator, header).map(_.getOrElse(throw new IOException("Illegal CSV data found")))
+
+  @op("readCsv")
+  def read[A: RowDecoder, C[_]](s: S, sep: Char, header: Boolean)(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, DecodeResult[A], C[DecodeResult[A]]]): C[DecodeResult[A]] =
+    reader(s, sep, header).to[C]
+
+  @op("unsafeReadCsv")
+  def unsafeRead[A: RowDecoder, C[_]](s: S, sep: Char, header: Boolean)(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, A, C[A]]): C[A] =
+    unsafeReader(s, sep, header).to[C]
+
 
   /** Turns an instance of `CsvInput[S]` into one of `CsvInput[T]`.
     *
@@ -57,7 +70,7 @@ import scala.io.{Codec, Source}
     *   val urlInput: CsvInput[URL] = CsvInput[InputStream].contramap((url: URL) => url.openStream())
     * }}}
     */
-  @noop def contramap[T](f: T => S): CsvInput[T] = CsvInput.fromReader(t => self.reader(f(t)))
+  @noop def contramap[T](f: T => S): CsvInput[T] = CsvInput((t: T) => self.open(f(t)))
 }
 
 @export.imports[CsvInput]
@@ -73,25 +86,24 @@ trait LowPriorityCsvInputs
   * your implementation.
   */
 object CsvInput extends LowPriorityCsvInputs {
-  /** Creates an instance of `CsvInput[S]` from the specified function. */
-  def fromReader[S](f: S => Reader): CsvInput[S] = new CsvInput[S] {
-    override def reader(a: S) = f(a)
-  }
+  def apply[S](f: S => Reader): CsvInput[S] = new CsvInput[S] {
+      override def open(a: S) = f(a)
+    }
 
-  def fromStream[S](f: S => InputStream)(implicit codec: Codec): CsvInput[S] = new CsvInput[S] {
-    override def reader(s: S) = new InputStreamReader(f(s), codec.charSet)
-  }
+  def apply[S](f: S => InputStream)(implicit codec: Codec): CsvInput[S] = new CsvInput[S] {
+      override def open(s: S) = new InputStreamReader(f(s), codec.charSet)
+    }
 
   /** Turns any `java.io.File` into a source of CSV data. */
-  implicit def file(implicit codec: Codec): CsvInput[File] = fromStream(f => new FileInputStream(f))
+  implicit def file(implicit codec: Codec): CsvInput[File] = CsvInput((f: File) => new FileInputStream(f))
   /** Turns any array of bytes into a source of CSV data. */
-  implicit def bytes(implicit codec: Codec): CsvInput[Array[Byte]] = fromStream(b => new ByteArrayInputStream(b))
+  implicit def bytes(implicit codec: Codec): CsvInput[Array[Byte]] = CsvInput((b: Array[Byte]) => new ByteArrayInputStream(b))
   /** Turns any `java.net.URL` into a source of CSV data. */
-  implicit def url(implicit codec: Codec): CsvInput[URL] = fromStream(u => u.openStream())
+  implicit def url(implicit codec: Codec): CsvInput[URL] = CsvInput((u: URL) => u.openStream())
   /** Turns any `java.net.URI` into a source of CSV data. */
   implicit def uri(implicit codec: Codec): CsvInput[URI] = file.contramap(u => new File(u))
   /** Turns any array of chars into a source of CSV data. */
-  implicit val chars: CsvInput[Array[Char]] = fromReader(c => new CharArrayReader(c))
+  implicit val chars: CsvInput[Array[Char]] = CsvInput((c: Array[Char]) => new CharArrayReader(c))
   /** Turns any string into a source of CSV data. */
-  implicit val string: CsvInput[String] = fromReader(s => new StringReader(s))
+  implicit val string: CsvInput[String] = CsvInput((s: String) => new StringReader(s))
 }

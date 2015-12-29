@@ -10,7 +10,7 @@ import simulacrum.{noop, typeclass}
   * `RowDecoder`, which relies on any implicit `CellDecoder` it has in scope to parse entire rows.
   *
   * If, for example, you need to parse CSV data that contains ISO 8601 formatted dates, you can't immediately call
-  * [[CsvInput.rows]] with a type argument of `List[Date]`: dates are not supported natively (because they can be
+  * [[CsvInput.reader]] with a type argument of `List[Date]`: dates are not supported natively (because they can be
   * serialised in so many different ways).
   *
   * This can be remedied simply by writing the following:

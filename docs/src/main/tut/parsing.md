@@ -195,7 +195,7 @@ CSV data, just write a `CsvInput` instance for it, make it implicit, stick it in
 As a simple example, this is how you'd turn all strings into sources of CSV data:
 
 ```tut:silent
-implicit val stringInput = CsvInput((s: String) => CsvData(scala.io.Source.fromString(s)))
+implicit val stringInput = CsvInput((s: String) => new java.io.StringReader(s))
 ```
 
 We can now write:

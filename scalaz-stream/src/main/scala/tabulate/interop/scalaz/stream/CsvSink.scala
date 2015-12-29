@@ -31,6 +31,6 @@ object CsvSink {
     CsvSink(CsvWriter[A](writer, sep, header))
 
   implicit def fromOutput[S](implicit os: CsvOutput[S]): CsvSink[S] = new CsvSink[S] {
-    override def writer(s: S) = os.writer(s)
+    override def writer(s: S) = os.open(s)
   }
 }

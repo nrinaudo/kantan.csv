@@ -29,7 +29,7 @@ class Decoding {
 
   // - Benchmarks ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def tabulateEngine(implicit engine: ReaderEngine) = CsvInput.string.unsafeRows[CsvEntry](strData, ',', false).toList
+  def tabulateEngine(implicit engine: ReaderEngine) = CsvInput.string.unsafeReader[CsvEntry](strData, ',', false).toList
 
   @Benchmark
   def tabulateInternal() = tabulateEngine
