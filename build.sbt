@@ -93,7 +93,6 @@ lazy val root = Project(id = "tabulate", base = file("."))
     """.stripMargin
   )
   .aggregate(core, cats, scalaz, scalazStream, laws, tests, docs, generic, benchmark, jackson, commons, opencsv)
-  //.dependsOn(core, generic, scalaz, cats)
 
 lazy val core = project
   .settings(
@@ -112,7 +111,7 @@ lazy val jackson = project
       "org.scalatest"                    %% "scalatest"              % scalatestVersion % "test"
     ))
     .settings(allSettings: _*)
-    .dependsOn(core)
+    .dependsOn(core, laws % "test")
 
 lazy val commons = project
   .settings(
@@ -124,7 +123,7 @@ lazy val commons = project
       "org.scalatest"      %% "scalatest"   % scalatestVersion % "test"
     ))
     .settings(allSettings: _*)
-    .dependsOn(core)
+    .dependsOn(core, laws % "test")
 
 lazy val opencsv = project
   .settings(
@@ -136,7 +135,7 @@ lazy val opencsv = project
       "org.scalatest" %% "scalatest" % scalatestVersion % "test"
     ))
     .settings(allSettings: _*)
-    .dependsOn(core)
+    .dependsOn(core, laws % "test")
 
 lazy val laws = project
   .settings(
