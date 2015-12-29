@@ -58,9 +58,3 @@ trait SpectrumReaderLaws {
     List("4", "5", "ʤ")
   ))
 }
-
-object SpectrumReaderLaws {
-  def apply(e: ReaderEngine): SpectrumReaderLaws = new SpectrumReaderLaws {
-    override implicit val engine = e
-  }
-}

@@ -2,7 +2,6 @@ package tabulate.laws.discipline
 
 import org.scalacheck.Prop._
 import org.typelevel.discipline.Laws
-import tabulate.engine.ReaderEngine
 import tabulate.laws.RfcReaderLaws
 
 trait RfcReaderTests extends Laws {
@@ -23,10 +22,4 @@ trait RfcReaderTests extends Laws {
     "unescaped double quotes"   -> forAll(laws.unescapedDoubleQuotes _),
     "escaped content"           -> forAll(laws.escapedCells _)
   )
-}
-
-object RfcReaderTests {
-  def apply(engine: ReaderEngine): RfcReaderTests = new RfcReaderTests {
-    override def laws: RfcReaderLaws = RfcReaderLaws(engine)
-  }
 }

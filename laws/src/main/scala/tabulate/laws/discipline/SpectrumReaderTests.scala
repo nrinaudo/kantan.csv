@@ -2,7 +2,6 @@ package tabulate.laws.discipline
 
 import org.scalacheck.Prop
 import org.typelevel.discipline.Laws
-import tabulate.engine.ReaderEngine
 import tabulate.laws.SpectrumReaderLaws
 
 trait SpectrumReaderTests extends Laws {
@@ -23,10 +22,4 @@ trait SpectrumReaderTests extends Laws {
     "simple crlf"         -> Prop(laws.simpleCRLF),
     "utf8"                -> Prop(laws.utf8)
   )
-}
-
-object SpectrumReaderTests {
-  def apply(engine: ReaderEngine): SpectrumReaderTests = new SpectrumReaderTests {
-    override def laws: SpectrumReaderLaws = SpectrumReaderLaws(engine)
-  }
 }

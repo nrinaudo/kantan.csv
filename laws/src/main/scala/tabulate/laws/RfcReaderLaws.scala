@@ -63,9 +63,3 @@ trait RfcReaderLaws {
   // -------------------------------------------------------------------------------------------------------------------
   def escapedCells(csv: List[List[Cell.Escaped]]): Boolean = equals(cellsToCsv(csv), csv)
 }
-
-object RfcReaderLaws {
-  def apply(e: ReaderEngine): RfcReaderLaws = new RfcReaderLaws {
-    override implicit val engine = e
-  }
-}

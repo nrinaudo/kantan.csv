@@ -23,8 +23,4 @@ trait KnownFormatsReaderLaws {
 
 object KnownFormatsReaderLaws {
   case class Car(make: String, model: String, description: Option[String], price: Int, year: Int)
-
-  def apply(e: ReaderEngine): KnownFormatsReaderLaws = new KnownFormatsReaderLaws {
-    override implicit val engine = e
-  }
 }

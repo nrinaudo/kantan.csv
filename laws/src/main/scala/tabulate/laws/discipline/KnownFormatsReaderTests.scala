@@ -16,9 +16,3 @@ trait KnownFormatsReaderTests extends Laws {
       "google docs"         -> Prop(laws.googleDocs)
     )
 }
-
-object KnownFormatsReaderTests {
-  def apply(engine: ReaderEngine): KnownFormatsReaderTests = new KnownFormatsReaderTests {
-    override def laws: KnownFormatsReaderLaws = KnownFormatsReaderLaws(engine)
-  }
-}
