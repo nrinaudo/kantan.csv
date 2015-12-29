@@ -98,7 +98,10 @@ private[engine] class InternalReader(val data: Reader, val separator: Char) exte
     // whitespace: unsure, either whitespace before an escaped cell or part of a raw cell.
     case _ if c.isWhitespace =>
       if(hasNextChar) cellStart(nextChar())
-      else            InternalReader.CEOF
+      else {
+        endCell()
+        InternalReader.CEOF
+      }
 
     // Anything else: raw cell.
     case _ =>
