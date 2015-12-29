@@ -2,7 +2,6 @@ import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
 import com.typesafe.sbt.SbtSite.SiteKeys._
 import UnidocKeys._
 
-val argonautVersion          = "6.1"
 val catsVersion              = "0.3.0"
 val exportHookVersion        = "1.1.0"
 val simulacrumVersion        = "0.5.0"
@@ -94,7 +93,7 @@ lazy val root = Project(id = "tabulate", base = file("."))
     """.stripMargin
   )
   .aggregate(core, cats, scalaz, scalazStream, laws, tests, docs, generic, benchmark, jackson, commons, opencsv)
-  .dependsOn(core, generic, scalaz, cats)
+  //.dependsOn(core, generic, scalaz, cats)
 
 lazy val core = project
   .settings(
@@ -205,10 +204,7 @@ lazy val tests = project
   .settings(allSettings: _*)
   .settings(noPublishSettings: _*)
   .settings(coverageExcludedPackages := "tabulate\\.laws\\..*")
-  .settings(libraryDependencies ++= Seq(
-    "org.scalatest" %% "scalatest" % scalatestVersion % "test",
-    "io.argonaut"   %% "argonaut"  % argonautVersion  % "test"
-  ))
+  .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
   .dependsOn(core, laws % "test")
 
 lazy val benchmark = project
