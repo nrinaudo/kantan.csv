@@ -4,13 +4,13 @@ import java.io.{Reader, Writer}
 
 import com.opencsv._
 import tabulate.engine.{ReaderEngine, WriterEngine}
-import tabulate.{CsvWriter, CsvReader, DecodeResult}
+import tabulate.{CsvReader, CsvWriter, DecodeResult}
 
 import scala.collection.mutable
 
 class OpenCsvEngine extends ReaderEngine with WriterEngine {
   override def readerFor(reader: Reader, separator: Char) = {
-    val csv = new CSVReader(reader, separator)
+    val csv = new CSVReader(reader, separator, '"', '\u0000', 0, false, false, false)
 
     new CsvReader[DecodeResult[Seq[String]]] {
       var n: Array[String] = csv.readNext()
