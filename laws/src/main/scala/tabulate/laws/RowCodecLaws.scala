@@ -24,6 +24,6 @@ trait RowCodecLaws[A] {
 
 object RowCodecLaws {
   def apply[A](implicit c: RowCodec[A]): RowCodecLaws[A] = new RowCodecLaws[A] {
-    override implicit def codec = c
+    override implicit val codec = c
   }
 }

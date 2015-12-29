@@ -20,6 +20,6 @@ trait CellCodecLaws[A] {
 
 object CellCodecLaws {
   def apply[A](implicit c: CellCodec[A]): CellCodecLaws[A] = new CellCodecLaws[A] {
-    override implicit def codec = c
+    override implicit val codec = c
   }
 }
