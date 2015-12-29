@@ -42,13 +42,13 @@ lazy val compilerOptions = Seq("-deprecation",
 
 lazy val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
-  //resolvers += Resolver.sonatypeRepo("snapshots"),
   libraryDependencies ++= Seq(
     "org.typelevel"        %% "export-hook"   % exportHookVersion,
     "org.scala-lang"        % "scala-reflect" % scalaVersion.value  % "provided",
     "com.github.mpilquist" %% "simulacrum"    % simulacrumVersion % "provided",
     compilerPlugin("org.scalamacros" % "paradise" % macroParadiseVersion cross CrossVersion.full)
   ),
+  coverageExcludedPackages := "tabulate\\.benchmark\\..*;tabulate\\.laws\\..*",
   incOptions         := incOptions.value.withNameHashing(true)
 )
 
@@ -202,7 +202,6 @@ lazy val cats = project
 lazy val tests = project
   .settings(allSettings: _*)
   .settings(noPublishSettings: _*)
-  .settings(coverageExcludedPackages := "tabulate\\.laws\\..*")
   .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
   .dependsOn(core, laws % "test")
 
