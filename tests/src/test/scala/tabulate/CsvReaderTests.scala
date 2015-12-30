@@ -8,7 +8,7 @@ import tabulate.ops._
 
 class CsvReaderTests extends FunSuite with GeneratorDrivenPropertyChecks {
   private def asCsvRows(csv: List[List[String]]): CsvReader[List[String]] =
-    csv.asCsv(',').asCsvReader[List[String]](',', false).map(_.get)
+    csv.asCsv(',').asUnsafeCsvReader[List[String]](',', false)
 
   test("empty.next should throw an exception") {
     intercept[NoSuchElementException] { CsvReader.empty.next() }

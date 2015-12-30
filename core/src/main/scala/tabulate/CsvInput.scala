@@ -54,11 +54,11 @@ import scala.io.Codec
     reader[A](s, separator, header).map(_.getOrElse(throw new IOException("Illegal CSV data found")))
 
   @op("readCsv")
-  def read[A: RowDecoder, C[_]](s: S, sep: Char, header: Boolean)(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, DecodeResult[A], C[DecodeResult[A]]]): C[DecodeResult[A]] =
+  def read[C[_], A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, DecodeResult[A], C[DecodeResult[A]]]): C[DecodeResult[A]] =
     reader(s, sep, header).to[C]
 
   @op("unsafeReadCsv")
-  def unsafeRead[A: RowDecoder, C[_]](s: S, sep: Char, header: Boolean)(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, A, C[A]]): C[A] =
+  def unsafeRead[C[_], A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, A, C[A]]): C[A] =
     unsafeReader(s, sep, header).to[C]
 
 
