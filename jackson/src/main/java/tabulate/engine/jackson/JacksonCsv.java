@@ -10,6 +10,7 @@ package tabulate.engine.jackson;
 
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.SequenceWriter;
+import com.fasterxml.jackson.dataformat.csv.CsvGenerator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvParser;
 
@@ -23,6 +24,7 @@ public class JacksonCsv {
     static {
         MAPPER  = new CsvMapper();
         MAPPER.enable(CsvParser.Feature.WRAP_AS_ARRAY);
+        MAPPER.enable(CsvGenerator.Feature.STRICT_CHECK_FOR_QUOTING);
     }
 
     public static MappingIterator<String[]> parse(Reader reader, char separator) throws IOException {
@@ -33,7 +35,7 @@ public class JacksonCsv {
 
     public static SequenceWriter write(Writer writer, char separator) throws IOException {
         return MAPPER.writer()
-                .with(MAPPER.schemaFor(String[].class).withColumnSeparator(separator))
+                .with(MAPPER.schemaFor(String[].class).withColumnSeparator(separator).withLineSeparator("\r\n").withoutComments())
                 .writeValues(writer);
     }
 }

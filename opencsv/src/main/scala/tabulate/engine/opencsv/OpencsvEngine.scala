@@ -30,7 +30,7 @@ class OpenCsvEngine extends ReaderEngine with WriterEngine {
     }
   }
   override def writerFor(writer: Writer, separator: Char) = {
-    val out = new CSVWriter(writer, separator)
+    val out = new CSVWriter(writer, separator, '"', "\r\n")
     new CsvWriter[Seq[String]] {
       override def write(ss: Seq[String]) = {
         out.writeNext(ss.toArray)

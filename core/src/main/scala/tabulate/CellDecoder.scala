@@ -27,6 +27,9 @@ import simulacrum.{noop, typeclass}
   @noop
   def decode(s: String): DecodeResult[A]
 
+  @noop
+  def unsafeDecode(s: String): A = decode(s).get
+
   /** Turns the content of the specified cell into an `A`.
     *
     * The purpose of this method is to protect against index out of bound exceptions. Should the specified index not
@@ -36,6 +39,9 @@ import simulacrum.{noop, typeclass}
   def decode(ss: Seq[String], index: Int): DecodeResult[A] =
     if(ss.isDefinedAt(index)) decode(ss(index))
     else                      DecodeResult.DecodeFailure
+
+  @noop
+  def unsafeDecode(ss: Seq[String], index: Int): A = decode(ss, index).get
 
   /** Turns an instance of `CellDecoder[A]` into one of `CellDecoder[B]`.
     *

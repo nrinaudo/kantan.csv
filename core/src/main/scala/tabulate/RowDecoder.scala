@@ -25,15 +25,21 @@ import scala.collection.generic.CanBuildFrom
   */
 @typeclass trait RowDecoder[A] { self =>
   /** Turns the content of a row into `A`. */
-  @noop def decode(row: Seq[String]): DecodeResult[A]
+  @noop
+  def decode(row: Seq[String]): DecodeResult[A]
+
+  @noop
+  def unsafeDecode(row: Seq[String]): A = decode(row).get
 
   /** Turns a `RowDecoder[A]` into a `RowDecoder[B]`.
     *
     * This allows developers to adapt existing instances of [[RowDecoder]] rather than write one from scratch.
     */
-  @noop def map[B](f: A => B): RowDecoder[B] = RowDecoder(ss => decode(ss).map(f))
+  @noop
+  def map[B](f: A => B): RowDecoder[B] = RowDecoder(ss => decode(ss).map(f))
 
-  @noop def flatMap[B](f: A => RowDecoder[B]): RowDecoder[B] = RowDecoder(s => decode(s).flatMap(a => f(a).decode(s)))
+  @noop
+  def flatMap[B](f: A => RowDecoder[B]): RowDecoder[B] = RowDecoder(s => decode(s).flatMap(a => f(a).decode(s)))
 }
 
 @export.imports[RowDecoder]

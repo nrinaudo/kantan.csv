@@ -1,6 +1,7 @@
 package tabulate.laws
 
 import org.scalacheck.{Arbitrary, Gen}
+import tabulate.{DecodeResult, CellDecoder, CellEncoder}
 
 sealed trait Cell {
   def value: String
@@ -12,13 +13,19 @@ object Cell {
   case class Escaped private[Cell](override val value: String) extends Cell {
     override def encoded = "\"" + value.replaceAll("\"", "\"\"") + "\""
   }
+
   case class NonEscaped private[Cell](override val value: String) extends Cell {
     override def encoded =  value
   }
+
   case object Empty extends Cell {
     override val value   = ""
     override def encoded = ""
   }
+
+  implicit val cellEncoder: CellEncoder[Cell] = CellEncoder(_.value)
+  implicit val cellDecoder: CellDecoder[Cell] = CellDecoder(s => DecodeResult(Cell(s)))
+  implicit val nonEscapedCellEncoder: CellEncoder[Cell.NonEscaped] = CellEncoder(_.value)
 
   def apply(value: String): Cell =
     if(value == "")                                                            Empty
@@ -29,13 +36,22 @@ object Cell {
   // - CSV character generators ----------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   val nonEscapedChar: Gen[Char] = Gen.oneOf((0x20 to 0x21) ++ (0x23 to 0x2B) ++ (0x2D to 0x7E)).map(_.toChar)
-  val escapedChar: Gen[Char] = Gen.choose(0x20.toChar, 0x7e.toChar)
+  val escapedChar: Gen[Char] = Gen.oneOf(',', '"', '\r', '\n')
 
 
 
   // - CSV cell generators ---------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  val escaped: Gen[Escaped] = Gen.nonEmptyListOf(escapedChar).map(v => Escaped(v.mkString))
+  val escaped: Gen[Escaped] = for {
+    esc <- escapedChar
+    str <- Gen.listOf(Gen.oneOf(nonEscapedChar, escapedChar))
+    i   <- Gen.choose(0, str.size)
+  }  yield {
+    val (h, t) = str.splitAt(i)
+    Escaped((h ++ (esc :: t)).mkString)
+  }
+
+    Gen.nonEmptyListOf(escapedChar).map(v => Escaped(v.mkString))
   val nonEscaped: Gen[NonEscaped] = Gen.nonEmptyListOf(nonEscapedChar).map(v => NonEscaped(v.mkString))
   val cell: Gen[Cell] = Gen.oneOf(escaped, nonEscaped, Gen.const(Empty))
   val nonEmptyCell: Gen[Cell] = Gen.oneOf(escaped, nonEscaped)
