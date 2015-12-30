@@ -11,10 +11,10 @@ import scalaz.stream._
 
 /** Turns instances of `S` into CSV sources.
   *
-  * Any type `S` that has a implicit instance of `CsvSource` in scope will be enriched by the `asCsvSource` and
+  * Any type `S` that has a implicit instance of [[CsvSource]] in scope will be enriched by the `asCsvSource` and
   * `asUnsafeCsvSource` methods (which map to [[source]] and [[unsafeSource]] respectively).
   *
-  * Additionally, any type that has an instance of `CsvInput` in scope automatically gets an instance of `CsvSource`.
+  * Additionally, any type that has an instance of [[CsvInput]] in scope automatically gets an instance of [[CsvSource]].
   */
 @typeclass trait CsvSource[S] {
   @noop def reader(s: S): Reader

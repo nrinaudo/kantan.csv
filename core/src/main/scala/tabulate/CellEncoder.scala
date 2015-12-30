@@ -6,7 +6,7 @@ import simulacrum.{noop, op, typeclass}
 
 /** Encodes values of type `A` into CSV cells.
   *
-  * `CellEncoder` instances aren't meant to be used directly, but rather provide the backbone of the [[RowEncoder]]
+  * [[CellEncoder]] instances aren't meant to be used directly, but rather provide the backbone of the [[RowEncoder]]
   * mechanism.
   *
   * If you're working with data that contains dates and need to serialise these to valid ISO 8601 strings, for example,
@@ -15,7 +15,7 @@ import simulacrum.{noop, op, typeclass}
   *   implicit val dateEncoder = CellEncoder((d: Date) => new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(d))
   * }}}
   *
-  * Once this is done, Tabulate will be capable of serialising date fields without any further work. The following, for
+  * Once this is done, tabulate will be capable of serialising date fields without any further work. The following, for
   * example, will create a [[RowEncoder]] for triples of type `(Int, String, Date)`:
   * {{{
   *   RowEncoder[(Int, String, Date)]
@@ -29,7 +29,7 @@ import simulacrum.{noop, op, typeclass}
 
   /** Turns a `CellEncoder[A]` into a `CellEncoder[B]`.
     *
-    * This allows developers to adapt existing instance of `CellDecoder` rather than write new ones.
+    * This allows developers to adapt existing instance of [[CellDecoder]] rather than write new ones.
     */
   @noop def contramap[B](f: B => A): CellEncoder[B] = CellEncoder(f andThen encode _)
 }
@@ -39,7 +39,7 @@ import simulacrum.{noop, op, typeclass}
 trait LowPriorityCellEncoders
 
 object CellEncoder extends LowPriorityCellEncoders {
-  /** Creates a new `CellEncoder` from the specified function. */
+  /** Creates a new [[CellEncoder]] from the specified function. */
   def apply[A](f: A => String): CellEncoder[A] = new CellEncoder[A] {
     override def encode(a: A) = f(a)
   }
@@ -69,11 +69,11 @@ object CellEncoder extends LowPriorityCellEncoders {
   /** Turns a `UUID` into a CSV cell. */
   implicit val uuid  : CellEncoder[UUID]       = CellEncoder(_.toString)
 
-  /** Turns an `Option[A]` into a CSV cell, provided `A` has a `CellEncoder`. */
+  /** Turns an `Option[A]` into a CSV cell, provided `A` has a [[CellEncoder]]. */
   implicit def opt[A](implicit ea: CellEncoder[A]): CellEncoder[Option[A]] =
     CellEncoder(oa => oa.map(ea.encode).getOrElse(""))
 
-  /** Turns an `Either[A, B]` into a CSV cell, provided both `A` and `B` have a `CellEncoder`. */
+  /** Turns an `Either[A, B]` into a CSV cell, provided both `A` and `B` have a [[CellEncoder]]. */
   implicit def either[A, B](implicit ea: CellEncoder[A], eb: CellEncoder[B]): CellEncoder[Either[A, B]] =
     CellEncoder(eab => eab match {
       case Left(a)  => ea.encode(a)

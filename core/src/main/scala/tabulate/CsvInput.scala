@@ -11,8 +11,8 @@ import scala.io.Codec
 
 /** Turns instances of `S` into valid sources of CSV data.
   *
-  * Any type `S` that has a implicit instance of `CsvInput` in scope will be enriched by the `asCsvRows` and
-  * `asUnsafeCsvRows` methods (which map to [[rows]] and [[unsafeRows]] respectively).
+  * Any type `S` that has a implicit instance of [[CsvInput]] in scope will be enriched by the `asCsvReader` and
+  * `asUnsafeCsvReader` methods (which map to [[reader]] and [[unsafeReader]] respectively).
   *
   * See the [[CsvInput$ companion object]] for default implementations and construction methods.
   */
@@ -27,10 +27,10 @@ import scala.io.Codec
   /** Turns the specified `S` into an iterator on `DecodeResult[A]`.
     *
     * This method is "safe", in that it does not throw exceptions when errors are encountered. This comes with the small
-    * cost of having each row wrapped in a `DecodeResult` that then need to be unpacked. See [[unsafeReader]] for an
+    * cost of having each row wrapped in a [[DecodeResult]] that then need to be unpacked. See [[unsafeReader]] for an
     * alternative.
     *
-    * This method is also mapped to the `asCsvRows` one that enrich all types that have a valid `CsvInput` instance
+    * This method is also mapped to the `asCsvRows` one that enrich all types that have a valid [[CsvInput]] instance
     * in scope. For example:
     * {{{
     *   implicit val strInput: CsvInput[String] = ???
@@ -64,7 +64,7 @@ import scala.io.Codec
 
   /** Turns an instance of `CsvInput[S]` into one of `CsvInput[T]`.
     *
-    * This allows developers to adapt existing instances of `CsvInput` rather than write one from scratch.
+    * This allows developers to adapt existing instances of [[CsvInput]] rather than write one from scratch.
     * One could, for example, write `CsvInput[URL]` by basing it on `CsvInput[InputStream]`:
     * {{{
     *   val urlInput: CsvInput[URL] = CsvInput[InputStream].contramap((url: URL) => url.openStream())
@@ -76,7 +76,7 @@ import scala.io.Codec
 @export.imports[CsvInput]
 trait LowPriorityCsvInputs
 
-/** Defines convenience methods for creating and retrieving instances of `CsvInput`.
+/** Defines convenience methods for creating and retrieving instances of [[CsvInput]].
   *
   * Implicit default implementations of standard types are also declared here, always bringing them in scope with a low
   * priority.

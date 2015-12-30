@@ -19,7 +19,7 @@ trait RowCodecLaws[A] {
     codec.contramap(g andThen f).encode(c) == codec.contramap(f).contramap(g).encode(c)
 
   def csvReversibility(as: List[A], header: List[String]): Boolean =
-    as == CsvInput[String].unsafeReader[A](as.asCsvString(',', header), ',', true).toList
+    as == CsvInput[String].unsafeReader[A](as.asCsv(',', header), ',', true).toList
 }
 
 object RowCodecLaws {

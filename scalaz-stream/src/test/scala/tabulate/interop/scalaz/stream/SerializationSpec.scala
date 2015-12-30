@@ -1,13 +1,11 @@
 package tabulate.interop.scalaz.stream
 
-import ops._
-import tabulate.CsvWriter
-import tabulate.laws.discipline.arbitrary
-import arbitrary._
 import java.io.StringWriter
 
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import tabulate.interop.scalaz.stream.ops._
+import tabulate.laws.discipline.arbitrary._
 
 import scalaz.concurrent.Task
 import scalaz.stream.Process._

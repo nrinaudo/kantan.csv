@@ -16,7 +16,7 @@ class Encoding {
   def write[A](f: Array[String] => Unit): Unit =
     rawData.foreach { entry => f(Array(entry._1.toString, entry._2.toString, entry._3.toString, entry._4.toString)) }
 
-  def tabulateEngine(implicit engine: WriterEngine) = rawData.asCsvString(',')
+  def tabulateEngine(implicit engine: WriterEngine) = rawData.asCsv(',')
 
   @Benchmark
   def tabulateInternal() = tabulateEngine

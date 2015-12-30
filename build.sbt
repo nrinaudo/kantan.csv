@@ -221,7 +221,13 @@ lazy val docs = project
   .settings(ghpages.settings: _*)
   .settings(unidocSettings: _*)
   .settings(
-    unidocProjectFilter in (ScalaUnidoc, unidoc) := inAnyProject -- inProjects(benchmark)
+    unidocProjectFilter in (ScalaUnidoc, unidoc) := inAnyProject -- inProjects(benchmark),
+    autoAPIMappings := true,
+    apiURL := Some(url("http://nrinaudo.github.io/tabulate/api/")),
+    scalacOptions in (ScalaUnidoc, unidoc) ++= Seq(
+      "-doc-source-url", scmInfo.value.get.browseUrl + "/tree/master€{FILE_PATH}.scala",
+      "-sourcepath", baseDirectory.in(LocalRootProject).value.getAbsolutePath
+    )
   )
   .settings(tutSettings: _*)
   .settings(

@@ -10,5 +10,5 @@ package object benchmark {
     else           (i, "Character \"" + i.toChar + "\"\nhas code point \r\n" + i, true, i / 100F)
   )
 
-  val strData: String = rawData.asCsvString(',')
+  val strData: String = rawData.asCsv(',')
 }

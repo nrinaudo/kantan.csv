@@ -6,8 +6,8 @@ import simulacrum.{noop, typeclass}
 
 /** Decodes CSV cells into usable types.
   *
-  * By itself, an instance of `CellDecoder` is not terribly interesting. It becomes useful when combined with
-  * `RowDecoder`, which relies on any implicit `CellDecoder` it has in scope to parse entire rows.
+  * By itself, an instance of [[CellDecoder]] is not terribly interesting. It becomes useful when combined with
+  * [[RowDecoder]], which relies on any implicit [[CellDecoder]] it has in scope to parse entire rows.
   *
   * If, for example, you need to parse CSV data that contains ISO 8601 formatted dates, you can't immediately call
   * [[CsvInput.reader]] with a type argument of `List[Date]`: dates are not supported natively (because they can be
@@ -24,31 +24,35 @@ import simulacrum.{noop, typeclass}
   */
 @typeclass trait CellDecoder[A] {
   /** Turns the content of a CSV cell into an `A`. */
-  @noop def decode(s: String): DecodeResult[A]
+  @noop
+  def decode(s: String): DecodeResult[A]
 
   /** Turns the content of the specified cell into an `A`.
     *
     * The purpose of this method is to protect against index out of bound exceptions. Should the specified index not
     * exist, a [[DecodeResult.DecodeFailure]] instance will be returned.
     */
-  @noop def decode(ss: Seq[String], index: Int): DecodeResult[A] =
+  @noop
+  def decode(ss: Seq[String], index: Int): DecodeResult[A] =
     if(ss.isDefinedAt(index)) decode(ss(index))
     else                      DecodeResult.DecodeFailure
 
   /** Turns an instance of `CellDecoder[A]` into one of `CellDecoder[B]`.
     *
-    * This allows developers to adapt existing instances of `CellDecoder` rather than write one from scratch.
+    * This allows developers to adapt existing instances of [[CellDecoder]] rather than write one from scratch.
     */
-  @noop def map[B](f: A => B): CellDecoder[B] = CellDecoder(s => decode(s).map(f))
+  @noop
+  def map[B](f: A => B): CellDecoder[B] = CellDecoder(s => decode(s).map(f))
 
-  @noop def flatMap[B](f: A => CellDecoder[B]): CellDecoder[B] = CellDecoder(s => decode(s).flatMap(a => f(a).decode(s)))
+  @noop
+  def flatMap[B](f: A => CellDecoder[B]): CellDecoder[B] = CellDecoder(s => decode(s).flatMap(a => f(a).decode(s)))
 }
 
 /** Low priority implicit decoders. */
 @export.imports[CellDecoder]
 trait LowPriorityCellDecoders
 
-/** Defines convenience methods for creating and retrieving instances of `CellDecoder`.
+/** Defines convenience methods for creating and retrieving instances of [[CellDecoder]].
   *
   * Implicit default implementations of standard types are also declared here, always bringing them in scope with a low
   * priority.
@@ -88,7 +92,7 @@ object CellDecoder extends LowPriorityCellDecoders {
   /** Turns a cell into a `UUID` value. */
   implicit val uuid  : CellDecoder[UUID]       = CellDecoder(s => DecodeResult(UUID.fromString(s)))
 
-  /** Turns a cell into an instance of `Option[A]`, provided `A` has an implicit `CellDecoder` in scope.
+  /** Turns a cell into an instance of `Option[A]`, provided `A` has an implicit [[CellDecoder]] in scope.
     *
     * Any non-empty string will map to `Some`, the empty string to `None`.
     */
@@ -97,7 +101,7 @@ object CellDecoder extends LowPriorityCellDecoders {
     else          da.decode(s).map(Option.apply)
   }
 
-  /** Turns a cell into an instance of `Either[A, B]`, provided `A` and `B` have an inplicit `CellDecoder` in scope.
+  /** Turns a cell into an instance of `Either[A, B]`, provided `A` and `B` have an implicit [[CellDecoder]] in scope.
     *
     * This is done by first attempting to parse the cell as an `A`. If that fails, we'll try parsing it as a `B`. If that
     * fails as well, [[DecodeResult.DecodeFailure]] will be returned.
