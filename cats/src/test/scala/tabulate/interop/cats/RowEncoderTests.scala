@@ -10,7 +10,6 @@ import tabulate.RowEncoder
 import tabulate.laws.discipline.arbitrary._
 import tabulate.laws.discipline.equality
 
-
 class RowEncoderTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   implicit def rowEncoderEq[A: Arbitrary]: Eq[RowEncoder[A]] = new Eq[RowEncoder[A]] {
     override def eqv(a1: RowEncoder[A], a2: RowEncoder[A]): Boolean =
