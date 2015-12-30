@@ -13,7 +13,7 @@ trait RowCodecTests[A] extends Laws {
   def rowCodec[B: Arbitrary, C: Arbitrary]: RuleSet = new DefaultRuleSet(
     name = "rowCodec",
     parent = None,
-    "encode reversibility " -> forAll(laws.encodeReversibility _),
+    "encode round trip" -> forAll(laws.roundTrip _),
     "decode identity" -> forAll(laws.decodeIdentity _),
     "encode identity" -> forAll(laws.encodeIdentity _),
     "decode composition" -> forAll(laws.decodeComposition[B, C] _),
@@ -26,7 +26,7 @@ trait RowCodecTests[A] extends Laws {
     new DefaultRuleSet(
       name = "reversibleRowCodec",
       parent = Some(rowCodec[B, C]),
-      "csv reversibility" -> forAll(laws.csvReversibility _))
+      "csv round trip" -> forAll(laws.csvRoundTrip _))
   }
 }
 

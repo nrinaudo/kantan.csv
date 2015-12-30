@@ -14,9 +14,9 @@ trait CellCodecTests[A] extends Laws {
   def cellCodec[B: Arbitrary, C: Arbitrary]: RuleSet = new DefaultRuleSet(
     name = "cellCodec",
     parent = None,
-    "encode reversibility " -> forAll(laws.encodeReversibility _),
-    "decode identity" -> forAll(laws.decodeIdentity _),
-    "encode identity" -> forAll(laws.encodeIdentity _),
+    "round trip"         -> forAll(laws.roundTrip _),
+    "decode identity"    -> forAll(laws.decodeIdentity _),
+    "encode identity"    -> forAll(laws.encodeIdentity _),
     "decode composition" -> forAll(laws.decodeComposition[B, C] _),
     "encode composition" -> forAll(laws.encodeComposition[B, C] _)
   )

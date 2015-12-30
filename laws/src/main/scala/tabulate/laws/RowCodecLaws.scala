@@ -6,7 +6,7 @@ import tabulate.{CsvInput, DecodeResult, RowCodec}
 trait RowCodecLaws[A] {
   implicit def codec: RowCodec[A]
 
-  def encodeReversibility(a: A): Boolean = codec.decode(a.asCsvRow) == DecodeResult.Success(a)
+  def roundTrip(a: A): Boolean = codec.decode(a.asCsvRow) == DecodeResult.Success(a)
 
   def decodeIdentity(a: A): Boolean = codec.decode(a.asCsvRow) == codec.map(identity).decode(a.asCsvRow)
 
@@ -18,7 +18,7 @@ trait RowCodecLaws[A] {
   def encodeComposition[B, C](c: C, f: B => A, g: C => B): Boolean =
     codec.contramap(g andThen f).encode(c) == codec.contramap(f).contramap(g).encode(c)
 
-  def csvReversibility(as: List[A], header: List[String]): Boolean =
+  def csvRoundTrip(as: List[A], header: List[String]): Boolean =
     as == CsvInput[String].unsafeReader[A](as.asCsv(',', header), ',', true).toList
 }
 

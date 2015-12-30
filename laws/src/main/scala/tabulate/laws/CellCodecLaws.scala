@@ -5,7 +5,7 @@ import tabulate.{CellCodec, DecodeResult}
 trait CellCodecLaws[A] {
   implicit def codec: CellCodec[A]
 
-  def encodeReversibility(a: A): Boolean = codec.decode(codec.encode(a)) == DecodeResult.Success(a)
+  def roundTrip(a: A): Boolean = codec.decode(codec.encode(a)) == DecodeResult.Success(a)
 
   def decodeIdentity(a: A): Boolean = codec.decode(codec.encode(a)) == codec.map(identity).decode(codec.encode(a))
 
