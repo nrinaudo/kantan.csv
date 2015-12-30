@@ -7,7 +7,7 @@ import tabulate._
 import tabulate.laws.Cell
 
 object arbitrary {
-  val csv: Gen[List[List[String]]] = Arbitrary.arbitrary[List[List[Cell]]].map(_.map(_.map(_.value)))
+  val csv: Gen[List[List[String]]] = arb[List[List[Cell]]].map(_.map(_.map(_.value)))
 
   def success[A: Arbitrary]: Gen[DecodeResult[A]] = arb[A].map(DecodeResult.success)
   def readFailure[A]: Gen[DecodeResult[A]] = arb[(Int, Int)].map(x => DecodeResult.readFailure(x._1, x._2))
