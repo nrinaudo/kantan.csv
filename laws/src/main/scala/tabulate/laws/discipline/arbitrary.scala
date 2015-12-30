@@ -4,11 +4,10 @@ import org.scalacheck.Arbitrary.{arbitrary => arb}
 import org.scalacheck.Gen._
 import org.scalacheck.{Arbitrary, Gen}
 import tabulate._
+import tabulate.laws.Cell
 
 object arbitrary {
-  // CSV generators for property based testing.
-  val cell: Gen[String] = Gen.nonEmptyListOf(Gen.choose(0x20.toChar, 0x7e.toChar)).map(_.mkString)
-  val csv: Gen[List[List[String]]] = Gen.nonEmptyListOf(Gen.nonEmptyListOf(cell))
+  val csv: Gen[List[List[String]]] = Arbitrary.arbitrary[List[List[Cell]]].map(_.map(_.map(_.value)))
 
   def success[A: Arbitrary]: Gen[DecodeResult[A]] = arb[A].map(DecodeResult.success)
   def readFailure[A]: Gen[DecodeResult[A]] = arb[(Int, Int)].map(x => DecodeResult.readFailure(x._1, x._2))
