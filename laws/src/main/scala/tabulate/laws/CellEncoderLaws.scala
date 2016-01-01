@@ -13,3 +13,9 @@ trait CellEncoderLaws[A] {
   def encodeComposition[B, C](c: C, f: B => A, g: C => B): Boolean =
     encoder.contramap(g andThen f).encode(c) == encoder.contramap(f).contramap(g).encode(c)
 }
+
+object CellEncoderLaws {
+  def apply[A](implicit c: CellEncoder[A]): CellEncoderLaws[A] = new CellEncoderLaws[A] {
+    override implicit val encoder = c
+  }
+}

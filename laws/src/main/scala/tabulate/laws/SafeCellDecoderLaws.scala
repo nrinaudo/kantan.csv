@@ -21,3 +21,9 @@ trait SafeCellDecoderLaws[A] {
   def decodeComposition[B, C](value: ExpectedValue[A], f: A => B, g: B => C): Boolean =
       decoder.map(f andThen g).decode(value.encoded) == decoder.map(f).map(g).decode(value.encoded)
 }
+
+object SafeCellDecoderLaws {
+  def apply[A](implicit d: CellDecoder[A]): SafeCellDecoderLaws[A] = new SafeCellDecoderLaws[A] {
+    override implicit val decoder = d
+  }
+}
