@@ -1,7 +1,6 @@
 package tabulate
 
 import simulacrum.{noop, typeclass}
-import ops._
 
 import scala.collection.generic.CanBuildFrom
 
@@ -74,6 +73,11 @@ object RowDecoder extends LowPriorityRowDecoders {
   /** Creates a new instance of [[RowDecoder]] that uses the specified function to parse data. */
   def apply[A](f: Seq[String] => DecodeResult[A]): RowDecoder[A] = new RowDecoder[A] {
     override def decode(row: Seq[String]) = f(row)
+  }
+
+  def fromUnsafe[A](f: Seq[String] => A): RowDecoder[A] = new RowDecoder[A] {
+    override def decode(row: Seq[String]) = DecodeResult(f(row))
+    override def unsafeDecode(row: Seq[String]) = f(row)
   }
 
   /** Parses CSV rows as sequences of strings. */

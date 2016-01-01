@@ -73,30 +73,36 @@ object CellDecoder extends LowPriorityCellDecoders {
     override def decode(a: String) = f(a)
   }
 
+  def fromUnsafe[A](f: String => A): CellDecoder[A] = new CellDecoder[A] {
+    override def unsafeDecode(s: String) = f(s)
+    override def unsafeDecode(ss: Seq[String], index: Int) = unsafeDecode(ss(index))
+    override def decode(s: String) = DecodeResult(f(s))
+  }
+
   /** Turns a cell into a `String` value. */
   implicit val string: CellDecoder[String]     = CellDecoder(s => DecodeResult.success(s))
   /** Turns a cell into a `Char` value. */
   implicit val char:   CellDecoder[Char]       = CellDecoder(s => if(s.length == 1) DecodeResult.success(s(0)) else DecodeResult.decodeFailure)
   /** Turns a cell into an `Int` value. */
-  implicit val int   : CellDecoder[Int]        = CellDecoder(s => DecodeResult(s.toInt))
+  implicit val int   : CellDecoder[Int]        = CellDecoder.fromUnsafe(_.toInt)
   /** Turns a cell into a `Float` value. */
-  implicit val float : CellDecoder[Float]      = CellDecoder(s => DecodeResult(s.toFloat))
+  implicit val float : CellDecoder[Float]      = CellDecoder.fromUnsafe(_.toFloat)
   /** Turns a cell into a `Double` value. */
-  implicit val double: CellDecoder[Double]     = CellDecoder(s => DecodeResult(s.toDouble))
+  implicit val double: CellDecoder[Double]     = CellDecoder.fromUnsafe(_.toDouble)
   /** Turns a cell into a `Long` value. */
-  implicit val long  : CellDecoder[Long]       = CellDecoder(s => DecodeResult(s.toLong))
+  implicit val long  : CellDecoder[Long]       = CellDecoder.fromUnsafe(_.toLong)
   /** Turns a cell into a `Short` value. */
-  implicit val short : CellDecoder[Short]      = CellDecoder(s => DecodeResult(s.toShort))
+  implicit val short : CellDecoder[Short]      = CellDecoder.fromUnsafe(_.toShort)
   /** Turns a cell into a `Byte` value. */
-  implicit val byte  : CellDecoder[Byte]       = CellDecoder(s => DecodeResult(s.toByte))
+  implicit val byte  : CellDecoder[Byte]       = CellDecoder.fromUnsafe(_.toByte)
   /** Turns a cell into a `Boolean` value. */
-  implicit val bool  : CellDecoder[Boolean]    = CellDecoder(s => DecodeResult(s.toBoolean))
+  implicit val bool  : CellDecoder[Boolean]    = CellDecoder.fromUnsafe(_.toBoolean)
   /** Turns a cell into a `BigInt` value. */
-  implicit val bigInt: CellDecoder[BigInt]     = CellDecoder(s => DecodeResult(BigInt.apply(s)))
+  implicit val bigInt: CellDecoder[BigInt]     = CellDecoder.fromUnsafe(BigInt.apply)
   /** Turns a cell into a `BigDecimal` value. */
-  implicit val bigDec: CellDecoder[BigDecimal] = CellDecoder(s => DecodeResult(BigDecimal.apply(s)))
+  implicit val bigDec: CellDecoder[BigDecimal] = CellDecoder.fromUnsafe(BigDecimal.apply)
   /** Turns a cell into a `UUID` value. */
-  implicit val uuid  : CellDecoder[UUID]       = CellDecoder(s => DecodeResult(UUID.fromString(s)))
+  implicit val uuid  : CellDecoder[UUID]       = CellDecoder.fromUnsafe(UUID.fromString)
 
   /** Turns a cell into an instance of `Option[A]`, provided `A` has an implicit [[CellDecoder]] in scope.
     *
