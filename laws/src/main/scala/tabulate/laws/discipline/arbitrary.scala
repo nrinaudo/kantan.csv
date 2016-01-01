@@ -4,7 +4,7 @@ import org.scalacheck.Arbitrary.{arbitrary => arb}
 import org.scalacheck.Gen._
 import org.scalacheck.{Arbitrary, Gen}
 import tabulate._
-import tabulate.laws.Cell
+import tabulate.laws.{Cell, ExpectedValue}
 
 object arbitrary {
   val csv: Gen[List[List[String]]] = arb[List[List[Cell]]].map(_.map(_.map(_.value)))

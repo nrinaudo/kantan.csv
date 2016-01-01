@@ -44,6 +44,7 @@ object DecodeResult {
 
 trait DecodeResult[+A] {
   def isSuccess: Boolean
+  def isFailure: Boolean= !isSuccess
   def map[B](f: A => B): DecodeResult[B]
   def flatMap[B](f: A => DecodeResult[B]): DecodeResult[B]
   def orElse[B >: A](alternative: => DecodeResult[B]): DecodeResult[B]

@@ -3,6 +3,7 @@ package tabulate
 import java.util.UUID
 
 import simulacrum.{noop, typeclass}
+import tabulate.DecodeResult.DecodeFailure
 
 /** Decodes CSV cells into usable types.
   *
@@ -41,7 +42,9 @@ import simulacrum.{noop, typeclass}
     else                      DecodeResult.DecodeFailure
 
   @noop
-  def unsafeDecode(ss: Seq[String], index: Int): A = decode(ss, index).get
+  def unsafeDecode(ss: Seq[String], index: Int): A =
+    if(ss.isDefinedAt(index)) unsafeDecode(ss(index))
+    else                      throw new IndexOutOfBoundsException
 
   /** Turns an instance of `CellDecoder[A]` into one of `CellDecoder[B]`.
     *
@@ -75,7 +78,7 @@ object CellDecoder extends LowPriorityCellDecoders {
 
   def fromUnsafe[A](f: String => A): CellDecoder[A] = new CellDecoder[A] {
     override def unsafeDecode(s: String) = f(s)
-    override def unsafeDecode(ss: Seq[String], index: Int) = unsafeDecode(ss(index))
+    override def unsafeDecode(ss: Seq[String], index: Int) = f(ss(index))
     override def decode(s: String) = DecodeResult(f(s))
   }
 

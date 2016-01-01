@@ -10,7 +10,6 @@ import tabulate.CellEncoder
 import tabulate.laws.discipline.arbitrary._
 import tabulate.laws.discipline.equality
 
-
 class CellEncoderTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   implicit def cellEncoderEq[A: Arbitrary]: Eq[CellEncoder[A]] = new Eq[CellEncoder[A]] {
     override def eqv(a1: CellEncoder[A], a2: CellEncoder[A]): Boolean =
