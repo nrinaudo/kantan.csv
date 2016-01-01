@@ -2,14 +2,14 @@ package tabulate.laws
 
 import java.util.UUID
 
-import org.scalacheck.Arbitrary
+import org.scalacheck.{Gen, Arbitrary}
 
 /** Represents a value that cannot be decoded as an `A`. */
 case class IllegalValue[A](value: String)
 
 object IllegalValue {
   private def illegalNum[A]: Arbitrary[IllegalValue[A]] =
-    Arbitrary(Arbitrary.arbitrary[Boolean].map(i => IllegalValue(i.toString)))
+    Arbitrary(Gen.alphaChar.map(i => IllegalValue(i.toString)))
 
   implicit val arbInt: Arbitrary[IllegalValue[Int]] = illegalNum[Int]
   implicit val arbFloat: Arbitrary[IllegalValue[Float]] = illegalNum[Float]
