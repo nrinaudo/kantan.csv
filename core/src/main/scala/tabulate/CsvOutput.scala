@@ -16,7 +16,7 @@ import scala.io.Codec
     CsvWriter(open(s), separator, header)
 
   @noop
-  def contramap[T](f: T => S): CsvOutput[T] = CsvOutput((t: T) => self.open(f(t)))
+  def contramap[T](f: T => S): CsvOutput[T] = CsvOutput(t => self.open(f(t)))
 
   @op("writeCsv")
   def write[A: RowEncoder](out: S, rows: Traversable[A], sep: Char, header: Seq[String] = Seq.empty): S = {
@@ -29,13 +29,12 @@ import scala.io.Codec
 trait LowPriorityCsvOutputs
 
 object CsvOutput extends LowPriorityCsvOutputs {
-  def apply[S](f: S => Writer): CsvOutput[S] = new CsvOutput[S] {
-    override def open(s: S) = f(s)
+  def apply[A](f: A => Writer): CsvOutput[A] = new CsvOutput[A] {
+    override def open(s: A): Writer = f(s)
   }
 
-  def apply[S](f: S => OutputStream)(implicit codec: Codec): CsvOutput[S] = new CsvOutput[S] {
-    override def open(s: S) = new OutputStreamWriter(f(s), codec.charSet)
-  }
+  implicit def writer[W <: Writer]: CsvOutput[W] = CsvOutput(w => w)
 
-  implicit def file(implicit codec: Codec): CsvOutput[File] = CsvOutput((f: File) => new FileOutputStream(f))
+  implicit def outputStream[O <: OutputStream](implicit codec: Codec): CsvOutput[O] = writer.contramap(o => new OutputStreamWriter(o, codec.charSet))
+  implicit def file(implicit codec: Codec): CsvOutput[File] = outputStream.contramap(f => new FileOutputStream(f))
 }

@@ -86,24 +86,26 @@ trait LowPriorityCsvInputs
   * your implementation.
   */
 object CsvInput extends LowPriorityCsvInputs {
-  def apply[S](f: S => Reader): CsvInput[S] = new CsvInput[S] {
-      override def open(a: S) = f(a)
+  def apply[A](f: A => Reader): CsvInput[A] = new CsvInput[A] {
+      override def open(a: A): Reader = f(a)
     }
 
-  def apply[S](f: S => InputStream)(implicit codec: Codec): CsvInput[S] = new CsvInput[S] {
-      override def open(s: S) = new InputStreamReader(f(s), codec.charSet)
-    }
+  /** Turns any `java.io.Reader` into a source of CSV data. */
+  implicit def reader[R <: Reader]: CsvInput[R] = CsvInput(r => r)
 
+  /** Turns any `java.io.InputStream` into a source of CSV data. */
+  implicit def inputStream[I <: InputStream](implicit codec: Codec): CsvInput[I] =
+    reader.contramap(i => new InputStreamReader(i, codec.charSet))
   /** Turns any `java.io.File` into a source of CSV data. */
-  implicit def file(implicit codec: Codec): CsvInput[File] = CsvInput((f: File) => new FileInputStream(f))
+  implicit def file(implicit codec: Codec): CsvInput[File] = inputStream.contramap(f => new FileInputStream(f))
   /** Turns any array of bytes into a source of CSV data. */
-  implicit def bytes(implicit codec: Codec): CsvInput[Array[Byte]] = CsvInput((b: Array[Byte]) => new ByteArrayInputStream(b))
+  implicit def bytes(implicit codec: Codec): CsvInput[Array[Byte]] = inputStream.contramap(bs => new ByteArrayInputStream(bs))
   /** Turns any `java.net.URL` into a source of CSV data. */
-  implicit def url(implicit codec: Codec): CsvInput[URL] = CsvInput((u: URL) => u.openStream())
+  implicit def url(implicit codec: Codec): CsvInput[URL] = inputStream.contramap(u => u.openStream())
   /** Turns any `java.net.URI` into a source of CSV data. */
-  implicit def uri(implicit codec: Codec): CsvInput[URI] = file.contramap(u => new File(u))
+  implicit def uri(implicit codec: Codec): CsvInput[URI] = url.contramap(u => u.toURL)
   /** Turns any array of chars into a source of CSV data. */
-  implicit val chars: CsvInput[Array[Char]] = CsvInput((c: Array[Char]) => new CharArrayReader(c))
+  implicit val chars: CsvInput[Array[Char]] = reader.contramap(cs => new CharArrayReader(cs))
   /** Turns any string into a source of CSV data. */
-  implicit val string: CsvInput[String] = CsvInput((s: String) => new StringReader(s))
+  implicit val string: CsvInput[String] = reader.contramap(s => new StringReader(s))
 }
