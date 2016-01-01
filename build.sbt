@@ -2,21 +2,22 @@ import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
 import com.typesafe.sbt.SbtSite.SiteKeys._
 import UnidocKeys._
 
-val catsVersion              = "0.3.0"
-val exportHookVersion        = "1.1.0"
-val simulacrumVersion        = "0.5.0"
-val macroParadiseVersion     = "2.1.0"
-val scalaCheckVersion        = "1.12.5"
-val disciplineVersion        = "0.4"
-val shapelessVersion         = "2.2.5"
-val scalatestVersion         = "3.0.0-M7"
-val scalazVersion            = "7.2.0"
-val scalazStreamVersion      = "0.8"
-val productCollectionVersion = "1.4.2"
-val opencsvVersion           = "3.6"
-val univocityVersion         = "1.5.6"
-val jacksonCsvVersion        = "2.6.4"
-val commonsCsvVersion        = "1.2"
+val catsVersion                = "0.3.0"
+val exportHookVersion          = "1.1.0"
+val simulacrumVersion          = "0.5.0"
+val macroParadiseVersion       = "2.1.0"
+val scalaCheckVersion          = "1.12.5"
+val disciplineVersion          = "0.4"
+val shapelessVersion           = "2.2.5"
+val scalatestVersion           = "3.0.0-M7"
+val scalazVersion              = "7.2.0"
+val scalazStreamVersion        = "0.8"
+val productCollectionVersion   = "1.4.2"
+val opencsvVersion             = "3.6"
+val univocityVersion           = "1.5.6"
+val jacksonCsvVersion          = "2.6.4"
+val commonsCsvVersion          = "1.2"
+val scalacheckShapelessVersion = "1.12.1"
 
 lazy val buildSettings = Seq(
   organization       := "com.nrinaudo",
@@ -156,8 +157,9 @@ lazy val generic = project
   )
   .settings(allSettings: _*)
   .settings(libraryDependencies ++= Seq(
-    "com.chuusai"   %% "shapeless" % shapelessVersion,
-    "org.scalatest" %% "scalatest" % scalatestVersion % "test"
+    "com.chuusai"                %% "shapeless"            % shapelessVersion,
+    "org.scalatest"              %% "scalatest"            % scalatestVersion           % "test",
+    "com.github.alexarchambault" %% "scalacheck-shapeless" % scalacheckShapelessVersion % "test"
   ))
   .dependsOn(core, laws % "test")
 
