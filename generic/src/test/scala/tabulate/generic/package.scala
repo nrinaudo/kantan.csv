@@ -2,15 +2,18 @@ package tabulate
 
 import org.scalacheck.{Gen, Arbitrary}
 import shapeless._
-import tabulate.laws.{IllegalCell, IllegalValue}
+import tabulate.laws._
 import tabulate.laws.discipline.arbitrary._
 
 package object generic {
-  type Illegal[A] = Arbitrary[IllegalCell[A]]
+  implicit val arbIllegalHNilCell: Arbitrary[IllegalCell[HNil]] = illegal(Gen.const("!@#"))
+  implicit val arbIllegalHNilRow: Arbitrary[IllegalRow[HNil]]   = illegal(Gen.const(Seq("!@#")))
 
-  implicit def caseObject[A, R <: HNil](implicit gen: Generic.Aux[A, R]): Illegal[A] =
+  implicit def arbIllegalCaseObject[A, R <: HNil](implicit gen: Generic.Aux[A, R]): Arbitrary[IllegalCell[A]] =
     illegal(Gen.const("!@#"))
 
-  implicit def caseClass[A, R, H](implicit gen: Generic.Aux[A, R], ev: R <:< (H :: HNil), ih: Illegal[H]): Illegal[A] =
-    illegal(ih.arbitrary.map(_.value))
+  implicit def arbIllegalHList[H, T <: HList](implicit ah: Arbitrary[IllegalCell[H]], at: Arbitrary[IllegalRow[T]]): Arbitrary[IllegalRow[H :: T]] =
+    Arbitrary(ah.arbitrary.flatMap(h => at.arbitrary.map(t => IllegalValue(h.value +: t.value))))
+  implicit def arbIllegalCaseClass[A, R <: HList](implicit gen: Generic.Aux[A, R], dr: Arbitrary[IllegalRow[R]]): Arbitrary[IllegalRow[A]] =
+    illegal(dr.arbitrary.map(_.value))
 }

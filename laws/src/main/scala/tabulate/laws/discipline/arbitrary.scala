@@ -68,10 +68,6 @@ object arbitrary {
   implicit val arbIllegalBoolean: Arbitrary[IllegalCell[Boolean]] = illegal(Arbitrary.arbitrary[Int].map(_.toString))
   implicit def arbIllegalOption[A](implicit arb: Arbitrary[IllegalCell[A]]): Arbitrary[IllegalCell[Option[A]]] =
     illegal(arb.arbitrary.map(_.value))
-
   implicit def arbIllegalTraversable[A, C[X] <: Traversable[X]](implicit arb: Arbitrary[IllegalCell[A]]): Arbitrary[IllegalRow[C[A]]] =
     illegal(arb.arbitrary.map(s => Seq(s.value)))
-
-  implicit def arbIllegalRow[A](implicit a: Arbitrary[IllegalCell[A]]): Arbitrary[IllegalRow[A]] =
-    illegal(a.arbitrary.map(ia => Seq(ia.value)))
 }

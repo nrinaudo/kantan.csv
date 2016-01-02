@@ -144,7 +144,6 @@ lazy val laws = project
     name       := "laws"
   )
   .settings(libraryDependencies ++= Seq(
-    "com.chuusai"    %% "shapeless"  % shapelessVersion,
     "org.scalacheck" %% "scalacheck" % scalaCheckVersion,
     "org.typelevel"  %% "discipline" % disciplineVersion
   ))

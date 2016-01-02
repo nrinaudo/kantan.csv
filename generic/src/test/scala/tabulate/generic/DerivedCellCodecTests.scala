@@ -4,9 +4,10 @@ import org.scalacheck.{Gen, Arbitrary}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
-import tabulate.laws.{IllegalCell, IllegalValue}
+import tabulate.laws.IllegalCell
 import tabulate.laws.discipline.CellCodecTests
 import org.scalacheck.Shapeless._
+import tabulate.laws.discipline.CellCodecTests
 import tabulate.laws.discipline.arbitrary._
 import codecs._
 
