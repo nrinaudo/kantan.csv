@@ -2,11 +2,11 @@ package tabulate.laws.discipline
 
 import org.scalacheck.Arbitrary
 import org.scalacheck.Prop._
-import tabulate.laws.{ExpectedValue, CellDecoderLaws, IllegalValue}
+import tabulate.laws._
 
 trait CellDecoderTests[A] extends SafeCellDecoderTests[A] {
   def laws: CellDecoderLaws[A]
-  implicit def arbExpectedA: Arbitrary[ExpectedValue[A]]
+  implicit def arbExpectedA: Arbitrary[ExpectedCell[A]]
   implicit def arbIllegalA: Arbitrary[IllegalValue[A]]
 
   def cellDecoder[B: Arbitrary, C: Arbitrary]: RuleSet = new DefaultRuleSet(

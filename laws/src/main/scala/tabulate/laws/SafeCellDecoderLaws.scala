@@ -11,14 +11,14 @@ trait SafeCellDecoderLaws[A] {
   def unsafeOutputOfBounds(row: List[String]): Boolean =
     throws(classOf[IndexOutOfBoundsException])(decoder.unsafeDecode(row, row.length))
 
-  def decode(value: ExpectedValue[A]): Boolean = decoder.decode(value.encoded) == DecodeResult.success(value.value)
+  def decode(value: ExpectedCell[A]): Boolean = decoder.decode(value.encoded) == DecodeResult.success(value.value)
 
-  def unsafeDecode(value: ExpectedValue[A]): Boolean = decoder.decode(value.encoded) == value.value
+  def unsafeDecode(value: ExpectedCell[A]): Boolean = decoder.decode(value.encoded) == value.value
 
-  def decodeIdentity(value: ExpectedValue[A]): Boolean =
+  def decodeIdentity(value: ExpectedCell[A]): Boolean =
     decoder.decode(value.encoded) == decoder.map(identity).decode(value.encoded)
 
-  def decodeComposition[B, C](value: ExpectedValue[A], f: A => B, g: B => C): Boolean =
+  def decodeComposition[B, C](value: ExpectedCell[A], f: A => B, g: B => C): Boolean =
       decoder.map(f andThen g).decode(value.encoded) == decoder.map(f).map(g).decode(value.encoded)
 }
 

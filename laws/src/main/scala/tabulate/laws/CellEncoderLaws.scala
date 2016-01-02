@@ -5,7 +5,7 @@ import tabulate.CellEncoder
 trait CellEncoderLaws[A] {
   def encoder: CellEncoder[A]
 
-  def encode(value: ExpectedValue[A]): Boolean = encoder.encode(value.value) == value.encoded
+  def encode(value: ExpectedCell[A]): Boolean = encoder.encode(value.value) == value.encoded
 
   def encodeIdentity(a: A): Boolean =
     encoder.encode(a) == encoder.contramap[A](identity).encode(a)

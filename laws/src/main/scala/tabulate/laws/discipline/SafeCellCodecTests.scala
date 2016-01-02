@@ -3,13 +3,13 @@ package tabulate.laws.discipline
 import org.scalacheck.Arbitrary
 import org.scalacheck.Prop._
 import tabulate.CellCodec
-import tabulate.laws.{SafeCellCodecLaws, ExpectedValue}
+import tabulate.laws._
 
 trait SafeCellCodecTests[A] extends CellEncoderTests[A] with SafeCellDecoderTests[A] {
   def laws: SafeCellCodecLaws[A]
 
   implicit def arbA: Arbitrary[A]
-  implicit val arbExpectedA: Arbitrary[ExpectedValue[A]] = ExpectedValue.arbitrary[A](arbA, laws.encoder)
+  implicit val arbExpectedA: Arbitrary[ExpectedCell[A]] = ExpectedValue.arbitrary[A](arbA, laws.encoder)
 
   def safeCellCodec[B: Arbitrary, C: Arbitrary]: RuleSet = new RuleSet {
     def name = "safeCellCodec"
