@@ -4,7 +4,7 @@ import org.scalacheck.Arbitrary.{arbitrary => arb}
 import org.scalacheck.Gen._
 import org.scalacheck.{Arbitrary, Gen}
 import tabulate._
-import tabulate.laws.Cell
+import tabulate.laws._
 
 object arbitrary {
   val csv: Gen[List[List[String]]] = arb[List[List[Cell]]].map(_.map(_.map(_.value)))
@@ -25,4 +25,10 @@ object arbitrary {
 
   implicit def arbRowEncoder[A: Arbitrary]: Arbitrary[RowEncoder[A]] =
     Arbitrary(arb[A => Seq[String]].map(f => RowEncoder(f)))
+
+  implicit def arbExpectedCell[A: Arbitrary](implicit ea: CellEncoder[A]): Arbitrary[ExpectedCell[A]] =
+    Arbitrary(Arbitrary.arbitrary[A].map(a => ExpectedValue(a, ea.encode(a))))
+
+  implicit def arbExpectedRow[A: Arbitrary](implicit ea: RowEncoder[A]): Arbitrary[ExpectedRow[A]] =
+    Arbitrary(Arbitrary.arbitrary[A].map(a => ExpectedValue(a, ea.encode(a))))
 }

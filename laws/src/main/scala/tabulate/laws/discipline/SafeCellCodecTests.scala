@@ -9,7 +9,7 @@ trait SafeCellCodecTests[A] extends CellEncoderTests[A] with SafeCellDecoderTest
   def laws: SafeCellCodecLaws[A]
 
   implicit def arbA: Arbitrary[A]
-  implicit val arbExpectedA: Arbitrary[ExpectedCell[A]] = ExpectedValue.arbitrary[A](arbA, laws.encoder)
+  implicit val arbExpectedA: Arbitrary[ExpectedCell[A]] = arbitrary.arbExpectedCell(arbA, laws.encoder)
 
   def safeCellCodec[B: Arbitrary, C: Arbitrary]: RuleSet = new RuleSet {
     def name = "safeCellCodec"

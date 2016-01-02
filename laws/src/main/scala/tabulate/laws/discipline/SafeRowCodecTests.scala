@@ -2,14 +2,14 @@ package tabulate.laws.discipline
 
 import org.scalacheck.Arbitrary
 import org.scalacheck.Prop._
-import tabulate.{RowEncoder, RowCodec}
+import tabulate.RowCodec
 import tabulate.laws._
 
 trait SafeRowCodecTests[A] extends RowEncoderTests[A] with SafeRowDecoderTests[A] {
   def laws: SafeRowCodecLaws[A]
 
   implicit def arbA: Arbitrary[A]
-  implicit val arbExpectedA: Arbitrary[ExpectedRow[A]] = ExpectedValue.arbitrary[A](arbA, laws.encoder)
+  implicit val arbExpectedA: Arbitrary[ExpectedRow[A]] = arbitrary.arbExpectedRow(arbA, laws.encoder)
 
   def safeRowCodec[B: Arbitrary, C: Arbitrary]: RuleSet = new RuleSet {
     def name = "safeRowCodec"
