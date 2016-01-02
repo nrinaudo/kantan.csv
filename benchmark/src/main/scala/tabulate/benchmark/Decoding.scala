@@ -34,7 +34,6 @@ class Decoding {
   @Benchmark
   def tabulateInternal() = tabulateEngine
 
-
   @Benchmark
   def tabulateJackson() = tabulateEngine(tabulate.engine.jackson.engine)
 
@@ -43,7 +42,6 @@ class Decoding {
 
   @Benchmark
   def tabulateCommons() = tabulateEngine(tabulate.engine.commons.engine)
-
 
   // Note: we must call trim on the input since product-collections does not accept the last row ending with a line
   // break. I believe that to be a bug.
@@ -77,7 +75,9 @@ class Decoding {
   @Benchmark
   def univocity() = {
     import com.univocity.parsers.csv._
-    val parser = new CsvParser(new CsvParserSettings)
+    val settings = new CsvParserSettings
+    settings.setReadInputOnSeparateThread(false)
+    val parser = new CsvParser(settings)
     parser.beginParsing(new StringReader(strData))
 
     new CsvIterator(parser)(_.parseNext()).toList
