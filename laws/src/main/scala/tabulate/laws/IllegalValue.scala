@@ -5,26 +5,34 @@ import java.util.UUID
 import org.scalacheck.{Gen, Arbitrary}
 
 /** Represents a value that cannot be decoded as an `A`. */
-case class IllegalValue[A](value: String)
+case class IllegalValue[A, B](value: B)
 
 object IllegalValue {
-  private def illegalNum[A]: Arbitrary[IllegalValue[A]] =
-    Arbitrary(Gen.alphaChar.map(i => IllegalValue(i.toString)))
+  def arbitrary[A, B](gen: Gen[B]): Arbitrary[IllegalValue[A, B]] =
+    Arbitrary(gen.map(IllegalValue.apply))
 
-  implicit val arChar: Arbitrary[IllegalValue[Char]] = Arbitrary(for {
+  private def illegalNum[A]: Arbitrary[IllegalCell[A]] = arbitrary(Gen.alphaChar.map(_.toString))
+
+  implicit val arChar: Arbitrary[IllegalCell[Char]] = arbitrary(for {
     h <- Arbitrary.arbitrary[Char]
     t <- Gen.nonEmptyListOf(Arbitrary.arbitrary[Char])
-  } yield IllegalValue((h :: t).mkString))
-  implicit val arbInt: Arbitrary[IllegalValue[Int]] = illegalNum[Int]
-  implicit val arbFloat: Arbitrary[IllegalValue[Float]] = illegalNum[Float]
-  implicit val arbDouble: Arbitrary[IllegalValue[Double]] = illegalNum[Double]
-  implicit val arbLong: Arbitrary[IllegalValue[Long]] = illegalNum[Long]
-  implicit val arbByte: Arbitrary[IllegalValue[Byte]] = illegalNum[Byte]
-  implicit val arbShort: Arbitrary[IllegalValue[Short]] = illegalNum[Short]
-  implicit val arbBigInt: Arbitrary[IllegalValue[BigInt]] = illegalNum[BigInt]
-  implicit val arbBigDecimal: Arbitrary[IllegalValue[BigDecimal]] = illegalNum[BigDecimal]
-  implicit val arbUUID: Arbitrary[IllegalValue[UUID]] = illegalNum[UUID]
-  implicit val arbBoolean: Arbitrary[IllegalValue[Boolean]] = Arbitrary(Arbitrary.arbitrary[Int].map(i => IllegalValue(i.toString)))
-  implicit def arbOption[A](implicit arb: Arbitrary[IllegalValue[A]]): Arbitrary[IllegalValue[Option[A]]] =
-    Arbitrary(arb.arbitrary.map(a => IllegalValue(a.value)))
+  } yield (h :: t).mkString)
+  implicit val arbInt: Arbitrary[IllegalCell[Int]] = illegalNum[Int]
+  implicit val arbFloat: Arbitrary[IllegalCell[Float]] = illegalNum[Float]
+  implicit val arbDouble: Arbitrary[IllegalCell[Double]] = illegalNum[Double]
+  implicit val arbLong: Arbitrary[IllegalCell[Long]] = illegalNum[Long]
+  implicit val arbByte: Arbitrary[IllegalCell[Byte]] = illegalNum[Byte]
+  implicit val arbShort: Arbitrary[IllegalCell[Short]] = illegalNum[Short]
+  implicit val arbBigInt: Arbitrary[IllegalCell[BigInt]] = illegalNum[BigInt]
+  implicit val arbBigDecimal: Arbitrary[IllegalCell[BigDecimal]] = illegalNum[BigDecimal]
+  implicit val arbUUID: Arbitrary[IllegalCell[UUID]] = illegalNum[UUID]
+  implicit val arbBoolean: Arbitrary[IllegalCell[Boolean]] = arbitrary(Arbitrary.arbitrary[Int].map(_.toString))
+  implicit def arbOption[A](implicit arb: Arbitrary[IllegalCell[A]]): Arbitrary[IllegalCell[Option[A]]] =
+    arbitrary(arb.arbitrary.map(_.value))
+
+  implicit def arbTraversable[A, C[X] <: Traversable[X]](implicit arb: Arbitrary[IllegalCell[A]]): Arbitrary[IllegalRow[C[A]]] =
+    arbitrary(arb.arbitrary.map(s => Seq(s.value)))
+
+  implicit def arbRow[A](implicit a: Arbitrary[IllegalCell[A]]): Arbitrary[IllegalRow[A]] =
+    arbitrary(a.arbitrary.map(ia => Seq(ia.value)))
 }

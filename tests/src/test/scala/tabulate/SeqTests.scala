@@ -10,5 +10,5 @@ import tabulate.laws.discipline.RowCodecTests
 class SeqTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   implicit val arb: Arbitrary[Seq[Int]] = Arbitrary(Gen.nonEmptyContainerOf[Seq, Int](arbitrary[Int]))
 
-  checkAll("Seq[Int]", RowCodecTests[Seq[Int]].reversibleRowCodec[List[String], List[Float]])
+  checkAll("Seq[Int]", RowCodecTests[Seq[Int]].rowCodec[List[String], List[Float]])
 }

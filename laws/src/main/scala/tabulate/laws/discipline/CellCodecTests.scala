@@ -3,12 +3,12 @@ package tabulate.laws.discipline
 import org.scalacheck.Arbitrary
 import org.scalacheck.Prop._
 import tabulate.CellCodec
-import tabulate.laws.{CellCodecLaws, IllegalValue}
+import tabulate.laws.{CellCodecLaws, IllegalCell}
 
 trait CellCodecTests[A] extends SafeCellCodecTests[A] with CellDecoderTests[A] {
   def laws: CellCodecLaws[A]
 
-  implicit def arbIllegalA: Arbitrary[IllegalValue[A]]
+  implicit def arbIllegalA: Arbitrary[IllegalCell[A]]
 
   def cellCodec[B: Arbitrary, C: Arbitrary]: RuleSet = new RuleSet {
     def name = "cellCodec"
@@ -19,7 +19,7 @@ trait CellCodecTests[A] extends SafeCellCodecTests[A] with CellDecoderTests[A] {
 }
 
 object CellCodecTests {
-  def apply[A](implicit a: Arbitrary[A], c: CellCodec[A], i: Arbitrary[IllegalValue[A]]): CellCodecTests[A] = new CellCodecTests[A] {
+  def apply[A](implicit a: Arbitrary[A], c: CellCodec[A], i: Arbitrary[IllegalCell[A]]): CellCodecTests[A] = new CellCodecTests[A] {
     override def laws = CellCodecLaws[A]
     override implicit def arbA = a
     override implicit def arbIllegalA = i

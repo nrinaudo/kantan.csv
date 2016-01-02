@@ -1,12 +1,15 @@
 package tabulate
 
-import org.scalacheck.Arbitrary
+import org.scalacheck.{Gen, Arbitrary}
 import org.scalacheck.Arbitrary._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
+import tabulate.laws.{IllegalRow, IllegalValue}
 import tabulate.laws.discipline.RowCodecTests
+import CaseClassTests._
 
+// TODO: do we want to use scalacheck-shapeless here to derive all these Arbitrary instances?
 object CaseClass1 {
   implicit val arb = Arbitrary(arbitrary[Int].map(CaseClass1.apply))
   implicit val codec = RowCodec.caseCodec1(CaseClass1.apply, CaseClass1.unapply)
@@ -182,27 +185,30 @@ case class CaseClass22(f1: Int, f2: Int, f3: Int, f4: Int, f5: Int, f6: Int, f7:
                        f20: Int, f21: Int, f22: Int)
 
 class CaseClassTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("CaseClass1", RowCodecTests[CaseClass1].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass2", RowCodecTests[CaseClass2].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass3", RowCodecTests[CaseClass3].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass4", RowCodecTests[CaseClass4].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass5", RowCodecTests[CaseClass5].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass6", RowCodecTests[CaseClass6].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass7", RowCodecTests[CaseClass7].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass8", RowCodecTests[CaseClass8].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass9", RowCodecTests[CaseClass9].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass10", RowCodecTests[CaseClass10].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass11", RowCodecTests[CaseClass11].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass12", RowCodecTests[CaseClass12].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass13", RowCodecTests[CaseClass13].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass14", RowCodecTests[CaseClass14].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass15", RowCodecTests[CaseClass15].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass16", RowCodecTests[CaseClass16].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass17", RowCodecTests[CaseClass17].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass18", RowCodecTests[CaseClass18].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass19", RowCodecTests[CaseClass19].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass20", RowCodecTests[CaseClass20].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass21", RowCodecTests[CaseClass21].reversibleRowCodec[List[String], List[Float]])
-  checkAll("CaseClass22", RowCodecTests[CaseClass22].reversibleRowCodec[List[String], List[Float]])
+  checkAll("CaseClass1", RowCodecTests[CaseClass1].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass2", RowCodecTests[CaseClass2].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass3", RowCodecTests[CaseClass3].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass4", RowCodecTests[CaseClass4].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass5", RowCodecTests[CaseClass5].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass6", RowCodecTests[CaseClass6].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass7", RowCodecTests[CaseClass7].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass8", RowCodecTests[CaseClass8].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass9", RowCodecTests[CaseClass9].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass10", RowCodecTests[CaseClass10].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass11", RowCodecTests[CaseClass11].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass12", RowCodecTests[CaseClass12].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass13", RowCodecTests[CaseClass13].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass14", RowCodecTests[CaseClass14].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass15", RowCodecTests[CaseClass15].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass16", RowCodecTests[CaseClass16].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass17", RowCodecTests[CaseClass17].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass18", RowCodecTests[CaseClass18].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass19", RowCodecTests[CaseClass19].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass20", RowCodecTests[CaseClass20].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass21", RowCodecTests[CaseClass21].rowCodec[List[String], List[Float]])
+  checkAll("CaseClass22", RowCodecTests[CaseClass22].rowCodec[List[String], List[Float]])
 }
 
+object CaseClassTests {
+  implicit def illegal[A]: Arbitrary[IllegalRow[A]] = IllegalValue.arbitrary(Gen.alphaChar.map(s => Seq(s.toString)))
+}

@@ -4,12 +4,9 @@ import org.scalacheck.Prop._
 import tabulate.CellDecoder
 
 trait CellDecoderLaws[A] extends SafeCellDecoderLaws[A] {
-  def safeDecodeFail(cell: IllegalValue[A]): Boolean = {
-    if(!decoder.decode(cell.value).isFailure) println(cell)
-    decoder.decode(cell.value).isFailure
-  }
+  def safeDecodeFail(cell: IllegalCell[A]): Boolean = decoder.decode(cell.value).isFailure
 
-  def unsafeDecodeFail(cell: IllegalValue[A]): Boolean =
+  def unsafeDecodeFail(cell: IllegalCell[A]): Boolean =
     throws(classOf[java.lang.Exception])(decoder.unsafeDecode(cell.value))
 }
 

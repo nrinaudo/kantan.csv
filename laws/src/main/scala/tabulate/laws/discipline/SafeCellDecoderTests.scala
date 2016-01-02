@@ -3,6 +3,7 @@ package tabulate.laws.discipline
 import org.scalacheck.Arbitrary
 import org.scalacheck.Prop._
 import org.typelevel.discipline.Laws
+import tabulate.CellDecoder
 import tabulate.laws._
 
 trait SafeCellDecoderTests[A] extends Laws {
@@ -18,4 +19,11 @@ trait SafeCellDecoderTests[A] extends Laws {
     "decode identity"      -> forAll(laws.decodeIdentity _),
     "decode composition"   -> forAll(laws.decodeComposition[B, C] _)
   )
+}
+
+object SafeCellDecoderTests {
+  def apply[A: CellDecoder](implicit a: Arbitrary[ExpectedCell[A]]): SafeCellDecoderTests[A] = new SafeCellDecoderTests[A] {
+    override def laws = SafeCellDecoderLaws[A]
+    override implicit def arbExpectedA = a
+  }
 }
