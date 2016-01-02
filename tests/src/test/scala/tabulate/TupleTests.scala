@@ -8,6 +8,7 @@ import org.typelevel.discipline.scalatest.Discipline
 import tabulate.laws._
 import tabulate.laws.discipline.RowCodecTests
 import TupleTests._
+import tabulate.laws.discipline.arbitrary._
 
 class TupleTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   implicit def tuple1[A: Arbitrary]: Arbitrary[Tuple1[A]] = Arbitrary(arbitrary[A].map(Tuple1.apply))
@@ -64,5 +65,5 @@ class TupleTests extends FunSuite with GeneratorDrivenPropertyChecks with Discip
 }
 
 object TupleTests {
-  implicit def illegal[A]: Arbitrary[IllegalRow[A]] = IllegalValue.arbitrary(Gen.alphaChar.map(s => Seq(s.toString)))
+  implicit def illegalTuple[A]: Arbitrary[IllegalRow[A]] = illegal(Gen.alphaChar.map(s => Seq(s.toString)))
 }

@@ -8,6 +8,7 @@ import org.typelevel.discipline.scalatest.Discipline
 import tabulate.laws.{IllegalRow, IllegalValue}
 import tabulate.laws.discipline.RowCodecTests
 import CaseClassTests._
+import tabulate.laws.discipline.arbitrary._
 
 // TODO: do we want to use scalacheck-shapeless here to derive all these Arbitrary instances?
 object CaseClass1 {
@@ -210,5 +211,5 @@ class CaseClassTests extends FunSuite with GeneratorDrivenPropertyChecks with Di
 }
 
 object CaseClassTests {
-  implicit def illegal[A]: Arbitrary[IllegalRow[A]] = IllegalValue.arbitrary(Gen.alphaChar.map(s => Seq(s.toString)))
+  implicit def illegalCaseClass[A]: Arbitrary[IllegalRow[A]] = illegal(Gen.alphaChar.map(s => Seq(s.toString)))
 }
