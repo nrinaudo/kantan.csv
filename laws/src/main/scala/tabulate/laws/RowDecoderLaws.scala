@@ -4,10 +4,7 @@ import org.scalacheck.Prop._
 import tabulate.RowDecoder
 
 trait RowDecoderLaws[A] extends SafeRowDecoderLaws[A] {
-  def safeDecodeFail(row: IllegalRow[A]): Boolean = {
-    if(!decoder.decode(row.value).isFailure) println(row)
-    decoder.decode(row.value).isFailure
-  }
+  def safeDecodeFail(row: IllegalRow[A]): Boolean = decoder.decode(row.value).isFailure
 
   def unsafeDecodeFail(row: IllegalRow[A]): Boolean =
     throws(classOf[java.lang.Exception])(decoder.unsafeDecode(row.value))
