@@ -44,6 +44,9 @@ object arbitrary {
   implicit def arbExpectedRow[A](implicit ea: RowEncoder[A], aa: Arbitrary[A]): Arbitrary[ExpectedRow[A]] =
     Arbitrary(aa.arbitrary.map(a => ExpectedValue(a, ea.encode(a))))
 
+  implicit def arbExpectedRowFromCell[A](implicit arb: Arbitrary[ExpectedCell[A]]): Arbitrary[ExpectedRow[A]] =
+    Arbitrary(arb.arbitrary.map(a => ExpectedValue(a.value, Seq(a.encoded))))
+
 
   // - Illegal values --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

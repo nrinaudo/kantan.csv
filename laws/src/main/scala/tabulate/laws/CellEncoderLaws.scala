@@ -1,21 +1,22 @@
 package tabulate.laws
 
-import tabulate.CellEncoder
+import tabulate.{RowEncoder, CellEncoder}
 
-trait CellEncoderLaws[A] {
-  def encoder: CellEncoder[A]
+trait CellEncoderLaws[A] extends RowEncoderLaws[A] {
+  def cellEncoder: CellEncoder[A]
+  override def rowEncoder = RowEncoder.cellEncoder(cellEncoder)
 
-  def encode(value: ExpectedCell[A]): Boolean = encoder.encode(value.value) == value.encoded
+  def cellEncode(value: ExpectedCell[A]): Boolean = cellEncoder.encode(value.value) == value.encoded
 
-  def encodeIdentity(a: A): Boolean =
-    encoder.encode(a) == encoder.contramap[A](identity).encode(a)
+  def cellEncodeIdentity(a: A): Boolean =
+    cellEncoder.encode(a) == cellEncoder.contramap[A](identity).encode(a)
 
-  def encodeComposition[B, C](c: C, f: B => A, g: C => B): Boolean =
-    encoder.contramap(g andThen f).encode(c) == encoder.contramap(f).contramap(g).encode(c)
+  def cellEncodeComposition[B, C](c: C, f: B => A, g: C => B): Boolean =
+    cellEncoder.contramap(g andThen f).encode(c) == cellEncoder.contramap(f).contramap(g).encode(c)
 }
 
 object CellEncoderLaws {
   def apply[A](implicit c: CellEncoder[A]): CellEncoderLaws[A] = new CellEncoderLaws[A] {
-    override implicit val encoder = c
+    override implicit val cellEncoder = c
   }
 }

@@ -4,8 +4,8 @@ import tabulate._
 
 trait SafeRowCodecLaws[A] extends SafeRowDecoderLaws[A] with RowEncoderLaws[A] {
   def codec: RowCodec[A]
-  override def decoder: RowDecoder[A] = codec
-  override def encoder: RowEncoder[A] = codec
+  override def rowDecoder: RowDecoder[A] = codec
+  override def rowEncoder: RowEncoder[A] = codec
 
   def roundTrip(a: A): Boolean = codec.decode(codec.encode(a)) == DecodeResult.Success(a)
 }

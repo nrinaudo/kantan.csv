@@ -9,7 +9,7 @@ trait SafeRowCodecTests[A] extends RowEncoderTests[A] with SafeRowDecoderTests[A
   def laws: SafeRowCodecLaws[A]
 
   implicit def arbA: Arbitrary[A]
-  implicit val arbExpectedA: Arbitrary[ExpectedRow[A]] = arbitrary.arbExpectedRow(laws.encoder, arbA)
+  override implicit val arbExpectedRowA: Arbitrary[ExpectedRow[A]] = arbitrary.arbExpectedRow(laws.rowEncoder, arbA)
 
   def safeRowCodec[B: Arbitrary, C: Arbitrary]: RuleSet = new RuleSet {
     def name = "safeRowCodec"

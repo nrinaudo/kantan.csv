@@ -1,29 +1,30 @@
 package tabulate.laws
 
 import org.scalacheck.Prop._
-import tabulate.{CellDecoder, DecodeResult}
+import tabulate.{RowDecoder, CellDecoder, DecodeResult}
 
-trait SafeCellDecoderLaws[A] {
-  def decoder: CellDecoder[A]
+trait SafeCellDecoderLaws[A] extends RowDecoderLaws[A] {
+  def cellDecoder: CellDecoder[A]
+  override def rowDecoder = RowDecoder.cellDecoder(cellDecoder)
 
-  def safeOutOfBounds(row: List[String]): Boolean = decoder.decode(row, row.length).isFailure
+  def safeOutOfBounds(row: List[String]): Boolean = cellDecoder.decode(row, row.length).isFailure
 
   def unsafeOutputOfBounds(row: List[String]): Boolean =
-    throws(classOf[IndexOutOfBoundsException])(decoder.unsafeDecode(row, row.length))
+    throws(classOf[IndexOutOfBoundsException])(cellDecoder.unsafeDecode(row, row.length))
 
-  def decode(value: ExpectedCell[A]): Boolean = decoder.decode(value.encoded) == DecodeResult.success(value.value)
+  def cellDecode(value: ExpectedCell[A]): Boolean = cellDecoder.decode(value.encoded) == DecodeResult.success(value.value)
 
-  def unsafeDecode(value: ExpectedCell[A]): Boolean = decoder.decode(value.encoded) == value.value
+  def unsafeCellDecode(value: ExpectedCell[A]): Boolean = cellDecoder.decode(value.encoded) == value.value
 
-  def decodeIdentity(value: ExpectedCell[A]): Boolean =
-    decoder.decode(value.encoded) == decoder.map(identity).decode(value.encoded)
+  def cellDecodeIdentity(value: ExpectedCell[A]): Boolean =
+    cellDecoder.decode(value.encoded) == cellDecoder.map(identity).decode(value.encoded)
 
-  def decodeComposition[B, C](value: ExpectedCell[A], f: A => B, g: B => C): Boolean =
-      decoder.map(f andThen g).decode(value.encoded) == decoder.map(f).map(g).decode(value.encoded)
+  def cellDecodeComposition[B, C](value: ExpectedCell[A], f: A => B, g: B => C): Boolean =
+    cellDecoder.map(f andThen g).decode(value.encoded) == cellDecoder.map(f).map(g).decode(value.encoded)
 }
 
 object SafeCellDecoderLaws {
   def apply[A](implicit d: CellDecoder[A]): SafeCellDecoderLaws[A] = new SafeCellDecoderLaws[A] {
-    override implicit val decoder = d
+    override implicit val cellDecoder = d
   }
 }

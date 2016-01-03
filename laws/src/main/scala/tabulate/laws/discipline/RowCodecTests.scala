@@ -8,7 +8,7 @@ import tabulate.laws.{IllegalRow, RowCodecLaws}
 trait RowCodecTests[A] extends SafeRowCodecTests[A] with RowDecoderTests[A] {
   def laws: RowCodecLaws[A]
 
-  implicit def arbIllegalA: Arbitrary[IllegalRow[A]]
+  implicit def arbIllegalRowA: Arbitrary[IllegalRow[A]]
 
   def rowCodec[B: Arbitrary, C: Arbitrary]: RuleSet = new RuleSet {
     def name = "rowCodec"
@@ -22,6 +22,6 @@ object RowCodecTests {
   def apply[A](implicit a: Arbitrary[A], c: RowCodec[A], i: Arbitrary[IllegalRow[A]]): RowCodecTests[A] = new RowCodecTests[A] {
     override def laws = RowCodecLaws[A]
     override implicit def arbA = a
-    override implicit def arbIllegalA = i
+    override implicit def arbIllegalRowA = i
   }
 }
