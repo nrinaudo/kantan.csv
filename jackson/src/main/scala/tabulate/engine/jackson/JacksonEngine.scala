@@ -9,7 +9,9 @@ class JacksonEngine extends ReaderEngine with WriterEngine {
   override def readerFor(reader: Reader, separator: Char) = {
     val iterator = JacksonCsv.parse(reader, separator)
     new CsvReader[DecodeResult[Seq[String]]] {
-      override protected def readNext() = DecodeResult(iterator.next())
+      override protected def readNext() =
+        if(hasNext) DecodeResult(iterator.next())
+        else        throw new NoSuchElementException
       override def hasNext = iterator.hasNext
       override def close() = iterator.close()
     }

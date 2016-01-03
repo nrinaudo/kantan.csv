@@ -1,5 +1,6 @@
 package tabulate.laws
 
+import org.scalacheck.Prop._
 import tabulate.CsvReader
 import tabulate.engine.ReaderEngine
 import tabulate.ops._
@@ -7,6 +8,20 @@ import tabulate.ops._
 trait ReaderEngineLaws extends RfcReaderLaws with SpectrumReaderLaws with KnownFormatsReaderLaws {
   private def asReader(csv: List[List[Cell]]): CsvReader[List[Cell]] =
     csv.asCsv(',').asUnsafeCsvReader[List[Cell]](',', false)
+
+  def nextOnEmpty(csv: List[List[Cell]]): Boolean = {
+    val data = asReader(csv)
+
+    csv.indices.foreach { _ => data.next() }
+    throws(classOf[java.util.NoSuchElementException])(data.next())
+  }
+
+  def nextOnEmptyTake(csv: List[List[Cell]], i: Int): Boolean = {
+    val data = asReader(csv).take(i)
+
+    csv.take(i).indices.foreach { _ => data.next() }
+    throws(classOf[java.util.NoSuchElementException])(data.next())
+  }
 
   def drop(csv: List[List[Cell]], i: Int): Boolean =
     asReader(csv).drop(i).toList == csv.drop(i)
