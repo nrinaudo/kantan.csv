@@ -77,6 +77,7 @@ class Decoding {
     import com.univocity.parsers.csv._
     val settings = new CsvParserSettings
     settings.setReadInputOnSeparateThread(false)
+    settings.setInputBufferSize(2048)
     val parser = new CsvParser(settings)
     parser.beginParsing(new StringReader(strData))
 
