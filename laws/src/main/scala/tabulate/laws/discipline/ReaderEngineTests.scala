@@ -17,6 +17,8 @@ trait ReaderEngineTests extends RfcReaderTests with SpectrumReaderTests with Kno
       "dropWhile"            -> forAll(laws.dropWhile _),
       "take"                 -> forAll(laws.take _),
       "forall"               -> forAll(laws.forall _),
+      "map"                  -> forAll(laws.map _),
+      "flatMap"              -> forAll(laws.flatMap _),
       "find"                 -> forAll(laws.find _),
       "exists"               -> forAll(laws.exists _),
       "filter"               -> forAll(laws.filter _),

@@ -85,6 +85,11 @@ trait ReaderEngineLaws extends RfcReaderLaws with SpectrumReaderLaws with KnownF
     csv.copyToArray(a2, f, c)
     a1.sameElements(a2)
   }
+
+  def map(csv: List[List[Cell]], f: List[Cell] => Int): Boolean = asReader(csv).map(f).toList == csv.map(f)
+
+  def flatMap(csv: List[List[Cell]], f: List[Cell] => List[List[Cell]]): Boolean =
+    asReader(csv).flatMap(r => asReader(f(r))).toList == csv.flatMap(f)
 }
 
 object ReaderEngineLaws {
