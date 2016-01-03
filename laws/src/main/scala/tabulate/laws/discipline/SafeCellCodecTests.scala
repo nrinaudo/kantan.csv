@@ -8,9 +8,9 @@ import tabulate.laws._
 trait SafeCellCodecTests[A] extends CellEncoderTests[A] with SafeCellDecoderTests[A] {
   def laws: SafeCellCodecLaws[A]
 
-  override implicit def arbA: Arbitrary[A]
-  override implicit val arbExpectedCellA: Arbitrary[ExpectedCell[A]] = arbitrary.arbExpectedCell(laws.cellEncoder, arbA)
-  override implicit def arbExpectedRowA: Arbitrary[ExpectedRow[A]] = arbitrary.arbExpectedRowFromCell(arbExpectedCellA)
+  override implicit def arb: Arbitrary[A]
+  override implicit val arbExpectedCell: Arbitrary[ExpectedCell[A]] = arbitrary.arbExpectedCell(laws.cellEncoder, arb)
+  override implicit def arbExpectedRow: Arbitrary[ExpectedRow[A]] = arbitrary.arbExpectedRowFromCell(arbExpectedCell)
 
   def safeCellCodec[B: Arbitrary, C: Arbitrary]: RuleSet = new RuleSet {
     def name = "safeCellCodec"
@@ -23,6 +23,6 @@ trait SafeCellCodecTests[A] extends CellEncoderTests[A] with SafeCellDecoderTest
 object SafeCellCodecTests {
   def apply[A](implicit a: Arbitrary[A], c: CellCodec[A]): SafeCellCodecTests[A] = new SafeCellCodecTests[A] {
     override def laws = SafeCellCodecLaws[A]
-    override implicit def arbA = a
+    override implicit def arb = a
   }
 }

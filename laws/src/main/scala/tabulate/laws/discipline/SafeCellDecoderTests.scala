@@ -7,8 +7,8 @@ import tabulate.laws._
 
 trait SafeCellDecoderTests[A] extends SafeRowDecoderTests[A] {
   def laws: SafeCellDecoderLaws[A]
-  implicit def arbExpectedCellA: Arbitrary[ExpectedCell[A]]
-  implicit def arbExpectedRowA: Arbitrary[ExpectedRow[A]]
+  implicit def arbExpectedCell: Arbitrary[ExpectedCell[A]]
+  implicit def arbExpectedRow: Arbitrary[ExpectedRow[A]]
 
   def safeCellDecoder[B: Arbitrary, C: Arbitrary]: RuleSet = new DefaultRuleSet(
     name = "safeCellDecoder",
@@ -24,7 +24,7 @@ trait SafeCellDecoderTests[A] extends SafeRowDecoderTests[A] {
 object SafeCellDecoderTests {
   def apply[A: CellDecoder](implicit ac: Arbitrary[ExpectedCell[A]], ar: Arbitrary[ExpectedRow[A]]): SafeCellDecoderTests[A] = new SafeCellDecoderTests[A] {
     override def laws = SafeCellDecoderLaws[A]
-    override implicit def arbExpectedCellA = ac
-    override implicit def arbExpectedRowA = ar
+    override implicit def arbExpectedCell = ac
+    override implicit def arbExpectedRow = ar
   }
 }

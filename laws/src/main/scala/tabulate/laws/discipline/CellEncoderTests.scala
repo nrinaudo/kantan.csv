@@ -7,9 +7,9 @@ import tabulate.laws._
 
 trait CellEncoderTests[A] extends RowEncoderTests[A] {
   def laws: CellEncoderLaws[A]
-  implicit def arbA: Arbitrary[A]
-  implicit def arbExpectedCellA: Arbitrary[ExpectedCell[A]]
-  implicit def arbExpectedRowA: Arbitrary[ExpectedRow[A]]
+  implicit def arb: Arbitrary[A]
+  implicit def arbExpectedCell: Arbitrary[ExpectedCell[A]]
+  implicit def arbExpectedRow: Arbitrary[ExpectedRow[A]]
 
   def cellEncoder[B: Arbitrary, C: Arbitrary]: RuleSet = new DefaultRuleSet(
     name = "cellEncoder",
@@ -23,8 +23,8 @@ trait CellEncoderTests[A] extends RowEncoderTests[A] {
 object CellEncoderTests {
   def apply[A](implicit ac: Arbitrary[ExpectedCell[A]], ar: Arbitrary[ExpectedRow[A]], c: CellEncoder[A]): CellEncoderTests[A] = new CellEncoderTests[A] {
     override def laws = CellEncoderLaws[A]
-    override implicit def arbExpectedCellA = ac
-    override implicit def arbExpectedRowA = ar
-    override implicit def arbA = Arbitrary(ac.arbitrary.map(_.value))
+    override implicit def arbExpectedCell = ac
+    override implicit def arbExpectedRow = ar
+    override implicit def arb = Arbitrary(ac.arbitrary.map(_.value))
   }
 }

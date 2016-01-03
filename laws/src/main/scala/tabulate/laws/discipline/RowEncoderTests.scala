@@ -8,8 +8,8 @@ import tabulate.laws._
 
 trait RowEncoderTests[A] extends Laws {
   def laws: RowEncoderLaws[A]
-  implicit def arbA: Arbitrary[A]
-  implicit def arbExpectedRowA: Arbitrary[ExpectedRow[A]]
+  implicit def arb: Arbitrary[A]
+  implicit def arbExpectedRow: Arbitrary[ExpectedRow[A]]
 
   def rowEncoder[B: Arbitrary, C: Arbitrary]: RuleSet = new DefaultRuleSet(
     name = "RowEncoder",
@@ -23,7 +23,7 @@ trait RowEncoderTests[A] extends Laws {
 object RowEncoderTests {
   def apply[A](implicit a: Arbitrary[ExpectedRow[A]], c: RowEncoder[A]): RowEncoderTests[A] = new RowEncoderTests[A] {
     override def laws = RowEncoderLaws[A]
-    override implicit def arbExpectedRowA = a
-    override implicit def arbA = Arbitrary(a.arbitrary.map(_.value))
+    override implicit def arbExpectedRow = a
+    override implicit def arb = Arbitrary(a.arbitrary.map(_.value))
   }
 }

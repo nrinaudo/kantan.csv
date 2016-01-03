@@ -8,8 +8,8 @@ import tabulate.laws._
 trait SafeRowCodecTests[A] extends RowEncoderTests[A] with SafeRowDecoderTests[A] {
   def laws: SafeRowCodecLaws[A]
 
-  implicit def arbA: Arbitrary[A]
-  override implicit val arbExpectedRowA: Arbitrary[ExpectedRow[A]] = arbitrary.arbExpectedRow(laws.rowEncoder, arbA)
+  implicit def arb: Arbitrary[A]
+  override implicit val arbExpectedRow: Arbitrary[ExpectedRow[A]] = arbitrary.arbExpectedRow(laws.rowEncoder, arb)
 
   def safeRowCodec[B: Arbitrary, C: Arbitrary]: RuleSet = new RuleSet {
     def name = "safeRowCodec"
@@ -22,6 +22,6 @@ trait SafeRowCodecTests[A] extends RowEncoderTests[A] with SafeRowDecoderTests[A
 object SafeRowCodecTests {
   def apply[A](implicit a: Arbitrary[A], c: RowCodec[A]): SafeRowCodecTests[A] = new SafeRowCodecTests[A] {
     override def laws = SafeRowCodecLaws[A]
-    override implicit def arbA = a
+    override implicit def arb = a
   }
 }

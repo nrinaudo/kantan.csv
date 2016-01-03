@@ -7,7 +7,7 @@ import tabulate.laws._
 
 trait CellDecoderTests[A] extends SafeCellDecoderTests[A] with RowDecoderTests[A] {
   def laws: CellDecoderLaws[A]
-  implicit def arbIllegalCellA: Arbitrary[IllegalCell[A]]
+  implicit def arbIllegalCell: Arbitrary[IllegalCell[A]]
 
   def cellDecoder[B: Arbitrary, C: Arbitrary]: RuleSet = new RuleSet {
     override def name = "cellDecoder"
@@ -22,9 +22,9 @@ trait CellDecoderTests[A] extends SafeCellDecoderTests[A] with RowDecoderTests[A
 object CellDecoderTests {
   def apply[A](implicit ac: Arbitrary[ExpectedCell[A]], ar: Arbitrary[ExpectedRow[A]], c: CellDecoder[A], ic: Arbitrary[IllegalCell[A]], ia: Arbitrary[IllegalRow[A]]): CellDecoderTests[A] = new CellDecoderTests[A] {
     override def laws = CellDecoderLaws[A]
-    override implicit def arbExpectedCellA = ac
-    override implicit def arbExpectedRowA = ar
-    override implicit def arbIllegalCellA = ic
-    override implicit def arbIllegalRowA = ia
+    override implicit def arbExpectedCell = ac
+    override implicit def arbExpectedRow = ar
+    override implicit def arbIllegalCell = ic
+    override implicit def arbIllegalRow = ia
   }
 }
