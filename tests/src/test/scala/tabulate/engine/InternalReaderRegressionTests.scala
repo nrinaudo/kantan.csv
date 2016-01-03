@@ -1,10 +1,9 @@
-package tabulate
+package tabulate.engine
 
 import org.scalatest.FunSuite
-import ops._
+import tabulate.ops._
 
-/** Test cases that are known to have failed at some point and we need to make sure do not fail again. */
-class NonRegressionTests extends FunSuite {
+class InternalReaderRegressionTests extends FunSuite {
   test("cell with whitespace") {
     assert("abc, ".unsafeReadCsv[List, List[String]](',', false) == List(List("abc", " ")))
     assert("abc ,def".unsafeReadCsv[List, List[String]](',', false) == List(List("abc ", "def")))
