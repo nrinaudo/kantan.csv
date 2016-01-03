@@ -74,6 +74,17 @@ trait ReaderEngineLaws extends RfcReaderLaws with SpectrumReaderLaws with KnownF
 
     loop(asReader(csv))
   }
+
+  def copyToArray(csv: List[List[Cell]], from: Int, count: Int): Boolean = {
+    // Makes sure we only have legal arguments, as copyToArray isn't required to do any validity check
+    val f = if(from < 0) 0 else if(from > csv.length - 1) csv.length - 1 else from
+    val c = math.max(math.min(count, csv.length - f), 1)
+
+    val a1, a2 = new Array[List[Cell]](c)
+    asReader(csv).copyToArray(a1, f, c)
+    csv.copyToArray(a2, f, c)
+    a1.sameElements(a2)
+  }
 }
 
 object ReaderEngineLaws {

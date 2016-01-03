@@ -28,6 +28,7 @@ trait ReaderEngineTests extends RfcReaderTests with SpectrumReaderTests with Kno
       "toIterator"           -> forAll(laws.toIterator _),
       "hasDefiniteSize"      -> forAll(laws.hasDefiniteSize _),
       "isEmpty"              -> forAll(laws.toTraversable _),
+      "copyToArray"          -> forAll(laws.copyToArray _),
       "isTraversableAgain"   -> forAll(laws.isTraversableAgain _)
     )
   }
