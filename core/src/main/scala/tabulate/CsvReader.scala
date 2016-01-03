@@ -4,11 +4,6 @@ import java.io.{Closeable, Reader}
 
 import tabulate.engine.ReaderEngine
 
-/** Mutable collection of CSV rows.
-  *
-  * This class is very similar to an `Iterator`, with an added [[close]] method to close the underlying source of CSV
-  * data.
-  */
 trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self =>
   def hasNext: Boolean
   protected def readNext(): A
@@ -74,7 +69,7 @@ trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self =>
         count -= 1
         a
       }
-      else CsvReader.empty.next()
+      else throw new NoSuchElementException("next on empty CSV rows")
     }
     override def close(): Unit = self.close()
   }
@@ -89,7 +84,11 @@ trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self =>
   }
 
   def flatMap[B](f: A => CsvReader[B]): CsvReader[B] = new CsvReader[B] {
-    private var cur: CsvReader[B] = CsvReader.empty
+    private var cur: CsvReader[B] = new CsvReader[B] {
+      override def hasNext: Boolean = false
+      override protected def readNext(): B = throw new NoSuchElementException("next on empty CSV rows")
+      override def close(): Unit = ()
+    }
 
     override def hasNext: Boolean = cur.hasNext || self.hasNext && { cur = f(self.next()); hasNext}
     override def readNext(): B = cur.readNext()
@@ -100,7 +99,7 @@ trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self =>
     var n = self.find(p)
     override def hasNext: Boolean = n.isDefined
     override def readNext(): A = {
-      val r = n.getOrElse(CsvReader.empty.readNext())
+      val r = n.getOrElse(throw new NoSuchElementException("next on empty CSV rows"))
       n = self.find(p)
       r
     }
@@ -159,12 +158,6 @@ object CsvReader {
 
     if(header && data.hasNext) data.next()
 
-    data.map(r => r.flatMap(da.decode))
-  }
-
-  val empty: CsvReader[Nothing] = new CsvReader[Nothing] {
-    override def readNext() = throw new NoSuchElementException("next on empty CSV rows")
-    override def hasNext = false
-    override def close() = {}
+    data.map(_.flatMap(da.decode))
   }
 }
