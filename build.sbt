@@ -159,7 +159,7 @@ lazy val generic = project
   .settings(libraryDependencies ++= Seq(
     "com.chuusai"                %% "shapeless"            % shapelessVersion,
     "org.scalatest"              %% "scalatest"            % scalatestVersion           % "test",
-    "com.github.alexarchambault" %% "scalacheck-shapeless" % scalacheckShapelessVersion % "test"
+    "com.github.alexarchambault" %% "scalacheck-shapeless" % scalacheckShapelessVersion % "test"  exclude("com.chuusai", "shapeless_2.10.4")
   ))
   .dependsOn(core, laws % "test")
 
