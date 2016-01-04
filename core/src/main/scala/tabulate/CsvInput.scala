@@ -101,9 +101,9 @@ object CsvInput extends LowPriorityCsvInputs {
   /** Turns any array of bytes into a source of CSV data. */
   implicit def bytes(implicit codec: Codec): CsvInput[Array[Byte]] = inputStream.contramap(bs => new ByteArrayInputStream(bs))
   /** Turns any `java.net.URL` into a source of CSV data. */
-  implicit def url(implicit codec: Codec): CsvInput[URL] = inputStream.contramap(u => u.openStream())
+  implicit def url(implicit codec: Codec): CsvInput[URL] = inputStream.contramap(_.openStream())
   /** Turns any `java.net.URI` into a source of CSV data. */
-  implicit def uri(implicit codec: Codec): CsvInput[URI] = url.contramap(u => u.toURL)
+  implicit def uri(implicit codec: Codec): CsvInput[URI] = url.contramap(_.toURL)
   /** Turns any array of chars into a source of CSV data. */
   implicit val chars: CsvInput[Array[Char]] = reader.contramap(cs => new CharArrayReader(cs))
   /** Turns any string into a source of CSV data. */

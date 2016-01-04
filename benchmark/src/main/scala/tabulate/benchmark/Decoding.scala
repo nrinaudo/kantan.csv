@@ -12,6 +12,36 @@ import tabulate.engine.jackson.JacksonCsv
 @BenchmarkMode(Array(Mode.AverageTime))
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 class Decoding {
+  @Benchmark
+  def tabulateInternal = Decoding.tabulate(strData)
+
+  @Benchmark
+  def tabulateJackson = Decoding.tabulate(strData)(tabulate.engine.jackson.engine)
+
+  @Benchmark
+  def tabulateOpencsv = Decoding.tabulate(strData)(tabulate.engine.opencsv.engine)
+
+  @Benchmark
+  def tabulateCommons = Decoding.tabulate(strData)(tabulate.engine.commons.engine)
+
+  @Benchmark
+  def productCollections = Decoding.productCollections(strData)
+
+  @Benchmark
+  def opencsv = Decoding.opencsv(strData)
+
+  @Benchmark
+  def commons = Decoding.commons(strData)
+
+  @Benchmark
+  def jackson = Decoding.jackson(strData)
+
+  @Benchmark
+  def univocity = Decoding.univocity(strData)
+}
+
+
+object Decoding {
   // - Helpers ---------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   class CsvIterator[A](iterator: A)(f: A => Array[String]) extends Iterator[CsvEntry] {
@@ -29,33 +59,20 @@ class Decoding {
 
   // - Benchmarks ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def tabulateEngine(implicit engine: ReaderEngine) = CsvInput.string.unsafeReader[CsvEntry](strData, ',', false).toList
+  def tabulate(str: String)(implicit engine: ReaderEngine) = CsvInput.string.unsafeReader[CsvEntry](str, ',', false).toList
 
-  @Benchmark
-  def tabulateInternal() = tabulateEngine
 
-  @Benchmark
-  def tabulateJackson() = tabulateEngine(tabulate.engine.jackson.engine)
-
-  @Benchmark
-  def tabulateOpencsv() = tabulateEngine(tabulate.engine.opencsv.engine)
-
-  @Benchmark
-  def tabulateCommons() = tabulateEngine(tabulate.engine.commons.engine)
 
   // Note: we must call trim on the input since product-collections does not accept the last row ending with a line
   // break. I believe that to be a bug.
-  @Benchmark
-  def productCollections() =
-    com.github.marklister.collections.io.CsvParser[Int, String, Boolean, Float].iterator(new StringReader(strData.trim)).toList
+  def productCollections(str: String) =
+    com.github.marklister.collections.io.CsvParser[Int, String, Boolean, Float].iterator(new StringReader(str.trim)).toList
 
-  @Benchmark
-  def opencsv() =
-    new CsvIterator(new com.opencsv.CSVReader(new StringReader(strData)))(_.readNext()).toList
+  def opencsv(str: String) =
+    new CsvIterator(new com.opencsv.CSVReader(new StringReader(str)))(_.readNext()).toList
 
-  @Benchmark
-  def commons() = {
-    val csv = org.apache.commons.csv.CSVFormat.RFC4180.parse(new StringReader(strData)).iterator()
+  def commons(str: String) = {
+    val csv = org.apache.commons.csv.CSVFormat.RFC4180.parse(new StringReader(str)).iterator()
     new Iterator[CsvEntry] {
       override def hasNext = csv.hasNext
       override def next() = {
@@ -65,22 +82,24 @@ class Decoding {
     }.toList
   }
 
-  @Benchmark
-  def jackson() =
-    new CsvIterator(JacksonCsv.parse(new StringReader(strData), ','))(it =>
+  def jackson(str: String) =
+    new CsvIterator(JacksonCsv.parse(new StringReader(str), ','))(it =>
       if(it.hasNext) it.next()
       else           null
     ).toList
 
-  @Benchmark
-  def univocity() = {
-    import com.univocity.parsers.csv._
-    val settings = new CsvParserSettings
+  val univocitySettings = {
+    val settings = new com.univocity.parsers.csv.CsvParserSettings
     settings.setReadInputOnSeparateThread(false)
     settings.setInputBufferSize(2048)
-    val parser = new CsvParser(settings)
-    parser.beginParsing(new StringReader(strData))
+    settings.setIgnoreLeadingWhitespaces(true)
+    settings.setIgnoreLeadingWhitespaces(false)
+    settings
+  }
 
+  def univocity(str: String) = {
+    val parser = new com.univocity.parsers.csv.CsvParser(univocitySettings)
+    parser.beginParsing(new StringReader(str))
     new CsvIterator(parser)(_.parseNext()).toList
   }
 }

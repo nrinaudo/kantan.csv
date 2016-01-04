@@ -49,7 +49,7 @@ lazy val baseSettings = Seq(
     "com.github.mpilquist" %% "simulacrum"    % simulacrumVersion % "provided",
     compilerPlugin("org.scalamacros" % "paradise" % macroParadiseVersion cross CrossVersion.full)
   ),
-  coverageExcludedPackages := "tabulate\\.benchmark\\..*;tabulate\\.laws\\..*",
+  coverageExcludedPackages := "tabulate\\.laws\\..*",
   incOptions         := incOptions.value.withNameHashing(true)
 )
 
@@ -213,7 +213,8 @@ lazy val benchmark = project
   .enablePlugins(JmhPlugin)
   .settings(libraryDependencies ++= Seq(
     "com.github.marklister"            %% "product-collections"    % productCollectionVersion,
-    "com.univocity"                    %  "univocity-parsers"      % univocityVersion
+    "com.univocity"                    %  "univocity-parsers"      % univocityVersion,
+    "org.scalatest"                    %% "scalatest"              % scalatestVersion % "test"
   ))
   .dependsOn(core, jackson, opencsv, commons)
 
