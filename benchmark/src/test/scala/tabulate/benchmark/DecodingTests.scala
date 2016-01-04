@@ -17,7 +17,7 @@ class DecodingTests extends FunSuite {
     assert(decoding.tabulateCommons == rawData)
   }
 
-  // TODO: broken, need to investigate why
+  // TODO: broken: opencsv doesn't play nice with CRLF in quoted cells.
   /*
   test("tabulate opencsv") {
     assert(decoding.tabulateOpencsv == rawData)
@@ -32,7 +32,7 @@ class DecodingTests extends FunSuite {
     assert(decoding.commons == rawData)
   }
 
-// TODO: broken, need to investigate why
+  // TODO: broken: opencsv doesn't play nice with CRLF in quoted cells.
   /*
   test("opencsv") {
     assert(decoding.opencsv == rawData)
