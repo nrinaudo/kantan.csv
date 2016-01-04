@@ -51,7 +51,6 @@ object Cell {
     Escaped((h ++ (esc :: t)).mkString)
   }
 
-    Gen.nonEmptyListOf(escapedChar).map(v => Escaped(v.mkString))
   val nonEscaped: Gen[NonEscaped] = Gen.nonEmptyListOf(nonEscapedChar).map(v => NonEscaped(v.mkString))
   val cell: Gen[Cell] = Gen.oneOf(escaped, nonEscaped, Gen.const(Empty))
   val nonEmptyCell: Gen[Cell] = Gen.oneOf(escaped, nonEscaped)

@@ -50,16 +50,16 @@ implicit val codec = scala.io.Codec.ISO8859
 
 
 ## Rows as collections of strings
-The simplest way to represent a CSV row is as a collection of strings. You do that through the `asCsvRows` method
+The simplest way to represent a CSV row is as a collection of strings. You do that through the `asCsvReader` method
 that enriches any type that can be used as a source of CSV data:
 
 ```tut
-rawData.asCsvRows[List[String]](',', false).mkString("\n")
+rawData.asCsvReader[List[String]](',', false).mkString("\n")
 
-rawData.asCsvRows[Set[String]](',', false).mkString("\n")
+rawData.asCsvReader[Set[String]](',', false).mkString("\n")
 ```
 
-The `asCsvRows` method expects two parameters:
+The `asCsvReader` method expects two parameters:
 
 * the character to use as column separator. `,` is fairly common, but you'll find a lot of `;` or more esoteric
   separators in the wild.
@@ -82,14 +82,14 @@ than throw an exception that forcefully interrupts parsing. One possible use cas
 properly formatted:
 
 ```tut
-rawData.asCsvRows[List[String]](',', false).filter(_.isSuccess).mkString("\n")
+rawData.asCsvReader[List[String]](',', false).filter(_.isSuccess).mkString("\n")
 ```
 
-Alternatively, you can use `asUnsafeCsvRows` rather than `asCsvRows`. This will "flatten" the results, removing the
+Alternatively, you can use `asUnsafeCsvReader` rather than `asCsvReader`. This will "flatten" the results, removing the
 `DecodeResult` layer but throwing an exception if any problem is encountered.
 
 ```tut
-rawData.asUnsafeCsvRows[List[String]](',', false).mkString("\n")
+rawData.asUnsafeCsvReader[List[String]](',', false).mkString("\n")
 ```
 
 
@@ -106,35 +106,35 @@ type CarTuple = (Int, String, String, Option[String], Float)
 We can now write:
 
 ```tut
-rawData.asCsvRows[CarTuple](',', false).mkString("\n")
+rawData.asCsvReader[CarTuple](',', false).mkString("\n")
 ```
 
 Note, however, that the first row comes back as `DecodeFailure`. Remember that our data contains a header, composed
-of types that do not actually map to those we specified to `asCSvRows`.
+of types that do not actually map to those we specified to `asCsvReader`.
 
 Of course, you could just filter out any row that isn't properly parsed, but that's not quite right: there's a huge
 difference between a header and a row that was expected to parse but didn't. The better solution is simply to
-pass `true` to the second parameter of `asCsvRows`, asking it to skip the header:
+pass `true` to the second parameter of `asCsvReader`, asking it to skip the header:
 
 ```tut
-rawData.asCsvRows[CarTuple](',', true).mkString("\n")
+rawData.asCsvReader[CarTuple](',', true).mkString("\n")
 ```
 
-The difference between the two is more obvious when using `asUnsafeCsvRows`.
+The difference between the two is more obvious when using `asUnsafeCsvReader`.
 
 The following fails, since the first row is not a legal tuple. Note that we're trying to skip the first row, but it's
 too late: the iterator's `drop` method will skip over a row, but it still needs be parsed in order to be skipped.
 
 ```tut
 try {
-  rawData.asUnsafeCsvRows[CarTuple](',', false).drop(1).mkString("\n")
+  rawData.asUnsafeCsvReader[CarTuple](',', false).drop(1).mkString("\n")
 } catch { case e: Exception => e.getMessage }
 ```
 
 This, however, does not fail: the header is skipped and the rest is valid.
 
 ```tut
-rawData.asUnsafeCsvRows[CarTuple](',', true).mkString("\n")
+rawData.asUnsafeCsvReader[CarTuple](',', true).mkString("\n")
 ```
 
 
@@ -162,7 +162,7 @@ implicit val carDecoder = RowDecoder.decoder5(Car.apply)(1, 2, 0, 4, 3)
 This allows us to parse cars as follows:
 
 ```tut
-rawData.asUnsafeCsvRows[Car](',', true).mkString("\n")
+rawData.asUnsafeCsvReader[Car](',', true).mkString("\n")
 ```
 
 Note the second parameter list: each int value corresponds to the index in a CSV row of the field at the corresponding
@@ -179,14 +179,14 @@ At this point, you can easily turn CSV data into an iterator over business speci
 actually doing interesting things with your data, such as finding the car that has a description and the highest price:
 
 ```tut
-rawData.asUnsafeCsvRows[Car](',', true).filter(_.desc.isDefined).maxBy(_.price)
+rawData.asUnsafeCsvReader[Car](',', true).filter(_.desc.isDefined).maxBy(_.price)
 ```
 
 ## Advanced topics
 
 ### CSV data sources
 One of the things this tutorial sort of glossed over is how our `rawData` variable was enriched with the
-`asCsvRows` method.
+`asCsvReader` method.
 
 Under the hood, this relies on the [CsvInput]({{ site.baseurl }}/api/#tabulate.CsvInput) type class.
 You don't really need to know what type classes are in order to use them: if you need to turn something into a source of
@@ -201,7 +201,7 @@ implicit val stringInput = CsvInput((s: String) => new java.io.StringReader(s))
 We can now write:
 
 ```tut
-"a,b,c\nd,e,f".asCsvRows[Seq[Char]](',', false).mkString("\n")
+"a,b,c\nd,e,f".asCsvReader[Seq[Char]](',', false).mkString("\n")
 ```
 
 Note that there actually already is such an instance available for strings, as well as for many other types (
@@ -230,15 +230,15 @@ implicit val dateDecoder = CellDecoder(s => DecodeResult(new SimpleDateFormat("y
 We can now parse rows of dates:
 
 ```tut
-"2012-01-01T12:00:00+0100,2013-01-01T12:00:00+0100,2014-01-01T12:00:00+0100".asCsvRows[Seq[Date]](',', false).mkString("\n")
+"2012-01-01T12:00:00+0100,2013-01-01T12:00:00+0100,2014-01-01T12:00:00+0100".asCsvReader[Seq[Date]](',', false).mkString("\n")
 ```
 
 A lot of standard types are supported out of the box, including "complex" ones such as `Either` or `Option`:
 
 ```tut
-"a,2,c".asCsvRows[List[Either[Int,Char]]](',', false).mkString("\n")
+"a,2,c".asCsvReader[List[Either[Int,Char]]](',', false).mkString("\n")
 
-"a,,c".asCsvRows[List[Option[Char]]](',', false).mkString("\n")
+"a,,c".asCsvReader[List[Option[Char]]](',', false).mkString("\n")
 ```
 
 You can find the complete list in the [CellDecoder]({{ site.baseurl }}/api/#tabulate.CellDecoder$)
@@ -257,7 +257,7 @@ dates are not supported (because there are so many ways they can be serialized),
 `CellDecoder` instance for them, which allows us to write:
 
 ```tut
-"2012-01-01T12:00:00+0100,a".asCsvRows[(Date, Char)](',', false).mkString("\n")
+"2012-01-01T12:00:00+0100,a".asCsvReader[(Date, Char)](',', false).mkString("\n")
 ```
 
 The `RowDecoder` type class allows you to add parsing support for types that are not collections, tuples or case
@@ -279,7 +279,7 @@ implicit val p2dDecoder = RowDecoder { ss =>
 We can now write:
 
 ```tut
-"1,2\n3,4".asCsvRows[Point2D](',', false).mkString("\n")
+"1,2\n3,4".asCsvReader[Point2D](',', false).mkString("\n")
 ```
 
 Note, however, that the various `RowDecoder.decoderXXX` methods do not apply *only* to case classes. They're can

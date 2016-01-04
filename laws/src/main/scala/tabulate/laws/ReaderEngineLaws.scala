@@ -1,13 +1,13 @@
 package tabulate.laws
 
 import org.scalacheck.Prop._
-import tabulate.CsvReader
+import tabulate.{CsvInput, CsvReader}
 import tabulate.engine.ReaderEngine
 import tabulate.ops._
 
 trait ReaderEngineLaws extends RfcReaderLaws with SpectrumReaderLaws with KnownFormatsReaderLaws {
   private def asReader(csv: List[List[Cell]]): CsvReader[List[Cell]] =
-    csv.asCsv(',').asUnsafeCsvReader[List[Cell]](',', false)
+    CsvInput[String].unsafeReader[List[Cell]](csv.asCsv(','), ',', false)
 
   def nextOnEmpty(csv: List[List[Cell]]): Boolean = {
     val data = asReader(csv)

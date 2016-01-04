@@ -50,8 +50,8 @@ module is capable of automatically deriving such instances for us.
 Maybe.just(1).asCsvCell
 Maybe.empty[Int].asCsvCell
 
-"1".parseCsvCell[Maybe[Int]]
-"".parseCsvCell[Maybe[Int]]
+"1".decodeCsvCell[Maybe[Int]]
+"".decodeCsvCell[Maybe[Int]]
 ```
 
 It's important to stress that these instances are generated at *compile* time and that absolutely no runtime reflection
@@ -90,8 +90,8 @@ The same `Maybe` example works just as expected:
 Maybe.just((1, 2)).asCsvRow
 Maybe.empty[(Int, Int)].asCsvRow
 
-Seq("1", "2").parseCsvRow[Maybe[(Int, Int)]]
-Seq.empty[String].parseCsvRow[Maybe[(Int, Int)]]
+Seq("1", "2").decodeCsvRow[Maybe[(Int, Int)]]
+Seq.empty[String].decodeCsvRow[Maybe[(Int, Int)]]
 ```
 
 ### Case classes (product types)
