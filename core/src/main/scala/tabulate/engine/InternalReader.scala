@@ -160,7 +160,11 @@ private[engine] class InternalReader(val data: Reader, val separator: Char) exte
       if(hasNextChar) escapedCellEnd(nextChar())
       else            InternalReader.EOF
 
-    case _                    => sys.error("illegal CSV data")
+    case '"' => escapedCell(true)
+
+    case _ =>
+      cell.append('"')
+      escapedCell(false)
   }
 
   @tailrec
@@ -178,7 +182,6 @@ private[engine] class InternalReader(val data: Reader, val separator: Char) exte
         else escapedCell(true)
       }
 
-      // End of escaped cell. We might have to skip some whitespace.
       else if(prev) escapedCellEnd(c)
 
       else escapedCell(false)
