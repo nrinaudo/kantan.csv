@@ -14,7 +14,7 @@ import scalaz.stream._
   * Any type `S` that has a implicit instance of [[CsvSink]] in scope will be enriched by the `asCsvSink` method (which
   * maps to [[sink]]).
   *
-  * Additionally, any type that has an instance of [[CsvOutput]] in scope automatically gets an instance of [[CsvSink]].
+  * Additionally, any type that has an instance of `CsvOutput` in scope automatically gets an instance of [[CsvSink]].
   */
 @typeclass trait CsvSink[S] {
   @noop def writer(s: S): Writer

@@ -8,14 +8,14 @@ import tabulate._
 package object cats {
   // - DecodeResult ----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  /** `Monad` instance for [[DecodeResult]]. */
+  /** `Monad` instance for `DecodeResult`. */
   implicit val decodeResultInstances = new Monad[DecodeResult] {
     override def flatMap[A, B](fa: DecodeResult[A])(f: A => DecodeResult[B]) = fa.flatMap(f)
     override def map[A, B](fa: DecodeResult[A])(f: A => B) = fa.map(f)
     override def pure[A](x: A) = DecodeResult(x)
   }
 
-  /** `Eq` instance for [[DecodeResult]]. */
+  /** `Eq` instance for `DecodeResult`. */
   implicit def decodeResultEq[A: Eq] = new Eq[DecodeResult[A]] {
     override def eqv(x: DecodeResult[A], y: DecodeResult[A]): Boolean = (x, y) match {
       case (DecodeResult.Success(a), DecodeResult.Success(b))                   => Eq[A].eqv(a, b)
@@ -28,14 +28,14 @@ package object cats {
 
   // - CellCodec -------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  /** `Monad` instance for [[CellDecoder]]. */
+  /** `Monad` instance for `CellDecoder`. */
   implicit val cellDecoder = new Monad[CellDecoder] {
     override def map[A, B](fa: CellDecoder[A])(f: A => B) = fa.map(f)
     override def flatMap[A, B](fa: CellDecoder[A])(f: A => CellDecoder[B]) = fa.flatMap(f)
     override def pure[A](x: A) = CellDecoder(_ => DecodeResult(x))
   }
 
-  /** `Contravariant` instance for [[CellEncoder]]. */
+  /** `Contravariant` instance for `CellEncoder`. */
   implicit val cellEncoder = new Contravariant[CellEncoder] {
     override def contramap[A, B](fa: CellEncoder[A])(f: B => A) = fa.contramap(f)
   }
@@ -44,14 +44,14 @@ package object cats {
 
   // - RowCodec --------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  /** `Monad` instance for [[RowDecoder]]. */
+  /** `Monad` instance for `RowDecoder`. */
   implicit val rowDecoder = new Monad[RowDecoder] {
     override def map[A, B](fa: RowDecoder[A])(f: A => B) = fa.map(f)
     override def flatMap[A, B](fa: RowDecoder[A])(f: A => RowDecoder[B]) = fa.flatMap(f)
     override def pure[A](x: A) = RowDecoder(_ => DecodeResult(x))
   }
 
-  /** `Contravariant` instance for [[RowEncoder]]. */
+  /** `Contravariant` instance for `RowEncoder`. */
   implicit val rowEncoder = new Contravariant[RowEncoder] {
     override def contramap[A, B](fa: RowEncoder[A])(f: B => A) = fa.contramap(f)
   }
@@ -59,12 +59,12 @@ package object cats {
 
   // - CSV input / output ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  /** `Contravariant` instance for [[CsvInput]]. */
+  /** `Contravariant` instance for `CsvInput`. */
   implicit val csvInput: Contravariant[CsvInput] = new Contravariant[CsvInput] {
     override def contramap[A, B](r: CsvInput[A])(f: B => A) = r.contramap(f)
   }
 
-  /** `Contravariant` instance for [[CsvOutput]]. */
+  /** `Contravariant` instance for `CsvOutput`. */
   implicit val csvOutput: Contravariant[CsvOutput] = new Contravariant[CsvOutput] {
     override def contramap[A, B](r: CsvOutput[A])(f: B => A) = r.contramap(f)
   }
