@@ -14,24 +14,24 @@ Tabulate is a library for CSV parsing and serialisation written in the
 
 Tabulate is currently available both for Scala 2.10 and 2.11.
 
-The current version is `0.1.6`, which can be added to your project with one or more of the following line(s)
+The current version is `0.1.7`, which can be added to your project with one or more of the following line(s)
 in your SBT build file:
 
 ```scala
 // Core library, included automatically if any other module is imported.
-libraryDependencies += "com.nrinaudo" %% "tabulate" % "0.1.6"
+libraryDependencies += "com.nrinaudo" %% "tabulate" % "0.1.7"
 
 // Provides scalaz type class instances for tabulate, and vice versa.
-libraryDependencies += "com.nrinaudo" %% "tabulate-scalaz" % "0.1.6"
+libraryDependencies += "com.nrinaudo" %% "tabulate-scalaz" % "0.1.7"
 
 // Treat CSV data as sources and sinks.
-libraryDependencies += "com.nrinaudo" %% "tabulate-scalaz-stream" % "0.1.6"
+libraryDependencies += "com.nrinaudo" %% "tabulate-scalaz-stream" % "0.1.7"
 
 // Provides cats type class instances for tabulate, and vice versa.
-libraryDependencies += "com.nrinaudo" %% "tabulate-cats" % "0.1.6"
+libraryDependencies += "com.nrinaudo" %% "tabulate-cats" % "0.1.7"
 
 // Automatic type class instances derivation.
-libraryDependencies += "com.nrinaudo" %% "tabulate-generic" % "0.1.6"
+libraryDependencies += "com.nrinaudo" %% "tabulate-generic" % "0.1.7"
 ```
 
 

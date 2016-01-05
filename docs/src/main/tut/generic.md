@@ -7,7 +7,7 @@ Tabulate has a [shapeless](https://github.com/milessabin/shapeless) `generic` mo
 automatically. In order to use this feature, you must first modify your sbt file to include the following:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "tabulate-generic" % "0.1.6"
+libraryDependencies += "com.nrinaudo" %% "tabulate-generic" % "0.1.7"
 ```
 
 Once that's done, the following import is necessary:

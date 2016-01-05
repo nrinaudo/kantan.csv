@@ -32,7 +32,7 @@ val rawData: java.net.URL = getClass.getResource("/wikipedia.csv")
 The scalaz-stream integration must be declared as a depedency in your SBT file:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "tabulate-scalaz-stream" % "0.1.6"
+libraryDependencies += "com.nrinaudo" %% "tabulate-scalaz-stream" % "0.1.7"
 ```
 
 Additionally, the following imports are necessary:
