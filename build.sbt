@@ -94,6 +94,7 @@ lazy val root = Project(id = "tabulate", base = file("."))
     """.stripMargin
   )
   .aggregate(core, cats, scalaz, scalazStream, laws, tests, docs, generic, benchmark, jackson, commons, opencsv)
+  .dependsOn(core, generic)
 
 lazy val core = project
   .settings(
