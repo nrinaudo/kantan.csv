@@ -26,7 +26,7 @@ A few things to note about this data:
 I have this data as a resource, so let's just declare it:
  
 ```tut:silent
-val rawData = getClass.getResource("/wikipedia.csv")
+val rawData: java.net.URL = getClass.getResource("/wikipedia.csv")
 ```
 
 ## Setting up Tabulate
@@ -48,245 +48,132 @@ Microsoft Excel, for instance, tends to change charset depending on the computer
 implicit val codec = scala.io.Codec.ISO8859
 ```
 
+## Parsing basics
+The simplest way of parsing CSV data is to call the `asCsvReader` method that enriches relevant types. We'll discuss 
+what exactly "relevant types" mean a bit later, but for now, it's safe to consider that anything that can be turned into
+a stream of characters (such as the `rawData` variable we declared earlier) is concerned.
 
-## Rows as collections of strings
-The simplest way to represent a CSV row is as a collection of strings. You do that through the `asCsvReader` method
-that enriches any type that can be used as a source of CSV data:
+The `asCsvReader` method takes two parameters: the separator character (usually `,`) and a boolean flag that indicates
+whether or not to skip the first row.
 
-```tut
-rawData.asCsvReader[List[String]](',', false).mkString("\n")
-
-rawData.asCsvReader[Set[String]](',', false).mkString("\n")
-```
-
-The `asCsvReader` method expects two parameters:
-
-* the character to use as column separator. `,` is fairly common, but you'll find a lot of `;` or more esoteric
-  separators in the wild.
-* whether or not to skip the first row. Not terribly useful yet, but it'll become more important when we attempt to
-  parse each row into more interesting types than just strings.
-  
-The type parameter describes how each CSV row should be represented. In the previous example, we've used `List[String]`
-and `Set[String]`, but you should be able to use any standard collection class (technically, any collection that has
-a [CanBuildFrom](http://www.scala-lang.org/api/current/#scala.collection.generic.CanBuildFrom) instance, but I think
-that's every one of them).
-
-Other sections of this tutorial give examples of how to use more complex types, but more often than not, you'll find
-that you can just stick whatever assemblage of standard types you want in there and have it work out of the box. If
-your data is composed of rows of floats for example, you can just request `List[Float]`, or even "complex" types
-like `List[Either[Boolean, Option[Float]]]`.
-
-Finally, pay attention to the return types in the previous example: where we asked for lists of strings, we actually
-got each row as an `DecodeResult[List[String]]`: rows that could not be parsed will be represented as failures rather
-than throw an exception that forcefully interrupts parsing. One possible use case is to filter out anything that isn't
-properly formatted:
+More importantly, `asCsvReader` takes a type parameter that describes what each row should be interpreted as. We'll
+study this mechanism in depth, but for now, an example: let's say that we want to represent each row in list of cars as
+a list of strings.
 
 ```tut
-rawData.asCsvReader[List[String]](',', false).filter(_.isSuccess).mkString("\n")
+rawData.asCsvReader[List[String]](',', false)
 ```
 
-Alternatively, you can use `asUnsafeCsvReader` rather than `asCsvReader`. This will "flatten" the results, removing the
-`DecodeResult` layer but throwing an exception if any problem is encountered.
+That return type is interesting. First, the outermost type: [`CsvReader`](/api/#tabulate.CsvReader). That's essentially
+an iterator with a `close` method - you can fold on it, filter it, use it in monadic composition...
+
+That `CsvReader` contains instances of [`DecodeResult`](/api/#tabulate.DecodeResult) - a sum type that
+represents the result of decoding each row. It can correctly be thought of as a specialised version of `Option`.
+
+Finally, the innermost type is what we requested each row to be parsed as: a `List[String]`.
+
+And if we were to print each row, we'd see pretty much what we'd expect:
 
 ```tut
-rawData.asUnsafeCsvReader[List[String]](',', false).mkString("\n")
+rawData.asCsvReader[List[String]](',', false).foreach(println _)
 ```
 
+Note that you could have used any collection type instead of `List`, although not all would make sense. A `Set`, for
+instance, would not be very useful, as the order of columns matter in our example.
 
-## Rows as tuples
-Collections of strings are a nice start, but not entirely satisfactory: our example is composed of values that should
-be represented with more precise types. One simple way of doing that is asking to parse each row as a tuple.
+## Parsing into useful types
+This last example was interesting, but a bit underwhelming - rows as sequence of strings are a bit of a disappointment,
+especially with a language like Scala where we like things typed to their eyeballs.
 
-First, let's declare a type alias for the sake of legibility:
+Luckily, tabulate supports parsing into most standard types (and has easy to use extension mechanisms for whatever is
+not covered by default).
+
+For example, we might want to parse our cars as tuples. Let's first declare a type alias for the sake of brevity:
 
 ```tut:silent
 type CarTuple = (Int, String, String, Option[String], Float)
 ```
 
-We can now write:
+We can now call `asCsvReader` with a more meaningful type parameter:
 
 ```tut
-rawData.asCsvReader[CarTuple](',', false).mkString("\n")
+rawData.asCsvReader[CarTuple](',', false).foreach(println _)
 ```
 
-Note, however, that the first row comes back as `DecodeFailure`. Remember that our data contains a header, composed
-of types that do not actually map to those we specified to `asCsvReader`.
-
-Of course, you could just filter out any row that isn't properly parsed, but that's not quite right: there's a huge
-difference between a header and a row that was expected to parse but didn't. The better solution is simply to
-pass `true` to the second parameter of `asCsvReader`, asking it to skip the header:
+The thing that stands out is that the first row is a `DecodeFailure`: tabulate failed to parse it as an instance of 
+`CarTuple`. That makes sense: our first row is a header and of different type than the others. We can just skip it by
+passing `true` to `asCsvReader`:
 
 ```tut
-rawData.asCsvReader[CarTuple](',', true).mkString("\n")
+rawData.asCsvReader[CarTuple](',', true).foreach(println _)
 ```
 
-The difference between the two is more obvious when using `asUnsafeCsvReader`.
+Notice how tabulate interpreted the empty descriptions as `None`. 
 
-The following fails, since the first row is not a legal tuple. Note that we're trying to skip the first row, but it's
-too late: the iterator's `drop` method will skip over a row, but it still needs be parsed in order to be skipped.
+That's much better than our previous list of strings, but let's be honest: our cars are begging to be parsed into a
+dedicated case class. This is where things can get slightly more complicated... 
+
+
+## Parsing into case classes
+### The simple case
+If you don't mind a dependency on [shapeless](https://github.com/milessabin/shapeless) and if your CSV columns happen
+to be in the exact same order as your case class fields, then things are still simple (if a bit CPU intensive during
+compilation): you can call `asCsvReader` exactly as before, provided you import `tabulate.generic.codecs._`:
 
 ```tut
-try {
-  rawData.asUnsafeCsvReader[CarTuple](',', false).drop(1).mkString("\n")
-} catch { case e: Exception => e.getMessage }
+import tabulate.generic.codecs._
+
+case class Car(year: Int, make: String, model: String, desc: Option[String], price: Float)
+
+rawData.asCsvReader[Car](',', true).foreach(println _)
 ```
 
-This, however, does not fail: the header is skipped and the rest is valid.
+### The less simple case
+It's also possible to define your decoding mechanism for case classes. The most common reason for that is your type
+class fields and CSV columns are not defined in the same order, and you need to somehow specify what goes where.
+
+This is much simpler than it sounds, however. First, let's redefine our `Car` case class to match this scenario:
 
 ```tut
-rawData.asUnsafeCsvReader[CarTuple](',', true).mkString("\n")
-```
-
-
-## Rows as case classes
-Tuples are a definite improvement over collections of strings. More often than not, however, you'll find yourself
-working with more specific types, usually case classes that the rest of your code knows how to manipulate.
-
-Let's define such a case class for our example:
-
-```tut:silent
 case class Car(make: String, model: String, year: Int, price: Float, desc: Option[String])
 ```
 
-The process is slightly more involved than what we've seen so far, unless you're willing to depend on
-[shapeless](https://github.com/milessabin/shapeless) and use Tabulate's [generic](./generic.html) module to derive
-a decoder automatically.
+Now, adding parsing support for a type is done by providing an implicit [`RowDecoder`](/api/#tabulate.RowDecoder)
+instance for that type. There are lots of ways to achieve that result - write one from scratch, compose an existing
+one... but case classes are so common that a helper function is provided: `RowDecoder.decoderAAA`, where `AAA` is the
+arity of the case class for which to create a `RowDecoder`.
 
-If you're not, you can still trivially create one using one of the `RowDecoder.decoderXXX`, where XXX is the number
-of fields in your case class:
+Our `Car` case class has 5 fields, which means we must use `RowDecoder.decoder5`. The first parameter is a function that
+take a value for each field and returns an instance of the desired case class - a function that is always available as
+the `apply` method of a case class' companion object. The other 5, curried parameters are the 0-based index in a row of
+each field - `make` occurs in second position, for example, so its index is 1.
+ 
+Let's write this:
 
-```tut:silent
+```tut
 implicit val carDecoder = RowDecoder.decoder5(Car.apply)(1, 2, 0, 4, 3)
+
+rawData.asCsvReader[Car](',', true).foreach(println _)
 ```
 
-This allows us to parse cars as follows:
 
-```tut
-rawData.asUnsafeCsvReader[Car](',', true).mkString("\n")
-```
+## Supporting more types
+Try as it might, tabulate cannot possibly support all possible variations on all possible types. It provides reasonable
+defaults for standard types, but cannot support types it's not aware of or ones that don't have a reasonable default
+format (dates come to mind).
 
-Note the second parameter list: each int value corresponds to the index in a CSV row of the field at the corresponding
-position. That is, the first value is the index of the first field, the second value that of the second field...
+We've already seen how to create new `RowDecoder` instances: this makes it simple to add support for, say, scalaz's
+`Maybe` (although that's technically not strictly necessary as tabulate comes with a scalaz module *and* the `generic`
+module is capable of deriving such instances automatically).
 
-It's also worth noting that if you're also going to serialise your type to CSV, you're probably better off using
-`RowCodec` instead:
+What we've not yet seen is add new _cell_ types - we've seen that `String` and `Int` were supported out of the box, for
+instance, but what happens if we need to parse ISO formatted dates?
 
+Perhaps unsurprisingly, this is very similar to row types: just provide an appropriate implicit instance of
+[`CellDecoder`](/api/#tabulate.CellDecoder). For example:
+ 
 ```tut:silent
-implicit val carCodec = RowCodec.caseCodec5(Car.apply, Car.unapply)(1, 2, 0, 4, 3)
-```
-
-At this point, you can easily turn CSV data into an iterator over business specific types. This is where you can start
-actually doing interesting things with your data, such as finding the car that has a description and the highest price:
-
-```tut
-rawData.asUnsafeCsvReader[Car](',', true).filter(_.desc.isDefined).maxBy(_.price)
-```
-
-## Advanced topics
-
-### CSV data sources
-One of the things this tutorial sort of glossed over is how our `rawData` variable was enriched with the
-`asCsvReader` method.
-
-Under the hood, this relies on the [CsvInput]({{ site.baseurl }}/api/#tabulate.CsvInput) type class.
-You don't really need to know what type classes are in order to use them: if you need to turn something into a source of
-CSV data, just write a `CsvInput` instance for it, make it implicit, stick it in scope and you're done.
-
-As a simple example, this is how you'd turn all strings into sources of CSV data:
-
-```tut:silent
-implicit val stringInput = CsvInput((s: String) => new java.io.StringReader(s))
-```
-
-We can now write:
-
-```tut
-"a,b,c\nd,e,f".asCsvReader[Seq[Char]](',', false).mkString("\n")
-```
-
-Note that there actually already is such an instance available for strings, as well as for many other types (
-`java.io.File`, `java.net.URI`, `scala.io.Source`...). You can find an exhaustive list in the 
-[CsvInput]({{ site.baseurl }}/api/#tabulate.CsvInput$) companion object.
-
-A convenient way of creating new instances of `CsvInput` is by adapting existing ones - if you have
-a `CsvInput[A]` and a `B => A`, you need just call `contramap` to get a `CsvInput[B]`.
-
-
-### CSV cell types
-Another thing that was given the hand-wavy treatment is how each cell is parsed. When requesting each row as a list
-of ints, for example, how do we know how to parse ints?
-
-This is also done through a type class (as is just about everything here, really):
-[CellDecoder]({{ site.baseurl }}/api/#tabulate.CellDecoder). If you need to add support for new types, 
-declare an implicit instance of `CellDecoder` for it. For example, if your CSV data contains ISO 8601 dates:
-
-```tut:silent
-import java.util.Date
 import java.text.SimpleDateFormat
 
-implicit val dateDecoder = CellDecoder(s => DecodeResult(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s)))
+implicit val dateDecoder = CellDecoder.fromUnsafe(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse)
 ```
-
-We can now parse rows of dates:
-
-```tut
-"2012-01-01T12:00:00+0100,2013-01-01T12:00:00+0100,2014-01-01T12:00:00+0100".asCsvReader[Seq[Date]](',', false).mkString("\n")
-```
-
-A lot of standard types are supported out of the box, including "complex" ones such as `Either` or `Option`:
-
-```tut
-"a,2,c".asCsvReader[List[Either[Int,Char]]](',', false).mkString("\n")
-
-"a,,c".asCsvReader[List[Option[Char]]](',', false).mkString("\n")
-```
-
-You can find the complete list in the [CellDecoder]({{ site.baseurl }}/api/#tabulate.CellDecoder$)
-companion object.
-
-Note that a convenient way of creating new instances of `CellDecoder` is by adapting existing ones - if you have
-a `CellDecoder[A]` and an `A => B`, you need just call `map` to get a `CellDecoder[B]`. 
-
-### CSV row types
-You might already have guessed that the magic of guessing how to parse entire CSV rows simply by knowing what types
-they're expected to contain is also type class based. In this case, the type class you're looking for is
-[RowDecoder]({{ site.baseurl }}/api/#tabulate.RowDecoder).
-
-The beauty of the pattern is that `RowDecoder` relies on `CellDecoder` for parsing individual cells. For example,
-dates are not supported (because there are so many ways they can be serialized), but we've just added a
-`CellDecoder` instance for them, which allows us to write:
-
-```tut
-"2012-01-01T12:00:00+0100,a".asCsvReader[(Date, Char)](',', false).mkString("\n")
-```
-
-The `RowDecoder` type class allows you to add parsing support for types that are not collections, tuples or case
-classes:
-
-```tut:silent
-class Point2D(val x: Int, val y: Int) {
-  override def toString = s"($x,$y)"
-}
-
-implicit val p2dDecoder = RowDecoder { ss =>
-  for {
-    x <- CellDecoder[Int].decode(ss, 0)
-    y <- CellDecoder[Int].decode(ss, 1)
-  } yield new Point2D(x, y)
-}
-```
-
-We can now write:
-
-```tut
-"1,2\n3,4".asCsvReader[Point2D](',', false).mkString("\n")
-```
-
-Note, however, that the various `RowDecoder.decoderXXX` methods do not apply *only* to case classes. They're can
-easily be used for "normal" classes:
-
-```tut:silent
-implicit val p2Decoder2 = RowDecoder.decoder2((x: Int, y: Int) => new Point2D(x, y))(0, 1)
-```
-
-This is the idiomatic way of creating new instances of `RowDecoder`.
