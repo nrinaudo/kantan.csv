@@ -43,14 +43,6 @@ import scala.collection.generic.CanBuildFrom
 
 @export.imports[RowDecoder]
 trait LowPriorityRowDecoders {
-  /** Parses a CSV row into a collection of `A`. */
-  implicit def collection[A, M[X]](implicit da: CellDecoder[A], cbf: CanBuildFrom[Nothing, A, M[A]]): RowDecoder[M[A]] =
-    RowDecoder(ss => ss.foldLeft(DecodeResult.success(cbf.apply())) { (racc, s) => for {
-      acc <- racc
-      a   <- da.decode(s)
-    } yield acc += a
-    }.map(_.result()))
-
   implicit def cellDecoder[A](implicit da: CellDecoder[A]): RowDecoder[A] = RowDecoder(ss =>
     ss.headOption.map(h => if(ss.tail.isEmpty) da.decode(h) else DecodeResult.decodeFailure).getOrElse(DecodeResult.decodeFailure)
   )
@@ -98,6 +90,14 @@ object RowDecoder extends LowPriorityRowDecoders {
     if(ss.isEmpty) DecodeResult.success(None)
     else           da.decode(ss).map(a => Some(a))
   }
+
+  /** Parses a CSV row into a collection of `A`. */
+  implicit def collection[A, M[X]](implicit da: CellDecoder[A], cbf: CanBuildFrom[Nothing, A, M[A]]): RowDecoder[M[A]] =
+    RowDecoder(ss => ss.foldLeft(DecodeResult.success(cbf.apply())) { (racc, s) => for {
+      acc <- racc
+      a   <- da.decode(s)
+    } yield acc += a
+    }.map(_.result()))
 
 
 
