@@ -55,8 +55,8 @@ The [`asCsvReader`][asCsvReader] method takes two parameters: the separator char
 that indicates whether or not to skip the first row.
 
 More importantly, [`asCsvReader`][asCsvReader] takes a type parameter that describes what each row should be interpreted
-as. We'll study this mechanism in depth, but for now, an example: let's say that we want to represent each row in list
-of cars as a list of strings.
+as. We'll study this mechanism in depth, but for now, an example: let's say that we want to represent each row in our
+list of cars as a `List[String]`.
 
 ```tut
 rawData.asCsvReader[List[String]](',', false)
@@ -81,7 +81,7 @@ Note that you could have used any collection type instead of `List`, although no
 instance, would not be very useful, as the order of columns matters in our example.
 
 ## Parsing into useful types
-That last example was interesting, but a bit underwhelming - rows as sequence of strings are a bit of a disappointment,
+That last example was interesting, but a bit underwhelming - rows as sequences of strings are a bit of a disappointment,
 especially with a language like Scala where we like things typed to their eyeballs.
 
 Luckily, tabulate supports parsing into most standard types (and has easy to use extension mechanisms for whatever is
@@ -100,8 +100,8 @@ rawData.asCsvReader[CarTuple](',', false).foreach(println _)
 ```
 
 The thing that stands out is that the first row is a [`DecodeFailure`][DecodeFailure]: tabulate failed to parse it as an
-instance of `CarTuple`. That makes sense: our first row is a header and of different type than the others. We can just
-skip it by passing `true` to [`asCsvReader`][asCsvReader]:
+instance of `CarTuple`. That makes sense: our first row is a header and composed of different types than the others. We
+can just skip it by passing `true` to [`asCsvReader`][asCsvReader]:
 
 ```tut
 rawData.asCsvReader[CarTuple](',', true).foreach(println _)
@@ -130,7 +130,7 @@ rawData.asCsvReader[Car](',', true).foreach(println _)
 
 
 ### The less simple case
-It's also possible to define your own decoding mechanism for case classes. The most common reason for that is your type
+It's also possible to define your own decoding mechanism for case classes. The most common reason for that is your case
 class fields and CSV columns are not defined in the same order, and you need to somehow specify what goes where.
 
 This is much simpler than it sounds, however. First, let's redefine our `Car` case class by shuffling its fields to
@@ -162,6 +162,9 @@ not in the same order:
 ```tut
 rawData.asCsvReader[Car](',', true).foreach(println _)
 ```
+
+Tabulate comes with a number of default implementations of [`RowDecoder`][RowDecoder] which can all be found in its
+[companion object](/api/#tabulate.RowDecoder$).
 
 ## Parsing non-standard types
 So far, we've seen how tabulate can treat rows as collections of values and assemble them into useful types. Our use
@@ -207,6 +210,9 @@ Armed with that new decoder, we can now parse our CSV data the way we'd expect:
 rawData.asCsvReader[Car](',', true).foreach(println _)
 ```
 
+Tabulate comes with a number of default implementations of [`CellDecoder`][CellDecoder] which can all be found in its
+[companion object](/api/#tabulate.CellDecoder$).
+
 
 ## Convenience methods
 ### Unsafe parsing
@@ -250,9 +256,29 @@ rawData.unsafeReadCsv[Set, Car](',', true)
 
 
 ## What can be parsed as CSV?
+So far, we've been using `rawData` as our source of CSV and sort of accepting that it was enriched with all these
+methods. But, just like with [`CellDecoder`][CellDecoder] and [`RowDecoder`][RowDecoder], the underlying mechanism
+is both fairly simple and easily extendable. 
+
+The type class you're looking for is [`CsvInput`][CsvInput]. Looking at its methods, you'll see that all one needs to
+implement to turn a type `A` into a source of CSV data is a function that turns an `A` into a
+[Reader](https://docs.oracle.com/javase/7/docs/api/java/io/Reader.html).
+
+Most of the time, you shouldn't need to declare new instances of [`CsvInput`][CsvInput]. Should the need arise, however,
+the idiomatic way of doing so is to use one of the existing implementations and call
+[contramap](/api/#tabulate.CsvInput@contramap[T](f:T=>S):tabulate.CsvInput[T]). Say that you want to write a
+[`CsvInput`][CsvInput] for strings, for instance (a purely academic endeavour, as one is provided by default):
+
+```tut:silent
+implicit val strInput: CsvInput[String] = CsvInput[java.io.Reader].contramap(s => new java.io.StringReader(s))
+```
+
+Tabulate comes with a number of default implementations of [`CsvInput`][CsvInput] which can all be found in its
+[companion object](/api/#tabulate.CsvInput$).
 
 [Option]:http://www.scala-lang.org/api/current/index.html#scala.Option
 [CsvReader]:/api/#tabulate.CsvReader
+[CsvInput]:/api/#tabulate.CsvInput
 [RowDecoder]:/api/#tabulate.RowDecoder
 [CellDecoder]:/api/#tabulate.CellDecoder
 [DecodeResult]:/api/#tabulate.DecodeResult
