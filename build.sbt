@@ -18,6 +18,8 @@ val univocityVersion           = "1.5.6"
 val jacksonCsvVersion          = "2.6.4"
 val commonsCsvVersion          = "1.2"
 val scalacheckShapelessVersion = "1.12.1"
+val jodaVersion                = "2.7"
+val jodaConvertVersion         = "1.7"
 
 lazy val buildSettings = Seq(
   organization       := "com.nrinaudo",
@@ -233,6 +235,10 @@ lazy val docs = project
       "-sourcepath", baseDirectory.in(LocalRootProject).value.getAbsolutePath
     )
   )
+  .settings(libraryDependencies ++= Seq(
+    "joda-time" % "joda-time"    % jodaVersion,
+    "org.joda"  % "joda-convert" % jodaConvertVersion
+  ))
   .settings(tutSettings: _*)
   .settings(
     site.addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), "api"),
