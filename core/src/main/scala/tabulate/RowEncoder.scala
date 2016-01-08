@@ -3,7 +3,9 @@ package tabulate
 import simulacrum.{noop, op, typeclass}
 
 @typeclass trait RowEncoder[A] { self =>
-  @op("asCsvRow") def encode(a: A): Seq[String]
+  @op("asCsvRow")
+  def encode(a: A): Seq[String]
+
   @noop def contramap[B](f: B => A): RowEncoder[B] = RowEncoder(f andThen encode _)
 }
 
