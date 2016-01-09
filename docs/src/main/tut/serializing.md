@@ -21,11 +21,9 @@ val data = List(Car("Ford", "E350", 1997, 3000F, Some("ac, abs, moon")),
 The code in this tutorial requires the following imports:
 
 ```tut:silent
-import tabulate._
-import tabulate.ops._
+import tabulate._     // Imports core classes.
+import tabulate.ops._ // Enriches standard classes with CSV serialisation methods.
 ```
-
-`tabulate._` imports all the core classes, while `tabulate.ops._` bring the various operators in scope.
 
 
 Additionally, most methods used to open CSV data for writing require an implicit `scala.io.Codec` to be in scope. I'll
