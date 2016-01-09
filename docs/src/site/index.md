@@ -57,7 +57,7 @@ addressed, though.
 
 The following tutorials are available:
 {% for x in site.tut %}
-{% if x.status != "wip" %}
+{% if x.status != "wip" and x.section == "tutorial" %}
 * [{{ x.title }}]({{ site.baseurl }}{{ x.url }})
 {% endif %}
 {% endfor %}

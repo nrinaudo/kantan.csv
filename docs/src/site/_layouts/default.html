@@ -29,7 +29,7 @@
           Other tutorials:
           <ul>
           {% for x in site.tut %}
-          {% if page.url != x.url and x.status != "wip" %}
+          {% if page.url != x.url and x.status != "wip" and x.section == "tutorial" %}
           <li><a href="{{ site.baseurl }}{{ x.url }}">{{ x.title }}</a></li>
           {% endif %}
           {% endfor %}
