@@ -34,6 +34,21 @@ libraryDependencies += "com.nrinaudo" %% "tabulate-cats" % "0.1.7"
 libraryDependencies += "com.nrinaudo" %% "tabulate-generic" % "0.1.7"
 ```
 
+Additionally, while tabulate comes with a default parser / serializer (that has
+[pretty good]({{ site.baseurl }}/tut/benchmarks.html) performances), some people might prefer to use older, more
+reputable implementations. The following engines are currently supported:
+ 
+```scala
+// opencsv engine.
+libraryDependencies += "com.nrinaudo" %% "tabulate-opencsv" % "0.1.7"
+
+// commons-csv engine.
+libraryDependencies += "com.nrinaudo" %% "tabulate-commons" % "0.1.7"
+
+// jackson-csv engine.
+libraryDependencies += "com.nrinaudo" %% "tabulate-jackson" % "0.1.7"
+```
+
 
 ## Motivation
 

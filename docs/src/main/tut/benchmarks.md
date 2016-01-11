@@ -36,6 +36,9 @@ the fact that it's not a clear winner in my benchmarks does not invalidate
 [their own results](https://github.com/uniVocity/csv-parsers-comparison).
 
 ## Reading
+### Benchmark description
+Reading is benchmarked by repeatedly parsing a known simple, RFC compliant input. Results are expressed in μs/action,
+where and action is a complete read of the sample input. This means that the lower the number, the better the results.  
 
 | Library                | μs/action |
 |------------------------|-----------|
@@ -43,14 +46,30 @@ the fact that it's not a clear winner in my benchmarks does not invalidate
 | [jackson csv]          | 27.939431 |
 | [opencsv]              | 66.949113 |
 | [product collections]  | 58.448646 |
-| tabulate (commons-csv) | 63.764324 |
+| tabulate (commons csv) | 63.764324 |
 | tabulate (internal)    | 37.302322 |
-| tabulate (jackson-csv) | 37.443351 |
+| tabulate (jackson csv) | 37.443351 |
 | tabulate (opencsv)     | 76.193376 |
 | [univocity]            | 45.873582 |
 
+It's clear that, at least in the benchmarked configuration, [jackson csv] is frighteningly fast. It's quite gratifying
+to see that tabulate's internal parser is as fast as its jackson module - both are still slower than "raw"
+[jackson csv], but that's the price you pay for safety and fancy types.
+
+Given that [univocity] is benchmarked in a use case for which it was not optimised, its position as a close 4th is
+actually rather impressive.
+ 
+The other parsers are slightly slower (none more so than tabulate's other external engines), but really, these are still
+pretty good results.
+
+The conclusion I'd draw from these benchmarks is that if you need speed, perhaps at the cost of some convenience
+and safety, then [jackson csv] is without a doubt your best choice. If not, none of the other options are bad choices.
+I'd recommend tabulate because I feel it's more convenient than the others, but that's not a very interesting metric:
+I *built* tabulate for my use cases, of course it'll be more convenient for these.
+
 
 ## Writing
+
 
 | Library                | μs/action  |
 |------------------------|------------|

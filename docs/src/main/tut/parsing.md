@@ -162,7 +162,7 @@ rawData.asCsvReader[Car](',', true).foreach(println _)
 ```
 
 Tabulate comes with a number of default implementations of [`RowDecoder`] which can all be found in its
-[companion object](/api/#tabulate.RowDecoder$).
+[companion object]({{ site.baseurl }}/api/#tabulate.RowDecoder$).
 
 ## Parsing non-standard types
 So far, we've seen how tabulate can treat rows as collections of values and assemble them into useful types. Our use
@@ -209,7 +209,7 @@ rawData.asCsvReader[Car](',', true).foreach(println _)
 ```
 
 Tabulate comes with a number of default implementations of [`CellDecoder`] which can all be found in its
-[companion object](/api/#tabulate.CellDecoder$).
+[companion object]({{ site.baseurl }}/api/#tabulate.CellDecoder$).
 
 
 ## Convenience methods
@@ -264,26 +264,26 @@ implement to turn a type `A` into a source of CSV data is a function that turns 
 
 Most of the time, you shouldn't need to declare new instances of [`CsvInput`]. Should the need arise, however,
 the idiomatic way of doing so is to use one of the existing implementations and call
-[contramap](/api/#tabulate.CsvInput@contramap[T](f:T=>S):tabulate.CsvInput[T]). Say that you want to write a
-[`CsvInput`] for strings, for instance (a purely academic endeavour, as one is provided by default):
+[contramap]({{ site.baseurl }}/api/#tabulate.CsvInput@contramap[T](f:T=>S):tabulate.CsvInput[T]). Say that you want to
+write a [`CsvInput`] for strings, for instance (a purely academic endeavour, as one is provided by default):
 
 ```tut:silent
 implicit val strInput: CsvInput[String] = CsvInput[java.io.Reader].contramap(s => new java.io.StringReader(s))
 ```
 
 Tabulate comes with a number of default implementations of [`CsvInput`] which can all be found in its
-[companion object](/api/#tabulate.CsvInput$).
+[companion object]({{ site.baseurl }}/api/#tabulate.CsvInput$).
 
 [`Option`]:http://www.scala-lang.org/api/current/index.html#scala.Option
-[`CsvReader`]:/api/#tabulate.CsvReader
-[`CsvInput`]:/api/#tabulate.CsvInput
-[`RowDecoder`]:/api/#tabulate.RowDecoder
-[`CellDecoder`]:/api/#tabulate.CellDecoder
-[`DecodeResult`]:/api/#tabulate.DecodeResult
-[`DecodeFailure`]:/api/#tabulate.DecodeResult$$DecodeFailure$
-[`readCsv`]:/api/index.html#tabulate.CsvInput@read[C[_],A](S,Char,Boolean)(RowDecoder[A],ReaderEngine,CanBuildFrom[Nothing,DecodeResult[A],C[DecodeResult[A]]]):C[DecodeResult[A]]
-[`unsafeReadCsv`]:/api/index.html#tabulate.CsvInput@unsafeRead[C[_],A](S,Char,Boolean)(RowDecoder[A],ReaderEngine,CanBuildFrom[Nothing,DecodeResult[A],C[DecodeResult[A]]]):C[DecodeResult[A]]
-[`asCsvReader`]:/api/index.html#tabulate.CsvInput@reader[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:tabulate.RowDecoder[A],implicitengine:tabulate.engine.ReaderEngine):tabulate.CsvReader[tabulate.DecodeResult[A]]
-[`asUnsafeCsvReader`]:/api/index.html#tabulate.CsvInput@unsafeReader[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:tabulate.RowDecoder[A],implicitengine:tabulate.engine.ReaderEngine):tabulate.CsvReader[tabulate.DecodeResult[A]]
+[`CsvReader`]:{{ site.baseurl }}/api/#tabulate.CsvReader
+[`CsvInput`]:{{ site.baseurl }}/api/#tabulate.CsvInput
+[`RowDecoder`]:{{ site.baseurl }}/api/#tabulate.RowDecoder
+[`CellDecoder`]:{{ site.baseurl }}/api/#tabulate.CellDecoder
+[`DecodeResult`]:{{ site.baseurl }}/api/#tabulate.DecodeResult
+[`DecodeFailure`]:{{ site.baseurl }}/api/#tabulate.DecodeResult$$DecodeFailure$
+[`readCsv`]:{{ site.baseurl }}/api/index.html#tabulate.CsvInput@read[C[_],A](S,Char,Boolean)(RowDecoder[A],ReaderEngine,CanBuildFrom[Nothing,DecodeResult[A],C[DecodeResult[A]]]):C[DecodeResult[A]]
+[`unsafeReadCsv`]:{{ site.baseurl }}/api/index.html#tabulate.CsvInput@unsafeRead[C[_],A](S,Char,Boolean)(RowDecoder[A],ReaderEngine,CanBuildFrom[Nothing,DecodeResult[A],C[DecodeResult[A]]]):C[DecodeResult[A]]
+[`asCsvReader`]:{{ site.baseurl }}/api/index.html#tabulate.CsvInput@reader[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:tabulate.RowDecoder[A],implicitengine:tabulate.engine.ReaderEngine):tabulate.CsvReader[tabulate.DecodeResult[A]]
+[`asUnsafeCsvReader`]:{{ site.baseurl }}/api/index.html#tabulate.CsvInput@unsafeReader[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:tabulate.RowDecoder[A],implicitengine:tabulate.engine.ReaderEngine):tabulate.CsvReader[tabulate.DecodeResult[A]]
 [shapeless]:https://github.com/milessabin/shapeless
 [`DateTime`]:http://www.joda.org/joda-time/apidocs/index.html
