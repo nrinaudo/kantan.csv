@@ -11,7 +11,7 @@ title:  "Benchmarks"
 | [jackson csv]         | 2.6.4   |
 | [opencsv]             | 3.6     |
 | [product collections] | 1.4.2   |
-| [univocity]           | 1.5.6   |
+| [uniVocity]           | 1.5.6   |
 | tabulate              | 0.1.7   |
 
 In order to be included in this benchmark, a library must be:
@@ -20,25 +20,47 @@ In order to be included in this benchmark, a library must be:
 * reasonably easy to integrate
 * able to both encode and decode some fairly straightforward, RFC compliant test data.
 
-I allowed a small exception for [opencsv]: it does not actually decode CSV the way it should, but the misbehaviour is so
-minor (quoted CRLFs are transformed in LFs) that I chose to disregard it.
+The first two are purely subjective, but I have actual tests to back the third condition, and have disqualified some
+libraries that I could not get to pass the tests.
 
-One library that I wish I could have included is [purecsv](https://github.com/melrief/PureCSV), if only because 
+### opencsv
+[opencsv] is an exception to these rules: it does not actually pass the RFC compliance tests. The misbehaviour is so
+minor (quoted CRLFs are transformed in LFs) that I chose to disregard it, however.
+
+### PureCSV
+One library that I wish I could have included is [PureCSV](https://github.com/melrief/PureCSV), if only because 
 there should be more pure Scala libraries in there. It failed my tests so utterly however that I had to disqualify it -
 although the results were so bad that I believe they might be my fault rather than the library's. I'll probably give it
 another go for a later benchmark and try to see if I can work around the issues.
 
-Lastly, I've been in touch with someone from the [univocity] team that helped me identify what default settings I needed
-to turn off for reasonable performances - it turns out that [univocity]'s defaults are great for huge CSV files and slow
-IO, but not that good for small, in memory data sets. Moreover, it must be said that using [univocity]'s preferred
-callback-based API yields significantly better results than the iterator-like one. I'm specifically benchmarking
-iterator-like access however, and as such, am not using [univocity] in its optimised-for use case. That is to say,
-the fact that it's not a clear winner in my benchmarks does not invalidate
-[their own results](https://github.com/uniVocity/csv-parsers-comparison).
+### uniVocity
+uniVocity was almost disqualified from the benchmarks on the grounds that it was performing so much worse than the
+others - we're talking up to two orders of magnitude worse.
+
+I've been in touch with someone from their team though, and he helped me identify what default settings I needed
+to turn off for reasonable performances - it turns out that [uniVocity]'s defaults are great for huge CSV files and slow
+IO, but not that good for small, in memory data sets.
+
+Moreover, it must be said that using [uniVocity]'s preferred callback-based API yields significantly better results than
+the iterator-like one. I'm specifically benchmarking iterator-like access however, and as such, am not using [uniVocity]
+in its optimised-for use case. That is to say, the fact that it's not a clear winner in my benchmarks does not
+invalidate [their own results](https://github.com/uniVocity/csv-parsers-comparison).
+
+## Benchmark tool
+All benchmarks were executed through [jmh](http://openjdk.java.net/projects/code-tools/jmh/), a fairly powerful tool
+that helps mitigate various factors that can make results unreliable - unpredictable JIT optimisation, lazy JVM
+initialisations, ...
+
+The one thing I couldn't control or alternate was the order in which the benchmarks were executed: jmh does it
+alphabetically. Given that [jackson csv] is always executed second and still gets the best results by far, I'm assuming
+that's not much of an issue.
 
 ## Reading
-Reading is benchmarked by repeatedly parsing a known, simple, RFC compliant input. Results are expressed in μs/action,
-where and action is a complete read of the sample input. This means that the lower the number, the better the results.  
+Reading is benchmarked by repeatedly parsing a known, simple, RFC-compliant
+[input](https://github.com/nrinaudo/tabulate/blob/master/benchmark/src/main/scala/tabulate/benchmark/package.scala).
+ 
+Results are expressed in μs/action, where and action is a complete read of the sample input. This means that the lower
+the number, the better the results.  
 
 | Library                | μs/action |
 |------------------------|-----------|
@@ -50,24 +72,14 @@ where and action is a complete read of the sample input. This means that the low
 | tabulate (internal)    | 37.302322 |
 | tabulate (jackson csv) | 37.443351 |
 | tabulate (opencsv)     | 76.193376 |
-| [univocity]            | 45.873582 |
+| [uniVocity]            | 45.873582 |
 
-It's clear that, at least in the benchmarked configuration, [jackson csv] is frighteningly fast.
+A few things are worth pointing out:
 
-It's quite gratifying to see that tabulate's internal parser is as fast as its jackson module - both are still slower
-than "raw" [jackson csv], but that's the price you pay for safety and fancy types.
-
-Given that [univocity] is benchmarked in a use case for which it was not optimised, its position as a close 4th is
-actually rather impressive.
- 
-The other parsers are slightly slower (none more so than tabulate's other external engines), but really, these are still
-pretty good results.
-
-The conclusion I'd draw from these benchmarks is that if you need speed, perhaps at the cost of some convenience
-and safety, then [jackson csv] is without a doubt your best choice. If not, none of the other options are bad choices.
-I'd recommend tabulate because I feel it's more convenient than the others, but that's not a very interesting metric:
-I *built* tabulate for my use-cases, of course it'll be more convenient for these. Whether these use-cases and yours
-coincide is another question entirely.
+* [jackson csv] is frighteningly fast.
+* [uniVocity] is being used in a context for which it's known to have suboptimal performances, and still has one of the
+  better results.
+* tabulate has pretty decent parsing performances, all things considered.
 
 
 ## Writing
@@ -84,24 +96,14 @@ serialized.
 | tabulate (internal)    | 36.487753  |
 | tabulate (jackson csv) | 29.61176   |
 | tabulate (opencsv)     | 47.803968  |
-| [univocity]            | 506.966742 |
+| [uniVocity]            | 506.966742 |
 
-Results are a bit all over the place.
-
-[univocity]'s performances are atrocious, which most probably means that there's a default setting somewhere I need to
-turn off and haven't found yet. These results should probably be disregarded, as they are most likely not representative
-of actual performances.
-
-Tabulate isn't doing great - pure java implementations are all faster, except maybe [opencsv], and even then it's not
-really that much slower.
-
-Jackson, as usual, is quite a bit faster than the competition. If you're looking for pure speed, that's probably what
-you should be using. If, on the other hand, you're more interested in ease of use, I still believe tabulate to be the
-better alternative, but I'll be the first to admit that might not be an entirely unbiased opinion.
-
+The one thing I feel I must point out here is that [uniVocity]'s results are so poor, the reason has probably more to
+do with how I'm using it than the library itself. I think it's fair to ignore that number for the moment. As soon as I
+work out what I'm doing wrong, I'll amend the results.
 
 [commons csv]:https://commons.apache.org/proper/commons-csv/
 [jackson csv]:https://github.com/FasterXML/jackson-dataformat-csv
 [opencsv]:http://opencsv.sourceforge.net
-[univocity]:https://github.com/uniVocity/univocity-parsers
+[uniVocity]:https://github.com/uniVocity/uniVocity-parsers
 [product collections]:https://github.com/marklister/product-collections
