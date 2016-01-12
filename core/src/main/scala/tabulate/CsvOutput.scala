@@ -35,6 +35,6 @@ object CsvOutput extends LowPriorityCsvOutputs {
 
   implicit def writer[W <: Writer]: CsvOutput[W] = CsvOutput(w => w)
 
-  implicit def outputStream[O <: OutputStream](implicit codec: Codec): CsvOutput[O] = writer.contramap(o => new OutputStreamWriter(o, codec.charSet))
+  implicit def outputStream[O <: OutputStream](implicit codec: Codec): CsvOutput[O] = writer.contramap(o => new BufferedWriter(new OutputStreamWriter(o, codec.charSet)))
   implicit def file(implicit codec: Codec): CsvOutput[File] = outputStream.contramap(f => new FileOutputStream(f))
 }
