@@ -47,13 +47,13 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">CellCodecLaws</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">CellCodecLaws</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="SafeCellCodecLaws.html" class="extype" name="tabulate.laws.SafeCellCodecLaws">SafeCellCodecLaws</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>] with <a href="CellDecoderLaws.html" class="extype" name="tabulate.laws.CellDecoderLaws">CellDecoderLaws</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</span>
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/tabulate/tree/master/laws/src/main/scala/tabulate/laws/CellCodecLaws.scala" target="_blank">CellCodecLaws.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="CellDecoderLaws.html" class="extype" name="tabulate.laws.CellDecoderLaws">CellDecoderLaws</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>], <a href="SafeCellCodecLaws.html" class="extype" name="tabulate.laws.SafeCellCodecLaws">SafeCellCodecLaws</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>], <a href="CellEncoderLaws.html" class="extype" name="tabulate.laws.CellEncoderLaws">CellEncoderLaws</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>], <a href="RowEncoderLaws.html" class="extype" name="tabulate.laws.RowEncoderLaws">RowEncoderLaws</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>], <a href="SafeCellDecoderLaws.html" class="extype" name="tabulate.laws.SafeCellDecoderLaws">SafeCellDecoderLaws</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>], <a href="RowDecoderLaws.html" class="extype" name="tabulate.laws.RowDecoderLaws">RowDecoderLaws</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>], <a href="SafeRowDecoderLaws.html" class="extype" name="tabulate.laws.SafeRowDecoderLaws">SafeRowDecoderLaws</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -71,7 +71,7 @@
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="tabulate.laws.CellCodecLaws"><span>CellCodecLaws</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="tabulate.laws.CellCodecLaws"><span>CellCodecLaws</span></li><li class="in" name="tabulate.laws.CellDecoderLaws"><span>CellDecoderLaws</span></li><li class="in" name="tabulate.laws.SafeCellCodecLaws"><span>SafeCellCodecLaws</span></li><li class="in" name="tabulate.laws.CellEncoderLaws"><span>CellEncoderLaws</span></li><li class="in" name="tabulate.laws.RowEncoderLaws"><span>RowEncoderLaws</span></li><li class="in" name="tabulate.laws.SafeCellDecoderLaws"><span>SafeCellDecoderLaws</span></li><li class="in" name="tabulate.laws.RowDecoderLaws"><span>RowDecoderLaws</span></li><li class="in" name="tabulate.laws.SafeRowDecoderLaws"><span>SafeRowDecoderLaws</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -94,12 +94,12 @@
 
         <div id="values" class="values members">
               <h3>Abstract Value Members</h3>
-              <ol><li name="tabulate.laws.CellCodecLaws#codec" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+              <ol><li name="tabulate.laws.SafeCellCodecLaws#codec" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="codec:tabulate.CellCodec[A]"></a>
       <a id="codec:CellCodec[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
-        <span class="modifier">implicit abstract </span>
+        <span class="modifier">abstract </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
@@ -110,7 +110,7 @@
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SafeCellCodecLaws.html" class="extype" name="tabulate.laws.SafeCellCodecLaws">SafeCellCodecLaws</a></dd></dl></div>
     </li></ol>
             </div>
 
@@ -125,7 +125,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#tabulate.laws.CellCodecLaws@!=(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -142,7 +142,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#tabulate.laws.CellCodecLaws@##():Int" title="Permalink" target="_top">
@@ -159,7 +159,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#tabulate.laws.CellCodecLaws@==(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -184,6 +184,142 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="tabulate.laws.SafeCellDecoderLaws#cellDecode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="cellDecode(value:tabulate.laws.ExpectedCell[A]):Boolean"></a>
+      <a id="cellDecode(ExpectedCell[A]):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">cellDecode</span><span class="params">(<span name="value">value: <a href="package.html#ExpectedCell[A]=tabulate.laws.ExpectedValue[A,String]" class="extmbr" name="tabulate.laws.ExpectedCell">ExpectedCell</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@cellDecode(value:tabulate.laws.ExpectedCell[A]):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SafeCellDecoderLaws.html" class="extype" name="tabulate.laws.SafeCellDecoderLaws">SafeCellDecoderLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.SafeCellDecoderLaws#cellDecodeComposition" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="cellDecodeComposition[B,C](value:tabulate.laws.ExpectedCell[A],f:A=&gt;B,g:B=&gt;C):Boolean"></a>
+      <a id="cellDecodeComposition[B,C](ExpectedCell[A],(A)⇒B,(B)⇒C):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">cellDecodeComposition</span><span class="tparams">[<span name="B">B</span>, <span name="C">C</span>]</span><span class="params">(<span name="value">value: <a href="package.html#ExpectedCell[A]=tabulate.laws.ExpectedValue[A,String]" class="extmbr" name="tabulate.laws.ExpectedCell">ExpectedCell</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</span>, <span name="f">f: (<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>) ⇒ <span class="extype" name="tabulate.laws.SafeCellDecoderLaws.cellDecodeComposition.B">B</span></span>, <span name="g">g: (<span class="extype" name="tabulate.laws.SafeCellDecoderLaws.cellDecodeComposition.B">B</span>) ⇒ <span class="extype" name="tabulate.laws.SafeCellDecoderLaws.cellDecodeComposition.C">C</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@cellDecodeComposition[B,C](value:tabulate.laws.ExpectedCell[A],f:A=&gt;B,g:B=&gt;C):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SafeCellDecoderLaws.html" class="extype" name="tabulate.laws.SafeCellDecoderLaws">SafeCellDecoderLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.SafeCellDecoderLaws#cellDecodeIdentity" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="cellDecodeIdentity(value:tabulate.laws.ExpectedCell[A]):Boolean"></a>
+      <a id="cellDecodeIdentity(ExpectedCell[A]):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">cellDecodeIdentity</span><span class="params">(<span name="value">value: <a href="package.html#ExpectedCell[A]=tabulate.laws.ExpectedValue[A,String]" class="extmbr" name="tabulate.laws.ExpectedCell">ExpectedCell</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@cellDecodeIdentity(value:tabulate.laws.ExpectedCell[A]):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SafeCellDecoderLaws.html" class="extype" name="tabulate.laws.SafeCellDecoderLaws">SafeCellDecoderLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.SafeCellCodecLaws#cellDecoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="cellDecoder:tabulate.CellDecoder[A]"></a>
+      <a id="cellDecoder:CellDecoder[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">cellDecoder</span><span class="result">: <a href="../CellDecoder.html" class="extype" name="tabulate.CellDecoder">CellDecoder</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@cellDecoder:tabulate.CellDecoder[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SafeCellCodecLaws.html" class="extype" name="tabulate.laws.SafeCellCodecLaws">SafeCellCodecLaws</a> → <a href="SafeCellDecoderLaws.html" class="extype" name="tabulate.laws.SafeCellDecoderLaws">SafeCellDecoderLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.CellEncoderLaws#cellEncode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="cellEncode(value:tabulate.laws.ExpectedCell[A]):Boolean"></a>
+      <a id="cellEncode(ExpectedCell[A]):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">cellEncode</span><span class="params">(<span name="value">value: <a href="package.html#ExpectedCell[A]=tabulate.laws.ExpectedValue[A,String]" class="extmbr" name="tabulate.laws.ExpectedCell">ExpectedCell</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@cellEncode(value:tabulate.laws.ExpectedCell[A]):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CellEncoderLaws.html" class="extype" name="tabulate.laws.CellEncoderLaws">CellEncoderLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.CellEncoderLaws#cellEncodeComposition" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="cellEncodeComposition[B,C](c:C,f:B=&gt;A,g:C=&gt;B):Boolean"></a>
+      <a id="cellEncodeComposition[B,C](C,(B)⇒A,(C)⇒B):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">cellEncodeComposition</span><span class="tparams">[<span name="B">B</span>, <span name="C">C</span>]</span><span class="params">(<span name="c">c: <span class="extype" name="tabulate.laws.CellEncoderLaws.cellEncodeComposition.C">C</span></span>, <span name="f">f: (<span class="extype" name="tabulate.laws.CellEncoderLaws.cellEncodeComposition.B">B</span>) ⇒ <span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span></span>, <span name="g">g: (<span class="extype" name="tabulate.laws.CellEncoderLaws.cellEncodeComposition.C">C</span>) ⇒ <span class="extype" name="tabulate.laws.CellEncoderLaws.cellEncodeComposition.B">B</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@cellEncodeComposition[B,C](c:C,f:B=&gt;A,g:C=&gt;B):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CellEncoderLaws.html" class="extype" name="tabulate.laws.CellEncoderLaws">CellEncoderLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.CellEncoderLaws#cellEncodeIdentity" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="cellEncodeIdentity(a:A):Boolean"></a>
+      <a id="cellEncodeIdentity(A):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">cellEncodeIdentity</span><span class="params">(<span name="a">a: <span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@cellEncodeIdentity(a:A):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CellEncoderLaws.html" class="extype" name="tabulate.laws.CellEncoderLaws">CellEncoderLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.SafeCellCodecLaws#cellEncoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="cellEncoder:tabulate.CellEncoder[A]"></a>
+      <a id="cellEncoder:CellEncoder[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">cellEncoder</span><span class="result">: <a href="../CellEncoder.html" class="extype" name="tabulate.CellEncoder">CellEncoder</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@cellEncoder:tabulate.CellEncoder[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SafeCellCodecLaws.html" class="extype" name="tabulate.laws.SafeCellCodecLaws">SafeCellCodecLaws</a> → <a href="CellEncoderLaws.html" class="extype" name="tabulate.laws.CellEncoderLaws">CellEncoderLaws</a></dd></dl></div>
     </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a>
       <a id="clone():AnyRef"></a>
@@ -207,91 +343,6 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="tabulate.laws.CellCodecLaws#decodeComposition" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="decodeComposition[B,C](a:A,f:A=&gt;B,g:B=&gt;C):Boolean"></a>
-      <a id="decodeComposition[B,C](A,(A)⇒B,(B)⇒C):Boolean"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">decodeComposition</span><span class="tparams">[<span name="B">B</span>, <span name="C">C</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span></span>, <span name="f">f: (<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>) ⇒ <span class="extype" name="tabulate.laws.CellCodecLaws.decodeComposition.B">B</span></span>, <span name="g">g: (<span class="extype" name="tabulate.laws.CellCodecLaws.decodeComposition.B">B</span>) ⇒ <span class="extype" name="tabulate.laws.CellCodecLaws.decodeComposition.C">C</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#tabulate.laws.CellCodecLaws@decodeComposition[B,C](a:A,f:A=&gt;B,g:B=&gt;C):Boolean" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="tabulate.laws.CellCodecLaws#decodeIdentity" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="decodeIdentity(a:A):Boolean"></a>
-      <a id="decodeIdentity(A):Boolean"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">decodeIdentity</span><span class="params">(<span name="a">a: <span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#tabulate.laws.CellCodecLaws@decodeIdentity(a:A):Boolean" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="tabulate.laws.CellCodecLaws#encodeComposition" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="encodeComposition[B,C](c:C,f:B=&gt;A,g:C=&gt;B):Boolean"></a>
-      <a id="encodeComposition[B,C](C,(B)⇒A,(C)⇒B):Boolean"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">encodeComposition</span><span class="tparams">[<span name="B">B</span>, <span name="C">C</span>]</span><span class="params">(<span name="c">c: <span class="extype" name="tabulate.laws.CellCodecLaws.encodeComposition.C">C</span></span>, <span name="f">f: (<span class="extype" name="tabulate.laws.CellCodecLaws.encodeComposition.B">B</span>) ⇒ <span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span></span>, <span name="g">g: (<span class="extype" name="tabulate.laws.CellCodecLaws.encodeComposition.C">C</span>) ⇒ <span class="extype" name="tabulate.laws.CellCodecLaws.encodeComposition.B">B</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#tabulate.laws.CellCodecLaws@encodeComposition[B,C](c:C,f:B=&gt;A,g:C=&gt;B):Boolean" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="tabulate.laws.CellCodecLaws#encodeIdentity" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="encodeIdentity(a:A):Boolean"></a>
-      <a id="encodeIdentity(A):Boolean"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">encodeIdentity</span><span class="params">(<span name="a">a: <span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#tabulate.laws.CellCodecLaws@encodeIdentity(a:A):Boolean" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="tabulate.laws.CellCodecLaws#encodeReversibility" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="encodeReversibility(a:A):Boolean"></a>
-      <a id="encodeReversibility(A):Boolean"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">encodeReversibility</span><span class="params">(<span name="a">a: <span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#tabulate.laws.CellCodecLaws@encodeReversibility(a:A):Boolean" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -301,7 +352,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#tabulate.laws.CellCodecLaws@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
@@ -318,7 +369,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#tabulate.laws.CellCodecLaws@equals(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -335,7 +386,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#tabulate.laws.CellCodecLaws@finalize():Unit" title="Permalink" target="_top">
@@ -375,7 +426,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#tabulate.laws.CellCodecLaws@hashCode():Int" title="Permalink" target="_top">
@@ -392,7 +443,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#tabulate.laws.CellCodecLaws@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
@@ -409,7 +460,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#tabulate.laws.CellCodecLaws@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
@@ -426,7 +477,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#tabulate.laws.CellCodecLaws@notify():Unit" title="Permalink" target="_top">
@@ -443,7 +494,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#tabulate.laws.CellCodecLaws@notifyAll():Unit" title="Permalink" target="_top">
@@ -451,6 +502,210 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="tabulate.laws.SafeCellCodecLaws#roundTrip" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="roundTrip(a:A):Boolean"></a>
+      <a id="roundTrip(A):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">roundTrip</span><span class="params">(<span name="a">a: <span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@roundTrip(a:A):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SafeCellCodecLaws.html" class="extype" name="tabulate.laws.SafeCellCodecLaws">SafeCellCodecLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.SafeRowDecoderLaws#rowDecode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="rowDecode(value:tabulate.laws.ExpectedRow[A]):Boolean"></a>
+      <a id="rowDecode(ExpectedRow[A]):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">rowDecode</span><span class="params">(<span name="value">value: <a href="package.html#ExpectedRow[A]=tabulate.laws.ExpectedValue[A,Seq[String]]" class="extmbr" name="tabulate.laws.ExpectedRow">ExpectedRow</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@rowDecode(value:tabulate.laws.ExpectedRow[A]):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SafeRowDecoderLaws.html" class="extype" name="tabulate.laws.SafeRowDecoderLaws">SafeRowDecoderLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.SafeRowDecoderLaws#rowDecodeComposition" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="rowDecodeComposition[B,C](a:tabulate.laws.ExpectedRow[A],f:A=&gt;B,g:B=&gt;C):Boolean"></a>
+      <a id="rowDecodeComposition[B,C](ExpectedRow[A],(A)⇒B,(B)⇒C):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">rowDecodeComposition</span><span class="tparams">[<span name="B">B</span>, <span name="C">C</span>]</span><span class="params">(<span name="a">a: <a href="package.html#ExpectedRow[A]=tabulate.laws.ExpectedValue[A,Seq[String]]" class="extmbr" name="tabulate.laws.ExpectedRow">ExpectedRow</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</span>, <span name="f">f: (<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>) ⇒ <span class="extype" name="tabulate.laws.SafeRowDecoderLaws.rowDecodeComposition.B">B</span></span>, <span name="g">g: (<span class="extype" name="tabulate.laws.SafeRowDecoderLaws.rowDecodeComposition.B">B</span>) ⇒ <span class="extype" name="tabulate.laws.SafeRowDecoderLaws.rowDecodeComposition.C">C</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@rowDecodeComposition[B,C](a:tabulate.laws.ExpectedRow[A],f:A=&gt;B,g:B=&gt;C):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SafeRowDecoderLaws.html" class="extype" name="tabulate.laws.SafeRowDecoderLaws">SafeRowDecoderLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.SafeRowDecoderLaws#rowDecodeIdentity" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="rowDecodeIdentity(value:tabulate.laws.ExpectedRow[A]):Boolean"></a>
+      <a id="rowDecodeIdentity(ExpectedRow[A]):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">rowDecodeIdentity</span><span class="params">(<span name="value">value: <a href="package.html#ExpectedRow[A]=tabulate.laws.ExpectedValue[A,Seq[String]]" class="extmbr" name="tabulate.laws.ExpectedRow">ExpectedRow</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@rowDecodeIdentity(value:tabulate.laws.ExpectedRow[A]):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SafeRowDecoderLaws.html" class="extype" name="tabulate.laws.SafeRowDecoderLaws">SafeRowDecoderLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.SafeCellDecoderLaws#rowDecoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="rowDecoder:tabulate.RowDecoder[A]"></a>
+      <a id="rowDecoder:RowDecoder[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">rowDecoder</span><span class="result">: <a href="../RowDecoder.html" class="extype" name="tabulate.RowDecoder">RowDecoder</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@rowDecoder:tabulate.RowDecoder[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SafeCellDecoderLaws.html" class="extype" name="tabulate.laws.SafeCellDecoderLaws">SafeCellDecoderLaws</a> → <a href="SafeRowDecoderLaws.html" class="extype" name="tabulate.laws.SafeRowDecoderLaws">SafeRowDecoderLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.RowEncoderLaws#rowEncode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="rowEncode(value:tabulate.laws.ExpectedRow[A]):Boolean"></a>
+      <a id="rowEncode(ExpectedRow[A]):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">rowEncode</span><span class="params">(<span name="value">value: <a href="package.html#ExpectedRow[A]=tabulate.laws.ExpectedValue[A,Seq[String]]" class="extmbr" name="tabulate.laws.ExpectedRow">ExpectedRow</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@rowEncode(value:tabulate.laws.ExpectedRow[A]):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="RowEncoderLaws.html" class="extype" name="tabulate.laws.RowEncoderLaws">RowEncoderLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.RowEncoderLaws#rowEncodeComposition" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="rowEncodeComposition[B,C](c:C,f:B=&gt;A,g:C=&gt;B):Boolean"></a>
+      <a id="rowEncodeComposition[B,C](C,(B)⇒A,(C)⇒B):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">rowEncodeComposition</span><span class="tparams">[<span name="B">B</span>, <span name="C">C</span>]</span><span class="params">(<span name="c">c: <span class="extype" name="tabulate.laws.RowEncoderLaws.rowEncodeComposition.C">C</span></span>, <span name="f">f: (<span class="extype" name="tabulate.laws.RowEncoderLaws.rowEncodeComposition.B">B</span>) ⇒ <span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span></span>, <span name="g">g: (<span class="extype" name="tabulate.laws.RowEncoderLaws.rowEncodeComposition.C">C</span>) ⇒ <span class="extype" name="tabulate.laws.RowEncoderLaws.rowEncodeComposition.B">B</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@rowEncodeComposition[B,C](c:C,f:B=&gt;A,g:C=&gt;B):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="RowEncoderLaws.html" class="extype" name="tabulate.laws.RowEncoderLaws">RowEncoderLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.RowEncoderLaws#rowEncodeIdentity" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="rowEncodeIdentity(a:A):Boolean"></a>
+      <a id="rowEncodeIdentity(A):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">rowEncodeIdentity</span><span class="params">(<span name="a">a: <span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@rowEncodeIdentity(a:A):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="RowEncoderLaws.html" class="extype" name="tabulate.laws.RowEncoderLaws">RowEncoderLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.CellEncoderLaws#rowEncoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="rowEncoder:tabulate.RowEncoder[A]"></a>
+      <a id="rowEncoder:RowEncoder[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">rowEncoder</span><span class="result">: <a href="../RowEncoder.html" class="extype" name="tabulate.RowEncoder">RowEncoder</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@rowEncoder:tabulate.RowEncoder[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CellEncoderLaws.html" class="extype" name="tabulate.laws.CellEncoderLaws">CellEncoderLaws</a> → <a href="RowEncoderLaws.html" class="extype" name="tabulate.laws.RowEncoderLaws">RowEncoderLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.CellDecoderLaws#safeCellDecodeFail" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="safeCellDecodeFail(cell:tabulate.laws.IllegalCell[A]):Boolean"></a>
+      <a id="safeCellDecodeFail(IllegalCell[A]):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">safeCellDecodeFail</span><span class="params">(<span name="cell">cell: <a href="package.html#IllegalCell[A]=tabulate.laws.IllegalValue[A,String]" class="extmbr" name="tabulate.laws.IllegalCell">IllegalCell</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@safeCellDecodeFail(cell:tabulate.laws.IllegalCell[A]):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CellDecoderLaws.html" class="extype" name="tabulate.laws.CellDecoderLaws">CellDecoderLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.SafeCellDecoderLaws#safeOutOfBounds" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="safeOutOfBounds(row:List[String]):Boolean"></a>
+      <a id="safeOutOfBounds(List[String]):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">safeOutOfBounds</span><span class="params">(<span name="row">row: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@safeOutOfBounds(row:List[String]):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SafeCellDecoderLaws.html" class="extype" name="tabulate.laws.SafeCellDecoderLaws">SafeCellDecoderLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.RowDecoderLaws#safeRowDecodeFail" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="safeRowDecodeFail(row:tabulate.laws.IllegalRow[A]):Boolean"></a>
+      <a id="safeRowDecodeFail(IllegalRow[A]):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">safeRowDecodeFail</span><span class="params">(<span name="row">row: <a href="package.html#IllegalRow[A]=tabulate.laws.IllegalValue[A,Seq[String]]" class="extmbr" name="tabulate.laws.IllegalRow">IllegalRow</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@safeRowDecodeFail(row:tabulate.laws.IllegalRow[A]):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="RowDecoderLaws.html" class="extype" name="tabulate.laws.RowDecoderLaws">RowDecoderLaws</a></dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
@@ -485,6 +740,74 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="tabulate.laws.SafeCellDecoderLaws#unsafeCellDecode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unsafeCellDecode(value:tabulate.laws.ExpectedCell[A]):Boolean"></a>
+      <a id="unsafeCellDecode(ExpectedCell[A]):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unsafeCellDecode</span><span class="params">(<span name="value">value: <a href="package.html#ExpectedCell[A]=tabulate.laws.ExpectedValue[A,String]" class="extmbr" name="tabulate.laws.ExpectedCell">ExpectedCell</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@unsafeCellDecode(value:tabulate.laws.ExpectedCell[A]):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SafeCellDecoderLaws.html" class="extype" name="tabulate.laws.SafeCellDecoderLaws">SafeCellDecoderLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.CellDecoderLaws#unsafeCellDecodeFail" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unsafeCellDecodeFail(cell:tabulate.laws.IllegalCell[A]):Boolean"></a>
+      <a id="unsafeCellDecodeFail(IllegalCell[A]):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unsafeCellDecodeFail</span><span class="params">(<span name="cell">cell: <a href="package.html#IllegalCell[A]=tabulate.laws.IllegalValue[A,String]" class="extmbr" name="tabulate.laws.IllegalCell">IllegalCell</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@unsafeCellDecodeFail(cell:tabulate.laws.IllegalCell[A]):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CellDecoderLaws.html" class="extype" name="tabulate.laws.CellDecoderLaws">CellDecoderLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.SafeCellDecoderLaws#unsafeOutputOfBounds" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unsafeOutputOfBounds(row:List[String]):Boolean"></a>
+      <a id="unsafeOutputOfBounds(List[String]):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unsafeOutputOfBounds</span><span class="params">(<span name="row">row: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@unsafeOutputOfBounds(row:List[String]):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SafeCellDecoderLaws.html" class="extype" name="tabulate.laws.SafeCellDecoderLaws">SafeCellDecoderLaws</a></dd></dl></div>
+    </li><li name="tabulate.laws.RowDecoderLaws#unsafeRowDecodeFail" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unsafeRowDecodeFail(row:tabulate.laws.IllegalRow[A]):Boolean"></a>
+      <a id="unsafeRowDecodeFail(IllegalRow[A]):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unsafeRowDecodeFail</span><span class="params">(<span name="row">row: <a href="package.html#IllegalRow[A]=tabulate.laws.IllegalValue[A,Seq[String]]" class="extmbr" name="tabulate.laws.IllegalRow">IllegalRow</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.CellCodecLaws@unsafeRowDecodeFail(row:tabulate.laws.IllegalRow[A]):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="RowDecoderLaws.html" class="extype" name="tabulate.laws.RowDecoderLaws">RowDecoderLaws</a></dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>
@@ -494,7 +817,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#tabulate.laws.CellCodecLaws@wait():Unit" title="Permalink" target="_top">
@@ -517,7 +840,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Long" class="extype" target="_top">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#tabulate.laws.CellCodecLaws@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
@@ -540,7 +863,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Long" class="extype" target="_top">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#tabulate.laws.CellCodecLaws@wait(x$1:Long):Unit" title="Permalink" target="_top">
@@ -563,7 +886,21 @@
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyRef">
+        <div class="parent" name="tabulate.laws.CellDecoderLaws">
+              <h3>Inherited from <a href="CellDecoderLaws.html" class="extype" name="tabulate.laws.CellDecoderLaws">CellDecoderLaws</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</h3>
+            </div><div class="parent" name="tabulate.laws.SafeCellCodecLaws">
+              <h3>Inherited from <a href="SafeCellCodecLaws.html" class="extype" name="tabulate.laws.SafeCellCodecLaws">SafeCellCodecLaws</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</h3>
+            </div><div class="parent" name="tabulate.laws.CellEncoderLaws">
+              <h3>Inherited from <a href="CellEncoderLaws.html" class="extype" name="tabulate.laws.CellEncoderLaws">CellEncoderLaws</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</h3>
+            </div><div class="parent" name="tabulate.laws.RowEncoderLaws">
+              <h3>Inherited from <a href="RowEncoderLaws.html" class="extype" name="tabulate.laws.RowEncoderLaws">RowEncoderLaws</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</h3>
+            </div><div class="parent" name="tabulate.laws.SafeCellDecoderLaws">
+              <h3>Inherited from <a href="SafeCellDecoderLaws.html" class="extype" name="tabulate.laws.SafeCellDecoderLaws">SafeCellDecoderLaws</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</h3>
+            </div><div class="parent" name="tabulate.laws.RowDecoderLaws">
+              <h3>Inherited from <a href="RowDecoderLaws.html" class="extype" name="tabulate.laws.RowDecoderLaws">RowDecoderLaws</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</h3>
+            </div><div class="parent" name="tabulate.laws.SafeRowDecoderLaws">
+              <h3>Inherited from <a href="SafeRowDecoderLaws.html" class="extype" name="tabulate.laws.SafeRowDecoderLaws">SafeRowDecoderLaws</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</h3>
+            </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>

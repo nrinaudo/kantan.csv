@@ -47,13 +47,35 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"></div>
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/tabulate/tree/master/laws/src/main/scala/tabulate/laws/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
+          <span class="toggle">Linear Supertypes</span>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div></div>
         
 
       <div id="mbrsel">
         <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
-        
-        
+        <div id="order">
+              <span class="filtertype">Ordering</span>
+              <ol>
+                
+                <li class="alpha in"><span>Alphabetic</span></li>
+                <li class="inherit out"><span>By inheritance</span></li>
+              </ol>
+            </div>
+        <div id="ancestors">
+                <span class="filtertype">Inherited<br />
+                </span>
+                <ol id="linearization">
+                  <li class="in" name="tabulate.laws"><span>laws</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                </ol>
+              </div><div id="ancestors">
+            <span class="filtertype"></span>
+            <ol>
+              <li class="hideall out"><span>Hide All</span></li>
+              <li class="showall in"><span>Show all</span></li>
+            </ol>
+          </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
             <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
@@ -66,8 +88,25 @@
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="tabulate.laws.CellCodecLaws" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="CellCodecLaws[A]extendsAnyRef"></a>
+              <ol><li name="tabulate.laws.Cell" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="CellextendsAnyRef"></a>
+      <a id="Cell:Cell"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Cell.html"><span class="name">Cell</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@CellextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.CellCodecLaws" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="CellCodecLaws[A]extendsSafeCellCodecLaws[A]withCellDecoderLaws[A]"></a>
       <a id="CellCodecLaws[A]:CellCodecLaws[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -75,16 +114,203 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="CellCodecLaws.html"><span class="name">CellCodecLaws</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a href="CellCodecLaws.html"><span class="name">CellCodecLaws</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="SafeCellCodecLaws.html" class="extype" name="tabulate.laws.SafeCellCodecLaws">SafeCellCodecLaws</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>] with <a href="CellDecoderLaws.html" class="extype" name="tabulate.laws.CellDecoderLaws">CellDecoderLaws</a>[<span class="extype" name="tabulate.laws.CellCodecLaws.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#tabulate.laws.package@CellCodecLaws[A]extendsAnyRef" title="Permalink" target="_top">
+      <a href="../../index.html#tabulate.laws.package@CellCodecLaws[A]extendsSafeCellCodecLaws[A]withCellDecoderLaws[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.CellDecoderLaws" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="CellDecoderLaws[A]extendsSafeCellDecoderLaws[A]withRowDecoderLaws[A]"></a>
+      <a id="CellDecoderLaws[A]:CellDecoderLaws[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="CellDecoderLaws.html"><span class="name">CellDecoderLaws</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="SafeCellDecoderLaws.html" class="extype" name="tabulate.laws.SafeCellDecoderLaws">SafeCellDecoderLaws</a>[<span class="extype" name="tabulate.laws.CellDecoderLaws.A">A</span>] with <a href="RowDecoderLaws.html" class="extype" name="tabulate.laws.RowDecoderLaws">RowDecoderLaws</a>[<span class="extype" name="tabulate.laws.CellDecoderLaws.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@CellDecoderLaws[A]extendsSafeCellDecoderLaws[A]withRowDecoderLaws[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.CellEncoderLaws" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="CellEncoderLaws[A]extendsRowEncoderLaws[A]"></a>
+      <a id="CellEncoderLaws[A]:CellEncoderLaws[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="CellEncoderLaws.html"><span class="name">CellEncoderLaws</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="RowEncoderLaws.html" class="extype" name="tabulate.laws.RowEncoderLaws">RowEncoderLaws</a>[<span class="extype" name="tabulate.laws.CellEncoderLaws.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@CellEncoderLaws[A]extendsRowEncoderLaws[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.ExpectedCell" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ExpectedCell[A]=tabulate.laws.ExpectedValue[A,String]"></a>
+      <a id="ExpectedCell[A]:ExpectedCell[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ExpectedCell</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="ExpectedValue.html" class="extype" name="tabulate.laws.ExpectedValue">ExpectedValue</a>[<span class="extype" name="tabulate.laws.ExpectedCell.A">A</span>, <span class="extype" name="scala.Predef.String">String</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@ExpectedCell[A]=tabulate.laws.ExpectedValue[A,String]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.ExpectedRow" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ExpectedRow[A]=tabulate.laws.ExpectedValue[A,Seq[String]]"></a>
+      <a id="ExpectedRow[A]:ExpectedRow[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ExpectedRow</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="ExpectedValue.html" class="extype" name="tabulate.laws.ExpectedValue">ExpectedValue</a>[<span class="extype" name="tabulate.laws.ExpectedRow.A">A</span>, <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@ExpectedRow[A]=tabulate.laws.ExpectedValue[A,Seq[String]]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.ExpectedValue" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ExpectedValue[A,B]extendsProductwithSerializable"></a>
+      <a id="ExpectedValue[A,B]:ExpectedValue[A,B]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ExpectedValue.html"><span class="name">ExpectedValue</span></a><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="value">value: <span class="extype" name="tabulate.laws.ExpectedValue.A">A</span></span>, <span name="encoded">encoded: <span class="extype" name="tabulate.laws.ExpectedValue.B">B</span></span>)</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@ExpectedValue[A,B]extendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.IllegalCell" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="IllegalCell[A]=tabulate.laws.IllegalValue[A,String]"></a>
+      <a id="IllegalCell[A]:IllegalCell[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">IllegalCell</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="IllegalValue.html" class="extype" name="tabulate.laws.IllegalValue">IllegalValue</a>[<span class="extype" name="tabulate.laws.IllegalCell.A">A</span>, <span class="extype" name="scala.Predef.String">String</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@IllegalCell[A]=tabulate.laws.IllegalValue[A,String]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.IllegalRow" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="IllegalRow[A]=tabulate.laws.IllegalValue[A,Seq[String]]"></a>
+      <a id="IllegalRow[A]:IllegalRow[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">IllegalRow</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="IllegalValue.html" class="extype" name="tabulate.laws.IllegalValue">IllegalValue</a>[<span class="extype" name="tabulate.laws.IllegalRow.A">A</span>, <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@IllegalRow[A]=tabulate.laws.IllegalValue[A,Seq[String]]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.IllegalValue" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="IllegalValue[A,B]extendsProductwithSerializable"></a>
+      <a id="IllegalValue[A,B]:IllegalValue[A,B]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="IllegalValue.html"><span class="name">IllegalValue</span></a><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="value">value: <span class="extype" name="tabulate.laws.IllegalValue.B">B</span></span>)</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@IllegalValue[A,B]extendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Represents a value that cannot be decoded as an <code>A</code>.</p>
+    </li><li name="tabulate.laws.KnownFormatsReaderLaws" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="KnownFormatsReaderLawsextendsAnyRef"></a>
+      <a id="KnownFormatsReaderLaws:KnownFormatsReaderLaws"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="KnownFormatsReaderLaws.html"><span class="name">KnownFormatsReaderLaws</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@KnownFormatsReaderLawsextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.ReaderEngineLaws" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ReaderEngineLawsextendsRfcReaderLawswithSpectrumReaderLawswithKnownFormatsReaderLaws"></a>
+      <a id="ReaderEngineLaws:ReaderEngineLaws"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="ReaderEngineLaws.html"><span class="name">ReaderEngineLaws</span></a><span class="result"> extends <a href="RfcReaderLaws.html" class="extype" name="tabulate.laws.RfcReaderLaws">RfcReaderLaws</a> with <a href="SpectrumReaderLaws.html" class="extype" name="tabulate.laws.SpectrumReaderLaws">SpectrumReaderLaws</a> with <a href="KnownFormatsReaderLaws.html" class="extype" name="tabulate.laws.KnownFormatsReaderLaws">KnownFormatsReaderLaws</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@ReaderEngineLawsextendsRfcReaderLawswithSpectrumReaderLawswithKnownFormatsReaderLaws" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.RfcReaderLaws" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="RfcReaderLawsextendsAnyRef"></a>
+      <a id="RfcReaderLaws:RfcReaderLaws"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="RfcReaderLaws.html"><span class="name">RfcReaderLaws</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@RfcReaderLawsextendsAnyRef" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="tabulate.laws.RowCodecLaws" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="RowCodecLaws[A]extendsAnyRef"></a>
+      <a id="RowCodecLaws[A]extendsSafeRowCodecLaws[A]withRowDecoderLaws[A]"></a>
       <a id="RowCodecLaws[A]:RowCodecLaws[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -92,10 +318,146 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="RowCodecLaws.html"><span class="name">RowCodecLaws</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a href="RowCodecLaws.html"><span class="name">RowCodecLaws</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="SafeRowCodecLaws.html" class="extype" name="tabulate.laws.SafeRowCodecLaws">SafeRowCodecLaws</a>[<span class="extype" name="tabulate.laws.RowCodecLaws.A">A</span>] with <a href="RowDecoderLaws.html" class="extype" name="tabulate.laws.RowDecoderLaws">RowDecoderLaws</a>[<span class="extype" name="tabulate.laws.RowCodecLaws.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#tabulate.laws.package@RowCodecLaws[A]extendsAnyRef" title="Permalink" target="_top">
+      <a href="../../index.html#tabulate.laws.package@RowCodecLaws[A]extendsSafeRowCodecLaws[A]withRowDecoderLaws[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.RowDecoderLaws" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="RowDecoderLaws[A]extendsSafeRowDecoderLaws[A]"></a>
+      <a id="RowDecoderLaws[A]:RowDecoderLaws[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="RowDecoderLaws.html"><span class="name">RowDecoderLaws</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="SafeRowDecoderLaws.html" class="extype" name="tabulate.laws.SafeRowDecoderLaws">SafeRowDecoderLaws</a>[<span class="extype" name="tabulate.laws.RowDecoderLaws.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@RowDecoderLaws[A]extendsSafeRowDecoderLaws[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.RowEncoderLaws" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="RowEncoderLaws[A]extendsAnyRef"></a>
+      <a id="RowEncoderLaws[A]:RowEncoderLaws[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="RowEncoderLaws.html"><span class="name">RowEncoderLaws</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@RowEncoderLaws[A]extendsAnyRef" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.SafeCellCodecLaws" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="SafeCellCodecLaws[A]extendsSafeCellDecoderLaws[A]withCellEncoderLaws[A]"></a>
+      <a id="SafeCellCodecLaws[A]:SafeCellCodecLaws[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="SafeCellCodecLaws.html"><span class="name">SafeCellCodecLaws</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="SafeCellDecoderLaws.html" class="extype" name="tabulate.laws.SafeCellDecoderLaws">SafeCellDecoderLaws</a>[<span class="extype" name="tabulate.laws.SafeCellCodecLaws.A">A</span>] with <a href="CellEncoderLaws.html" class="extype" name="tabulate.laws.CellEncoderLaws">CellEncoderLaws</a>[<span class="extype" name="tabulate.laws.SafeCellCodecLaws.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@SafeCellCodecLaws[A]extendsSafeCellDecoderLaws[A]withCellEncoderLaws[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.SafeCellDecoderLaws" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="SafeCellDecoderLaws[A]extendsRowDecoderLaws[A]"></a>
+      <a id="SafeCellDecoderLaws[A]:SafeCellDecoderLaws[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="SafeCellDecoderLaws.html"><span class="name">SafeCellDecoderLaws</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="RowDecoderLaws.html" class="extype" name="tabulate.laws.RowDecoderLaws">RowDecoderLaws</a>[<span class="extype" name="tabulate.laws.SafeCellDecoderLaws.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@SafeCellDecoderLaws[A]extendsRowDecoderLaws[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.SafeRowCodecLaws" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="SafeRowCodecLaws[A]extendsSafeRowDecoderLaws[A]withRowEncoderLaws[A]"></a>
+      <a id="SafeRowCodecLaws[A]:SafeRowCodecLaws[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="SafeRowCodecLaws.html"><span class="name">SafeRowCodecLaws</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="SafeRowDecoderLaws.html" class="extype" name="tabulate.laws.SafeRowDecoderLaws">SafeRowDecoderLaws</a>[<span class="extype" name="tabulate.laws.SafeRowCodecLaws.A">A</span>] with <a href="RowEncoderLaws.html" class="extype" name="tabulate.laws.RowEncoderLaws">RowEncoderLaws</a>[<span class="extype" name="tabulate.laws.SafeRowCodecLaws.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@SafeRowCodecLaws[A]extendsSafeRowDecoderLaws[A]withRowEncoderLaws[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.SafeRowDecoderLaws" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="SafeRowDecoderLaws[A]extendsAnyRef"></a>
+      <a id="SafeRowDecoderLaws[A]:SafeRowDecoderLaws[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="SafeRowDecoderLaws.html"><span class="name">SafeRowDecoderLaws</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@SafeRowDecoderLaws[A]extendsAnyRef" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.SpectrumReaderLaws" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="SpectrumReaderLawsextendsAnyRef"></a>
+      <a id="SpectrumReaderLaws:SpectrumReaderLaws"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="SpectrumReaderLaws.html"><span class="name">SpectrumReaderLaws</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@SpectrumReaderLawsextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Laws based on <a href="https://github.com/maxogden/csv-spectrum" target="_blank">csv-pectrum</a>.</p>
+    </li><li name="tabulate.laws.WriterEngineLaws" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="WriterEngineLawsextendsAnyRef"></a>
+      <a id="WriterEngineLaws:WriterEngineLaws"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="WriterEngineLaws.html"><span class="name">WriterEngineLaws</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@WriterEngineLawsextendsAnyRef" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -107,7 +469,24 @@
 
         <div id="values" class="values members">
               <h3>Value Members</h3>
-              <ol><li name="tabulate.laws.CellCodecLaws" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+              <ol><li name="tabulate.laws.Cell" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Cell"></a>
+      <a id="Cell:Cell"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Cell$.html"><span class="name">Cell</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@Cell" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.CellCodecLaws" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="CellCodecLaws"></a>
       <a id="CellCodecLaws:CellCodecLaws"></a>
       <h4 class="signature">
@@ -120,6 +499,74 @@
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#tabulate.laws.package@CellCodecLaws" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.CellDecoderLaws" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CellDecoderLaws"></a>
+      <a id="CellDecoderLaws:CellDecoderLaws"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="CellDecoderLaws$.html"><span class="name">CellDecoderLaws</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@CellDecoderLaws" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.CellEncoderLaws" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CellEncoderLaws"></a>
+      <a id="CellEncoderLaws:CellEncoderLaws"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="CellEncoderLaws$.html"><span class="name">CellEncoderLaws</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@CellEncoderLaws" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.KnownFormatsReaderLaws" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="KnownFormatsReaderLaws"></a>
+      <a id="KnownFormatsReaderLaws:KnownFormatsReaderLaws"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="KnownFormatsReaderLaws$.html"><span class="name">KnownFormatsReaderLaws</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@KnownFormatsReaderLaws" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.ReaderEngineLaws" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ReaderEngineLaws"></a>
+      <a id="ReaderEngineLaws:ReaderEngineLaws"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="ReaderEngineLaws$.html"><span class="name">ReaderEngineLaws</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@ReaderEngineLaws" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -137,6 +584,125 @@
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#tabulate.laws.package@RowCodecLaws" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.RowDecoderLaws" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="RowDecoderLaws"></a>
+      <a id="RowDecoderLaws:RowDecoderLaws"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="RowDecoderLaws$.html"><span class="name">RowDecoderLaws</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@RowDecoderLaws" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.RowEncoderLaws" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="RowEncoderLaws"></a>
+      <a id="RowEncoderLaws:RowEncoderLaws"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="RowEncoderLaws$.html"><span class="name">RowEncoderLaws</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@RowEncoderLaws" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.SafeCellCodecLaws" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SafeCellCodecLaws"></a>
+      <a id="SafeCellCodecLaws:SafeCellCodecLaws"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="SafeCellCodecLaws$.html"><span class="name">SafeCellCodecLaws</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@SafeCellCodecLaws" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.SafeCellDecoderLaws" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SafeCellDecoderLaws"></a>
+      <a id="SafeCellDecoderLaws:SafeCellDecoderLaws"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="SafeCellDecoderLaws$.html"><span class="name">SafeCellDecoderLaws</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@SafeCellDecoderLaws" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.SafeRowCodecLaws" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SafeRowCodecLaws"></a>
+      <a id="SafeRowCodecLaws:SafeRowCodecLaws"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="SafeRowCodecLaws$.html"><span class="name">SafeRowCodecLaws</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@SafeRowCodecLaws" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.SafeRowDecoderLaws" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SafeRowDecoderLaws"></a>
+      <a id="SafeRowDecoderLaws:SafeRowDecoderLaws"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="SafeRowDecoderLaws$.html"><span class="name">SafeRowDecoderLaws</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@SafeRowDecoderLaws" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.WriterEngineLaws" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="WriterEngineLaws"></a>
+      <a id="WriterEngineLaws:WriterEngineLaws"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="WriterEngineLaws$.html"><span class="name">WriterEngineLaws</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#tabulate.laws.package@WriterEngineLaws" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -167,7 +733,11 @@
         </div>
 
         <div id="inheritedMembers">
-        
+        <div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+            </div>
         
         </div>
 

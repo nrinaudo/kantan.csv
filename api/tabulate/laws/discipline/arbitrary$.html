@@ -49,7 +49,7 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/tabulate/tree/master/laws/src/main/scala/tabulate/laws/discipline/arbitrary.scala" target="_blank">arbitrary.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -103,7 +103,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@!=(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -120,7 +120,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@##():Int" title="Permalink" target="_top">
@@ -137,7 +137,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@==(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -196,6 +196,278 @@
       </a>
     </span>
       
+    </li><li name="tabulate.laws.discipline.arbitrary#arbExpectedCell" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="arbExpectedCell[A](implicitea:tabulate.CellEncoder[A],implicitaa:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[tabulate.laws.ExpectedCell[A]]"></a>
+      <a id="arbExpectedCell[A](CellEncoder[A],Arbitrary[A]):Arbitrary[ExpectedCell[A]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbExpectedCell</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ea">ea: <a href="../../CellEncoder.html" class="extype" name="tabulate.CellEncoder">CellEncoder</a>[<span class="extype" name="tabulate.laws.discipline.arbitrary.arbExpectedCell.A">A</span>]</span>, <span name="aa">aa: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="tabulate.laws.discipline.arbitrary.arbExpectedCell.A">A</span>]</span>)</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#ExpectedCell[A]=tabulate.laws.ExpectedValue[A,String]" class="extmbr" name="tabulate.laws.ExpectedCell">ExpectedCell</a>[<span class="extype" name="tabulate.laws.discipline.arbitrary.arbExpectedCell.A">A</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@arbExpectedCell[A](implicitea:tabulate.CellEncoder[A],implicitaa:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[tabulate.laws.ExpectedCell[A]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.arbitrary#arbExpectedRow" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="arbExpectedRow[A](implicitea:tabulate.RowEncoder[A],implicitaa:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[tabulate.laws.ExpectedRow[A]]"></a>
+      <a id="arbExpectedRow[A](RowEncoder[A],Arbitrary[A]):Arbitrary[ExpectedRow[A]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbExpectedRow</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ea">ea: <a href="../../RowEncoder.html" class="extype" name="tabulate.RowEncoder">RowEncoder</a>[<span class="extype" name="tabulate.laws.discipline.arbitrary.arbExpectedRow.A">A</span>]</span>, <span name="aa">aa: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="tabulate.laws.discipline.arbitrary.arbExpectedRow.A">A</span>]</span>)</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#ExpectedRow[A]=tabulate.laws.ExpectedValue[A,Seq[String]]" class="extmbr" name="tabulate.laws.ExpectedRow">ExpectedRow</a>[<span class="extype" name="tabulate.laws.discipline.arbitrary.arbExpectedRow.A">A</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@arbExpectedRow[A](implicitea:tabulate.RowEncoder[A],implicitaa:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[tabulate.laws.ExpectedRow[A]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.arbitrary#arbExpectedRowFromCell" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="arbExpectedRowFromCell[A](implicitarb:org.scalacheck.Arbitrary[tabulate.laws.ExpectedCell[A]]):org.scalacheck.Arbitrary[tabulate.laws.ExpectedRow[A]]"></a>
+      <a id="arbExpectedRowFromCell[A](Arbitrary[ExpectedCell[A]]):Arbitrary[ExpectedRow[A]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbExpectedRowFromCell</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arb">arb: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#ExpectedCell[A]=tabulate.laws.ExpectedValue[A,String]" class="extmbr" name="tabulate.laws.ExpectedCell">ExpectedCell</a>[<span class="extype" name="tabulate.laws.discipline.arbitrary.arbExpectedRowFromCell.A">A</span>]]</span>)</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#ExpectedRow[A]=tabulate.laws.ExpectedValue[A,Seq[String]]" class="extmbr" name="tabulate.laws.ExpectedRow">ExpectedRow</a>[<span class="extype" name="tabulate.laws.discipline.arbitrary.arbExpectedRowFromCell.A">A</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@arbExpectedRowFromCell[A](implicitarb:org.scalacheck.Arbitrary[tabulate.laws.ExpectedCell[A]]):org.scalacheck.Arbitrary[tabulate.laws.ExpectedRow[A]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.arbitrary#arbIllegalBigDecimal" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="arbIllegalBigDecimal:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[BigDecimal]]"></a>
+      <a id="arbIllegalBigDecimal:Arbitrary[IllegalCell[BigDecimal]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbIllegalBigDecimal</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#IllegalCell[A]=tabulate.laws.IllegalValue[A,String]" class="extmbr" name="tabulate.laws.IllegalCell">IllegalCell</a>[<span class="extype" name="scala.BigDecimal">BigDecimal</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@arbIllegalBigDecimal:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[BigDecimal]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.arbitrary#arbIllegalBigInt" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="arbIllegalBigInt:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[BigInt]]"></a>
+      <a id="arbIllegalBigInt:Arbitrary[IllegalCell[BigInt]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbIllegalBigInt</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#IllegalCell[A]=tabulate.laws.IllegalValue[A,String]" class="extmbr" name="tabulate.laws.IllegalCell">IllegalCell</a>[<span class="extype" name="scala.BigInt">BigInt</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@arbIllegalBigInt:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[BigInt]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.arbitrary#arbIllegalBoolean" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="arbIllegalBoolean:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[Boolean]]"></a>
+      <a id="arbIllegalBoolean:Arbitrary[IllegalCell[Boolean]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbIllegalBoolean</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#IllegalCell[A]=tabulate.laws.IllegalValue[A,String]" class="extmbr" name="tabulate.laws.IllegalCell">IllegalCell</a>[<a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@arbIllegalBoolean:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[Boolean]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.arbitrary#arbIllegalByte" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="arbIllegalByte:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[Byte]]"></a>
+      <a id="arbIllegalByte:Arbitrary[IllegalCell[Byte]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbIllegalByte</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#IllegalCell[A]=tabulate.laws.IllegalValue[A,String]" class="extmbr" name="tabulate.laws.IllegalCell">IllegalCell</a>[<a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Byte" class="extype" target="_top">Byte</a>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@arbIllegalByte:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[Byte]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.arbitrary#arbIllegalChar" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="arbIllegalChar:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[Char]]"></a>
+      <a id="arbIllegalChar:Arbitrary[IllegalCell[Char]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbIllegalChar</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#IllegalCell[A]=tabulate.laws.IllegalValue[A,String]" class="extmbr" name="tabulate.laws.IllegalCell">IllegalCell</a>[<a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Char" class="extype" target="_top">Char</a>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@arbIllegalChar:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[Char]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.arbitrary#arbIllegalDouble" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="arbIllegalDouble:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[Double]]"></a>
+      <a id="arbIllegalDouble:Arbitrary[IllegalCell[Double]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbIllegalDouble</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#IllegalCell[A]=tabulate.laws.IllegalValue[A,String]" class="extmbr" name="tabulate.laws.IllegalCell">IllegalCell</a>[<a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Double" class="extype" target="_top">Double</a>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@arbIllegalDouble:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[Double]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.arbitrary#arbIllegalFloat" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="arbIllegalFloat:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[Float]]"></a>
+      <a id="arbIllegalFloat:Arbitrary[IllegalCell[Float]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbIllegalFloat</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#IllegalCell[A]=tabulate.laws.IllegalValue[A,String]" class="extmbr" name="tabulate.laws.IllegalCell">IllegalCell</a>[<a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Float" class="extype" target="_top">Float</a>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@arbIllegalFloat:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[Float]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.arbitrary#arbIllegalInt" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="arbIllegalInt:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[Int]]"></a>
+      <a id="arbIllegalInt:Arbitrary[IllegalCell[Int]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbIllegalInt</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#IllegalCell[A]=tabulate.laws.IllegalValue[A,String]" class="extmbr" name="tabulate.laws.IllegalCell">IllegalCell</a>[<a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@arbIllegalInt:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[Int]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.arbitrary#arbIllegalLong" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="arbIllegalLong:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[Long]]"></a>
+      <a id="arbIllegalLong:Arbitrary[IllegalCell[Long]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbIllegalLong</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#IllegalCell[A]=tabulate.laws.IllegalValue[A,String]" class="extmbr" name="tabulate.laws.IllegalCell">IllegalCell</a>[<a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Long" class="extype" target="_top">Long</a>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@arbIllegalLong:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[Long]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.arbitrary#arbIllegalOption" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="arbIllegalOption[A](implicitarb:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[A]]):org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[Option[A]]]"></a>
+      <a id="arbIllegalOption[A](Arbitrary[IllegalCell[A]]):Arbitrary[IllegalCell[Option[A]]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbIllegalOption</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arb">arb: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#IllegalCell[A]=tabulate.laws.IllegalValue[A,String]" class="extmbr" name="tabulate.laws.IllegalCell">IllegalCell</a>[<span class="extype" name="tabulate.laws.discipline.arbitrary.arbIllegalOption.A">A</span>]]</span>)</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#IllegalCell[A]=tabulate.laws.IllegalValue[A,String]" class="extmbr" name="tabulate.laws.IllegalCell">IllegalCell</a>[<a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="tabulate.laws.discipline.arbitrary.arbIllegalOption.A">A</span>]]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@arbIllegalOption[A](implicitarb:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[A]]):org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[Option[A]]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.arbitrary#arbIllegalShort" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="arbIllegalShort:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[Short]]"></a>
+      <a id="arbIllegalShort:Arbitrary[IllegalCell[Short]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbIllegalShort</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#IllegalCell[A]=tabulate.laws.IllegalValue[A,String]" class="extmbr" name="tabulate.laws.IllegalCell">IllegalCell</a>[<a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Short" class="extype" target="_top">Short</a>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@arbIllegalShort:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[Short]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.arbitrary#arbIllegalTraversable" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="arbIllegalTraversable[A,C[X]&lt;:Traversable[X]](implicitarb:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[A]]):org.scalacheck.Arbitrary[tabulate.laws.IllegalRow[C[A]]]"></a>
+      <a id="arbIllegalTraversable[A,C[X]&lt;:Traversable[X]](Arbitrary[IllegalCell[A]]):Arbitrary[IllegalRow[C[A]]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbIllegalTraversable</span><span class="tparams">[<span name="A">A</span>, <span name="C">C<span class="tparams">[<span name="X">X</span>]</span> &lt;: <span class="extype" name="scala.Traversable">Traversable</span>[<span class="extype" name="tabulate.laws.discipline.arbitrary.arbIllegalTraversable.C.X">X</span>]</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arb">arb: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#IllegalCell[A]=tabulate.laws.IllegalValue[A,String]" class="extmbr" name="tabulate.laws.IllegalCell">IllegalCell</a>[<span class="extype" name="tabulate.laws.discipline.arbitrary.arbIllegalTraversable.A">A</span>]]</span>)</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#IllegalRow[A]=tabulate.laws.IllegalValue[A,Seq[String]]" class="extmbr" name="tabulate.laws.IllegalRow">IllegalRow</a>[<span class="extype" name="tabulate.laws.discipline.arbitrary.arbIllegalTraversable.C">C</span>[<span class="extype" name="tabulate.laws.discipline.arbitrary.arbIllegalTraversable.A">A</span>]]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@arbIllegalTraversable[A,C[X]&lt;:Traversable[X]](implicitarb:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[A]]):org.scalacheck.Arbitrary[tabulate.laws.IllegalRow[C[A]]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.arbitrary#arbIllegalUUID" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="arbIllegalUUID:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[java.util.UUID]]"></a>
+      <a id="arbIllegalUUID:Arbitrary[IllegalCell[UUID]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbIllegalUUID</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#IllegalCell[A]=tabulate.laws.IllegalValue[A,String]" class="extmbr" name="tabulate.laws.IllegalCell">IllegalCell</a>[<span class="extype" name="java.util.UUID">UUID</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@arbIllegalUUID:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[java.util.UUID]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li><li name="tabulate.laws.discipline.arbitrary#arbRowDecoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="arbRowDecoder[A](implicitevidence$5:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[tabulate.RowDecoder[A]]"></a>
       <a id="arbRowDecoder[A](Arbitrary[A]):Arbitrary[RowDecoder[A]]"></a>
@@ -247,23 +519,6 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="tabulate.laws.discipline.arbitrary#cell" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="cell:org.scalacheck.Gen[String]"></a>
-      <a id="cell:Gen[String]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">cell</span><span class="result">: <span class="extype" name="org.scalacheck.Gen">Gen</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@cell:org.scalacheck.Gen[String]" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
     </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a>
       <a id="clone():AnyRef"></a>
@@ -313,7 +568,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
@@ -330,7 +585,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@equals(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -347,7 +602,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@finalize():Unit" title="Permalink" target="_top">
@@ -387,7 +642,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@hashCode():Int" title="Permalink" target="_top">
@@ -395,6 +650,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="tabulate.laws.discipline.arbitrary#illegal" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="illegal[A,B](gen:org.scalacheck.Gen[B]):org.scalacheck.Arbitrary[tabulate.laws.IllegalValue[A,B]]"></a>
+      <a id="illegal[A,B](Gen[B]):Arbitrary[IllegalValue[A,B]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">illegal</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="gen">gen: <span class="extype" name="org.scalacheck.Gen">Gen</span>[<span class="extype" name="tabulate.laws.discipline.arbitrary.illegal.B">B</span>]</span>)</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../IllegalValue.html" class="extype" name="tabulate.laws.IllegalValue">IllegalValue</a>[<span class="extype" name="tabulate.laws.discipline.arbitrary.illegal.A">A</span>, <span class="extype" name="tabulate.laws.discipline.arbitrary.illegal.B">B</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@illegal[A,B](gen:org.scalacheck.Gen[B]):org.scalacheck.Arbitrary[tabulate.laws.IllegalValue[A,B]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -404,7 +676,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
@@ -421,7 +693,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
@@ -438,7 +710,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@notify():Unit" title="Permalink" target="_top">
@@ -455,7 +727,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@notifyAll():Unit" title="Permalink" target="_top">
@@ -540,7 +812,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@wait():Unit" title="Permalink" target="_top">
@@ -563,7 +835,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Long" class="extype" target="_top">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
@@ -586,7 +858,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Long" class="extype" target="_top">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.arbitrary$@wait(x$1:Long):Unit" title="Permalink" target="_top">

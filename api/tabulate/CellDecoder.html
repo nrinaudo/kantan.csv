@@ -51,11 +51,11 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Decodes CSV cells into usable types.</p><p>By itself, an instance of <code>CellDecoder</code> is not terribly interesting. It becomes useful when combined with
-<code>RowDecoder</code>, which relies on any implicit <code>CellDecoder</code> it has in scope to parse entire rows.</p><p>If, for example, you need to parse CSV data that contains ISO 8601 formatted dates, you can't immediately call
-<a href="CsvInput.html#rows[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:tabulate.RowDecoder[A]):Iterator[tabulate.DecodeResult[A]]" class="extmbr" name="tabulate.CsvInput#rows">CsvInput.rows</a> with a type argument of <code>List[Date]</code>: dates are not supported natively (because they can be
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Decodes CSV cells into usable types.</p><p>By itself, an instance of <a href="" class="extype" name="tabulate.CellDecoder">CellDecoder</a> is not terribly interesting. It becomes useful when combined with
+<a href="RowDecoder.html" class="extype" name="tabulate.RowDecoder">RowDecoder</a>, which relies on any implicit <a href="" class="extype" name="tabulate.CellDecoder">CellDecoder</a> it has in scope to parse entire rows.</p><p>If, for example, you need to parse CSV data that contains ISO 8601 formatted dates, you can't immediately call
+<a href="CsvInput$.html#reader[R&lt;:java.io.Reader]:tabulate.CsvInput[R]" class="extmbr" name="tabulate.CsvInput#reader">CsvInput.reader</a> with a type argument of <code>List[Date]</code>: dates are not supported natively (because they can be
 serialised in so many different ways).</p><p>This can be remedied simply by writing the following:</p><pre><span class="kw">implicit</span> <span class="kw">val</span> dateDecoder = CellDecoder(s <span class="kw">=&gt;</span> DecodeResult(<span class="kw">new</span> SimpleDateFormat(<span class="lit">"yyyy-MM-dd'T'HH:mm:ssZ"</span>).parse(s)))</pre><p>See the <a href="CellDecoder$.html" class="extype" name="tabulate.CellDecoder">companion object</a> for default implementations and construction methods.
-</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="http://nrinaudo.github.io/tabulate/tut/parsing.html" target="_blank">Tutorial</a></p></span></dd></dl><div class="toggleContainer block">
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/tabulate/tree/master/core/src/main/scala/tabulate/CellDecoder.scala" target="_blank">CellDecoder.scala</a></dd><dt>See also</dt><dd><span class="cmt"><p><a href="http://nrinaudo.github.io/tabulate/tut/parsing.html" target="_blank">Tutorial</a></p></span></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div><div class="toggleContainer block">
@@ -135,7 +135,7 @@ serialised in so many different ways).</p><p>This can be remedied simply by writ
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CellDecoder@!=(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -152,7 +152,7 @@ serialised in so many different ways).</p><p>This can be remedied simply by writ
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CellDecoder@##():Int" title="Permalink" target="_top">
@@ -169,7 +169,7 @@ serialised in so many different ways).</p><p>This can be remedied simply by writ
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CellDecoder@==(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -226,7 +226,7 @@ serialised in so many different ways).</p><p>This can be remedied simply by writ
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">decode</span><span class="params">(<span name="ss">ss: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="index">index: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="DecodeResult.html" class="extype" name="tabulate.DecodeResult">DecodeResult</a>[<span class="extype" name="tabulate.CellDecoder.A">A</span>]</span>
+        <span class="name">decode</span><span class="params">(<span name="ss">ss: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="index">index: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="DecodeResult.html" class="extype" name="tabulate.DecodeResult">DecodeResult</a>[<span class="extype" name="tabulate.CellDecoder.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CellDecoder@decode(ss:Seq[String],index:Int):tabulate.DecodeResult[A]" title="Permalink" target="_top">
@@ -248,7 +248,7 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CellDecoder@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
@@ -265,7 +265,7 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CellDecoder@equals(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -282,7 +282,7 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CellDecoder@finalize():Unit" title="Permalink" target="_top">
@@ -342,7 +342,7 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CellDecoder@hashCode():Int" title="Permalink" target="_top">
@@ -359,7 +359,7 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CellDecoder@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
@@ -383,7 +383,7 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Turns an instance of <code>CellDecoder[A]</code> into one of <code>CellDecoder[B]</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns an instance of <code>CellDecoder[A]</code> into one of <code>CellDecoder[B]</code>.</p><p>This allows developers to adapt existing instances of <code>CellDecoder</code> rather than write one from scratch.
+      <p class="shortcomment cmt">Turns an instance of <code>CellDecoder[A]</code> into one of <code>CellDecoder[B]</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns an instance of <code>CellDecoder[A]</code> into one of <code>CellDecoder[B]</code>.</p><p>This allows developers to adapt existing instances of <a href="" class="extype" name="tabulate.CellDecoder">CellDecoder</a> rather than write one from scratch.
 </p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@noop</span><span class="args">()</span>
               
@@ -397,7 +397,7 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CellDecoder@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
@@ -414,7 +414,7 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CellDecoder@notify():Unit" title="Permalink" target="_top">
@@ -431,7 +431,7 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CellDecoder@notifyAll():Unit" title="Permalink" target="_top">
@@ -473,6 +473,46 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="tabulate.CellDecoder#unsafeDecode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unsafeDecode(ss:Seq[String],index:Int):A"></a>
+      <a id="unsafeDecode(Seq[String],Int):A"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unsafeDecode</span><span class="params">(<span name="ss">ss: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="index">index: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <span class="extype" name="tabulate.CellDecoder.A">A</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#tabulate.CellDecoder@unsafeDecode(ss:Seq[String],index:Int):A" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@noop</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="tabulate.CellDecoder#unsafeDecode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unsafeDecode(s:String):A"></a>
+      <a id="unsafeDecode(String):A"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unsafeDecode</span><span class="params">(<span name="s">s: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="tabulate.CellDecoder.A">A</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#tabulate.CellDecoder@unsafeDecode(s:String):A" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@noop</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>
@@ -482,7 +522,7 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CellDecoder@wait():Unit" title="Permalink" target="_top">
@@ -505,7 +545,7 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Long" class="extype" target="_top">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CellDecoder@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
@@ -528,7 +568,7 @@ exist, a <a href="DecodeResult$$DecodeFailure$.html" class="extype" name="tabula
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Long" class="extype" target="_top">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CellDecoder@wait(x$1:Long):Unit" title="Permalink" target="_top">

@@ -51,9 +51,9 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/tabulate/tree/master/core/src/main/scala/tabulate/CsvOutput.scala" target="_blank">CsvOutput.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><a href="LowPriorityCsvOutputs.html" class="extype" name="tabulate.LowPriorityCsvOutputs">LowPriorityCsvOutputs</a>, <a href="LowPriorityCsvOutputs$$fresh$macro$12.html" class="extype" name="tabulate.LowPriorityCsvOutputs.fresh$macro$12">fresh$macro$12</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="LowPriorityCsvOutputs.html" class="extype" name="tabulate.LowPriorityCsvOutputs">LowPriorityCsvOutputs</a>, <a href="LowPriorityCsvOutputs$$fresh$macro$23.html" class="extype" name="tabulate.LowPriorityCsvOutputs.fresh$macro$23">fresh$macro$23</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -71,7 +71,7 @@
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="tabulate.CsvOutput"><span>CsvOutput</span></li><li class="in" name="tabulate.LowPriorityCsvOutputs"><span>LowPriorityCsvOutputs</span></li><li class="in" name="tabulate.LowPriorityCsvOutputs.fresh$macro$12"><span>fresh$macro$12</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="tabulate.CsvOutput"><span>CsvOutput</span></li><li class="in" name="tabulate.LowPriorityCsvOutputs"><span>LowPriorityCsvOutputs</span></li><li class="in" name="tabulate.LowPriorityCsvOutputs.fresh$macro$23"><span>fresh$macro$23</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -159,7 +159,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CsvOutput$@!=(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -176,7 +176,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CsvOutput$@##():Int" title="Permalink" target="_top">
@@ -193,7 +193,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CsvOutput$@==(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -219,18 +219,18 @@
     </span>
       
     </li><li name="tabulate.CsvOutput#apply" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="apply[S](f:S=&gt;java.io.PrintWriter):tabulate.CsvOutput[S]"></a>
-      <a id="apply[S]((S)⇒PrintWriter):CsvOutput[S]"></a>
+      <a id="apply[A](f:A=&gt;java.io.Writer):tabulate.CsvOutput[A]"></a>
+      <a id="apply[A]((A)⇒Writer):CsvOutput[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="tabulate.CsvOutput.apply.S">S</span>) ⇒ <span class="extype" name="java.io.PrintWriter">PrintWriter</span></span>)</span><span class="result">: <a href="CsvOutput.html" class="extype" name="tabulate.CsvOutput">CsvOutput</a>[<span class="extype" name="tabulate.CsvOutput.apply.S">S</span>]</span>
+        <span class="name">apply</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="tabulate.CsvOutput.apply.A">A</span>) ⇒ <span class="extype" name="java.io.Writer">Writer</span></span>)</span><span class="result">: <a href="CsvOutput.html" class="extype" name="tabulate.CsvOutput">CsvOutput</a>[<span class="extype" name="tabulate.CsvOutput.apply.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CsvOutput$@apply[S](f:S=&gt;java.io.PrintWriter):tabulate.CsvOutput[S]" title="Permalink" target="_top">
+      <a href="../index.html#tabulate.CsvOutput$@apply[A](f:A=&gt;java.io.Writer):tabulate.CsvOutput[A]" title="Permalink" target="_top">
         <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -284,7 +284,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CsvOutput$@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
@@ -301,7 +301,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CsvOutput$@equals(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -318,7 +318,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">file</span><span class="params">(<span class="implicit">implicit </span><span name="codec">codec: <span class="extype" name="scala.io.Codec">Codec</span></span>)</span><span class="result">: <a href="CsvOutput.html" class="extype" name="tabulate.CsvOutput">CsvOutput</a>[<span class="extype" name="java.io.File">File</span>]</span>
+        <span class="name">file</span><span class="params">(<span class="implicit">implicit </span><span name="codec">codec: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.io.Codec" class="extype" target="_top">Codec</a></span>)</span><span class="result">: <a href="CsvOutput.html" class="extype" name="tabulate.CsvOutput">CsvOutput</a>[<span class="extype" name="java.io.File">File</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CsvOutput$@file(implicitcodec:scala.io.Codec):tabulate.CsvOutput[java.io.File]" title="Permalink" target="_top">
@@ -335,7 +335,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CsvOutput$@finalize():Unit" title="Permalink" target="_top">
@@ -349,19 +349,19 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="tabulate.LowPriorityCsvOutputs#fresh$macro$10" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="fresh$macro$10[fresh$macro$11]:tabulate.CsvOutput[fresh$macro$11]"></a>
-      <a id="fresh$macro$10[fresh$macro$11]:CsvOutput[fresh$macro$11]"></a>
+    </li><li name="tabulate.LowPriorityCsvOutputs#fresh$macro$21" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="fresh$macro$21[fresh$macro$22]:tabulate.CsvOutput[fresh$macro$22]"></a>
+      <a id="fresh$macro$21[fresh$macro$22]:CsvOutput[fresh$macro$22]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit macro </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">fresh$macro$10</span><span class="tparams">[<span name="fresh$macro$11">fresh$macro$11</span>]</span><span class="result">: <a href="CsvOutput.html" class="extype" name="tabulate.CsvOutput">CsvOutput</a>[<span class="extype" name="tabulate.LowPriorityCsvOutputs.fresh$macro$10.fresh$macro$11">fresh$macro$11</span>]</span>
+        <span class="name">fresh$macro$21</span><span class="tparams">[<span name="fresh$macro$22">fresh$macro$22</span>]</span><span class="result">: <a href="CsvOutput.html" class="extype" name="tabulate.CsvOutput">CsvOutput</a>[<span class="extype" name="tabulate.LowPriorityCsvOutputs.fresh$macro$21.fresh$macro$22">fresh$macro$22</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#tabulate.CsvOutput$@fresh$macro$10[fresh$macro$11]:tabulate.CsvOutput[fresh$macro$11]" title="Permalink" target="_top">
+      <a href="../index.html#tabulate.CsvOutput$@fresh$macro$21[fresh$macro$22]:tabulate.CsvOutput[fresh$macro$22]" title="Permalink" target="_top">
         <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -392,7 +392,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CsvOutput$@hashCode():Int" title="Permalink" target="_top">
@@ -409,7 +409,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CsvOutput$@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
@@ -426,7 +426,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CsvOutput$@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
@@ -443,7 +443,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CsvOutput$@notify():Unit" title="Permalink" target="_top">
@@ -460,7 +460,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CsvOutput$@notifyAll():Unit" title="Permalink" target="_top">
@@ -494,27 +494,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">outputStream</span><span class="tparams">[<span name="O">O &lt;: <span class="extype" name="java.io.OutputStream">OutputStream</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="codec">codec: <span class="extype" name="scala.io.Codec">Codec</span></span>)</span><span class="result">: <a href="CsvOutput.html" class="extype" name="tabulate.CsvOutput">CsvOutput</a>[<span class="extype" name="tabulate.CsvOutput.outputStream.O">O</span>]</span>
+        <span class="name">outputStream</span><span class="tparams">[<span name="O">O &lt;: <span class="extype" name="java.io.OutputStream">OutputStream</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="codec">codec: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.io.Codec" class="extype" target="_top">Codec</a></span>)</span><span class="result">: <a href="CsvOutput.html" class="extype" name="tabulate.CsvOutput">CsvOutput</a>[<span class="extype" name="tabulate.CsvOutput.outputStream.O">O</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CsvOutput$@outputStream[O&lt;:java.io.OutputStream](implicitcodec:scala.io.Codec):tabulate.CsvOutput[O]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="tabulate.CsvOutput#printWriter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="printWriter:tabulate.CsvOutput[java.io.PrintWriter]"></a>
-      <a id="printWriter:CsvOutput[PrintWriter]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">printWriter</span><span class="result">: <a href="CsvOutput.html" class="extype" name="tabulate.CsvOutput">CsvOutput</a>[<span class="extype" name="java.io.PrintWriter">PrintWriter</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../index.html#tabulate.CsvOutput$@printWriter:tabulate.CsvOutput[java.io.PrintWriter]" title="Permalink" target="_top">
         <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -562,7 +545,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CsvOutput$@wait():Unit" title="Permalink" target="_top">
@@ -585,7 +568,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Long" class="extype" target="_top">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CsvOutput$@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
@@ -608,7 +591,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Long" class="extype" target="_top">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.CsvOutput$@wait(x$1:Long):Unit" title="Permalink" target="_top">
@@ -650,8 +633,8 @@
         <div id="inheritedMembers">
         <div class="parent" name="tabulate.LowPriorityCsvOutputs">
               <h3>Inherited from <a href="LowPriorityCsvOutputs.html" class="extype" name="tabulate.LowPriorityCsvOutputs">LowPriorityCsvOutputs</a></h3>
-            </div><div class="parent" name="tabulate.LowPriorityCsvOutputs.fresh$macro$12">
-              <h3>Inherited from <a href="LowPriorityCsvOutputs$$fresh$macro$12.html" class="extype" name="tabulate.LowPriorityCsvOutputs.fresh$macro$12">fresh$macro$12</a></h3>
+            </div><div class="parent" name="tabulate.LowPriorityCsvOutputs.fresh$macro$23">
+              <h3>Inherited from <a href="LowPriorityCsvOutputs$$fresh$macro$23.html" class="extype" name="tabulate.LowPriorityCsvOutputs.fresh$macro$23">fresh$macro$23</a></h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">

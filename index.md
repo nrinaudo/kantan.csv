@@ -14,24 +14,39 @@ Tabulate is a library for CSV parsing and serialisation written in the
 
 Tabulate is currently available both for Scala 2.10 and 2.11.
 
-The current version is `0.1.6`, which can be added to your project with one or more of the following line(s)
+The current version is `0.1.7`, which can be added to your project with one or more of the following line(s)
 in your SBT build file:
 
 ```scala
 // Core library, included automatically if any other module is imported.
-libraryDependencies += "com.nrinaudo" %% "tabulate" % "0.1.6"
+libraryDependencies += "com.nrinaudo" %% "tabulate" % "0.1.7"
 
 // Provides scalaz type class instances for tabulate, and vice versa.
-libraryDependencies += "com.nrinaudo" %% "tabulate-scalaz" % "0.1.6"
+libraryDependencies += "com.nrinaudo" %% "tabulate-scalaz" % "0.1.7"
 
 // Treat CSV data as sources and sinks.
-libraryDependencies += "com.nrinaudo" %% "tabulate-scalaz-stream" % "0.1.6"
+libraryDependencies += "com.nrinaudo" %% "tabulate-scalaz-stream" % "0.1.7"
 
 // Provides cats type class instances for tabulate, and vice versa.
-libraryDependencies += "com.nrinaudo" %% "tabulate-cats" % "0.1.6"
+libraryDependencies += "com.nrinaudo" %% "tabulate-cats" % "0.1.7"
 
 // Automatic type class instances derivation.
-libraryDependencies += "com.nrinaudo" %% "tabulate-generic" % "0.1.6"
+libraryDependencies += "com.nrinaudo" %% "tabulate-generic" % "0.1.7"
+```
+
+Additionally, while tabulate comes with a default parser / serializer (that has
+[pretty good]({{ site.baseurl }}/tut/benchmarks.html) performances), some people might prefer to use older, more
+reputable implementations. The following engines are currently supported:
+ 
+```scala
+// opencsv engine.
+libraryDependencies += "com.nrinaudo" %% "tabulate-opencsv" % "0.1.7"
+
+// commons-csv engine.
+libraryDependencies += "com.nrinaudo" %% "tabulate-commons" % "0.1.7"
+
+// jackson-csv engine.
+libraryDependencies += "com.nrinaudo" %% "tabulate-jackson" % "0.1.7"
 ```
 
 
@@ -57,7 +72,7 @@ addressed, though.
 
 The following tutorials are available:
 {% for x in site.tut %}
-{% if x.status != "wip" %}
+{% if x.status != "wip" and x.section == "tutorial" %}
 * [{{ x.title }}]({{ site.baseurl }}{{ x.url }})
 {% endif %}
 {% endfor %}

@@ -47,13 +47,13 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">CellCodecTests</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="org.typelevel.discipline.Laws">Laws</span></span>
+        <span class="name">CellCodecTests</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="SafeCellCodecTests.html" class="extype" name="tabulate.laws.discipline.SafeCellCodecTests">SafeCellCodecTests</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>] with <a href="CellDecoderTests.html" class="extype" name="tabulate.laws.discipline.CellDecoderTests">CellDecoderTests</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>]</span>
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/tabulate/tree/master/laws/src/main/scala/tabulate/laws/discipline/CellCodecTests.scala" target="_blank">CellCodecTests.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><span class="extype" name="org.typelevel.discipline.Laws">Laws</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="CellDecoderTests.html" class="extype" name="tabulate.laws.discipline.CellDecoderTests">CellDecoderTests</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>], <a href="RowDecoderTests.html" class="extype" name="tabulate.laws.discipline.RowDecoderTests">RowDecoderTests</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>], <a href="SafeCellCodecTests.html" class="extype" name="tabulate.laws.discipline.SafeCellCodecTests">SafeCellCodecTests</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>], <a href="SafeCellDecoderTests.html" class="extype" name="tabulate.laws.discipline.SafeCellDecoderTests">SafeCellDecoderTests</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>], <a href="SafeRowDecoderTests.html" class="extype" name="tabulate.laws.discipline.SafeRowDecoderTests">SafeRowDecoderTests</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>], <a href="CellEncoderTests.html" class="extype" name="tabulate.laws.discipline.CellEncoderTests">CellEncoderTests</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>], <a href="RowEncoderTests.html" class="extype" name="tabulate.laws.discipline.RowEncoderTests">RowEncoderTests</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>], <span class="extype" name="org.typelevel.discipline.Laws">Laws</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -71,7 +71,7 @@
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="tabulate.laws.discipline.CellCodecTests"><span>CellCodecTests</span></li><li class="in" name="org.typelevel.discipline.Laws"><span>Laws</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="tabulate.laws.discipline.CellCodecTests"><span>CellCodecTests</span></li><li class="in" name="tabulate.laws.discipline.CellDecoderTests"><span>CellDecoderTests</span></li><li class="in" name="tabulate.laws.discipline.RowDecoderTests"><span>RowDecoderTests</span></li><li class="in" name="tabulate.laws.discipline.SafeCellCodecTests"><span>SafeCellCodecTests</span></li><li class="in" name="tabulate.laws.discipline.SafeCellDecoderTests"><span>SafeCellDecoderTests</span></li><li class="in" name="tabulate.laws.discipline.SafeRowDecoderTests"><span>SafeRowDecoderTests</span></li><li class="in" name="tabulate.laws.discipline.CellEncoderTests"><span>CellEncoderTests</span></li><li class="in" name="tabulate.laws.discipline.RowEncoderTests"><span>RowEncoderTests</span></li><li class="in" name="org.typelevel.discipline.Laws"><span>Laws</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -165,24 +165,41 @@
 
         <div id="values" class="values members">
               <h3>Abstract Value Members</h3>
-              <ol><li name="tabulate.laws.discipline.CellCodecTests#arbA" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="arbA:org.scalacheck.Arbitrary[A]"></a>
-      <a id="arbA:Arbitrary[A]"></a>
+              <ol><li name="tabulate.laws.discipline.SafeCellCodecTests#arb" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="arb:org.scalacheck.Arbitrary[A]"></a>
+      <a id="arb:Arbitrary[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit abstract </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">arbA</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>]</span>
+        <span class="name">arb</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@arbA:org.scalacheck.Arbitrary[A]" title="Permalink" target="_top">
+      <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@arb:org.scalacheck.Arbitrary[A]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
-    </li><li name="tabulate.laws.discipline.CellCodecTests#laws" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SafeCellCodecTests.html" class="extype" name="tabulate.laws.discipline.SafeCellCodecTests">SafeCellCodecTests</a> → <a href="CellEncoderTests.html" class="extype" name="tabulate.laws.discipline.CellEncoderTests">CellEncoderTests</a> → <a href="RowEncoderTests.html" class="extype" name="tabulate.laws.discipline.RowEncoderTests">RowEncoderTests</a></dd></dl></div>
+    </li><li name="tabulate.laws.discipline.CellDecoderTests#arbIllegalCell" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="arbIllegalCell:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[A]]"></a>
+      <a id="arbIllegalCell:Arbitrary[IllegalCell[A]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit abstract </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbIllegalCell</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#IllegalCell[A]=tabulate.laws.IllegalValue[A,String]" class="extmbr" name="tabulate.laws.IllegalCell">IllegalCell</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@arbIllegalCell:org.scalacheck.Arbitrary[tabulate.laws.IllegalCell[A]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CellDecoderTests.html" class="extype" name="tabulate.laws.discipline.CellDecoderTests">CellDecoderTests</a></dd></dl></div>
+    </li><li name="tabulate.laws.discipline.CellCodecTests#laws" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="laws:tabulate.laws.CellCodecLaws[A]"></a>
       <a id="laws:CellCodecLaws[A]"></a>
       <h4 class="signature">
@@ -198,7 +215,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="tabulate.laws.discipline.CellCodecTests">CellCodecTests</a> → <a href="CellDecoderTests.html" class="extype" name="tabulate.laws.discipline.CellDecoderTests">CellDecoderTests</a> → <a href="RowDecoderTests.html" class="extype" name="tabulate.laws.discipline.RowDecoderTests">RowDecoderTests</a> → <a href="SafeCellCodecTests.html" class="extype" name="tabulate.laws.discipline.SafeCellCodecTests">SafeCellCodecTests</a> → <a href="SafeCellDecoderTests.html" class="extype" name="tabulate.laws.discipline.SafeCellDecoderTests">SafeCellDecoderTests</a> → <a href="SafeRowDecoderTests.html" class="extype" name="tabulate.laws.discipline.SafeRowDecoderTests">SafeRowDecoderTests</a> → <a href="CellEncoderTests.html" class="extype" name="tabulate.laws.discipline.CellEncoderTests">CellEncoderTests</a> → <a href="RowEncoderTests.html" class="extype" name="tabulate.laws.discipline.RowEncoderTests">RowEncoderTests</a></dd></dl></div>
     </li></ol>
             </div>
 
@@ -213,7 +230,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@!=(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -230,7 +247,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@##():Int" title="Permalink" target="_top">
@@ -247,7 +264,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@==(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -255,6 +272,57 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="tabulate.laws.discipline.SafeCellCodecTests#arbExpectedCell" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="arbExpectedCell:org.scalacheck.Arbitrary[tabulate.laws.ExpectedCell[A]]"></a>
+      <a id="arbExpectedCell:Arbitrary[ExpectedCell[A]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbExpectedCell</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#ExpectedCell[A]=tabulate.laws.ExpectedValue[A,String]" class="extmbr" name="tabulate.laws.ExpectedCell">ExpectedCell</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@arbExpectedCell:org.scalacheck.Arbitrary[tabulate.laws.ExpectedCell[A]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SafeCellCodecTests.html" class="extype" name="tabulate.laws.discipline.SafeCellCodecTests">SafeCellCodecTests</a> → <a href="SafeCellDecoderTests.html" class="extype" name="tabulate.laws.discipline.SafeCellDecoderTests">SafeCellDecoderTests</a> → <a href="CellEncoderTests.html" class="extype" name="tabulate.laws.discipline.CellEncoderTests">CellEncoderTests</a></dd></dl></div>
+    </li><li name="tabulate.laws.discipline.CellCodecTests#arbExpectedRow" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="arbExpectedRow:org.scalacheck.Arbitrary[tabulate.laws.ExpectedRow[A]]"></a>
+      <a id="arbExpectedRow:Arbitrary[ExpectedRow[A]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbExpectedRow</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#ExpectedRow[A]=tabulate.laws.ExpectedValue[A,Seq[String]]" class="extmbr" name="tabulate.laws.ExpectedRow">ExpectedRow</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@arbExpectedRow:org.scalacheck.Arbitrary[tabulate.laws.ExpectedRow[A]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="tabulate.laws.discipline.CellCodecTests">CellCodecTests</a> → <a href="SafeCellCodecTests.html" class="extype" name="tabulate.laws.discipline.SafeCellCodecTests">SafeCellCodecTests</a> → <a href="SafeCellDecoderTests.html" class="extype" name="tabulate.laws.discipline.SafeCellDecoderTests">SafeCellDecoderTests</a> → <a href="SafeRowDecoderTests.html" class="extype" name="tabulate.laws.discipline.SafeRowDecoderTests">SafeRowDecoderTests</a> → <a href="CellEncoderTests.html" class="extype" name="tabulate.laws.discipline.CellEncoderTests">CellEncoderTests</a> → <a href="RowEncoderTests.html" class="extype" name="tabulate.laws.discipline.RowEncoderTests">RowEncoderTests</a></dd></dl></div>
+    </li><li name="tabulate.laws.discipline.CellCodecTests#arbIllegalRow" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="arbIllegalRow:org.scalacheck.Arbitrary[tabulate.laws.IllegalValue[A,Seq[String]]]"></a>
+      <a id="arbIllegalRow:Arbitrary[IllegalValue[A,Seq[String]]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbIllegalRow</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../IllegalValue.html" class="extype" name="tabulate.laws.IllegalValue">IllegalValue</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>, <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.collection.Seq" class="extype" target="_top">Seq</a>[<span class="extype" name="scala.Predef.String">String</span>]]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@arbIllegalRow:org.scalacheck.Arbitrary[tabulate.laws.IllegalValue[A,Seq[String]]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="tabulate.laws.discipline.CellCodecTests">CellCodecTests</a> → <a href="RowDecoderTests.html" class="extype" name="tabulate.laws.discipline.RowDecoderTests">RowDecoderTests</a></dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -289,6 +357,40 @@
       </a>
     </span>
       
+    </li><li name="tabulate.laws.discipline.CellDecoderTests#cellDecoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="cellDecoder[B,C](implicitevidence$1:org.scalacheck.Arbitrary[B],implicitevidence$2:org.scalacheck.Arbitrary[C]):CellDecoderTests.this.RuleSet"></a>
+      <a id="cellDecoder[B,C](Arbitrary[B],Arbitrary[C]):RuleSet"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">cellDecoder</span><span class="tparams">[<span name="B">B</span>, <span name="C">C</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="tabulate.laws.discipline.CellDecoderTests.cellDecoder.B">B</span>]</span>, <span name="arg1">arg1: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="tabulate.laws.discipline.CellDecoderTests.cellDecoder.C">C</span>]</span>)</span><span class="result">: <a href="#RuleSetextendsAnyRef" class="extmbr" name="tabulate.laws.discipline.CellCodecTests.RuleSet">RuleSet</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@cellDecoder[B,C](implicitevidence$1:org.scalacheck.Arbitrary[B],implicitevidence$2:org.scalacheck.Arbitrary[C]):CellDecoderTests.this.RuleSet" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CellDecoderTests.html" class="extype" name="tabulate.laws.discipline.CellDecoderTests">CellDecoderTests</a></dd></dl></div>
+    </li><li name="tabulate.laws.discipline.CellEncoderTests#cellEncoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="cellEncoder[B,C](implicitevidence$1:org.scalacheck.Arbitrary[B],implicitevidence$2:org.scalacheck.Arbitrary[C]):CellEncoderTests.this.RuleSet"></a>
+      <a id="cellEncoder[B,C](Arbitrary[B],Arbitrary[C]):RuleSet"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">cellEncoder</span><span class="tparams">[<span name="B">B</span>, <span name="C">C</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="tabulate.laws.discipline.CellEncoderTests.cellEncoder.B">B</span>]</span>, <span name="arg1">arg1: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="tabulate.laws.discipline.CellEncoderTests.cellEncoder.C">C</span>]</span>)</span><span class="result">: <a href="#RuleSetextendsAnyRef" class="extmbr" name="tabulate.laws.discipline.CellCodecTests.RuleSet">RuleSet</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@cellEncoder[B,C](implicitevidence$1:org.scalacheck.Arbitrary[B],implicitevidence$2:org.scalacheck.Arbitrary[C]):CellEncoderTests.this.RuleSet" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CellEncoderTests.html" class="extype" name="tabulate.laws.discipline.CellEncoderTests">CellEncoderTests</a></dd></dl></div>
     </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a>
       <a id="clone():AnyRef"></a>
@@ -338,7 +440,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
@@ -355,7 +457,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@equals(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -372,7 +474,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@finalize():Unit" title="Permalink" target="_top">
@@ -412,7 +514,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@hashCode():Int" title="Permalink" target="_top">
@@ -429,7 +531,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
@@ -446,7 +548,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
@@ -463,7 +565,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@notify():Unit" title="Permalink" target="_top">
@@ -480,7 +582,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@notifyAll():Unit" title="Permalink" target="_top">
@@ -488,6 +590,91 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="tabulate.laws.discipline.RowDecoderTests#rowDecoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="rowDecoder[B,C](implicitevidence$1:org.scalacheck.Arbitrary[B],implicitevidence$2:org.scalacheck.Arbitrary[C]):RowDecoderTests.this.RuleSet"></a>
+      <a id="rowDecoder[B,C](Arbitrary[B],Arbitrary[C]):RuleSet"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">rowDecoder</span><span class="tparams">[<span name="B">B</span>, <span name="C">C</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="tabulate.laws.discipline.RowDecoderTests.rowDecoder.B">B</span>]</span>, <span name="arg1">arg1: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="tabulate.laws.discipline.RowDecoderTests.rowDecoder.C">C</span>]</span>)</span><span class="result">: <a href="#RuleSetextendsAnyRef" class="extmbr" name="tabulate.laws.discipline.CellCodecTests.RuleSet">RuleSet</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@rowDecoder[B,C](implicitevidence$1:org.scalacheck.Arbitrary[B],implicitevidence$2:org.scalacheck.Arbitrary[C]):RowDecoderTests.this.RuleSet" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="RowDecoderTests.html" class="extype" name="tabulate.laws.discipline.RowDecoderTests">RowDecoderTests</a></dd></dl></div>
+    </li><li name="tabulate.laws.discipline.RowEncoderTests#rowEncoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="rowEncoder[B,C](implicitevidence$1:org.scalacheck.Arbitrary[B],implicitevidence$2:org.scalacheck.Arbitrary[C]):RowEncoderTests.this.RuleSet"></a>
+      <a id="rowEncoder[B,C](Arbitrary[B],Arbitrary[C]):RuleSet"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">rowEncoder</span><span class="tparams">[<span name="B">B</span>, <span name="C">C</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="tabulate.laws.discipline.RowEncoderTests.rowEncoder.B">B</span>]</span>, <span name="arg1">arg1: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="tabulate.laws.discipline.RowEncoderTests.rowEncoder.C">C</span>]</span>)</span><span class="result">: <a href="#RuleSetextendsAnyRef" class="extmbr" name="tabulate.laws.discipline.CellCodecTests.RuleSet">RuleSet</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@rowEncoder[B,C](implicitevidence$1:org.scalacheck.Arbitrary[B],implicitevidence$2:org.scalacheck.Arbitrary[C]):RowEncoderTests.this.RuleSet" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="RowEncoderTests.html" class="extype" name="tabulate.laws.discipline.RowEncoderTests">RowEncoderTests</a></dd></dl></div>
+    </li><li name="tabulate.laws.discipline.SafeCellCodecTests#safeCellCodec" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="safeCellCodec[B,C](implicitevidence$1:org.scalacheck.Arbitrary[B],implicitevidence$2:org.scalacheck.Arbitrary[C]):SafeCellCodecTests.this.RuleSet"></a>
+      <a id="safeCellCodec[B,C](Arbitrary[B],Arbitrary[C]):RuleSet"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">safeCellCodec</span><span class="tparams">[<span name="B">B</span>, <span name="C">C</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="tabulate.laws.discipline.SafeCellCodecTests.safeCellCodec.B">B</span>]</span>, <span name="arg1">arg1: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="tabulate.laws.discipline.SafeCellCodecTests.safeCellCodec.C">C</span>]</span>)</span><span class="result">: <a href="#RuleSetextendsAnyRef" class="extmbr" name="tabulate.laws.discipline.CellCodecTests.RuleSet">RuleSet</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@safeCellCodec[B,C](implicitevidence$1:org.scalacheck.Arbitrary[B],implicitevidence$2:org.scalacheck.Arbitrary[C]):SafeCellCodecTests.this.RuleSet" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SafeCellCodecTests.html" class="extype" name="tabulate.laws.discipline.SafeCellCodecTests">SafeCellCodecTests</a></dd></dl></div>
+    </li><li name="tabulate.laws.discipline.SafeCellDecoderTests#safeCellDecoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="safeCellDecoder[B,C](implicitevidence$1:org.scalacheck.Arbitrary[B],implicitevidence$2:org.scalacheck.Arbitrary[C]):SafeCellDecoderTests.this.RuleSet"></a>
+      <a id="safeCellDecoder[B,C](Arbitrary[B],Arbitrary[C]):RuleSet"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">safeCellDecoder</span><span class="tparams">[<span name="B">B</span>, <span name="C">C</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="tabulate.laws.discipline.SafeCellDecoderTests.safeCellDecoder.B">B</span>]</span>, <span name="arg1">arg1: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="tabulate.laws.discipline.SafeCellDecoderTests.safeCellDecoder.C">C</span>]</span>)</span><span class="result">: <a href="#RuleSetextendsAnyRef" class="extmbr" name="tabulate.laws.discipline.CellCodecTests.RuleSet">RuleSet</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@safeCellDecoder[B,C](implicitevidence$1:org.scalacheck.Arbitrary[B],implicitevidence$2:org.scalacheck.Arbitrary[C]):SafeCellDecoderTests.this.RuleSet" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SafeCellDecoderTests.html" class="extype" name="tabulate.laws.discipline.SafeCellDecoderTests">SafeCellDecoderTests</a></dd></dl></div>
+    </li><li name="tabulate.laws.discipline.SafeRowDecoderTests#safeRowDecoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="safeRowDecoder[B,C](implicitevidence$1:org.scalacheck.Arbitrary[B],implicitevidence$2:org.scalacheck.Arbitrary[C]):SafeRowDecoderTests.this.RuleSet"></a>
+      <a id="safeRowDecoder[B,C](Arbitrary[B],Arbitrary[C]):RuleSet"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">safeRowDecoder</span><span class="tparams">[<span name="B">B</span>, <span name="C">C</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="tabulate.laws.discipline.SafeRowDecoderTests.safeRowDecoder.B">B</span>]</span>, <span name="arg1">arg1: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="tabulate.laws.discipline.SafeRowDecoderTests.safeRowDecoder.C">C</span>]</span>)</span><span class="result">: <a href="#RuleSetextendsAnyRef" class="extmbr" name="tabulate.laws.discipline.CellCodecTests.RuleSet">RuleSet</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@safeRowDecoder[B,C](implicitevidence$1:org.scalacheck.Arbitrary[B],implicitevidence$2:org.scalacheck.Arbitrary[C]):SafeRowDecoderTests.this.RuleSet" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SafeRowDecoderTests.html" class="extype" name="tabulate.laws.discipline.SafeRowDecoderTests">SafeRowDecoderTests</a></dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
@@ -531,7 +718,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@wait():Unit" title="Permalink" target="_top">
@@ -554,7 +741,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Long" class="extype" target="_top">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
@@ -577,7 +764,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Long" class="extype" target="_top">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.CellCodecTests@wait(x$1:Long):Unit" title="Permalink" target="_top">
@@ -600,7 +787,21 @@
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="org.typelevel.discipline.Laws">
+        <div class="parent" name="tabulate.laws.discipline.CellDecoderTests">
+              <h3>Inherited from <a href="CellDecoderTests.html" class="extype" name="tabulate.laws.discipline.CellDecoderTests">CellDecoderTests</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>]</h3>
+            </div><div class="parent" name="tabulate.laws.discipline.RowDecoderTests">
+              <h3>Inherited from <a href="RowDecoderTests.html" class="extype" name="tabulate.laws.discipline.RowDecoderTests">RowDecoderTests</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>]</h3>
+            </div><div class="parent" name="tabulate.laws.discipline.SafeCellCodecTests">
+              <h3>Inherited from <a href="SafeCellCodecTests.html" class="extype" name="tabulate.laws.discipline.SafeCellCodecTests">SafeCellCodecTests</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>]</h3>
+            </div><div class="parent" name="tabulate.laws.discipline.SafeCellDecoderTests">
+              <h3>Inherited from <a href="SafeCellDecoderTests.html" class="extype" name="tabulate.laws.discipline.SafeCellDecoderTests">SafeCellDecoderTests</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>]</h3>
+            </div><div class="parent" name="tabulate.laws.discipline.SafeRowDecoderTests">
+              <h3>Inherited from <a href="SafeRowDecoderTests.html" class="extype" name="tabulate.laws.discipline.SafeRowDecoderTests">SafeRowDecoderTests</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>]</h3>
+            </div><div class="parent" name="tabulate.laws.discipline.CellEncoderTests">
+              <h3>Inherited from <a href="CellEncoderTests.html" class="extype" name="tabulate.laws.discipline.CellEncoderTests">CellEncoderTests</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>]</h3>
+            </div><div class="parent" name="tabulate.laws.discipline.RowEncoderTests">
+              <h3>Inherited from <a href="RowEncoderTests.html" class="extype" name="tabulate.laws.discipline.RowEncoderTests">RowEncoderTests</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>]</h3>
+            </div><div class="parent" name="org.typelevel.discipline.Laws">
               <h3>Inherited from <span class="extype" name="org.typelevel.discipline.Laws">Laws</span></h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>

@@ -49,7 +49,7 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/tabulate/tree/master/core/src/main/scala/tabulate/ops.scala" target="_blank">ops.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyVal">AnyVal</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -123,7 +123,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.ops$$RowDecoderOps@!=(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -140,7 +140,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.ops$$RowDecoderOps@##():Int" title="Permalink" target="_top">
@@ -157,7 +157,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.ops$$RowDecoderOps@==(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -182,6 +182,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="tabulate.ops.RowDecoderOps#fromCsvRow" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="fromCsvRow[A](implicitda:tabulate.RowDecoder[A]):tabulate.DecodeResult[A]"></a>
+      <a id="fromCsvRow[A](RowDecoder[A]):DecodeResult[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">fromCsvRow</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="da">da: <a href="RowDecoder.html" class="extype" name="tabulate.RowDecoder">RowDecoder</a>[<span class="extype" name="tabulate.ops.RowDecoderOps.fromCsvRow.A">A</span>]</span>)</span><span class="result">: <a href="DecodeResult.html" class="extype" name="tabulate.DecodeResult">DecodeResult</a>[<span class="extype" name="tabulate.ops.RowDecoderOps.fromCsvRow.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#tabulate.ops$$RowDecoderOps@fromCsvRow[A](implicitda:tabulate.RowDecoder[A]):tabulate.DecodeResult[A]" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li><li name="scala.AnyVal#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_&lt;:AnyVal]"></a>
       <a id="getClass():Class[_&lt;:AnyVal]"></a>
@@ -208,7 +225,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#tabulate.ops$$RowDecoderOps@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
@@ -216,23 +233,6 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="tabulate.ops.RowDecoderOps#parseCsvRow" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="parseCsvRow[A](implicitevidence$2:tabulate.RowDecoder[A]):tabulate.DecodeResult[A]"></a>
-      <a id="parseCsvRow[A](RowDecoder[A]):DecodeResult[A]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">parseCsvRow</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="RowDecoder.html" class="extype" name="tabulate.RowDecoder">RowDecoder</a>[<span class="extype" name="tabulate.ops.RowDecoderOps.parseCsvRow.A">A</span>]</span>)</span><span class="result">: <a href="DecodeResult.html" class="extype" name="tabulate.DecodeResult">DecodeResult</a>[<span class="extype" name="tabulate.ops.RowDecoderOps.parseCsvRow.A">A</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../index.html#tabulate.ops$$RowDecoderOps@parseCsvRow[A](implicitevidence$2:tabulate.RowDecoder[A]):tabulate.DecodeResult[A]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
     </li><li name="tabulate.ops.RowDecoderOps#row" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="row:Seq[String]"></a>
       <a id="row:Seq[String]"></a>
@@ -267,6 +267,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="tabulate.ops.RowDecoderOps#unsafeFromCsvRow" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="unsafeFromCsvRow[A](implicitda:tabulate.RowDecoder[A]):A"></a>
+      <a id="unsafeFromCsvRow[A](RowDecoder[A]):A"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unsafeFromCsvRow</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="da">da: <a href="RowDecoder.html" class="extype" name="tabulate.RowDecoder">RowDecoder</a>[<span class="extype" name="tabulate.ops.RowDecoderOps.unsafeFromCsvRow.A">A</span>]</span>)</span><span class="result">: <span class="extype" name="tabulate.ops.RowDecoderOps.unsafeFromCsvRow.A">A</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#tabulate.ops$$RowDecoderOps@unsafeFromCsvRow[A](implicitda:tabulate.RowDecoder[A]):A" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li></ol>
             </div>
 

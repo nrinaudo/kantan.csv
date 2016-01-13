@@ -67,7 +67,7 @@
         <div id="types" class="types members">
               <h3>Type Members</h3>
               <ol><li name="tabulate.laws.discipline.CellCodecTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="CellCodecTests[A]extendsLaws"></a>
+      <a id="CellCodecTests[A]extendsSafeCellCodecTests[A]withCellDecoderTests[A]"></a>
       <a id="CellCodecTests[A]:CellCodecTests[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -75,16 +75,101 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="CellCodecTests.html"><span class="name">CellCodecTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="org.typelevel.discipline.Laws">Laws</span></span>
+        <a href="CellCodecTests.html"><span class="name">CellCodecTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="SafeCellCodecTests.html" class="extype" name="tabulate.laws.discipline.SafeCellCodecTests">SafeCellCodecTests</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>] with <a href="CellDecoderTests.html" class="extype" name="tabulate.laws.discipline.CellDecoderTests">CellDecoderTests</a>[<span class="extype" name="tabulate.laws.discipline.CellCodecTests.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#tabulate.laws.discipline.package@CellCodecTests[A]extendsLaws" title="Permalink" target="_top">
+      <a href="../../../index.html#tabulate.laws.discipline.package@CellCodecTests[A]extendsSafeCellCodecTests[A]withCellDecoderTests[A]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.CellDecoderTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="CellDecoderTests[A]extendsSafeCellDecoderTests[A]withRowDecoderTests[A]"></a>
+      <a id="CellDecoderTests[A]:CellDecoderTests[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="CellDecoderTests.html"><span class="name">CellDecoderTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="SafeCellDecoderTests.html" class="extype" name="tabulate.laws.discipline.SafeCellDecoderTests">SafeCellDecoderTests</a>[<span class="extype" name="tabulate.laws.discipline.CellDecoderTests.A">A</span>] with <a href="RowDecoderTests.html" class="extype" name="tabulate.laws.discipline.RowDecoderTests">RowDecoderTests</a>[<span class="extype" name="tabulate.laws.discipline.CellDecoderTests.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@CellDecoderTests[A]extendsSafeCellDecoderTests[A]withRowDecoderTests[A]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.CellEncoderTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="CellEncoderTests[A]extendsRowEncoderTests[A]"></a>
+      <a id="CellEncoderTests[A]:CellEncoderTests[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="CellEncoderTests.html"><span class="name">CellEncoderTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="RowEncoderTests.html" class="extype" name="tabulate.laws.discipline.RowEncoderTests">RowEncoderTests</a>[<span class="extype" name="tabulate.laws.discipline.CellEncoderTests.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@CellEncoderTests[A]extendsRowEncoderTests[A]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.KnownFormatsReaderTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="KnownFormatsReaderTestsextendsLaws"></a>
+      <a id="KnownFormatsReaderTests:KnownFormatsReaderTests"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="KnownFormatsReaderTests.html"><span class="name">KnownFormatsReaderTests</span></a><span class="result"> extends <span class="extype" name="org.typelevel.discipline.Laws">Laws</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@KnownFormatsReaderTestsextendsLaws" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.ReaderEngineTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ReaderEngineTestsextendsRfcReaderTestswithSpectrumReaderTestswithKnownFormatsReaderTests"></a>
+      <a id="ReaderEngineTests:ReaderEngineTests"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="ReaderEngineTests.html"><span class="name">ReaderEngineTests</span></a><span class="result"> extends <a href="RfcReaderTests.html" class="extype" name="tabulate.laws.discipline.RfcReaderTests">RfcReaderTests</a> with <a href="SpectrumReaderTests.html" class="extype" name="tabulate.laws.discipline.SpectrumReaderTests">SpectrumReaderTests</a> with <a href="KnownFormatsReaderTests.html" class="extype" name="tabulate.laws.discipline.KnownFormatsReaderTests">KnownFormatsReaderTests</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@ReaderEngineTestsextendsRfcReaderTestswithSpectrumReaderTestswithKnownFormatsReaderTests" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.RfcReaderTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="RfcReaderTestsextendsLaws"></a>
+      <a id="RfcReaderTests:RfcReaderTests"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="RfcReaderTests.html"><span class="name">RfcReaderTests</span></a><span class="result"> extends <span class="extype" name="org.typelevel.discipline.Laws">Laws</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@RfcReaderTestsextendsLaws" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="tabulate.laws.discipline.RowCodecTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="RowCodecTests[A]extendsLaws"></a>
+      <a id="RowCodecTests[A]extendsSafeRowCodecTests[A]withRowDecoderTests[A]"></a>
       <a id="RowCodecTests[A]:RowCodecTests[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -92,10 +177,146 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="RowCodecTests.html"><span class="name">RowCodecTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="org.typelevel.discipline.Laws">Laws</span></span>
+        <a href="RowCodecTests.html"><span class="name">RowCodecTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="SafeRowCodecTests.html" class="extype" name="tabulate.laws.discipline.SafeRowCodecTests">SafeRowCodecTests</a>[<span class="extype" name="tabulate.laws.discipline.RowCodecTests.A">A</span>] with <a href="RowDecoderTests.html" class="extype" name="tabulate.laws.discipline.RowDecoderTests">RowDecoderTests</a>[<span class="extype" name="tabulate.laws.discipline.RowCodecTests.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#tabulate.laws.discipline.package@RowCodecTests[A]extendsLaws" title="Permalink" target="_top">
+      <a href="../../../index.html#tabulate.laws.discipline.package@RowCodecTests[A]extendsSafeRowCodecTests[A]withRowDecoderTests[A]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.RowDecoderTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="RowDecoderTests[A]extendsSafeRowDecoderTests[A]"></a>
+      <a id="RowDecoderTests[A]:RowDecoderTests[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="RowDecoderTests.html"><span class="name">RowDecoderTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="SafeRowDecoderTests.html" class="extype" name="tabulate.laws.discipline.SafeRowDecoderTests">SafeRowDecoderTests</a>[<span class="extype" name="tabulate.laws.discipline.RowDecoderTests.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@RowDecoderTests[A]extendsSafeRowDecoderTests[A]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.RowEncoderTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="RowEncoderTests[A]extendsLaws"></a>
+      <a id="RowEncoderTests[A]:RowEncoderTests[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="RowEncoderTests.html"><span class="name">RowEncoderTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="org.typelevel.discipline.Laws">Laws</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@RowEncoderTests[A]extendsLaws" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.SafeCellCodecTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="SafeCellCodecTests[A]extendsCellEncoderTests[A]withSafeCellDecoderTests[A]"></a>
+      <a id="SafeCellCodecTests[A]:SafeCellCodecTests[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="SafeCellCodecTests.html"><span class="name">SafeCellCodecTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="CellEncoderTests.html" class="extype" name="tabulate.laws.discipline.CellEncoderTests">CellEncoderTests</a>[<span class="extype" name="tabulate.laws.discipline.SafeCellCodecTests.A">A</span>] with <a href="SafeCellDecoderTests.html" class="extype" name="tabulate.laws.discipline.SafeCellDecoderTests">SafeCellDecoderTests</a>[<span class="extype" name="tabulate.laws.discipline.SafeCellCodecTests.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@SafeCellCodecTests[A]extendsCellEncoderTests[A]withSafeCellDecoderTests[A]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.SafeCellDecoderTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="SafeCellDecoderTests[A]extendsSafeRowDecoderTests[A]"></a>
+      <a id="SafeCellDecoderTests[A]:SafeCellDecoderTests[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="SafeCellDecoderTests.html"><span class="name">SafeCellDecoderTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="SafeRowDecoderTests.html" class="extype" name="tabulate.laws.discipline.SafeRowDecoderTests">SafeRowDecoderTests</a>[<span class="extype" name="tabulate.laws.discipline.SafeCellDecoderTests.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@SafeCellDecoderTests[A]extendsSafeRowDecoderTests[A]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.SafeRowCodecTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="SafeRowCodecTests[A]extendsRowEncoderTests[A]withSafeRowDecoderTests[A]"></a>
+      <a id="SafeRowCodecTests[A]:SafeRowCodecTests[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="SafeRowCodecTests.html"><span class="name">SafeRowCodecTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="RowEncoderTests.html" class="extype" name="tabulate.laws.discipline.RowEncoderTests">RowEncoderTests</a>[<span class="extype" name="tabulate.laws.discipline.SafeRowCodecTests.A">A</span>] with <a href="SafeRowDecoderTests.html" class="extype" name="tabulate.laws.discipline.SafeRowDecoderTests">SafeRowDecoderTests</a>[<span class="extype" name="tabulate.laws.discipline.SafeRowCodecTests.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@SafeRowCodecTests[A]extendsRowEncoderTests[A]withSafeRowDecoderTests[A]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.SafeRowDecoderTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="SafeRowDecoderTests[A]extendsLaws"></a>
+      <a id="SafeRowDecoderTests[A]:SafeRowDecoderTests[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="SafeRowDecoderTests.html"><span class="name">SafeRowDecoderTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="org.typelevel.discipline.Laws">Laws</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@SafeRowDecoderTests[A]extendsLaws" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.SpectrumReaderTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="SpectrumReaderTestsextendsLaws"></a>
+      <a id="SpectrumReaderTests:SpectrumReaderTests"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="SpectrumReaderTests.html"><span class="name">SpectrumReaderTests</span></a><span class="result"> extends <span class="extype" name="org.typelevel.discipline.Laws">Laws</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@SpectrumReaderTestsextendsLaws" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.WriterEngineTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="WriterEngineTestsextendsLaws"></a>
+      <a id="WriterEngineTests:WriterEngineTests"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="WriterEngineTests.html"><span class="name">WriterEngineTests</span></a><span class="result"> extends <span class="extype" name="org.typelevel.discipline.Laws">Laws</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@WriterEngineTestsextendsLaws" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -124,6 +345,57 @@
       </a>
     </span>
       
+    </li><li name="tabulate.laws.discipline.CellDecoderTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CellDecoderTests"></a>
+      <a id="CellDecoderTests:CellDecoderTests"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="CellDecoderTests$.html"><span class="name">CellDecoderTests</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@CellDecoderTests" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.CellEncoderTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CellEncoderTests"></a>
+      <a id="CellEncoderTests:CellEncoderTests"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="CellEncoderTests$.html"><span class="name">CellEncoderTests</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@CellEncoderTests" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.ReaderEngineTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ReaderEngineTests"></a>
+      <a id="ReaderEngineTests:ReaderEngineTests"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="ReaderEngineTests$.html"><span class="name">ReaderEngineTests</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@ReaderEngineTests" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li><li name="tabulate.laws.discipline.RowCodecTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="RowCodecTests"></a>
       <a id="RowCodecTests:RowCodecTests"></a>
@@ -137,6 +409,125 @@
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#tabulate.laws.discipline.package@RowCodecTests" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.RowDecoderTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="RowDecoderTests"></a>
+      <a id="RowDecoderTests:RowDecoderTests"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="RowDecoderTests$.html"><span class="name">RowDecoderTests</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@RowDecoderTests" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.RowEncoderTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="RowEncoderTests"></a>
+      <a id="RowEncoderTests:RowEncoderTests"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="RowEncoderTests$.html"><span class="name">RowEncoderTests</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@RowEncoderTests" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.SafeCellCodecTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SafeCellCodecTests"></a>
+      <a id="SafeCellCodecTests:SafeCellCodecTests"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="SafeCellCodecTests$.html"><span class="name">SafeCellCodecTests</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@SafeCellCodecTests" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.SafeCellDecoderTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SafeCellDecoderTests"></a>
+      <a id="SafeCellDecoderTests:SafeCellDecoderTests"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="SafeCellDecoderTests$.html"><span class="name">SafeCellDecoderTests</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@SafeCellDecoderTests" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.SafeRowCodecTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SafeRowCodecTests"></a>
+      <a id="SafeRowCodecTests:SafeRowCodecTests"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="SafeRowCodecTests$.html"><span class="name">SafeRowCodecTests</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@SafeRowCodecTests" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.SafeRowDecoderTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SafeRowDecoderTests"></a>
+      <a id="SafeRowDecoderTests:SafeRowDecoderTests"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="SafeRowDecoderTests$.html"><span class="name">SafeRowDecoderTests</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@SafeRowDecoderTests" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="tabulate.laws.discipline.WriterEngineTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="WriterEngineTests"></a>
+      <a id="WriterEngineTests:WriterEngineTests"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="WriterEngineTests$.html"><span class="name">WriterEngineTests</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#tabulate.laws.discipline.package@WriterEngineTests" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
