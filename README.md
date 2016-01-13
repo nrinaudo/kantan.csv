@@ -7,6 +7,10 @@
 
 CSV is an unfortunate part of life. This attempts to alleviate the pain somewhat by letting developers treat CSV data
 as a simple iterator.
+ 
+As much as possible, tabulate attempts to present a purely functional and safe interface to users. I've not hesitated
+to violate these principles *internally* however, when it afforded better performances. This approach appears to be
+[somewhat successful](https://nrinaudo.github.io/tabulate/tut/benchmarks.html).
 
 Documentation and tutorials are available on the [companion site](https://nrinaudo.github.io/tabulate/), but for those
 looking for a few quick examples:
