@@ -37,10 +37,251 @@ object RowEncoder extends LowPriorityRowEncoders {
   def encoder1[C, A0: CellEncoder](f: C => A0)(implicit a0: CellEncoder[A0]): RowEncoder[C] =
     RowEncoder(a => List(a0.encode(f(a))))
 
-  def encoder2[C, A0: CellEncoder, A1: CellEncoder](f: C => (A0, A1))(i0: Int, i1: Int)
+  def encoder2[C, A0: CellEncoder, A1: CellEncoder](f: C => (A0, A1))
                                                    (implicit a0: CellEncoder[A0], a1: CellEncoder[A1]): RowEncoder[C] =
     RowEncoder { a =>
       val e = f(a)
+      List(a0.encode(e._1), a1.encode(e._2))
+    }
+
+  def encoder3[C, A0, A1, A2](f: C => (A0, A1, A2))
+                             (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2]): RowEncoder[C] =
+    RowEncoder { a =>
+      val e = f(a)
+      List(a0.encode(e._1), a1.encode(e._2), a2.encode(e._3))
+    }
+
+  def encoder4[C, A0, A1, A2, A3]
+  (f: C => (A0, A1, A2, A3)) (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2],
+                              a3: CellEncoder[A3]): RowEncoder[C] =
+    RowEncoder { a =>
+      val e = f(a)
+      List(a0.encode(e._1), a1.encode(e._2), a2.encode(e._3), a3.encode(e._4))
+    }
+
+  def encoder5[C, A0, A1, A2, A3, A4]
+  (f: C => (A0, A1, A2, A3, A4))
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4]):
+  RowEncoder[C] = RowEncoder { a =>
+    val e = f(a)
+    List(a0.encode(e._1),a1.encode(e._2), a2.encode(e._3), a3.encode(e._4), a4.encode(e._5))
+  }
+
+  def encoder6[C, A0, A1, A2, A3, A4, A5]
+  (f: C => (A0, A1, A2, A3, A4, A5))
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5]): RowEncoder[C] =
+    RowEncoder { a =>
+      val e = f(a)
+      List(a0.encode(e._1), a1.encode(e._2), a2.encode(e._3), a3.encode(e._4), a4.encode(e._5), a5.encode(e._6))
+    }
+
+  def encoder7[C, A0, A1, A2, A3, A4, A5, A6]
+  (f: C => (A0, A1, A2, A3, A4, A5, A6))
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6]): RowEncoder[C] =
+    RowEncoder { a =>
+      val e = f(a)
+      List(a0.encode(e._1), a1.encode(e._2), a2.encode(e._3), a3.encode(e._4), a4.encode(e._5), a5.encode(e._6),
+        a6.encode(e._7))
+    }
+
+  def encoder8[C, A0, A1, A2, A3, A4, A5, A6, A7]
+  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7))
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7]): RowEncoder[C] =
+    RowEncoder { a =>
+      val e = f(a)
+      List(a0.encode(e._1), a1.encode(e._2), a2.encode(e._3), a3.encode(e._4), a4.encode(e._5), a5.encode(e._6),
+        a6.encode(e._7), a7.encode(e._8))
+    }
+
+  def encoder9[C, A0, A1, A2, A3, A4, A5, A6, A7, A8]
+  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8))
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8]): RowEncoder[C] =
+    RowEncoder { a =>
+      val e = f(a)
+      List(a0.encode(e._1), a1.encode(e._2), a2.encode(e._3), a3.encode(e._4), a4.encode(e._5), a5.encode(e._6),
+        a6.encode(e._7), a7.encode(e._8), a8.encode(e._9))
+    }
+
+  def encoder10[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9]
+  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9))
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9]): RowEncoder[C] =
+    RowEncoder { a =>
+      val e = f(a)
+      List(a0.encode(e._1), a1.encode(e._2), a2.encode(e._3), a3.encode(e._4), a4.encode(e._5), a5.encode(e._6),
+        a6.encode(e._7), a7.encode(e._8), a8.encode(e._9), a9.encode(e._10))
+    }
+
+  def encoder11[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10]
+  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10))
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10]): RowEncoder[C] =
+    RowEncoder { a =>
+      val e = f(a)
+      List(a0.encode(e._1), a1.encode(e._2), a2.encode(e._3), a3.encode(e._4), a4.encode(e._5), a5.encode(e._6),
+        a6.encode(e._7), a7.encode(e._8), a8.encode(e._9), a9.encode(e._10), a10.encode(e._11))
+    }
+
+  def encoder12[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11]
+  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11))
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11]): RowEncoder[C] =
+    RowEncoder { a =>
+      val e = f(a)
+      List(a0.encode(e._1), a1.encode(e._2), a2.encode(e._3), a3.encode(e._4), a4.encode(e._5), a5.encode(e._6),
+        a6.encode(e._7), a7.encode(e._8), a8.encode(e._9), a9.encode(e._10), a10.encode(e._11), a11.encode(e._12))
+    }
+
+  def encoder13[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12]
+  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12))
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12]): RowEncoder[C] =
+    RowEncoder { a =>
+      val e = f(a)
+      List(a0.encode(e._1), a1.encode(e._2), a2.encode(e._3), a3.encode(e._4), a4.encode(e._5), a5.encode(e._6),
+        a6.encode(e._7), a7.encode(e._8), a8.encode(e._9), a9.encode(e._10), a10.encode(e._11), a11.encode(e._12),
+        a12.encode(e._13))
+    }
+
+  def encoder14[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13]
+  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13))
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13]): RowEncoder[C] =
+    RowEncoder { a =>
+      val e = f(a)
+      List(a0.encode(e._1), a1.encode(e._2), a2.encode(e._3), a3.encode(e._4), a4.encode(e._5), a5.encode(e._6),
+        a6.encode(e._7), a7.encode(e._8), a8.encode(e._9), a9.encode(e._10), a10.encode(e._11), a11.encode(e._12),
+        a12.encode(e._13), a13.encode(e._14))
+    }
+
+  def encoder15[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14]
+  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14))
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14]):
+  RowEncoder[C] =
+    RowEncoder { a =>
+      val e = f(a)
+      List(a0.encode(e._1), a1.encode(e._2), a2.encode(e._3), a3.encode(e._4), a4.encode(e._5), a5.encode(e._6),
+        a6.encode(e._7), a7.encode(e._8), a8.encode(e._9), a9.encode(e._10), a10.encode(e._11), a11.encode(e._12),
+        a12.encode(e._13), a13.encode(e._14), a14.encode(e._15))
+    }
+
+  def encoder16[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15]
+  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15))
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
+   a15: CellEncoder[A15]): RowEncoder[C] =
+    RowEncoder { a =>
+      val e = f(a)
+      List(a0.encode(e._1), a1.encode(e._2), a2.encode(e._3), a3.encode(e._4), a4.encode(e._5), a5.encode(e._6),
+        a6.encode(e._7), a7.encode(e._8), a8.encode(e._9), a9.encode(e._10), a10.encode(e._11), a11.encode(e._12),
+        a12.encode(e._13), a13.encode(e._14), a14.encode(e._15), a15.encode(e._16))
+    }
+
+  def encoder17[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16]
+  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16))
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
+   a15: CellEncoder[A15], a16: CellEncoder[A16]): RowEncoder[C] =
+    RowEncoder { a =>
+      val e = f(a)
+      List(a0.encode(e._1), a1.encode(e._2), a2.encode(e._3), a3.encode(e._4), a4.encode(e._5), a5.encode(e._6),
+        a6.encode(e._7), a7.encode(e._8), a8.encode(e._9), a9.encode(e._10), a10.encode(e._11), a11.encode(e._12),
+        a12.encode(e._13), a13.encode(e._14), a14.encode(e._15), a15.encode(e._16), a16.encode(e._17))
+    }
+
+  def encoder18[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17]
+  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17))
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
+   a15: CellEncoder[A15], a16: CellEncoder[A16], a17: CellEncoder[A17]): RowEncoder[C] =
+    RowEncoder { a =>
+      val e = f(a)
+      List(a0.encode(e._1), a1.encode(e._2), a2.encode(e._3), a3.encode(e._4), a4.encode(e._5), a5.encode(e._6),
+        a6.encode(e._7), a7.encode(e._8), a8.encode(e._9), a9.encode(e._10), a10.encode(e._11), a11.encode(e._12),
+        a12.encode(e._13), a13.encode(e._14), a14.encode(e._15), a15.encode(e._16), a16.encode(e._17),
+        a17.encode(e._18))
+    }
+
+  def encoder19[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18]
+  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18))
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
+   a15: CellEncoder[A15], a16: CellEncoder[A16], a17: CellEncoder[A17], a18: CellEncoder[A18]): RowEncoder[C] =
+    RowEncoder { a =>
+      val e = f(a)
+      List(a0.encode(e._1), a1.encode(e._2), a2.encode(e._3), a3.encode(e._4), a4.encode(e._5), a5.encode(e._6),
+        a6.encode(e._7), a7.encode(e._8), a8.encode(e._9), a9.encode(e._10), a10.encode(e._11), a11.encode(e._12),
+        a12.encode(e._13), a13.encode(e._14), a14.encode(e._15), a15.encode(e._16), a16.encode(e._17),
+        a17.encode(e._18), a18.encode(e._19))
+    }
+
+  def encoder20[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19]
+  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19))
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
+   a15: CellEncoder[A15], a16: CellEncoder[A16], a17: CellEncoder[A17], a18: CellEncoder[A18], a19: CellEncoder[A19]):
+  RowEncoder[C] =
+    RowEncoder { a =>
+      val e = f(a)
+      List(a0.encode(e._1), a1.encode(e._2), a2.encode(e._3), a3.encode(e._4), a4.encode(e._5), a5.encode(e._6),
+        a6.encode(e._7), a7.encode(e._8), a8.encode(e._9), a9.encode(e._10), a10.encode(e._11), a11.encode(e._12),
+        a12.encode(e._13), a13.encode(e._14), a14.encode(e._15), a15.encode(e._16), a16.encode(e._17),
+        a17.encode(e._18), a18.encode(e._19), a19.encode(e._20))
+    }
+
+  def encoder21[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20]
+  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20))
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
+   a15: CellEncoder[A15], a16: CellEncoder[A16], a17: CellEncoder[A17], a18: CellEncoder[A18], a19: CellEncoder[A19],
+   a20: CellEncoder[A20]): RowEncoder[C] =
+    RowEncoder { a =>
+      val e = f(a)
+      List(a0.encode(e._1), a1.encode(e._2), a2.encode(e._3), a3.encode(e._4), a4.encode(e._5), a5.encode(e._6),
+        a6.encode(e._7), a7.encode(e._8), a8.encode(e._9), a9.encode(e._10), a10.encode(e._11), a11.encode(e._12),
+        a12.encode(e._13), a13.encode(e._14), a14.encode(e._15), a15.encode(e._16), a16.encode(e._17),
+        a17.encode(e._18), a18.encode(e._19), a19.encode(e._20), a20.encode(e._21))
+    }
+
+  def encoder22[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21]
+  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21))
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
+   a15: CellEncoder[A15], a16: CellEncoder[A16], a17: CellEncoder[A17], a18: CellEncoder[A18], a19: CellEncoder[A19],
+   a20: CellEncoder[A20], a21: CellEncoder[A21]): RowEncoder[C] =
+    RowEncoder { a =>
+      val e = f(a)
+      List(a0.encode(e._1), a1.encode(e._2), a2.encode(e._3), a3.encode(e._4), a4.encode(e._5), a5.encode(e._6),
+        a6.encode(e._7), a7.encode(e._8), a8.encode(e._9), a9.encode(e._10), a10.encode(e._11), a11.encode(e._12),
+        a12.encode(e._13), a13.encode(e._14), a14.encode(e._15), a15.encode(e._16), a16.encode(e._17),
+        a17.encode(e._18), a18.encode(e._19), a19.encode(e._20), a20.encode(e._21), a21.encode(e._22))
+    }
+
+
+  def caseEncoder1[C, A0: CellEncoder](f: C => Option[A0]): RowEncoder[C] =
+    encoder1(f andThen (_.get))
+
+  def caseEncoder2[C, A0, A1](f: C => Option[(A0, A1)])(i0: Int, i1: Int)
+                             (implicit a0: CellEncoder[A0], a1: CellEncoder[A1]): RowEncoder[C] =
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](2)
 
       dest(i0) = a0.encode(e._1)
@@ -48,11 +289,12 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest.toSeq
     }
 
-  def encoder3[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder]
-  (f: C => (A0, A1, A2))(i0: Int, i1: Int, i2: Int)
+  def caseEncoder3[C, A0, A1, A2]
+  (f: C => Option[(A0, A1, A2)])
+  (i0: Int, i1: Int, i2: Int)
   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2]): RowEncoder[C] =
-    RowEncoder { a =>
-      val e = f(a)
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](3)
 
       dest(i0) = a0.encode(e._1)
@@ -61,11 +303,12 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest.toSeq
     }
 
-  def encoder4[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder]
-  (f: C => (A0, A1, A2, A3))(i0: Int, i1: Int, i2: Int, i3: Int)
+  def caseEncoder4[C, A0, A1, A2, A3]
+  (f: C => Option[(A0, A1, A2, A3)])
+  (i0: Int, i1: Int, i2: Int, i3: Int)
   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3]): RowEncoder[C] =
-    RowEncoder { a =>
-      val e = f(a)
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](4)
 
       dest(i0) = a0.encode(e._1)
@@ -75,13 +318,12 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest.toSeq
     }
 
-  def encoder5[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder]
-  (f: C => (A0, A1, A2, A3, A4))
+  def caseEncoder5[C, A0, A1, A2, A3, A4]
+  (f: C => Option[(A0, A1, A2, A3, A4)])
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int)
-  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4]):
-  RowEncoder[C] =
-    RowEncoder { a =>
-      val e = f(a)
+  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4]): RowEncoder[C] =
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](5)
 
       dest(i0) = a0.encode(e._1)
@@ -92,13 +334,13 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest.toSeq
     }
 
-  def encoder6[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder]
-  (f: C => (A0, A1, A2, A3, A4, A5))
+  def caseEncoder6[C, A0, A1, A2, A3, A4, A5]
+  (f: C => Option[(A0, A1, A2, A3, A4, A5)])
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int)
   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
    a5: CellEncoder[A5]): RowEncoder[C] =
-    RowEncoder { a =>
-      val e = f(a)
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](6)
 
       dest(i0) = a0.encode(e._1)
@@ -110,14 +352,13 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest.toSeq
     }
 
-  def encoder7[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder]
-  (f: C => (A0, A1, A2, A3, A4, A5, A6))
+  def caseEncoder7[C, A0, A1, A2, A3, A4, A5, A6]
+  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6)])
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int)
   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
    a5: CellEncoder[A5], a6: CellEncoder[A6]): RowEncoder[C] =
-    RowEncoder { a =>
-      val e = f(a)
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](7)
 
       dest(i0) = a0.encode(e._1)
@@ -130,14 +371,13 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest.toSeq
     }
 
-  def encoder8[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder]
-  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7))
+  def caseEncoder8[C, A0, A1, A2, A3, A4, A5, A6, A7]
+  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7)])
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int)
   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
    a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7]): RowEncoder[C] =
-    RowEncoder { a =>
-      val e = f(a)
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](8)
 
       dest(i0) = a0.encode(e._1)
@@ -151,14 +391,13 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest.toSeq
     }
 
-  def encoder9[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder]
-  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8))
+  def caseEncoder9[C, A0, A1, A2, A3, A4, A5, A6, A7, A8]
+  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8)])
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int)
   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
    a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8]): RowEncoder[C] =
-    RowEncoder { a =>
-      val e = f(a)
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](9)
 
       dest(i0) = a0.encode(e._1)
@@ -173,14 +412,13 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest.toSeq
     }
 
-  def encoder10[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder]
-  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9))
+  def caseEncoder10[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9]
+  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9)])
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int)
   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
    a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9]): RowEncoder[C] =
-    RowEncoder { a =>
-      val e = f(a)
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](10)
 
       dest(i0) = a0.encode(e._1)
@@ -196,15 +434,14 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest.toSeq
     }
 
-  def encoder11[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder]
-  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10))
+  def caseEncoder11[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10]
+  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10)])
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int)
   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
    a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
    a10: CellEncoder[A10]): RowEncoder[C] =
-    RowEncoder { a =>
-      val e = f(a)
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](11)
 
       dest(i0) = a0.encode(e._1)
@@ -221,15 +458,14 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest.toSeq
     }
 
-  def encoder12[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder]
-  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11))
+  def caseEncoder12[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11]
+  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11)])
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int)
   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
    a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
    a10: CellEncoder[A10], a11: CellEncoder[A11]): RowEncoder[C] =
-    RowEncoder { a =>
-      val e = f(a)
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](12)
 
       dest(i0) = a0.encode(e._1)
@@ -247,16 +483,15 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest.toSeq
     }
 
-  def encoder13[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder]
-  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12))
+  def caseEncoder13[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12]
+  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12)])
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int)
   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
    a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
    a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12]): RowEncoder[C] =
-    RowEncoder { a =>
-      val e = f(a)
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](13)
 
       dest(i0) = a0.encode(e._1)
@@ -275,17 +510,15 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest.toSeq
     }
 
-  def encoder14[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
-  A13: CellEncoder]
-  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13))
+  def caseEncoder14[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13]
+  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13)])
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int)
   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
    a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
    a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13]): RowEncoder[C] =
-    RowEncoder { a =>
-      val e = f(a)
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](14)
 
       dest(i0) = a0.encode(e._1)
@@ -305,18 +538,15 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest.toSeq
     }
 
-  def encoder15[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
-  A13: CellEncoder, A14: CellEncoder]
-  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14))
+  def caseEncoder15[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14]
+  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14)])
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int)
   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
    a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
-   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14]):
-  RowEncoder[C] =
-    RowEncoder { a =>
-      val e = f(a)
+   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14]): RowEncoder[C] =
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](15)
 
       dest(i0) = a0.encode(e._1)
@@ -337,18 +567,16 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest.toSeq
     }
 
-  def encoder16[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
-  A13: CellEncoder, A14: CellEncoder, A15: CellEncoder]
-  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15))
+  def caseEncoder16[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15]
+  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15)])
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int)
   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
    a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
    a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
    a15: CellEncoder[A15]): RowEncoder[C] =
-    RowEncoder { a =>
-      val e = f(a)
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](16)
 
       dest(i0) = a0.encode(e._1)
@@ -370,18 +598,16 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest.toSeq
     }
 
-  def encoder17[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
-  A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder]
-  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16))
+  def caseEncoder17[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16]
+  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16)])
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int)
   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
    a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
    a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
    a15: CellEncoder[A15], a16: CellEncoder[A16]): RowEncoder[C] =
-    RowEncoder { a =>
-      val e = f(a)
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](17)
 
       dest(i0) = a0.encode(e._1)
@@ -404,18 +630,16 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest.toSeq
     }
 
-  def encoder18[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
-  A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder, A17: CellEncoder]
-  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17))
+  def caseEncoder18[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17]
+  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17)])
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int)
   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
    a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
    a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
    a15: CellEncoder[A15], a16: CellEncoder[A16], a17: CellEncoder[A17]): RowEncoder[C] =
-    RowEncoder { a =>
-      val e = f(a)
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](18)
 
       dest(i0) = a0.encode(e._1)
@@ -439,18 +663,16 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest.toSeq
     }
 
-  def encoder19[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
-  A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder, A17: CellEncoder, A18: CellEncoder]
-  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18))
+  def caseEncoder19[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18]
+  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18)])
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int)
   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
    a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
    a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
    a15: CellEncoder[A15], a16: CellEncoder[A16], a17: CellEncoder[A17], a18: CellEncoder[A18]): RowEncoder[C] =
-    RowEncoder { a =>
-      val e = f(a)
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](19)
 
       dest(i0) = a0.encode(e._1)
@@ -475,20 +697,16 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest.toSeq
     }
 
-  def encoder20[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
-  A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder, A17: CellEncoder, A18: CellEncoder,
-  A19: CellEncoder]
-  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19))
+  def caseEncoder20[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19]
+  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19)])
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int)
   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
    a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
    a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
-   a15: CellEncoder[A15], a16: CellEncoder[A16], a17: CellEncoder[A17], a18: CellEncoder[A18], a19: CellEncoder[A19]):
-  RowEncoder[C] =
-    RowEncoder { a =>
-      val e = f(a)
+   a15: CellEncoder[A15], a16: CellEncoder[A16], a17: CellEncoder[A17], a18: CellEncoder[A18], a19: CellEncoder[A19]): RowEncoder[C] =
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](20)
 
       dest(i0) = a0.encode(e._1)
@@ -514,11 +732,8 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest.toSeq
     }
 
-  def encoder21[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
-  A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder, A17: CellEncoder, A18: CellEncoder, A19: CellEncoder,
-  A20: CellEncoder]
-  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20))
+  def caseEncoder21[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20]
+  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20)])
   (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
    i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int, i20: Int)
   (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
@@ -526,8 +741,8 @@ object RowEncoder extends LowPriorityRowEncoders {
    a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
    a15: CellEncoder[A15], a16: CellEncoder[A16], a17: CellEncoder[A17], a18: CellEncoder[A18], a19: CellEncoder[A19],
    a20: CellEncoder[A20]): RowEncoder[C] =
-    RowEncoder { a =>
-      val e = f(a)
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](21)
 
       dest(i0) = a0.encode(e._1)
@@ -551,24 +766,20 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest(i18) = a18.encode(e._19)
       dest(i19) = a19.encode(e._20)
       dest(i20) = a20.encode(e._21)
-
       dest.toSeq
     }
 
-  def encoder22[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
-  A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder, A17: CellEncoder, A18: CellEncoder, A19: CellEncoder,
-  A20: CellEncoder, A21: CellEncoder]
-  (f: C => (A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21))
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int, i20: Int, i21: Int)
-  (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
-   a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
-   a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
-   a15: CellEncoder[A15], a16: CellEncoder[A16], a17: CellEncoder[A17], a18: CellEncoder[A18], a19: CellEncoder[A19],
-   a20: CellEncoder[A20], a21: CellEncoder[A21]): RowEncoder[C] =
-    RowEncoder { a =>
-      val e = f(a)
+  def caseEncoder22[C, A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20,
+  A21](f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21)])
+      (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
+       i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int, i18: Int, i19: Int, i20: Int, i21: Int)
+      (implicit a0: CellEncoder[A0], a1: CellEncoder[A1], a2: CellEncoder[A2], a3: CellEncoder[A3], a4: CellEncoder[A4],
+       a5: CellEncoder[A5], a6: CellEncoder[A6], a7: CellEncoder[A7], a8: CellEncoder[A8], a9: CellEncoder[A9],
+       a10: CellEncoder[A10], a11: CellEncoder[A11], a12: CellEncoder[A12], a13: CellEncoder[A13], a14: CellEncoder[A14],
+       a15: CellEncoder[A15], a16: CellEncoder[A16], a17: CellEncoder[A17], a18: CellEncoder[A18], a19: CellEncoder[A19],
+       a20: CellEncoder[A20], a21: CellEncoder[A21]): RowEncoder[C] =
+    RowEncoder { c =>
+      val e = f(c).get
       val dest = new Array[String](22)
 
       dest(i0) = a0.encode(e._1)
@@ -596,260 +807,105 @@ object RowEncoder extends LowPriorityRowEncoders {
       dest.toSeq
     }
 
-
-  def caseEncoder1[C, A0: CellEncoder](f: C => Option[A0]): RowEncoder[C] =
-    encoder1(f andThen (_.get))
-
-  def caseEncoder2[C, A0: CellEncoder, A1: CellEncoder](f: C => Option[(A0, A1)])(i0: Int, i1: Int): RowEncoder[C] =
-    encoder2(f andThen (_.get))(i0, i1)
-
-  def caseEncoder3[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder](f: C => Option[(A0, A1, A2)])
-                                                                        (i0: Int, i1: Int, i2: Int): RowEncoder[C] =
-    encoder3(f andThen(_.get))(i0, i1, i2)
-
-  def caseEncoder4[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder]
-  (f: C => Option[(A0, A1, A2, A3)])(i0: Int, i1: Int, i2: Int, i3: Int): RowEncoder[C] =
-    encoder4(f andThen(_.get))(i0, i1, i2, i3)
-
-  def caseEncoder5[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder]
-  (f: C => Option[(A0, A1, A2, A3, A4)])
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int): RowEncoder[C] =
-    encoder5(f andThen(_.get))(i0, i1, i2, i3, i4)
-
-  def caseEncoder6[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder]
-  (f: C => Option[(A0, A1, A2, A3, A4, A5)])
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): RowEncoder[C] =
-    encoder6(f andThen(_.get))(i0, i1, i2, i3, i4, i5)
-
-  def caseEncoder7[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder]
-  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6)])
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): RowEncoder[C] =
-    encoder7(f andThen(_.get))(i0, i1, i2, i3, i4, i5, i6)
-
-  def caseEncoder8[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder]
-  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7)])
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int): RowEncoder[C] =
-    encoder8(f andThen(_.get))(i0, i1, i2, i3, i4, i5, i6, i7)
-
-  def caseEncoder9[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder]
-  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8)])
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int): RowEncoder[C] =
-    encoder9(f andThen(_.get))(i0, i1, i2, i3, i4, i5, i6, i7, i8)
-
-  def caseEncoder10[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder]
-  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9)])
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int): RowEncoder[C] =
-    encoder10(f andThen(_.get))(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9)
-
-  def caseEncoder11[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder]
-  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10)])
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int): RowEncoder[C] =
-    encoder11(f andThen(_.get))(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10)
-
-  def caseEncoder12[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder]
-  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11)])
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int):
-  RowEncoder[C] =
-    encoder12(f andThen(_.get))(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11)
-
-  def caseEncoder13[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder]
-  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12)])
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int): RowEncoder[C] =
-    encoder13(f andThen(_.get))(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12)
-
-  def caseEncoder14[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
-  A13: CellEncoder]
-  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13)])
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int, i13: Int): RowEncoder[C] =
-    encoder14(f andThen(_.get))(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13)
-
-  def caseEncoder15[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
-  A13: CellEncoder, A14: CellEncoder]
-  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14)])
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int, i13: Int, i14: Int): RowEncoder[C] =
-    encoder15(f andThen(_.get))(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14)
-
-  def caseEncoder16[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
-  A13: CellEncoder, A14: CellEncoder, A15: CellEncoder]
-  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15)])
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int, i13: Int, i14: Int, i15: Int): RowEncoder[C] =
-    encoder16(f andThen(_.get))(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15)
-
-  def caseEncoder17[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
-  A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder]
-  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16)])
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int): RowEncoder[C] =
-    encoder17(f andThen(_.get))(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16)
-
-  def caseEncoder18[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
-  A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder, A17: CellEncoder]
-  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17)])
-  (i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int, i9: Int, i10: Int, i11: Int,
-   i12: Int, i13: Int, i14: Int, i15: Int, i16: Int, i17: Int): RowEncoder[C] =
-    encoder18(f andThen(_.get))(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17)
-
-  def caseEncoder19[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
-  A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder, A17: CellEncoder, A18: CellEncoder]
-  (f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14,
-    A15, A16, A17, A18)])(i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int,
-                          i9: Int, i10: Int, i11: Int, i12: Int, i13: Int, i14: Int, i15: Int, i16: Int,
-                          i17: Int, i18: Int): RowEncoder[C] =
-    encoder19(f andThen(_.get))(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18)
-
-  def caseEncoder20[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
-  A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder, A17: CellEncoder, A18: CellEncoder,
-  A19: CellEncoder](f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14,
-    A15, A16, A17, A18, A19)])(i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int,
-                               i9: Int, i10: Int, i11: Int, i12: Int, i13: Int, i14: Int, i15: Int, i16: Int,
-                               i17: Int, i18: Int, i19: Int): RowEncoder[C] =
-    encoder20(f andThen(_.get))(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19)
-
-  def caseEncoder21[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
-  A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder, A17: CellEncoder, A18: CellEncoder, A19: CellEncoder,
-  A20: CellEncoder](f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14,
-    A15, A16, A17, A18, A19, A20)])(i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int,
-                                    i9: Int, i10: Int, i11: Int, i12: Int, i13: Int, i14: Int, i15: Int, i16: Int,
-                                    i17: Int, i18: Int, i19: Int, i20: Int): RowEncoder[C] =
-    encoder21(f andThen(_.get))(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20)
-
-  def caseEncoder22[C, A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
-  A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
-  A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder, A17: CellEncoder, A18: CellEncoder, A19: CellEncoder,
-  A20: CellEncoder, A21: CellEncoder](f: C => Option[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14,
-    A15, A16, A17, A18, A19, A20, A21)])(i0: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int, i7: Int, i8: Int,
-                                         i9: Int, i10: Int, i11: Int, i12: Int, i13: Int, i14: Int, i15: Int, i16: Int,
-                                         i17: Int, i18: Int, i19: Int, i20: Int, i21: Int): RowEncoder[C] =
-    encoder22(f andThen(_.get))(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21)
-
   implicit def tuple1[A0: CellEncoder]: RowEncoder[Tuple1[A0]] =
     encoder1(_._1)
 
   implicit def tuple2[A0: CellEncoder, A1: CellEncoder]: RowEncoder[(A0, A1)] =
-    encoder2(identity[(A0, A1)])(0, 1)
+    encoder2(identity)
 
   implicit def tuple3[A0: CellEncoder, A1: CellEncoder, A2: CellEncoder]: RowEncoder[(A0, A1, A2)] =
-    encoder3(identity[(A0, A1, A2)])(0, 1, 2)
+    encoder3(identity)
 
   implicit def tuple4[A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder]: RowEncoder[(A0, A1, A2, A3)] =
-    encoder4(identity[(A0, A1, A2, A3)])(0, 1, 2, 3)
+    encoder4(identity)
 
   implicit def tuple5[A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder]:
-  RowEncoder[(A0, A1, A2, A3, A4)] = encoder5(identity[(A0, A1, A2, A3, A4)])(0, 1, 2, 3, 4)
+  RowEncoder[(A0, A1, A2, A3, A4)] = encoder5(identity)
 
   implicit def tuple6[A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder]:
   RowEncoder[(A0, A1, A2, A3, A4, A5)] =
-    encoder6(identity[(A0, A1, A2, A3, A4, A5)])(0, 1, 2, 3, 4, 5)
+    encoder6(identity)
 
   implicit def tuple7[A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder]: RowEncoder[(A0, A1, A2, A3, A4, A5, A6)] =
-    encoder7(identity[(A0, A1, A2, A3, A4, A5, A6)])(0, 1, 2, 3, 4, 5, 6)
+    encoder7(identity)
 
   implicit def tuple8[A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder]: RowEncoder[(A0, A1, A2, A3, A4, A5, A6, A7)] =
-    encoder8(identity[(A0, A1, A2, A3, A4, A5, A6, A7)])(0, 1, 2, 3, 4, 5, 6, 7)
+    encoder8(identity)
 
   implicit def tuple9[A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder]: RowEncoder[(A0, A1, A2, A3, A4, A5, A6, A7, A8)] =
-    encoder9(identity[(A0, A1, A2, A3, A4, A5, A6, A7, A8)])(0, 1, 2, 3, 4, 5, 6, 7, 8)
+    encoder9(identity)
 
   implicit def tuple10[A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder]: RowEncoder[(A0, A1, A2, A3, A4, A5, A6, A7, A8,
-    A9)] = encoder10(identity[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9)])(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+    A9)] = encoder10(identity)
 
   implicit def tuple11[A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder]: RowEncoder[(A0, A1, A2, A3, A4, A5,
     A6, A7, A8, A9, A10)] =
-    encoder11(identity[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10)])(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    encoder11(identity)
 
   implicit def tuple12[A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder]: RowEncoder[(A0,
     A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11)] =
-    encoder12(identity[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11)])(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
+    encoder12(identity)
 
   implicit def tuple13[A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder]:
   RowEncoder[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12)] =
-    encoder13(identity[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12)])(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-      12)
+    encoder13(identity)
 
   implicit def tuple14[A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
   A13: CellEncoder]: RowEncoder[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13)] =
-    encoder14(identity[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13)])(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-      11, 12, 13)
+    encoder14(identity)
 
   implicit def tuple15[A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
   A13: CellEncoder, A14: CellEncoder]: RowEncoder[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14)] =
-    encoder15(identity[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14)])(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
-      10, 11, 12, 13, 14)
+    encoder15(identity)
 
   implicit def tuple16[A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
   A13: CellEncoder, A14: CellEncoder, A15: CellEncoder]: RowEncoder[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12,
-    A13, A14, A15)] = encoder16(identity[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15)])(0, 1,
-    2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
+    A13, A14, A15)] = encoder16(identity)
 
   implicit def tuple17[A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
   A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder]: RowEncoder[(A0, A1, A2, A3, A4, A5, A6, A7, A8,
     A9, A10, A11, A12, A13, A14, A15, A16)] =
-    encoder17(identity[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16)])(0, 1, 2, 3, 4, 5,
-      6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
+    encoder17(identity)
 
   implicit def tuple18[A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
   A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder, A17: CellEncoder]: RowEncoder[(A0, A1, A2, A3, A4,
     A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17)] =
-    encoder18(identity[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17)])(0, 1, 2, 3, 4,
-      5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17)
+    encoder18(identity)
 
   implicit def tuple19[A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
   A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder, A17: CellEncoder, A18: CellEncoder]: RowEncoder[(A0,
     A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18)] =
-    encoder19(identity[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18)])(0, 1, 2,
-      3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18)
+    encoder19(identity)
 
   implicit def tuple20[A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
   A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder, A17: CellEncoder, A18: CellEncoder,
   A19: CellEncoder]: RowEncoder[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18,
-    A19)] = encoder20(identity[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18,
-    A19)])(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19)
+    A19)] = encoder20(identity)
 
   implicit def tuple21[A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
   A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder, A17: CellEncoder, A18: CellEncoder, A19: CellEncoder,
   A20: CellEncoder]: RowEncoder[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19,
-    A20)] = encoder21(identity[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18,
-    A19, A20)])(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
+    A20)] = encoder21(identity)
 
   implicit def tuple22[A0: CellEncoder, A1: CellEncoder, A2: CellEncoder, A3: CellEncoder, A4: CellEncoder, A5: CellEncoder,
   A6: CellEncoder, A7: CellEncoder, A8: CellEncoder, A9: CellEncoder, A10: CellEncoder, A11: CellEncoder, A12: CellEncoder,
   A13: CellEncoder, A14: CellEncoder, A15: CellEncoder, A16: CellEncoder, A17: CellEncoder, A18: CellEncoder, A19: CellEncoder,
   A20: CellEncoder, A21: CellEncoder]: RowEncoder[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14,
     A15, A16, A17, A18, A19, A20, A21)] =
-    encoder22(identity[(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20,
-      A21)])(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21)
+    encoder22(identity)
 }
