@@ -64,15 +64,15 @@ the number, the better the results.
 
 | Library                | μs/action |
 |------------------------|-----------|
-| [commons csv]          | 59.05498  |
-| [jackson csv]          | 27.939431 |
-| [opencsv]              | 66.949113 |
-| [product collections]  | 58.448646 |
-| tabulate (commons csv) | 63.764324 |
-| tabulate (internal)    | 37.302322 |
-| tabulate (jackson csv) | 37.443351 |
-| tabulate (opencsv)     | 76.193376 |
-| [uniVocity]            | 45.873582 |
+| [commons csv]          | 56.467382 |
+| [jackson csv]          | 27.668969 |
+| [opencsv]              | 64.095436 |
+| [product collections]  | 58.995388 |
+| tabulate (commons csv) | 61.346789 |
+| tabulate (internal)    | 39.397593 |
+| tabulate (jackson csv) | 35.636525 |
+| tabulate (opencsv)     |  76.01576 |
+| [uniVocity]            |  43.54394 |
 
 A few things are worth pointing out:
 
@@ -88,15 +88,15 @@ serialized.
 
 | Library                | μs/action  |
 |------------------------|------------|
-| [commons csv]          | 29.190811  |
-| [jackson csv]          | 24.465507  |
-| [opencsv]              | 42.06396   |
-| [product collections]  | 95.016553  |
-| tabulate (commons csv) | 33.309043  |
-| tabulate (internal)    | 36.487753  |
-| tabulate (jackson csv) | 29.61176   |
-| tabulate (opencsv)     | 47.803968  |
-| [uniVocity]            | 506.966742 |
+| [commons csv]          | 28.576034  |
+| [jackson csv]          | 23.155819  |
+| [opencsv]              | 42.295281  |
+| [product collections]  | 93.461192  |
+| tabulate (commons csv) | 43.708979  |
+| tabulate (internal)    | 54.397908  |
+| tabulate (jackson csv) | 44.156299  |
+| tabulate (opencsv)     | 64.795358  |
+| [uniVocity]            | 520.251149 |
 
 The one thing I feel I must point out here is that [uniVocity]'s results are so poor, the reason has probably less to do
 with the library than how I'm using it. It's probably fair to ignore that number for the moment. As soon as I work out
