@@ -19,7 +19,8 @@ air, moon roof, loaded",4799.00
 
 A few things to note about this data:
 
-* each row is composed of various types: `Int` for the year, for example, or `Option[String]` for the description.
+* each row is composed of various types: `Int` for the year, for example, or [`Option[String]`][`Option`] for the
+  description.
 * the first row is a header and not composed of the same types as the other ones.
 * some of the more annoying corner cases of CSV are present: escaped double-quotes and multi-line rows.
 
@@ -56,7 +57,7 @@ whether or not to skip the first row.
 
 More importantly, [`asCsvReader`] takes a type parameter that describes what each row should be interpreted as. We'll
 study this mechanism in depth, but for now, an example: let's say that we want to represent each row in our list of cars
-as a `List[String]`.
+as a [`List[String]`][`List`].
 
 ```tut
 rawData.asCsvReader[List[String]](',', false)
@@ -68,7 +69,7 @@ method - you can fold on it, filter it, use it in monadic composition...
 That [`CsvReader`] contains instances of [`DecodeResult`] - a sum type that represents the result of decoding each row.
 It can correctly be thought of as a specialised version of [`Option`].
 
-Finally, the innermost type is what we requested each row to be parsed as: a `List[String]`.
+Finally, the innermost type is what we requested each row to be parsed as: a [`List[String]`][`List`].
 
 And if we were to print each row, we'd see pretty much what we'd expect:
 
@@ -76,7 +77,7 @@ And if we were to print each row, we'd see pretty much what we'd expect:
 rawData.asCsvReader[List[String]](',', false).foreach(println _)
 ```
 
-Note that you could have used any collection type instead of `List`, although not all would make sense. A `Set`, for
+Note that you could have used any collection type instead of [`List`], although not all would make sense. A `Set`, for
 instance, would not be very useful, as the order of columns matters in our example.
 
 ## Parsing into useful types
@@ -98,7 +99,7 @@ We can now call [`asCsvReader`] with a more meaningful type parameter:
 rawData.asCsvReader[CarTuple](',', false).foreach(println _)
 ```
 
-The thing that stands out is that the first row is a [`DecodeFailure`][DecodeFailure]: tabulate failed to parse it as an
+The thing that stands out is that the first row is a [`DecodeFailure`]: tabulate failed to parse it as an
 instance of `CarTuple`. That makes sense: our first row is a header and composed of different types than the others. We
 can just skip it by passing `true` to [`asCsvReader`]:
 
@@ -128,8 +129,8 @@ rawData.asCsvReader[Car](',', true).foreach(println _)
 
 
 ### The less simple case
-It's also possible to define your own decoding mechanism for case classes. The most common reason for that is your case
-class fields and CSV columns are not defined in the same order, and you need to somehow specify what goes where.
+It's also possible to define your own decoding mechanism for case classes. The most common reason for that is your 
+fields and CSV columns are not defined in the same order, and you need to somehow specify what goes where.
 
 This is much simpler than it sounds, however. First, let's redefine our `Car` case class by shuffling its fields to
 match this scenario:
@@ -140,10 +141,10 @@ case class Car(make: String, model: String, year: Int, price: Float, desc: Optio
 
 Now, adding parsing support for a row type is done by providing an implicit [`RowDecoder`]
 instance for that type. There are lots of ways to achieve that result - write one from scratch, compose on an existing
-one... but case classes are so common that a helper function is provided: `RowDecoder.decoderAAA`, where `AAA` is the
-arity of the case class for which to create a [`RowDecoder`].
+one... but case classes are so common that a helper function is provided: [`RowDecoder.decoderAAA`][`decoder5`], where
+`AAA` is the arity of the case class for which to create a [`RowDecoder`].
 
-Our `Car` case class has 5 fields, which means we must use `RowDecoder.decoder5`. The first parameter is a function that
+Our `Car` case class has 5 fields, which means we must use [`decoder5`]. The first parameter is a function that
 take a value for each field and returns an instance of the desired case class - a function that is always available as
 the `apply` method of a case class' companion object. The other 5, curried parameters are the 0-based index in a row of
 each field - `make` occurs in second position, for example, so its index is 1.
@@ -197,10 +198,12 @@ implicit val yearDecoder: CellDecoder[DateTime] = CellDecoder[Int].map(year => n
 
 If this looks a bit like magic to you, here are the keys you need to work it out:
 
-* `CellDecoder[Int]` is syntactic sugar for `CellDecoder.apply[Int]`, which returns an implicit instance for its type
-  parameter if it can find one and fails the compilation if it can't.
-* The `map` method of [`CellDecoder`] takes an `A => B` and turns a `CellDecoder[A]` into a
-  `CellDecoder[B]`.
+* `CellDecoder[Int]` is syntactic sugar for
+  [`CellDecoder.apply[Int]`]({{ site.baseurl }}/api/#tabulate.CellDecoder$@apply[A](implicitinstance:tabulate.CellDecoder[A]):tabulate.CellDecoder[A]),
+  which returns an implicit instance for its type parameter if it can find one and fails the compilation if it can't.
+* [`CellDecoder.map`]({{ site.baseurl }}/api/#tabulate.CellDecoder@map[B](f:A=>B):tabulate.CellDecoder[B]) takes an
+  [`A => B`](http://www.scala-lang.org/api/current/index.html#scala.Function1) and turns a
+  [`CellDecoder[A]`][`CellDecoder`] into a [`CellDecoder[B]`][`CellDecoder`].
   
 Armed with that new decoder, we can now parse our CSV data the way we'd expect:
 
@@ -235,7 +238,7 @@ Tabulate works by letting you iterate over your CSV data. That's the safest way 
 more than one row at any given time, you don't run the risk of running out of memory when working with abnormally large
 files.
 
-Sometimes however, you know your data is small enough to fit in memory and you'd really like to have it as a `List`,
+Sometimes however, you know your data is small enough to fit in memory and you'd really like to have it as a [`List`],
 say, or whatever other collection strikes your fancy.
 
 The [`readCsv`] method serves just that purpose. It works exactly the same way as [`asCsvReader`],
@@ -287,3 +290,5 @@ Tabulate comes with a number of default implementations of [`CsvInput`] which ca
 [`asUnsafeCsvReader`]:{{ site.baseurl }}/api/index.html#tabulate.CsvInput@unsafeReader[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:tabulate.RowDecoder[A],implicitengine:tabulate.engine.ReaderEngine):tabulate.CsvReader[tabulate.DecodeResult[A]]
 [shapeless]:https://github.com/milessabin/shapeless
 [`DateTime`]:http://www.joda.org/joda-time/apidocs/index.html
+[`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List
+[`decoder5`]:{{ site.baseurl }}/api/#tabulate.RowDecoder$@decoder5[A0,A1,A2,A3,A4,R](f:(A0,A1,A2,A3,A4)=>R)(i0:Int,i1:Int,i2:Int,i3:Int,i4:Int)(implicita0:tabulate.CellDecoder[A0],implicita1:tabulate.CellDecoder[A1],implicita2:tabulate.CellDecoder[A2],implicita3:tabulate.CellDecoder[A3],implicita4:tabulate.CellDecoder[A4]):tabulate.RowDecoder[R]

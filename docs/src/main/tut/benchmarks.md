@@ -20,8 +20,9 @@ In order to be included in this benchmark, a library must be:
 * reasonably easy to integrate
 * able to both encode and decode some fairly straightforward, RFC compliant test data.
 
-The first two are purely subjective, but I have actual tests to back the third condition, and have disqualified some
-libraries that I could not get to pass the tests.
+The first two are purely subjective, but I have actual
+[tests](https://github.com/nrinaudo/tabulate/tree/master/benchmark/src/test/scala/tabulate/benchmark) to back the third
+condition, and have disqualified some libraries that I could not get to pass them.
 
 ### opencsv
 [opencsv] is an exception to these rules: it does not actually pass the RFC compliance tests. The misbehaviour is so
@@ -34,15 +35,14 @@ although the results were so bad that I believe they might be my fault rather th
 another go for a later benchmark and try to see if I can work around the issues.
 
 ### uniVocity
-uniVocity was almost disqualified from the benchmarks on the grounds that it was performing so much worse than the
-others - we're talking up to two orders of magnitude worse.
+uniVocity was almost disqualified from the benchmarks because initial performances were atrocious.
 
 I've been in touch with someone from their team though, and he helped me identify what default settings I needed
 to turn off for reasonable performances - it turns out that [uniVocity]'s defaults are great for huge CSV files and slow
-IO, but not that good for small, in memory data sets.
+IO, but not that good for small, in-memory data sets.
 
 Moreover, it must be said that using [uniVocity]'s preferred callback-based API yields significantly better results than
-the iterator-like one. I'm specifically benchmarking iterator-like access however, and as such, am not using [uniVocity]
+the iterator-like one. I'm specifically benchmarking iterator-like access however, and as such not using [uniVocity]
 in its optimised-for use case. That is to say, the fact that it's not a clear winner in my benchmarks does not
 invalidate [their own results](https://github.com/uniVocity/csv-parsers-comparison).
 
@@ -79,7 +79,7 @@ A few things are worth pointing out:
 * [jackson csv] is frighteningly fast.
 * [uniVocity] is being used in a context for which it's known to have suboptimal performances, and still has one of the
   better results.
-* tabulate has pretty decent parsing performances, all things considered.
+* tabulate's internal parser has pretty decent parsing performances, all things considered.
 
 
 ## Writing
@@ -98,9 +98,9 @@ serialized.
 | tabulate (opencsv)     | 47.803968  |
 | [uniVocity]            | 506.966742 |
 
-The one thing I feel I must point out here is that [uniVocity]'s results are so poor, the reason has probably more to
-do with how I'm using it than the library itself. I think it's fair to ignore that number for the moment. As soon as I
-work out what I'm doing wrong, I'll amend the results.
+The one thing I feel I must point out here is that [uniVocity]'s results are so poor, the reason has probably less to do
+with the library than how I'm using it. It's probably fair to ignore that number for the moment. As soon as I work out
+what I'm doing wrong, I'll amend the results.
 
 [commons csv]:https://commons.apache.org/proper/commons-csv/
 [jackson csv]:https://github.com/FasterXML/jackson-dataformat-csv

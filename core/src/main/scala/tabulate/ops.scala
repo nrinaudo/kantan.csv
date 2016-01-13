@@ -21,7 +21,6 @@ object ops extends CsvInput.ToCsvInputOps
   implicit class TraversableOps[A: RowEncoder](val rows: Traversable[A]) {
     def asCsv(sep: Char, header: Seq[String] = Seq.empty)(implicit engine: WriterEngine): String = {
       val out = new StringWriter()
-
       CsvWriter(out, sep, header).write(rows).close()
       out.toString
     }
