@@ -289,6 +289,6 @@ Tabulate comes with a number of default implementations of [`CsvInput`] which ca
 [`asCsvReader`]:{{ site.baseurl }}/api/index.html#tabulate.CsvInput@reader[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:tabulate.RowDecoder[A],implicitengine:tabulate.engine.ReaderEngine):tabulate.CsvReader[tabulate.DecodeResult[A]]
 [`asUnsafeCsvReader`]:{{ site.baseurl }}/api/index.html#tabulate.CsvInput@unsafeReader[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:tabulate.RowDecoder[A],implicitengine:tabulate.engine.ReaderEngine):tabulate.CsvReader[tabulate.DecodeResult[A]]
 [shapeless]:https://github.com/milessabin/shapeless
-[`DateTime`]:http://www.joda.org/joda-time/apidocs/index.html
+[`DateTime`]:http://www.joda.org/joda-time/apidocs/org/joda/time/DateTime.html
 [`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List
 [`decoder5`]:{{ site.baseurl }}/api/#tabulate.RowDecoder$@decoder5[A0,A1,A2,A3,A4,R](f:(A0,A1,A2,A3,A4)=>R)(i0:Int,i1:Int,i2:Int,i3:Int,i4:Int)(implicita0:tabulate.CellDecoder[A0],implicita1:tabulate.CellDecoder[A1],implicita2:tabulate.CellDecoder[A2],implicita3:tabulate.CellDecoder[A3],implicita4:tabulate.CellDecoder[A4]):tabulate.RowDecoder[R]
