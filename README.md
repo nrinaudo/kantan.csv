@@ -12,18 +12,21 @@ Documentation and tutorials are available on the [companion site](https://nrinau
 looking for a few quick examples:
 
 ```scala
+import java.io.File
+import tabulate._                // All tabulate types.
+import tabulate.ops._            // Enriches types with useful methods.
+import tabulate.generic.codecs._ // Automatic derivation of codecs for case classes.
+
 // Reading from a file: returns an Iterator[(Int, Int)]
-new File("points.csv").asUnsafeCsvRows[(Int, Int)](',', false)
+new File("points.csv").asUnsafeCsvReader[(Int, Int)](',', false)
 
 // "Complex" types derivation: the second column is either an int, or a string that might be empty.
-new File("dodgy.csv").asUnsafeCsvRows[(Int, Either[Int, Option[String]])](',', false)
+new File("dodgy.csv").asUnsafeCsvReader[(Int, Either[Int, Option[String]])](',', false)
 
-// Case class and its codec (encoder + decoder)
 case class Point2D(x: Int, y: Int)
-implicit val p2dCodec = RowCodec.caseCodec2(Point2D.apply, Point2D.unapply)(0, 1)
 
-// Parsing as an Iterator[Point2D]
-new java.net.URL("http://someserver.com/points.csv").asUnsafeCsvRows[Point2D](',', true)
+// Parsing the content of a remote URL as a List[Point2D].
+new java.net.URL("http://someserver.com/points.csv").readCsv[List, Point2D](',', true)
 
 // Writing to a CSV file.
 new File("output.csv").asCsvWriter[Point2D](',')
