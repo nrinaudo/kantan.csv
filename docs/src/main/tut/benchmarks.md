@@ -8,7 +8,7 @@ title:  "Benchmarks"
 | Library               | Version |
 |-----------------------|---------|
 | [commons csv]         |     1.2 |
-| [jackson csv]         |   2.6.4 |
+| [jackson csv]         |   2.7.0 |
 | [opencsv]             |     3.6 |
 | [product collections] |   1.4.2 |
 | [scala csv]           |   1.2.2 |
