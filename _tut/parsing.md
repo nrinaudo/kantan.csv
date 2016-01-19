@@ -61,7 +61,7 @@ as a [`List[String]`][`List`].
 
 ```scala
 scala> rawData.asCsvReader[List[String]](',', false)
-res0: tabulate.CsvReader[tabulate.DecodeResult[List[String]]] = tabulate.CsvReader$$anon$3@21f39e80
+res0: tabulate.CsvReader[tabulate.DecodeResult[List[String]]] = tabulate.CsvReader$$anon$3@3bd8d5d2
 ```
 
 That return type is interesting. First, the outermost type: [`CsvReader`]. That's essentially an iterator with a `close`
