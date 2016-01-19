@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit
 
 import org.apache.commons.csv.CSVFormat
 import org.openjdk.jmh.annotations._
+import tabulate.{RowEncoder, RowDecoder}
 import tabulate.engine.WriterEngine
 import tabulate.engine.jackson.JacksonCsv
 import tabulate.ops._
@@ -39,6 +40,9 @@ class Encoding {
 
   @Benchmark
   def univocity = Encoding.univocity(rawData)
+
+  @Benchmark
+  def scalaCsv = Encoding.scalaCsv(rawData)
 }
 
 object Encoding {
@@ -92,6 +96,18 @@ object Encoding {
     write(data) { a =>
       writer.writeRow(a:_*)
     }
+    writer.close()
+    out.close()
+    out.toString
+  }
+
+  def scalaCsv(data: List[CsvEntry]) = {
+    import com.github.tototoshi.csv._
+    val encoder = implicitly[RowEncoder[CsvEntry]]
+
+    val out = new StringWriter()
+    val writer = CSVWriter.open(out)
+    writer.writeAll(data.map(encoder.encode))
     writer.close()
     out.close()
     out.toString
