@@ -46,4 +46,8 @@ class DecodingTests extends FunSuite {
   test("univocity") {
     assert(decoding.univocity == rawData)
   }
+
+  test("scala-csv") {
+    assert(decoding.scalaCsv == rawData)
+  }
 }

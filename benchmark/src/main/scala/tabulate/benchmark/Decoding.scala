@@ -4,7 +4,7 @@ import java.io.StringReader
 import java.util.concurrent.TimeUnit
 
 import org.openjdk.jmh.annotations._
-import tabulate.CsvInput
+import tabulate.{RowDecoder, CsvInput}
 import tabulate.engine.ReaderEngine
 import tabulate.engine.jackson.JacksonCsv
 
@@ -38,6 +38,9 @@ class Decoding {
 
   @Benchmark
   def univocity = Decoding.univocity(strData)
+
+  @Benchmark
+  def scalaCsv = Decoding.scalaCsv(strData)
 }
 
 
@@ -101,5 +104,11 @@ object Decoding {
     val parser = new com.univocity.parsers.csv.CsvParser(univocitySettings)
     parser.beginParsing(new StringReader(str))
     new CsvIterator(parser)(_.parseNext()).toList
+  }
+
+  def scalaCsv(str: String) = {
+    import com.github.tototoshi.csv._
+    val decoder = implicitly[RowDecoder[CsvEntry]]
+    CSVReader.open(new StringReader(str)).iterator.map(r => decoder.decode(r).get).toList
   }
 }

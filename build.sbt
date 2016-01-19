@@ -20,6 +20,7 @@ val commonsCsvVersion          = "1.2"
 val scalacheckShapelessVersion = "1.12.1"
 val jodaVersion                = "2.7"
 val jodaConvertVersion         = "1.7"
+val scalaCsvVersion            = "1.2.2"
 
 lazy val buildSettings = Seq(
   organization       := "com.nrinaudo",
@@ -217,6 +218,7 @@ lazy val benchmark = project
   .settings(libraryDependencies ++= Seq(
     "com.github.marklister"            %% "product-collections"    % productCollectionVersion,
     "com.univocity"                    %  "univocity-parsers"      % univocityVersion,
+    "com.github.tototoshi"             %% "scala-csv"              % scalaCsvVersion,
     "org.scalatest"                    %% "scalatest"              % scalatestVersion % "test"
   ))
   .dependsOn(core, jackson, opencsv, commons)
