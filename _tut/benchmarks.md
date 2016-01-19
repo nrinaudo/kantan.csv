@@ -7,12 +7,13 @@ title:  "Benchmarks"
 
 | Library               | Version |
 |-----------------------|---------|
-| [commons csv]         | 1.2     |
-| [jackson csv]         | 2.6.4   |
-| [opencsv]             | 3.6     |
-| [product collections] | 1.4.2   |
-| [uniVocity]           | 1.5.6   |
-| tabulate              | 0.1.7   |
+| [commons csv]         |     1.2 |
+| [jackson csv]         |   2.6.4 |
+| [opencsv]             |     3.6 |
+| [product collections] |   1.4.2 |
+| [scala csv]           |   1.2.2 |
+| tabulate              |   0.1.7 |
+| [uniVocity]           |   1.5.6 |
 
 In order to be included in this benchmark, a library must be:
 
@@ -64,15 +65,16 @@ the number, the better the results.
 
 | Library                | μs/action |
 |------------------------|-----------|
-| [commons csv]          | 56.467382 |
-| [jackson csv]          | 27.668969 |
-| [opencsv]              | 64.095436 |
-| [product collections]  | 58.995388 |
-| tabulate (commons csv) | 61.346789 |
-| tabulate (internal)    | 39.397593 |
-| tabulate (jackson csv) | 35.636525 |
-| tabulate (opencsv)     |  76.01576 |
-| [uniVocity]            |  43.54394 |
+| [commons csv]          |     57.82 |
+| [jackson csv]          |     26.94 |
+| [opencsv]              |     63.97 |
+| [product collections]  |     57.20 |
+| [scala csv]            |    157.07 |
+| tabulate (commons csv) |     61.00 |
+| tabulate (internal)    |     37.98 |
+| tabulate (jackson csv) |     35.24 |
+| tabulate (opencsv)     |     73.80 |
+| [uniVocity]            |     43.19 |
 
 A few things are worth pointing out:
 
@@ -86,17 +88,18 @@ A few things are worth pointing out:
 Writing is benchmarked in a symmetric fashion to reading: the same data is used, but instead of being parsed, it's being
 serialized.
 
-| Library                | μs/action  |
-|------------------------|------------|
-| [commons csv]          | 28.576034  |
-| [jackson csv]          | 23.155819  |
-| [opencsv]              | 42.295281  |
-| [product collections]  | 93.461192  |
-| tabulate (commons csv) | 43.708979  |
-| tabulate (internal)    | 54.397908  |
-| tabulate (jackson csv) | 44.156299  |
-| tabulate (opencsv)     | 64.795358  |
-| [uniVocity]            | 520.251149 |
+| Library                | μs/action |
+|------------------------|-----------|
+| [commons csv]          |     27.88 |
+| [jackson csv]          |     23.33 |
+| [opencsv]              |     41.64 |
+| [product collections]  |     90.55 |
+| [scala csv]            |    260.84 |
+| tabulate (commons csv) |     42.50 |
+| tabulate (internal)    |     53.10 |
+| tabulate (jackson csv) |     43.74 |
+| tabulate (opencsv)     |     61.88 |
+| [uniVocity]            |    514.86 |
 
 The one thing I feel I must point out here is that [uniVocity]'s results are so poor, the reason has probably less to do
 with the library than how I'm using it. It's probably fair to ignore that number for the moment. As soon as I work out
@@ -105,5 +108,6 @@ what I'm doing wrong, I'll amend the results.
 [commons csv]:https://commons.apache.org/proper/commons-csv/
 [jackson csv]:https://github.com/FasterXML/jackson-dataformat-csv
 [opencsv]:http://opencsv.sourceforge.net
+[scala csv]:https://github.com/tototoshi/scala-csv
 [uniVocity]:https://github.com/uniVocity/uniVocity-parsers
 [product collections]:https://github.com/marklister/product-collections
