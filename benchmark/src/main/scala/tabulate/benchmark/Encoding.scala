@@ -103,11 +103,12 @@ object Encoding {
 
   def scalaCsv(data: List[CsvEntry]) = {
     import com.github.tototoshi.csv._
-    val encoder = implicitly[RowEncoder[CsvEntry]]
 
     val out = new StringWriter()
     val writer = CSVWriter.open(out)
-    writer.writeAll(data.map(encoder.encode))
+    data.foreach { row =>
+      writer.writeRow(List(row._1.toString, row._2.toString, row._3.toString, row._4.toString))
+    }
     writer.close()
     out.close()
     out.toString

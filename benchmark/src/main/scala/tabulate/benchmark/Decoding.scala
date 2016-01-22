@@ -108,7 +108,6 @@ object Decoding {
 
   def scalaCsv(str: String) = {
     import com.github.tototoshi.csv._
-    val decoder = implicitly[RowDecoder[CsvEntry]]
-    CSVReader.open(new StringReader(str)).iterator.map(r => decoder.decode(r).get).toList
+    CSVReader.open(new StringReader(str)).iterator.map(r => (r(0).toInt, r(1), r(2).toBoolean, r(3).toFloat)).toList
   }
 }
