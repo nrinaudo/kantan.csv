@@ -1,8 +1,5 @@
 package tabulate
 
-import simulacrum.noop
-import tabulate.DecodeResult.DecodeFailure
-
 /** Combines [[CellDecoder]] and [[CellEncoder]].
   *
   * Instance for types that already have a [[CellDecoder]] and [[CellEncoder]] are derived automatically.

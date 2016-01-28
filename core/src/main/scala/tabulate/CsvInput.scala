@@ -16,7 +16,7 @@ import scala.io.Codec
   *
   * See the [[CsvInput$ companion object]] for default implementations and construction methods.
   */
-@typeclass trait CsvInput[S] { self =>
+@typeclass trait CsvInput[-S] { self =>
   /** Turns the specified `S` into a `Reader`.
     *
     * Other methods in this trait all rely on this to open and parse CSV data.
@@ -91,10 +91,10 @@ object CsvInput extends LowPriorityCsvInputs {
     }
 
   /** Turns any `java.io.Reader` into a source of CSV data. */
-  implicit def reader[R <: Reader]: CsvInput[R] = CsvInput(r => r)
+  implicit def reader: CsvInput[Reader] = CsvInput(r => r)
 
   /** Turns any `java.io.InputStream` into a source of CSV data. */
-  implicit def inputStream[I <: InputStream](implicit codec: Codec): CsvInput[I] =
+  implicit def inputStream(implicit codec: Codec): CsvInput[InputStream] =
     reader.contramap(i => new InputStreamReader(i, codec.charSet))
   /** Turns any `java.io.File` into a source of CSV data. */
   implicit def file(implicit codec: Codec): CsvInput[File] = inputStream.contramap(f => new FileInputStream(f))

@@ -7,7 +7,7 @@ import tabulate.engine.WriterEngine
 
 import scala.io.Codec
 
-@typeclass trait CsvOutput[S] { self =>
+@typeclass trait CsvOutput[-S] { self =>
   @noop
   def open(s: S): Writer
 
@@ -19,10 +19,8 @@ import scala.io.Codec
   def contramap[T](f: T => S): CsvOutput[T] = CsvOutput(t => self.open(f(t)))
 
   @op("writeCsv")
-  def write[A: RowEncoder](out: S, rows: Traversable[A], sep: Char, header: Seq[String] = Seq.empty): S = {
+  def write[A: RowEncoder](out: S, rows: Traversable[A], sep: Char, header: Seq[String] = Seq.empty): Unit =
     writer(out, sep, header).write(rows).close()
-    out
-  }
 }
 
 @export.imports[CsvOutput]
@@ -33,8 +31,9 @@ object CsvOutput extends LowPriorityCsvOutputs {
     override def open(s: A): Writer = f(s)
   }
 
-  implicit def writer[W <: Writer]: CsvOutput[W] = CsvOutput(w => w)
+  implicit def writer: CsvOutput[Writer] = CsvOutput(w => w)
 
-  implicit def outputStream[O <: OutputStream](implicit codec: Codec): CsvOutput[O] = writer.contramap(o => new BufferedWriter(new OutputStreamWriter(o, codec.charSet)))
+  implicit def outputStream(implicit codec: Codec): CsvOutput[OutputStream] =
+    writer.contramap(o => new BufferedWriter(new OutputStreamWriter(o, codec.charSet)))
   implicit def file(implicit codec: Codec): CsvOutput[File] = outputStream.contramap(f => new FileOutputStream(f))
 }
