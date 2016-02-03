@@ -10,6 +10,7 @@ import org.typelevel.discipline.scalatest.Discipline
 import cats.std.int._
 import tabulate.{DecodeResult, RowDecoder}
 import tabulate.laws.discipline.equality
+import eqs._
 
 class RowDecoderTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   implicit def rowDecoderEq[A: Eq]: Eq[RowDecoder[A]] = new Eq[RowDecoder[A]] {

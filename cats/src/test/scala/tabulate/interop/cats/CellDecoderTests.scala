@@ -9,6 +9,7 @@ import org.typelevel.discipline.scalatest.Discipline
 import cats.std.int._
 import tabulate.{DecodeResult, CellDecoder}
 import tabulate.laws.discipline.equality
+import eqs._
 
 class CellDecoderTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   implicit def cellDecoderEq[A: Eq]: Eq[CellDecoder[A]] = new Eq[CellDecoder[A]] {
