@@ -3,7 +3,7 @@ import com.typesafe.sbt.SbtSite.SiteKeys._
 import spray.boilerplate.BoilerplatePlugin._
 import UnidocKeys._
 
-val catsVersion                = "0.4.0"
+val catsVersion                = "0.4.1"
 val exportHookVersion          = "1.1.0"
 val simulacrumVersion          = "0.6.1"
 val macroParadiseVersion       = "2.1.0"
