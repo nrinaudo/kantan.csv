@@ -1,0 +1,15 @@
+package tabulate
+
+trait GeneratedRowCodecs {
+  def codec1[C, A1: CellCodec](f: A1 => C, g: C => A1): RowCodec[C] =
+    RowCodec.combine(RowDecoder.decoder1(f)(0), RowEncoder.encoder1(g))
+  [2..#def codec1[C, [#A1: CellCodec#]](f: ([#A1#]) => C, g: C => ([#A1#]))([#i1: Int#]): RowCodec[C] =
+    RowCodec.combine(RowDecoder.decoder1(f)([#i1#]), RowEncoder.encoder1(g))#
+  ]
+
+  def caseCodec1[C, A1: CellCodec](f: A1 => C, g: C => Option[A1]): RowCodec[C] =
+    RowCodec.combine(RowDecoder.decoder1(f)(0), RowEncoder.caseEncoder1(g))
+  [2..#def caseCodec1[C, [#A1: CellCodec#]](f: ([#A1#]) => C, g: C => Option[Tuple1[[#A1#]]])([#i1: Int#]): RowCodec[C] =
+    RowCodec.combine(RowDecoder.decoder1(f)([#i1#]), RowEncoder.caseEncoder1(g)([#i1#]))#
+  ]
+}

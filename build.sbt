@@ -1,5 +1,6 @@
 import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
 import com.typesafe.sbt.SbtSite.SiteKeys._
+import spray.boilerplate.BoilerplatePlugin._
 import UnidocKeys._
 
 val catsVersion                = "0.4.0"
@@ -54,7 +55,7 @@ lazy val baseSettings = Seq(
   ),
   coverageExcludedPackages := "tabulate\\.laws\\..*",
   incOptions         := incOptions.value.withNameHashing(true)
-)
+) ++ Boilerplate.settings
 
 lazy val noPublishSettings = Seq(
   publish         := (),
