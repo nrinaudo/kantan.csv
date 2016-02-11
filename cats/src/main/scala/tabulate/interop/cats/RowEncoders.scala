@@ -9,12 +9,12 @@ import tabulate.{CellEncoder, RowEncoder}
 object RowEncoders {
   @export(Orphan)
   implicit def xorRowEncoder[A, B](implicit ea: RowEncoder[A], eb: RowEncoder[B]): RowEncoder[Xor[A, B]] =
-    RowEncoder(xab => xab match {
-      case Xor.Left(a)  => ea.encode(a)
-      case Xor.Right(b) => eb.encode(b)
+    RowEncoder(xab ⇒ xab match {
+      case Xor.Left(a)  ⇒ ea.encode(a)
+      case Xor.Right(b) ⇒ eb.encode(b)
     })
 
   @export(Orphan)
   implicit def foldableRowEncoder[A, F[_]](implicit ea: CellEncoder[A], F: Foldable[F]): RowEncoder[F[A]] =
-    RowEncoder(as => F.foldLeft(as, Seq.newBuilder[String])((acc, a) => acc += ea.encode(a)).result())
+    RowEncoder(as ⇒ F.foldLeft(as, Seq.newBuilder[String])((acc, a) ⇒ acc += ea.encode(a)).result())
 }

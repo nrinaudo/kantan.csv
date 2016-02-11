@@ -9,9 +9,9 @@ trait ReaderEngine {
 }
 
 object ReaderEngine {
-  def apply(f: (Reader, Char) => CsvReader[DecodeResult[Seq[String]]]): ReaderEngine = new ReaderEngine {
+  def apply(f: (Reader, Char) ⇒ CsvReader[DecodeResult[Seq[String]]]): ReaderEngine = new ReaderEngine {
     override def readerFor(reader: Reader, separator: Char): CsvReader[DecodeResult[Seq[String]]] = f(reader, separator)
   }
 
-  implicit val internal: ReaderEngine = ReaderEngine((reader, sep) => new InternalReader(reader, sep))
+  implicit val internal: ReaderEngine = ReaderEngine((reader, sep) ⇒ new InternalReader(reader, sep))
 }

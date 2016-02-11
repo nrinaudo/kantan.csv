@@ -34,12 +34,12 @@ trait RfcReaderLaws {
   // - RFC 4180: 2.4 ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def leadingWhitespace(csv: List[List[Cell]]): Boolean = {
-    val spaced = csv.map(_.map(_.map(s => " \t" + s)))
+    val spaced = csv.map(_.map(_.map(s ⇒ " \t" + s)))
     equals(cellsToCsv(spaced), spaced)
   }
 
   def trailingWhitespace(csv: List[List[Cell]]): Boolean = {
-    val spaced = csv.map(_.map(_.map(s => s + " \t")))
+    val spaced = csv.map(_.map(_.map(s ⇒ s + " \t")))
     equals(cellsToCsv(spaced), spaced)
   }
 
@@ -49,7 +49,7 @@ trait RfcReaderLaws {
   // - RFC 4180: 2.5 ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def unnecessaryDoubleQuotes(csv: List[List[Cell.NonEscaped]]): Boolean =
-    equals(valsToCsv(csv.map(_.map(v => "\"" + v.value + "\""))), csv)
+    equals(valsToCsv(csv.map(_.map(v ⇒ "\"" + v.value + "\""))), csv)
 
   def unescapedDoubleQuotes(csv: List[List[Cell.NonEscaped]]): Boolean = {
     // Note that we trim here to make sure we don't have end up with whitespace followed by a double-quote: that'd be

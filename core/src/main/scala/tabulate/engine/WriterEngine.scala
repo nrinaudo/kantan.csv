@@ -9,9 +9,9 @@ trait WriterEngine {
 }
 
 object WriterEngine {
-  def apply(f: (Writer, Char) => CsvWriter[Seq[String]]): WriterEngine = new WriterEngine {
+  def apply(f: (Writer, Char) ⇒ CsvWriter[Seq[String]]): WriterEngine = new WriterEngine {
     override def writerFor(writer: Writer, separator: Char): CsvWriter[Seq[String]] = f(writer, separator)
   }
-  implicit val internal: WriterEngine = WriterEngine((writer, sep) => new InternalWriter(writer, sep))
+  implicit val internal: WriterEngine = WriterEngine((writer, sep) ⇒ new InternalWriter(writer, sep))
 }
 

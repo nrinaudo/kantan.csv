@@ -9,13 +9,13 @@ trait CellCodecTests[A] extends SafeCellCodecTests[A] with CellDecoderTests[A] {
   def laws: CellCodecLaws[A]
 
   override implicit def arbExpectedRow = arbitrary.arbExpectedRowFromCell(arbExpectedCell)
-  override implicit def arbIllegalRow = arbitrary.illegal(arbIllegalCell.arbitrary.map(s => Seq(s.value)))
+  override implicit def arbIllegalRow = arbitrary.illegal(arbIllegalCell.arbitrary.map(s ⇒ Seq(s.value)))
 
   def cellCodec[B: Arbitrary, C: Arbitrary]: RuleSet = new RuleSet {
     def name = "cellCodec"
     def bases = Nil
     def parents = Seq(cellEncoder[B, C], cellDecoder[B, C])
-    def props = Seq("round trip" -> forAll(laws.roundTrip _))
+    def props = Seq("round trip" → forAll(laws.roundTrip _))
   }
 }
 

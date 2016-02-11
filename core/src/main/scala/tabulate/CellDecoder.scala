@@ -16,7 +16,7 @@ import tabulate.DecodeResult.DecodeFailure
   *
   * This can be remedied simply by writing the following:
   * {{{
-  *   implicit val dateDecoder = CellDecoder(s => DecodeResult(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s)))
+  *   implicit val dateDecoder = CellDecoder(s ⇒ DecodeResult(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s)))
   * }}}
   *
   * See the [[CellDecoder$ companion object]] for default implementations and construction methods.
@@ -51,10 +51,10 @@ import tabulate.DecodeResult.DecodeFailure
     * This allows developers to adapt existing instances of [[CellDecoder]] rather than write one from scratch.
     */
   @noop
-  def map[B](f: A => B): CellDecoder[B] = CellDecoder(s => decode(s).map(f))
+  def map[B](f: A ⇒ B): CellDecoder[B] = CellDecoder(s ⇒ decode(s).map(f))
 
   @noop
-  def flatMap[B](f: A => CellDecoder[B]): CellDecoder[B] = CellDecoder(s => decode(s).flatMap(a => f(a).decode(s)))
+  def flatMap[B](f: A ⇒ CellDecoder[B]): CellDecoder[B] = CellDecoder(s ⇒ decode(s).flatMap(a ⇒ f(a).decode(s)))
 }
 
 /** Low priority implicit decoders. */
@@ -67,25 +67,25 @@ trait LowPriorityCellDecoders
   * priority.
   *
   * These default implementations can also be useful when writing more complex instances: if you need to write a
-  * `CellDecoder[B]` and have both a `CellDecoder[A]` and a `A => B`, you need just use [[CellDecoder.map]] to create
+  * `CellDecoder[B]` and have both a `CellDecoder[A]` and a `A ⇒ B`, you need just use [[CellDecoder.map]] to create
   * your implementation.
   */
 object CellDecoder extends LowPriorityCellDecoders {
   /** Creates a new instance of [[CellDecoder]] that uses the specified function to parse data. */
-  def apply[A](f: String => DecodeResult[A]): CellDecoder[A] = new CellDecoder[A] {
+  def apply[A](f: String ⇒ DecodeResult[A]): CellDecoder[A] = new CellDecoder[A] {
     override def decode(a: String) = f(a)
   }
 
-  def fromUnsafe[A](f: String => A): CellDecoder[A] = new CellDecoder[A] {
+  def fromUnsafe[A](f: String ⇒ A): CellDecoder[A] = new CellDecoder[A] {
     override def unsafeDecode(s: String) = f(s)
     override def unsafeDecode(ss: Seq[String], index: Int) = f(ss(index))
     override def decode(s: String) = DecodeResult(f(s))
   }
 
   /** Turns a cell into a `String` value. */
-  implicit val string: CellDecoder[String]     = CellDecoder(s => DecodeResult.success(s))
+  implicit val string: CellDecoder[String]     = CellDecoder(s ⇒ DecodeResult.success(s))
   /** Turns a cell into a `Char` value. */
-  implicit val char:   CellDecoder[Char]       = CellDecoder(s => if(s.length == 1) DecodeResult.success(s(0)) else DecodeResult.decodeFailure)
+  implicit val char:   CellDecoder[Char]       = CellDecoder(s ⇒ if(s.length == 1) DecodeResult.success(s(0)) else DecodeResult.decodeFailure)
   /** Turns a cell into an `Int` value. */
   implicit val int   : CellDecoder[Int]        = CellDecoder.fromUnsafe(_.toInt)
   /** Turns a cell into a `Float` value. */
@@ -111,7 +111,7 @@ object CellDecoder extends LowPriorityCellDecoders {
     *
     * Any non-empty string will map to `Some`, the empty string to `None`.
     */
-  implicit def opt[A](implicit da: CellDecoder[A]): CellDecoder[Option[A]] = CellDecoder { s =>
+  implicit def opt[A](implicit da: CellDecoder[A]): CellDecoder[Option[A]] = CellDecoder { s ⇒
     if(s.isEmpty) DecodeResult.success(None)
     else          da.decode(s).map(Option.apply)
   }
@@ -122,7 +122,7 @@ object CellDecoder extends LowPriorityCellDecoders {
     * fails as well, [[DecodeResult.DecodeFailure]] will be returned.
     */
   implicit def either[A, B](implicit da: CellDecoder[A], db: CellDecoder[B]): CellDecoder[Either[A, B]] =
-    CellDecoder { s => da.decode(s).map(a => Left(a): Either[A, B])
-      .orElse(db.decode(s).map(b => Right(b): Either[A, B]))
+    CellDecoder { s ⇒ da.decode(s).map(a ⇒ Left(a): Either[A, B])
+      .orElse(db.decode(s).map(b ⇒ Right(b): Either[A, B]))
     }
 }

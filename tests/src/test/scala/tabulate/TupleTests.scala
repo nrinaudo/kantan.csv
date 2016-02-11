@@ -65,5 +65,5 @@ class TupleTests extends FunSuite with GeneratorDrivenPropertyChecks with Discip
 }
 
 object TupleTests {
-  implicit def illegalTuple[A]: Arbitrary[IllegalRow[A]] = illegal(Gen.alphaChar.map(s => Seq(s.toString)))
+  implicit def illegalTuple[A]: Arbitrary[IllegalRow[A]] = illegal(Gen.alphaChar.map(s ⇒ Seq(s.toString)))
 }

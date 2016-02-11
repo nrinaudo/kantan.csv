@@ -76,27 +76,27 @@ private[engine] class InternalReader(val data: Reader, val separator: Char) exte
   @tailrec
   final def cellStart(c: Char): InternalReader.CellStart = c match {
     // Separator: empty cell, but a next one is coming.
-    case `separator` =>
+    case `separator` ⇒
       endCell()
       InternalReader.CSeparator
 
     // CR: empty cell, end of row.
-    case '\r' =>
+    case '\r' ⇒
       endCell()
       InternalReader.CCR
 
     // LF: empty cell, end of row.
-    case '\n'        =>
+    case '\n'        ⇒
       endCell()
       InternalReader.CLF
 
     // ": start of escaped cell.
-    case '"'         =>
+    case '"'         ⇒
       mark = index
       InternalReader.Escaped
 
     // whitespace: unsure, either whitespace before an escaped cell or part of a raw cell.
-    case _ if c.isWhitespace =>
+    case _ if c.isWhitespace ⇒
       if(hasNextChar) cellStart(nextChar())
       else {
         endCell()
@@ -104,37 +104,37 @@ private[engine] class InternalReader(val data: Reader, val separator: Char) exte
       }
 
     // Anything else: raw cell.
-    case _ =>
+    case _ ⇒
       InternalReader.Raw
   }
 
   @inline
   final def nextCell(c: Char): InternalReader.Break = cellStart(c) match {
-    case InternalReader.Raw         => rawCell
-    case InternalReader.Escaped     => escapedCell(false)
-    case InternalReader.Finished(r) => r
+    case InternalReader.Raw         ⇒ rawCell
+    case InternalReader.Escaped     ⇒ escapedCell(false)
+    case InternalReader.Finished(r) ⇒ r
   }
 
   @tailrec
   final def rawCell: InternalReader.Break =
     if(hasNextChar) nextChar() match {
       // Separator: cell finished.
-      case `separator` =>
+      case `separator` ⇒
         endCell()
         InternalReader.Separator
 
       // CR: cell finished, we need to check for a trailing \n
-      case '\r' =>
+      case '\r' ⇒
         endCell()
         InternalReader.CR
 
       // LF: cell finished.
-      case '\n' =>
+      case '\n' ⇒
         endCell()
         InternalReader.LF
 
       // Anything else: part of the cell.
-      case _ => rawCell
+      case _ ⇒ rawCell
     }
     // EOF: cell finished.
     else {
@@ -144,25 +144,25 @@ private[engine] class InternalReader(val data: Reader, val separator: Char) exte
 
   @tailrec
   final def escapedCellEnd(c: Char): InternalReader.Break = c match {
-    case `separator` =>
+    case `separator` ⇒
       endCell()
       InternalReader.Separator
 
-    case '\r' =>
+    case '\r' ⇒
       endCell()
       InternalReader.CR
 
-    case '\n' =>
+    case '\n' ⇒
       endCell()
       InternalReader.LF
 
-    case _ if c.isWhitespace =>
+    case _ if c.isWhitespace ⇒
       if(hasNextChar) escapedCellEnd(nextChar())
       else            InternalReader.EOF
 
-    case '"' => escapedCell(true)
+    case '"' ⇒ escapedCell(true)
 
-    case _ =>
+    case _ ⇒
       cell.append('"')
       escapedCell(false)
   }
@@ -194,7 +194,7 @@ private[engine] class InternalReader(val data: Reader, val separator: Char) exte
   @tailrec
   final def nextRow(c: Char): Unit = nextCell(c) match {
     // Cell finished, row not done.
-    case InternalReader.Separator =>
+    case InternalReader.Separator ⇒
       if(hasNextChar) nextRow(nextChar())
         // The next cell is empty AND there is no further data to read.
       else {
@@ -203,7 +203,7 @@ private[engine] class InternalReader(val data: Reader, val separator: Char) exte
       }
 
       // Row finished, might have a trailing LF.
-    case InternalReader.CR if hasNextChar =>
+    case InternalReader.CR if hasNextChar ⇒
       leftover = nextChar()
 
       // The leftover char is a LF: skip it.
@@ -215,7 +215,7 @@ private[engine] class InternalReader(val data: Reader, val separator: Char) exte
       else hasLeftover = true
 
       // Row finished, no trailing LF.
-    case _ =>
+    case _ ⇒
       hasLeftover = false
       ()
   }

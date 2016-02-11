@@ -11,7 +11,7 @@ trait CellEncoderLaws[A] extends RowEncoderLaws[A] {
   def cellEncodeIdentity(a: A): Boolean =
     cellEncoder.encode(a) == cellEncoder.contramap[A](identity).encode(a)
 
-  def cellEncodeComposition[B, C](c: C, f: B => A, g: C => B): Boolean =
+  def cellEncodeComposition[B, C](c: C, f: B ⇒ A, g: C ⇒ B): Boolean =
     cellEncoder.contramap(g andThen f).encode(c) == cellEncoder.contramap(f).contramap(g).encode(c)
 }
 

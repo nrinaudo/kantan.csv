@@ -6,7 +6,7 @@ import tabulate.{DecodeResult, CellDecoder, CellEncoder}
 sealed trait Cell {
   def value: String
   def encoded: String
-  def map(f: String => String): Cell = Cell(f(value))
+  def map(f: String ⇒ String): Cell = Cell(f(value))
 }
 
 object Cell {
@@ -24,12 +24,12 @@ object Cell {
   }
 
   implicit val cellEncoder: CellEncoder[Cell] = CellEncoder(_.value)
-  implicit val cellDecoder: CellDecoder[Cell] = CellDecoder(s => DecodeResult(Cell(s)))
+  implicit val cellDecoder: CellDecoder[Cell] = CellDecoder(s ⇒ DecodeResult(Cell(s)))
   implicit val nonEscapedCellEncoder: CellEncoder[Cell.NonEscaped] = CellEncoder(_.value)
 
   def apply(value: String): Cell =
     if(value == "")                                                            Empty
-    else if(value.exists(c => c == '"' || c == ',' || c == '\n' || c == '\r')) Escaped(value)
+    else if(value.exists(c ⇒ c == '"' || c == ',' || c == '\n' || c == '\r')) Escaped(value)
     else                                                                       NonEscaped(value)
 
 
@@ -43,15 +43,15 @@ object Cell {
   // - CSV cell generators ---------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   val escaped: Gen[Escaped] = for {
-    esc <- escapedChar
-    str <- Gen.listOf(Gen.oneOf(nonEscapedChar, escapedChar))
-    i   <- Gen.choose(0, str.size)
+    esc ← escapedChar
+    str ← Gen.listOf(Gen.oneOf(nonEscapedChar, escapedChar))
+    i   ← Gen.choose(0, str.size)
   }  yield {
     val (h, t) = str.splitAt(i)
     Escaped((h ++ (esc :: t)).mkString)
   }
 
-  val nonEscaped: Gen[NonEscaped] = Gen.nonEmptyListOf(nonEscapedChar).map(v => NonEscaped(v.mkString))
+  val nonEscaped: Gen[NonEscaped] = Gen.nonEmptyListOf(nonEscapedChar).map(v ⇒ NonEscaped(v.mkString))
   val cell: Gen[Cell] = Gen.oneOf(escaped, nonEscaped, Gen.const(Empty))
   val nonEmptyCell: Gen[Cell] = Gen.oneOf(escaped, nonEscaped)
 
@@ -65,8 +65,8 @@ object Cell {
   def rowOf[C <: Cell](gen: Gen[C]): Gen[List[C]] = Gen.nonEmptyListOf(gen)
   val row: Gen[List[Cell]] = for {
     // Makes sure we don't end up with the non-empty list of the empty cell, which is the empty list.
-    head <- Gen.oneOf(escaped, nonEscaped)
-    tail <- Gen.listOf(cell)
+    head ← Gen.oneOf(escaped, nonEscaped)
+    tail ← Gen.listOf(cell)
   } yield head :: tail
 
   implicit val arbEscapedRow: Arbitrary[List[Escaped]] = Arbitrary(rowOf(escaped))

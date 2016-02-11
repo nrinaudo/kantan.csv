@@ -193,7 +193,7 @@ Doing so is rather straightforward, however: all you need to do is provide an im
 we want:
 
 ```tut:silent
-implicit val yearDecoder: CellDecoder[DateTime] = CellDecoder[Int].map(year => new DateTime(year, 1, 1, 0, 0))
+implicit val yearDecoder: CellDecoder[DateTime] = CellDecoder[Int].map(year ⇒ new DateTime(year, 1, 1, 0, 0))
 ```
 
 If this looks a bit like magic to you, here are the keys you need to work it out:
@@ -201,8 +201,8 @@ If this looks a bit like magic to you, here are the keys you need to work it out
 * `CellDecoder[Int]` is syntactic sugar for
   [`CellDecoder.apply[Int]`]({{ site.baseurl }}/api/#tabulate.CellDecoder$@apply[A](implicitinstance:tabulate.CellDecoder[A]):tabulate.CellDecoder[A]),
   which returns an implicit instance for its type parameter if it can find one and fails the compilation if it can't.
-* [`CellDecoder.map`]({{ site.baseurl }}/api/#tabulate.CellDecoder@map[B](f:A=>B):tabulate.CellDecoder[B]) takes an
-  [`A => B`](http://www.scala-lang.org/api/current/index.html#scala.Function1) and turns a
+* [`CellDecoder.map`]({{ site.baseurl }}/api/#tabulate.CellDecoder@map[B](f:A⇒B):tabulate.CellDecoder[B]) takes an
+  [`A ⇒ B`](http://www.scala-lang.org/api/current/index.html#scala.Function1) and turns a
   [`CellDecoder[A]`][`CellDecoder`] into a [`CellDecoder[B]`][`CellDecoder`].
   
 Armed with that new decoder, we can now parse our CSV data the way we'd expect:
@@ -267,11 +267,11 @@ implement to turn a type `A` into a source of CSV data is a function that turns 
 
 Most of the time, you shouldn't need to declare new instances of [`CsvInput`]. Should the need arise, however,
 the idiomatic way of doing so is to use one of the existing implementations and call
-[contramap]({{ site.baseurl }}/api/#tabulate.CsvInput@contramap[T](f:T=>S):tabulate.CsvInput[T]). Say that you want to
+[contramap]({{ site.baseurl }}/api/#tabulate.CsvInput@contramap[T](f:T⇒S):tabulate.CsvInput[T]). Say that you want to
 write a [`CsvInput`] for strings, for instance (a purely academic endeavour, as one is provided by default):
 
 ```tut:silent
-implicit val strInput: CsvInput[String] = CsvInput[java.io.Reader].contramap(s => new java.io.StringReader(s))
+implicit val strInput: CsvInput[String] = CsvInput[java.io.Reader].contramap(s ⇒ new java.io.StringReader(s))
 ```
 
 Tabulate comes with a number of default implementations of [`CsvInput`] which can all be found in its
@@ -291,4 +291,4 @@ Tabulate comes with a number of default implementations of [`CsvInput`] which ca
 [shapeless]:https://github.com/milessabin/shapeless
 [`DateTime`]:http://www.joda.org/joda-time/apidocs/org/joda/time/DateTime.html
 [`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List
-[`decoder5`]:{{ site.baseurl }}/api/#tabulate.RowDecoder$@decoder5[A0,A1,A2,A3,A4,R](f:(A0,A1,A2,A3,A4)=>R)(i0:Int,i1:Int,i2:Int,i3:Int,i4:Int)(implicita0:tabulate.CellDecoder[A0],implicita1:tabulate.CellDecoder[A1],implicita2:tabulate.CellDecoder[A2],implicita3:tabulate.CellDecoder[A3],implicita4:tabulate.CellDecoder[A4]):tabulate.RowDecoder[R]
+[`decoder5`]:{{ site.baseurl }}/api/#tabulate.RowDecoder$@decoder5[A0,A1,A2,A3,A4,R](f:(A0,A1,A2,A3,A4)⇒R)(i0:Int,i1:Int,i2:Int,i3:Int,i4:Int)(implicita0:tabulate.CellDecoder[A0],implicita1:tabulate.CellDecoder[A1],implicita2:tabulate.CellDecoder[A2],implicita3:tabulate.CellDecoder[A3],implicita4:tabulate.CellDecoder[A4]):tabulate.RowDecoder[R]

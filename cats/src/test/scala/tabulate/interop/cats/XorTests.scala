@@ -16,7 +16,7 @@ class XorTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipli
     illegal(Gen.alphaChar.map(_.toString))
 
   implicit val arbIllegalRow: Arbitrary[IllegalRow[Xor[(Int, Int, Int), (Boolean, Float)]]] =
-    illegal(Gen.alphaChar.map(s => Seq(s.toString)))
+    illegal(Gen.alphaChar.map(s ⇒ Seq(s.toString)))
 
   checkAll("Xor[Int, Boolean]", CellCodecTests[Xor[Int, Boolean]].cellCodec[Byte, Float])
   checkAll("Xor[(Int, Int, Int), (Boolean, Float)]", RowCodecTests[Xor[(Int, Int, Int), (Boolean, Float)]].rowCodec[Byte, String])

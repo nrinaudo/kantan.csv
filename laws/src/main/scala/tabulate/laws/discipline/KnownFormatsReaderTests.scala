@@ -11,8 +11,8 @@ trait KnownFormatsReaderTests extends Laws {
     def knownFormats: RuleSet = new DefaultRuleSet(
       name = "knownFormats",
       parent = None,
-      "excel for mac 12.0"  -> Prop(laws.excelMac12_0),
-      "numbers 1.0.3"       -> Prop(laws.numbers1_0_3),
-      "google docs"         -> Prop(laws.googleDocs)
+      "excel for mac 12.0"  → Prop(laws.excelMac12_0),
+      "numbers 1.0.3"       → Prop(laws.numbers1_0_3),
+      "google docs"         → Prop(laws.googleDocs)
     )
 }

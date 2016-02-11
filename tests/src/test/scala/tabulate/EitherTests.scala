@@ -13,7 +13,7 @@ class EitherTests extends FunSuite with GeneratorDrivenPropertyChecks with Disci
     illegal(Gen.alphaChar.map(_.toString))
 
   implicit val arbIllegalRow: Arbitrary[IllegalRow[Either[(Int, Int, Int), (Boolean, Float)]]] =
-    illegal(Gen.alphaChar.map(s => Seq(s.toString)))
+    illegal(Gen.alphaChar.map(s ⇒ Seq(s.toString)))
 
   checkAll("Either[Int, Boolean]", CellCodecTests[Either[Int, Boolean]].cellCodec[Byte, Float])
   checkAll("Either[(Int, Int, Int), (Boolean, Float)]", RowCodecTests[Either[(Int, Int, Int), (Boolean, Float)]].rowCodec[Byte, String])

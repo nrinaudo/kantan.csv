@@ -13,9 +13,9 @@ trait SafeRowDecoderTests[A] extends Laws {
   def safeRowDecoder[B: Arbitrary, C: Arbitrary]: RuleSet = new DefaultRuleSet(
     name = "safeRowDecoder",
     parent = None,
-    "row decode"             -> forAll(laws.rowDecode _),
-    "row decode identity"    -> forAll(laws.rowDecodeIdentity _),
-    "row decode composition" -> forAll(laws.rowDecodeComposition[B, C] _)
+    "row decode"             → forAll(laws.rowDecode _),
+    "row decode identity"    → forAll(laws.rowDecodeIdentity _),
+    "row decode composition" → forAll(laws.rowDecodeComposition[B, C] _)
   )
 }
 

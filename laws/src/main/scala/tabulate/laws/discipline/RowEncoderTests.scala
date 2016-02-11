@@ -14,9 +14,9 @@ trait RowEncoderTests[A] extends Laws {
   def rowEncoder[B: Arbitrary, C: Arbitrary]: RuleSet = new DefaultRuleSet(
     name = "RowEncoder",
     parent = None,
-    "row encode"             -> forAll(laws.rowEncode _),
-    "row encode identity"    -> forAll(laws.rowEncodeIdentity _),
-    "row encode composition" -> forAll(laws.rowEncodeComposition[B, C] _)
+    "row encode"             → forAll(laws.rowEncode _),
+    "row encode identity"    → forAll(laws.rowEncodeIdentity _),
+    "row encode composition" → forAll(laws.rowEncodeComposition[B, C] _)
   )
 }
 

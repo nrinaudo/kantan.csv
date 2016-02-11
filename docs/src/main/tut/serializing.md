@@ -51,7 +51,7 @@ you want to use any other format?). In order to do so, you need to provide an im
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 
-implicit val dateEncoder: CellEncoder[DateTime] = CellEncoder(d => ISODateTimeFormat.dateTime().print(d)) 
+implicit val dateEncoder: CellEncoder[DateTime] = CellEncoder(d ⇒ ISODateTimeFormat.dateTime().print(d)) 
 ```
 
 This allows you to serialize data that contains [`DateTime`] values without any further work:
@@ -83,7 +83,7 @@ manually:
 
 ```tut:silent
 implicit val carEncoder: RowEncoder[Car] =
-  RowEncoder(c => Seq(c.year.toString, c.make, c.model, c.desc.getOrElse(""), c.price.toString))
+  RowEncoder(c ⇒ Seq(c.year.toString, c.make, c.model, c.desc.getOrElse(""), c.price.toString))
 ```
 
 We'll be improving on that momentarily, but let's first make sure it works as expected:
@@ -97,7 +97,7 @@ solution is to use the [`encoderAAA`][`encoder5`] methods, where `AAA` is the nu
 fields, so we need to use [`encoder5`]:
 
 ```tut:silent
-implicit val carEncoder: RowEncoder[Car] = RowEncoder.encoder5(c => (c.year, c.make, c.model, c.desc, c.price))
+implicit val carEncoder: RowEncoder[Car] = RowEncoder.encoder5(c ⇒ (c.year, c.make, c.model, c.desc, c.price))
 ```
 
 This is already terser and more flexible, and behaves exactly the same. But we can improve on it further: if
@@ -171,8 +171,8 @@ loaded.
 [`CsvOutput`]:{{ site.baseurl }}/api/#tabulate.CsvOutput
 [shapeless]:https://github.com/milessabin/shapeless
 [`DateTime`]:http://www.joda.org/joda-time/apidocs/org/joda/time/DateTime.html
-[`encoder5`]:{{ site.baseurl }}/api/#tabulate.RowEncoder$@encoder5[C,A0,A1,A2,A3,A4](f:C=>(A0,A1,A2,A3,A4))(implicita0:tabulate.CellEncoder[A0],implicita1:tabulate.CellEncoder[A1],implicita2:tabulate.CellEncoder[A2],implicita3:tabulate.CellEncoder[A3],implicita4:tabulate.CellEncoder[A4]):tabulate.RowEncoder[C]
-[`caseEncoder5`]:{{ site.baseurl }}/api/#tabulate.RowEncoder$@caseEncoder5[C,A0,A1,A2,A3,A4](f:C=>Option[(A0,A1,A2,A3,A4)])(i0:Int,i1:Int,i2:Int,i3:Int,i4:Int)(implicita0:tabulate.CellEncoder[A0],implicita1:tabulate.CellEncoder[A1],implicita2:tabulate.CellEncoder[A2],implicita3:tabulate.CellEncoder[A3],implicita4:tabulate.CellEncoder[A4]):tabulate.RowEncoder[C]
+[`encoder5`]:{{ site.baseurl }}/api/#tabulate.RowEncoder$@encoder5[C,A0,A1,A2,A3,A4](f:C⇒(A0,A1,A2,A3,A4))(implicita0:tabulate.CellEncoder[A0],implicita1:tabulate.CellEncoder[A1],implicita2:tabulate.CellEncoder[A2],implicita3:tabulate.CellEncoder[A3],implicita4:tabulate.CellEncoder[A4]):tabulate.RowEncoder[C]
+[`caseEncoder5`]:{{ site.baseurl }}/api/#tabulate.RowEncoder$@caseEncoder5[C,A0,A1,A2,A3,A4](f:C⇒Option[(A0,A1,A2,A3,A4)])(i0:Int,i1:Int,i2:Int,i3:Int,i4:Int)(implicita0:tabulate.CellEncoder[A0],implicita1:tabulate.CellEncoder[A1],implicita2:tabulate.CellEncoder[A2],implicita3:tabulate.CellEncoder[A3],implicita4:tabulate.CellEncoder[A4]):tabulate.RowEncoder[C]
 [`Option`]:http://www.scala-lang.org/api/current/index.html#scala.Option
 [`Traversable`]:http://www.scala-lang.org/api/current/index.html#scala.collection.Traversable
 [`writeCsv`]:{{ site.baseurl }}/api/#tabulate.CsvOutput@write[A](out:S,rows:Traversable[A],sep:Char,header:Seq[String])(implicitevidence$1:tabulate.RowEncoder[A]):S

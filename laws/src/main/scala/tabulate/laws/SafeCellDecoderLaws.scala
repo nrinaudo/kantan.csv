@@ -19,7 +19,7 @@ trait SafeCellDecoderLaws[A] extends RowDecoderLaws[A] {
   def cellDecodeIdentity(value: ExpectedCell[A]): Boolean =
     cellDecoder.decode(value.encoded) == cellDecoder.map(identity).decode(value.encoded)
 
-  def cellDecodeComposition[B, C](value: ExpectedCell[A], f: A => B, g: B => C): Boolean =
+  def cellDecodeComposition[B, C](value: ExpectedCell[A], f: A ⇒ B, g: B ⇒ C): Boolean =
     cellDecoder.map(f andThen g).decode(value.encoded) == cellDecoder.map(f).map(g).decode(value.encoded)
 }
 

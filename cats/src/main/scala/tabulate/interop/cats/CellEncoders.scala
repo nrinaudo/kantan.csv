@@ -8,8 +8,8 @@ import tabulate.CellEncoder
 object CellEncoders {
   @export(Orphan)
   implicit def xorCellEncoder[A, B](implicit ea: CellEncoder[A], eb: CellEncoder[B]): CellEncoder[Xor[A, B]] =
-    CellEncoder(eab => eab match {
-      case Xor.Left(a)  => ea.encode(a)
-      case Xor.Right(b) => eb.encode(b)
+    CellEncoder(eab ⇒ eab match {
+      case Xor.Left(a)  ⇒ ea.encode(a)
+      case Xor.Right(b) ⇒ eb.encode(b)
     })
 }

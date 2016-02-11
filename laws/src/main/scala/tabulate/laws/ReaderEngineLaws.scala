@@ -12,39 +12,39 @@ trait ReaderEngineLaws extends RfcReaderLaws with SpectrumReaderLaws with KnownF
   def nextOnEmpty(csv: List[List[Cell]]): Boolean = {
     val data = asReader(csv)
 
-    csv.indices.foreach { _ => data.next() }
+    csv.indices.foreach { _ ⇒ data.next() }
     throws(classOf[java.util.NoSuchElementException])(data.next())
   }
 
   def nextOnEmptyTake(csv: List[List[Cell]], i: Int): Boolean = {
     val data = asReader(csv).take(i)
 
-    csv.take(i).indices.foreach { _ => data.next() }
+    csv.take(i).indices.foreach { _ ⇒ data.next() }
     throws(classOf[java.util.NoSuchElementException])(data.next())
   }
 
   def drop(csv: List[List[Cell]], i: Int): Boolean =
     asReader(csv).drop(i).toList == csv.drop(i)
 
-  def dropWhile(csv: List[List[Cell]], f: List[Cell] => Boolean): Boolean =
+  def dropWhile(csv: List[List[Cell]], f: List[Cell] ⇒ Boolean): Boolean =
     asReader(csv).dropWhile(f).toList == csv.dropWhile(f)
 
   def take(csv: List[List[Cell]], i: Int): Boolean =
     asReader(csv).take(i).toList == csv.take(i)
 
-  def forall(csv: List[List[Cell]], f: List[Cell] => Boolean): Boolean =
+  def forall(csv: List[List[Cell]], f: List[Cell] ⇒ Boolean): Boolean =
     asReader(csv).forall(f) == csv.forall(f)
 
-  def find(csv: List[List[Cell]], f: List[Cell] => Boolean): Boolean =
+  def find(csv: List[List[Cell]], f: List[Cell] ⇒ Boolean): Boolean =
     asReader(csv).find(f) == csv.find(f)
 
-  def exists(csv: List[List[Cell]], f: List[Cell] => Boolean): Boolean =
+  def exists(csv: List[List[Cell]], f: List[Cell] ⇒ Boolean): Boolean =
     asReader(csv).exists(f) == csv.exists(f)
 
-  def filter(csv: List[List[Cell]], f: List[Cell] => Boolean): Boolean =
+  def filter(csv: List[List[Cell]], f: List[Cell] ⇒ Boolean): Boolean =
     asReader(csv).filter(f).toList == csv.filter(f)
 
-  def withFilter(csv: List[List[Cell]], f: List[Cell] => Boolean): Boolean =
+  def withFilter(csv: List[List[Cell]], f: List[Cell] ⇒ Boolean): Boolean =
     asReader(csv).withFilter(f).toList == asReader(csv).filter(f).toList
 
   def toStream(csv: List[List[Cell]]): Boolean =
@@ -86,10 +86,10 @@ trait ReaderEngineLaws extends RfcReaderLaws with SpectrumReaderLaws with KnownF
     a1.sameElements(a2)
   }
 
-  def map(csv: List[List[Cell]], f: List[Cell] => Int): Boolean = asReader(csv).map(f).toList == csv.map(f)
+  def map(csv: List[List[Cell]], f: List[Cell] ⇒ Int): Boolean = asReader(csv).map(f).toList == csv.map(f)
 
-  def flatMap(csv: List[List[Cell]], f: List[Cell] => List[List[Cell]]): Boolean =
-    asReader(csv).flatMap(r => asReader(f(r))).toList == csv.flatMap(f)
+  def flatMap(csv: List[List[Cell]], f: List[Cell] ⇒ List[List[Cell]]): Boolean =
+    asReader(csv).flatMap(r ⇒ asReader(f(r))).toList == csv.flatMap(f)
 }
 
 object ReaderEngineLaws {

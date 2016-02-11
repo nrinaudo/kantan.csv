@@ -14,7 +14,7 @@ trait RowCodecTests[A] extends SafeRowCodecTests[A] with RowDecoderTests[A] {
     def name = "rowCodec"
     def bases = Nil
     def parents = Seq(rowEncoder[B, C], rowDecoder[B, C])
-    def props = Seq("round trip" -> forAll(laws.roundTrip _))
+    def props = Seq("round trip" → forAll(laws.roundTrip _))
   }
 }
 

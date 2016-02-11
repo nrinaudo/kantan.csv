@@ -19,7 +19,7 @@ object CellCodec {
   }
 
   /** Creates a new [[CellCodec]] from the specified decoding and encoding functions. */
-  def apply[A](decoder: String => DecodeResult[A], encoder: A => String): CellCodec[A] = new CellCodec[A] {
+  def apply[A](decoder: String ⇒ DecodeResult[A], encoder: A ⇒ String): CellCodec[A] = new CellCodec[A] {
     override def decode(a: String) = decoder(a)
     override def encode(a: A) = encoder(a)
   }

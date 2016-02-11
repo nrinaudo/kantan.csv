@@ -17,7 +17,7 @@ class DisjunctionTests extends FunSuite with GeneratorDrivenPropertyChecks with 
     illegal(Gen.alphaChar.map(_.toString))
 
   implicit val arbIllegalRow: Arbitrary[IllegalRow[(Int, Int, Int) \/ (Boolean, Float)]] =
-    illegal(Gen.alphaChar.map(s => Seq(s.toString)))
+    illegal(Gen.alphaChar.map(s ⇒ Seq(s.toString)))
 
   checkAll("Int \\/ Boolean", CellCodecTests[Int \/ Boolean].cellCodec[Byte, Float])
   checkAll("(Int, Int, Int) \\/ (Boolean, Float)", RowCodecTests[(Int, Int, Int) \/ (Boolean, Float)].rowCodec[Byte, String])

@@ -13,8 +13,8 @@ trait CellDecoderTests[A] extends SafeCellDecoderTests[A] with RowDecoderTests[A
     override def name = "cellDecoder"
     override def bases = Seq.empty
     override def props = Seq(
-      "safe cell decode fail"     -> forAll(laws.safeCellDecodeFail _),
-      "unsafe cell decode fail"   -> forAll(laws.unsafeCellDecodeFail _))
+      "safe cell decode fail"     → forAll(laws.safeCellDecodeFail _),
+      "unsafe cell decode fail"   → forAll(laws.unsafeCellDecodeFail _))
     override def parents = Seq(safeCellDecoder[B, C], rowDecoder[B, C])
   }
 }

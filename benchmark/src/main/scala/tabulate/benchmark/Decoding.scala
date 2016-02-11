@@ -47,7 +47,7 @@ class Decoding {
 object Decoding {
   // - Helpers ---------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  class CsvIterator[A](iterator: A)(f: A => Array[String]) extends Iterator[CsvEntry] {
+  class CsvIterator[A](iterator: A)(f: A ⇒ Array[String]) extends Iterator[CsvEntry] {
     var n = f(iterator)
     override def hasNext: Boolean = n != null
     override def next(): CsvEntry = {
@@ -86,7 +86,7 @@ object Decoding {
   }
 
   def jackson(str: String) =
-    new CsvIterator(JacksonCsv.parse(new StringReader(str), ','))(it =>
+    new CsvIterator(JacksonCsv.parse(new StringReader(str), ','))(it ⇒
       if(it.hasNext) it.next()
       else           null
     ).toList
@@ -108,6 +108,6 @@ object Decoding {
 
   def scalaCsv(str: String) = {
     import com.github.tototoshi.csv._
-    CSVReader.open(new StringReader(str)).iterator.map(r => (r(0).toInt, r(1), r(2).toBoolean, r(3).toFloat)).toList
+    CSVReader.open(new StringReader(str)).iterator.map(r ⇒ (r(0).toInt, r(1), r(2).toBoolean, r(3).toFloat)).toList
   }
 }

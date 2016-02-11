@@ -211,5 +211,5 @@ class CaseClassTests extends FunSuite with GeneratorDrivenPropertyChecks with Di
 }
 
 object CaseClassTests {
-  implicit def illegalCaseClass[A]: Arbitrary[IllegalRow[A]] = illegal(Gen.alphaChar.map(s => Seq(s.toString)))
+  implicit def illegalCaseClass[A]: Arbitrary[IllegalRow[A]] = illegal(Gen.alphaChar.map(s ⇒ Seq(s.toString)))
 }

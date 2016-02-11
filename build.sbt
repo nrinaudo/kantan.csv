@@ -65,7 +65,7 @@ lazy val noPublishSettings = Seq(
 
 lazy val publishSettings = Seq(
   homepage := Some(url("https://nrinaudo.github.io/tabulate/")),
-  licenses := Seq("MIT License" -> url("http://www.opensource.org/licenses/mit-license.php")),
+  licenses := Seq("MIT License" → url("http://www.opensource.org/licenses/mit-license.php")),
   apiURL := Some(url("https://nrinaudo.github.io/tabulate/api/")),
   scmInfo := Some(
     ScmInfo(

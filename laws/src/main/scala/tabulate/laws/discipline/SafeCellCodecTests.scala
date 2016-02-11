@@ -16,7 +16,7 @@ trait SafeCellCodecTests[A] extends CellEncoderTests[A] with SafeCellDecoderTest
     def name = "safeCellCodec"
     def bases = Nil
     def parents = Seq(cellEncoder[B, C], safeCellDecoder[B, C])
-    def props = Seq("round trip" -> forAll(laws.roundTrip _))
+    def props = Seq("round trip" → forAll(laws.roundTrip _))
   }
 }
 

@@ -17,15 +17,15 @@ class BigDecimalTests extends FunSuite with GeneratorDrivenPropertyChecks with D
     import java.math.MathContext._
     val mcGen = oneOf(DECIMAL32, DECIMAL64, DECIMAL128)
     val bdGen = for {
-      x <- Arbitrary.arbitrary[BigInt]
-      mc <- mcGen
-      limit <- const(math.max(x.abs.toString.length - mc.getPrecision, 0))
-      scale <- Gen.choose(Int.MinValue + limit , Int.MaxValue)
+      x ← Arbitrary.arbitrary[BigInt]
+      mc ← mcGen
+      limit ← const(math.max(x.abs.toString.length - mc.getPrecision, 0))
+      scale ← Gen.choose(Int.MinValue + limit , Int.MaxValue)
     } yield {
         try {
           BigDecimal(x, scale, mc)
         } catch {
-          case ae: java.lang.ArithmeticException => BigDecimal(x, scale, UNLIMITED) // Handle the case where scale/precision conflict
+          case ae: java.lang.ArithmeticException ⇒ BigDecimal(x, scale, UNLIMITED) // Handle the case where scale/precision conflict
         }
       }
     Arbitrary(bdGen)

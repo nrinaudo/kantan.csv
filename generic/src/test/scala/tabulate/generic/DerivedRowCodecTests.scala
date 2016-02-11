@@ -19,7 +19,7 @@ class DerivedRowCodecTests extends FunSuite with GeneratorDrivenPropertyChecks w
   case class Wrapper[A](value: A)
 
   implicit val arbIllegalFoo: Arbitrary[IllegalRow[Foo]] =
-    illegal(Arbitrary.arbitrary[Boolean].map(s => Seq(s.toString)))
+    illegal(Arbitrary.arbitrary[Boolean].map(s ⇒ Seq(s.toString)))
 
   checkAll("Wrapper[(Int, Int)]", RowCodecTests[Wrapper[(Int, Int)]].rowCodec[Byte, Float])
   checkAll("Wrapper[Foo]", RowCodecTests[Wrapper[Foo]].rowCodec[Byte, Float])

@@ -27,10 +27,10 @@ import scalaz.stream._
 }
 
 object CsvSource {
-  def apply[A](reader: => CsvReader[A]): Process[Task, A] =
-    io.iteratorR(Task.delay(reader))(csv => Task.delay(csv.close()))(csv => Task.delay(csv.toIterator))
+  def apply[A](reader: ⇒ CsvReader[A]): Process[Task, A] =
+    io.iteratorR(Task.delay(reader))(csv ⇒ Task.delay(csv.close()))(csv ⇒ Task.delay(csv.toIterator))
 
-  def apply[A: RowDecoder](reader: => Reader, sep: Char, header: Boolean)(implicit engine: ReaderEngine): Process[Task, DecodeResult[A]] =
+  def apply[A: RowDecoder](reader: ⇒ Reader, sep: Char, header: Boolean)(implicit engine: ReaderEngine): Process[Task, DecodeResult[A]] =
     CsvSource(CsvReader[A](reader, sep, header))
 
   implicit def fromInput[S](implicit is: CsvInput[S]): CsvSource[S] = new CsvSource[S] {

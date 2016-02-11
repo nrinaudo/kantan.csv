@@ -16,7 +16,7 @@ import scala.io.Codec
   *
   * See the [[CsvInput$ companion object]] for default implementations and construction methods.
   */
-@typeclass trait CsvInput[-S] { self =>
+@typeclass trait CsvInput[-S] { self ⇒
   /** Turns the specified `S` into a `Reader`.
     *
     * Other methods in this trait all rely on this to open and parse CSV data.
@@ -67,10 +67,10 @@ import scala.io.Codec
     * This allows developers to adapt existing instances of [[CsvInput]] rather than write one from scratch.
     * One could, for example, write `CsvInput[URL]` by basing it on `CsvInput[InputStream]`:
     * {{{
-    *   val urlInput: CsvInput[URL] = CsvInput[InputStream].contramap((url: URL) => url.openStream())
+    *   val urlInput: CsvInput[URL] = CsvInput[InputStream].contramap((url: URL) ⇒ url.openStream())
     * }}}
     */
-  @noop def contramap[T](f: T => S): CsvInput[T] = CsvInput((t: T) => self.open(f(t)))
+  @noop def contramap[T](f: T ⇒ S): CsvInput[T] = CsvInput((t: T) ⇒ self.open(f(t)))
 }
 
 @export.imports[CsvInput]
@@ -82,30 +82,30 @@ trait LowPriorityCsvInputs
   * priority.
   *
   * These default implementations can also be useful when writing more complex instances: if you need to write a
-  * `CsvInput[T]` and have both a `CsvInput[S]` and a `T => S`, you need just use [[CsvInput.contramap]] to create
+  * `CsvInput[T]` and have both a `CsvInput[S]` and a `T ⇒ S`, you need just use [[CsvInput.contramap]] to create
   * your implementation.
   */
 object CsvInput extends LowPriorityCsvInputs {
-  def apply[A](f: A => Reader): CsvInput[A] = new CsvInput[A] {
+  def apply[A](f: A ⇒ Reader): CsvInput[A] = new CsvInput[A] {
       override def open(a: A): Reader = f(a)
     }
 
   /** Turns any `java.io.Reader` into a source of CSV data. */
-  implicit def reader: CsvInput[Reader] = CsvInput(r => r)
+  implicit def reader: CsvInput[Reader] = CsvInput(r ⇒ r)
 
   /** Turns any `java.io.InputStream` into a source of CSV data. */
   implicit def inputStream(implicit codec: Codec): CsvInput[InputStream] =
-    reader.contramap(i => new InputStreamReader(i, codec.charSet))
+    reader.contramap(i ⇒ new InputStreamReader(i, codec.charSet))
   /** Turns any `java.io.File` into a source of CSV data. */
-  implicit def file(implicit codec: Codec): CsvInput[File] = inputStream.contramap(f => new FileInputStream(f))
+  implicit def file(implicit codec: Codec): CsvInput[File] = inputStream.contramap(f ⇒ new FileInputStream(f))
   /** Turns any array of bytes into a source of CSV data. */
-  implicit def bytes(implicit codec: Codec): CsvInput[Array[Byte]] = inputStream.contramap(bs => new ByteArrayInputStream(bs))
+  implicit def bytes(implicit codec: Codec): CsvInput[Array[Byte]] = inputStream.contramap(bs ⇒ new ByteArrayInputStream(bs))
   /** Turns any `java.net.URL` into a source of CSV data. */
   implicit def url(implicit codec: Codec): CsvInput[URL] = inputStream.contramap(_.openStream())
   /** Turns any `java.net.URI` into a source of CSV data. */
   implicit def uri(implicit codec: Codec): CsvInput[URI] = url.contramap(_.toURL)
   /** Turns any array of chars into a source of CSV data. */
-  implicit val chars: CsvInput[Array[Char]] = reader.contramap(cs => new CharArrayReader(cs))
+  implicit val chars: CsvInput[Array[Char]] = reader.contramap(cs ⇒ new CharArrayReader(cs))
   /** Turns any string into a source of CSV data. */
-  implicit val string: CsvInput[String] = reader.contramap(s => new StringReader(s))
+  implicit val string: CsvInput[String] = reader.contramap(s ⇒ new StringReader(s))
 }

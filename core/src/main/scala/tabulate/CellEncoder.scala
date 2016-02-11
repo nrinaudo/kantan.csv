@@ -12,7 +12,7 @@ import simulacrum.{noop, op, typeclass}
   * If you're working with data that contains dates and need to serialise these to valid ISO 8601 strings, for example,
   * you'll need to create a custom `CellEncoder[Date]`:
   * {{{
-  *   implicit val dateEncoder = CellEncoder((d: Date) => new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(d))
+  *   implicit val dateEncoder = CellEncoder((d: Date) ⇒ new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(d))
   * }}}
   *
   * Once this is done, tabulate will be capable of serialising date fields without any further work. The following, for
@@ -31,7 +31,7 @@ import simulacrum.{noop, op, typeclass}
     *
     * This allows developers to adapt existing instance of [[CellDecoder]] rather than write new ones.
     */
-  @noop def contramap[B](f: B => A): CellEncoder[B] = CellEncoder(f andThen encode _)
+  @noop def contramap[B](f: B ⇒ A): CellEncoder[B] = CellEncoder(f andThen encode _)
 }
 
 /** Low priority implicit encoders. */
@@ -40,12 +40,12 @@ trait LowPriorityCellEncoders
 
 object CellEncoder extends LowPriorityCellEncoders {
   /** Creates a new [[CellEncoder]] from the specified function. */
-  def apply[A](f: A => String): CellEncoder[A] = new CellEncoder[A] {
+  def apply[A](f: A ⇒ String): CellEncoder[A] = new CellEncoder[A] {
     override def encode(a: A) = f(a)
   }
 
   /** Turns a `String` into a CSV cell. */
-  implicit val string: CellEncoder[String]     = CellEncoder(s => s)
+  implicit val string: CellEncoder[String]     = CellEncoder(s ⇒ s)
   /** Turns a `Char` into a CSV cell. */
   implicit val char  : CellEncoder[Char]       = CellEncoder(_.toString)
   /** Turns an `Int` into a CSV cell. */
@@ -71,12 +71,12 @@ object CellEncoder extends LowPriorityCellEncoders {
 
   /** Turns an `Option[A]` into a CSV cell, provided `A` has a [[CellEncoder]]. */
   implicit def opt[A](implicit ea: CellEncoder[A]): CellEncoder[Option[A]] =
-    CellEncoder(oa => oa.map(ea.encode).getOrElse(""))
+    CellEncoder(oa ⇒ oa.map(ea.encode).getOrElse(""))
 
   /** Turns an `Either[A, B]` into a CSV cell, provided both `A` and `B` have a [[CellEncoder]]. */
   implicit def either[A, B](implicit ea: CellEncoder[A], eb: CellEncoder[B]): CellEncoder[Either[A, B]] =
-    CellEncoder(eab => eab match {
-      case Left(a)  => ea.encode(a)
-      case Right(b) => eb.encode(b)
+    CellEncoder(eab ⇒ eab match {
+      case Left(a)  ⇒ ea.encode(a)
+      case Right(b) ⇒ eb.encode(b)
     })
 }

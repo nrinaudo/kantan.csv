@@ -24,10 +24,10 @@ import scalaz.stream._
 }
 
 object CsvSink {
-  def apply[A](writer: => CsvWriter[A]): Sink[Task, A] = io.resource(Task.delay(writer))(out => Task.delay(out.close()))(
-    out => Task.now((a: A) => Task.delay { out.write(a); () })
+  def apply[A](writer: ⇒ CsvWriter[A]): Sink[Task, A] = io.resource(Task.delay(writer))(out ⇒ Task.delay(out.close()))(
+    out ⇒ Task.now((a: A) ⇒ Task.delay { out.write(a); () })
   )
-  def apply[A: RowEncoder](writer: => Writer, sep: Char, header: Seq[String] = Seq.empty)(implicit engine: WriterEngine): Sink[Task, A] =
+  def apply[A: RowEncoder](writer: ⇒ Writer, sep: Char, header: Seq[String] = Seq.empty)(implicit engine: WriterEngine): Sink[Task, A] =
     CsvSink(CsvWriter[A](writer, sep, header))
 
   implicit def fromOutput[S](implicit os: CsvOutput[S]): CsvSink[S] = new CsvSink[S] {

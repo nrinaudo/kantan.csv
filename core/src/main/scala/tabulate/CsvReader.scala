@@ -4,7 +4,7 @@ import java.io.{Closeable, Reader}
 
 import tabulate.engine.ReaderEngine
 
-trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self =>
+trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self ⇒
   def hasNext: Boolean
   protected def readNext(): A
   def close(): Unit
@@ -13,7 +13,7 @@ trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self =>
     val a = {
       try { readNext() }
       catch {
-        case e: Throwable =>
+        case e: Throwable ⇒
           close()
           throw e
       }
@@ -32,7 +32,7 @@ trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self =>
     }
     else this
 
-  def dropWhile(p: A => Boolean): CsvReader[A] =
+  def dropWhile(p: A ⇒ Boolean): CsvReader[A] =
   // Empty rows: nothing to drop
     if(isEmpty) this
     else {
@@ -77,13 +77,13 @@ trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self =>
 
   // - Monadic operations ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def map[B](f: A => B): CsvReader[B] = new CsvReader[B] {
+  def map[B](f: A ⇒ B): CsvReader[B] = new CsvReader[B] {
     override def hasNext: Boolean = self.hasNext
     override def readNext(): B = f(self.readNext())
     override def close(): Unit = self.close()
   }
 
-  def flatMap[B](f: A => CsvReader[B]): CsvReader[B] = new CsvReader[B] {
+  def flatMap[B](f: A ⇒ CsvReader[B]): CsvReader[B] = new CsvReader[B] {
     private var cur: CsvReader[B] = CsvReader.empty
 
     override def hasNext: Boolean = cur.hasNext || self.hasNext && { cur = f(self.next()); hasNext}
@@ -91,7 +91,7 @@ trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self =>
     override def close(): Unit = self.close()
   }
 
-  def filter(p: A => Boolean): CsvReader[A] = new CsvReader[A] {
+  def filter(p: A ⇒ Boolean): CsvReader[A] = new CsvReader[A] {
     var n = self.find(p)
     override def hasNext: Boolean = n.isDefined
     override def readNext(): A = {
@@ -102,12 +102,12 @@ trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self =>
     override def close(): Unit = self.close()
   }
 
-  def withFilter(p: A => Boolean): CsvReader[A] = filter(p)
+  def withFilter(p: A ⇒ Boolean): CsvReader[A] = filter(p)
 
 
   // - TraversableOnce -------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  override def foreach[U](f: A => U): Unit = while(hasNext) f(next())
+  override def foreach[U](f: A ⇒ U): Unit = while(hasNext) f(next())
   override def seq: TraversableOnce[A] = this
   override def hasDefiniteSize: Boolean = isEmpty
 
@@ -120,14 +120,14 @@ trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self =>
     }
   }
 
-  override def forall(p: A => Boolean): Boolean = {
+  override def forall(p: A ⇒ Boolean): Boolean = {
     var res = true
     while(res && hasNext) res = p(next())
     res
   }
   override def toTraversable: Traversable[A] = toStream
   override def isEmpty: Boolean = !hasNext
-  override def find(p: A => Boolean): Option[A] = {
+  override def find(p: A ⇒ Boolean): Option[A] = {
     var res: Option[A] = None
     while(res.isEmpty && hasNext) {
       val n = next()
@@ -135,7 +135,7 @@ trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self =>
     }
     res
   }
-  override def exists(p: A => Boolean): Boolean = {
+  override def exists(p: A ⇒ Boolean): Boolean = {
     var res = false
     while(!res && hasNext) res = p(next())
     res

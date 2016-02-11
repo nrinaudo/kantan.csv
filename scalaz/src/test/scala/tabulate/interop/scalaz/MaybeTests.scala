@@ -17,7 +17,7 @@ class MaybeTests extends FunSuite with GeneratorDrivenPropertyChecks with Discip
     illegal(arb.arbitrary.map(_.value))
 
   implicit val arbIllegalRow: Arbitrary[IllegalRow[Maybe[(Int, Int)]]] =
-    illegal(Gen.alphaChar.map(s => Seq(s.toString)))
+    illegal(Gen.alphaChar.map(s ⇒ Seq(s.toString)))
 
   checkAll("Maybe[Int]", CellCodecTests[Maybe[Int]].cellCodec[String, Float])
   checkAll("Maybe[(Int, Int)]", RowCodecTests[Maybe[(Int, Int)]].rowCodec[String, Float])

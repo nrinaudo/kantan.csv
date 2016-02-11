@@ -14,9 +14,9 @@ trait CellEncoderTests[A] extends RowEncoderTests[A] {
   def cellEncoder[B: Arbitrary, C: Arbitrary]: RuleSet = new DefaultRuleSet(
     name = "cellEncoder",
     parent = Some(rowEncoder[B, C]),
-    "cell encode"             -> forAll(laws.cellEncode _),
-    "cell encode identity"    -> forAll(laws.cellEncodeIdentity _),
-    "cell encode composition" -> forAll(laws.cellEncodeComposition[B, C] _)
+    "cell encode"             → forAll(laws.cellEncode _),
+    "cell encode identity"    → forAll(laws.cellEncodeIdentity _),
+    "cell encode composition" → forAll(laws.cellEncodeComposition[B, C] _)
   )
 }
 

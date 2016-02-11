@@ -11,7 +11,7 @@ import scala.io.Codec
 
 class CsvOutputTest extends FunSuite with GeneratorDrivenPropertyChecks {
   test("CSV data should be correctly written to an output stream (bit by bit)") {
-    forAll(csv) { csv =>
+    forAll(csv) { csv ⇒
       val out = new ByteArrayOutputStream()
 
       csv.foldLeft(out.asCsvWriter[List[String]](','))(_ write _).close()
@@ -21,7 +21,7 @@ class CsvOutputTest extends FunSuite with GeneratorDrivenPropertyChecks {
   }
 
   test("CSV data should be correctly written to an output stream (in bulk)") {
-    forAll(csv) { csv =>
+    forAll(csv) { csv ⇒
       val out = new ByteArrayOutputStream()
 
       out.writeCsv(csv, ',')
@@ -31,7 +31,7 @@ class CsvOutputTest extends FunSuite with GeneratorDrivenPropertyChecks {
   }
 
   test("CSV data should be correctly written to a writer (bit by bit)") {
-    forAll(csv) { csv =>
+    forAll(csv) { csv ⇒
       val out = new StringWriter()
 
       csv.foldLeft(out.asCsvWriter[List[String]](','))(_ write _).close()
@@ -41,7 +41,7 @@ class CsvOutputTest extends FunSuite with GeneratorDrivenPropertyChecks {
   }
 
   test("CSV data should be correctly written to a writer (in bulk)") {
-    forAll(csv) { csv =>
+    forAll(csv) { csv ⇒
       val out = new StringWriter()
 
       out.writeCsv(csv, ',')

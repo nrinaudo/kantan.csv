@@ -4,17 +4,17 @@ import java.io.{Writer, Closeable}
 
 import tabulate.engine.WriterEngine
 
-trait CsvWriter[A] extends Closeable { self =>
+trait CsvWriter[A] extends Closeable { self ⇒
   def write(a: A): CsvWriter[A]
 
   def write(as: Traversable[A]): CsvWriter[A] = {
-    for(a <- as) write(a)
+    for(a ← as) write(a)
     this
   }
 
   override def close(): Unit
 
-  def contramap[B](f: B => A): CsvWriter[B] = new CsvWriter[B] {
+  def contramap[B](f: B ⇒ A): CsvWriter[B] = new CsvWriter[B] {
     override def write(b: B): CsvWriter[B] = {
       self.write(f(b))
       this

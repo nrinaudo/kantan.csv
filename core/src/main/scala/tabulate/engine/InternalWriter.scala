@@ -43,7 +43,7 @@ private[tabulate] class InternalWriter(private val out: Writer, val sep: Char) e
 
   override def write(ss: Seq[String]): CsvWriter[Seq[String]] = {
     var first = true
-    for(s <- ss) {
+    for(s ← ss) {
       if(first) first = false
       else out.write(sep.toInt)
       safeWrite(s)

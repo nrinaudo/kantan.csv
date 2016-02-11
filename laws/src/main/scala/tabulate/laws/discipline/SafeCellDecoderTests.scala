@@ -13,11 +13,11 @@ trait SafeCellDecoderTests[A] extends SafeRowDecoderTests[A] {
   def safeCellDecoder[B: Arbitrary, C: Arbitrary]: RuleSet = new DefaultRuleSet(
     name = "safeCellDecoder",
     parent = Some(safeRowDecoder[B, C]),
-    "cell decode"               -> forAll(laws.cellDecode _),
-    "safe out-of-bounds"   -> forAll(laws.safeOutOfBounds _),
-    "unsafe out-of-bounds" -> forAll(laws.unsafeOutputOfBounds _),
-    "cell decode identity"      -> forAll(laws.cellDecodeIdentity _),
-    "cell decode composition"   -> forAll(laws.cellDecodeComposition[B, C] _)
+    "cell decode"             → forAll(laws.cellDecode _),
+    "safe out-of-bounds"      → forAll(laws.safeOutOfBounds _),
+    "unsafe out-of-bounds"    → forAll(laws.unsafeOutputOfBounds _),
+    "cell decode identity"    → forAll(laws.cellDecodeIdentity _),
+    "cell decode composition" → forAll(laws.cellDecodeComposition[B, C] _)
   )
 }
 

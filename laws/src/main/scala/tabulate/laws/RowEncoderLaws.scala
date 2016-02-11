@@ -10,7 +10,7 @@ trait RowEncoderLaws[A] {
   def rowEncodeIdentity(a: A): Boolean =
     rowEncoder.encode(a) == rowEncoder.contramap[A](identity).encode(a)
 
-  def rowEncodeComposition[B, C](c: C, f: B => A, g: C => B): Boolean =
+  def rowEncodeComposition[B, C](c: C, f: B ⇒ A, g: C ⇒ B): Boolean =
     rowEncoder.contramap(g andThen f).encode(c) == rowEncoder.contramap(f).contramap(g).encode(c)
 }
 

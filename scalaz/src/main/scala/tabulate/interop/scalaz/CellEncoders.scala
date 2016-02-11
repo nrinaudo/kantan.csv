@@ -11,8 +11,8 @@ object CellEncoders {
   implicit def eitherCellEncoder[A, B](implicit ea: CellEncoder[A], eb: CellEncoder[B]): CellEncoder[A \/ B] =
   new CellEncoder[\/[A, B]] {
     override def encode(eab: \/[A, B]) = eab match {
-        case -\/(a)  => ea.encode(a)
-        case \/-(b)  => eb.encode(b)
+        case -\/(a)  ⇒ ea.encode(a)
+        case \/-(b)  ⇒ eb.encode(b)
       }
   }
 

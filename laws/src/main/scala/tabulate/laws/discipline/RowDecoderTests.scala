@@ -12,8 +12,8 @@ trait RowDecoderTests[A] extends SafeRowDecoderTests[A] {
   def rowDecoder[B: Arbitrary, C: Arbitrary]: RuleSet = new DefaultRuleSet(
     name = "rowDecoder",
     parent = Some(safeRowDecoder[B, C]),
-    "safe row decode fail"     -> forAll(laws.safeRowDecodeFail _),
-    "unsafe row decode fail"   -> forAll(laws.unsafeRowDecodeFail _)
+    "safe row decode fail"     → forAll(laws.safeRowDecodeFail _),
+    "unsafe row decode fail"   → forAll(laws.unsafeRowDecodeFail _)
   )
 }
 
