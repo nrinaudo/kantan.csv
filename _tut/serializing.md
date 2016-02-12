@@ -71,8 +71,8 @@ This allows you to serialize data that contains [`DateTime`] values without any 
 ```scala
 scala> List(("now", DateTime.now), ("yesterday", DateTime.now.minusDays(1))).asCsv(',')
 res4: String =
-"now,2016-02-12T11:41:10.270+01:00
-yesterday,2016-02-11T11:41:10.270+01:00
+"now,2016-02-12T12:06:51.276+01:00
+yesterday,2016-02-11T12:06:51.276+01:00
 "
 ```
 
