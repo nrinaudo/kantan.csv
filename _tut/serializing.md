@@ -4,16 +4,16 @@ title:  "Writing CSV data"
 section: tutorial
 ---
 
-## Setting up Tabulate
+## Setting up kantan.csv
 The code in this tutorial requires the following imports:
 
 ```scala
-import tabulate._     // Imports core classes.
-import tabulate.ops._ // Enriches standard classes with CSV serialization methods.
+import kantan.csv._     // Imports core classes.
+import kantan.csv.ops._ // Enriches standard classes with CSV serialization methods.
 ```
 
 Additionally, [Joda Time](http://www.joda.org/joda-time/) is expected to be in the `CLASSPATH` for a few examples, but
-that's not a tabulate requirement.
+that's not a kantan.csv requirement.
 
 ## Serialization to `String`
 The most basic, if not necessarily the most useful, way of serializing CSV data is to turn it all into a `String`. This
@@ -29,7 +29,7 @@ ef,gh
 
 [`asCsv`] takes two parameters: the column separator (more often than not `,`) and an optional header row.
 
-Notice that in our example, each CSV row is a [`List[String]`][`List`], and that tabulate worked out automatically how
+Notice that in our example, each CSV row is a [`List[String]`][`List`], and that kantan.csv worked out automatically how
 to write them. You should be able to use most standard types as well:
 
 ```scala
@@ -47,7 +47,7 @@ res2: String =
 ```
 
 ## Supporting non-standard types
-While tabulate does a fairly good job at supporting most standard types out of the box, you might need to add support
+While kantan.csv does a fairly good job at supporting most standard types out of the box, you might need to add support
 for your own - because they are not part of the standard library, say, or don't have obvious default formats like ints
 or booleans do.
 
@@ -63,7 +63,7 @@ you want to use any other format?). In order to do so, you need to provide an im
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 
-implicit val dateEncoder: CellEncoder[DateTime] = CellEncoder(d => ISODateTimeFormat.dateTime().print(d)) 
+implicit val dateEncoder: CellEncoder[DateTime] = CellEncoder(d ⇒ ISODateTimeFormat.dateTime().print(d)) 
 ```
 
 This allows you to serialize data that contains [`DateTime`] values without any further work:
@@ -71,13 +71,13 @@ This allows you to serialize data that contains [`DateTime`] values without any 
 ```scala
 scala> List(("now", DateTime.now), ("yesterday", DateTime.now.minusDays(1))).asCsv(',')
 res4: String =
-"now,2016-01-19T15:10:41.313+01:00
-yesterday,2016-01-18T15:10:41.313+01:00
+"now,2016-02-12T11:41:10.270+01:00
+yesterday,2016-02-11T11:41:10.270+01:00
 "
 ```
 
-Tabulate comes with a number of default implementations of [`CellEncoder`] which can all be found in its
-[companion object]({{ site.baseurl }}/api/#tabulate.CellEncoder$).
+kantan.csv comes with a number of default implementations of [`CellEncoder`] which can all be found in its
+[companion object]({{ site.baseurl }}/api/#kantan.csv.CellEncoder$).
 
 ### Row types
 Row types work in a very similar fashion, but you need to provide an instance of [`RowEncoder`] instead.
@@ -99,7 +99,7 @@ manually:
 
 ```scala
 implicit val carEncoder: RowEncoder[Car] =
-  RowEncoder(c => Seq(c.year.toString, c.make, c.model, c.desc.getOrElse(""), c.price.toString))
+  RowEncoder(c ⇒ Seq(c.year.toString, c.make, c.model, c.desc.getOrElse(""), c.price.toString))
 ```
 
 We'll be improving on that momentarily, but let's first make sure it works as expected:
@@ -118,12 +118,12 @@ solution is to use the [`encoderAAA`][`encoder5`] methods, where `AAA` is the nu
 fields, so we need to use [`encoder5`]:
 
 ```scala
-implicit val carEncoder: RowEncoder[Car] = RowEncoder.encoder5(c => (c.year, c.make, c.model, c.desc, c.price))
+implicit val carEncoder: RowEncoder[Car] = RowEncoder.encoder5(c ⇒ (c.year, c.make, c.model, c.desc, c.price))
 ```
 
 This is already terser and more flexible, and behaves exactly the same. But we can improve on it further: if
 you look at the function that is passed to [`encoder5`], it looks a *lot* like the `unapply` method found on the
-companion object of all case classes. It looks so much like it that tabulate provides a helper function that uses that
+companion object of all case classes. It looks so much like it that kantan.csv provides a helper function that uses that
 instead:
 
 ```scala
@@ -136,15 +136,15 @@ returned by its function argument. That's safe in the case of a case class, but 
 
 Note that our index arguments are sequential: we find ourselves in a special case, CSV cells and case class fields are
 declared in exactly the same order. When this happens, and if you don't mind a [shapeless] dependency, we can improve
-things further by omitting the encoder entirely. All we need to do is depend on tabulate's `generic` module and 
+things further by omitting the encoder entirely. All we need to do is depend on kantan.csv's `generic` module and 
 add the following import:
 
 ```scala
-import tabulate.generic.codecs._
+import kantan.csv.generic.codecs._
 ```
 
-Tabulate comes with a number of default implementations of [`RowEncoder`] which can all be found in its
-[companion object]({{ site.baseurl }}/api/#tabulate.RowEncoder$).
+kantan.csv comes with a number of default implementations of [`RowEncoder`] which can all be found in its
+[companion object]({{ site.baseurl }}/api/#kantan.csv.RowEncoder$).
 
 
 ## Serialization to "writable" types
@@ -161,11 +161,7 @@ Let's demonstrate this with a [`StringWriter`](https://docs.oracle.com/javase/7/
 
 ```scala
 scala> new java.io.StringWriter().writeCsv(cars, ',', Seq("Year", "Make", "Model", "Description", "Price")).toString
-res9: String =
-"Year,Make,Model,Description,Price
-1997,Ford,E350,"ac, abs, moon",3000.0
-1999,Chevy,"Venture ""Extended Edition""",,4900.0
-"
+res9: String = ()
 ```
 
 ## Step-by-step serialization
@@ -195,17 +191,17 @@ this will work regardless of the size of the database, as each tuple is serializ
 loaded.
 
 
-[`CsvWriter`]:{{ site.baseurl }}/api/#tabulate.CsvWriter
-[`CellEncoder`]:{{ site.baseurl }}/api/#tabulate.CellEncoder
-[`RowEncoder`]:{{ site.baseurl }}/api/#tabulate.RowEncoder
-[`asCsvWriter`]:{{ site.baseurl }}/api/#tabulate.CsvOutput@writer[A](s:S,separator:Char,header:Seq[String])(implicitea:tabulate.RowEncoder[A],implicitengine:tabulate.engine.WriterEngine):tabulate.CsvWriter[A]
-[`asCsv`]:{{ site.baseurl }}/api/#tabulate.ops$$TraversableOps@asCsv(sep:Char,header:Seq[String])(implicitengine:tabulate.engine.WriterEngine):String
-[`CsvOutput`]:{{ site.baseurl }}/api/#tabulate.CsvOutput
+[`CsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter
+[`CellEncoder`]:{{ site.baseurl }}/api/#kantan.csv.CellEncoder
+[`RowEncoder`]:{{ site.baseurl }}/api/#kantan.csv.RowEncoder
+[`asCsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.CsvOutput@writer[A](s:S,separator:Char,header:Seq[String])(implicitea:kantan.csv.RowEncoder[A],implicitengine:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[A]
+[`asCsv`]:{{ site.baseurl }}/api/#kantan.csv.ops$$TraversableOps@asCsv(sep:Char,header:Seq[String])(implicitengine:kantan.csv.engine.WriterEngine):String
+[`CsvOutput`]:{{ site.baseurl }}/api/#kantan.csv.CsvOutput
 [shapeless]:https://github.com/milessabin/shapeless
 [`DateTime`]:http://www.joda.org/joda-time/apidocs/org/joda/time/DateTime.html
-[`encoder5`]:{{ site.baseurl }}/api/#tabulate.RowEncoder$@encoder5[C,A0,A1,A2,A3,A4](f:C=>(A0,A1,A2,A3,A4))(implicita0:tabulate.CellEncoder[A0],implicita1:tabulate.CellEncoder[A1],implicita2:tabulate.CellEncoder[A2],implicita3:tabulate.CellEncoder[A3],implicita4:tabulate.CellEncoder[A4]):tabulate.RowEncoder[C]
-[`caseEncoder5`]:{{ site.baseurl }}/api/#tabulate.RowEncoder$@caseEncoder5[C,A0,A1,A2,A3,A4](f:C=>Option[(A0,A1,A2,A3,A4)])(i0:Int,i1:Int,i2:Int,i3:Int,i4:Int)(implicita0:tabulate.CellEncoder[A0],implicita1:tabulate.CellEncoder[A1],implicita2:tabulate.CellEncoder[A2],implicita3:tabulate.CellEncoder[A3],implicita4:tabulate.CellEncoder[A4]):tabulate.RowEncoder[C]
+[`encoder5`]:{{ site.baseurl }}/api/#kantan.csv.RowEncoder$@encoder5[C,A0,A1,A2,A3,A4](f:C⇒(A0,A1,A2,A3,A4))(implicita0:kantan.csv.CellEncoder[A0],implicita1:kantan.csv.CellEncoder[A1],implicita2:kantan.csv.CellEncoder[A2],implicita3:kantan.csv.CellEncoder[A3],implicita4:kantan.csv.CellEncoder[A4]):kantan.csv.RowEncoder[C]
+[`caseEncoder5`]:{{ site.baseurl }}/api/#kantan.csv.RowEncoder$@caseEncoder5[C,A0,A1,A2,A3,A4](f:C⇒Option[(A0,A1,A2,A3,A4)])(i0:Int,i1:Int,i2:Int,i3:Int,i4:Int)(implicita0:kantan.csv.CellEncoder[A0],implicita1:kantan.csv.CellEncoder[A1],implicita2:kantan.csv.CellEncoder[A2],implicita3:kantan.csv.CellEncoder[A3],implicita4:kantan.csv.CellEncoder[A4]):kantan.csv.RowEncoder[C]
 [`Option`]:http://www.scala-lang.org/api/current/index.html#scala.Option
 [`Traversable`]:http://www.scala-lang.org/api/current/index.html#scala.collection.Traversable
-[`writeCsv`]:{{ site.baseurl }}/api/#tabulate.CsvOutput@write[A](out:S,rows:Traversable[A],sep:Char,header:Seq[String])(implicitevidence$1:tabulate.RowEncoder[A]):S
+[`writeCsv`]:{{ site.baseurl }}/api/#kantan.csv.CsvOutput@write[A](out:S,rows:Traversable[A],sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[A]):S
 [`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List

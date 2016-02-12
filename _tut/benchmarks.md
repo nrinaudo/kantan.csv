@@ -12,7 +12,7 @@ title:  "Benchmarks"
 | [opencsv]             |     3.6 |
 | [product collections] |   1.4.2 |
 | [scala csv]           |   1.2.2 |
-| tabulate              |   0.1.7 |
+| kantan.csv            |   0.1.7 |
 | [uniVocity]           |   1.5.6 |
 
 In order to be included in this benchmark, a library must be:
@@ -22,7 +22,7 @@ In order to be included in this benchmark, a library must be:
 * able to both encode and decode some fairly straightforward, RFC compliant test data.
 
 The first two are purely subjective, but I have actual
-[tests](https://github.com/nrinaudo/tabulate/tree/master/benchmark/src/test/scala/tabulate/benchmark) to back the third
+[tests](https://github.com/nrinaudo/kantan.csv/tree/master/benchmark/src/test/scala/kantan/csv/benchmark) to back the third
 condition, and have disqualified some libraries that I could not get to pass them.
 
 ### opencsv
@@ -58,48 +58,48 @@ that's not much of an issue.
 
 ## Reading
 Reading is benchmarked by repeatedly parsing a known, simple, RFC-compliant
-[input](https://github.com/nrinaudo/tabulate/blob/master/benchmark/src/main/scala/tabulate/benchmark/package.scala).
+[input](https://github.com/nrinaudo/kantan.csv/blob/master/benchmark/src/main/scala/kantan/csv/benchmark/package.scala).
  
 Results are expressed in μs/action, where and action is a complete read of the sample input. This means that the lower
 the number, the better the results.  
 
-| Library                | μs/action |
-|------------------------|-----------|
-| [commons csv]          |     57.82 |
-| [jackson csv]          |     26.94 |
-| [opencsv]              |     63.97 |
-| [product collections]  |     57.20 |
-| [scala csv]            |    157.07 |
-| tabulate (commons csv) |     61.00 |
-| tabulate (internal)    |     37.98 |
-| tabulate (jackson csv) |     35.24 |
-| tabulate (opencsv)     |     73.80 |
-| [uniVocity]            |     43.19 |
+| Library                  | μs/action |
+|--------------------------|-----------|
+| [commons csv]            |     57.82 |
+| [jackson csv]            |     26.94 |
+| [opencsv]                |     63.97 |
+| [product collections]    |     57.20 |
+| [scala csv]              |    157.07 |
+| kantan.csv (commons csv) |     61.00 |
+| kantan.csv (internal)    |     37.98 |
+| kantan.csv (jackson csv) |     35.24 |
+| kantan.csv (opencsv)     |     73.80 |
+| [uniVocity]              |     43.19 |
 
 A few things are worth pointing out:
 
 * [jackson csv] is frighteningly fast.
 * [uniVocity] is being used in a context for which it's known to have suboptimal performances, and still has one of the
   better results.
-* tabulate's internal parser has pretty decent parsing performances, all things considered.
+* kantan.csv's internal parser has pretty decent parsing performances, all things considered.
 
 
 ## Writing
 Writing is benchmarked in a symmetric fashion to reading: the same data is used, but instead of being parsed, it's being
 serialized.
 
-| Library                | μs/action |
-|------------------------|-----------|
-| [commons csv]          |     27.88 |
-| [jackson csv]          |     23.33 |
-| [opencsv]              |     41.64 |
-| [product collections]  |     90.55 |
-| [scala csv]            |    260.84 |
-| tabulate (commons csv) |     42.50 |
-| tabulate (internal)    |     53.10 |
-| tabulate (jackson csv) |     43.74 |
-| tabulate (opencsv)     |     61.88 |
-| [uniVocity]            |    514.86 |
+| Library                  | μs/action |
+|--------------------------|-----------|
+| [commons csv]            |     27.88 |
+| [jackson csv]            |     23.33 |
+| [opencsv]                |     41.64 |
+| [product collections]    |     90.55 |
+| [scala csv]              |    260.84 |
+| kantan.csv (commons csv) |     42.50 |
+| kantan.csv (internal)    |     53.10 |
+| kantan.csv (jackson csv) |     43.74 |
+| kantan.csv (opencsv)     |     61.88 |
+| [uniVocity]              |    514.86 |
 
 The one thing I feel I must point out here is that [uniVocity]'s results are so poor, the reason has probably less to do
 with the library than how I'm using it. It's probably fair to ignore that number for the moment. As soon as I work out

@@ -1,10 +1,11 @@
-name: Tabulate
-markdown: redcarpet
-highlighter: pygments
-baseurl: /tabulate
+name: kantan.csv
+markdown: kramdown
+highlighter: rouge
+baseurl: /kantan.csv
 
-redcarpet:
-  extensions: ["tables", "autolink", "strikethrough", "space_after_headers", "with_toc_data", "fenced_code_blocks"]
+kramdown:
+  input: GFM
+  hard_wrap: false
 
 collections:
   tut:
