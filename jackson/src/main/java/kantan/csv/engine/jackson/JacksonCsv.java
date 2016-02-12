@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2015, ioSquare SAS. All rights reserved.
- * The information contained in this file is confidential and proprietary.
- * Any reproduction, use or disclosure, in whole or in part, of this
- * information without the express, prior written consent of ioSquare SAS
- * is strictly prohibited.
- */
-
 package kantan.csv.engine.jackson;
 
 import com.fasterxml.jackson.databind.MappingIterator;
