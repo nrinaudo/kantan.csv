@@ -30,12 +30,12 @@ I have this data as a resource, so let's just declare it:
 val rawData: java.net.URL = getClass.getResource("/wikipedia.csv")
 ```
 
-## Setting up Tabulate
+## Setting up kantan.csv
 The code in this tutorial requires the following imports:
 
 ```tut:silent
-import tabulate._     // Imports core classes.
-import tabulate.ops._ // Enriches standard classes with CSV parsing methods.
+import kantan.csv._     // Imports core classes.
+import kantan.csv.ops._ // Enriches standard classes with CSV parsing methods.
 ```
 
 Additionally, most methods used to open CSV data for reading require an implicit
@@ -84,7 +84,7 @@ instance, would not be very useful, as the order of columns matters in our examp
 That last example was interesting, but a bit underwhelming - rows as sequences of strings are a bit of a disappointment,
 especially with a language like Scala where we like things typed to their eyeballs.
 
-Luckily, tabulate supports parsing into most standard types (and has easy to use extension mechanisms for whatever is
+Luckily, kantan.csv supports parsing into most standard types (and has easy to use extension mechanisms for whatever is
 not covered by default).
 
 For example, we might want to parse our cars as tuples. Let's first declare a type alias for the sake of brevity:
@@ -99,7 +99,7 @@ We can now call [`asCsvReader`] with a more meaningful type parameter:
 rawData.asCsvReader[CarTuple](',', false).foreach(println _)
 ```
 
-The thing that stands out is that the first row is a [`DecodeFailure`]: tabulate failed to parse it as an
+The thing that stands out is that the first row is a [`DecodeFailure`]: kantan.csv failed to parse it as an
 instance of `CarTuple`. That makes sense: our first row is a header and composed of different types than the others. We
 can just skip it by passing `true` to [`asCsvReader`]:
 
@@ -107,7 +107,7 @@ can just skip it by passing `true` to [`asCsvReader`]:
 rawData.asCsvReader[CarTuple](',', true).foreach(println _)
 ```
 
-Notice how tabulate interpreted the empty descriptions as `None`. 
+Notice how kantan.csv interpreted the empty descriptions as `None`. 
 
 That's much better than our previous list of strings, but let's be honest: our cars are begging to be parsed into a
 dedicated case class. This is where things can get slightly more complicated... 
@@ -120,7 +120,7 @@ class fields, then things are still simple (if a bit CPU intensive during compil
 exactly as before, provided you depend on the `generic` module and bring the codecs it declares in scope:
 
 ```tut
-import tabulate.generic.codecs._
+import kantan.csv.generic.codecs._
 
 case class Car(year: Int, make: String, model: String, desc: Option[String], price: Float)
 
@@ -162,11 +162,11 @@ not in the same order:
 rawData.asCsvReader[Car](',', true).foreach(println _)
 ```
 
-Tabulate comes with a number of default implementations of [`RowDecoder`] which can all be found in its
-[companion object]({{ site.baseurl }}/api/#tabulate.RowDecoder$).
+kantan.csv comes with a number of default implementations of [`RowDecoder`] which can all be found in its
+[companion object]({{ site.baseurl }}/api/#kantan.csv.RowDecoder$).
 
 ## Parsing non-standard types
-So far, we've seen how tabulate can treat rows as collections of values and assemble them into useful types. Our use
+So far, we've seen how kantan.csv can treat rows as collections of values and assemble them into useful types. Our use
 cases have been simple, however: each row has always been composed of standard Scala types, which are supported out of
 the box.
 
@@ -185,7 +185,7 @@ What happens when we try to parse into this new `Car` type?
 rawData.asCsvReader[Car](',', true).foreach(println _)
 ```
 
-That was to be expected. [`DateTime`] is not part of the standard Scala library, and tabulate cannot provide
+That was to be expected. [`DateTime`] is not part of the standard Scala library, and kantan.csv cannot provide
 the required glue for it.
 
 Doing so is rather straightforward, however: all you need to do is provide an implicit [`CellDecoder`] for
@@ -199,9 +199,9 @@ implicit val yearDecoder: CellDecoder[DateTime] = CellDecoder[Int].map(year ⇒ 
 If this looks a bit like magic to you, here are the keys you need to work it out:
 
 * `CellDecoder[Int]` is syntactic sugar for
-  [`CellDecoder.apply[Int]`]({{ site.baseurl }}/api/#tabulate.CellDecoder$@apply[A](implicitinstance:tabulate.CellDecoder[A]):tabulate.CellDecoder[A]),
+  [`CellDecoder.apply[Int]`]({{ site.baseurl }}/api/#kantan.csv.CellDecoder$@apply[A](implicitinstance:kantan.csv.CellDecoder[A]):kantan.csv.CellDecoder[A]),
   which returns an implicit instance for its type parameter if it can find one and fails the compilation if it can't.
-* [`CellDecoder.map`]({{ site.baseurl }}/api/#tabulate.CellDecoder@map[B](f:A⇒B):tabulate.CellDecoder[B]) takes an
+* [`CellDecoder.map`]({{ site.baseurl }}/api/#kantan.csv.CellDecoder@map[B](f:A⇒B):kantan.csv.CellDecoder[B]) takes an
   [`A ⇒ B`](http://www.scala-lang.org/api/current/index.html#scala.Function1) and turns a
   [`CellDecoder[A]`][`CellDecoder`] into a [`CellDecoder[B]`][`CellDecoder`].
   
@@ -211,13 +211,13 @@ Armed with that new decoder, we can now parse our CSV data the way we'd expect:
 rawData.asCsvReader[Car](',', true).foreach(println _)
 ```
 
-Tabulate comes with a number of default implementations of [`CellDecoder`] which can all be found in its
-[companion object]({{ site.baseurl }}/api/#tabulate.CellDecoder$).
+kantan.csv comes with a number of default implementations of [`CellDecoder`] which can all be found in its
+[companion object]({{ site.baseurl }}/api/#kantan.csv.CellDecoder$).
 
 
 ## Convenience methods
 ### Unsafe parsing
-By default, tabulate parses things safely: if an error occurs, no exception is thrown and you don't lose control of
+By default, kantan.csv parses things safely: if an error occurs, no exception is thrown and you don't lose control of
 your code. Instead, the possibility for errors is encoded in [`DecodeResult`] and you have the
 opportunity, for example, to skip over incorrectly encoded rows.
  
@@ -234,7 +234,7 @@ production systems, it's a recipe for disaster. But should you need unsafe parsi
 
 
 ### Parsing everything in one go
-Tabulate works by letting you iterate over your CSV data. That's the safest way of doing things: since you never load
+kantan.csv works by letting you iterate over your CSV data. That's the safest way of doing things: since you never load
 more than one row at any given time, you don't run the risk of running out of memory when working with abnormally large
 files.
 
@@ -267,28 +267,28 @@ implement to turn a type `A` into a source of CSV data is a function that turns 
 
 Most of the time, you shouldn't need to declare new instances of [`CsvInput`]. Should the need arise, however,
 the idiomatic way of doing so is to use one of the existing implementations and call
-[contramap]({{ site.baseurl }}/api/#tabulate.CsvInput@contramap[T](f:T⇒S):tabulate.CsvInput[T]). Say that you want to
+[contramap]({{ site.baseurl }}/api/#kantan.csv.CsvInput@contramap[T](f:T⇒S):kantan.csv.CsvInput[T]). Say that you want to
 write a [`CsvInput`] for strings, for instance (a purely academic endeavour, as one is provided by default):
 
 ```tut:silent
 implicit val strInput: CsvInput[String] = CsvInput[java.io.Reader].contramap(s ⇒ new java.io.StringReader(s))
 ```
 
-Tabulate comes with a number of default implementations of [`CsvInput`] which can all be found in its
-[companion object]({{ site.baseurl }}/api/#tabulate.CsvInput$).
+kantan.csv comes with a number of default implementations of [`CsvInput`] which can all be found in its
+[companion object]({{ site.baseurl }}/api/#kantan.csv.CsvInput$).
 
 [`Option`]:http://www.scala-lang.org/api/current/index.html#scala.Option
-[`CsvReader`]:{{ site.baseurl }}/api/#tabulate.CsvReader
-[`CsvInput`]:{{ site.baseurl }}/api/#tabulate.CsvInput
-[`RowDecoder`]:{{ site.baseurl }}/api/#tabulate.RowDecoder
-[`CellDecoder`]:{{ site.baseurl }}/api/#tabulate.CellDecoder
-[`DecodeResult`]:{{ site.baseurl }}/api/#tabulate.DecodeResult
-[`DecodeFailure`]:{{ site.baseurl }}/api/#tabulate.DecodeResult$$DecodeFailure$
-[`readCsv`]:{{ site.baseurl }}/api/index.html#tabulate.CsvInput@read[C[_],A](S,Char,Boolean)(RowDecoder[A],ReaderEngine,CanBuildFrom[Nothing,DecodeResult[A],C[DecodeResult[A]]]):C[DecodeResult[A]]
-[`unsafeReadCsv`]:{{ site.baseurl }}/api/index.html#tabulate.CsvInput@unsafeRead[C[_],A](S,Char,Boolean)(RowDecoder[A],ReaderEngine,CanBuildFrom[Nothing,DecodeResult[A],C[DecodeResult[A]]]):C[DecodeResult[A]]
-[`asCsvReader`]:{{ site.baseurl }}/api/index.html#tabulate.CsvInput@reader[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:tabulate.RowDecoder[A],implicitengine:tabulate.engine.ReaderEngine):tabulate.CsvReader[tabulate.DecodeResult[A]]
-[`asUnsafeCsvReader`]:{{ site.baseurl }}/api/index.html#tabulate.CsvInput@unsafeReader[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:tabulate.RowDecoder[A],implicitengine:tabulate.engine.ReaderEngine):tabulate.CsvReader[tabulate.DecodeResult[A]]
+[`CsvReader`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader
+[`CsvInput`]:{{ site.baseurl }}/api/#kantan.csv.CsvInput
+[`RowDecoder`]:{{ site.baseurl }}/api/#kantan.csv.RowDecoder
+[`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.CellDecoder
+[`DecodeResult`]:{{ site.baseurl }}/api/#kantan.csv.DecodeResult
+[`DecodeFailure`]:{{ site.baseurl }}/api/#kantan.csv.DecodeResult$$DecodeFailure$
+[`readCsv`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvInput@read[C[_],A](S,Char,Boolean)(RowDecoder[A],ReaderEngine,CanBuildFrom[Nothing,DecodeResult[A],C[DecodeResult[A]]]):C[DecodeResult[A]]
+[`unsafeReadCsv`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvInput@unsafeRead[C[_],A](S,Char,Boolean)(RowDecoder[A],ReaderEngine,CanBuildFrom[Nothing,DecodeResult[A],C[DecodeResult[A]]]):C[DecodeResult[A]]
+[`asCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvInput@reader[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[A],implicitengine:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.DecodeResult[A]]
+[`asUnsafeCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvInput@unsafeReader[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[A],implicitengine:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.DecodeResult[A]]
 [shapeless]:https://github.com/milessabin/shapeless
 [`DateTime`]:http://www.joda.org/joda-time/apidocs/org/joda/time/DateTime.html
 [`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List
-[`decoder5`]:{{ site.baseurl }}/api/#tabulate.RowDecoder$@decoder5[A0,A1,A2,A3,A4,R](f:(A0,A1,A2,A3,A4)⇒R)(i0:Int,i1:Int,i2:Int,i3:Int,i4:Int)(implicita0:tabulate.CellDecoder[A0],implicita1:tabulate.CellDecoder[A1],implicita2:tabulate.CellDecoder[A2],implicita3:tabulate.CellDecoder[A3],implicita4:tabulate.CellDecoder[A4]):tabulate.RowDecoder[R]
+[`decoder5`]:{{ site.baseurl }}/api/#kantan.csv.RowDecoder$@decoder5[A0,A1,A2,A3,A4,R](f:(A0,A1,A2,A3,A4)⇒R)(i0:Int,i1:Int,i2:Int,i3:Int,i4:Int)(implicita0:kantan.csv.CellDecoder[A0],implicita1:kantan.csv.CellDecoder[A1],implicita2:kantan.csv.CellDecoder[A2],implicita3:kantan.csv.CellDecoder[A3],implicita4:kantan.csv.CellDecoder[A4]):kantan.csv.RowDecoder[R]

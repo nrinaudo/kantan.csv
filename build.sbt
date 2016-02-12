@@ -53,7 +53,7 @@ lazy val baseSettings = Seq(
     "com.github.mpilquist" %% "simulacrum"    % simulacrumVersion % "provided",
     compilerPlugin("org.scalamacros" % "paradise" % macroParadiseVersion cross CrossVersion.full)
   ),
-  coverageExcludedPackages := "tabulate\\.laws\\..*",
+  coverageExcludedPackages := "kantan\\.csv\\.laws\\..*",
   incOptions         := incOptions.value.withNameHashing(true)
 ) ++ Boilerplate.settings
 
@@ -64,13 +64,13 @@ lazy val noPublishSettings = Seq(
 )
 
 lazy val publishSettings = Seq(
-  homepage := Some(url("https://nrinaudo.github.io/tabulate/")),
+  homepage := Some(url("https://nrinaudo.github.io/kantan.csv/")),
   licenses := Seq("MIT License" → url("http://www.opensource.org/licenses/mit-license.php")),
-  apiURL := Some(url("https://nrinaudo.github.io/tabulate/api/")),
+  apiURL := Some(url("https://nrinaudo.github.io/kantan.csv/api/")),
   scmInfo := Some(
     ScmInfo(
-      url("https://github.com/nrinaudo/tabulate"),
-      "scm:git:git@github.com:nrinaudo/tabulate.git"
+      url("https://github.com/nrinaudo/kantan.csv"),
+      "scm:git:git@github.com:nrinaudo/kantan.csv.git"
     )
   ),
   pomExtra := <developers>
@@ -85,16 +85,16 @@ lazy val publishSettings = Seq(
 
 lazy val allSettings = buildSettings ++ baseSettings ++ publishSettings
 
-lazy val root = Project(id = "tabulate", base = file("."))
+lazy val root = Project(id = "kantan-csv", base = file("."))
   .settings(moduleName := "root")
   .settings(allSettings)
   .settings(noPublishSettings)
   .settings(
     initialCommands in console :=
     """
-      |import tabulate._
-      |import tabulate.ops._
-      |import tabulate.generic.codecs._
+      |import kantan.csv._
+      |import kantan.csv.ops._
+      |import kantan.csv.generic.codecs._
     """.stripMargin
   )
   .aggregate(core, cats, scalaz, scalazStream, laws, tests, docs, generic, benchmark, jackson, commons, opencsv)
@@ -102,14 +102,14 @@ lazy val root = Project(id = "tabulate", base = file("."))
 
 lazy val core = project
   .settings(
-    moduleName := "tabulate",
+    moduleName := "kantan.csv",
     name       := "core"
   )
   .settings(allSettings: _*)
 
 lazy val jackson = project
   .settings(
-      moduleName := "tabulate-jackson",
+      moduleName := "kantan.csv-jackson",
       name       := "jackson"
     )
     .settings(libraryDependencies ++= Seq(
@@ -121,7 +121,7 @@ lazy val jackson = project
 
 lazy val commons = project
   .settings(
-      moduleName := "tabulate-commons",
+      moduleName := "kantan.csv-commons",
       name       := "commons"
     )
     .settings(libraryDependencies ++= Seq(
@@ -133,7 +133,7 @@ lazy val commons = project
 
 lazy val opencsv = project
   .settings(
-      moduleName := "tabulate-opencsv",
+      moduleName := "kantan.csv-opencsv",
       name       := "opencsv"
     )
     .settings(libraryDependencies ++= Seq(
@@ -145,7 +145,7 @@ lazy val opencsv = project
 
 lazy val laws = project
   .settings(
-    moduleName := "tabulate-laws",
+    moduleName := "kantan.csv-laws",
     name       := "laws"
   )
   .settings(libraryDependencies ++= Seq(
@@ -157,7 +157,7 @@ lazy val laws = project
 
 lazy val generic = project
   .settings(
-    moduleName := "tabulate-generic",
+    moduleName := "kantan.csv-generic",
     name       := "generic"
   )
   .settings(allSettings: _*)
@@ -170,7 +170,7 @@ lazy val generic = project
 
 lazy val scalaz = project
   .settings(
-    moduleName := "tabulate-scalaz",
+    moduleName := "kantan.csv-scalaz",
     name       := "scalaz"
   )
   .settings(allSettings: _*)
@@ -183,7 +183,7 @@ lazy val scalaz = project
 
 lazy val scalazStream = Project(id = "scalaz-stream", base = file("scalaz-stream"))
   .settings(
-    moduleName := "tabulate-scalaz-stream",
+    moduleName := "kantan.csv-scalaz-stream",
     name       := "scalaz-stream"
   )
   .settings(libraryDependencies ++= Seq(
@@ -195,7 +195,7 @@ lazy val scalazStream = Project(id = "scalaz-stream", base = file("scalaz-stream
 
 lazy val cats = project
   .settings(
-    moduleName := "tabulate-cats",
+    moduleName := "kantan.csv-cats",
     name       := "cats"
   )
   .settings(libraryDependencies ++= Seq(
@@ -232,7 +232,7 @@ lazy val docs = project
   .settings(
     unidocProjectFilter in (ScalaUnidoc, unidoc) := inAnyProject -- inProjects(benchmark),
     autoAPIMappings := true,
-    apiURL := Some(url("http://nrinaudo.github.io/tabulate/api/")),
+    apiURL := Some(url("http://nrinaudo.github.io/kantan.csv/api/")),
     scalacOptions in (ScalaUnidoc, unidoc) ++= Seq(
       "-doc-source-url", scmInfo.value.get.browseUrl + "/tree/master€{FILE_PATH}.scala",
       "-sourcepath", baseDirectory.in(LocalRootProject).value.getAbsolutePath
@@ -246,7 +246,7 @@ lazy val docs = project
   .settings(
     site.addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), "api"),
     site.addMappingsToSiteDir(tut, "_tut"),
-    git.remoteRepo := "git@github.com:nrinaudo/tabulate.git",
+    git.remoteRepo := "git@github.com:nrinaudo/kantan.csv.git",
     ghpagesNoJekyll := false,
     includeFilter in makeSite := "*.yml" | "*.md" | "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" |
                                  "*.eot" | "*.svg" | "*.ttf" | "*.woff" | "*.woff2" | "*.otf"
@@ -255,4 +255,4 @@ lazy val docs = project
   .dependsOn(core, scalazStream, laws, cats, scalaz, generic)
 
 addCommandAlias("runBench",    "benchmark/jmh:run -i 10 -wi 10 -f 2 -t 1 -rf csv -rff benchmarks.csv")
-addCommandAlias("runProfiler", "benchmark/jmh:run -i 10 -wi 5 -f 1 -t 1 -o profiler.txt -prof stack:detailLine=true;lines=5;period=1 tabulate.benchmark.*tabulate.*")
+addCommandAlias("runProfiler", "benchmark/jmh:run -i 10 -wi 5 -f 1 -t 1 -o profiler.txt -prof stack:detailLine=true;lines=5;period=1 kantan.csv.benchmark.*kantan.*")

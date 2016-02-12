@@ -1,7 +1,7 @@
-name: Tabulate
+name: kantan.csv
 markdown: kramdown
 highlighter: rouge
-baseurl: /tabulate
+baseurl: /kantan.csv
 
 kramdown:
   input: GFM
