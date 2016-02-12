@@ -12,7 +12,7 @@ title:  "Benchmarks"
 | [opencsv]             |     3.6 |
 | [product collections] |   1.4.2 |
 | [scala csv]           |   1.2.2 |
-| kantan.csv            |   0.1.7 |
+| kantan.csv            |   0.1.8 |
 | [uniVocity]           |   1.5.6 |
 
 In order to be included in this benchmark, a library must be:
