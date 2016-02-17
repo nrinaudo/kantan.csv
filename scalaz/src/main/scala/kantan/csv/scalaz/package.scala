@@ -9,18 +9,18 @@ package object scalaz {
   // - DecodeResult ----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** `Monad` instance for `DecodeResult`. */
-  implicit val decodeResultInstances: Monad[csv.DecodeResult] = new Monad[csv.DecodeResult] {
-    override def bind[A, B](fa: csv.DecodeResult[A])(f: A ⇒ csv.DecodeResult[B]) = fa.flatMap(f)
-    override def map[A, B](fa: csv.DecodeResult[A])(f: A ⇒ B) = fa.map(f)
-    override def point[A](x: ⇒ A) = csv.DecodeResult(x)
+  implicit val decodeResultInstances: Monad[DecodeResult] = new Monad[DecodeResult] {
+    override def bind[A, B](fa: DecodeResult[A])(f: A ⇒ DecodeResult[B]) = fa.flatMap(f)
+    override def map[A, B](fa: DecodeResult[A])(f: A ⇒ B) = fa.map(f)
+    override def point[A](x: ⇒ A) = DecodeResult(x)
   }
 
   /** `Equal` instance for `DecodeResult`. */
-  implicit def decodeResultEqual[A: Equal]: Equal[csv.DecodeResult[A]] = new Equal[csv.DecodeResult[A]] {
-    override def equal(a1: csv.DecodeResult[A], a2: csv.DecodeResult[A]) = (a1, a2) match {
-      case (csv.DecodeResult.Success(a), csv.DecodeResult.Success(b))                   ⇒ Equal[A].equal(a, b)
-      case (csv.DecodeResult.ReadFailure(l1, c1), csv.DecodeResult.ReadFailure(l2, c2)) ⇒ l1 == l2 && c1 == c2
-      case (csv.DecodeResult.DecodeFailure, csv.DecodeResult.DecodeFailure)             ⇒ true
+  implicit def decodeResultEqual[A: Equal]: Equal[DecodeResult[A]] = new Equal[DecodeResult[A]] {
+    override def equal(a1: DecodeResult[A], a2: DecodeResult[A]) = (a1, a2) match {
+      case (DecodeResult.Success(a), DecodeResult.Success(b))                   ⇒ Equal[A].equal(a, b)
+      case (DecodeResult.ReadFailure(l1, c1), DecodeResult.ReadFailure(l2, c2)) ⇒ l1 == l2 && c1 == c2
+      case (DecodeResult.DecodeFailure, DecodeResult.DecodeFailure)             ⇒ true
       case _                                                                    ⇒ false
     }
   }
@@ -28,32 +28,28 @@ package object scalaz {
 
   // - CellCodec -------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  /** `Monad` instance for `CellDecoder`. */
-  implicit val cellDecoder: Monad[csv.CellDecoder] = new Monad[csv.CellDecoder] {
-    override def map[A, B](fa: csv.CellDecoder[A])(f: A ⇒ B) = fa.map(f)
-    override def point[A](a: ⇒ A) = csv.CellDecoder(_ ⇒ csv.DecodeResult(a))
-    override def bind[A, B](fa: csv.CellDecoder[A])(f: A ⇒ csv.CellDecoder[B]) = fa.flatMap(f)
+  /** `Functor` instance for `CellDecoder`. */
+  implicit val cellDecoder: Functor[CellDecoder] = new Functor[CellDecoder] {
+    override def map[A, B](fa: CellDecoder[A])(f: A ⇒ B) = fa.map(f)
   }
 
   /** `Contravariant` instance for `CellEncoder`. */
-  implicit val cellEncoder: Contravariant[csv.CellEncoder] = new Contravariant[csv.CellEncoder] {
-    override def contramap[A, B](r: csv.CellEncoder[A])(f: B ⇒ A) = r.contramap(f)
+  implicit val cellEncoder: Contravariant[CellEncoder] = new Contravariant[CellEncoder] {
+    override def contramap[A, B](r: CellEncoder[A])(f: B ⇒ A) = r.contramap(f)
   }
 
 
 
   // - RowCodec --------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  /** `Monad` instance for `RowDecoder`. */
-  implicit val rowDecoder: Monad[csv.RowDecoder] = new Monad[csv.RowDecoder] {
-    override def map[A, B](fa: csv.RowDecoder[A])(f: A ⇒ B) = fa.map(f)
-    override def point[A](a: ⇒ A) = csv.RowDecoder(_ ⇒ csv.DecodeResult(a))
-    override def bind[A, B](fa: csv.RowDecoder[A])(f: A ⇒ csv.RowDecoder[B]) = fa.flatMap(f)
+  /** `Functor` instance for `RowDecoder`. */
+  implicit val rowDecoder: Functor[RowDecoder] = new Functor[RowDecoder] {
+    override def map[A, B](fa: RowDecoder[A])(f: A ⇒ B) = fa.map(f)
   }
 
   /** `Contravariant` instance for `CellEncoder`. */
-  implicit val rowEncoder: Contravariant[csv.RowEncoder] = new Contravariant[csv.RowEncoder] {
-    override def contramap[A, B](r: csv.RowEncoder[A])(f: B ⇒ A) = r.contramap(f)
+  implicit val rowEncoder: Contravariant[RowEncoder] = new Contravariant[RowEncoder] {
+    override def contramap[A, B](r: RowEncoder[A])(f: B ⇒ A) = r.contramap(f)
   }
 
 
@@ -61,12 +57,12 @@ package object scalaz {
   // - CSV input / output ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** `Contravariant` instance for `CsvInput`. */
-  implicit val csvInput: Contravariant[csv.CsvInput] = new Contravariant[csv.CsvInput] {
-    override def contramap[A, B](r: csv.CsvInput[A])(f: B ⇒ A) = r.contramap(f)
+  implicit val csvInput: Contravariant[CsvInput] = new Contravariant[CsvInput] {
+    override def contramap[A, B](r: CsvInput[A])(f: B ⇒ A) = r.contramap(f)
   }
 
   /** `Contravariant` instance for `CsvOutput`. */
-  implicit val csvOutput: Contravariant[csv.CsvOutput] = new Contravariant[csv.CsvOutput] {
-    override def contramap[A, B](r: csv.CsvOutput[A])(f: B ⇒ A) = r.contramap(f)
+  implicit val csvOutput: Contravariant[CsvOutput] = new Contravariant[CsvOutput] {
+    override def contramap[A, B](r: CsvOutput[A])(f: B ⇒ A) = r.contramap(f)
   }
 }

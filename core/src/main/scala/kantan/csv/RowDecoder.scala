@@ -36,9 +36,6 @@ import scala.collection.generic.CanBuildFrom
     */
   @noop
   def map[B](f: A ⇒ B): RowDecoder[B] = RowDecoder(ss ⇒ decode(ss).map(f))
-
-  @noop
-  def flatMap[B](f: A ⇒ RowDecoder[B]): RowDecoder[B] = RowDecoder(s ⇒ decode(s).flatMap(a ⇒ f(a).decode(s)))
 }
 
 @export.imports[RowDecoder]

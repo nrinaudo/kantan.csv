@@ -51,9 +51,6 @@ import simulacrum.{noop, typeclass}
     */
   @noop
   def map[B](f: A ⇒ B): CellDecoder[B] = CellDecoder(s ⇒ decode(s).map(f))
-
-  @noop
-  def flatMap[B](f: A ⇒ CellDecoder[B]): CellDecoder[B] = CellDecoder(s ⇒ decode(s).flatMap(a ⇒ f(a).decode(s)))
 }
 
 /** Low priority implicit decoders. */
