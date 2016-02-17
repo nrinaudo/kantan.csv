@@ -19,7 +19,7 @@ import scala.io.Codec
   def contramap[T](f: T ⇒ S): CsvOutput[T] = CsvOutput(t ⇒ self.open(f(t)))
 
   @op("writeCsv")
-  def write[A: RowEncoder](out: S, rows: Traversable[A], sep: Char, header: Seq[String] = Seq.empty): Unit =
+  def write[A: RowEncoder](out: S, rows: TraversableOnce[A], sep: Char, header: Seq[String] = Seq.empty): Unit =
     writer(out, sep, header).write(rows).close()
 }
 

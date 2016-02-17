@@ -7,7 +7,7 @@ import kantan.csv.engine.WriterEngine
 trait CsvWriter[A] extends Closeable { self ⇒
   def write(a: A): CsvWriter[A]
 
-  def write(as: Traversable[A]): CsvWriter[A] = {
+  def write(as: TraversableOnce[A]): CsvWriter[A] = {
     for(a ← as) write(a)
     this
   }
