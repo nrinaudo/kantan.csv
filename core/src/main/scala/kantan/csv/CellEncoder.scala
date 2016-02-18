@@ -2,7 +2,8 @@ package kantan.csv
 
 import java.util.UUID
 
-import simulacrum.{noop, op, typeclass}
+import kantan.codecs.Encoder
+import simulacrum.{op, typeclass}
 
 /** Encodes values of type `A` into CSV cells.
   *
@@ -23,15 +24,11 @@ import simulacrum.{noop, op, typeclass}
   *
   * @see [[http://nrinaudo.github.io/kantan.csv/tut/serializing.html Tutorial]]
   */
-@typeclass trait CellEncoder[A] {
+@typeclass trait CellEncoder[A] extends Encoder[String, A, CellEncoder] {
   /** Turns the specified `A` into a CSV cell. */
   @op("asCsvCell") def encode(a: A): String
 
-  /** Turns a `CellEncoder[A]` into a `CellEncoder[B]`.
-    *
-    * This allows developers to adapt existing instance of [[CellDecoder]] rather than write new ones.
-    */
-  @noop def contramap[B](f: B ⇒ A): CellEncoder[B] = CellEncoder(f andThen encode _)
+  override protected def copy[DD](f: DD => String): CellEncoder[DD] = CellEncoder(f)
 }
 
 /** Low priority implicit encoders. */

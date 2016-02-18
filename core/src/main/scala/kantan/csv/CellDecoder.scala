@@ -2,6 +2,7 @@ package kantan.csv
 
 import java.util.UUID
 
+import kantan.codecs.{Result, Decoder}
 import simulacrum.{noop, typeclass}
 
 /** Decodes CSV cells into usable types.
@@ -22,13 +23,12 @@ import simulacrum.{noop, typeclass}
   *
   * @see [[http://nrinaudo.github.io/kantan.csv/tut/parsing.html Tutorial]]
   */
-@typeclass trait CellDecoder[A] {
+@typeclass trait CellDecoder[A] extends Decoder[String, A, CsvError, CellDecoder] {
   /** Turns the content of a CSV cell into an `A`. */
   @noop
   def decode(s: String): CsvResult[A]
 
-  @noop
-  def unsafeDecode(s: String): A = decode(s).get
+  override protected def copy[DD](f: String => CsvResult[DD]) = CellDecoder(f)
 
   /** Turns the content of the specified cell into an `A`.
     *
@@ -44,13 +44,6 @@ import simulacrum.{noop, typeclass}
   def unsafeDecode(ss: Seq[String], index: Int): A =
     if(ss.isDefinedAt(index)) unsafeDecode(ss(index))
     else                      throw new IndexOutOfBoundsException
-
-  /** Turns an instance of `CellDecoder[A]` into one of `CellDecoder[B]`.
-    *
-    * This allows developers to adapt existing instances of [[CellDecoder]] rather than write one from scratch.
-    */
-  @noop
-  def map[B](f: A ⇒ B): CellDecoder[B] = CellDecoder(s ⇒ decode(s).map(f))
 }
 
 /** Low priority implicit decoders. */

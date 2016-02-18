@@ -1,5 +1,6 @@
 package kantan.csv
 
+import kantan.codecs.{Result, Decoder}
 import simulacrum.{noop, typeclass}
 
 import scala.collection.generic.CanBuildFrom
@@ -22,20 +23,12 @@ import scala.collection.generic.CanBuildFrom
   *
   * See the [[RowDecoder$ companion object]] for default implementations and construction methods.
   */
-@typeclass trait RowDecoder[A] { self ⇒
+@typeclass trait RowDecoder[A] extends Decoder[Seq[String], A, CsvError, RowDecoder] { self ⇒
   /** Turns the content of a row into `A`. */
   @noop
   def decode(row: Seq[String]): CsvResult[A]
 
-  @noop
-  def unsafeDecode(row: Seq[String]): A = decode(row).get
-
-  /** Turns a `RowDecoder[A]` into a `RowDecoder[B]`.
-    *
-    * This allows developers to adapt existing instances of [[RowDecoder]] rather than write one from scratch.
-    */
-  @noop
-  def map[B](f: A ⇒ B): RowDecoder[B] = RowDecoder(ss ⇒ decode(ss).map(f))
+  override protected def copy[DD](f: Seq[String] => CsvResult[DD]) = RowDecoder(f)
 }
 
 @export.imports[RowDecoder]

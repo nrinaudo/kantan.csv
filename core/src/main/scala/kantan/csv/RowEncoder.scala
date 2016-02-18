@@ -1,12 +1,13 @@
 package kantan.csv
 
+import kantan.codecs.Encoder
 import simulacrum.{noop, op, typeclass}
 
-@typeclass trait RowEncoder[A] { self ⇒
+@typeclass trait RowEncoder[A] extends Encoder[Seq[String], A, RowEncoder] { self ⇒
   @op("asCsvRow")
   def encode(a: A): Seq[String]
 
-  @noop def contramap[B](f: B ⇒ A): RowEncoder[B] = RowEncoder(f andThen encode _)
+  override protected def copy[DD](f: DD => Seq[String]) = RowEncoder(f)
 }
 
 @export.imports[RowEncoder]
