@@ -18,11 +18,11 @@ class OpenCsvEngine extends ReaderEngine with WriterEngine {
     // part of the CSV format, but I found no other way to disable it.
     val csv = new CSVReader(reader, separator, '"', '\u0000', 0, false, false, false)
 
-    new CsvReader[DecodeResult[Seq[String]]] {
+    new CsvReader[CsvResult[Seq[String]]] {
       var n: Array[String] = csv.readNext()
       override def hasNext = n != null
       override protected def readNext() = {
-        val buffer = DecodeResult(mutable.WrappedArray.make(n))
+        val buffer = CsvResult(mutable.WrappedArray.make(n))
         n = csv.readNext()
         buffer
       }

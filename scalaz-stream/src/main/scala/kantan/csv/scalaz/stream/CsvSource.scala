@@ -2,12 +2,12 @@ package kantan.csv.scalaz.stream
 
 import java.io.Reader
 
-import kantan.csv
+import kantan.csv._
 import kantan.csv.engine.ReaderEngine
 import simulacrum.{noop, op, typeclass}
 
-import scalaz.concurrent.Task
-import scalaz.stream._
+import _root_.scalaz.stream._
+import _root_.scalaz.concurrent.Task
 
 /** Turns instances of `S` into CSV sources.
   *
@@ -19,21 +19,21 @@ import scalaz.stream._
 @typeclass trait CsvSource[S] {
   @noop def reader(s: S): Reader
 
-  @op("asCsvSource") def source[A: csv.RowDecoder](s: S, sep: Char, header: Boolean)(implicit engine: ReaderEngine): Process[Task, csv.DecodeResult[A]] =
+  @op("asCsvSource") def source[A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit engine: ReaderEngine): Process[Task, CsvResult[A]] =
     CsvSource[A](reader(s), sep, header)
 
-  @op("asUnsafeCsvSource") def unsafeSource[A: csv.RowDecoder](s: S, sep: Char, header: Boolean)(implicit engine: ReaderEngine): Process[Task, A] =
+  @op("asUnsafeCsvSource") def unsafeSource[A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit engine: ReaderEngine): Process[Task, A] =
     source(s, sep, header).map(_.get)
 }
 
 object CsvSource {
-  def apply[A](reader: ⇒ csv.CsvReader[A]): Process[Task, A] =
+  def apply[A](reader: ⇒ CsvReader[A]): Process[Task, A] =
     io.iteratorR(Task.delay(reader))(csv ⇒ Task.delay(csv.close()))(csv ⇒ Task.delay(csv.toIterator))
 
-  def apply[A: csv.RowDecoder](reader: ⇒ Reader, sep: Char, header: Boolean)(implicit engine: ReaderEngine): Process[Task, csv.DecodeResult[A]] =
-    CsvSource(csv.CsvReader[A](reader, sep, header))
+  def apply[A: RowDecoder](reader: ⇒ Reader, sep: Char, header: Boolean)(implicit engine: ReaderEngine): Process[Task, CsvResult[A]] =
+    CsvSource(CsvReader[A](reader, sep, header))
 
-  implicit def fromInput[S](implicit is: csv.CsvInput[S]): CsvSource[S] = new CsvSource[S] {
+  implicit def fromInput[S](implicit is: CsvInput[S]): CsvSource[S] = new CsvSource[S] {
     override def reader(s: S) = is.open(s)
   }
 }

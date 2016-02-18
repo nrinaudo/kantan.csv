@@ -25,7 +25,7 @@ import scala.collection.generic.CanBuildFrom
 @typeclass trait RowDecoder[A] { self ⇒
   /** Turns the content of a row into `A`. */
   @noop
-  def decode(row: Seq[String]): DecodeResult[A]
+  def decode(row: Seq[String]): CsvResult[A]
 
   @noop
   def unsafeDecode(row: Seq[String]): A = decode(row).get
@@ -41,7 +41,7 @@ import scala.collection.generic.CanBuildFrom
 @export.imports[RowDecoder]
 trait LowPriorityRowDecoders {
   implicit def cellDecoder[A](implicit da: CellDecoder[A]): RowDecoder[A] = RowDecoder(ss ⇒
-    ss.headOption.map(h ⇒ if(ss.tail.isEmpty) da.decode(h) else DecodeResult.decodeFailure).getOrElse(DecodeResult.decodeFailure)
+    ss.headOption.map(h ⇒ if(ss.tail.isEmpty) da.decode(h) else CsvResult.decodeError).getOrElse(CsvResult.decodeError)
   )
 }
 
@@ -60,23 +60,23 @@ trait LowPriorityRowDecoders {
   */
 object RowDecoder extends LowPriorityRowDecoders with GeneratedRowDecoders {
   /** Creates a new instance of [[RowDecoder]] that uses the specified function to parse data. */
-  def apply[A](f: Seq[String] ⇒ DecodeResult[A]): RowDecoder[A] = new RowDecoder[A] {
+  def apply[A](f: Seq[String] ⇒ CsvResult[A]): RowDecoder[A] = new RowDecoder[A] {
     override def decode(row: Seq[String]) = f(row)
   }
 
   def fromUnsafe[A](f: Seq[String] ⇒ A): RowDecoder[A] = new RowDecoder[A] {
-    override def decode(row: Seq[String]) = DecodeResult(f(row))
+    override def decode(row: Seq[String]) = CsvResult(f(row))
     override def unsafeDecode(row: Seq[String]) = f(row)
   }
 
   /** Parses CSV rows as sequences of strings. */
-  implicit val stringSeq: RowDecoder[Seq[String]] = RowDecoder(ss ⇒ DecodeResult.success(ss))
+  implicit val stringSeq: RowDecoder[Seq[String]] = RowDecoder(ss ⇒ CsvResult(ss))
 
 
   /** Parses a CSV row into an `Either[A, B]`.
     *
     * This is done by first attempting to parse the row as an `A`. If that fails, we'll try parsing it as a `B`. If that
-    * fails as well, [[DecodeResult.DecodeFailure]] will be returned.
+    * fails as well, [[CsvResult.decodeError]] will be returned.
     */
   implicit def either[A, B](implicit da: RowDecoder[A], db: RowDecoder[B]): RowDecoder[Either[A, B]] =
     RowDecoder { ss ⇒
@@ -84,13 +84,13 @@ object RowDecoder extends LowPriorityRowDecoders with GeneratedRowDecoders {
     }
 
   implicit def option[A](implicit da: RowDecoder[A]): RowDecoder[Option[A]] = RowDecoder { ss ⇒
-    if(ss.isEmpty) DecodeResult.success(None)
+    if(ss.isEmpty) CsvResult(None)
     else           da.decode(ss).map(a ⇒ Some(a))
   }
 
   /** Parses a CSV row into a collection of `A`. */
   implicit def collection[A, M[X]](implicit da: CellDecoder[A], cbf: CanBuildFrom[Nothing, A, M[A]]): RowDecoder[M[A]] =
-    RowDecoder(ss ⇒ ss.foldLeft(DecodeResult.success(cbf.apply())) { (racc, s) ⇒ for {
+    RowDecoder(ss ⇒ ss.foldLeft(CsvResult(cbf.apply())) { (racc, s) ⇒ for {
       acc ← racc
       a   ← da.decode(s)
     } yield acc += a

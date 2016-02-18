@@ -16,10 +16,10 @@ class CommonsEngine extends ReaderEngine with WriterEngine {
     val parser = CSVFormat.RFC4180.withDelimiter(separator).parse(reader)
     val csv = parser.iterator()
 
-    new CsvReader[DecodeResult[Seq[String]]] {
+    new CsvReader[CsvResult[Seq[String]]] {
       override def hasNext = csv.hasNext
       override protected def readNext() =
-        if(hasNext) DecodeResult(new CsvSeq(csv.next()))
+        if(hasNext) CsvResult(new CsvSeq(csv.next()))
         else        throw new NoSuchElementException
       override def close() = parser.close()
     }

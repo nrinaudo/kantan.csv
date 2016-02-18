@@ -1,14 +1,13 @@
 package kantan.csv.generic
 
-import kantan.csv
-import kantan.csv.{CellDecoder, DecodeResult}
+import kantan.csv.{CellDecoder, CsvResult, RowDecoder}
 import shapeless._
 
-trait DerivedRowDecoder[A] extends csv.RowDecoder[A]
+trait DerivedRowDecoder[A] extends RowDecoder[A]
 
 @export.exports
 object DerivedRowDecoder {
-  def apply[A](f: Seq[String] ⇒ DecodeResult[A]): DerivedRowDecoder[A] = new DerivedRowDecoder[A] {
+  def apply[A](f: Seq[String] ⇒ CsvResult[A]): DerivedRowDecoder[A] = new DerivedRowDecoder[A] {
     override def decode(row: Seq[String]) = f(row)
   }
 
@@ -23,13 +22,13 @@ object DerivedRowDecoder {
           h ← dh.decode(s)
           t ← dt.decode(row.tail)
         } yield h :: t
-      ).getOrElse(DecodeResult.decodeFailure))
+      ).getOrElse(CsvResult.decodeError))
 
-  implicit val hnil: DerivedRowDecoder[HNil] = DerivedRowDecoder(_ ⇒ DecodeResult.success(HNil))
+  implicit val hnil: DerivedRowDecoder[HNil] = DerivedRowDecoder(_ ⇒ CsvResult(HNil))
 
   // Case objects or case classes of arity 0 are a special case: they only decode empty strings.
   implicit def caseObject[A, R <: HNil](implicit gen: Generic.Aux[A, R], ev: HNil =:= R): DerivedRowDecoder[A] =
-    DerivedRowDecoder(s ⇒ if(s.isEmpty) DecodeResult.success(gen.from(ev(HNil))) else DecodeResult.decodeFailure)
+    DerivedRowDecoder(s ⇒ if(s.isEmpty) CsvResult(gen.from(ev(HNil))) else CsvResult.decodeError)
 
   // Case classes of arity 1 are a special case: if the unique field has a row decoder, than we can consider that the
   // whole case class decodes exactly as its field does.
@@ -44,11 +43,11 @@ object DerivedRowDecoder {
 
   // - ADT derivation --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def coproduct[H, T <: Coproduct](implicit dh: csv.RowDecoder[H], dt: DerivedRowDecoder[T]): DerivedRowDecoder[H :+: T] =
+  implicit def coproduct[H, T <: Coproduct](implicit dh: RowDecoder[H], dt: DerivedRowDecoder[T]): DerivedRowDecoder[H :+: T] =
     DerivedRowDecoder(row ⇒ dh.decode(row).map(Inl.apply).orElse(dt.decode(row).map(Inr.apply)))
 
-  implicit val cnil: DerivedRowDecoder[CNil] = DerivedRowDecoder(_ ⇒ DecodeResult.decodeFailure)
+  implicit val cnil: DerivedRowDecoder[CNil] = DerivedRowDecoder(_ ⇒ CsvResult.decodeError)
 
-  implicit def adt[A, R <: Coproduct](implicit gen: Generic.Aux[A, R], dr: csv.RowDecoder[R]): DerivedRowDecoder[A] =
+  implicit def adt[A, R <: Coproduct](implicit gen: Generic.Aux[A, R], dr: RowDecoder[R]): DerivedRowDecoder[A] =
     DerivedRowDecoder(row ⇒ dr.decode(row).map(gen.from))
 }

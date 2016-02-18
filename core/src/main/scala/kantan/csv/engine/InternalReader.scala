@@ -2,7 +2,7 @@ package kantan.csv.engine
 
 import java.io.Reader
 
-import kantan.csv.{DecodeResult, CsvReader}
+import kantan.csv._
 
 import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer
@@ -26,7 +26,7 @@ private object InternalReader {
   sealed trait CellStart
 }
 
-private[engine] class InternalReader(val data: Reader, val separator: Char) extends CsvReader[DecodeResult[Seq[String]]] {
+private[engine] class InternalReader(val data: Reader, val separator: Char) extends CsvReader[CsvResult[Seq[String]]] {
   private val cell = new StringBuilder
   private val row  = ArrayBuffer[String]()
 
@@ -221,12 +221,12 @@ private[engine] class InternalReader(val data: Reader, val separator: Char) exte
   }
 
   override def hasNext: Boolean = hasNextChar || hasLeftover
-  override protected def readNext(): DecodeResult[Seq[String]] = {
+  override protected def readNext(): CsvResult[Seq[String]] = {
     row.clear()
     if(hasLeftover) nextRow(leftover)
     else if(hasNextChar) nextRow(nextChar())
     else throw new NoSuchElementException
-    DecodeResult(row)
+    CsvResult(row)
   }
   override def close()  = data.close()
 }

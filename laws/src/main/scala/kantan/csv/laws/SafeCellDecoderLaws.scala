@@ -1,7 +1,7 @@
 package kantan.csv.laws
 
 import kantan.csv
-import kantan.csv.{CellDecoder, DecodeResult}
+import kantan.csv._
 import org.scalacheck.Prop._
 
 trait SafeCellDecoderLaws[A] extends RowDecoderLaws[A] {
@@ -13,7 +13,7 @@ trait SafeCellDecoderLaws[A] extends RowDecoderLaws[A] {
   def unsafeOutputOfBounds(row: List[String]): Boolean =
     throws(classOf[IndexOutOfBoundsException])(cellDecoder.unsafeDecode(row, row.length))
 
-  def cellDecode(value: ExpectedCell[A]): Boolean = cellDecoder.decode(value.encoded) == DecodeResult.success(value.value)
+  def cellDecode(value: ExpectedCell[A]): Boolean = cellDecoder.decode(value.encoded) == CsvResult(value.value)
 
   def unsafeCellDecode(value: ExpectedCell[A]): Boolean = cellDecoder.decode(value.encoded) == value.value
 

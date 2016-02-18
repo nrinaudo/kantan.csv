@@ -151,8 +151,9 @@ lazy val laws = project
     name       := "laws"
   )
   .settings(libraryDependencies ++= Seq(
-    "org.scalacheck" %% "scalacheck" % scalaCheckVersion,
-    "org.typelevel"  %% "discipline" % disciplineVersion
+    "org.scalacheck" %% "scalacheck"        % scalaCheckVersion,
+    "org.typelevel"  %% "discipline"        % disciplineVersion,
+    "com.nrinaudo"  %% "kantan.codecs-laws" % kantanCodecsVersion
   ))
   .settings(allSettings: _*)
   .dependsOn(core)
@@ -178,6 +179,7 @@ lazy val scalaz = project
   .settings(allSettings: _*)
   .settings(libraryDependencies ++= Seq(
     "org.scalaz"    %% "scalaz-core"               % scalazVersion,
+    "com.nrinaudo"  %% "kantan.codecs-scalaz"      % kantanCodecsVersion,
     "org.scalaz"    %% "scalaz-scalacheck-binding" % scalazVersion    % "test",
     "org.scalatest" %% "scalatest"                 % scalatestVersion % "test"
   ))
@@ -201,9 +203,10 @@ lazy val cats = project
     name       := "cats"
   )
   .settings(libraryDependencies ++= Seq(
-    "org.typelevel" %% "cats"      % catsVersion,
-    "org.typelevel" %% "cats-laws" % catsVersion      % "test",
-    "org.scalatest" %% "scalatest" % scalatestVersion % "test"
+    "org.typelevel" %% "cats"               % catsVersion,
+    "com.nrinaudo"  %% "kantan.codecs-cats" % kantanCodecsVersion,
+    "org.typelevel" %% "cats-laws"          % catsVersion      % "test",
+    "org.scalatest" %% "scalatest"          % scalatestVersion % "test"
   ))
   .settings(allSettings: _*)
   .dependsOn(core, laws % "test")

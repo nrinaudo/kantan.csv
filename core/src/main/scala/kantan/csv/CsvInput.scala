@@ -24,10 +24,10 @@ import scala.io.Codec
   @noop
   def open(s: S): Reader
 
-  /** Turns the specified `S` into an iterator on `DecodeResult[A]`.
+  /** Turns the specified `S` into an iterator on `CsvResult[A]`.
     *
     * This method is "safe", in that it does not throw exceptions when errors are encountered. This comes with the small
-    * cost of having each row wrapped in a [[DecodeResult]] that then need to be unpacked. See [[unsafeReader]] for an
+    * cost of having each row wrapped in a [[CsvResult]] that then need to be unpacked. See [[unsafeReader]] for an
     * alternative.
     *
     * This method is also mapped to the `asCsvRows` one that enrich all types that have a valid [[CsvInput]] instance
@@ -40,7 +40,7 @@ import scala.io.Codec
     * @tparam A type to parse each row as.
     */
   @op("asCsvReader")
-  def reader[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[DecodeResult[A]] =
+  def reader[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[CsvResult[A]] =
     CsvReader(open(s), separator, header)
 
   /** Turns the specified `S` into an iterator on `A`.
@@ -54,7 +54,7 @@ import scala.io.Codec
     reader[A](s, separator, header).map(_.getOrElse(throw new IOException("Illegal CSV data found")))
 
   @op("readCsv")
-  def read[C[_], A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, DecodeResult[A], C[DecodeResult[A]]]): C[DecodeResult[A]] =
+  def read[C[_], A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, CsvResult[A], C[CsvResult[A]]]): C[CsvResult[A]] =
     reader(s, sep, header).to[C]
 
   @op("unsafeReadCsv")

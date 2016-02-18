@@ -66,7 +66,7 @@ rawData.asCsvReader[List[String]](',', false)
 That return type is interesting. First, the outermost type: [`CsvReader`]. That's essentially an iterator with a `close`
 method - you can fold on it, filter it, use it in monadic composition...
 
-That [`CsvReader`] contains instances of [`DecodeResult`] - a sum type that represents the result of decoding each row.
+That [`CsvReader`] contains instances of [`CsvResult`] - a sum type that represents the result of decoding each row.
 It can correctly be thought of as a specialised version of [`Option`].
 
 Finally, the innermost type is what we requested each row to be parsed as: a [`List[String]`][`List`].
@@ -99,7 +99,7 @@ We can now call [`asCsvReader`] with a more meaningful type parameter:
 rawData.asCsvReader[CarTuple](',', false).foreach(println _)
 ```
 
-The thing that stands out is that the first row is a [`DecodeFailure`]: kantan.csv failed to parse it as an
+The thing that stands out is that the first row is a [`DecodeError`]: kantan.csv failed to parse it as an
 instance of `CarTuple`. That makes sense: our first row is a header and composed of different types than the others. We
 can just skip it by passing `true` to [`asCsvReader`]:
 
@@ -216,14 +216,15 @@ kantan.csv comes with a number of default implementations of [`CellDecoder`] whi
 
 
 ## Convenience methods
+
 ### Unsafe parsing
 By default, kantan.csv parses things safely: if an error occurs, no exception is thrown and you don't lose control of
-your code. Instead, the possibility for errors is encoded in [`DecodeResult`] and you have the
+your code. Instead, the possibility for errors is encoded in [`CsvResult`] and you have the
 opportunity, for example, to skip over incorrectly encoded rows.
  
 Sometimes though, you really want your code to crash if something goes wrong - you're writing a one-off bit of code
 whose sole purpose is to turn CSV into better shaped data, say. You can use [`asUnsafeCsvReader`] for
-this purpose: it'll unwrap the [`DecodeResult`] layer and throw an exception at the first error.
+this purpose: it'll unwrap the [`CsvResult`] layer and throw an exception at the first error.
 
 ```tut
 rawData.asUnsafeCsvReader[Car](',', true).foreach(println _)
@@ -282,12 +283,12 @@ kantan.csv comes with a number of default implementations of [`CsvInput`] which 
 [`CsvInput`]:{{ site.baseurl }}/api/#kantan.csv.CsvInput
 [`RowDecoder`]:{{ site.baseurl }}/api/#kantan.csv.RowDecoder
 [`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.CellDecoder
-[`DecodeResult`]:{{ site.baseurl }}/api/#kantan.csv.DecodeResult
-[`DecodeFailure`]:{{ site.baseurl }}/api/#kantan.csv.DecodeResult$$DecodeFailure$
-[`readCsv`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvInput@read[C[_],A](S,Char,Boolean)(RowDecoder[A],ReaderEngine,CanBuildFrom[Nothing,DecodeResult[A],C[DecodeResult[A]]]):C[DecodeResult[A]]
-[`unsafeReadCsv`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvInput@unsafeRead[C[_],A](S,Char,Boolean)(RowDecoder[A],ReaderEngine,CanBuildFrom[Nothing,DecodeResult[A],C[DecodeResult[A]]]):C[DecodeResult[A]]
-[`asCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvInput@reader[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[A],implicitengine:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.DecodeResult[A]]
-[`asUnsafeCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvInput@unsafeReader[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[A],implicitengine:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.DecodeResult[A]]
+[`CsvResult`]:{{ site.baseurl }}/api/#kantan.csv.package@CsvResult[A]=kantan.codecs.Result[kantan.csv.CsvError,A]
+[`DecodeError`]:{{ site.baseurl }}/api/#kantan.csv.CsvError$@DecodeError
+[`readCsv`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvInput@read[C[_],A](s:S,sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.CsvResult[A],C[kantan.csv.CsvResult[A]]]):C[kantan.csv.CsvResult[A]]
+[`unsafeReadCsv`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvInput@unsafeRead[C[_],A](s:S,sep:Char,header:Boolean)(implicitevidence$4:kantan.csv.RowDecoder[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,A,C[A]]):C[A]
+[`asCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvInput@reader[A](s:S,separator:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[A],implicitengine:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.CsvResult[A]]
+[`asUnsafeCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvInput@unsafeReader[A](s:S,separator:Char,header:Boolean)(implicitevidence$2:kantan.csv.RowDecoder[A],implicitengine:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[A]
 [shapeless]:https://github.com/milessabin/shapeless
 [`DateTime`]:http://www.joda.org/joda-time/apidocs/org/joda/time/DateTime.html
 [`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List

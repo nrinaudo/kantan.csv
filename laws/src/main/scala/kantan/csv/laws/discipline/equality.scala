@@ -1,6 +1,6 @@
 package kantan.csv.laws.discipline
 
-import kantan.csv
+import kantan.csv._
 import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.{arbitrary => arb}
 
@@ -13,15 +13,15 @@ object equality {
     samples.forall(b ⇒ f(a1(b), a2(b)))
   }
 
-  def cellDecoder[A](c1: csv.CellDecoder[A], c2: csv.CellDecoder[A])(f: (csv.DecodeResult[A], csv.DecodeResult[A]) ⇒ Boolean): Boolean =
+  def cellDecoder[A](c1: CellDecoder[A], c2: CellDecoder[A])(f: (CsvResult[A], CsvResult[A]) ⇒ Boolean): Boolean =
     eq(c1.decode, c2.decode)(f)
 
-  def cellEncoder[A: Arbitrary](c1: csv.CellEncoder[A], c2: csv.CellEncoder[A]): Boolean =
+  def cellEncoder[A: Arbitrary](c1: CellEncoder[A], c2: CellEncoder[A]): Boolean =
     eq(c1.encode, c2.encode)(_ == _)
 
-  def rowDecoder[A](c1: csv.RowDecoder[A], c2: csv.RowDecoder[A])(f: (csv.DecodeResult[A], csv.DecodeResult[A]) ⇒ Boolean): Boolean =
+  def rowDecoder[A](c1: RowDecoder[A], c2: RowDecoder[A])(f: (CsvResult[A], CsvResult[A]) ⇒ Boolean): Boolean =
     eq(c1.decode, c2.decode)(f)
 
-  def rowEncoder[A: Arbitrary](c1: csv.RowEncoder[A], c2: csv.RowEncoder[A]): Boolean =
+  def rowEncoder[A: Arbitrary](c1: RowEncoder[A], c2: RowEncoder[A]): Boolean =
     eq(c1.encode, c2.encode)(_ == _)
 }

@@ -1,13 +1,14 @@
 package kantan.csv.laws
 
 import kantan.csv
+import kantan.csv.CsvResult
 
 trait SafeRowCodecLaws[A] extends SafeRowDecoderLaws[A] with RowEncoderLaws[A] {
   def codec: csv.RowCodec[A]
   override def rowDecoder: csv.RowDecoder[A] = codec
   override def rowEncoder: csv.RowEncoder[A] = codec
 
-  def roundTrip(a: A): Boolean = codec.decode(codec.encode(a)) == csv.DecodeResult.Success(a)
+  def roundTrip(a: A): Boolean = codec.decode(codec.encode(a)) == CsvResult(a)
 }
 
 object SafeRowCodecLaws {

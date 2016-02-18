@@ -1,6 +1,6 @@
 package kantan.csv.cats
 
-import algebra.Eq
+import cats.Eq
 import cats.laws.discipline.ContravariantTests
 import org.scalacheck.Arbitrary
 import org.scalatest.FunSuite

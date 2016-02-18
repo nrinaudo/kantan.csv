@@ -2,16 +2,15 @@ package kantan.csv.engine.jackson
 
 import java.io.{Reader, Writer}
 
-import kantan.csv
-import kantan.csv.engine.{WriterEngine, ReaderEngine}
-import kantan.csv.{CsvReader, CsvWriter}
+import kantan.csv._
+import kantan.csv.engine.{ReaderEngine, WriterEngine}
 
 class JacksonEngine extends ReaderEngine with WriterEngine {
   override def readerFor(reader: Reader, separator: Char) = {
     val iterator = JacksonCsv.parse(reader, separator)
-    new CsvReader[csv.DecodeResult[Seq[String]]] {
+    new CsvReader[CsvResult[Seq[String]]] {
       override protected def readNext() =
-        if(hasNext) csv.DecodeResult(iterator.next())
+        if(hasNext) CsvResult(iterator.next())
         else        throw new NoSuchElementException
       override def hasNext = iterator.hasNext
       override def close() = iterator.close()

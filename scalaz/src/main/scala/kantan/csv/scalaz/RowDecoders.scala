@@ -2,7 +2,7 @@ package kantan.csv.scalaz
 
 import export.{export, exports}
 import kantan.csv
-import kantan.csv.DecodeResult
+import kantan.csv.CsvResult
 
 import scalaz.Maybe._
 import scalaz.Scalaz._
@@ -16,7 +16,7 @@ object RowDecoders {
 
   @export(Orphan)
   implicit def maybeDecoder[A](implicit da: csv.RowDecoder[A]): csv.RowDecoder[Maybe[A]] = csv.RowDecoder { row ⇒
-    if(row.isEmpty) DecodeResult.success(empty)
+    if(row.isEmpty) CsvResult(empty)
     else            da.decode(row).map(just)
   }
 }

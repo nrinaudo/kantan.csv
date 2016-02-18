@@ -15,7 +15,7 @@ import simulacrum.{noop, typeclass}
   *
   * This can be remedied simply by writing the following:
   * {{{
-  *   implicit val dateDecoder = CellDecoder(s ⇒ DecodeResult(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s)))
+  *   implicit val dateDecoder = CellDecoder(s ⇒ CsvResult(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s)))
   * }}}
   *
   * See the [[CellDecoder$ companion object]] for default implementations and construction methods.
@@ -25,7 +25,7 @@ import simulacrum.{noop, typeclass}
 @typeclass trait CellDecoder[A] {
   /** Turns the content of a CSV cell into an `A`. */
   @noop
-  def decode(s: String): DecodeResult[A]
+  def decode(s: String): CsvResult[A]
 
   @noop
   def unsafeDecode(s: String): A = decode(s).get
@@ -33,12 +33,12 @@ import simulacrum.{noop, typeclass}
   /** Turns the content of the specified cell into an `A`.
     *
     * The purpose of this method is to protect against index out of bound exceptions. Should the specified index not
-    * exist, a [[DecodeResult.DecodeFailure]] instance will be returned.
+    * exist, a [[CsvResult.decodeError]] instance will be returned.
     */
   @noop
-  def decode(ss: Seq[String], index: Int): DecodeResult[A] =
+  def decode(ss: Seq[String], index: Int): CsvResult[A] =
     if(ss.isDefinedAt(index)) decode(ss(index))
-    else                      DecodeResult.DecodeFailure
+    else                      CsvResult.decodeError
 
   @noop
   def unsafeDecode(ss: Seq[String], index: Int): A =
@@ -68,20 +68,23 @@ trait LowPriorityCellDecoders
   */
 object CellDecoder extends LowPriorityCellDecoders {
   /** Creates a new instance of [[CellDecoder]] that uses the specified function to parse data. */
-  def apply[A](f: String ⇒ DecodeResult[A]): CellDecoder[A] = new CellDecoder[A] {
+  def apply[A](f: String ⇒ CsvResult[A]): CellDecoder[A] = new CellDecoder[A] {
     override def decode(a: String) = f(a)
   }
 
   def fromUnsafe[A](f: String ⇒ A): CellDecoder[A] = new CellDecoder[A] {
     override def unsafeDecode(s: String) = f(s)
     override def unsafeDecode(ss: Seq[String], index: Int) = f(ss(index))
-    override def decode(s: String) = DecodeResult(f(s))
+    override def decode(s: String) = CsvResult(f(s))
   }
 
   /** Turns a cell into a `String` value. */
-  implicit val string: CellDecoder[String]     = CellDecoder(s ⇒ DecodeResult.success(s))
+  implicit val string: CellDecoder[String]     = CellDecoder(s ⇒ CsvResult(s))
   /** Turns a cell into a `Char` value. */
-  implicit val char:   CellDecoder[Char]       = CellDecoder(s ⇒ if(s.length == 1) DecodeResult.success(s(0)) else DecodeResult.decodeFailure)
+  implicit val char:   CellDecoder[Char]       = CellDecoder { s ⇒ CsvResult {
+    if(s.length == 1) s.charAt(0)
+    else throw new IllegalArgumentException(s"Not a valid char: '$s'")
+  }}
   /** Turns a cell into an `Int` value. */
   implicit val int   : CellDecoder[Int]        = CellDecoder.fromUnsafe(_.toInt)
   /** Turns a cell into a `Float` value. */
@@ -108,14 +111,14 @@ object CellDecoder extends LowPriorityCellDecoders {
     * Any non-empty string will map to `Some`, the empty string to `None`.
     */
   implicit def opt[A](implicit da: CellDecoder[A]): CellDecoder[Option[A]] = CellDecoder { s ⇒
-    if(s.isEmpty) DecodeResult.success(None)
+    if(s.isEmpty) CsvResult(None)
     else          da.decode(s).map(Option.apply)
   }
 
   /** Turns a cell into an instance of `Either[A, B]`, provided `A` and `B` have an implicit [[CellDecoder]] in scope.
     *
     * This is done by first attempting to parse the cell as an `A`. If that fails, we'll try parsing it as a `B`. If that
-    * fails as well, [[DecodeResult.DecodeFailure]] will be returned.
+    * fails as well, [[CsvResult.decodeError]] will be returned.
     */
   implicit def either[A, B](implicit da: CellDecoder[A], db: CellDecoder[B]): CellDecoder[Either[A, B]] =
     CellDecoder { s ⇒ da.decode(s).map(a ⇒ Left(a): Either[A, B])

@@ -155,8 +155,8 @@ object CsvReader {
     override def close(): Unit = ()
   }
 
-  def apply[A](reader: Reader, separator: Char, header: Boolean)(implicit da: RowDecoder[A], engine: ReaderEngine): CsvReader[DecodeResult[A]] = {
-    val data: CsvReader[DecodeResult[Seq[String]]] = engine.readerFor(reader, separator)
+  def apply[A](reader: Reader, separator: Char, header: Boolean)(implicit da: RowDecoder[A], engine: ReaderEngine): CsvReader[CsvResult[A]] = {
+    val data: CsvReader[CsvResult[Seq[String]]] = engine.readerFor(reader, separator)
 
     if(header && data.hasNext) data.next()
 

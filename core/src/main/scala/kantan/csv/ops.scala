@@ -9,12 +9,12 @@ object ops extends CsvInput.ToCsvInputOps
                    with RowEncoder.ToRowEncoderOps
                    with CellEncoder.ToCellEncoderOps {
   implicit class CellDecoderOps(val str: String) extends AnyVal {
-    def fromCsvCell[A](implicit da: CellDecoder[A]): DecodeResult[A] = da.decode(str)
+    def fromCsvCell[A](implicit da: CellDecoder[A]): CsvResult[A] = da.decode(str)
     def unsafeFromCsvCell[A](implicit da: CellDecoder[A]): A = da.unsafeDecode(str)
   }
 
   implicit class RowDecoderOps(val row: Seq[String]) extends AnyVal {
-    def fromCsvRow[A](implicit da: RowDecoder[A]): DecodeResult[A] = da.decode(row)
+    def fromCsvRow[A](implicit da: RowDecoder[A]): CsvResult[A] = da.decode(row)
     def unsafeFromCsvRow[A](implicit da: RowDecoder[A]): A = da.unsafeDecode(row)
   }
 
