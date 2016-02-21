@@ -1,13 +1,15 @@
 package kantan.csv
 
-trait RowCodec[A] extends RowDecoder[A] with RowEncoder[A]
+import kantan.codecs.Codec
+
+trait RowCodec[A] extends Codec[Seq[String], A, CsvError, RowDecoder, RowEncoder] with RowDecoder[A] with RowEncoder[A]
 
 @export.exports(Subclass)
 object RowCodec extends GeneratedRowCodecs {
-  implicit def combine[C](implicit r: RowDecoder[C], w: RowEncoder[C]): RowCodec[C] = RowCodec(r.decode _ , w.encode _)
+  def combine[A](decoder: RowDecoder[A], encoder: RowEncoder[A]): RowCodec[A] = RowCodec(decoder.decode _, encoder.encode _)
 
-  def apply[C](decoder: Seq[String] ⇒ CsvResult[C], encoder: C ⇒ Seq[String]): RowCodec[C] = new RowCodec[C] {
-    override def encode(a: C) = encoder(a)
+  def apply[A](decoder: Seq[String] ⇒ CsvResult[A], encoder: A ⇒ Seq[String]): RowCodec[A] = new RowCodec[A] {
+    override def encode(a: A) = encoder(a)
     override def decode(row: Seq[String]) = decoder(row)
   }
 }

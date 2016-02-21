@@ -1,26 +1,13 @@
 package kantan.csv.laws.discipline
 
-import kantan.csv.RowDecoder
-import kantan.csv.laws.{ExpectedRow, IllegalRow, RowDecoderLaws}
+import kantan.codecs.laws.CodecValue.LegalValue
+import kantan.codecs.laws.discipline.DecoderTests
+import kantan.csv.laws.RowDecoderLaws
+import kantan.csv.laws.discipline.arbitrary._
+import kantan.csv.{CsvError, RowDecoder}
 import org.scalacheck.Arbitrary
-import org.scalacheck.Prop._
-
-trait RowDecoderTests[A] extends SafeRowDecoderTests[A] {
-  def laws: RowDecoderLaws[A]
-  implicit def arbIllegalRow: Arbitrary[IllegalRow[A]]
-
-  def rowDecoder[B: Arbitrary, C: Arbitrary]: RuleSet = new DefaultRuleSet(
-    name = "rowDecoder",
-    parent = Some(safeRowDecoder[B, C]),
-    "safe row decode fail"     → forAll(laws.safeRowDecodeFail _),
-    "unsafe row decode fail"   → forAll(laws.unsafeRowDecodeFail _)
-  )
-}
 
 object RowDecoderTests {
-  def apply[A](implicit a: Arbitrary[ExpectedRow[A]], c: RowDecoder[A], i: Arbitrary[IllegalRow[A]]): RowDecoderTests[A] = new RowDecoderTests[A] {
-    override def laws = RowDecoderLaws[A]
-    override implicit def arbExpectedRow = a
-    override implicit def arbIllegalRow = i
-  }
+  def apply[A](implicit l: RowDecoderLaws[A], al: Arbitrary[LegalValue[Seq[String], A]]): RowDecoderTests[A] =
+    DecoderTests[Seq[String], A, CsvError, RowDecoder]
 }

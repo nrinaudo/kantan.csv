@@ -1,24 +1,24 @@
 package kantan.csv.scalaz
 
-import kantan.csv.laws.discipline.arbitrary._
-import kantan.csv.laws.discipline.{CellCodecTests, RowCodecTests}
-import kantan.csv.laws.{IllegalCell, IllegalRow}
 import codecs._
-import org.scalacheck.{Arbitrary, Gen}
+import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.csv.laws.discipline.{CellCodecTests, RowCodecTests}
+import kantan.csv.laws.discipline.arbitrary._
+import org.scalacheck.Arbitrary
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
-import _root_.scalaz.\/
-import _root_.scalaz.scalacheck.ScalazArbitrary._
+import scalaz.{Maybe, \/}
 
 class DisjunctionTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  implicit val arbIllegalCell: Arbitrary[IllegalCell[Int \/ Boolean]] =
-    illegal(Gen.alphaChar.map(_.toString))
+  // TODO: should this be moved into a kantan.codecs-laws-scalaz project? I'm bound to need to re-use it.
+  implicit def arbLegalDisjunction[E, DL, DR](implicit a: Arbitrary[LegalValue[E, Either[DL, DR]]]): Arbitrary[LegalValue[E, DL \/ DR]] =
+    Arbitrary(a.arbitrary.map(_.mapDecoded(v ⇒ \/.fromEither(v))))
 
-  implicit val arbIllegalRow: Arbitrary[IllegalRow[(Int, Int, Int) \/ (Boolean, Float)]] =
-    illegal(Gen.alphaChar.map(s ⇒ Seq(s.toString)))
+  implicit def arbIllegalDisjunction[E, DL, DR](implicit a: Arbitrary[IllegalValue[E, Either[DL, DR]]]): Arbitrary[IllegalValue[E, DL \/ DR]] =
+      Arbitrary(a.arbitrary.map(_.mapDecoded(v ⇒ \/.fromEither(v))))
 
-  checkAll("Int \\/ Boolean", CellCodecTests[Int \/ Boolean].cellCodec[Byte, Float])
-  checkAll("(Int, Int, Int) \\/ (Boolean, Float)", RowCodecTests[(Int, Int, Int) \/ (Boolean, Float)].rowCodec[Byte, String])
+  checkAll("Int \\/ Boolean", CellCodecTests[Int \/ Boolean].codec[Byte, Float])
+  checkAll("(Int, Int, Int) \\/ (Boolean, Float)", RowCodecTests[(Int, Int, Int) \/ (Boolean, Float)].codec[Byte, String])
 }
