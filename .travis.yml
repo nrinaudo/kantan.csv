@@ -6,7 +6,7 @@ jdk:
   - oraclejdk7
   - oraclejdk8
 script:
-  - sbt clean coverage test coverageReport coverageAggregate
+  - sbt ++$TRAVIS_SCALA_VERSION clean coverage test coverageReport coverageAggregate
 before_install:
   - pip install --user codecov
 after_success:
