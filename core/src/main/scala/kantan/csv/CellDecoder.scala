@@ -2,7 +2,7 @@ package kantan.csv
 
 import java.util.UUID
 
-import kantan.codecs.{Result, Decoder}
+import kantan.codecs.Decoder
 import simulacrum.{noop, typeclass}
 
 /** Decodes CSV cells into usable types.
@@ -65,6 +65,10 @@ object CellDecoder extends LowPriorityCellDecoders {
     override def decode(a: String) = f(a)
   }
 
+  def fromSafe[A](f: String ⇒ A): CellDecoder[A] = new CellDecoder[A] {
+    override def decode(a: String) = CsvResult.success(f(a))
+  }
+
   def fromUnsafe[A](f: String ⇒ A): CellDecoder[A] = new CellDecoder[A] {
     override def unsafeDecode(s: String) = f(s)
     override def unsafeDecode(ss: Seq[String], index: Int) = f(ss(index))
@@ -72,32 +76,32 @@ object CellDecoder extends LowPriorityCellDecoders {
   }
 
   /** Turns a cell into a `String` value. */
-  implicit val string: CellDecoder[String]     = CellDecoder(s ⇒ CsvResult(s))
+  implicit val string: CellDecoder[String] = fromSafe(identity)
   /** Turns a cell into a `Char` value. */
-  implicit val char:   CellDecoder[Char]       = CellDecoder { s ⇒ CsvResult {
+  implicit val char:   CellDecoder[Char] = CellDecoder { s ⇒ CsvResult {
     if(s.length == 1) s.charAt(0)
     else throw new IllegalArgumentException(s"Not a valid char: '$s'")
   }}
   /** Turns a cell into an `Int` value. */
-  implicit val int   : CellDecoder[Int]        = CellDecoder.fromUnsafe(_.toInt)
+  implicit val int   : CellDecoder[Int] = CellDecoder.fromUnsafe(_.toInt)
   /** Turns a cell into a `Float` value. */
-  implicit val float : CellDecoder[Float]      = CellDecoder.fromUnsafe(_.toFloat)
+  implicit val float : CellDecoder[Float] = CellDecoder.fromUnsafe(_.toFloat)
   /** Turns a cell into a `Double` value. */
-  implicit val double: CellDecoder[Double]     = CellDecoder.fromUnsafe(_.toDouble)
+  implicit val double: CellDecoder[Double] = CellDecoder.fromUnsafe(_.toDouble)
   /** Turns a cell into a `Long` value. */
-  implicit val long  : CellDecoder[Long]       = CellDecoder.fromUnsafe(_.toLong)
+  implicit val long  : CellDecoder[Long] = CellDecoder.fromUnsafe(_.toLong)
   /** Turns a cell into a `Short` value. */
-  implicit val short : CellDecoder[Short]      = CellDecoder.fromUnsafe(_.toShort)
+  implicit val short : CellDecoder[Short] = CellDecoder.fromUnsafe(_.toShort)
   /** Turns a cell into a `Byte` value. */
-  implicit val byte  : CellDecoder[Byte]       = CellDecoder.fromUnsafe(_.toByte)
+  implicit val byte  : CellDecoder[Byte] = CellDecoder.fromUnsafe(_.toByte)
   /** Turns a cell into a `Boolean` value. */
-  implicit val bool  : CellDecoder[Boolean]    = CellDecoder.fromUnsafe(_.toBoolean)
+  implicit val bool  : CellDecoder[Boolean] = CellDecoder.fromUnsafe(_.toBoolean)
   /** Turns a cell into a `BigInt` value. */
-  implicit val bigInt: CellDecoder[BigInt]     = CellDecoder.fromUnsafe(BigInt.apply)
+  implicit val bigInt: CellDecoder[BigInt] = CellDecoder.fromUnsafe(BigInt.apply)
   /** Turns a cell into a `BigDecimal` value. */
   implicit val bigDec: CellDecoder[BigDecimal] = CellDecoder.fromUnsafe(BigDecimal.apply)
   /** Turns a cell into a `UUID` value. */
-  implicit val uuid  : CellDecoder[UUID]       = CellDecoder.fromUnsafe(UUID.fromString)
+  implicit val uuid  : CellDecoder[UUID] = CellDecoder.fromUnsafe(UUID.fromString)
 
   /** Turns a cell into an instance of `Option[A]`, provided `A` has an implicit [[CellDecoder]] in scope.
     *
