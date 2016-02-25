@@ -11,8 +11,6 @@ trait CellCodec[A] extends Codec[String, A, CsvError, CellDecoder, CellEncoder] 
 /** Declares helpful methods for [[CellCodec]] creation. */
 @export.exports(Subclass)
 object CellCodec {
-  def combine[A](decoder: CellDecoder[A], encoder: CellEncoder[A]): CellCodec[A] = CellCodec(decoder.decode _, encoder.encode _)
-
   /** Creates a new [[CellCodec]] from the specified decoding and encoding functions. */
   def apply[A](decoder: String ⇒ CsvResult[A], encoder: A ⇒ String): CellCodec[A] = new CellCodec[A] {
     override def decode(a: String) = decoder(a)
