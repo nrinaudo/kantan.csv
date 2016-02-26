@@ -7,7 +7,7 @@ import simulacrum.{noop, op, typeclass}
 
 import scala.io.Codec
 
-@typeclass trait CsvOutput[-S] { self ⇒
+@typeclass trait CsvOutput[-S] extends Serializable{ self ⇒
   @noop
   def open(s: S): Writer
 

@@ -16,7 +16,7 @@ import _root_.scalaz.concurrent.Task
   *
   * Additionally, any type that has an instance of `CsvInput` in scope automatically gets an instance of [[CsvSource]].
   */
-@typeclass trait CsvSource[S] {
+@typeclass trait CsvSource[S] extends Serializable {
   @noop def reader(s: S): Reader
 
   @op("asCsvSource") def source[A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit engine: ReaderEngine): Process[Task, CsvResult[A]] =

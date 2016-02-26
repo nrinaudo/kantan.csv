@@ -16,7 +16,7 @@ import scala.io.Codec
   *
   * See the [[CsvInput$ companion object]] for default implementations and construction methods.
   */
-@typeclass trait CsvInput[-S] { self ⇒
+@typeclass trait CsvInput[-S] extends Serializable { self ⇒
   /** Turns the specified `S` into a `Reader`.
     *
     * Other methods in this trait all rely on this to open and parse CSV data.

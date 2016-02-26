@@ -17,7 +17,7 @@ import scalaz.stream._
   *
   * Additionally, any type that has an instance of `CsvOutput` in scope automatically gets an instance of [[CsvSink]].
   */
-@typeclass trait CsvSink[S] {
+@typeclass trait CsvSink[S] extends Serializable {
   @noop def writer(s: S): Writer
 
   @op("asCsvSink") def sink[A: csv.RowEncoder](s: S, sep: Char, header: Seq[String] = Seq.empty)(implicit engine: WriterEngine): Sink[Task, A] =
