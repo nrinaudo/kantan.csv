@@ -13,13 +13,13 @@ object equality {
     samples.forall(b ⇒ f(a1(b), a2(b)))
   }
 
-  def cellDecoder[A](c1: CellDecoder[A], c2: CellDecoder[A])(f: (CsvResult[A], CsvResult[A]) ⇒ Boolean): Boolean =
+  def cellDecoder[A](c1: CellDecoder[A], c2: CellDecoder[A])(f: (DecodeResult[A], DecodeResult[A]) ⇒ Boolean): Boolean =
     eq(c1.decode, c2.decode)(f)
 
   def cellEncoder[A: Arbitrary](c1: CellEncoder[A], c2: CellEncoder[A]): Boolean =
     eq(c1.encode, c2.encode)(_ == _)
 
-  def rowDecoder[A](c1: RowDecoder[A], c2: RowDecoder[A])(f: (CsvResult[A], CsvResult[A]) ⇒ Boolean): Boolean =
+  def rowDecoder[A](c1: RowDecoder[A], c2: RowDecoder[A])(f: (DecodeResult[A], DecodeResult[A]) ⇒ Boolean): Boolean =
     eq(c1.decode, c2.decode)(f)
 
   def rowEncoder[A: Arbitrary](c1: RowEncoder[A], c2: RowEncoder[A]): Boolean =

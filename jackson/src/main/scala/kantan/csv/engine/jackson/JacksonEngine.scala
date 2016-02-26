@@ -10,7 +10,7 @@ class JacksonEngine extends ReaderEngine with WriterEngine {
     val iterator = JacksonCsv.parse(reader, separator)
     new CsvReader[CsvResult[Seq[String]]] {
       override protected def readNext() =
-        if(hasNext) CsvResult(iterator.next())
+        if(hasNext) ParseResult.success(iterator.next())
         else        throw new NoSuchElementException
       override def hasNext = iterator.hasNext
       override def close() = iterator.close()

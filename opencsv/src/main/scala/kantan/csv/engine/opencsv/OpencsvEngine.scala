@@ -22,7 +22,7 @@ class OpenCsvEngine extends ReaderEngine with WriterEngine {
       var n: Array[String] = csv.readNext()
       override def hasNext = n != null
       override protected def readNext() = {
-        val buffer = CsvResult(mutable.WrappedArray.make(n))
+        val buffer = ParseResult.success(mutable.WrappedArray.make(n))
         n = csv.readNext()
         buffer
       }

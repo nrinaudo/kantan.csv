@@ -19,7 +19,7 @@ class CommonsEngine extends ReaderEngine with WriterEngine {
     new CsvReader[CsvResult[Seq[String]]] {
       override def hasNext = csv.hasNext
       override protected def readNext() =
-        if(hasNext) CsvResult(new CsvSeq(csv.next()))
+        if(hasNext) ParseResult.success(new CsvSeq(csv.next()))
         else        throw new NoSuchElementException
       override def close() = parser.close()
     }

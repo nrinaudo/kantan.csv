@@ -23,12 +23,12 @@ import simulacrum.{noop, typeclass}
   *
   * @see [[http://nrinaudo.github.io/kantan.csv/tut/parsing.html Tutorial]]
   */
-@typeclass trait CellDecoder[A] extends Decoder[String, A, CsvError, CellDecoder] {
+@typeclass trait CellDecoder[A] extends Decoder[String, A, DecodeError, CellDecoder] {
   /** Turns the content of a CSV cell into an `A`. */
   @noop
-  def decode(s: String): CsvResult[A]
+  def decode(s: String): DecodeResult[A]
 
-  override protected def copy[DD](f: String => CsvResult[DD]) = CellDecoder(f)
+  override protected def copy[DD](f: String => DecodeResult[DD]) = CellDecoder(f)
 
   /** Turns the content of the specified cell into an `A`.
     *
@@ -36,9 +36,9 @@ import simulacrum.{noop, typeclass}
     * exist, a [[CsvResult.decodeError]] instance will be returned.
     */
   @noop
-  def decode(ss: Seq[String], index: Int): CsvResult[A] =
+  def decode(ss: Seq[String], index: Int): DecodeResult[A] =
     if(ss.isDefinedAt(index)) decode(ss(index))
-    else                      CsvResult.decodeError
+    else                      DecodeResult.outOfBounds(index)
 
   @noop
   def unsafeDecode(ss: Seq[String], index: Int): A =
@@ -61,24 +61,24 @@ trait LowPriorityCellDecoders
   */
 object CellDecoder extends LowPriorityCellDecoders {
   /** Creates a new instance of [[CellDecoder]] that uses the specified function to parse data. */
-  def apply[A](f: String ⇒ CsvResult[A]): CellDecoder[A] = new CellDecoder[A] {
+  def apply[A](f: String ⇒ DecodeResult[A]): CellDecoder[A] = new CellDecoder[A] {
     override def decode(a: String) = f(a)
   }
 
   def fromSafe[A](f: String ⇒ A): CellDecoder[A] = new CellDecoder[A] {
-    override def decode(a: String) = CsvResult.success(f(a))
+    override def decode(a: String) = DecodeResult.success(f(a))
   }
 
   def fromUnsafe[A](f: String ⇒ A): CellDecoder[A] = new CellDecoder[A] {
     override def unsafeDecode(s: String) = f(s)
     override def unsafeDecode(ss: Seq[String], index: Int) = f(ss(index))
-    override def decode(s: String) = CsvResult(f(s))
+    override def decode(s: String) = DecodeResult(f(s))
   }
 
   /** Turns a cell into a `String` value. */
   implicit val string: CellDecoder[String] = fromSafe(identity)
   /** Turns a cell into a `Char` value. */
-  implicit val char:   CellDecoder[Char] = CellDecoder { s ⇒ CsvResult {
+  implicit val char:   CellDecoder[Char] = CellDecoder { s ⇒ DecodeResult {
     if(s.length == 1) s.charAt(0)
     else throw new IllegalArgumentException(s"Not a valid char: '$s'")
   }}
@@ -108,7 +108,7 @@ object CellDecoder extends LowPriorityCellDecoders {
     * Any non-empty string will map to `Some`, the empty string to `None`.
     */
   implicit def opt[A](implicit da: CellDecoder[A]): CellDecoder[Option[A]] = CellDecoder { s ⇒
-    if(s.isEmpty) CsvResult(None)
+    if(s.isEmpty) DecodeResult.success(None)
     else          da.decode(s).map(Option.apply)
   }
 

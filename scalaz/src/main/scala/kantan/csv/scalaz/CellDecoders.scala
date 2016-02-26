@@ -1,7 +1,7 @@
 package kantan.csv.scalaz
 
 import export.{export, exports}
-import kantan.csv.{CellDecoder, CsvResult}
+import kantan.csv.{CellDecoder, DecodeResult}
 
 import scalaz.Maybe._
 import scalaz.Scalaz._
@@ -15,7 +15,7 @@ object CellDecoders {
 
   @export(Orphan)
   implicit def maybeDecoder[A](implicit da: CellDecoder[A]): CellDecoder[Maybe[A]] = CellDecoder { s ⇒
-    if(s.isEmpty) CsvResult(empty)
+    if(s.isEmpty) DecodeResult.success(empty)
     else          da.decode(s).map(just)
   }
 }

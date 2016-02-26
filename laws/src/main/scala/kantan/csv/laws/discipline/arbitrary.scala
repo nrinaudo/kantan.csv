@@ -1,5 +1,8 @@
 package kantan.csv.laws.discipline
 
+import java.io.IOException
+
+
 import kantan.csv._
 import kantan.csv.laws._
 import org.scalacheck.Arbitrary.{arbitrary => arb}
@@ -12,26 +15,33 @@ object arbitrary extends ArbitraryArities {
 
   // - Errors ----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  val genDecodeError: Gen[CsvError] = Gen.const(CsvError.DecodeError)
-  val genReadError: Gen[CsvError] = for {
+  val genOutOfBoundsError: Gen[DecodeError.OutOfBounds] = for(i ← Gen.posNum[Int]) yield DecodeError.OutOfBounds(i)
+  val genTypeError: Gen[DecodeError.TypeError] = Gen.const(DecodeError.TypeError(new Exception()))
+  val genDecodeError: Gen[DecodeError] = Gen.oneOf(genOutOfBoundsError, genTypeError)
+
+  val genIOError: Gen[ParseError.IOError] = Gen.const(ParseError.IOError(new IOException()))
+  val genSyntaxError: Gen[ParseError.SyntaxError] = for {
     i ← arb[Int]
     j ← arb[Int]
-  } yield CsvError.ReadError(i, j)
+  } yield ParseError.SyntaxError(i, j)
+  val genParseError: Gen[ParseError] = Gen.oneOf(genIOError, genSyntaxError)
 
-  implicit val arbCsvError: Arbitrary[CsvError] = Arbitrary(Gen.oneOf(genDecodeError, genReadError))
+  implicit val arbDecodeError: Arbitrary[DecodeError] = Arbitrary(genDecodeError)
+  implicit val arbParseError: Arbitrary[ParseError] = Arbitrary(genParseError)
+  implicit val arbCsvError: Arbitrary[CsvError] = Arbitrary(Gen.oneOf(genDecodeError, genParseError))
 
 
 
   // - Encoders and decoders -------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def arbCellDecoder[A: Arbitrary]: Arbitrary[CellDecoder[A]] =
-    Arbitrary(arb[String ⇒ CsvResult[A]].map(f ⇒ CellDecoder(f)))
+    Arbitrary(arb[String ⇒ DecodeResult[A]].map(f ⇒ CellDecoder(f)))
 
   implicit def arbCellEncoder[A: Arbitrary]: Arbitrary[CellEncoder[A]] =
     Arbitrary(arb[A ⇒ String].map(f ⇒ CellEncoder(f)))
 
   implicit def arbRowDecoder[A: Arbitrary]: Arbitrary[RowDecoder[A]] =
-    Arbitrary(arb[Seq[String] ⇒ CsvResult[A]].map(f ⇒ RowDecoder(f)))
+    Arbitrary(arb[Seq[String] ⇒ DecodeResult[A]].map(f ⇒ RowDecoder(f)))
 
   implicit def arbRowEncoder[A: Arbitrary]: Arbitrary[RowEncoder[A]] =
     Arbitrary(arb[A ⇒ Seq[String]].map(f ⇒ RowEncoder(f)))

@@ -226,7 +226,7 @@ private[engine] class InternalReader(val data: Reader, val separator: Char) exte
     if(hasLeftover) nextRow(leftover)
     else if(hasNextChar) nextRow(nextChar())
     else throw new NoSuchElementException
-    CsvResult(row)
+    ParseResult.success(row)
   }
   override def close()  = data.close()
 }

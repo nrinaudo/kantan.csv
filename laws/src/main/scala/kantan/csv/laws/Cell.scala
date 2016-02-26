@@ -1,6 +1,6 @@
 package kantan.csv.laws
 
-import kantan.csv.{CellDecoder, CellEncoder, CsvResult}
+import kantan.csv.{DecodeResult, CellDecoder, CellEncoder}
 import org.scalacheck.{Arbitrary, Gen}
 
 sealed trait Cell {
@@ -24,7 +24,7 @@ object Cell {
   }
 
   implicit val cellEncoder: CellEncoder[Cell] = CellEncoder(_.value)
-  implicit val cellDecoder: CellDecoder[Cell] = CellDecoder(s ⇒ CsvResult(Cell(s)))
+  implicit val cellDecoder: CellDecoder[Cell] = CellDecoder(s ⇒ DecodeResult(Cell(s)))
   implicit val nonEscapedCellEncoder: CellEncoder[Cell.NonEscaped] = CellEncoder(_.value)
 
   def apply(value: String): Cell =
