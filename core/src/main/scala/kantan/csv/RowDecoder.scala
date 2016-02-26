@@ -76,11 +76,7 @@ object RowDecoder extends LowPriorityRowDecoders with GeneratedRowDecoders {
   implicit val stringSeq: RowDecoder[Seq[String]] = fromSafe(identity)
 
 
-  /** Parses a CSV row into an `Either[A, B]`.
-    *
-    * This is done by first attempting to parse the row as an `A`. If that fails, we'll try parsing it as a `B`. If that
-    * fails as well, [[CsvResult.decodeError]] will be returned.
-    */
+  /** Parses a CSV row into an `Either[A, B]`. */
   implicit def either[A, B](implicit da: RowDecoder[A], db: RowDecoder[B]): RowDecoder[Either[A, B]] =
     RowDecoder { ss ⇒
       da.decode(ss).map(a ⇒ Left(a): Either[A, B]).orElse(db.decode(ss).map(b ⇒ Right(b): Either[A, B]))

@@ -97,7 +97,7 @@ solution is to use the [`encoderAAA`][`encoder5`] methods, where `AAA` is the nu
 fields, so we need to use [`encoder5`]:
 
 ```tut:silent
-implicit val carEncoder: RowEncoder[Car] = RowEncoder.encoder5(c ⇒ (c.year, c.make, c.model, c.desc, c.price))
+implicit val carEncoder: RowEncoder[Car] = RowEncoder.encoder5((c: Car) ⇒ (c.year, c.make, c.model, c.desc, c.price))(0, 1, 2, 3, 4) 
 ```
 
 This is already terser and more flexible, and behaves exactly the same. But we can improve on it further: if

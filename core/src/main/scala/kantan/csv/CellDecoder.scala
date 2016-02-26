@@ -30,11 +30,7 @@ import simulacrum.{noop, typeclass}
 
   override protected def copy[DD](f: String => DecodeResult[DD]) = CellDecoder(f)
 
-  /** Turns the content of the specified cell into an `A`.
-    *
-    * The purpose of this method is to protect against index out of bound exceptions. Should the specified index not
-    * exist, a [[CsvResult.decodeError]] instance will be returned.
-    */
+  /** Turns the content of the specified cell into an `A`. */
   @noop
   def decode(ss: Seq[String], index: Int): DecodeResult[A] =
     if(ss.isDefinedAt(index)) decode(ss(index))
@@ -112,11 +108,7 @@ object CellDecoder extends LowPriorityCellDecoders {
     else          da.decode(s).map(Option.apply)
   }
 
-  /** Turns a cell into an instance of `Either[A, B]`, provided `A` and `B` have an implicit [[CellDecoder]] in scope.
-    *
-    * This is done by first attempting to parse the cell as an `A`. If that fails, we'll try parsing it as a `B`. If that
-    * fails as well, [[CsvResult.decodeError]] will be returned.
-    */
+  /** Turns a cell into an instance of `Either[A, B]`, provided `A` and `B` have an implicit [[CellDecoder]] in scope. */
   implicit def either[A, B](implicit da: CellDecoder[A], db: CellDecoder[B]): CellDecoder[Either[A, B]] =
     CellDecoder { s ⇒ da.decode(s).map(a ⇒ Left(a): Either[A, B])
       .orElse(db.decode(s).map(b ⇒ Right(b): Either[A, B]))
