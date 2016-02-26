@@ -57,13 +57,23 @@ object RowDecoder extends LowPriorityRowDecoders with GeneratedRowDecoders {
     override def decode(row: Seq[String]) = f(row)
   }
 
+  /** Creates a new instance of [[RowDecoder]] from the specified function.
+    *
+    * It is assumed that the specified function will always succeed and cannot throw. If it's unsafe, use
+    * [[fromUnsafe]] instead.
+    */
+  def fromSafe[A](f: Seq[String] ⇒ A): RowDecoder[A] = new RowDecoder[A] {
+    override def decode(row: Seq[String]) = CsvResult.success(f(row))
+  }
+
+  /** Creates a new instance of [[RowDecoder]] from the specified function. */
   def fromUnsafe[A](f: Seq[String] ⇒ A): RowDecoder[A] = new RowDecoder[A] {
     override def decode(row: Seq[String]) = CsvResult(f(row))
     override def unsafeDecode(row: Seq[String]) = f(row)
   }
 
   /** Parses CSV rows as sequences of strings. */
-  implicit val stringSeq: RowDecoder[Seq[String]] = RowDecoder(ss ⇒ CsvResult(ss))
+  implicit val stringSeq: RowDecoder[Seq[String]] = fromSafe(identity)
 
 
   /** Parses a CSV row into an `Either[A, B]`.
