@@ -1,32 +1,28 @@
 package kantan.csv
 
 trait GeneratedRowEncoders {
-  def encoder1[C, A0: CellEncoder](f: C ⇒ A0)(implicit a0: CellEncoder[A0]): RowEncoder[C] =
-    RowEncoder(a ⇒ List(a0.encode(f(a))))
-  [2..#def encoder1[C, [#A1: CellEncoder#]](f: C ⇒ ([#A1#]))(implicit [#a1: CellEncoder[A1]#]): RowEncoder[C] =
-    RowEncoder { a ⇒
-      val e = f(a)
-      List([#a1.encode(e._1)#])
+  def encoder1[C, A1](f: C ⇒ A1)(implicit e1: CellEncoder[A1]): RowEncoder[C] =
+    RowEncoder(a ⇒ List(e1.encode(f(a))))
+  [2..#def encoder1[C, [#A1#]](f: C ⇒ Tuple1[[#A1#]])([#i1: Int#])(implicit [#e1: CellEncoder[A1]#]): RowEncoder[C] =
+    RowEncoder { c ⇒
+      val e = f(c)
+      val dest = new Array[String](1)
+
+      [#dest(i1) = e1.encode(e._1)#
+      ]
+      dest.toSeq
     }#
   ]
 
   implicit def tuple1[A1: CellEncoder]: RowEncoder[Tuple1[A1]] =
     encoder1(_._1)
   [2..#implicit def tuple1[[#A1: CellEncoder#]]: RowEncoder[Tuple1[[#A1#]]] =
-    encoder1(identity)#
+    encoder1((t: Tuple1[[#A1#]]) ⇒ t)([#0#])#
   ]
 
   def caseEncoder1[C, A1: CellEncoder](f: C ⇒ Option[A1]): RowEncoder[C] =
     encoder1(f andThen (_.get))
-  [2..#def caseEncoder1[C, [#A1#]](f: C ⇒ Option[Tuple1[[#A1#]]])([#i1: Int#])(implicit [#a1: CellEncoder[A1]#]): RowEncoder[C] =
-    RowEncoder { c ⇒
-      val e = f(c).get
-      val dest = new Array[String](1)
-
-      [#dest(i1) = a1.encode(e._1)#
-      ]
-      dest.toSeq
-    }#
+  [2..#def caseEncoder1[C, [#A1: CellEncoder#]](f: C ⇒ Option[Tuple1[[#A1#]]])([#i1: Int#]): RowEncoder[C] =
+    encoder1(f andThen (_.get))([#i1#])#
   ]
-
 }

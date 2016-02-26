@@ -11,5 +11,4 @@ trait GeneratedRowDecoders {
   [#implicit def tuple1[[#A1: CellDecoder#]]: RowDecoder[Tuple1[[#A1#]]] =
     decoder1(Tuple1.apply[[#A1#]])([#0#])#
   ]
-
 }

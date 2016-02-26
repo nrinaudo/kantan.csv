@@ -1,6 +1,6 @@
 package kantan.csv
 
-import kantan.codecs.{Result, Decoder}
+import kantan.codecs.Decoder
 import simulacrum.{noop, typeclass}
 
 import scala.collection.generic.CanBuildFrom

@@ -1,7 +1,7 @@
 package kantan.csv
 
 import kantan.codecs.Encoder
-import simulacrum.{noop, op, typeclass}
+import simulacrum.{op, typeclass}
 
 @typeclass trait RowEncoder[A] extends Encoder[Seq[String], A, RowEncoder] { self ⇒
   @op("asCsvRow")
