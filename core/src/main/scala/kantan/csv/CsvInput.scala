@@ -3,6 +3,7 @@ package kantan.csv
 import java.io._
 import java.net.{URI, URL}
 
+import kantan.codecs.Result
 import kantan.csv.engine.ReaderEngine
 import simulacrum.{noop, op, typeclass}
 
@@ -22,7 +23,7 @@ import scala.io.Codec
     * Other methods in this trait all rely on this to open and parse CSV data.
     */
   @noop
-  def open(s: S): Reader
+  def open(s: S): ParseResult[Reader]
 
   /** Turns the specified `S` into an iterator on `CsvResult[A]`.
     *
@@ -30,18 +31,12 @@ import scala.io.Codec
     * cost of having each row wrapped in a [[CsvResult]] that then need to be unpacked. See [[unsafeReader]] for an
     * alternative.
     *
-    * This method is also mapped to the `asCsvRows` one that enrich all types that have a valid [[CsvInput]] instance
-    * in scope. For example:
-    * {{{
-    *   implicit val strInput: CsvInput[String] = ???
-    *   "a,b,c".asCsvRows[List[Char]](',', false)
-    * }}}
-    *
     * @tparam A type to parse each row as.
     */
   @op("asCsvReader")
   def reader[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[CsvResult[A]] =
-    CsvReader(open(s), separator, header)
+    open(s).map(reader ⇒ CsvReader(reader, separator, header))
+      .valueOr(error ⇒ CsvReader(Result.failure(error)))
 
   /** Turns the specified `S` into an iterator on `A`.
     *
@@ -86,12 +81,12 @@ trait LowPriorityCsvInputs
   * your implementation.
   */
 object CsvInput extends LowPriorityCsvInputs {
-  def apply[A](f: A ⇒ Reader): CsvInput[A] = new CsvInput[A] {
-      override def open(a: A): Reader = f(a)
-    }
+  def apply[A](f: A ⇒ ParseResult[Reader]): CsvInput[A] = new CsvInput[A] {
+    override def open(a: A) = f(a)
+  }
 
   /** Turns any `java.io.Reader` into a source of CSV data. */
-  implicit def reader: CsvInput[Reader] = CsvInput(r ⇒ r)
+  implicit def reader: CsvInput[Reader] = CsvInput(r ⇒ ParseResult.success(r))
 
   /** Turns any `java.io.InputStream` into a source of CSV data. */
   implicit def inputStream(implicit codec: Codec): CsvInput[InputStream] =
