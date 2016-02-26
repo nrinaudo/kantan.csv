@@ -7,28 +7,20 @@ package object scalaz extends kantan.codecs.scalaz.ScalazInstances {
   // - CellCodec -------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** `Functor` instance for `CellDecoder`. */
-  implicit val cellDecoder: Functor[CellDecoder] = new Functor[CellDecoder] {
-    override def map[A, B](fa: CellDecoder[A])(f: A ⇒ B) = fa.map(f)
-  }
+  implicit val cellDecoder = decoderFunctor[String, DecodeError, CellDecoder]
 
   /** `Contravariant` instance for `CellEncoder`. */
-  implicit val cellEncoder: Contravariant[CellEncoder] = new Contravariant[CellEncoder] {
-    override def contramap[A, B](r: CellEncoder[A])(f: B ⇒ A) = r.contramap(f)
-  }
+  implicit val cellEncoder = encoderContravariant[String, CellEncoder]
 
 
 
   // - RowCodec --------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** `Functor` instance for `RowDecoder`. */
-  implicit val rowDecoder: Functor[RowDecoder] = new Functor[RowDecoder] {
-    override def map[A, B](fa: RowDecoder[A])(f: A ⇒ B) = fa.map(f)
-  }
+  implicit val rowDecoder = decoderFunctor[Seq[String], DecodeError, RowDecoder]
 
   /** `Contravariant` instance for `CellEncoder`. */
-  implicit val rowEncoder: Contravariant[RowEncoder] = new Contravariant[RowEncoder] {
-    override def contramap[A, B](r: RowEncoder[A])(f: B ⇒ A) = r.contramap(f)
-  }
+  implicit val rowEncoder = encoderContravariant[Seq[String], RowEncoder]
 
 
 

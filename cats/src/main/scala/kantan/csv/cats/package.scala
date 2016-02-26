@@ -8,28 +8,20 @@ package object cats extends kantan.codecs.cats.CatsInstances {
   // - CellCodec -------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** `Functor` instance for `CellDecoder`. */
-  implicit val cellDecoder = new Functor[CellDecoder] {
-    override def map[A, B](fa: CellDecoder[A])(f: A ⇒ B) = fa.map(f)
-  }
+  implicit val cellDecoder = decoderFunctor[String, DecodeError, CellDecoder]
 
   /** `Contravariant` instance for `CellEncoder`. */
-  implicit val cellEncoder = new Contravariant[CellEncoder] {
-    override def contramap[A, B](fa: CellEncoder[A])(f: B ⇒ A) = fa.contramap(f)
-  }
+  implicit val cellEncoder = encoderContravariant[String, CellEncoder]
 
 
 
   // - RowCodec --------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** `Functor` instance for `RowDecoder`. */
-  implicit val rowDecoder = new Functor[RowDecoder] {
-    override def map[A, B](fa: RowDecoder[A])(f: A ⇒ B) = fa.map(f)
-  }
+  implicit val rowDecoder = decoderFunctor[Seq[String], DecodeError, RowDecoder]
 
   /** `Contravariant` instance for `RowEncoder`. */
-  implicit val rowEncoder = new Contravariant[RowEncoder] {
-    override def contramap[A, B](fa: RowEncoder[A])(f: B ⇒ A) = fa.contramap(f)
-  }
+  implicit val rowEncoder = encoderContravariant[Seq[String], RowEncoder]
 
 
   // - CSV input / output ----------------------------------------------------------------------------------------------
