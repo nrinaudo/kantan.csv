@@ -3,7 +3,7 @@ import com.typesafe.sbt.SbtSite.SiteKeys._
 import spray.boilerplate.BoilerplatePlugin._
 import UnidocKeys._
 
-val kantanCodecsVersion        = "0.1.0-SNAPSHOT"
+val kantanCodecsVersion        = "0.1.0"
 val catsVersion                = "0.4.1"
 val exportHookVersion          = "1.1.0"
 val simulacrumVersion          = "0.7.0"
