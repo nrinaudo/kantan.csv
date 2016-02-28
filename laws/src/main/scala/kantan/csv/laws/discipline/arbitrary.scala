@@ -2,13 +2,14 @@ package kantan.csv.laws.discipline
 
 import java.io.IOException
 
-
 import kantan.csv._
 import kantan.csv.laws._
 import org.scalacheck.Arbitrary.{arbitrary => arb}
 import org.scalacheck.{Arbitrary, Gen}
 
-object arbitrary extends ArbitraryArities {
+object arbitrary extends ArbitraryInstances
+
+trait ArbitraryInstances extends ArbitraryArities {
   val csv: Gen[List[List[String]]] = arb[List[List[Cell]]].map(_.map(_.map(_.value)))
 
 

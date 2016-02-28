@@ -42,4 +42,8 @@ package object cats extends kantan.codecs.cats.CatsInstances {
   implicit val csvErrorEq: Eq[CsvError] = new Eq[CsvError] {
     override def eqv(x: CsvError, y: CsvError): Boolean = x == y
   }
+
+  implicit val decodeErrorEq: Eq[DecodeError] = new Eq[DecodeError] {
+      override def eqv(x: DecodeError, y: DecodeError): Boolean = x == y
+    }
 }

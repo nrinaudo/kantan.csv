@@ -43,4 +43,8 @@ package object scalaz extends kantan.codecs.scalaz.ScalazInstances {
   implicit val csvErrorEqual: Equal[CsvError] = new Equal[CsvError] {
     override def equal(a1: CsvError, a2: CsvError): Boolean = a1 == a2
   }
+
+  implicit val decodeErrorEqual: Equal[DecodeError] = new Equal[DecodeError] {
+    override def equal(a1: DecodeError, a2: DecodeError): Boolean = a1 == a2
+    }
 }
