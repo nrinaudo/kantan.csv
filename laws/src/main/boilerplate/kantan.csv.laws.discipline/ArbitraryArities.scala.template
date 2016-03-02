@@ -2,10 +2,9 @@ package kantan.csv.laws.discipline
 
 import kantan.codecs.laws.CodecValue
 import kantan.codecs.laws.CodecValue.LegalValue
-import kantan.codecs.laws.discipline.ArbitraryInstances
 import org.scalacheck.{Arbitrary, Gen}
 
-trait ArbitraryArities extends ArbitraryInstances {
+trait ArbitraryArities extends kantan.codecs.laws.discipline.ArbitraryInstances {
   [#implicit def arbLegalRowTuple1[[#D1#]](implicit [#arbD1: Arbitrary[LegalValue[String, D1]]#]): Arbitrary[LegalValue[Seq[String], Tuple1[[#D1#]]]] =
     Arbitrary(genLegalWith1(([#d1: D1#]) ⇒ Tuple1([#d1#]))(([#s1: String#]) ⇒ Seq([#s1#])))
 

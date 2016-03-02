@@ -9,7 +9,7 @@ import org.scalacheck.{Arbitrary, Gen}
 
 object arbitrary extends ArbitraryInstances
 
-trait ArbitraryInstances extends ArbitraryArities with kantan.codecs.laws.discipline.ArbitraryInstances {
+trait ArbitraryInstances extends kantan.csv.laws.discipline.ArbitraryArities {
   val csv: Gen[List[List[String]]] = arb[List[List[Cell]]].map(_.map(_.map(_.value)))
 
 
