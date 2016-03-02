@@ -14,15 +14,34 @@ trait GeneratedRowEncoders {
     }#
   ]
 
+  def ordered1[C, A1: CellEncoder](f: C ⇒ A1): RowEncoder[C] =
+    encoder1(f)
+  [2..#def ordered1[C, [#A1#]](f: C ⇒ Tuple1[[#A1#]])(implicit [#e1: CellEncoder[A1]#]): RowEncoder[C] =
+    RowEncoder { c ⇒
+      val e = f(c)
+      val dest = new Array[String](1)
+
+      [#dest(0) = e1.encode(e._1)#
+      ]
+      dest.toSeq
+    }#
+  ]
+
   implicit def tuple1[A1: CellEncoder]: RowEncoder[Tuple1[A1]] =
-    encoder1(_._1)
+    ordered1(_._1)
   [2..#implicit def tuple1[[#A1: CellEncoder#]]: RowEncoder[Tuple1[[#A1#]]] =
-    encoder1((t: Tuple1[[#A1#]]) ⇒ t)([#0#])#
+    ordered1((t: Tuple1[[#A1#]]) ⇒ t)#
   ]
 
   def caseEncoder1[C, A1: CellEncoder](f: C ⇒ Option[A1]): RowEncoder[C] =
     encoder1(f andThen (_.get))
   [2..#def caseEncoder1[C, [#A1: CellEncoder#]](f: C ⇒ Option[Tuple1[[#A1#]]])([#i1: Int#]): RowEncoder[C] =
     encoder1(f andThen (_.get))([#i1#])#
+  ]
+
+  def caseOrdered1[C, A1: CellEncoder](f: C ⇒ Option[A1]): RowEncoder[C] =
+    encoder1(f andThen (_.get))
+  [2..#def caseOrdered1[C, [#A1: CellEncoder#]](f: C ⇒ Option[Tuple1[[#A1#]]]): RowEncoder[C] =
+    ordered1(f andThen (_.get))#
   ]
 }

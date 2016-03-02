@@ -8,7 +8,14 @@ trait GeneratedRowDecoders {
     } yield f([#f1#]))#
   ]
 
+  [#def ordered1[[#A1#], R](f: ([#A1#]) ⇒ R)(implicit [#a1: CellDecoder[A1]#]): RowDecoder[R] =
+      RowDecoder(ss ⇒ for {
+        [#f1 ← a1.decode(ss, 0)#
+        ]
+      } yield f([#f1#]))#
+  ]
+
   [#implicit def tuple1[[#A1: CellDecoder#]]: RowDecoder[Tuple1[[#A1#]]] =
-    decoder1(Tuple1.apply[[#A1#]])([#0#])#
+    ordered1(Tuple1.apply[[#A1#]])#
   ]
 }

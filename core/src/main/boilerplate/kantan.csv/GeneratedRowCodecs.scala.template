@@ -9,9 +9,21 @@ trait GeneratedRowCodecs {
     combine(RowDecoder.decoder1(f)([#i1#]), RowEncoder.encoder1(g)([#i1#]))#
   ]
 
+  def ordered1[C, A1: CellEncoder: CellDecoder](f: A1 ⇒ C, g: C ⇒ A1): RowCodec[C] =
+    combine(RowDecoder.decoder1(f)(0), RowEncoder.encoder1(g))
+  [2..#def ordered1[C, [#A1: CellEncoder: CellDecoder#]](f: ([#A1#]) ⇒ C, g: C ⇒ ([#A1#])): RowCodec[C] =
+    combine(RowDecoder.ordered1(f), RowEncoder.ordered1(g))#
+  ]
+
   def caseCodec1[C, A1: CellEncoder : CellDecoder](f: A1 ⇒ C, g: C ⇒ Option[A1]): RowCodec[C] =
     combine(RowDecoder.decoder1(f)(0), RowEncoder.caseEncoder1(g))
   [2..#def caseCodec1[C, [#A1: CellEncoder : CellDecoder#]](f: ([#A1#]) ⇒ C, g: C ⇒ Option[Tuple1[[#A1#]]])([#i1: Int#]): RowCodec[C] =
     combine(RowDecoder.decoder1(f)([#i1#]), RowEncoder.caseEncoder1(g)([#i1#]))#
+  ]
+
+  def caseOrdered1[C, A1: CellEncoder : CellDecoder](f: A1 ⇒ C, g: C ⇒ Option[A1]): RowCodec[C] =
+    combine(RowDecoder.ordered1(f), RowEncoder.caseOrdered1(g))
+  [2..#def caseOrdered1[C, [#A1: CellEncoder : CellDecoder#]](f: ([#A1#]) ⇒ C, g: C ⇒ Option[Tuple1[[#A1#]]]): RowCodec[C] =
+    combine(RowDecoder.ordered1(f), RowEncoder.caseOrdered1(g))#
   ]
 }
