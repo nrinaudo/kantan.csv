@@ -6,5 +6,5 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class BigIntTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("BigInt", CellCodecTests[BigInt].codec[String, Float])
+  checkAll("CellCodec[BigInt]", CellCodecTests[BigInt].codec[String, Float])
 }

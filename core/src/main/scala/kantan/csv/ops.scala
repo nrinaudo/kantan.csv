@@ -5,9 +5,7 @@ import java.io.StringWriter
 import kantan.csv.engine.WriterEngine
 
 object ops extends CsvInput.ToCsvInputOps
-                   with CsvOutput.ToCsvOutputOps
-                   with RowEncoder.ToRowEncoderOps
-                   with CellEncoder.ToCellEncoderOps {
+                   with CsvOutput.ToCsvOutputOps {
   implicit class CellDecoderOps(val str: String) extends AnyVal {
     def fromCsvCell[A](implicit da: CellDecoder[A]): CsvResult[A] = da.decode(str)
     def unsafeFromCsvCell[A](implicit da: CellDecoder[A]): A = da.unsafeDecode(str)

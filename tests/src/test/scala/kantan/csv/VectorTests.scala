@@ -10,5 +10,5 @@ import org.typelevel.discipline.scalatest.Discipline
 class VectorTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   implicit val arb: Arbitrary[Vector[Int]] = Arbitrary(Gen.nonEmptyContainerOf[Vector, Int](Arbitrary.arbitrary[Int]))
 
-  checkAll("Vector[Int]", RowCodecTests[Vector[Int]].codec[List[String], List[Float]])
+  checkAll("RowCodec[Vector[Int]]", RowCodecTests[Vector[Int]].codec[List[String], List[Float]])
 }

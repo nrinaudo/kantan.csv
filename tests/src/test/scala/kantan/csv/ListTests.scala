@@ -10,5 +10,5 @@ import org.typelevel.discipline.scalatest.Discipline
 class ListTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   implicit val arb: Arbitrary[List[Int]] = Arbitrary(Gen.nonEmptyListOf(Arbitrary.arbitrary[Int]))
 
-  checkAll("List[Int]", RowCodecTests[List[Int]].codec[List[String], List[Float]])
+  checkAll("RowCodec[List[Int]]", RowCodecTests[List[Int]].codec[List[String], List[Float]])
 }

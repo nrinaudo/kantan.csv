@@ -6,5 +6,5 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class ByteTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("Byte", CellCodecTests[Byte].codec[String, Float])
+  checkAll("CellCodec[Byte]", CellCodecTests[Byte].codec[String, Float])
 }

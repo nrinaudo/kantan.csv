@@ -1,6 +1,6 @@
 package kantan.csv
 
-import kantan.csv.laws.discipline.CellCodecTests
+import kantan.csv.laws.discipline.{RowCodecTests, CellCodecTests}
 import org.scalacheck.Gen._
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.FunSuite
@@ -30,5 +30,5 @@ class BigDecimalTests extends FunSuite with GeneratorDrivenPropertyChecks with D
     Arbitrary(bdGen)
   }
 
-  checkAll("BigDecimal", CellCodecTests[BigDecimal].codec[String, Float])
+  checkAll("CellCodec[BigDecimal]", CellCodecTests[BigDecimal].codec[String, Float])
 }

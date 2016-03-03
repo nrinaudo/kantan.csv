@@ -1,6 +1,5 @@
 package kantan.csv.scalaz
 
-import codecs._
 import arbitrary._
 import kantan.csv.laws.discipline.{CellCodecTests, RowCodecTests}
 import org.scalatest.FunSuite

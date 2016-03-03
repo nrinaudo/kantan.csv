@@ -11,5 +11,5 @@ import org.typelevel.discipline.scalatest.Discipline
 class UUIDTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   implicit val arbUUID = Arbitrary(Gen.uuid)
 
-  checkAll("UUID", CellCodecTests[UUID].codec[String, Float])
+  checkAll("CellCodec[UUID]", CellCodecTests[UUID].codec[String, Float])
 }

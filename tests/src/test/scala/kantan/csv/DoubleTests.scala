@@ -6,5 +6,5 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class DoubleTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("Double", CellCodecTests[Double].codec[String, Float])
+  checkAll("CellCodec[Double]", CellCodecTests[Double].codec[String, Float])
 }

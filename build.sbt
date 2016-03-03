@@ -1,6 +1,5 @@
 import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
 import com.typesafe.sbt.SbtSite.SiteKeys._
-import spray.boilerplate.BoilerplatePlugin._
 import UnidocKeys._
 
 val kantanCodecsVersion        = "0.1.1-SNAPSHOT"
@@ -56,7 +55,7 @@ lazy val baseSettings = Seq(
   ),
   coverageExcludedPackages := "kantan\\.csv\\.laws\\..*",
   incOptions         := incOptions.value.withNameHashing(true)
-) ++ Boilerplate.settings
+)
 
 lazy val noPublishSettings = Seq(
   publish         := (),
@@ -102,6 +101,7 @@ lazy val root = Project(id = "kantan-csv", base = file("."))
   .dependsOn(core, generic)
 
 lazy val core = project
+  .enablePlugins(spray.boilerplate.BoilerplatePlugin)
   .settings(
     moduleName := "kantan.csv",
     name       := "core"
@@ -146,6 +146,7 @@ lazy val opencsv = project
     .dependsOn(core, laws % "test")
 
 lazy val laws = project
+  .enablePlugins(spray.boilerplate.BoilerplatePlugin)
   .settings(
     moduleName := "kantan.csv-laws",
     name       := "laws"
@@ -210,6 +211,7 @@ lazy val cats = project
   .dependsOn(core, laws % "test")
 
 lazy val tests = project
+  .enablePlugins(spray.boilerplate.BoilerplatePlugin)
   .settings(allSettings: _*)
   .settings(noPublishSettings: _*)
   .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")

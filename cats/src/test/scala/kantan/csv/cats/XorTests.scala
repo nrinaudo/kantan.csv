@@ -1,6 +1,5 @@
 package kantan.csv.cats
 
-import codecs._
 import arbitrary._
 import _root_.cats.data.Xor
 import kantan.csv.laws.discipline.{CellCodecTests, RowCodecTests}

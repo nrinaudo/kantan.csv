@@ -6,5 +6,5 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class LongTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("Long", CellCodecTests[Long].codec[String, Float])
+  checkAll("CellCodec[Long]", CellCodecTests[Long].codec[String, Float])
 }

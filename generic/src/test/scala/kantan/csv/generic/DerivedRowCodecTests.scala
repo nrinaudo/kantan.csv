@@ -5,7 +5,6 @@ import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import kantan.csv.laws._
 import kantan.csv.laws.discipline.RowCodecTests
 import kantan.csv.laws.discipline.arbitrary._
-import codecs._
 import org.scalacheck.{Gen, Arbitrary}
 import org.scalacheck.Arbitrary._
 import org.scalatest.FunSuite

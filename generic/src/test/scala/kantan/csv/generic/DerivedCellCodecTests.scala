@@ -6,7 +6,6 @@ import kantan.csv.CellDecoder
 import kantan.csv.laws.{LegalCell, IllegalCell}
 import kantan.csv.laws.discipline.CellCodecTests
 import kantan.csv.laws.discipline.arbitrary._
-import codecs._
 import org.scalacheck.{Gen, Arbitrary}
 import org.scalacheck.Shapeless._
 import org.scalatest.FunSuite
