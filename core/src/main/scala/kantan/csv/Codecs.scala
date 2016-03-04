@@ -1,6 +1,7 @@
 package kantan.csv
 
-import java.util.UUID
+import kantan.codecs.strings.StringCodec
+import kantan.csv.DecodeError.TypeError
 
 import scala.collection.generic.CanBuildFrom
 
@@ -18,47 +19,16 @@ trait LowPriorityCodecs {
 }
 
 object Codecs extends TupleInstances with LowPriorityCodecs {
-  // - Primitive type codecs -------------------------------------------------------------------------------------------
+  // - Cell codecs -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit val stringCellCodec: CellCodec[String] = CellCodec(s ⇒ DecodeResult.success(s))(identity)
-  implicit val charCellCodec: CellCodec[Char] = CellCodec{ s ⇒ DecodeResult {
-    if(s.length == 1) s.charAt(0)
-    else throw new IllegalArgumentException(s"Not a valid char: '$s'")
-  }}(_.toString)
-  implicit val intCellCodec: CellCodec[Int] = CellCodec(s ⇒ DecodeResult(s.toInt))(_.toString)
-  implicit val floatCellCodec: CellCodec[Float] = CellCodec(s ⇒ DecodeResult(s.toFloat))(_.toString)
-  implicit val doubleCellCodec: CellCodec[Double] = CellCodec(s ⇒ DecodeResult(s.toDouble))(_.toString)
-  implicit val longCellCodec: CellCodec[Long] = CellCodec(s ⇒ DecodeResult(s.toLong))(_.toString)
-  implicit val shortCellCodec: CellCodec[Short] = CellCodec(s ⇒ DecodeResult(s.toShort))(_.toString)
-  implicit val byteCellCodec: CellCodec[Byte] = CellCodec(s ⇒ DecodeResult(s.toByte))(_.toString)
-  implicit val boolCellCodec: CellCodec[Boolean] = CellCodec(s ⇒ DecodeResult(s.toBoolean))(_.toString)
-  implicit val bigIntCellCodec: CellCodec[BigInt] = CellCodec(s ⇒ DecodeResult(BigInt(s)))(_.toString)
-  implicit val bigDecCellCodec: CellCodec[BigDecimal] = CellCodec(s ⇒ DecodeResult(BigDecimal(s)))(_.toString)
-  implicit val uuidCellCodec: CellCodec[UUID] = CellCodec(s ⇒ DecodeResult(UUID.fromString(s)))(_.toString)
+  implicit def cellCodec[A](implicit ca: StringCodec[A]): CellCodec[A] = ca.tag[Codecs.type].mapError(e ⇒ TypeError(e))
+
+
+
+
+  // - Row codecs ------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   implicit def stringSeqRowCodec: RowCodec[Seq[String]] = RowCodec(ss ⇒ DecodeResult(ss))(identity)
-
-
-
-  // - Type constructor codecs -----------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  implicit def optCellDecoder[A](implicit da: CellDecoder[A]): CellDecoder[Option[A]] = CellDecoder { s ⇒
-    if(s.isEmpty) DecodeResult.success(None)
-    else          da.decode(s).map(Option.apply)
-  }
-
-  implicit def optCellEncoder[A](implicit ea: CellEncoder[A]): CellEncoder[Option[A]] =
-    CellEncoder(oa ⇒ oa.map(ea.encode).getOrElse(""))
-
-  implicit def eitherCellDecoder[A, B](implicit da: CellDecoder[A], db: CellDecoder[B]): CellDecoder[Either[A, B]] =
-    CellDecoder { s ⇒ da.decode(s).map(a ⇒ Left(a): Either[A, B])
-      .orElse(db.decode(s).map(b ⇒ Right(b): Either[A, B]))
-    }
-
-  implicit def eitherCellEncoder[A, B](implicit ea: CellEncoder[A], eb: CellEncoder[B]): CellEncoder[Either[A, B]] =
-    CellEncoder(eab ⇒ eab match {
-      case Left(a)  ⇒ ea.encode(a)
-      case Right(b) ⇒ eb.encode(b)
-    })
 
   implicit def eitherRowDecoder[A, B](implicit da: RowDecoder[A], db: RowDecoder[B]): RowDecoder[Either[A, B]] = RowDecoder { ss ⇒
     da.decode(ss).map(a ⇒ Left(a): Either[A, B]).orElse(db.decode(ss).map(b ⇒ Right(b): Either[A, B]))
