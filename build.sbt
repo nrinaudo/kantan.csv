@@ -15,13 +15,13 @@ val scalazVersion              = "7.2.0"
 val scalazStreamVersion        = "0.8"
 val productCollectionVersion   = "1.4.2"
 val opencsvVersion             = "3.7"
-val univocityVersion           = "1.5.6"
-val jacksonCsvVersion          = "2.7.1"
+val univocityVersion           = "2.0.0"
+val jacksonCsvVersion          = "2.7.2"
 val commonsCsvVersion          = "1.2"
 val scalacheckShapelessVersion = "1.12.1"
 val jodaVersion                = "2.9.2"
 val jodaConvertVersion         = "1.8.1"
-val scalaCsvVersion            = "1.2.2"
+val scalaCsvVersion            = "1.3.0"
 
 lazy val buildSettings = Seq(
   organization       := "com.nrinaudo",
