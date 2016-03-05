@@ -9,5 +9,5 @@ import org.scalacheck.Arbitrary
 
 object CellCodecTests {
   def apply[A](implicit l: CellCodecLaws[A], al: Arbitrary[LegalValue[String, A]]): CellCodecTests[A] =
-    CodecTests[String, A, DecodeError, Codecs.type]
+    CodecTests[String, A, DecodeError, codecs.type]
 }

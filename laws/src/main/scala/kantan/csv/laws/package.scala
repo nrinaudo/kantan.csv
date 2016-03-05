@@ -4,12 +4,12 @@ import kantan.codecs.laws.CodecValue.LegalValue
 import kantan.codecs.laws.{CodecLaws, DecoderLaws, EncoderLaws, CodecValue}
 
 package object laws {
-  type CellDecoderLaws[A] = DecoderLaws[String, A, DecodeError, Codecs.type]
-  type CellEncoderLaws[A] = EncoderLaws[String, A, Codecs.type]
-  type CellCodecLaws[A] = CodecLaws[String, A, DecodeError, Codecs.type]
-  type RowDecoderLaws[A] = DecoderLaws[Seq[String], A, DecodeError, Codecs.type]
-  type RowEncoderLaws[A] = EncoderLaws[Seq[String], A, Codecs.type]
-  type RowCodecLaws[A] = CodecLaws[Seq[String], A, DecodeError, Codecs.type]
+  type CellDecoderLaws[A] = DecoderLaws[String, A, DecodeError, codecs.type]
+  type CellEncoderLaws[A] = EncoderLaws[String, A, codecs.type]
+  type CellCodecLaws[A] = CodecLaws[String, A, DecodeError, codecs.type]
+  type RowDecoderLaws[A] = DecoderLaws[Seq[String], A, DecodeError, codecs.type]
+  type RowEncoderLaws[A] = EncoderLaws[Seq[String], A, codecs.type]
+  type RowCodecLaws[A] = CodecLaws[Seq[String], A, DecodeError, codecs.type]
 
   type CellValue[A] = CodecValue[String, A]
   type LegalCell[A] = LegalValue[String, A]

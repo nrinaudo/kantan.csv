@@ -22,6 +22,7 @@ val scalacheckShapelessVersion = "1.12.1"
 val jodaVersion                = "2.9.2"
 val jodaConvertVersion         = "1.8.1"
 val scalaCsvVersion            = "1.3.0"
+val kindProjectorVersion       = "0.7.1"
 
 lazy val buildSettings = Seq(
   organization       := "com.nrinaudo",
