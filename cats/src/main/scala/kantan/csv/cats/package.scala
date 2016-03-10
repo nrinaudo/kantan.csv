@@ -8,7 +8,7 @@ import kantan.csv
 /** Declares various type class instances for bridging `kantan.csv` and `cats`. */
 package object cats extends kantan.codecs.cats.CatsInstances {
   implicit def xorRowDecoder[A, B](implicit da: RowDecoder[A], db: RowDecoder[B]): RowDecoder[Xor[A, B]] =
-      RowDecoder(row ⇒ da.decode(row).map(a ⇒ Xor.Left(a)).orElse(db.decode(row).map(b ⇒ Xor.Right(b))))
+    RowDecoder(row ⇒ da.decode(row).map(a ⇒ Xor.Left(a)).orElse(db.decode(row).map(b ⇒ Xor.Right(b))))
 
   implicit def xorRowEncoder[A, B](implicit ea: csv.RowEncoder[A], eb: csv.RowEncoder[B]): csv.RowEncoder[Xor[A, B]] =
     csv.RowEncoder(_.fold(ea.encode, eb.encode))
@@ -38,6 +38,6 @@ package object cats extends kantan.codecs.cats.CatsInstances {
   }
 
   implicit val decodeErrorEq: Eq[DecodeError] = new Eq[DecodeError] {
-      override def eqv(x: DecodeError, y: DecodeError): Boolean = x == y
-    }
+    override def eqv(x: DecodeError, y: DecodeError): Boolean = x == y
+  }
 }

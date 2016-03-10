@@ -3,6 +3,7 @@ package kantan.csv
 import kantan.codecs.Encoder
 
 object RowEncoder extends GeneratedRowEncoders {
+  def apply[A](implicit ea: RowEncoder[A]): RowEncoder[A] = ea
   def apply[A](f: A ⇒ Seq[String]): RowEncoder[A] = Encoder(f)
 }
 

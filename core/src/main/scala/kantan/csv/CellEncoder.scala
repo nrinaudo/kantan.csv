@@ -2,9 +2,10 @@ package kantan.csv
 
 import kantan.codecs.Encoder
 import kantan.codecs.strings._
-import kantan.csv.DecodeError.TypeError
 
 object CellEncoder {
+  def apply[A](implicit ea: CellEncoder[A]): CellEncoder[A] = ea
+
   /** Creates a new [[kantan.csv.CellEncoder]] from the specified function. */
   def apply[A](f: A ⇒ String): CellEncoder[A] = Encoder(f)
 }

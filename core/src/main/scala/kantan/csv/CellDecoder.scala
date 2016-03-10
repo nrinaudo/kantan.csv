@@ -5,6 +5,8 @@ import kantan.codecs.strings._
 import kantan.csv.DecodeError.TypeError
 
 object CellDecoder {
+  def apply[A](implicit da: CellDecoder[A]): CellDecoder[A] = da
+
   /** Creates a new instance of [[CellDecoder]] that uses the specified function to parse data. */
   def apply[A](f: String ⇒ DecodeResult[A]): CellDecoder[A] = Decoder(f)
 }

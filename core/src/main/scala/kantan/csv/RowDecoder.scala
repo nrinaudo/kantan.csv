@@ -5,6 +5,7 @@ import kantan.codecs.Decoder
 import scala.collection.generic.CanBuildFrom
 
 object RowDecoder extends GeneratedRowDecoders {
+  def apply[A](implicit da: RowDecoder[A]): RowDecoder[A] = da
   def apply[A](f: Seq[String] ⇒ DecodeResult[A]): RowDecoder[A] = Decoder(f)
 }
 
