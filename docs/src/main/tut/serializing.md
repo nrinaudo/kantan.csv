@@ -119,7 +119,7 @@ things further by omitting the encoder entirely. All we need to do is depend on 
 add the following import:
 
 ```tut:silent
-import kantan.csv.generic.codecs._
+import kantan.csv.generic._
 ```
 
 kantan.csv comes with a number of default implementations of [`RowEncoder`] which can all be found in its

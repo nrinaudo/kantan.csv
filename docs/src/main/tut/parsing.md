@@ -120,7 +120,7 @@ class fields, then things are still simple (if a bit CPU intensive during compil
 exactly as before, provided you depend on the `generic` module and bring the codecs it declares in scope:
 
 ```tut
-import kantan.csv.generic.codecs._
+import kantan.csv.generic._
 
 case class Car(year: Int, make: String, model: String, desc: Option[String], price: Float)
 
