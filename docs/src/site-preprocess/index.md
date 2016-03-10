@@ -14,24 +14,24 @@ kantan.csv is a library for CSV parsing and serialisation written in the
 
 kantan.csv is currently available both for Scala 2.10 and 2.11.
 
-The current version is `0.1.8`, which can be added to your project with one or more of the following line(s)
+The current version is `@VERSION@`, which can be added to your project with one or more of the following line(s)
 in your SBT build file:
 
 ```scala
 // Core library, included automatically if any other module is imported.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv" % "0.1.8"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv" % "@VERSION@"
 
 // Provides scalaz type class instances for kantan.csv, and vice versa.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz" % "0.1.8"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz" % "@VERSION@"
 
 // Treat CSV data as sources and sinks.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz-stream" % "0.1.8"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz-stream" % "@VERSION@"
 
 // Provides cats type class instances for kantan.csv, and vice versa.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-cats" % "0.1.8"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-cats" % "@VERSION@"
 
 // Automatic type class instances derivation.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.1.8"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "@VERSION@"
 ```
 
 Additionally, while kantan.csv comes with a default parser / serializer (that has
@@ -40,13 +40,13 @@ reputable implementations. The following engines are currently supported:
  
 ```scala
 // opencsv engine.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-opencsv" % "0.1.8"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-opencsv" % "@VERSION@"
 
 // commons-csv engine.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.1.8"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "@VERSION@"
 
 // jackson-csv engine.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.1.8"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "@VERSION@"
 ```
 
 
