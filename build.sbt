@@ -26,8 +26,8 @@ val kindProjectorVersion       = "0.7.1"
 
 lazy val buildSettings = Seq(
   organization       := "com.nrinaudo",
-  scalaVersion       := "2.11.7",
-  crossScalaVersions := Seq("2.10.6", "2.11.7")
+  scalaVersion       := "2.11.8",
+  crossScalaVersions := Seq("2.10.6", "2.11.8")
 )
 
 lazy val compilerOptions = Seq("-deprecation",
@@ -95,7 +95,7 @@ lazy val root = Project(id = "kantan-csv", base = file("."))
     """
       |import kantan.csv._
       |import kantan.csv.ops._
-      |import kantan.csv.generic.codecs._
+      |import kantan.csv.generic._
     """.stripMargin
   )
   .aggregate(core, cats, scalaz, scalazStream, laws, tests, docs, generic, benchmark, jackson, commons, opencsv)
