@@ -5,7 +5,6 @@ import java.io.Writer
 import kantan.csv
 import kantan.csv.engine.WriterEngine
 import kantan.csv.{CsvOutput, CsvWriter}
-import simulacrum.{noop, op, typeclass}
 
 import scalaz.concurrent.Task
 import scalaz.stream._
@@ -17,14 +16,16 @@ import scalaz.stream._
   *
   * Additionally, any type that has an instance of `CsvOutput` in scope automatically gets an instance of [[CsvSink]].
   */
-@typeclass trait CsvSink[S] extends Serializable {
-  @noop def writer(s: S): Writer
+trait CsvSink[S] extends Serializable {
+  def writer(s: S): Writer
 
-  @op("asCsvSink") def sink[A: csv.RowEncoder](s: S, sep: Char, header: Seq[String] = Seq.empty)(implicit engine: WriterEngine): Sink[Task, A] =
+  def sink[A: csv.RowEncoder](s: S, sep: Char, header: Seq[String] = Seq.empty)(implicit engine: WriterEngine): Sink[Task, A] =
     CsvSink[A](writer(s), sep, header)
 }
 
 object CsvSink {
+  def apply[A](implicit sa: CsvSink[A]): CsvSink[A] = sa
+
   def apply[A](writer: ⇒ CsvWriter[A]): Sink[Task, A] = io.resource(Task.delay(writer))(out ⇒ Task.delay(out.close()))(
     out ⇒ Task.now((a: A) ⇒ Task.delay { out.write(a); () })
   )

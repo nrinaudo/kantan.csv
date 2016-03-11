@@ -3,23 +3,17 @@ package kantan.csv
 import java.io._
 
 import kantan.csv.engine.WriterEngine
-import simulacrum.{noop, op, typeclass}
 
 import scala.io.Codec
 
-@typeclass
 trait CsvOutput[-S] extends Serializable { self ⇒
-  @noop
   def open(s: S): Writer
 
-  @op("asCsvWriter")
-  def writer[A](s: S, separator: Char, header: Seq[String] = Seq.empty)(implicit ea: RowEncoder[A], engine: WriterEngine): CsvWriter[A] =
+  def writer[A: RowEncoder](s: S, separator: Char, header: Seq[String] = Seq.empty)(implicit engine: WriterEngine): CsvWriter[A] =
     CsvWriter(open(s), separator, header)
 
-  @noop
   def contramap[T](f: T ⇒ S): CsvOutput[T] = CsvOutput(t ⇒ self.open(f(t)))
 
-  @op("writeCsv")
   def write[A: RowEncoder](out: S, rows: TraversableOnce[A], sep: Char, header: Seq[String] = Seq.empty): Unit =
     writer(out, sep, header).write(rows).close()
 }
@@ -28,6 +22,8 @@ trait CsvOutput[-S] extends Serializable { self ⇒
 trait LowPriorityCsvOutputs
 
 object CsvOutput extends LowPriorityCsvOutputs {
+  def apply[A](implicit oa: CsvOutput[A]): CsvOutput[A] = oa
+
   def apply[A](f: A ⇒ Writer): CsvOutput[A] = new CsvOutput[A] {
     override def open(s: A): Writer = f(s)
   }

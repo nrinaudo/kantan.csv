@@ -5,7 +5,6 @@ import java.net.{URI, URL}
 
 import kantan.codecs.Result
 import kantan.csv.engine.ReaderEngine
-import simulacrum.{noop, op, typeclass}
 
 import scala.collection.generic.CanBuildFrom
 import scala.io.Codec
@@ -17,12 +16,11 @@ import scala.io.Codec
   *
   * See the [[CsvInput$ companion object]] for default implementations and construction methods.
   */
-@typeclass trait CsvInput[-S] extends Serializable { self ⇒
+trait CsvInput[-S] extends Serializable { self ⇒
   /** Turns the specified `S` into a `Reader`.
     *
     * Other methods in this trait all rely on this to open and parse CSV data.
     */
-  @noop
   def open(s: S): ParseResult[Reader]
 
   /** Turns the specified `S` into an iterator on `CsvResult[A]`.
@@ -33,7 +31,6 @@ import scala.io.Codec
     *
     * @tparam A type to parse each row as.
     */
-  @op("asCsvReader")
   def reader[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[CsvResult[A]] =
     open(s).map(reader ⇒ CsvReader(reader, separator, header))
       .valueOr(error ⇒ CsvReader(Result.failure(error)))
@@ -44,15 +41,12 @@ import scala.io.Codec
     *
     * @tparam A type to parse each row as.
     */
-  @op("asUnsafeCsvReader")
   def unsafeReader[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[A] =
     reader[A](s, separator, header).map(_.getOrElse(throw new IOException("Illegal CSV data found")))
 
-  @op("readCsv")
   def read[C[_], A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, CsvResult[A], C[CsvResult[A]]]): C[CsvResult[A]] =
     reader(s, sep, header).to[C]
 
-  @op("unsafeReadCsv")
   def unsafeRead[C[_], A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, A, C[A]]): C[A] =
     unsafeReader(s, sep, header).to[C]
 
@@ -65,7 +59,7 @@ import scala.io.Codec
     *   val urlInput: CsvInput[URL] = CsvInput[InputStream].contramap((url: URL) ⇒ url.openStream())
     * }}}
     */
-  @noop def contramap[T](f: T ⇒ S): CsvInput[T] = CsvInput((t: T) ⇒ self.open(f(t)))
+  def contramap[T](f: T ⇒ S): CsvInput[T] = CsvInput((t: T) ⇒ self.open(f(t)))
 }
 
 @export.imports[CsvInput]
@@ -81,6 +75,8 @@ trait LowPriorityCsvInputs
   * your implementation.
   */
 object CsvInput extends LowPriorityCsvInputs {
+  def apply[A](implicit ia: CsvInput[A]): CsvInput[A] = ia
+
   def apply[A](f: A ⇒ ParseResult[Reader]): CsvInput[A] = new CsvInput[A] {
     override def open(a: A) = f(a)
   }
