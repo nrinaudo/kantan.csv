@@ -58,7 +58,8 @@ was able to find a `CellDecoder[Float]`, and there was no further work required 
 While a lot of types are supported by default, you might need to add support for non-standard ones. A common example
 is dates, which kantan.csv does not provide a default implementation for.
 
-Adding support for Joda [`DateTime`] is rather straightforward: all you need is to implement a `CellDecoder[DateTime]`.
+Adding support for Joda [`DateTime`] is rather straightforward: all you need is to implement a
+[`CellDecoder[DateTime]`][`CellDecoder`].
 
 ```tut:silent
 import kantan.csv._
@@ -82,6 +83,7 @@ If you want to learn more about:
 
 [syntax]:{{ site.baseurl }}/api/#kantan.csv.ops$
 [`CsvReader`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader
+[`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package@CellDecoder[A]=kantan.codecs.Decoder[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]
 [`CsvResult`]:{{ site.baseurl }}/api/#kantan.csv.package@CsvResult[A]=kantan.codecs.Result[kantan.csv.CsvError,A]
 [`asCsvReader`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.CsvResult[B]]
 [`asUnsafeCsvReader`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$4:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]
