@@ -16,15 +16,19 @@ object ops {
   }
 
   implicit class CsvInputOps[A](val a: A) extends AnyVal {
+    /** Shorthand for [[CsvInput!.reader CsvInput.reader]]. */
     def asCsvReader[B: RowDecoder](sep: Char, header: Boolean)(implicit ai: CsvInput[A], e: ReaderEngine): CsvReader[CsvResult[B]] =
       ai.reader[B](a, sep, header)
 
+    /** Shorthand for [[CsvInput.unsafeReader]]. */
     def asUnsafeCsvReader[B: RowDecoder](sep: Char, header: Boolean)(implicit ai: CsvInput[A], e: ReaderEngine): CsvReader[B] =
       ai.unsafeReader[B](a, sep, header)
 
+    /** Shorthand for [[CsvInput.read]]. */
     def readCsv[C[_], B: RowDecoder](sep: Char, header: Boolean)(implicit ai: CsvInput[A], cbf: CanBuildFrom[Nothing, CsvResult[B], C[CsvResult[B]]], e: ReaderEngine) =
       ai.read[C, B](a, sep, header)
 
+    /** Shorthand for [[CsvInput.unsafeRead]]. */
     def unsafeReadCsv[C[_], B: RowDecoder](sep: Char, header: Boolean)(implicit ai: CsvInput[A], cbf: CanBuildFrom[Nothing, B, C[B]], e: ReaderEngine) =
       ai.unsafeRead[C, B](a, sep, header)
   }
