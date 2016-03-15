@@ -60,6 +60,8 @@ trait CsvInput[-S] extends Serializable { self ⇒
     * }}}
     */
   def contramap[T](f: T ⇒ S): CsvInput[T] = CsvInput((t: T) ⇒ self.open(f(t)))
+
+  def contramapResult[T](f: T ⇒ ParseResult[S]): CsvInput[T] = CsvInput((t: T) ⇒ f(t).flatMap(self.open))
 }
 
 @export.imports[CsvInput]
@@ -88,11 +90,11 @@ object CsvInput extends LowPriorityCsvInputs {
   implicit def inputStream(implicit codec: Codec): CsvInput[InputStream] =
     reader.contramap(i ⇒ new InputStreamReader(i, codec.charSet))
   /** Turns any `java.io.File` into a source of CSV data. */
-  implicit def file(implicit codec: Codec): CsvInput[File] = inputStream.contramap(f ⇒ new FileInputStream(f))
+  implicit def file(implicit codec: Codec): CsvInput[File] = inputStream.contramapResult(f ⇒ ParseResult(new FileInputStream(f)))
   /** Turns any array of bytes into a source of CSV data. */
   implicit def bytes(implicit codec: Codec): CsvInput[Array[Byte]] = inputStream.contramap(bs ⇒ new ByteArrayInputStream(bs))
   /** Turns any `java.net.URL` into a source of CSV data. */
-  implicit def url(implicit codec: Codec): CsvInput[URL] = inputStream.contramap(_.openStream())
+  implicit def url(implicit codec: Codec): CsvInput[URL] = inputStream.contramapResult(u ⇒ ParseResult(u.openStream()))
   /** Turns any `java.net.URI` into a source of CSV data. */
   implicit def uri(implicit codec: Codec): CsvInput[URI] = url.contramap(_.toURL)
   /** Turns any array of chars into a source of CSV data. */
