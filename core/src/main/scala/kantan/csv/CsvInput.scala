@@ -4,6 +4,8 @@ import java.io._
 import java.net.{URI, URL}
 
 import kantan.codecs.Result
+import kantan.csv.DecodeError.{OutOfBounds, TypeError}
+import kantan.csv.ParseError.{SyntaxError, IOError}
 import kantan.csv.engine.ReaderEngine
 
 import scala.collection.generic.CanBuildFrom
@@ -42,7 +44,12 @@ trait CsvInput[-S] extends Serializable { self ⇒
     * @tparam A type to parse each row as.
     */
   def unsafeReader[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[A] =
-    reader[A](s, separator, header).map(_.getOrElse(throw new IOException("Illegal CSV data found")))
+    reader[A](s, separator, header).map(_.valueOr {
+      case TypeError(e)           ⇒ throw e
+      case IOError(e)             ⇒ throw e
+      case OutOfBounds(index)     ⇒ throw new ArrayIndexOutOfBoundsException(index)
+      case SyntaxError(line, col) ⇒ throw new IOException(s"Illegal CSV data found $line:$col")
+    })
 
   def read[C[_], A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, CsvResult[A], C[CsvResult[A]]]): C[CsvResult[A]] =
     reader(s, sep, header).to[C]
