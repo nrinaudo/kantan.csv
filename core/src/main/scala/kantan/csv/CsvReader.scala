@@ -74,6 +74,17 @@ trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self ⇒
     override def close(): Unit = self.close()
   }
 
+  def collect[B](f: PartialFunction[A, B]): CsvReader[B] = new CsvReader[B] {
+    var n = self.find(f.isDefinedAt)
+    override def hasNext: Boolean = n.isDefined
+    override def readNext(): B = {
+      val r = n.getOrElse(CsvReader.empty.next())
+      n = self.find(f.isDefinedAt)
+      f(r)
+    }
+    override def close(): Unit = self.close()
+  }
+
 
   // - Monadic operations ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -91,15 +102,8 @@ trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self ⇒
     override def close(): Unit = self.close()
   }
 
-  def filter(p: A ⇒ Boolean): CsvReader[A] = new CsvReader[A] {
-    var n = self.find(p)
-    override def hasNext: Boolean = n.isDefined
-    override def readNext(): A = {
-      val r = n.getOrElse(CsvReader.empty.next())
-      n = self.find(p)
-      r
-    }
-    override def close(): Unit = self.close()
+  def filter(p: A ⇒ Boolean): CsvReader[A] = collect {
+    case a if p(a) ⇒ a
   }
 
   def withFilter(p: A ⇒ Boolean): CsvReader[A] = filter(p)
