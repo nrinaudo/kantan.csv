@@ -1,9 +1,9 @@
 ---
 layout: default
-title:  "Parsing rows as arbitrary types"
+title:  "Decoding rows as arbitrary types"
 section: tutorial
 ---
-Other tutorials covered parsing rows as [collections](01-rows_as_collections.html) and
+Other tutorials covered decoding rows as [collections](01-rows_as_collections.html) and
 [case classes](03-rows_as_case_classes.html). While those are the most common scenarios, it is sometimes necessary to
 decode rows into types that are neither.
 
@@ -46,7 +46,7 @@ implicit val carDecoder = RowDecoder.decoder5 { (y: Int, m: String, mo: String, 
 }(0, 1, 2, 3, 4)
 ```
 
-And we can now parse our data as usual:
+And we can now decode our data as usual:
 
 ```tut
 rawData.readCsv[List, Car](',', true)

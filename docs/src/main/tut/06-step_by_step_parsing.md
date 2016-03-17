@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Parsing CSV data one row at a time"
+title:  "Decoding CSV data one row at a time"
 section: tutorial
 ---
 CSV data is sometimes unreasonably large - I've had to deal with CSV files in the multiple gigabytes - and cannot
@@ -60,7 +60,7 @@ At this point, no data has been parsed yet. We can now, say, take the first elem
 filtered.next
 ```
 
-And this will only read as much as it needs to parse that first row. You could iterate over huge CSV files this way
+And this will only read as much as it needs to decode that first row. You could iterate over huge CSV files this way
 without loading more than one row at a time in memory.
 
 ## What to read next

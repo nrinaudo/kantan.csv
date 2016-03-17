@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Parsing rows as collections"
+title:  "Decoding rows as collections"
 section: tutorial
 ---
 
@@ -31,7 +31,7 @@ val reader = rawData.asCsvReader[List[Float]](',', false)
 The [`asCsvReader`] scaladoc can seem a bit daunting with all its implicit parameters, so let's demystify it.
 
 The first thing you'll notice is that it takes a type parameter, which is the type as which each row will be
-interpreted. In our example, we requested each row to be parsed as a `List[Float]`.
+interpreted. In our example, we requested each row to be decoded as a `List[Float]`.
 
 The first value parameter, `,`, is the character that should be used as a column separator. It's usually `,`, but can
 change - Excel, for instance, is infamous for using a system-dependent column separator.
@@ -45,13 +45,13 @@ Now that we have our [`CsvReader`] instance, we can consume it - by, say, printi
 reader.foreach(println _)
 ```
 
-Note that each result is wrapped in an instance of [`CsvResult`]. This allows parsing to be entirely safe - no exception
-will be thrown, all error conditions are encoded at the type level. If safety is not a concern and you'd rather let
-your code crash than deal with error conditions, you can use [`asUnsafeCsvReader`] instead.
+Note that each result is wrapped in an instance of [`CsvResult`]. This allows decoding to be entirely safe - no
+exception will be thrown, all error conditions are encoded at the type level. If safety is not a concern and you'd
+rather let your code crash than deal with error conditions, you can use [`asUnsafeCsvReader`] instead.
 
 
 ## Internals
-Parsing is type class based. Our example worked because kantan.csv can parse rows as collections of any type `A` such
+Decoding is type class based. Our example worked because kantan.csv can decode rows as collections of any type `A` such
 that there is an implicit `CellDecoder[A]` in scope. Since all primitive types are supported by default, the compiler
 was able to find a `CellDecoder[Float]`, and there was no further work required on your part.
 

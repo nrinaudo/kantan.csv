@@ -16,7 +16,7 @@ All the examples here are going to be using the following data:
 
 Note how the second row's third column is not of the same type as that of the other rows.
 
-Let's first declare the basic things we need to parse such a CSV file (see [this](03-rows_as_case_classes) if it does
+Let's first declare the basic things we need to decode such a CSV file (see [this](03-rows_as_case_classes) if it does
 not make sense to you):
 
 ```tut:silent
@@ -42,7 +42,7 @@ rely on encoding errors in return types. Still, unsafe readers can be useful - w
 reliability or maintainability are not an issue, for example.
 
 ## Drop errors
-Another common, if not always viable strategy is to use [`collect`] to simply drop whatever rows failed to parse:
+Another common, if not always viable strategy is to use [`collect`] to simply drop whatever rows failed to decode:
 
 ```tut
 rawData.asCsvReader[Person](',', false).collect { case kantan.codecs.Result.Success(a) ⇒ a }.toList
@@ -60,8 +60,8 @@ between various kantan libraries, and our [`CsvResult`] is simply a type alias f
 parameters. This can be ignored most of the time, but "advanced" error handling requires us to get closer to the metal.  
 
 
-## Fail if at least one row fails to parse
-When not streaming data, a good option is to fail if a single row fails to parse - turn a `List[CsvResult[A]]` into
+## Fail if at least one row fails to decode
+When not streaming data, a good option is to fail if a single row fails to decode - turn a `List[CsvResult[A]]` into
 a `CsvResult[List[A]]`. This is done through [`Result`]'s [`sequence`] method:
 
 ```tut

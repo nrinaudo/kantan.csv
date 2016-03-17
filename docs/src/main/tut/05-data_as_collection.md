@@ -1,9 +1,9 @@
 ---
 layout: default
-title:  "Parsing CSV data into a collection"
+title:  "Deocding CSV data into a collection"
 section: tutorial
 ---
-When memory constraints are not an issue, parsing an entire CSV file into a single collection, such as a [`List`] or
+When memory constraints are not an issue, decoding an entire CSV file into a single collection, such as a [`List`] or
 [`Vector`], can be useful. kantan.csv offers simple primitives for just this purpose.
 
 Let's take the cars example from [wikipedia](https://en.wikipedia.org/wiki/Comma-separated_values#Example):
@@ -40,7 +40,7 @@ rawData.readCsv[List, Car](',', true)
 ```
 
 This [`readCsv`] method takes two type parameters: the type of the collection in which to store each row, and the type
-as which to parse each row. In our example, we requested a [`List`] of `Car`, but we could just easily have asked
+as which to decode each row. In our example, we requested a [`List`] of `Car`, but we could just easily have asked
 for a [`Set`] or a [`Vector`].
 
 The two value parameters should be familiar by now: the first one is the column separator, the second one a flag to

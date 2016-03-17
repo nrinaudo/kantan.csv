@@ -1,5 +1,5 @@
 ---
 layout: default
-title:  "Parsing rows as tuples"
+title:  "Decoding rows as tuples"
 section: tutorial
 ---
