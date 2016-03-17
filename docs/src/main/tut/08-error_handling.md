@@ -16,7 +16,7 @@ All the examples here are going to be using the following data:
 
 Note how the second row's third column is not of the same type as that of the other rows.
 
-Let's first declare the basic things we need to parse such a CSV file (see [this](02-rows_as_case_classes) if it does
+Let's first declare the basic things we need to parse such a CSV file (see [this](03-rows_as_case_classes) if it does
 not make sense to you):
 
 ```tut:silent

@@ -24,7 +24,7 @@ val rawData: java.net.URL = getClass.getResource("/wikipedia.csv")
 ```
 
 Our goal here is to load this entire resource as a [`List`]. In order to do that, we must be able to decode each
-row as a case class. This is exactly what we did in a [previous tutorial](02-rows_as_case_classes.html):
+row as a case class. This is exactly what we did in a [previous tutorial](03-rows_as_case_classes.html):
 
 ```tut:silent
 import kantan.csv.ops._     // kantan.csv syntax
@@ -62,8 +62,8 @@ The second type parameter is explained in an [earlier tutorial](01-rows_as_colle
 If you want to learn more about:
 
 * [decoders and codecs](14-codecs.html)
-* [how we were able to turn a `URI` into CSV data](06-csv_sources.html)
-* [how to parse CSV row by row](05-step_by_step_parsing.html)
+* [how we were able to turn a `URI` into CSV data](07-csv_sources.html)
+* [how to parse CSV row by row](06-step_by_step_parsing.html)
 
 
 [`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List

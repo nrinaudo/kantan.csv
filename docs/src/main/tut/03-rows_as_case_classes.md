@@ -84,7 +84,7 @@ rawData.asCsvReader[Car2](',', true).foreach(println _)
 If you want to learn more about:
 
 * [decoders and codecs](14-codecs.html)
-* [how we were able to turn a `URI` into CSV data](06-csv_sources.html)
+* [how we were able to turn a `URI` into CSV data](07-csv_sources.html)
  
 
 [`RowDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package@RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]
