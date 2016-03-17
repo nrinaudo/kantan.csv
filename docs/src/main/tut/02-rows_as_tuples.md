@@ -25,7 +25,7 @@ I have this data as a resource, so let's declare it:
 val rawData: java.net.URL = getClass.getResource("/wikipedia.csv")
 ```
 
-One way of representing each row would be as a tuple. Let's declare it as a type alias, for brevity's sake:
+One way of representing each row could be as a tuple. Let's declare it as a type alias, for brevity's sake:
 
 ```tut:silent
 type Car = (Int, String, String, Option[String], Float)

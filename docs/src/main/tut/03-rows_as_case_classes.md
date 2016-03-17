@@ -6,8 +6,8 @@ section: tutorial
 
 ## Overview
 In a [previous tutorial](02-rows_as_tuples), we saw how to decode CSV rows into tuples. This is useful, but we sometimes
-want a more specific type - a `Point` instead of an `(Int, Int)`, say. Case classes lend themselves well to such cases,
-and kantan.csv has various mechanisms to support them.
+want a more specific type - a `Point` instead of an `(Int, Int)`, say. Case classes lend themselves well to such
+scenarios, and kantan.csv has various mechanisms to support them.
  
 Take, for example, the [wikipedia CSV example](https://en.wikipedia.org/wiki/Comma-separated_values#Example):
 

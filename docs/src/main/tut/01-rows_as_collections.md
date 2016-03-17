@@ -30,13 +30,13 @@ val reader = rawData.asCsvReader[List[Float]](',', false)
 
 The [`asCsvReader`] scaladoc can seem a bit daunting with all its implicit parameters, so let's demystify it.
 
-The first thing you'll notice is that it takes a type parameter, which is the type as which each row will be
-interpreted. In our example, we requested each row to be decoded as a `List[Float]`.
+The first thing you'll notice is that it takes a type parameter, which is the type into which each row will be
+decoded. In our example, we requested each row to be decoded into a `List[Float]`.
 
 The first value parameter, `,`, is the character that should be used as a column separator. It's usually `,`, but can
 change - Excel, for instance, is infamous for using a system-dependent column separator.
 
-Finally, the last value parameter is a boolean flat that, when set to `true`, will cause the first row to be skipped.
+Finally, the last value parameter is a boolean flag that, when set to `true`, will cause the first row to be skipped.
 This is important for CSV data that contains a header row.
 
 Now that we have our [`CsvReader`] instance, we can consume it - by, say, printing each row:
