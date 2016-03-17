@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Deocding CSV data into a collection"
+title:  "Decoding CSV data into a collection"
 section: tutorial
 ---
 When memory constraints are not an issue, decoding an entire CSV file into a single collection, such as a [`List`] or

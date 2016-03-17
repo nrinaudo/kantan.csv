@@ -5,11 +5,11 @@ section: tutorial
 ---
 
 ## Overview
-In a [previous tutorial](01-rows_as_collections.html), we saw how to deal with CSV data composed of rows of homogeneous
-types. While a common enough scenario, you'll also find yourself having to deal with heterogeneous data types fairly
-often.
+In a [previous tutorial](02-rows_as_tuples), we saw how to decode CSV rows into tuples. This is useful, but we sometimes
+want a more specific type - a `Point` instead of an `(Int, Int)`, say. Case classes lend themselves well to such cases,
+and kantan.csv has various mechanisms to support them.
  
-Take, for instance, the [wikipedia CSV example](https://en.wikipedia.org/wiki/Comma-separated_values#Example):
+Take, for example, the [wikipedia CSV example](https://en.wikipedia.org/wiki/Comma-separated_values#Example):
 
 ```
 Year,Make,Model,Description,Price
@@ -26,7 +26,7 @@ I have this data as a resource, so let's declare it:
 val rawData: java.net.URL = getClass.getResource("/wikipedia.csv")
 ```
 
-This kind of data is often represented as case classes:
+An obvious representation of each row in this data would be:
 
 ```tut:silent
 case class Car(year: Int, make: String, model: String, desc: Option[String], price: Float)
