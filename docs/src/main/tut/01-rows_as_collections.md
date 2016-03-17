@@ -80,7 +80,6 @@ If you want to learn more about:
 * [how to turn CSV rows into more useful types](03-rows_as_arbitrary_types.html)
  
 
-
 [syntax]:{{ site.baseurl }}/api/#kantan.csv.ops$
 [`CsvReader`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader
 [`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package@CellDecoder[A]=kantan.codecs.Decoder[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]

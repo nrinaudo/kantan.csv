@@ -30,7 +30,7 @@
           <ul>
           {% for x in site.tut %}
           {% if page.url != x.url and x.status != "wip" and x.section == "tutorial" %}
-          <li><a href="{{ site.baseurl }}{{ x.url }}">{{ x.title }}</a></li>
+          <li><p><a href="{{ site.baseurl }}{{ x.url }}">{{ x.title }}</a></p></li>
           {% endif %}
           {% endfor %}
           </ul>
