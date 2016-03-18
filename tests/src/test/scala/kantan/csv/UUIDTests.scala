@@ -1,7 +1,6 @@
 package kantan.csv
 
 import java.util.UUID
-
 import kantan.csv.laws.discipline.CellCodecTests
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.FunSuite

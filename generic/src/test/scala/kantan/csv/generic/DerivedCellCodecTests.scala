@@ -2,7 +2,6 @@ package kantan.csv.generic
 
 import kantan.codecs.laws.CodecValue
 import kantan.codecs.laws.CodecValue.LegalValue
-import kantan.csv.CellDecoder
 import kantan.csv.laws.{LegalCell, IllegalCell}
 import kantan.csv.laws.discipline.CellCodecTests
 import kantan.csv.laws.discipline.arbitrary._

@@ -1,12 +1,10 @@
 package kantan.csv.scalaz.stream
 
-import java.io.Reader
-
-import kantan.csv._
-import kantan.csv.engine.ReaderEngine
-
 import _root_.scalaz.concurrent.Task
 import _root_.scalaz.stream._
+import java.io.Reader
+import kantan.csv._
+import kantan.csv.engine.ReaderEngine
 
 /** Turns instances of `S` into CSV sources.
   *

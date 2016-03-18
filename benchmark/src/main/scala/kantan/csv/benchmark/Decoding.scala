@@ -2,11 +2,10 @@ package kantan.csv.benchmark
 
 import java.io.StringReader
 import java.util.concurrent.TimeUnit
-
 import kantan.csv.CsvInput
+import kantan.csv.engine.ReaderEngine
 import kantan.csv.engine.jackson.JacksonCsv
 import org.openjdk.jmh.annotations._
-import kantan.csv.engine.ReaderEngine
 
 @State(Scope.Thread)
 @BenchmarkMode(Array(Mode.AverageTime))

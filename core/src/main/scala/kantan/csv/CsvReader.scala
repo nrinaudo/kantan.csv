@@ -1,7 +1,6 @@
 package kantan.csv
 
 import java.io.{Closeable, Reader}
-
 import kantan.csv.engine.ReaderEngine
 
 trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self ⇒

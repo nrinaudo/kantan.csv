@@ -1,11 +1,9 @@
 package kantan.csv.engine.opencsv
 
-import java.io.{Reader, Writer}
-
 import com.opencsv._
+import java.io.{Reader, Writer}
 import kantan.csv._
-import kantan.csv.engine.{WriterEngine, ReaderEngine}
-
+import kantan.csv.engine.{ReaderEngine, WriterEngine}
 import scala.collection.mutable
 
 // TODO: known bugs

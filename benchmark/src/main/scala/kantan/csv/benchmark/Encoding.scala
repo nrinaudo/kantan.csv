@@ -2,10 +2,9 @@ package kantan.csv.benchmark
 
 import java.io.StringWriter
 import java.util.concurrent.TimeUnit
-
-import kantan.csv.ops._
 import kantan.csv.engine.WriterEngine
 import kantan.csv.engine.jackson.JacksonCsv
+import kantan.csv.ops._
 import org.apache.commons.csv.CSVFormat
 import org.openjdk.jmh.annotations._
 

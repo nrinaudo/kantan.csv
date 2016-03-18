@@ -1,6 +1,5 @@
 package kantan.csv.engine
 
-import kantan.csv.ops
 import kantan.csv.ops._
 import org.scalatest.FunSuite
 

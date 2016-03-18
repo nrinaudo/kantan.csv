@@ -1,9 +1,8 @@
 package kantan.csv.engine.commons
 
 import java.io.{Reader, Writer}
-
 import kantan.csv._
-import kantan.csv.engine.{WriterEngine, ReaderEngine}
+import kantan.csv.engine.{ReaderEngine, WriterEngine}
 import org.apache.commons.csv.{CSVFormat, CSVPrinter, CSVRecord, QuoteMode}
 
 private class CsvSeq(rec: CSVRecord) extends IndexedSeq[String] {

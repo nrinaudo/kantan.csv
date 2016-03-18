@@ -1,7 +1,7 @@
 package kantan.csv.cats
 
-import arbitrary._
 import _root_.cats.data.Xor
+import arbitrary._
 import kantan.csv.laws.discipline.{CellCodecTests, RowCodecTests}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks

@@ -1,6 +1,6 @@
 package kantan.csv.laws
 
-import kantan.csv.{DecodeResult, CellDecoder, CellEncoder}
+import kantan.csv.{CellDecoder, CellEncoder, DecodeResult}
 import org.scalacheck.{Arbitrary, Gen}
 
 sealed trait Cell {

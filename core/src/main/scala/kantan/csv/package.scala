@@ -1,6 +1,6 @@
 package kantan
 
-import kantan.codecs.{Codec, Encoder, Decoder, Result}
+import kantan.codecs.{Codec, Decoder, Encoder, Result}
 
 package object csv {
   type CsvResult[A] = Result[CsvError, A]

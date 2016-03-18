@@ -2,12 +2,10 @@ package kantan.csv
 
 import java.io._
 import java.net.{URI, URL}
-
 import kantan.codecs.Result
 import kantan.csv.DecodeError.{OutOfBounds, TypeError}
-import kantan.csv.ParseError.{SyntaxError, IOError}
+import kantan.csv.ParseError.{IOError, SyntaxError}
 import kantan.csv.engine.ReaderEngine
-
 import scala.collection.generic.CanBuildFrom
 import scala.io.Codec
 

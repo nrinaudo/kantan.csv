@@ -1,6 +1,5 @@
 package kantan.csv
 
-import kantan.csv
 import shapeless._
 
 package object generic {
@@ -122,7 +121,7 @@ package object generic {
 
   // - RowEncoder case class derivation --------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def coproductRowEncoder[H, T <: Coproduct](implicit eh: csv.RowEncoder[H], et: RowEncoder[T]): RowEncoder[H :+: T] =
+  implicit def coproductRowEncoder[H, T <: Coproduct](implicit eh: RowEncoder[H], et: RowEncoder[T]): RowEncoder[H :+: T] =
     RowEncoder((a: H :+: T) ⇒ a match {
       case Inl(h) ⇒ eh.encode(h)
       case Inr(t) ⇒ et.encode(t)

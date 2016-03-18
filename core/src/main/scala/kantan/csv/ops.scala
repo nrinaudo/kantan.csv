@@ -1,9 +1,7 @@
 package kantan.csv
 
 import java.io.StringWriter
-
 import kantan.csv.engine.{ReaderEngine, WriterEngine}
-
 import scala.collection.generic.CanBuildFrom
 
 object ops {

@@ -1,7 +1,6 @@
 package kantan.csv
 
 import kantan.codecs.Decoder
-
 import scala.collection.generic.CanBuildFrom
 
 object RowDecoder extends GeneratedRowDecoders {

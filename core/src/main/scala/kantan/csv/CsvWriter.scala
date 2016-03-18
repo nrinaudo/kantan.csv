@@ -1,7 +1,6 @@
 package kantan.csv
 
 import java.io.{Closeable, Writer}
-
 import kantan.csv.engine.WriterEngine
 
 trait CsvWriter[A] extends Closeable { self ⇒

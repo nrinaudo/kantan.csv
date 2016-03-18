@@ -1,6 +1,6 @@
 package kantan.csv
 
-import kantan.csv.laws.discipline.{RowCodecTests, CellCodecTests}
+import kantan.csv.laws.discipline.CellCodecTests
 import org.scalacheck.Gen._
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.FunSuite

@@ -1,13 +1,10 @@
 package kantan.csv
 
 import java.io._
-
-import kantan.csv.laws.discipline.arbitrary
 import kantan.csv.laws.discipline.arbitrary._
 import kantan.csv.ops._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
-
 import scala.io.Codec
 
 class CsvOutputTest extends FunSuite with GeneratorDrivenPropertyChecks {

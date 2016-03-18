@@ -4,7 +4,7 @@ import kantan.codecs.laws.CodecValue.LegalValue
 import kantan.codecs.laws.discipline.DecoderTests
 import kantan.csv.laws.RowDecoderLaws
 import kantan.csv.laws.discipline.arbitrary._
-import kantan.csv.{codecs, DecodeError}
+import kantan.csv.{DecodeError, codecs}
 import org.scalacheck.Arbitrary
 
 object RowDecoderTests {

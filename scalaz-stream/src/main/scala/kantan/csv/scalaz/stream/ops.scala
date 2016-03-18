@@ -1,10 +1,9 @@
 package kantan.csv.scalaz.stream
 
-import kantan.csv._
-import kantan.csv.engine.{ReaderEngine, WriterEngine}
-
 import _root_.scalaz.concurrent.Task
 import _root_.scalaz.stream.{Process, Sink}
+import kantan.csv._
+import kantan.csv.engine.{ReaderEngine, WriterEngine}
 
 object ops {
   implicit class CsvSinkOps[A](val a: A) extends AnyVal {

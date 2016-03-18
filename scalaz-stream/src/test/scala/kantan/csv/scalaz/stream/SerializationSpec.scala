@@ -1,13 +1,10 @@
 package kantan.csv.scalaz.stream
 
 import java.io.StringWriter
-
-import kantan.csv.laws.discipline.arbitrary
 import kantan.csv.laws.discipline.arbitrary._
 import kantan.csv.scalaz.stream.ops._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
-
 import scalaz.concurrent.Task
 import scalaz.stream.Process._
 import scalaz.stream.{Cause, Process}

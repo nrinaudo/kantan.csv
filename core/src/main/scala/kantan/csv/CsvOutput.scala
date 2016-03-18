@@ -1,9 +1,7 @@
 package kantan.csv
 
 import java.io._
-
 import kantan.csv.engine.WriterEngine
-
 import scala.io.Codec
 
 trait CsvOutput[-S] extends Serializable { self ⇒

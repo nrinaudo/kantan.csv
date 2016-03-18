@@ -1,11 +1,9 @@
 package kantan.csv.scalaz.stream
 
 import java.io.Writer
-
 import kantan.csv
 import kantan.csv.engine.WriterEngine
 import kantan.csv.{CsvOutput, CsvWriter}
-
 import scalaz.concurrent.Task
 import scalaz.stream._
 

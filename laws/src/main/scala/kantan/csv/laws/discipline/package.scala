@@ -1,6 +1,6 @@
 package kantan.csv.laws
 
-import kantan.codecs.laws.discipline.{CodecTests, EncoderTests, DecoderTests}
+import kantan.codecs.laws.discipline.{CodecTests, DecoderTests, EncoderTests}
 import kantan.csv._
 
 package object discipline {
