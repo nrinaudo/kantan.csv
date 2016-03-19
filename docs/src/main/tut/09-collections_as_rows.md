@@ -1,21 +1,50 @@
 ---
 layout: default
-title:  "Serialising collections as rows"
+title:  "Encoding collections as rows"
 section: tutorial
-status: wip
 ---
+CSV is often used to store rows of homogeneous data - each cell could be an `Int`, for instance. We'll see in this post
+how kantan.csv supports this kind of scenario.
+
+In kantan.csv, all CSV serialisation is done through [`CsvWriter`], which you can think of as a highly specialised
+version of [`Writer`]. One retrieves an instance of [`CsvWriter`] as follows:
 
 ```tut:silent
 import kantan.csv.ops._
 
-val out = new java.io.StringWriter()
-val writer = out.asCsvWriter[List[Int]](',')
+// File in which we'll be writing the CSV data.
+val out = java.io.File.createTempFile("kantan.csv", "csv")
 
-writer.write(List(0, 1, 2)).write(List(3, 4, 5)).close()
+// Writer on `out`
+val writer = out.asCsvWriter[List[Int]](',', List("Column 1", "Column 2", "Column 3"))
 ```
+
+Note the type parameter to [`asCsvWriter`]: this is what the returned instance of [`CsvWriter`] will know to encode.
+Since we're trying to write lists of integers, we requested a [`CsvWriter[List[Int]]`][`CsvWriter`], but we could have
+requested any subtype of [`TraversableOnce`] of any primitive Scala type. 
+
+The value parameters are the column separator and optional header row.
+
+Now that we have a [`CsvWriter`] that knows how to encode `List[Int]`, we can just call its [`write`] method repeatedly:
+
+```tut:silent
+// Writes a couple of rows.
+writer.write(List(0, 1, 2))
+writer.write(List(3, 4, 5))
+
+// Makes sure resources are freed.
+writer.close()
+```
+
+Let's make sure that we got the expected output:
 
 ```tut
-println(out.toString())
+scala.io.Source.fromFile(out).mkString
 ```
 
 
+[`CsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter
+[`Writer`]:https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html
+[`write`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter@write(a:A):kantan.csv.CsvWriter[A]
+[`asCsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvOutputOps@asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvOutput[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]
+[`TraversableOnce`]:http://www.scala-lang.org/api/current/index.html#scala.collection.List
