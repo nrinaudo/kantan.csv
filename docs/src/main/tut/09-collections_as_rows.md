@@ -36,6 +36,10 @@ writer.write(List(3, 4, 5))
 writer.close()
 ```
 
+Note that [`CsvWriter`] supports a fluent style of chaining operations (or, in less pretentious english, each [`write`]
+returns the [`CsvWriter`] itself), which I could have used to simplify the above code. I feel that spelling things out
+helps, though, especially the explicit call to [`close`] at the end.
+
 Let's make sure that we got the expected output:
 
 ```tut
@@ -46,5 +50,6 @@ scala.io.Source.fromFile(out).mkString
 [`CsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter
 [`Writer`]:https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html
 [`write`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter@write(a:A):kantan.csv.CsvWriter[A]
+[`close]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter@close():Unit
 [`asCsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvOutputOps@asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvOutput[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]
 [`TraversableOnce`]:http://www.scala-lang.org/api/current/index.html#scala.collection.List
