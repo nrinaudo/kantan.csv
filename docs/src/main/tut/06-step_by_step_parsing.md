@@ -51,7 +51,7 @@ Other than that, it looks a lot like any other standard collection. And being an
 multiple `filter` and `map` operations, and nothing will happen until each row is explicitly requested. For example:
 
 ```tut
-val filtered = iterator.filter(_.exists(_.year >= 1997)).map(_.map(_.make))
+val filtered = iterator.filterResult(_.year >= 1997).mapResult(_.make)
 ```
 
 At this point, no data has been parsed yet. We can now, say, take the first element:

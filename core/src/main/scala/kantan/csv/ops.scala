@@ -48,4 +48,12 @@ object ops {
       out.toString
     }
   }
+
+  // Alright, yes, this is nasty. There are abstractions designed to deal with just this situation, but not everyone
+  // knows about them / understands them / can afford to depend on libraries that provide them.
+  implicit class CsvReaderOps[A](val results: CsvReader[CsvResult[A]]) extends AnyVal {
+    def mapResult[B](f: A ⇒ B): CsvReader[CsvResult[B]] = results.map(_.map(f))
+    def flatMapResult[B](f: A ⇒ CsvResult[B]): CsvReader[CsvResult[B]] = results.map(_.flatMap(f))
+    def filterResult(f: A ⇒ Boolean): CsvReader[CsvResult[A]] = results.filter(_.exists(f))
+  }
 }
