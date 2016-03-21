@@ -31,16 +31,6 @@ object ops {
       ai.unsafeRead[C, B](a, sep, header)
   }
 
-  implicit class CellDecoderOps(val str: String) extends AnyVal {
-    def fromCsvCell[A](implicit da: CellDecoder[A]): CsvResult[A] = da.decode(str)
-    def unsafeFromCsvCell[A](implicit da: CellDecoder[A]): A = da.unsafeDecode(str)
-  }
-
-  implicit class RowDecoderOps(val row: Seq[String]) extends AnyVal {
-    def fromCsvRow[A](implicit da: RowDecoder[A]): CsvResult[A] = da.decode(row)
-    def unsafeFromCsvRow[A](implicit da: RowDecoder[A]): A = da.unsafeDecode(row)
-  }
-
   implicit class TraversableOnceOps[A](val rows: TraversableOnce[A]) extends AnyVal {
     def asCsv(sep: Char, header: Seq[String] = Seq.empty)(implicit engine: WriterEngine, ae: RowEncoder[A]): String = {
       val out = new StringWriter()
