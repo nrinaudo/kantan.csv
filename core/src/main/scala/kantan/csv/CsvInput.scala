@@ -11,15 +11,18 @@ import scala.io.Codec
 
 /** Turns instances of `S` into valid sources of CSV data.
   *
-  * Any type `S` that has a implicit instance of [[CsvInput]] in scope will be enriched by the `asCsvReader` and
-  * `asUnsafeCsvReader` methods (which map to [[reader]] and [[unsafeReader]] respectively).
+  * Instances of [[CsvInput]] are rarely used directly. The preferred, idiomatic way is to use the implicit syntax
+  * provided by [[ops.CsvInputOps CsvInputOps]], brought in scope by importing `kantan.csv.ops._`.
   *
   * See the [[CsvInput$ companion object]] for default implementations and construction methods.
   */
 trait CsvInput[-S] extends Serializable { self ⇒
   /** Turns the specified `S` into a `Reader`.
     *
-    * Other methods in this trait all rely on this to open and parse CSV data.
+    * Implementations of this method *must* be safe: all non-fatal exceptions should be caught and wrapped in an
+    * [[ParseError.IOError]]. This is easily achieved by wrapping unsafe code in a call to [[ParseResult.apply]].
+    *
+    * @param s instance of `S` to turn into a [[CsvInput]].
     */
   def open(s: S): ParseResult[Reader]
 
@@ -29,7 +32,10 @@ trait CsvInput[-S] extends Serializable { self ⇒
     * cost of having each row wrapped in a [[CsvResult]] that then need to be unpacked. See [[unsafeReader]] for an
     * alternative.
     *
-    * @tparam A type to parse each row as.
+    * @param s instance of `S` that will be opened an parsed.
+    * @param separator character used to separate columns.
+    * @param header whether or not the first row is a header. If set to `true`, the first row will be skipped entirely.
+    * @tparam A type to parse each row as. This must have a corresponding implicit [[RowDecoder]] instance in scope.
     */
   def reader[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[CsvResult[A]] =
     open(s).map(reader ⇒ CsvReader(reader, separator, header))
@@ -39,7 +45,10 @@ trait CsvInput[-S] extends Serializable { self ⇒
     *
     * This is the "unsafe" version of [[reader]]: it will throw as soon as an error is encountered.
     *
-    * @tparam A type to parse each row as.
+    * @param s instance of `S` that will be opened an parsed.
+    * @param separator character used to separate columns.
+    * @param header whether or not the first row is a header. If set to `true`, the first row will be skipped entirely.
+    * @tparam A type to parse each row as. This must have a corresponding implicit [[RowDecoder]] instance in scope.
     */
   def unsafeReader[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[A] =
     reader[A](s, separator, header).map(_.valueOr {
@@ -49,12 +58,49 @@ trait CsvInput[-S] extends Serializable { self ⇒
       case SyntaxError(line, col) ⇒ throw new IOException(s"Illegal CSV data found $line:$col")
     })
 
-  def read[C[_], A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, CsvResult[A], C[CsvResult[A]]]): C[CsvResult[A]] =
-    reader(s, sep, header).to[C]
+  /** Reads the entire CSV data into a collection.
+    *
+    * This method is "safe", in that it does not throw exceptions when errors are encountered. This comes with the small
+    * cost of having each row wrapped in a [[CsvResult]] that then need to be unpacked. See [[unsafeRead]] for an
+    * alternative.
+    *
+    * @param s instance of `S` that will be opened an parsed.
+    * @param separator character used to separate columns.
+    * @param header whether or not the first row is a header. If set to `true`, the first row will be skipped entirely.
+    * @tparam C collection type in which to parse the specified `S`.
+    * @tparam A type in which to parse each row.
+    */
+  def read[C[_], A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, CsvResult[A], C[CsvResult[A]]]): C[CsvResult[A]] =
+    reader(s, separator, header).to[C]
 
-  def unsafeRead[C[_], A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, A, C[A]]): C[A] =
-    unsafeReader(s, sep, header).to[C]
+  /** Reads the entire CSV data into a collection.
+    *
+    * This is the "unsafe" version of [[read]]: it will throw as soon as an error is encountered.
+    *
+    * @param s instance of `S` that will be opened an parsed.
+    * @param separator character used to separate columns.
+    * @param header whether or not the first row is a header. If set to `true`, the first row will be skipped entirely.
+    * @tparam C collection type in which to parse the specified `S`.
+    * @tparam A type in which to parse each row.
+    */
+  def unsafeRead[C[_], A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, A, C[A]]): C[A] =
+    unsafeReader(s, separator, header).to[C]
 
+
+  /** Turns an instance of `CsvInput[S]` into one of `CsvInput[T]`.
+    *
+    * This allows developers to adapt existing instances of [[CsvInput]] rather than write one from scratch.
+    * One could, for example, write `CsvInput[String]` by basing it on `CsvInput[Reader]`:
+    * {{{
+    *   val urlInput: CsvInput[String] = CsvInput[Reader].contramap((s: String) ⇒ new java.io.StringReader(s))
+    * }}}
+    *
+    * Note that this method assumes that the transformation from `T` to `S` is safe. If it fail, one should use
+    * [[contramapResult]] instead.
+    *
+    * @see [[contramapResult]]
+    */
+  def contramap[T](f: T ⇒ S): CsvInput[T] = CsvInput((t: T) ⇒ self.open(f(t)))
 
   /** Turns an instance of `CsvInput[S]` into one of `CsvInput[T]`.
     *
@@ -63,13 +109,15 @@ trait CsvInput[-S] extends Serializable { self ⇒
     * {{{
     *   val urlInput: CsvInput[URL] = CsvInput[InputStream].contramap((url: URL) ⇒ url.openStream())
     * }}}
+    *
+    * Note that if the transformation from `T` to `S` is safe, it's better to use [[contramap]] and bypass the error
+    * handling mechanism altogether.
+    *
+    * @see [[contramap]]
     */
-  def contramap[T](f: T ⇒ S): CsvInput[T] = CsvInput((t: T) ⇒ self.open(f(t)))
-
   def contramapResult[T](f: T ⇒ ParseResult[S]): CsvInput[T] = CsvInput((t: T) ⇒ f(t).flatMap(self.open))
 }
 
-@export.imports[CsvInput]
 trait LowPriorityCsvInputs
 
 /** Defines convenience methods for creating and retrieving instances of [[CsvInput]].
@@ -82,8 +130,27 @@ trait LowPriorityCsvInputs
   * your implementation.
   */
 object CsvInput extends LowPriorityCsvInputs {
+  /** Summons an implicit instance of `CsvInput[A]` if one can be found.
+    *
+    * This is simply a convenience method. The two following calls are equivalent:
+    * {{{
+    *   val str: CsvInput[String] = CsvInput[String]
+    *   val str2: CsvInput[String] = implicitly[CsvInput[String]]
+    * }}}
+    */
   def apply[A](implicit ia: CsvInput[A]): CsvInput[A] = ia
 
+  /** Turns the specified function into a [[CsvInput]].
+    *
+    * Note that it's usually better to compose an existing instance through [[CsvInput.contramap]] or
+    * [[CsvInput.contramapResult]] rather than create one from scratch. For example:
+    * {{{
+    *   val urlInput: CsvInput[URL] = CsvInput[InputStream].contramap((url: URL) ⇒ url.openStream())
+    * }}}
+    *
+    * @see [[CsvInput.contramap]]
+    * @see [[CsvInput.contramapResult]]
+    */
   def apply[A](f: A ⇒ ParseResult[Reader]): CsvInput[A] = new CsvInput[A] {
     override def open(a: A) = f(a)
   }
@@ -95,9 +162,11 @@ object CsvInput extends LowPriorityCsvInputs {
   implicit def inputStream(implicit codec: Codec): CsvInput[InputStream] =
     reader.contramap(i ⇒ new InputStreamReader(i, codec.charSet))
   /** Turns any `java.io.File` into a source of CSV data. */
-  implicit def file(implicit codec: Codec): CsvInput[File] = inputStream.contramapResult(f ⇒ ParseResult(new FileInputStream(f)))
+  implicit def file(implicit codec: Codec): CsvInput[File] =
+    inputStream.contramapResult(f ⇒ ParseResult(new FileInputStream(f)))
   /** Turns any array of bytes into a source of CSV data. */
-  implicit def bytes(implicit codec: Codec): CsvInput[Array[Byte]] = inputStream.contramap(bs ⇒ new ByteArrayInputStream(bs))
+  implicit def bytes(implicit codec: Codec): CsvInput[Array[Byte]] =
+    inputStream.contramap(bs ⇒ new ByteArrayInputStream(bs))
   /** Turns any `java.net.URL` into a source of CSV data. */
   implicit def url(implicit codec: Codec): CsvInput[URL] = inputStream.contramapResult(u ⇒ ParseResult(u.openStream()))
   /** Turns any `java.net.URI` into a source of CSV data. */

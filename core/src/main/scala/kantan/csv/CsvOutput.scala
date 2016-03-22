@@ -16,7 +16,6 @@ trait CsvOutput[-S] extends Serializable { self ⇒
     writer(out, sep, header).write(rows).close()
 }
 
-@export.imports[CsvOutput]
 trait LowPriorityCsvOutputs
 
 object CsvOutput extends LowPriorityCsvOutputs {

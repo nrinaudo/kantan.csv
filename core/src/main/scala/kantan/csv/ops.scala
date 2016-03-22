@@ -13,6 +13,22 @@ object ops {
       oa.write(a, rows, sep, header)
   }
 
+  /** Provides useful syntax for types that have implicit instances of [[CsvInput]] in scope.
+    *
+    * The most common use case is to turn a value into a [[CsvReader]] through [[asCsvReader]]:
+    * {{{
+    *   val f: java.io.File = ???
+    *   f.asCsvReader[List[Int]](',', true)
+    * }}}
+    *
+    * A slightly less common use case is to load an entire CSV file in memory through [[readCsv]]:
+    * {{{
+    *   val f: java.io.File = ???
+    *   f.readCsv[List, List[Int]](',', true)
+    * }}}
+    *
+    * Unsafe versions of these methods are also available, even if usually advised against.
+    */
   implicit class CsvInputOps[A](val a: A) extends AnyVal {
     /** Shorthand for [[CsvInput!.reader CsvInput.reader]]. */
     def asCsvReader[B: RowDecoder](sep: Char, header: Boolean)(implicit ai: CsvInput[A], e: ReaderEngine): CsvReader[CsvResult[B]] =
