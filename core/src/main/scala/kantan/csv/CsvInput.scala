@@ -32,6 +32,10 @@ trait CsvInput[-S] extends Serializable { self ⇒
     * cost of having each row wrapped in a [[CsvResult]] that then need to be unpacked. See [[unsafeReader]] for an
     * alternative.
     *
+    * Using common combinators such as `map`, `flatMap` and `filter` on a `CsvReader[CsvResult[A]]` can be awkward -
+    * one needs to first map into the reader, then into the result. For this reason, instances of
+    * `CsvReader[CsvResult[A]]` have dedicated syntax that makes it more pleasant through [[ops.CsvReaderOps]].
+    *
     * @param s instance of `S` that will be opened an parsed.
     * @param separator character used to separate columns.
     * @param header whether or not the first row is a header. If set to `true`, the first row will be skipped entirely.
