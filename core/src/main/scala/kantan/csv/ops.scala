@@ -76,7 +76,7 @@ object ops {
     /** Turns a `CsvReader[CsvResult[A]]` into a `CsvReader[CsvResult[B]]`. */
     def flatMapResult[B](f: A ⇒ CsvResult[B]): CsvReader[CsvResult[B]] = results.map(_.flatMap(f))
 
-    /** Filters on all successfull values that match the specified predicate. */
+    /** Filters on all successful values that match the specified predicate. */
     def filterResult(f: A ⇒ Boolean): CsvReader[CsvResult[A]] = results.filter(_.exists(f))
   }
 }
