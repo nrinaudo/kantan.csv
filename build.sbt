@@ -4,7 +4,6 @@ import UnidocKeys._
 
 val kantanCodecsVersion        = "0.1.1-SNAPSHOT"
 val catsVersion                = "0.4.1"
-val exportHookVersion          = "1.1.0"
 val macroParadiseVersion       = "2.1.0"
 val scalaCheckVersion          = "1.12.5"
 val disciplineVersion          = "0.4"
@@ -47,11 +46,6 @@ lazy val compilerOptions = Seq("-deprecation",
 
 lazy val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
-  libraryDependencies ++= Seq(
-    "org.typelevel"        %% "export-hook"   % exportHookVersion,
-    "org.scala-lang"        % "scala-reflect" % scalaVersion.value  % "provided",
-    compilerPlugin("org.scalamacros" % "paradise" % macroParadiseVersion cross CrossVersion.full)
-  ),
   resolvers ++= Seq(
     Resolver.sonatypeRepo("releases"),
     Resolver.sonatypeRepo("snapshots")
