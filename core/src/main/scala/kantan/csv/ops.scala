@@ -5,10 +5,26 @@ import kantan.csv.engine.{ReaderEngine, WriterEngine}
 import scala.collection.generic.CanBuildFrom
 
 object ops {
+  /** Provides useful syntax for that types that have implicit instances of [[CsvOutput]] in scope.
+    *
+    * The most common use case is to turn a value into a [[CsvWriter]] through [[asCsvWriter]]:
+    * {{{
+    *   val f: java.io.File = ???
+    *   f.asCsvWriter[List[Int]](',', true)
+    * }}}
+    *
+    * A slightly less common use case is encode an entire collection to CSV through [[writeCsv]]:
+    * {{{
+    *   val f: java.io.File = ???
+    *   f.writeCsv[List[Int]](List(List(1, 2, 3), List(4, 5, 6)), ',', true)
+    * }}}
+    */
   implicit class CsvOutputOps[A](val a: A) extends AnyVal {
+    /** Shorthand for [[CsvOutput.writer]]. */
     def asCsvWriter[B: RowEncoder](sep: Char, header: Seq[String] = Seq.empty)(implicit oa: CsvOutput[A], e: WriterEngine): CsvWriter[B] =
       oa.writer(a, sep, header)
 
+    /** Shorthand for [[CsvOutput.write]]. */
     def writeCsv[B: RowEncoder](rows: TraversableOnce[B], sep: Char, header: Seq[String] = Seq.empty)(implicit oa: CsvOutput[A], e: WriterEngine): Unit =
       oa.write(a, rows, sep, header)
   }
@@ -47,7 +63,20 @@ object ops {
       ai.unsafeRead[C, B](a, sep, header)
   }
 
+  /** Provides useful syntax for collections.
+    *
+    * The sole purpose of this implicit class is to encode collections as CSV into a string through [[asCsv]]:
+    *
+    * {{{
+    *   List(List(1, 2, 3), List(4, 5, 6)).asCsv(',')
+    * }}}
+    */
   implicit class TraversableOnceOps[A](val rows: TraversableOnce[A]) extends AnyVal {
+    /** Turns the collection into a CSV string.
+      *
+      * @param sep character used to separate columns.
+      * @param header optional header row.
+      */
     def asCsv(sep: Char, header: Seq[String] = Seq.empty)(implicit engine: WriterEngine, ae: RowEncoder[A]): String = {
       val out = new StringWriter()
       CsvWriter(out, sep, header).write(rows).close()
