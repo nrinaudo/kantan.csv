@@ -12,7 +12,7 @@ trait CsvOutput[-S] extends Serializable { self ⇒
 
   def contramap[T](f: T ⇒ S): CsvOutput[T] = CsvOutput(t ⇒ self.open(f(t)))
 
-  def write[A: RowEncoder](out: S, rows: TraversableOnce[A], sep: Char, header: Seq[String] = Seq.empty): Unit =
+  def write[A: RowEncoder](out: S, rows: TraversableOnce[A], sep: Char, header: Seq[String] = Seq.empty)(implicit engine: WriterEngine): Unit =
     writer(out, sep, header).write(rows).close()
 }
 
