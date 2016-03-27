@@ -15,13 +15,13 @@ class Decoding {
   def kantanInternal = Decoding.kantan(strData)
 
   @Benchmark
-  def kantanJackson = Decoding.kantan(strData)(kantan.csv.engine.jackson.engine)
+  def kantanJackson = Decoding.kantan(strData)(kantan.csv.engine.jackson.reader)
 
   @Benchmark
-  def kantanOpenCsv = Decoding.kantan(strData)(kantan.csv.engine.opencsv.engine)
+  def kantanOpenCsv = Decoding.kantan(strData)(kantan.csv.engine.opencsv.reader)
 
   @Benchmark
-  def kantanCommons = Decoding.kantan(strData)(kantan.csv.engine.commons.engine)
+  def kantanCommons = Decoding.kantan(strData)(kantan.csv.engine.commons.reader)
 
   @Benchmark
   def productCollections = Decoding.productCollections(strData)

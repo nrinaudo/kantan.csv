@@ -6,5 +6,5 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class JacksonReaderTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("JacksonReader", ReaderEngineTests(engine).readerEngine)
+  checkAll("JacksonReader", ReaderEngineTests(reader).readerEngine)
 }

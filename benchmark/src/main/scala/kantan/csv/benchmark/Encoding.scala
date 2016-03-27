@@ -16,13 +16,13 @@ class Encoding {
   def kantanInternal = Encoding.kantan(rawData)
 
   @Benchmark
-  def kantanJackson = Encoding.kantan(rawData)(kantan.csv.engine.jackson.engine)
+  def kantanJackson = Encoding.kantan(rawData)(kantan.csv.engine.jackson.writer)
 
   @Benchmark
-  def kantanOpenCsv = Encoding.kantan(rawData)(kantan.csv.engine.opencsv.engine)
+  def kantanOpenCsv = Encoding.kantan(rawData)(kantan.csv.engine.opencsv.writer)
 
   @Benchmark
-  def kantanCommons = Encoding.kantan(rawData)(kantan.csv.engine.commons.engine)
+  def kantanCommons = Encoding.kantan(rawData)(kantan.csv.engine.commons.writer)
 
   @Benchmark
   def productCollections = Encoding.productCollections(rawData)
