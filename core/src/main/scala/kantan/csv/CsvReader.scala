@@ -260,19 +260,31 @@ object CsvReader {
   }
 
   /** Creates a [[CsvReader]] with a single row. */
-  def apply[A](a: A): CsvReader[A] = CsvReader(Seq(a).iterator)(() ⇒ ())
+  def apply[A](a: A): CsvReader[A] = fromSafe(Seq(a).iterator)(() ⇒ ())
 
   /** Creates a new instance of [[CsvReader]].
+    *
+    * This method works with the assumption that the specified iterator is safe - that calling `next` when `hasNext`
+    * has returned `true` cannot throw an exception. For unsafe iterators, such as IO-bound ones, use [[fromUnsafe]]
+    * instead.
     *
     * @param iterator iterator on rows.
     * @param release function to call when releasing the resources allocated for the [[CsvReader]].
     */
-  def apply[A](iterator: Iterator[A])(release: () ⇒ Unit): CsvReader[A] = new CsvReader[A] {
+  def fromSafe[A](iterator: Iterator[A])(release: () ⇒ Unit): CsvReader[A] = new CsvReader[A] {
     override protected def readNext() = iterator.next()
     override def hasNext = iterator.hasNext
     override def close() = release()
   }
 
+  /** Creates a new instance of [[CsvReader]].
+    *
+    * This method works with the assumption that the specified iterator is unsafe - that calling `next` when `hasNext`
+    * has returned `true` might throw an exception. For safe iterators, use [[fromSafe]] instead.
+    *
+    * @param iterator iterator on rows.
+    * @param release function to call when releasing the resources allocated for the [[CsvReader]].
+    */
   def fromUnsafe[A](iterator: Iterator[A])(release: () ⇒ Unit): CsvReader[ParseResult[A]] = new CsvReader[ParseResult[A]] {
     override def hasNext = iterator.hasNext
     override protected def readNext() =
