@@ -47,7 +47,7 @@ object ops {
     */
   implicit class CsvInputOps[A](val a: A) extends AnyVal {
     /** Shorthand for [[CsvInput!.reader CsvInput.reader]]. */
-    def asCsvReader[B: RowDecoder](sep: Char, header: Boolean)(implicit ai: CsvInput[A], e: ReaderEngine): CsvReader[CsvResult[B]] =
+    def asCsvReader[B: RowDecoder](sep: Char, header: Boolean)(implicit ai: CsvInput[A], e: ReaderEngine): CsvReader[ReadResult[B]] =
       ai.reader[B](a, sep, header)
 
     /** Shorthand for [[CsvInput.unsafeReader]]. */
@@ -55,7 +55,7 @@ object ops {
       ai.unsafeReader[B](a, sep, header)
 
     /** Shorthand for [[CsvInput.read]]. */
-    def readCsv[C[_], B: RowDecoder](sep: Char, header: Boolean)(implicit ai: CsvInput[A], cbf: CanBuildFrom[Nothing, CsvResult[B], C[CsvResult[B]]], e: ReaderEngine) =
+    def readCsv[C[_], B: RowDecoder](sep: Char, header: Boolean)(implicit ai: CsvInput[A], cbf: CanBuildFrom[Nothing, ReadResult[B], C[ReadResult[B]]], e: ReaderEngine) =
       ai.read[C, B](a, sep, header)
 
     /** Shorthand for [[CsvInput.unsafeRead]]. */
@@ -86,26 +86,26 @@ object ops {
 
   // Alright, yes, this is nasty. There are abstractions designed to deal with just this situation, but not everyone
   // knows about them / understands them / can afford to depend on libraries that provide them.
-  /** Provides useful syntax for `CsvReader[CsvResult[A]]`.
+  /** Provides useful syntax for `CsvReader[ReadResult[A]]`.
     *
     * When parsing CSV data, a very common scenario is to get an instance of [[CsvReader]] and then use common
     * combinators such as `map` and `flatMap` on it. This can be awkward when the actual interesting value is
-    * itself within a [[CsvResult]] which also needs to be mapped into. [[CsvReaderOps]] provides shortcuts, such as:
+    * itself within a [[ReadResult]] which also needs to be mapped into. [[CsvReaderOps]] provides shortcuts, such as:
     * {{{
-    *   val reader: CsvReader[CsvResult[List[Int]]] = ???
+    *   val reader: CsvReader[ReadResult[List[Int]]] = ???
     *
     *   // Not the most useful code in the world, but shows how one can map and filter directly on the nested value.
     *   reader.mapResult(_.sum).filterResult(_ % 2 == 0)
     * }}}
     */
-  implicit class CsvReaderOps[A](val results: CsvReader[CsvResult[A]]) extends AnyVal {
-    /** Turns a `CsvReader[CsvResult[A]]` into a `CsvReader[CsvResult[B]]`. */
-    def mapResult[B](f: A ⇒ B): CsvReader[CsvResult[B]] = results.map(_.map(f))
+  implicit class CsvReaderOps[A](val results: CsvReader[ReadResult[A]]) extends AnyVal {
+    /** Turns a `CsvReader[ReadResult[A]]` into a `CsvReader[ReadResult[B]]`. */
+    def mapResult[B](f: A ⇒ B): CsvReader[ReadResult[B]] = results.map(_.map(f))
 
-    /** Turns a `CsvReader[CsvResult[A]]` into a `CsvReader[CsvResult[B]]`. */
-    def flatMapResult[B](f: A ⇒ CsvResult[B]): CsvReader[CsvResult[B]] = results.map(_.flatMap(f))
+    /** Turns a `CsvReader[ReadResult[A]]` into a `CsvReader[ReadResult[B]]`. */
+    def flatMapResult[B](f: A ⇒ ReadResult[B]): CsvReader[ReadResult[B]] = results.map(_.flatMap(f))
 
     /** Filters on all successful values that match the specified predicate. */
-    def filterResult(f: A ⇒ Boolean): CsvReader[CsvResult[A]] = results.filter(_.exists(f))
+    def filterResult(f: A ⇒ Boolean): CsvReader[ReadResult[A]] = results.filter(_.exists(f))
   }
 }

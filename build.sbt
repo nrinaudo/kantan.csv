@@ -255,7 +255,7 @@ lazy val docs = project
                                  "*.eot" | "*.svg" | "*.ttf" | "*.woff" | "*.woff2" | "*.otf"
   )
   .settings(noPublishSettings:_*)
-  .dependsOn(core, scalazStream, laws, cats, scalaz, generic)
+  .dependsOn(core, scalazStream, laws, cats, scalaz, generic, jackson, commons, opencsv)
 
 addCommandAlias("runBench",    "benchmark/jmh:run -i 10 -wi 10 -f 2 -t 1 -rf csv -rff benchmarks.csv")
 addCommandAlias("runProfiler", "benchmark/jmh:run -i 10 -wi 5 -f 1 -t 1 -o profiler.txt -prof stack:detailLine=true;lines=5;period=1 kantan.csv.benchmark.*kantan.*")

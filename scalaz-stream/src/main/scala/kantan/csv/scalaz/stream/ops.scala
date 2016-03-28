@@ -13,7 +13,7 @@ object ops {
   }
 
   implicit class CsvSourceOps[A](val a: A) extends AnyVal {
-    def asCsvSource[B: RowDecoder](sep: Char, header: Boolean)(implicit ai: CsvSource[A], e: ReaderEngine): Process[Task, CsvResult[B]] =
+    def asCsvSource[B: RowDecoder](sep: Char, header: Boolean)(implicit ai: CsvSource[A], e: ReaderEngine): Process[Task, ReadResult[B]] =
       ai.source(a, sep, header)
 
     def asUnsafeCsvSource[B: RowDecoder](sep: Char, header: Boolean)(implicit ai: CsvSource[A], e: ReaderEngine): Process[Task, B] =

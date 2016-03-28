@@ -16,7 +16,7 @@ import kantan.csv.engine.ReaderEngine
 trait CsvSource[S] extends Serializable {
   def reader(s: S): ParseResult[Reader]
 
-  def source[A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit engine: ReaderEngine): Process[Task, CsvResult[A]] =
+  def source[A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit engine: ReaderEngine): Process[Task, ReadResult[A]] =
     CsvSource[A](reader(s).get, sep, header)
 
   def unsafeSource[A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit engine: ReaderEngine): Process[Task, A] =
@@ -29,7 +29,7 @@ object CsvSource {
   def apply[A](reader: ⇒ CsvReader[A]): Process[Task, A] =
     io.iteratorR(Task.delay(reader))(csv ⇒ Task.delay(csv.close()))(csv ⇒ Task.delay(csv.toIterator))
 
-  def apply[A: RowDecoder](reader: ⇒ Reader, sep: Char, header: Boolean)(implicit engine: ReaderEngine): Process[Task, CsvResult[A]] =
+  def apply[A: RowDecoder](reader: ⇒ Reader, sep: Char, header: Boolean)(implicit engine: ReaderEngine): Process[Task, ReadResult[A]] =
     CsvSource(CsvReader[A](reader, sep, header))
 
   implicit def fromInput[S](implicit is: CsvInput[S]): CsvSource[S] = new CsvSource[S] {

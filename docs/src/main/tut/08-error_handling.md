@@ -4,7 +4,7 @@ title:  "Error handling"
 section: tutorial
 ---
 There are many ways of dealing with parse errors in kantan.csv. This tutorial shows the most common strategies, but
-it essentially boils down to knowing how [`Result`] (the underlying type of [`CsvResult`]) works.
+it essentially boils down to knowing how [`Result`] (the underlying type of [`ReadResult`]) works.
 
 All the examples here are going to be using the following data:
 
@@ -56,13 +56,13 @@ rawData.asCsvReader[Person](',', false).collect { case kantan.codecs.Result.Succ
 This is achieved in an entirely safe way, validated at compile time.
 
 Note that we're using types from a previously unseen package, `kantan.codecs`. This contains a lot of shared code
-between various kantan libraries, and our [`CsvResult`] is simply a type alias for [`Result`] with hard-coded type
+between various kantan libraries, and our [`ReadResult`] is simply a type alias for [`Result`] with hard-coded type
 parameters. This can be ignored most of the time, but "advanced" error handling requires us to get closer to the metal.  
 
 
 ## Fail if at least one row fails to decode
-When not streaming data, a good option is to fail if a single row fails to decode - turn a `List[CsvResult[A]]` into
-a `CsvResult[List[A]]`. This is done through [`Result`]'s [`sequence`] method:
+When not streaming data, a good option is to fail if a single row fails to decode - turn a `List[ReadResult[A]]` into
+a `ReadResult[List[A]]`. This is done through [`Result`]'s [`sequence`] method:
 
 ```tut
 kantan.codecs.Result.sequence(rawData.readCsv[List, Person](',', false))
@@ -101,7 +101,7 @@ Following the same general idea, one could use [`Option`] for fields that are no
 This strategy is not always possible, but is good to keep in mind for these cases where it can be applied.
 
 [`asUnsafeCsvReader`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$4:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]
-[`CsvResult`]:{{ site.baseurl }}/api/#kantan.csv.package@CsvResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]
+[`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package@ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]
 [`Result`]:http://nrinaudo.github.io/kantan.codecs/api/#kantan.codecs.Result
 [`collect`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader@collect[B](f:PartialFunction[A,B]):kantan.csv.CsvReader[B]
 [`filter`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader@filter(p:A=>Boolean):kantan.csv.CsvReader[A]

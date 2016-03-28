@@ -28,22 +28,22 @@ trait CsvInput[-S] extends Serializable { self ⇒
     */
   def open(s: S): ParseResult[Reader]
 
-  /** Turns the specified `S` into an iterator on `CsvResult[A]`.
+  /** Turns the specified `S` into an iterator on `ReadResult[A]`.
     *
     * This method is "safe", in that it does not throw exceptions when errors are encountered. This comes with the small
-    * cost of having each row wrapped in a [[CsvResult]] that then need to be unpacked. See [[unsafeReader]] for an
+    * cost of having each row wrapped in a [[ReadResult]] that then need to be unpacked. See [[unsafeReader]] for an
     * alternative.
     *
-    * Using common combinators such as `map`, `flatMap` and `filter` on a `CsvReader[CsvResult[A]]` can be awkward -
+    * Using common combinators such as `map`, `flatMap` and `filter` on a `CsvReader[ReadResult[A]]` can be awkward -
     * one needs to first map into the reader, then into the result. For this reason, instances of
-    * `CsvReader[CsvResult[A]]` have dedicated syntax that makes it more pleasant through [[ops.CsvReaderOps]].
+    * `CsvReader[ReadResult[A]]` have dedicated syntax that makes it more pleasant through [[ops.CsvReaderOps]].
     *
     * @param s instance of `S` that will be opened an parsed.
     * @param separator character used to separate columns.
     * @param header whether or not the first row is a header. If set to `true`, the first row will be skipped entirely.
     * @tparam A type to parse each row as. This must have a corresponding implicit [[RowDecoder]] instance in scope.
     */
-  def reader[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[CsvResult[A]] =
+  def reader[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[ReadResult[A]] =
     open(s).map(reader ⇒ CsvReader(reader, separator, header))
       .valueOr(error ⇒ CsvReader(Result.failure(error)))
 
@@ -68,7 +68,7 @@ trait CsvInput[-S] extends Serializable { self ⇒
   /** Reads the entire CSV data into a collection.
     *
     * This method is "safe", in that it does not throw exceptions when errors are encountered. This comes with the small
-    * cost of having each row wrapped in a [[CsvResult]] that then need to be unpacked. See [[unsafeRead]] for an
+    * cost of having each row wrapped in a [[ReadResult]] that then need to be unpacked. See [[unsafeRead]] for an
     * alternative.
     *
     * @param s instance of `S` that will be opened an parsed.
@@ -77,7 +77,7 @@ trait CsvInput[-S] extends Serializable { self ⇒
     * @tparam C collection type in which to parse the specified `S`.
     * @tparam A type in which to parse each row.
     */
-  def read[C[_], A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, CsvResult[A], C[CsvResult[A]]]): C[CsvResult[A]] =
+  def read[C[_], A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, ReadResult[A], C[ReadResult[A]]]): C[ReadResult[A]] =
     reader(s, separator, header).to[C]
 
   /** Reads the entire CSV data into a collection.

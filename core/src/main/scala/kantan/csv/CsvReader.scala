@@ -14,8 +14,8 @@ import kantan.csv.engine.ReaderEngine
   * }}}
   *
   * [[CsvReader]] provides most of the common Scala collection operations, such as [[map]] or [[filter]]. However,
-  * working with a `CsvReader` of [[CsvResult]] is a very common pattern that doesn't lend itself well to using such
-  * combinators: mapping on each row would require first mapping into the [[CsvReader]], then into each [[CsvResult]],
+  * working with a `CsvReader` of [[ReadResult]] is a very common pattern that doesn't lend itself well to using such
+  * combinators: mapping on each row would require first mapping into the [[CsvReader]], then into each [[ReadResult]],
   * which is cumbersome and not terribly clear.
   *
   * kantan.csv provides syntax for this pattern with [[kantan.csv.ops.CsvReaderOps]]: filtering into a result, for
@@ -133,7 +133,7 @@ trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self ⇒
     * Any row for which the function is not defined will be filtered out. All other rows will be replaced by the
     * returned value.
     *
-    * This is particularly useful when dealing with [[kantan.csv.CsvResult]]: it's an easy way of skipping over all failures and
+    * This is particularly useful when dealing with [[kantan.csv.ReadResult]]: it's an easy way of skipping over all failures and
     * keeping successes only:
     * {{{
     *   val rows: CsvReader[(Int, String)] = file.asCsvReader[(Int, String)](',', true).collect {
@@ -159,8 +159,8 @@ trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self ⇒
   // -------------------------------------------------------------------------------------------------------------------
   /** Turns a `CsvReader[A]` into a `CsvReader[B]`.
     *
-    * Working with [[CsvReader]] of [[CsvResult]] is such a common pattern that kantan.csv provides syntax for mapping
-    * directly into the [[CsvResult]]:
+    * Working with [[CsvReader]] of [[ReadResult]] is such a common pattern that kantan.csv provides syntax for mapping
+    * directly into the [[ReadResult]]:
     * {{{
     *   import kantan.csv.ops._
     *
@@ -189,8 +189,8 @@ trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self ⇒
 
   /** Filters out all rows that validate the specified predicate.
     *
-    * Working with [[CsvReader]] of [[CsvResult]] is such a common pattern that kantan.csv provides syntax for filtering
-    * directly into the [[CsvResult]]:
+    * Working with [[CsvReader]] of [[ReadResult]] is such a common pattern that kantan.csv provides syntax for filtering
+    * directly into the [[ReadResult]]:
     * {{{
     *   import kantan.csv.ops._
     *
@@ -300,8 +300,8 @@ object CsvReader {
     * @param sep column separator
     * @param header whether or not to skip the first row
     */
-  def apply[A](reader: Reader, sep: Char, header: Boolean)(implicit da: RowDecoder[A], e: ReaderEngine): CsvReader[CsvResult[A]] = {
-    val data: CsvReader[CsvResult[Seq[String]]] = e.readerFor(reader, sep)
+  def apply[A](reader: Reader, sep: Char, header: Boolean)(implicit da: RowDecoder[A], e: ReaderEngine): CsvReader[ReadResult[A]] = {
+    val data: CsvReader[ReadResult[Seq[String]]] = e.readerFor(reader, sep)
 
     if(header && data.hasNext) data.next()
 

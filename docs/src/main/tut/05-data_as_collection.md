@@ -46,7 +46,7 @@ for a [`Set`] or a [`Vector`].
 The two value parameters should be familiar by now: the first one is the column separator, the second one a flag to
 let kantan.csv know whether to skip the first row or not.
 
-Note that in our example, results are wrapped in a [`CsvResult`]. This allows [`readCsv`] to be safe - it does not throw
+Note that in our example, results are wrapped in a [`ReadResult`]. This allows [`readCsv`] to be safe - it does not throw
 exceptions, preferring to encode errors in the return type instead. Should you rather not have to deal with errors and
 let your code crash when they happen, you might prefer [`unsafeReadCsv`].
 
@@ -70,7 +70,7 @@ If you want to learn more about:
 [`Set`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Set
 [`Map`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Map
 [`Vector`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Vector
-[`readCsv`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@readCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$5:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.CsvResult[B],C[kantan.csv.CsvResult[B]]],implicite:kantan.csv.engine.ReaderEngine):C[kantan.csv.CsvResult[B]]
+[`readCsv`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@readCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$5:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[B],C[kantan.csv.ReadResult[B]]],implicite:kantan.csv.engine.ReaderEngine):C[kantan.csv.ReadResult[B]]
 [`unsafeReadCsv`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@unsafeReadCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$6:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,B,C[B]],implicite:kantan.csv.engine.ReaderEngine):C[B]
-[`CsvResult`]:{{ site.baseurl }}/api/#kantan.csv.package@CsvResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]
+[`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package@ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]
 [`CanBuildFrom`]:http://www.scala-lang.org/api/current/index.html#scala.collection.generic.CanBuildFrom

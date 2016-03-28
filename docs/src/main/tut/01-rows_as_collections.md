@@ -45,7 +45,7 @@ Now that we have our [`CsvReader`] instance, we can consume it - by, say, printi
 reader.foreach(println _)
 ```
 
-Note that each result is wrapped in an instance of [`CsvResult`]. This allows decoding to be entirely safe - no
+Note that each result is wrapped in an instance of [`ReadResult`]. This allows decoding to be entirely safe - no
 exception will be thrown, all error conditions are encoded at the type level. If safety is not a concern and you'd
 rather let your code crash than deal with error conditions, you can use [`asUnsafeCsvReader`] instead.
 
@@ -83,7 +83,7 @@ If you want to learn more about:
 [syntax]:{{ site.baseurl }}/api/#kantan.csv.ops$
 [`CsvReader`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader
 [`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package@CellDecoder[A]=kantan.codecs.Decoder[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]
-[`CsvResult`]:{{ site.baseurl }}/api/#kantan.csv.package@CsvResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]
-[`asCsvReader`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.CsvResult[B]]
+[`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package@ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]
+[`asCsvReader`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
 [`asUnsafeCsvReader`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$4:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]
 [`DateTime`]:http://www.joda.org/joda-time/apidocs/org/joda/time/DateTime.html
