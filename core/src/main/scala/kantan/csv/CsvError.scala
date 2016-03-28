@@ -38,6 +38,8 @@ object DecodeError {
 sealed abstract class ParseError extends CsvError
 
 object ParseError {
+  case object NoSuchElement extends ParseError
+
   final case class IOError(cause: Throwable) extends ParseError {
     override def toString: String = s"IOError(${cause.getMessage})"
 

@@ -2,18 +2,14 @@ package kantan.csv.engine
 
 import java.io.{Reader, Writer}
 
-import kantan.csv.{ParseResult, _}
+import kantan.csv._
+
+import scala.collection.JavaConverters._
 
 package object jackson {
   implicit val reader = ReaderEngine { (reader: Reader, separator: Char) ⇒
     val iterator = JacksonCsv.parse(reader, separator)
-    new CsvReader[CsvResult[Seq[String]]] {
-      override protected def readNext() =
-        if(hasNext) ParseResult(iterator.next())
-        else        throw new NoSuchElementException
-      override def hasNext = iterator.hasNext
-      override def close() = iterator.close()
-    }
+    CsvReader.fromUnsafe(iterator.asScala.map(_.toSeq))(() ⇒ iterator.close())
   }
 
   implicit val writer = WriterEngine {(writer: Writer, separator: Char) ⇒

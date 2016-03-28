@@ -2,10 +2,12 @@ package kantan.csv
 
 import java.io._
 import java.net.{URI, URL}
+
 import kantan.codecs.Result
 import kantan.csv.DecodeError.{OutOfBounds, TypeError}
-import kantan.csv.ParseError.{IOError, SyntaxError}
+import kantan.csv.ParseError.{IOError, NoSuchElement, SyntaxError}
 import kantan.csv.engine.ReaderEngine
+
 import scala.collection.generic.CanBuildFrom
 import scala.io.Codec
 
@@ -57,6 +59,7 @@ trait CsvInput[-S] extends Serializable { self ⇒
   def unsafeReader[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[A] =
     reader[A](s, separator, header).map(_.valueOr {
       case TypeError(e)           ⇒ throw e
+      case NoSuchElement          ⇒ throw new NoSuchElementException
       case IOError(e)             ⇒ throw e
       case OutOfBounds(index)     ⇒ throw new ArrayIndexOutOfBoundsException(index)
       case SyntaxError(line, col) ⇒ throw new IOException(s"Illegal CSV data found $line:$col")

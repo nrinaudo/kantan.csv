@@ -268,10 +268,19 @@ object CsvReader {
     * @param release function to call when releasing the resources allocated for the [[CsvReader]].
     */
   def apply[A](iterator: Iterator[A])(release: () ⇒ Unit): CsvReader[A] = new CsvReader[A] {
-    override protected def readNext(): A = iterator.next()
-    override def hasNext: Boolean = iterator.hasNext
-    override def close(): Unit = release()
+    override protected def readNext() = iterator.next()
+    override def hasNext = iterator.hasNext
+    override def close() = release()
   }
+
+  def fromUnsafe[A](iterator: Iterator[A])(release: () ⇒ Unit): CsvReader[ParseResult[A]] = new CsvReader[ParseResult[A]] {
+    override def hasNext = iterator.hasNext
+    override protected def readNext() =
+      if(iterator.hasNext) ParseResult(iterator.next())
+      else                 ParseResult.noSuchElement
+    override def close() = release()
+  }
+
 
   /** Opens a [[CsvReader]] on the specified `Reader`.
     *

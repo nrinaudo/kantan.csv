@@ -3,14 +3,13 @@ package kantan.csv.engine
 import java.io.{Reader, Writer}
 
 import com.opencsv.{CSVReader, CSVWriter}
-import kantan.csv.{ParseResult, _}
+import kantan.csv._
 
-import scala.collection.mutable
+import scala.collection.JavaConverters._
 
 // TODO: known bugs
 // - \r\n is not preserved within quoted cells, it's turned into \n (csv spectrum test)
 // - unescaped double quotes are not supported.
-
 
 package object opencsv {
   implicit val reader = ReaderEngine { (reader: Reader, separator: Char) ⇒
@@ -18,16 +17,7 @@ package object opencsv {
     // part of the CSV format, but I found no other way to disable it.
     val csv = new CSVReader(reader, separator, '"', '\u0000', 0, false, false, false)
 
-    new CsvReader[CsvResult[Seq[String]]] {
-      var n: Array[String] = csv.readNext()
-      override def hasNext = n != null
-      override protected def readNext() = {
-        val buffer = ParseResult(mutable.WrappedArray.make(n))
-        n = csv.readNext()
-        buffer
-      }
-      override def close() = csv.close()
-    }
+    CsvReader.fromUnsafe(csv.iterator().asScala.map(_.toSeq))(() ⇒ csv.close())
   }
 
   implicit val writer = WriterEngine { (writer: Writer, separator: Char) ⇒
