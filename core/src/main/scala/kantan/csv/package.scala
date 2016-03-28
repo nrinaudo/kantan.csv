@@ -3,7 +3,7 @@ package kantan
 import kantan.codecs.{Codec, Decoder, Encoder, Result}
 
 package object csv {
-  type CsvResult[A] = Result[CsvError, A]
+  type CsvResult[A] = Result[ReadError, A]
   type ParseResult[A] = Result[ParseError, A]
   type DecodeResult[A] = Result[DecodeError, A]
 

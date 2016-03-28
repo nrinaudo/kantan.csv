@@ -31,13 +31,17 @@ package object cats extends kantan.codecs.cats.CatsInstances {
   }
 
 
-  // - CsvError --------------------------------------------------------------------------------------------------------
+  // - ReadError -------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit val csvErrorEq: Eq[CsvError] = new Eq[CsvError] {
-    override def eqv(x: CsvError, y: CsvError): Boolean = x == y
+  implicit val readErrorEq: Eq[ReadError] = new Eq[ReadError] {
+    override def eqv(x: ReadError, y: ReadError): Boolean = x == y
   }
 
   implicit val decodeErrorEq: Eq[DecodeError] = new Eq[DecodeError] {
     override def eqv(x: DecodeError, y: DecodeError): Boolean = x == y
   }
+
+  implicit val parseErrorEq: Eq[ParseError] = new Eq[ParseError] {
+    override def eqv(x: ParseError, y: ParseError): Boolean = x == y
+    }
 }

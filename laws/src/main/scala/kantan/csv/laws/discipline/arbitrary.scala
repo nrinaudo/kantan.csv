@@ -28,7 +28,7 @@ trait ArbitraryInstances extends kantan.csv.laws.discipline.ArbitraryArities {
 
   implicit val arbDecodeError: Arbitrary[DecodeError] = Arbitrary(genDecodeError)
   implicit val arbParseError: Arbitrary[ParseError] = Arbitrary(genParseError)
-  implicit val arbCsvError: Arbitrary[CsvError] = Arbitrary(Gen.oneOf(genDecodeError, genParseError))
+  implicit val arbReadError: Arbitrary[ReadError] = Arbitrary(Gen.oneOf(genDecodeError, genParseError))
 
 
 

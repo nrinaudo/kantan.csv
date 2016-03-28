@@ -72,7 +72,7 @@ The only real downside to this approach is that it requires loading the entire d
  
 
 ## Turn errors into default values
-Some data types have reasonable default values that can be used instead of errors - one could turn a `CsvError[Int]`
+Some data types have reasonable default values that can be used instead of errors - one could turn a `ReadError[Int]`
 into `Success(0)`, for instance.
 
 This is achieved through [`getOrElse`] (even if this example doesn't make much practical sense):
@@ -101,7 +101,7 @@ Following the same general idea, one could use [`Option`] for fields that are no
 This strategy is not always possible, but is good to keep in mind for these cases where it can be applied.
 
 [`asUnsafeCsvReader`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$4:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]
-[`CsvResult`]:{{ site.baseurl }}/api/#kantan.csv.package@CsvResult[A]=kantan.codecs.Result[kantan.csv.CsvError,A]
+[`CsvResult`]:{{ site.baseurl }}/api/#kantan.csv.package@CsvResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]
 [`Result`]:http://nrinaudo.github.io/kantan.codecs/api/#kantan.codecs.Result
 [`collect`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader@collect[B](f:PartialFunction[A,B]):kantan.csv.CsvReader[B]
 [`filter`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader@filter(p:A=>Boolean):kantan.csv.CsvReader[A]

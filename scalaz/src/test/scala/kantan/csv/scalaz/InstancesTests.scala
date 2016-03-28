@@ -6,6 +6,7 @@ import kantan.csv.scalaz.arbitrary._
 
 
 class InstancesTests extends ScalazSuite {
-  checkAll("CsvError", equal.laws[CsvError])
+  checkAll("ReadError", equal.laws[ReadError])
   checkAll("DecodeError", equal.laws[DecodeError])
+  checkAll("ParseError", equal.laws[ParseError])
 }

@@ -2,14 +2,14 @@ package kantan.csv
 
 /** Parent type for all errors that can occur while dealing with CSV data.
   *
-  * [[CsvError]] is split into two main error types:
+  * [[ReadError]] is split into two main error types:
   *  - [[DecodeError]]: errors that occur while decoding a cell or a row.
   *  - [[ParseError]]: errors that occur while parsing raw data into CSV.
   */
-sealed abstract class CsvError extends Product with Serializable
+sealed abstract class ReadError extends Product with Serializable
 
 /** Parent type for all errors that can occur while decoding CSV data. */
-sealed abstract class DecodeError extends CsvError
+sealed abstract class DecodeError extends ReadError
 
 /** Declares all possible values of type [[DecodeError]]. */
 object DecodeError {
@@ -35,7 +35,7 @@ object DecodeError {
   }
 }
 
-sealed abstract class ParseError extends CsvError
+sealed abstract class ParseError extends ReadError
 
 object ParseError {
   case object NoSuchElement extends ParseError

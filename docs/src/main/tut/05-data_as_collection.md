@@ -72,5 +72,5 @@ If you want to learn more about:
 [`Vector`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Vector
 [`readCsv`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@readCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$5:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.CsvResult[B],C[kantan.csv.CsvResult[B]]],implicite:kantan.csv.engine.ReaderEngine):C[kantan.csv.CsvResult[B]]
 [`unsafeReadCsv`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@unsafeReadCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$6:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,B,C[B]],implicite:kantan.csv.engine.ReaderEngine):C[B]
-[`CsvResult`]:{{ site.baseurl }}/api/#kantan.csv.package@CsvResult[A]=kantan.codecs.Result[kantan.csv.CsvError,A]
+[`CsvResult`]:{{ site.baseurl }}/api/#kantan.csv.package@CsvResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]
 [`CanBuildFrom`]:http://www.scala-lang.org/api/current/index.html#scala.collection.generic.CanBuildFrom
