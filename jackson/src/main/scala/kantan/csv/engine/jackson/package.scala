@@ -9,8 +9,8 @@ package object jackson {
     CsvReader.fromUnsafe(JacksonCsv.parse(reader, separator))(it ⇒ it)(_.close())
   }
 
-  implicit val writer = WriterEngine {(writer: Writer, separator: Char) ⇒
-    CsvWriter(JacksonCsv.write(writer, separator)){ (out, ss) ⇒
+  implicit val writer = WriterEngine { (writer: Writer, separator: Char) ⇒
+    CsvWriter(JacksonCsv.write(writer, separator)) { (out, ss) ⇒
       out.write(ss.toArray)
       ()
     }(_.close())

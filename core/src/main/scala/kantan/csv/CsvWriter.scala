@@ -59,6 +59,14 @@ object CsvWriter {
     }
   }
 
+  /** Creates a new [[CsvWriter]] instance.
+    *
+    * This method is meant to help interface third party libraries with kantan.csv.
+    *
+    * @param out where to send CSV rows to - this is meant to be a third party library's csv writer.
+    * @param w writes a CSV row using `out`.
+    * @param r releases `out` once we're done writing.
+    */
   def apply[A](out: A)(w: (A, Seq[String]) ⇒ Unit)(r: A ⇒ Unit): CsvWriter[Seq[String]] = new CsvWriter[Seq[String]] {
     override def write(a: Seq[String]) = {
       w(out, a)
