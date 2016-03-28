@@ -45,7 +45,7 @@ trait CsvInput[-S] extends Serializable { self ⇒
     */
   def reader[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[ReadResult[A]] =
     open(s).map(reader ⇒ CsvReader(reader, separator, header))
-      .valueOr(error ⇒ CsvReader(Result.failure(error)))
+      .valueOr(error ⇒ CsvReader.singleton(Result.failure(error)))
 
   /** Turns the specified `S` into an iterator on `A`.
     *

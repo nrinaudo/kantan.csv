@@ -10,22 +10,13 @@ import kantan.csv._
 // - unescaped double quotes are not supported.
 
 package object opencsv {
+  // Note that using the `null` character as escape is a bit of a cheat, but it kind of works, mostly. Escaping is not
+  // part of the CSV format, but I found no other way to disable it.
   implicit val reader = ReaderEngine { (reader: Reader, separator: Char) ⇒
-    // Note that using the `null` character as escape is a bit of a cheat, but it kind of works, mostly. Escaping is not
-    // part of the CSV format, but I found no other way to disable it.
-    val csv = new CSVReader(reader, separator, '"', '\u0000', 0, false, false, false)
-
-    CsvReader.fromUnsafe(csv.iterator())(() ⇒ csv.close())
+    CsvReader.fromUnsafe(new CSVReader(reader, separator, '"', '\u0000', 0, false, false, false))(_.iterator())(_.close())
   }
 
   implicit val writer = WriterEngine { (writer: Writer, separator: Char) ⇒
-    val out = new CSVWriter(writer, separator, '"', "\r\n")
-    new CsvWriter[Seq[String]] {
-      override def write(ss: Seq[String]) = {
-        out.writeNext(ss.toArray)
-        this
-      }
-      override def close() = out.close()
-    }
+    CsvWriter(new CSVWriter(writer, separator, '"', "\r\n"))((out, ss) ⇒ out.writeNext(ss.toArray))(_.close())
   }
 }

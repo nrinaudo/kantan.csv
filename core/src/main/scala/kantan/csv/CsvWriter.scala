@@ -58,4 +58,12 @@ object CsvWriter {
       w.contramap(ea.encode)
     }
   }
+
+  def apply[A](out: A)(w: (A, Seq[String]) ⇒ Unit)(r: A ⇒ Unit): CsvWriter[Seq[String]] = new CsvWriter[Seq[String]] {
+    override def write(a: Seq[String]) = {
+      w(out, a)
+      this
+    }
+    override def close() = r(out)
+  }
 }

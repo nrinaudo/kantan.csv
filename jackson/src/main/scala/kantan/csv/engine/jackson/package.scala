@@ -6,18 +6,13 @@ import kantan.csv._
 
 package object jackson {
   implicit val reader = ReaderEngine { (reader: Reader, separator: Char) ⇒
-    val iterator = JacksonCsv.parse(reader, separator)
-    CsvReader.fromUnsafe(iterator)(() ⇒ iterator.close())
+    CsvReader.fromUnsafe(JacksonCsv.parse(reader, separator))(it ⇒ it)(_.close())
   }
 
   implicit val writer = WriterEngine {(writer: Writer, separator: Char) ⇒
-    val out = JacksonCsv.write(writer, separator)
-    new CsvWriter[Seq[String]] {
-      override def write(a: Seq[String]): CsvWriter[Seq[String]] = {
-        out.write(a.toArray)
-        this
-      }
-      override def close() = out.close()
-    }
+    CsvWriter(JacksonCsv.write(writer, separator)){ (out, ss) ⇒
+      out.write(ss.toArray)
+      ()
+    }(_.close())
   }
 }
