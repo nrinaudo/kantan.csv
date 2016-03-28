@@ -13,7 +13,7 @@ package object commons {
     new CsvReader[CsvResult[Seq[String]]] {
       override def hasNext = csv.hasNext
       override protected def readNext() =
-        if(hasNext) ParseResult.success(new CsvSeq(csv.next()))
+        if(hasNext) ParseResult(new CsvSeq(csv.next()))
         else        throw new NoSuchElementException
       override def close() = parser.close()
     }

@@ -22,7 +22,7 @@ package object opencsv {
       var n: Array[String] = csv.readNext()
       override def hasNext = n != null
       override protected def readNext() = {
-        val buffer = ParseResult.success(mutable.WrappedArray.make(n))
+        val buffer = ParseResult(mutable.WrappedArray.make(n))
         n = csv.readNext()
         buffer
       }

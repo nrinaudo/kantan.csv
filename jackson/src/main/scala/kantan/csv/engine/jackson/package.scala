@@ -9,7 +9,7 @@ package object jackson {
     val iterator = JacksonCsv.parse(reader, separator)
     new CsvReader[CsvResult[Seq[String]]] {
       override protected def readNext() =
-        if(hasNext) ParseResult.success(iterator.next())
+        if(hasNext) ParseResult(iterator.next())
         else        throw new NoSuchElementException
       override def hasNext = iterator.hasNext
       override def close() = iterator.close()
