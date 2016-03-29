@@ -11,13 +11,13 @@ val shapelessVersion           = "2.3.0"
 val scalatestVersion           = "3.0.0-M9"
 val scalazVersion              = "7.2.0"
 val scalazStreamVersion        = "0.8"
-val productCollectionVersion   = "1.4.2"
+val productCollectionVersion   = "1.4.3"
 val opencsvVersion             = "3.7"
 val univocityVersion           = "2.0.0"
-val jacksonCsvVersion          = "2.7.2"
+val jacksonCsvVersion          = "2.7.3"
 val commonsCsvVersion          = "1.2"
 val scalacheckShapelessVersion = "1.12.1"
-val jodaVersion                = "2.9.2"
+val jodaVersion                = "2.9.3"
 val jodaConvertVersion         = "1.8.1"
 val scalaCsvVersion            = "1.3.0"
 val kindProjectorVersion       = "0.7.1"
@@ -51,7 +51,7 @@ lazy val baseSettings = Seq(
     Resolver.sonatypeRepo("snapshots")
   ),
   coverageExcludedPackages := "kantan\\.csv\\.laws\\..*",
-  incOptions         := incOptions.value.withNameHashing(true)
+  incOptions := incOptions.value.withNameHashing(true)
 )
 
 lazy val noPublishSettings = Seq(
@@ -219,10 +219,10 @@ lazy val benchmark = project
   .settings(noPublishSettings: _*)
   .enablePlugins(JmhPlugin)
   .settings(libraryDependencies ++= Seq(
-    "com.github.marklister"            %% "product-collections"    % productCollectionVersion,
-    "com.univocity"                    %  "univocity-parsers"      % univocityVersion,
-    "com.github.tototoshi"             %% "scala-csv"              % scalaCsvVersion,
-    "org.scalatest"                    %% "scalatest"              % scalatestVersion % "test"
+    "com.github.marklister" %% "product-collections"    % productCollectionVersion,
+    "com.univocity"         %  "univocity-parsers"      % univocityVersion,
+    "com.github.tototoshi"  %% "scala-csv"              % scalaCsvVersion,
+    "org.scalatest"         %% "scalatest"              % scalatestVersion % "test"
   ))
   .dependsOn(core, jackson, opencsv, commons)
 
