@@ -1,7 +1,6 @@
 package kantan.csv.engine
 
 import java.io.{Reader, Writer}
-
 import kantan.csv._
 
 package object jackson {

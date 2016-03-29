@@ -12,34 +12,34 @@ import org.openjdk.jmh.annotations._
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 class Decoding {
   @Benchmark
-  def kantanInternal = Decoding.kantan(strData)
+  def kantanInternal: List[CsvEntry] = Decoding.kantan(strData)
 
   @Benchmark
-  def kantanJackson = Decoding.kantan(strData)(kantan.csv.engine.jackson.reader)
+  def kantanJackson: List[CsvEntry] = Decoding.kantan(strData)(kantan.csv.engine.jackson.reader)
 
   @Benchmark
-  def kantanOpenCsv = Decoding.kantan(strData)(kantan.csv.engine.opencsv.reader)
+  def kantanOpenCsv: List[CsvEntry] = Decoding.kantan(strData)(kantan.csv.engine.opencsv.reader)
 
   @Benchmark
-  def kantanCommons = Decoding.kantan(strData)(kantan.csv.engine.commons.reader)
+  def kantanCommons: List[CsvEntry] = Decoding.kantan(strData)(kantan.csv.engine.commons.reader)
 
   @Benchmark
-  def productCollections = Decoding.productCollections(strData)
+  def productCollections: List[CsvEntry] = Decoding.productCollections(strData)
 
   @Benchmark
-  def opencsv = Decoding.opencsv(strData)
+  def opencsv: List[CsvEntry] = Decoding.opencsv(strData)
 
   @Benchmark
-  def commons = Decoding.commons(strData)
+  def commons: List[CsvEntry] = Decoding.commons(strData)
 
   @Benchmark
-  def jackson = Decoding.jackson(strData)
+  def jackson: List[CsvEntry] = Decoding.jackson(strData)
 
   @Benchmark
-  def univocity = Decoding.univocity(strData)
+  def univocity: List[CsvEntry] = Decoding.univocity(strData)
 
   @Benchmark
-  def scalaCsv = Decoding.scalaCsv(strData)
+  def scalaCsv: List[CsvEntry] = Decoding.scalaCsv(strData)
 }
 
 
@@ -61,19 +61,22 @@ object Decoding {
 
   // - Benchmarks ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def kantan(str: String)(implicit engine: ReaderEngine) = CsvInput.string.unsafeReader[CsvEntry](str, ',', false).toList
+  def kantan(str: String)(implicit e: ReaderEngine): List[CsvEntry] =
+    CsvInput.string.unsafeReader[CsvEntry](str, ',', false).toList
 
 
 
   // Note: we must call trim on the input since product-collections does not accept the last row ending with a line
   // break. I believe that to be a bug.
-  def productCollections(str: String) =
-    com.github.marklister.collections.io.CsvParser[Int, String, Boolean, Float].iterator(new StringReader(str.trim)).toList
+  def productCollections(str: String): List[CsvEntry] =
+    com.github.marklister.collections.io.CsvParser[Int, String, Boolean, Float]
+      .iterator(new StringReader(str.trim))
+      .toList
 
-  def opencsv(str: String) =
+  def opencsv(str: String): List[CsvEntry] =
     new CsvIterator(new com.opencsv.CSVReader(new StringReader(str)))(_.readNext()).toList
 
-  def commons(str: String) = {
+  def commons(str: String): List[CsvEntry] = {
     val csv = org.apache.commons.csv.CSVFormat.RFC4180.parse(new StringReader(str)).iterator()
     new Iterator[CsvEntry] {
       override def hasNext = csv.hasNext
@@ -84,7 +87,7 @@ object Decoding {
     }.toList
   }
 
-  def jackson(str: String) =
+  def jackson(str: String): List[CsvEntry] =
     new CsvIterator(JacksonCsv.parse(new StringReader(str), ','))(it ⇒
       if(it.hasNext) it.next()
       else           null
@@ -99,13 +102,13 @@ object Decoding {
     settings
   }
 
-  def univocity(str: String) = {
+  def univocity(str: String): List[CsvEntry] = {
     val parser = new com.univocity.parsers.csv.CsvParser(univocitySettings)
     parser.beginParsing(new StringReader(str))
     new CsvIterator(parser)(_.parseNext()).toList
   }
 
-  def scalaCsv(str: String) = {
+  def scalaCsv(str: String): List[CsvEntry] = {
     import com.github.tototoshi.csv._
     CSVReader.open(new StringReader(str)).iterator.map(r ⇒ (r(0).toInt, r(1), r(2).toBoolean, r(3).toFloat)).toList
   }

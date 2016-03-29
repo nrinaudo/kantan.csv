@@ -21,11 +21,13 @@ object ops {
     */
   implicit class CsvOutputOps[A](val a: A) extends AnyVal {
     /** Shorthand for [[CsvOutput.writer]]. */
-    def asCsvWriter[B: RowEncoder](sep: Char, header: Seq[String] = Seq.empty)(implicit oa: CsvOutput[A], e: WriterEngine): CsvWriter[B] =
+    def asCsvWriter[B: RowEncoder](sep: Char, header: Seq[String] = Seq.empty)
+                                  (implicit oa: CsvOutput[A], e: WriterEngine): CsvWriter[B] =
       oa.writer(a, sep, header)
 
     /** Shorthand for [[CsvOutput.write]]. */
-    def writeCsv[B: RowEncoder](rows: TraversableOnce[B], sep: Char, header: Seq[String] = Seq.empty)(implicit oa: CsvOutput[A], e: WriterEngine): Unit =
+    def writeCsv[B: RowEncoder](rows: TraversableOnce[B], sep: Char, header: Seq[String] = Seq.empty)
+                               (implicit oa: CsvOutput[A], e: WriterEngine): Unit =
       oa.write(a, rows, sep, header)
   }
 
@@ -47,19 +49,25 @@ object ops {
     */
   implicit class CsvInputOps[A](val a: A) extends AnyVal {
     /** Shorthand for [[CsvInput!.reader CsvInput.reader]]. */
-    def asCsvReader[B: RowDecoder](sep: Char, header: Boolean)(implicit ai: CsvInput[A], e: ReaderEngine): CsvReader[ReadResult[B]] =
+    def asCsvReader[B: RowDecoder](sep: Char, header: Boolean)
+                                  (implicit ai: CsvInput[A], e: ReaderEngine): CsvReader[ReadResult[B]] =
       ai.reader[B](a, sep, header)
 
     /** Shorthand for [[CsvInput.unsafeReader]]. */
-    def asUnsafeCsvReader[B: RowDecoder](sep: Char, header: Boolean)(implicit ai: CsvInput[A], e: ReaderEngine): CsvReader[B] =
+    def asUnsafeCsvReader[B: RowDecoder](sep: Char, header: Boolean)
+                                        (implicit ai: CsvInput[A], e: ReaderEngine): CsvReader[B] =
       ai.unsafeReader[B](a, sep, header)
 
     /** Shorthand for [[CsvInput.read]]. */
-    def readCsv[C[_], B: RowDecoder](sep: Char, header: Boolean)(implicit ai: CsvInput[A], cbf: CanBuildFrom[Nothing, ReadResult[B], C[ReadResult[B]]], e: ReaderEngine) =
+    def readCsv[C[_], B: RowDecoder](sep: Char, header: Boolean)
+                                    (implicit ai: CsvInput[A], e: ReaderEngine,
+                                     cbf: CanBuildFrom[Nothing, ReadResult[B], C[ReadResult[B]]]): C[ReadResult[B]] =
       ai.read[C, B](a, sep, header)
 
     /** Shorthand for [[CsvInput.unsafeRead]]. */
-    def unsafeReadCsv[C[_], B: RowDecoder](sep: Char, header: Boolean)(implicit ai: CsvInput[A], cbf: CanBuildFrom[Nothing, B, C[B]], e: ReaderEngine) =
+    def unsafeReadCsv[C[_], B: RowDecoder](sep: Char, header: Boolean)
+                                          (implicit ai: CsvInput[A], e: ReaderEngine,
+                                           cbf: CanBuildFrom[Nothing, B, C[B]]): C[B] =
       ai.unsafeRead[C, B](a, sep, header)
   }
 

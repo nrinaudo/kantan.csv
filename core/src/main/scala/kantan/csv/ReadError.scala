@@ -32,6 +32,8 @@ object DecodeError {
       case TypeError(cause2) ⇒ cause.getClass == cause2.getClass
       case _                 ⇒ false
     }
+
+    override def hashCode(): Int = cause.hashCode()
   }
 }
 
@@ -47,6 +49,8 @@ object ParseError {
       case IOError(cause2) ⇒ cause.getClass == cause2.getClass
       case _               ⇒ false
     }
+
+    override def hashCode(): Int = cause.hashCode()
   }
   final case class SyntaxError(line: Int, col: Int) extends ParseError
 }

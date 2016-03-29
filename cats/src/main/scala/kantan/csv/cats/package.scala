@@ -43,5 +43,5 @@ package object cats extends kantan.codecs.cats.CatsInstances {
 
   implicit val parseErrorEq: Eq[ParseError] = new Eq[ParseError] {
     override def eqv(x: ParseError, y: ParseError): Boolean = x == y
-    }
+  }
 }

@@ -2,12 +2,10 @@ package kantan.csv
 
 import java.io._
 import java.net.{URI, URL}
-
 import kantan.codecs.Result
 import kantan.csv.DecodeError.{OutOfBounds, TypeError}
 import kantan.csv.ParseError.{IOError, NoSuchElement, SyntaxError}
 import kantan.csv.engine.ReaderEngine
-
 import scala.collection.generic.CanBuildFrom
 import scala.io.Codec
 
@@ -39,12 +37,12 @@ trait CsvInput[-S] extends Serializable { self ⇒
     * `CsvReader[ReadResult[A]]` have dedicated syntax that makes it more pleasant through [[ops.CsvReaderOps]].
     *
     * @param s instance of `S` that will be opened an parsed.
-    * @param separator character used to separate columns.
+    * @param sep character used to separate columns.
     * @param header whether or not the first row is a header. If set to `true`, the first row will be skipped entirely.
     * @tparam A type to parse each row as. This must have a corresponding implicit [[RowDecoder]] instance in scope.
     */
-  def reader[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[ReadResult[A]] =
-    open(s).map(reader ⇒ CsvReader(reader, separator, header))
+  def reader[A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit e: ReaderEngine): CsvReader[ReadResult[A]] =
+    open(s).map(reader ⇒ CsvReader(reader, sep, header))
       .valueOr(error ⇒ CsvReader.singleton(Result.failure(error)))
 
   /** Turns the specified `S` into an iterator on `A`.
@@ -72,13 +70,15 @@ trait CsvInput[-S] extends Serializable { self ⇒
     * alternative.
     *
     * @param s instance of `S` that will be opened an parsed.
-    * @param separator character used to separate columns.
+    * @param sep character used to separate columns.
     * @param header whether or not the first row is a header. If set to `true`, the first row will be skipped entirely.
     * @tparam C collection type in which to parse the specified `S`.
     * @tparam A type in which to parse each row.
     */
-  def read[C[_], A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, ReadResult[A], C[ReadResult[A]]]): C[ReadResult[A]] =
-    reader(s, separator, header).to[C]
+  def read[C[_], A: RowDecoder](s: S, sep: Char, header: Boolean)
+                               (implicit e: ReaderEngine,
+                                cbf: CanBuildFrom[Nothing, ReadResult[A], C[ReadResult[A]]]): C[ReadResult[A]] =
+    reader(s, sep, header).to[C]
 
   /** Reads the entire CSV data into a collection.
     *
@@ -90,7 +90,8 @@ trait CsvInput[-S] extends Serializable { self ⇒
     * @tparam C collection type in which to parse the specified `S`.
     * @tparam A type in which to parse each row.
     */
-  def unsafeRead[C[_], A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, A, C[A]]): C[A] =
+  def unsafeRead[C[_], A: RowDecoder](s: S, separator: Char, header: Boolean)
+                                     (implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, A, C[A]]): C[A] =
     unsafeReader(s, separator, header).to[C]
 
 

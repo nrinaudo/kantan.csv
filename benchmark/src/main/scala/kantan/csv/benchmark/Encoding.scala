@@ -13,50 +13,50 @@ import org.openjdk.jmh.annotations._
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 class Encoding {
   @Benchmark
-  def kantanInternal = Encoding.kantan(rawData)
+  def kantanInternal: String = Encoding.kantan(rawData)
 
   @Benchmark
-  def kantanJackson = Encoding.kantan(rawData)(kantan.csv.engine.jackson.writer)
+  def kantanJackson: String = Encoding.kantan(rawData)(kantan.csv.engine.jackson.writer)
 
   @Benchmark
-  def kantanOpenCsv = Encoding.kantan(rawData)(kantan.csv.engine.opencsv.writer)
+  def kantanOpenCsv: String = Encoding.kantan(rawData)(kantan.csv.engine.opencsv.writer)
 
   @Benchmark
-  def kantanCommons = Encoding.kantan(rawData)(kantan.csv.engine.commons.writer)
+  def kantanCommons: String = Encoding.kantan(rawData)(kantan.csv.engine.commons.writer)
 
   @Benchmark
-  def productCollections = Encoding.productCollections(rawData)
+  def productCollections: String = Encoding.productCollections(rawData)
 
   @Benchmark
-  def opencsv = Encoding.opencsv(rawData)
+  def opencsv: String = Encoding.opencsv(rawData)
 
   @Benchmark
-  def commons = Encoding.commons(rawData)
+  def commons: String = Encoding.commons(rawData)
 
   @Benchmark
-  def jackson = Encoding.jackson(rawData)
+  def jackson: String = Encoding.jackson(rawData)
 
   @Benchmark
-  def univocity = Encoding.univocity(rawData)
+  def univocity: String = Encoding.univocity(rawData)
 
   @Benchmark
-  def scalaCsv = Encoding.scalaCsv(rawData)
+  def scalaCsv: String = Encoding.scalaCsv(rawData)
 }
 
 object Encoding {
   def write[A](data: List[CsvEntry])(f: Array[String] ⇒ Unit): Unit =
     data.foreach { entry ⇒ f(Array(entry._1.toString, entry._2.toString, entry._3.toString, entry._4.toString)) }
 
-  def kantan(data: List[CsvEntry])(implicit engine: WriterEngine) = data.asCsv(',')
+  def kantan(data: List[CsvEntry])(implicit engine: WriterEngine): String = data.asCsv(',')
 
-  def productCollections(data: List[CsvEntry]) = {
+  def productCollections(data: List[CsvEntry]): String = {
     val out = new StringWriter()
     com.github.marklister.collections.io.Utils.CsvOutput(data).writeCsv(out, ",")
     out.close()
     out.toString
   }
 
-  def opencsv(data: List[CsvEntry]) = {
+  def opencsv(data: List[CsvEntry]): String = {
     val out = new StringWriter()
     val writer = new com.opencsv.CSVWriter(out, ',')
     write(data) { a ⇒ writer.writeNext(a) }
@@ -65,7 +65,7 @@ object Encoding {
     out.toString
   }
 
-  def commons(data: List[CsvEntry]) = {
+  def commons(data: List[CsvEntry]): String = {
     val out = new StringWriter()
     val writer = new org.apache.commons.csv.CSVPrinter(out, CSVFormat.RFC4180)
     write(data) { a ⇒ writer.printRecords(a) }
@@ -74,7 +74,7 @@ object Encoding {
     out.toString
   }
 
-  def jackson(data: List[CsvEntry]) = {
+  def jackson(data: List[CsvEntry]): String = {
     val out = new StringWriter()
     val writer = JacksonCsv.write(out, ',')
     write(data) { a ⇒
@@ -86,7 +86,7 @@ object Encoding {
     out.toString
   }
 
-  def univocity(data: List[CsvEntry]) = {
+  def univocity(data: List[CsvEntry]): String = {
     import com.univocity.parsers.csv._
 
     val out = new StringWriter()
@@ -99,7 +99,7 @@ object Encoding {
     out.toString
   }
 
-  def scalaCsv(data: List[CsvEntry]) = {
+  def scalaCsv(data: List[CsvEntry]): String = {
     import com.github.tototoshi.csv._
 
     val out = new StringWriter()

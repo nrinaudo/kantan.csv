@@ -21,7 +21,7 @@ trait CsvOutput[-S] extends Serializable { self ⇒
     * @param sep column separator.
     * @param header optional header row, defaults to none.
     */
-  def writer[A: RowEncoder](s: S, sep: Char, header: Seq[String] = Seq.empty)(implicit engine: WriterEngine): CsvWriter[A] =
+  def writer[A: RowEncoder](s: S, sep: Char, header: Seq[String] = Seq.empty)(implicit e: WriterEngine): CsvWriter[A] =
     CsvWriter(open(s), sep, header)
 
   /** Writes the specified collections directly in the specifie `S`.
@@ -31,7 +31,8 @@ trait CsvOutput[-S] extends Serializable { self ⇒
     * @param sep column separator.
     * @param header optional header row, defaults to none.
     */
-  def write[A: RowEncoder](s: S, rows: TraversableOnce[A], sep: Char, header: Seq[String] = Seq.empty)(implicit engine: WriterEngine): Unit =
+  def write[A: RowEncoder](s: S, rows: TraversableOnce[A], sep: Char, header: Seq[String] = Seq.empty)
+                          (implicit e: WriterEngine): Unit =
     writer(s, sep, header).write(rows).close()
 
   /** Turns a `CsvOutput[S]` into a `CsvOutput[T]`.

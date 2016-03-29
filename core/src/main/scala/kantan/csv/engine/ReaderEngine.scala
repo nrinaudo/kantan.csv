@@ -1,7 +1,6 @@
 package kantan.csv.engine
 
 import java.io.Reader
-
 import kantan.csv.{CsvReader, ReadResult}
 
 /** Provides kantan.csv with CSV parsing functionalities.

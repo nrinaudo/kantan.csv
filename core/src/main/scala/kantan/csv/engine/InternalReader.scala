@@ -1,9 +1,7 @@
 package kantan.csv.engine
 
 import java.io.Reader
-
 import kantan.csv._
-
 import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer
 

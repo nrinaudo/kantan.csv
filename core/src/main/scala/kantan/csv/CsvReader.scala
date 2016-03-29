@@ -133,8 +133,8 @@ trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self ⇒
     * Any row for which the function is not defined will be filtered out. All other rows will be replaced by the
     * returned value.
     *
-    * This is particularly useful when dealing with [[kantan.csv.ReadResult]]: it's an easy way of skipping over all failures and
-    * keeping successes only:
+    * This is particularly useful when dealing with [[kantan.csv.ReadResult]]: it's an easy way of skipping over all
+    * failures and keeping successes only:
     * {{{
     *   val rows: CsvReader[(Int, String)] = file.asCsvReader[(Int, String)](',', true).collect {
     *     case Success(a) ⇒ a
@@ -189,8 +189,8 @@ trait CsvReader[+A] extends TraversableOnce[A] with Closeable { self ⇒
 
   /** Filters out all rows that validate the specified predicate.
     *
-    * Working with [[CsvReader]] of [[ReadResult]] is such a common pattern that kantan.csv provides syntax for filtering
-    * directly into the [[ReadResult]]:
+    * Working with [[CsvReader]] of [[ReadResult]] is such a common pattern that kantan.csv provides syntax for
+    * filtering directly into the [[ReadResult]]:
     * {{{
     *   import kantan.csv.ops._
     *
@@ -288,14 +288,15 @@ object CsvReader {
     * @param open function that turns `in` into an iterator.
     * @param release function that closes `in` when no longer needed.
     */
-  def fromUnsafe[I, R](in: I)(open: I ⇒ Iterator[R])(release: I ⇒ Unit): CsvReader[ParseResult[R]] = new CsvReader[ParseResult[R]] {
-    val it = open(in)
-    override def hasNext = it.hasNext
-    override protected def readNext() =
-      if(it.hasNext) ParseResult(it.next())
-      else           ParseResult.noSuchElement
-    override def close() = release(in)
-  }
+  def fromUnsafe[I, R](in: I)(open: I ⇒ Iterator[R])(release: I ⇒ Unit): CsvReader[ParseResult[R]] =
+    new CsvReader[ParseResult[R]] {
+      val it = open(in)
+      override def hasNext = it.hasNext
+      override protected def readNext() =
+        if(it.hasNext) ParseResult(it.next())
+        else           ParseResult.noSuchElement
+      override def close() = release(in)
+    }
 
 
   /** Opens a [[CsvReader]] on the specified `Reader`.
@@ -304,7 +305,8 @@ object CsvReader {
     * @param sep column separator
     * @param header whether or not to skip the first row
     */
-  def apply[A](reader: Reader, sep: Char, header: Boolean)(implicit da: RowDecoder[A], e: ReaderEngine): CsvReader[ReadResult[A]] = {
+  def apply[A](reader: Reader, sep: Char, header: Boolean)
+              (implicit da: RowDecoder[A], e: ReaderEngine): CsvReader[ReadResult[A]] = {
     val data: CsvReader[ReadResult[Seq[String]]] = e.readerFor(reader, sep)
 
     if(header && data.hasNext) data.next()

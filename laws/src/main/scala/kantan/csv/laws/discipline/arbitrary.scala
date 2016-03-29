@@ -3,8 +3,8 @@ package kantan.csv.laws.discipline
 import java.io.IOException
 import kantan.csv._
 import kantan.csv.laws._
-import org.scalacheck.Arbitrary.{arbitrary => arb}
 import org.scalacheck.{Arbitrary, Gen}
+import org.scalacheck.Arbitrary.{arbitrary => arb}
 
 object arbitrary extends ArbitraryInstances
 

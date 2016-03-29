@@ -2,9 +2,9 @@ package kantan.csv.laws.discipline
 
 import kantan.codecs.laws.CodecValue.LegalValue
 import kantan.codecs.laws.discipline.DecoderTests
+import kantan.csv._
 import kantan.csv.laws._
 import kantan.csv.laws.discipline.arbitrary._
-import kantan.csv.{DecodeError, codecs}
 import org.scalacheck.Arbitrary
 
 object CellDecoderTests {

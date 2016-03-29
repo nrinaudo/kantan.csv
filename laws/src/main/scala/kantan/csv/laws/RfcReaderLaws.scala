@@ -43,7 +43,8 @@ trait RfcReaderLaws {
     equals(cellsToCsv(spaced), spaced)
   }
 
-  def trailingComma(csv: List[List[Cell]]): Boolean = equals(cellsToCsv(csv, rowSep = ",\r\n"), csv.map(_ :+ Cell.Empty))
+  def trailingComma(csv: List[List[Cell]]): Boolean =
+    equals(cellsToCsv(csv, rowSep = ",\r\n"), csv.map(_ :+ Cell.Empty))
 
 
   // - RFC 4180: 2.5 ---------------------------------------------------------------------------------------------------

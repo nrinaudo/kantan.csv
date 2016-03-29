@@ -1,8 +1,8 @@
 package kantan.csv
 
-import _root_.scalaz.Maybe._
 import _root_.scalaz._
-import Scalaz._
+import _root_.scalaz.Maybe._
+import _root_.scalaz.Scalaz._
 
 /** Declares various type class instances for bridging `kantan.csv` and `scalaz`. */
 package object scalaz extends kantan.codecs.scalaz.ScalazInstances {
