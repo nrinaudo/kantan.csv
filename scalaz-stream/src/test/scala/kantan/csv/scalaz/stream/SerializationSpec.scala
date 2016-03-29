@@ -6,8 +6,8 @@ import kantan.csv.scalaz.stream.ops._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import scalaz.concurrent.Task
-import scalaz.stream.Process._
 import scalaz.stream.{Cause, Process}
+import scalaz.stream.Process._
 
 class SerializationSpec extends FunSuite with GeneratorDrivenPropertyChecks {
   def read(raw: String): List[List[String]] =

@@ -13,6 +13,7 @@ class InternalReaderRegressionTests extends FunSuite {
   }
 
   test("CRLF in escaped") {
-    assert("1\r\n\"Once upon\r\na time\"".unsafeReadCsv[List, List[String]](',', false) == List(List("1"), List("Once upon\r\na time")))
+    assert("1\r\n\"Once upon\r\na time\"".unsafeReadCsv[List, List[String]](',', false) ==
+           List(List("1"), List("Once upon\r\na time")))
   }
 }

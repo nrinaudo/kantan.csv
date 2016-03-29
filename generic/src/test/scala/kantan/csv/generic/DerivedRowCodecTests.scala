@@ -5,7 +5,7 @@ import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import kantan.csv.laws._
 import kantan.csv.laws.discipline.RowCodecTests
 import kantan.csv.laws.discipline.arbitrary._
-import org.scalacheck.{Gen, Arbitrary}
+import org.scalacheck._
 import org.scalacheck.Arbitrary._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
@@ -42,4 +42,3 @@ class DerivedRowCodecTests extends FunSuite with GeneratorDrivenPropertyChecks w
   checkAll("Bar", RowCodecTests[Bar.type].codec[Byte, Float])
   checkAll("Foo", RowCodecTests[Foo].codec[Byte, String])
 }
-

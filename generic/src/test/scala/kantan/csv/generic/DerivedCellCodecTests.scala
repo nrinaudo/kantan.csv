@@ -2,10 +2,11 @@ package kantan.csv.generic
 
 import kantan.codecs.laws.CodecValue
 import kantan.codecs.laws.CodecValue.LegalValue
-import kantan.csv.laws.{LegalCell, IllegalCell}
+import kantan.csv.laws.{IllegalCell, LegalCell}
 import kantan.csv.laws.discipline.CellCodecTests
 import kantan.csv.laws.discipline.arbitrary._
-import org.scalacheck.{Gen, Arbitrary}
+import org.scalacheck._
+import org.scalacheck.Arbitrary.{arbitrary ⇒ arb}
 import org.scalacheck.Shapeless._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
@@ -23,7 +24,7 @@ class DerivedCellCodecTests extends FunSuite with GeneratorDrivenPropertyChecks 
   implicit val arbIllegalFoo: Arbitrary[IllegalCell[Foo]] =
     Arbitrary(Arbitrary.arbitrary[Boolean].map(b ⇒ CodecValue.IllegalValue(b.toString)))
   implicit val arbLegalFoo: Arbitrary[LegalCell[Foo]] = Arbitrary {
-    Gen.oneOf(Gen.const(LegalValue("", Bar: Foo)), Arbitrary.arbitrary[Int].map(i ⇒ LegalValue(i.toString, Baz(i): Foo)))
+    Gen.oneOf(Gen.const(LegalValue("", Bar: Foo)), arb[Int].map(i ⇒ LegalValue(i.toString, Baz(i): Foo)))
   }
 
 
