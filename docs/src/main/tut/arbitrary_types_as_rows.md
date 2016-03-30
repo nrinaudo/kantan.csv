@@ -3,7 +3,7 @@ layout: default
 title:  "Serialising arbitrary types as rows"
 section: tutorial
 status: wip
-sort: 13
+sort: 14
 ---
 
 ```tut:silent

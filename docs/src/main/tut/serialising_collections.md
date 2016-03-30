@@ -2,7 +2,7 @@
 layout: default
 title:  "Encoding entire collections"
 section: tutorial
-sort: 14
+sort: 15
 ---
 While kantan.csv was written with large amount of data in mind - or at least, more data than a standard laptop can
 comfortably fit in memory - it's still fairly common to have a collection that needs to be written down as CSV.
