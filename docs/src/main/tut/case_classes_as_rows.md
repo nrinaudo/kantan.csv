@@ -2,8 +2,9 @@
 layout: default
 title:  "Encoding case classes as rows"
 section: tutorial
+sort: 12
 ---
-In a [previous post](10-tuples_as_rows.html), we've seen how to encode tuples as CSV rows. While useful, actual code
+In a [previous post](tuples_as_rows.html), we've seen how to encode tuples as CSV rows. While useful, actual code
 rarely stores business objects as tuples - encoding case classes is a much more common need than encoding tuples.
 
 Let's imagine that we have a list of values of type `Person` to encode:

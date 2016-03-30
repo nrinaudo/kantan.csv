@@ -2,9 +2,10 @@
 layout: default
 title:  "Decoding rows as tuples"
 section: tutorial
+sort: 3
 ---
 
-In a [previous tutorial](01-rows_as_collections.html), we saw how to deal with CSV data composed of rows of homogeneous
+In a [previous tutorial](rows_as_collections.html), we saw how to deal with CSV data composed of rows of homogeneous
 types. While a common enough scenario, you'll also find yourself having to deal with heterogeneous data types fairly
 often.
 
@@ -49,9 +50,9 @@ reader.foreach(println _)
 ## What to read next
 If you want to learn more about:
 
-* [decoders and codecs](14-codecs.html)
-* [how we were able to turn a `URI` into CSV data](07-csv_sources.html)
-* [how to turn CSV rows into more useful types](03-rows_as_case_classes.html)
+* [decoders and codecs](codecs.html)
+* [how we were able to turn a `URI` into CSV data](csv_sources.html)
+* [how to turn CSV rows into more useful types](rows_as_case_classes.html)
  
 
 [`asCsvReader`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]

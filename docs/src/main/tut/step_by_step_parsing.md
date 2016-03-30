@@ -2,6 +2,7 @@
 layout: default
 title:  "Decoding CSV data one row at a time"
 section: tutorial
+sort: 7
 ---
 CSV data is sometimes unreasonably large - I've had to deal with CSV files in the multiple gigabytes - and cannot
 comfortably fit in memory. It's better to treat these cases as an iterator of sorts, which is kantan.csv's default
@@ -25,7 +26,7 @@ val rawData: java.net.URL = getClass.getResource("/wikipedia.csv")
 ```
 
 Our goal here is to parse this resource row by row. In order to do that, we must be able to decode each
-row as a case class. This is exactly what we did in a [previous tutorial](03-rows_as_case_classes.html):
+row as a case class. This is exactly what we did in a [previous tutorial](rows_as_case_classes.html):
 
 ```tut:silent
 import kantan.csv.ops._     // kantan.csv syntax
@@ -41,7 +42,7 @@ an iterator with a `close` method:
 val iterator = rawData.asCsvReader[Car](',', true)
 ```
 
-[`asCsvReader`] is explained in some depths [here](01-rows_as_collections.html), but we're more interested in what we
+[`asCsvReader`] is explained in some depths [here](rows_as_collections.html), but we're more interested in what we
 can do with our [`CsvReader`].
  
 The first, fairly important thing we can do is [`close`] it if we don't intend to read the whole thing. If we do,
@@ -66,8 +67,8 @@ without loading more than one row at a time in memory.
 ## What to read next
 If you want to learn more about:
 
-* [how we were able to turn a `URI` into CSV data](07-csv_sources.html)
-* [how to turn CSV rows into more useful types](01-rows_as_collections.html)
+* [how we were able to turn a `URI` into CSV data](csv_sources.html)
+* [how to turn CSV rows into more useful types](rows_as_collections.html)
 
 
 [`close`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader@close():Unit

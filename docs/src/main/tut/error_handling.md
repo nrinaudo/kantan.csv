@@ -2,6 +2,7 @@
 layout: default
 title:  "Error handling"
 section: tutorial
+sort: 9
 ---
 There are many ways of dealing with parse errors in kantan.csv. This tutorial shows the most common strategies, but
 it essentially boils down to knowing how [`Result`] (the underlying type of [`ReadResult`]) works.
@@ -16,7 +17,7 @@ All the examples here are going to be using the following data:
 
 Note how the second row's third column is not of the same type as that of the other rows.
 
-Let's first declare the basic things we need to decode such a CSV file (see [this](03-rows_as_case_classes) if it does
+Let's first declare the basic things we need to decode such a CSV file (see [this](rows_as_case_classes) if it does
 not make sense to you):
 
 ```tut:silent

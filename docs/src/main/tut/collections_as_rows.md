@@ -2,6 +2,7 @@
 layout: default
 title:  "Encoding collections as rows"
 section: tutorial
+sort: 10
 ---
 CSV is often used to store rows of homogeneous data - each cell could be an `Int`, for instance. We'll see in this post
 how kantan.csv supports this kind of scenario.

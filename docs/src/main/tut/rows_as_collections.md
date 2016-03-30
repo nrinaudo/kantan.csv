@@ -2,6 +2,7 @@
 layout: default
 title:  "Decoding rows as collections"
 section: tutorial
+sort: 1
 ---
 
 ## Overview
@@ -75,9 +76,9 @@ implicit val jodaDateTime: CellDecoder[DateTime] = {
 ## What to read next
 If you want to learn more about:
 
-* [decoders and codecs](14-codecs.html)
-* [how we were able to turn a `URI` into CSV data](07-csv_sources.html)
-* [how to turn CSV rows into more useful types](04-rows_as_arbitrary_types.html)
+* [decoders and codecs](codecs.html)
+* [how we were able to turn a `URI` into CSV data](csv_sources.html)
+* [how to turn CSV rows into more useful types](rows_as_arbitrary_types.html)
  
 
 [syntax]:{{ site.baseurl }}/api/#kantan.csv.ops$

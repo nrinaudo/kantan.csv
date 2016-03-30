@@ -2,6 +2,7 @@
 layout: default
 title:  "Decoding CSV data into a collection"
 section: tutorial
+sort: 6
 ---
 When memory constraints are not an issue, decoding an entire CSV file into a single collection, such as a [`List`] or
 [`Vector`], can be useful. kantan.csv offers simple primitives for just this purpose.
@@ -24,7 +25,7 @@ val rawData: java.net.URL = getClass.getResource("/wikipedia.csv")
 ```
 
 Our goal here is to load this entire resource as a [`List`]. In order to do that, we must be able to decode each
-row as a case class. This is exactly what we did in a [previous tutorial](03-rows_as_case_classes.html):
+row as a case class. This is exactly what we did in a [previous tutorial](rows_as_case_classes.html):
 
 ```tut:silent
 import kantan.csv.ops._     // kantan.csv syntax
@@ -56,14 +57,14 @@ a valid implementation of [`CanBuildFrom`] can be used as the first type paramet
 essentially be all standard scala collections (with the exceptions of those that take more than one type parameter, such
 as [`Map`], because of the way [`readCsv`] works).
 
-The second type parameter is explained in an [earlier tutorial](01-rows_as_collections.html).
+The second type parameter is explained in an [earlier tutorial](rows_as_collections.html).
 
 ## What to read next
 If you want to learn more about:
 
-* [decoders and codecs](14-codecs.html)
-* [how we were able to turn a `URI` into CSV data](07-csv_sources.html)
-* [how to parse CSV row by row](06-step_by_step_parsing.html)
+* [decoders and codecs](codecs.html)
+* [how we were able to turn a `URI` into CSV data](csv_sources.html)
+* [how to parse CSV row by row](step_by_step_parsing.html)
 
 
 [`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List

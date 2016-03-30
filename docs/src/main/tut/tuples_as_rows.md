@@ -2,8 +2,9 @@
 layout: default
 title:  "Encoding tuples as rows"
 section: tutorial
+sort: 11
 ---
-In a [previous post](09-collections_as_rows.html), we've seen how to encode collections as CSV rows. This is useful when
+In a [previous post](collections_as_rows.html), we've seen how to encode collections as CSV rows. This is useful when
 dealing with homogeneous data, but not so much when not all cells in a given row are of the same time. One way of
 dealing with such situation is tuples.
 

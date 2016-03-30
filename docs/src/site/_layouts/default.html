@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
-  <head>
-      <meta charset="utf-8">
+<head>
+    <meta charset="utf-8">
     <title>{{ site.name }}{% if page.title %} - {{ page.title }}{% endif %}</title>
 
     <link rel="stylesheet" href="{{ site.baseurl }}/css/styles.css">
@@ -9,32 +9,33 @@
     <link rel="stylesheet" href="{{ site.baseurl }}/css/font-awesome.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
-	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-  </head>
-  <body>
-      <div id="navbar">
-          <span class="external"><a title="API Documentation" href="{{ site.baseurl }}/api"><i class="fa fa-book fa-lg"></i></a></a></span>
-          <span class="external"><a title="Issues" href="https://github.com/nrinaudo/kantan.csv/issues"><i class="fa fa-bug fa-lg"></i></a></span>
-          <span class="external"><a title="Github" href="https://github.com/nrinaudo/kantan.csv"><i class="fa fa-github fa-lg"></i></a></span>
-          <span id="home"><a href="{{ site.baseurl }}/">{{ site.name }}</a></span>
-      </div>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div id="navbar">
+    <span class="external"><a title="API Documentation" href="{{ site.baseurl }}/api"><i class="fa fa-book fa-lg"></i></a></a></span>
+    <span class="external"><a title="Issues" href="https://github.com/nrinaudo/kantan.csv/issues"><i class="fa fa-bug fa-lg"></i></a></span>
+    <span class="external"><a title="Github" href="https://github.com/nrinaudo/kantan.csv"><i class="fa fa-github fa-lg"></i></a></span>
+    <span id="home"><a href="{{ site.baseurl }}/">{{ site.name }}</a></span>
+</div>
 
-	  <div id="content">
-          {% if page.title %}<h1>{{ page.title }}</h1>{% endif %}
-          {{ content }}
+<div id="content">
+    {% if page.title %}<h1>{{ page.title }}</h1>{% endif %}
+    {{ content }}
 
-          {% if page.section == "tutorial" %}
-          <hr/>
-          Other tutorials:
-          <ul>
-          {% for x in site.tut %}
-          {% if page.url != x.url and x.status != "wip" and x.section == "tutorial" %}
-          <li><p><a href="{{ site.baseurl }}{{ x.url }}">{{ x.title }}</a></p></li>
-          {% endif %}
-          {% endfor %}
-          </ul>
-          {% endif %}
-	  </div>
-  </body>
+    {% if page.section == "tutorial" %}
+    <hr/>
+    Other tutorials:
+    <ul>
+        {% assign sorted_pages = (site.tut | sort: 'sort') %}
+        {% for x in sorted_pages %}
+        {% if page.url != x.url and x.status != "wip" and x.section == "tutorial" %}
+        <li><p><a href="{{ site.baseurl }}{{ x.url }}">{{ x.title }}</a></p></li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+</body>
 </html>

@@ -71,7 +71,8 @@ addressed, though.
 ## Tutorials
 
 The following tutorials are available:
-{% for x in site.tut %}
+{% assign sorted_pages = (site.tut | sort: 'sort') %}
+{% for x in sorted_pages %}
 {% if x.status != "wip" and x.section == "tutorial" %}
 * [{{ x.title }}]({{ site.baseurl }}{{ x.url }})
 {% endif %}

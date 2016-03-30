@@ -1,6 +1,7 @@
 ---
 layout: default
-title:  "Scalaz-stream module"
+title:  "Shapeless module"
 section: tutorial
 status: wip
+sort: 19
 ---

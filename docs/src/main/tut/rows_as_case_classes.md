@@ -2,10 +2,11 @@
 layout: default
 title:  "Decoding rows as case classes"
 section: tutorial
+sort: 4
 ---
 
 ## Overview
-In a [previous tutorial](02-rows_as_tuples), we saw how to decode CSV rows into tuples. This is useful, but we sometimes
+In a [previous tutorial](rows_as_tuples), we saw how to decode CSV rows into tuples. This is useful, but we sometimes
 want a more specific type - a `Point` instead of an `(Int, Int)`, say. Case classes lend themselves well to such
 scenarios, and kantan.csv has various mechanisms to support them.
  
@@ -34,7 +35,7 @@ case class Car(year: Int, make: String, model: String, desc: Option[String], pri
 
 We find ourselves with a particularly easy scenario to deal with: the rows in the CSV data and the fields in the target
 case class have a 1-to-1 correspondence and are declared in the same order. This means that, if you don't mind a
-[shapeless](16-shapeless.html) dependency, there's very little work to do:
+[shapeless](shapeless.html) dependency, there's very little work to do:
 
 ```tut:silent
 import kantan.csv.ops._     // kantan.csv syntax
@@ -83,8 +84,8 @@ rawData.asCsvReader[Car2](',', true).foreach(println _)
 
 If you want to learn more about:
 
-* [decoders and codecs](14-codecs.html)
-* [how we were able to turn a `URI` into CSV data](07-csv_sources.html)
+* [decoders and codecs](codecs.html)
+* [how we were able to turn a `URI` into CSV data](csv_sources.html)
  
 
 [`RowDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package@RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]

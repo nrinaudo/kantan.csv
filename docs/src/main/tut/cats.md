@@ -1,6 +1,7 @@
 ---
 layout: default
-title:  "Encoders, decoders and codecs"
+title:  "Cats module"
 section: tutorial
 status: wip
+sort: 20
 ---

@@ -2,9 +2,10 @@
 layout: default
 title:  "Decoding rows as arbitrary types"
 section: tutorial
+sort: 5
 ---
-Other tutorials covered decoding rows as [collections](01-rows_as_collections.html), [tuples](02-rows_as_tuples.html)
-and [case classes](03-rows_as_case_classes.html). While those are the most common scenarios, it is sometimes necessary
+Other tutorials covered decoding rows as [collections](rows_as_collections.html), [tuples](rows_as_tuples.html)
+and [case classes](rows_as_case_classes.html). While those are the most common scenarios, it is sometimes necessary
 to decode rows into types that are none of these.
 
 Let's take the same example we did before:

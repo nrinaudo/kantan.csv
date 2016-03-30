@@ -2,8 +2,9 @@
 layout: default
 title:  "Encoding one row at a time"
 section: tutorial
+sort: 15
 ---
-A [previous post](13-serialising_collections.html) covered how to encoding entire collections as CSV. This is not,
+A [previous post](serialising_collections.html) covered how to encoding entire collections as CSV. This is not,
 however, always possible or even desirable: if the data to encode is obtained in a lazy way, it's usually better to
 encoded it as it comes.
 
@@ -11,7 +12,7 @@ kantan.csv provides a useful class for this scenario: [`CsvWriter`], which can b
 version of [`java.io.Writer`].
 
 First, let's set up a type to encode as CSV (if the reason why the following code works is not clear, you can
-[read up on it](11-case_classes_as_rows.html)).
+[read up on it](case_classes_as_rows.html)).
 
 ```tut:silent
 import kantan.csv.ops._
@@ -22,7 +23,7 @@ case class Person(id: Int, name: String, age: Int)
 
 Obtaining an instance of [`CsvWriter`] is achieved by calling the [`asCsvWriter`] method that enriches any type that
 has an implicit instance of [`CsvOutput`] in scope - or, to keep things simple, any type that you expect to be able to
-write CSV directly to. You can read up more on that mechanism [here](15-csv_sinks.html).
+write CSV directly to. You can read up more on that mechanism [here](csv_sinks.html).
 
 ```tut:silent
 // File in which we'll be writing the CSV data.

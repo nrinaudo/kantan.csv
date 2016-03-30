@@ -1,6 +1,7 @@
 ---
 layout: default
-title:  "Scalaz module"
+title:  "Encoders, decoders and codecs"
 section: tutorial
 status: wip
+sort: 17
 ---

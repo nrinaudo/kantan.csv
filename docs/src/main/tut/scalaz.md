@@ -1,6 +1,7 @@
 ---
 layout: default
-title:  "Cats module"
+title:  "Scalaz module"
 section: tutorial
 status: wip
+sort: 21
 ---

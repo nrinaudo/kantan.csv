@@ -2,12 +2,13 @@
 layout: default
 title:  "Encoding entire collections"
 section: tutorial
+sort: 14
 ---
 While kantan.csv was written with large amount of data in mind - or at least, more data than a standard laptop can
 comfortably fit in memory - it's still fairly common to have a collection that needs to be written down as CSV.
 
 This is something that kantan.csv attempts to make as straightforward as possible. First, let's define some CSV data
-that needs to be serialised (see [this](11-case_classes_as_rows) if you're not clear what the following code is for):
+that needs to be serialised (see [this](case_classes_as_rows) if you're not clear what the following code is for):
 
 ```tut:silent
 import kantan.csv.ops._

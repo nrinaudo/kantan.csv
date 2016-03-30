@@ -2,8 +2,9 @@
 layout: default
 title:  "What can CSV data be written to?"
 section: tutorial
+sort: 16
 ---
-All the encoding tutorials, such as [this](13-serialising_collections.html) one, matter-of-factly call the
+All the encoding tutorials, such as [this](serialising_collections.html) one, matter-of-factly call the
 [`asCsvWriter`] method of [`File`], when [`File`] does not in fact have such a method. This works thanks to the
 [`CsvOutput`] type class.
 
