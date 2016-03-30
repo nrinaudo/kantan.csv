@@ -4,8 +4,6 @@ title:  "Decoding rows as collections"
 section: tutorial
 sort: 1
 ---
-
-## Overview
 A simple but very common type of CSV data is rows of numerical values, such as the following:
 
 ```
@@ -50,29 +48,6 @@ Note that each result is wrapped in an instance of [`ReadResult`]. This allows d
 exception will be thrown, all error conditions are encoded at the type level. If safety is not a concern and you'd
 rather let your code crash than deal with error conditions, you can use [`asUnsafeCsvReader`] instead.
 
-
-## Internals
-Decoding is type class based. Our example worked because kantan.csv can decode rows as collections of any type `A` such
-that there is an implicit `CellDecoder[A]` in scope. Since all primitive types are supported by default, the compiler
-was able to find a `CellDecoder[Float]`, and there was no further work required on your part.
-
-While a lot of types are supported by default, you might need to add support for non-standard ones. A common example
-is dates, which kantan.csv does not provide a default implementation for.
-
-Adding support for Joda [`DateTime`] is rather straightforward: all you need is to implement a
-[`CellDecoder[DateTime]`][`CellDecoder`].
-
-```tut:silent
-import kantan.csv._
-import org.joda.time.DateTime
-import org.joda.time.format.ISODateTimeFormat
-
-implicit val jodaDateTime: CellDecoder[DateTime] = {
-  val format = ISODateTimeFormat.dateTime()
-  CellDecoder(s ⇒ DecodeResult(format.parseDateTime(s)))
-}
-```
-
 ## What to read next
 If you want to learn more about:
 
@@ -87,4 +62,3 @@ If you want to learn more about:
 [`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package@ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]
 [`asCsvReader`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
 [`asUnsafeCsvReader`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$4:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]
-[`DateTime`]:http://www.joda.org/joda-time/apidocs/org/joda/time/DateTime.html
