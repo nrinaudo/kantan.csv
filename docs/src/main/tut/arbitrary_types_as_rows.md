@@ -1,16 +1,25 @@
 ---
 layout: default
-title:  "Serialising arbitrary types as rows"
+title:  "Encoding arbitrary types as rows"
 section: tutorial
-status: wip
 sort: 14
 ---
+Other tutorials covered encoding [collections](collections_as_rows.html), [tuples](tuples_as_rows.html)
+and [case classes](case_classes_as_rows.html) as CSV rows. While those are the most common scenarios, it is sometimes
+necessary to encode types that are none of these.
+
+Let's write such a type for the purpose of this tutorial:
 
 ```tut:silent
 class Person(val id: Int, val name: String, val age: Int)
 
 val ps = List(new Person(0, "Nicolas", 38), new Person(1, "Kazuma", 1), new Person(2, "John", 18))
 ```
+
+We now have a [`List[Person]`][`List`] that we'd like to encode to CSV. This is done by providing an implicit instance
+of [`RowEncoder[Person]`][`RowEncoder`] - you could write it from scratch, but it's usually simpler and more correct
+to use one of the helper methods defined in the [companion object][`RowEncoder`]. In our case, we're working with a
+class that has 3 fields, so we should use [`encoder3`]:
 
 ```tut:silent
 import kantan.csv._
@@ -20,6 +29,16 @@ import kantan.csv.ops._
 implicit val personEncoder = RowEncoder.encoder3((p: Person) ⇒ (p.id, p.name, p.age))(0, 2, 1)
 ```
 
+kantan.csv will work out how to encode each individual field thanks to the [`CellEncoder`] mechanism describe in a
+[previous post](arbitrary_types_as_cells.html).
+
+Let's make sure this worked out as expected:
+
 ```tut
 ps.asCsv(',')
 ```
+
+[`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List
+[`RowEncoder`]:{{ site.baseurl }}/api/#kantan.csv.RowEncoder$
+[`CellEncoder`]:{{ site.baseurl }}/api/#kantan.csv.CellEncoder$
+[`encoder3`]:{{ site.baseurl }}/api/#kantan.csv.RowEncoder$@encoder3[C,A1,A2,A3](f:C=>(A1,A2,A3))(i1:Int,i2:Int,i3:Int)(implicite1:kantan.csv.CellEncoder[A1],implicite2:kantan.csv.CellEncoder[A2],implicite3:kantan.csv.CellEncoder[A3]):kantan.csv.RowEncoder[C]
