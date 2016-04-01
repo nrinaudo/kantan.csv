@@ -22,8 +22,8 @@ implicitly[CellDecoder[Float]]
 implicitly[CellDecoder[Boolean]]
 ```
 
-And so, when [`asCsvReader`] or [`readCsv`] are asked to turn in row into a [`List`] of elements `A`, it looks for an
-corresponding implicit [`CellCoder`] and relies on it for parsing:
+And so, when [`asCsvReader`] or [`readCsv`] are asked to turn a row into a [`List`] of elements `A`, it looks for a
+corresponding implicit [`CellCoder`] and relies on it for decoding:
 
 ```tut
 import kantan.csv.ops._
