@@ -3,5 +3,5 @@ layout: default
 title:  "Scalaz module"
 section: tutorial
 status: wip
-sort: 22
+sort: 23
 ---

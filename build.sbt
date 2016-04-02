@@ -215,7 +215,8 @@ lazy val tests = project
   .dependsOn(core, laws % "test")
 
 lazy val benchmark = project
-  .settings(allSettings: _*)
+  .settings(buildSettings: _*)
+  .settings(baseSettings: _*)
   .settings(noPublishSettings: _*)
   .enablePlugins(JmhPlugin)
   .settings(libraryDependencies ++= Seq(

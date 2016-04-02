@@ -2,7 +2,7 @@
 layout: default
 title:  "External CSV libraries"
 section: tutorial
-sort: 19
+sort: 20
 ---
 kantan.csv comes with a default implementation of CSV parsing and serialising. This implementation is
 [relatively fast](benchmarks.html) and robust, but might not satisfy all use cases - some of the more outlandish CSV
