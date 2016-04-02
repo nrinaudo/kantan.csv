@@ -3,27 +3,52 @@ package kantan.csv
 trait GeneratedRowCodecs {
   private def combine[A](decoder: RowDecoder[A])(encoder: RowEncoder[A]): RowCodec[A] = RowCodec(decoder.decode _)(encoder.encode _)
 
-  def codec1[C, A1: CellEncoder: CellDecoder](f: A1 ⇒ C, g: C ⇒ A1): RowCodec[C] =
+  /** Creates a new [[RowCodec]] instance from the specified encoding and decoding functions. */
+  def codec1[C, A1: CellEncoder: CellDecoder](f: A1 ⇒ C)(g: C ⇒ A1): RowCodec[C] =
     combine(RowDecoder.decoder1(f)(0))(RowEncoder.encoder1(g))
-  [2..#def codec1[C, [#A1: CellEncoder: CellDecoder#]](f: ([#A1#]) ⇒ C, g: C ⇒ ([#A1#]))([#i1: Int#]): RowCodec[C] =
+  [2..#/** Creates a new [[RowCodec]] instance from the specified encoding and decoding functions.
+    *
+    * @param f encoding function.
+    * @param g decoding function.
+    [#* @param i1 index of the cell that should be passed as parameter number 1 of `f` and will be at index 1 of
+    *           the value returned by `g`#
+    ]
+    */
+  def codec1[C, [#A1: CellEncoder: CellDecoder#]](f: ([#A1#]) ⇒ C)(g: C ⇒ ([#A1#]))([#i1: Int#]): RowCodec[C] =
     combine(RowDecoder.decoder1(f)([#i1#]))(RowEncoder.encoder1(g)([#i1#]))#
   ]
 
-  def ordered1[C, A1: CellEncoder: CellDecoder](f: A1 ⇒ C, g: C ⇒ A1): RowCodec[C] =
+  /** Creates a new [[RowCodec]] instance from the specified encoding and decoding functions. */
+  def ordered1[C, A1: CellEncoder: CellDecoder](f: A1 ⇒ C)(g: C ⇒ A1): RowCodec[C] =
     combine(RowDecoder.decoder1(f)(0))(RowEncoder.encoder1(g))
-  [2..#def ordered1[C, [#A1: CellEncoder: CellDecoder#]](f: ([#A1#]) ⇒ C, g: C ⇒ ([#A1#])): RowCodec[C] =
+  [2..#/** Creates a new [[RowCodec]] instance from the specified encoding and decoding functions.
+    *
+    * The difference between this and [[codec1]] is that the former expects CSV cells to be ordered in the exact same
+    * sequence as the parameters expected by the specified function, while the later lets you customise these indexes.
+    * @param f encoding function.
+    * @param g decoding function.
+    ]
+    */
+  def ordered1[C, [#A1: CellEncoder: CellDecoder#]](f: ([#A1#]) ⇒ C)(g: C ⇒ ([#A1#])): RowCodec[C] =
     combine(RowDecoder.ordered1(f))(RowEncoder.ordered1(g))#
   ]
 
-  def caseCodec1[C, A1: CellEncoder : CellDecoder](f: A1 ⇒ C, g: C ⇒ Option[A1]): RowCodec[C] =
+  /** Specialised version of [[codec1]] for case classes. */
+  def caseCodec1[C, A1: CellEncoder : CellDecoder](f: A1 ⇒ C)(g: C ⇒ Option[A1]): RowCodec[C] =
     combine(RowDecoder.decoder1(f)(0))(RowEncoder.caseEncoder1(g))
-  [2..#def caseCodec1[C, [#A1: CellEncoder : CellDecoder#]](f: ([#A1#]) ⇒ C, g: C ⇒ Option[Tuple1[[#A1#]]])([#i1: Int#]): RowCodec[C] =
+  [2..#/** Specialised version of [[codec1]] for case classes. */
+  def caseCodec1[C, [#A1: CellEncoder : CellDecoder#]](f: ([#A1#]) ⇒ C)(g: C ⇒ Option[Tuple1[[#A1#]]])([#i1: Int#]): RowCodec[C] =
     combine(RowDecoder.decoder1(f)([#i1#]))(RowEncoder.caseEncoder1(g)([#i1#]))#
   ]
 
-  def caseOrdered1[C, A1: CellEncoder : CellDecoder](f: A1 ⇒ C, g: C ⇒ Option[A1]): RowCodec[C] =
+  /** Specialised version of [[ordered1]] for case classes. */
+  def caseOrdered1[C, A1: CellEncoder : CellDecoder](f: A1 ⇒ C)(g: C ⇒ Option[A1]): RowCodec[C] =
     combine(RowDecoder.ordered1(f))(RowEncoder.caseOrdered1(g))
-  [2..#def caseOrdered1[C, [#A1: CellEncoder : CellDecoder#]](f: ([#A1#]) ⇒ C, g: C ⇒ Option[Tuple1[[#A1#]]]): RowCodec[C] =
+  [2..#/** Specialised version of [[ordered1]] for case classes.
+    *
+    * Note that the `generic` module is usually a good alternative to using this method.
+    */
+  def caseOrdered1[C, [#A1: CellEncoder : CellDecoder#]](f: ([#A1#]) ⇒ C)(g: C ⇒ Option[Tuple1[[#A1#]]]): RowCodec[C] =
     combine(RowDecoder.ordered1(f))(RowEncoder.caseOrdered1(g))#
   ]
 }
