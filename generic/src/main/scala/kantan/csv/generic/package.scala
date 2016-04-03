@@ -92,7 +92,7 @@ package object generic {
   // - CellDecoder case class derivation -------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def caseObjectCellDecoder[A, R <: HNil](implicit gen: Generic.Aux[A, R], ev: HNil =:= R): CellDecoder[A] =
-    CellDecoder(s ⇒ if(s.isEmpty) DecodeResult.success(gen.from(ev(HNil))) else DecodeResult.outOfBounds(0))
+    CellDecoder(s ⇒ if(s.trim.isEmpty) DecodeResult.success(gen.from(ev(HNil))) else DecodeResult.outOfBounds(0))
 
   implicit def caseClassCellDecoder[A, R, H]
   (implicit gen: Generic.Aux[A, R], ev: (H :: HNil) =:= R, dh: CellDecoder[H]): CellDecoder[A] =
