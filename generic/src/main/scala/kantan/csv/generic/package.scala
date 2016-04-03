@@ -33,7 +33,7 @@ package object generic {
 
 
 
-  // - RowDecoder ADT derivation ---------------------------------------------------------------------------------------
+  // - RowDecoder case class derivation --------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def hlistRowDecoder[H, T <: HList](implicit dh: CellDecoder[H], dt: RowDecoder[T]): RowDecoder[H :: T] =
     RowDecoder(row ⇒
@@ -63,7 +63,7 @@ package object generic {
 
 
 
-  // - RowEncoder ADT derivation ---------------------------------------------------------------------------------------
+  // - RowEncoder case class derivation --------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def hlistRowEncoder[H, T <: HList](implicit eh: CellEncoder[H], et: RowEncoder[T]): RowEncoder[H :: T] =
     RowEncoder((a: H :: T) ⇒ a match {
@@ -98,13 +98,13 @@ package object generic {
   (implicit gen: Generic.Aux[A, R], ev: (H :: HNil) =:= R, dh: CellDecoder[H]): CellDecoder[A] =
     CellDecoder(s ⇒ dh.decode(s).map(h ⇒ gen.from(ev(h :: HNil))))
 
-  implicit def caseObjectCellEncoder[A, R <: HNil](implicit gen: Generic.Aux[A, R]): CellEncoder[A] =
-    CellEncoder((_: A) ⇒ "")
-
 
 
   // - CellEncoder case class derivation -------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  implicit def caseObjectCellEncoder[A, R <: HNil](implicit gen: Generic.Aux[A, R]): CellEncoder[A] =
+    CellEncoder((_: A) ⇒ "")
+
   // Thanks Travis Brown for that one:
   // http://stackoverflow.com/questions/33563111/deriving-type-class-instances-for-case-classes-with-exactly-one-field
   implicit def caseClassCellEncoder[A, R, H]
@@ -115,7 +115,7 @@ package object generic {
 
 
 
-  // - RowDecoder case class derivation --------------------------------------------------------------------------------
+  // - RowDecoder ADT derivation ---------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def coproductRowDecoder[H, T <: Coproduct]
   (implicit dh: RowDecoder[H], dt: RowDecoder[T]): RowDecoder[H :+: T] =
@@ -128,7 +128,7 @@ package object generic {
 
 
 
-  // - RowEncoder case class derivation --------------------------------------------------------------------------------
+  // - RowEncoder ADT derivation ---------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def coproductRowEncoder[H, T <: Coproduct]
   (implicit eh: RowEncoder[H], et: RowEncoder[T]): RowEncoder[H :+: T] =
