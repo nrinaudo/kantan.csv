@@ -58,6 +58,15 @@ By the same token, for any type `A` that has a [`CellDecoder`], there exists a [
 This is useful for CSV data where each row is composed of a single column.
 
 
+### Tuples
+
+Tuples of any arity, provided they're composed of types that all have a [`CellEncoder`], have a [`RowEncoder`].
+
+By the same token, tuples of any arity, provided they're composed of types that all have a [`CellDecoder`], have a
+[`RowDecoder`].
+
+For example, `(Int, String, Either[Boolean, Option[Double]])` has both a [`RowEncoder`] and a [`RowDecoder`].
+
 
 ### Collections
 
