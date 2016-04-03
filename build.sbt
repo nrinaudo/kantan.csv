@@ -2,7 +2,7 @@ import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
 import com.typesafe.sbt.SbtSite.SiteKeys._
 import UnidocKeys._
 
-val kantanCodecsVersion        = "0.1.1-SNAPSHOT"
+val kantanCodecsVersion        = "0.1.1"
 val catsVersion                = "0.4.1"
 val macroParadiseVersion       = "2.1.0"
 val scalaCheckVersion          = "1.12.5"
@@ -25,7 +25,8 @@ val kindProjectorVersion       = "0.7.1"
 lazy val buildSettings = Seq(
   organization       := "com.nrinaudo",
   scalaVersion       := "2.11.8",
-  crossScalaVersions := Seq("2.10.6", "2.11.8")
+  crossScalaVersions := Seq("2.10.6", "2.11.8"),
+  autoAPIMappings    := true
 )
 
 lazy val compilerOptions = Seq("-deprecation",
@@ -235,7 +236,6 @@ lazy val docs = project
   .settings(unidocSettings: _*)
   .settings(
     unidocProjectFilter in (ScalaUnidoc, unidoc) := inAnyProject -- inProjects(benchmark),
-    autoAPIMappings := true,
     apiURL := Some(url("http://nrinaudo.github.io/kantan.csv/api/")),
     scalacOptions in (ScalaUnidoc, unidoc) ++= Seq(
       "-doc-source-url", scmInfo.value.get.browseUrl + "/tree/master€{FILE_PATH}.scala",

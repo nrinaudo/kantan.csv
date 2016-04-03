@@ -1,15 +1,15 @@
 package kantan.csv.laws.discipline
 
-import kantan.codecs.laws.CodecValue
-import kantan.codecs.laws.CodecValue.LegalValue
+import kantan.codecs.laws.discipline.GenCodecValue
 import org.scalacheck.{Arbitrary, Gen}
 
 trait ArbitraryArities extends kantan.codecs.laws.discipline.ArbitraryInstances {
-  [#implicit def arbLegalRowTuple1[[#D1#]](implicit [#arbD1: Arbitrary[LegalValue[String, D1]]#]): Arbitrary[LegalValue[Seq[String], Tuple1[[#D1#]]]] =
-    Arbitrary(genLegalWith1(([#d1: D1#]) ⇒ Tuple1([#d1#]))(([#s1: String#]) ⇒ Seq([#s1#])))
+  implicit def arbTuple1[A](implicit a1: Arbitrary[A]): Arbitrary[Tuple1[A]] =
+      Arbitrary(a1.arbitrary.map(Tuple1.apply))
 
-  implicit def arbIllegalRowTuple1[[#D1#]](implicit [#arbD1: Arbitrary[CodecValue.IllegalValue[String, D1]]#]): Arbitrary[CodecValue.IllegalValue[Seq[String], Tuple1[[#D1#]]]] =
-    Arbitrary(genIllegalWith1(([#s1: String#]) ⇒ Seq([#s1#]))([#arbD1#]))#
+  [#implicit def tuple1CodecValue[[#A1: Arbitrary#]](implicit [#c1: GenCodecValue[String, A1]#]): GenCodecValue[Seq[String], Tuple1[[#A1#]]] = GenCodecValue[Seq[String], Tuple1[[#A1#]]] { is ⇒
+    Seq([#c1.encode(is._1)#])
+  }{ ss ⇒ ss.length != 1 [#|| c1.isIllegal(ss(0))# ] }#
 
-  ]
+    ]
 }

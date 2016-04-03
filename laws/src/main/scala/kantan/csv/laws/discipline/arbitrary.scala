@@ -1,6 +1,7 @@
 package kantan.csv.laws.discipline
 
 import java.io.IOException
+import kantan.codecs.laws.discipline.GenCodecValue
 import kantan.csv._
 import kantan.csv.laws._
 import org.scalacheck.{Arbitrary, Gen}
@@ -49,9 +50,8 @@ trait ArbitraryInstances extends kantan.csv.laws.discipline.ArbitraryArities {
 
   // - Codec values ----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def arbLegalOptionRow[D](implicit dl: Arbitrary[LegalRow[D]]): Arbitrary[LegalRow[Option[D]]] =
-    Arbitrary(genLegalOption[Seq[String], D](_.isEmpty)(Seq.empty))
 
-  implicit def arbIllegalOptionRow[D](implicit dl: Arbitrary[IllegalRow[D]]): Arbitrary[IllegalRow[Option[D]]] =
-    Arbitrary(genIllegalOption[Seq[String], D](_.isEmpty))
+
+  implicit def rowOpt[D: Arbitrary](implicit cd: GenCodecValue[Seq[String], D]): GenCodecValue[Seq[String], Option[D]] =
+    GenCodecValue.option[Seq[String], D](Seq.empty)
 }

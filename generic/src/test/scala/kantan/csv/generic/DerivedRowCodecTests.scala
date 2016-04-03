@@ -11,6 +11,8 @@ import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
+// TODO: clean the Arbitrary instances, they're a disgrace.
+
 class DerivedRowCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   case object Bar extends Foo
   case class Baz(i: Int, b: Boolean) extends Foo
