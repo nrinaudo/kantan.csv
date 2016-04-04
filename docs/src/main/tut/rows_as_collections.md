@@ -56,8 +56,9 @@ error occurs.
 ## What to read next
 If you want to learn more about:
 
+* [decoding rows as tuples](rows_as_tuples.html)
 * [how `CsvReader` guessed how to turn CSV rows into `List[Float]` instances](cells_as_arbitrary_types.html) 
-* [encoding rows as collections](collections_as_rows.html)
+* [encoding collections as rows](collections_as_rows.html)
 * [how we were able to turn a `URL` into CSV data](csv_sources.html)
 
 [`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List

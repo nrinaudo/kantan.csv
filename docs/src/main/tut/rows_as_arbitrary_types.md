@@ -10,19 +10,14 @@ to decode rows into types that are none of these.
 
 Let's take the same example we did before:
 
-```
-Year,Make,Model,Description,Price
-1997,Ford,E350,"ac, abs, moon",3000.00
-1999,Chevy,"Venture ""Extended Edition""","",4900.00
-1999,Chevy,"Venture ""Extended Edition, Very Large""",,5000.00
-1996,Jeep,Grand Cherokee,"MUST SELL!
-air, moon roof, loaded",4799.00
-```
-
-This data is available here:
-
 ```tut:silent
 val rawData: java.net.URL = getClass.getResource("/wikipedia.csv")
+```
+
+This is what this data looks like:
+
+```tut
+scala.io.Source.fromURL(rawData).mkString
 ```
 
 Now, let's imagine we have a class that is not a case class into which we'd like to decode each row:
@@ -62,6 +57,14 @@ for us.
 Note that [`decoder5`] also takes a list of indexes as parameter - these map each parameter to a index in a CSV row.
 If, as is our case here, there's an exact mapping between the parameters of our construction function and the cells
 of each CSV row, the [`ordered5`] method is slightly easier to call.
+
+## What to read next
+
+If you want to learn more about:
+
+* [decoding entire CSV files in one go](data_as_collection.html)
+* [encoding arbitrary types as rows](arbitrary_types_as_rows.html)
+* [how we were able to turn a `URL` into CSV data](csv_sources.html)
 
 [`RowDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package@RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]
 [`decoder5`]:{{ site.baseurl }}/api/#kantan.csv.RowDecoder$@decoder5[A1,A2,A3,A4,A5,R](f:(A1,A2,A3,A4,A5)=>R)(i1:Int,i2:Int,i3:Int,i4:Int,i5:Int)(implicita1:kantan.csv.CellDecoder[A1],implicita2:kantan.csv.CellDecoder[A2],implicita3:kantan.csv.CellDecoder[A3],implicita4:kantan.csv.CellDecoder[A4],implicita5:kantan.csv.CellDecoder[A5]):kantan.csv.RowDecoder[R]

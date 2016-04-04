@@ -10,21 +10,17 @@ In a [previous tutorial](rows_as_tuples), we saw how to decode CSV rows into tup
 want a more specific type - a `Point` instead of an `(Int, Int)`, say. Case classes lend themselves well to such
 scenarios, and kantan.csv has various mechanisms to support them.
  
-Take, for example, the [wikipedia CSV example](https://en.wikipedia.org/wiki/Comma-separated_values#Example):
+Take, for example, the [wikipedia CSV example](https://en.wikipedia.org/wiki/Comma-separated_values#Example), which
+we'll get from this project's resources:
 
-```
-Year,Make,Model,Description,Price
-1997,Ford,E350,"ac, abs, moon",3000.00
-1999,Chevy,"Venture ""Extended Edition""","",4900.00
-1999,Chevy,"Venture ""Extended Edition, Very Large""",,5000.00
-1996,Jeep,Grand Cherokee,"MUST SELL!
-air, moon roof, loaded",4799.00
-```
-
-I have this data as a resource, so let's declare it:
- 
 ```tut:silent
 val rawData: java.net.URL = getClass.getResource("/wikipedia.csv")
+```
+
+This is what this data looks like:
+
+```tut
+scala.io.Source.fromURL(rawData).mkString
 ```
 
 An obvious representation of each row in this data would be:
@@ -79,13 +75,13 @@ Let's verify that this worked as expected:
 rawData.asCsvReader[Car2](',', true).foreach(println _)
 ```
 
-
 ## What to read next
 
 If you want to learn more about:
 
-* [decoders and codecs](codecs.html)
-* [how we were able to turn a `URI` into CSV data](csv_sources.html)
+* [decoding rows as arbitrary types](rows_as_arbitrary_types.html)
+* [encoding case classes as rows](case_classes_as_rows.html)
+* [how we were able to turn a `URL` into CSV data](csv_sources.html)
  
 
 [`RowDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package@RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]

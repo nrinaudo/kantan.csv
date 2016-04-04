@@ -62,8 +62,9 @@ parameters. This can be ignored most of the time, but "advanced" error handling 
 
 
 ## Fail if at least one row fails to decode
-When not streaming data, a good option is to fail if a single row fails to decode - turn a `List[ReadResult[A]]` into
-a `ReadResult[List[A]]`. This is done through [`Result`]'s [`sequence`] method:
+When not streaming data, a good option is to fail if a single row fails to decode - turn a
+[`List[ReadResult[A]]`][`List`] into a [`ReadResult[List[A]]`][`ReadResult`]. This is done through [`Result`]'s
+[`sequence`] method:
 
 ```tut
 kantan.codecs.Result.sequence(rawData.readCsv[List, Person](',', false))
@@ -73,8 +74,8 @@ The only real downside to this approach is that it requires loading the entire d
  
 
 ## Turn errors into default values
-Some data types have reasonable default values that can be used instead of errors - one could turn a `ReadError[Int]`
-into `Success(0)`, for instance.
+Some data types have reasonable default values that can be used instead of errors - one could turn a 
+[`ReadError[Int]`][`ReadError`] into [`Success(0)`][`Success`], for instance.
 
 This is achieved through [`getOrElse`] (even if this example doesn't make much practical sense):
 
@@ -101,6 +102,7 @@ Following the same general idea, one could use [`Option`] for fields that are no
 
 This strategy is not always possible, but is good to keep in mind for these cases where it can be applied.
 
+[`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List
 [`asUnsafeCsvReader`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$4:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]
 [`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package@ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]
 [`Result`]:http://nrinaudo.github.io/kantan.codecs/api/#kantan.codecs.Result
@@ -111,3 +113,5 @@ This strategy is not always possible, but is good to keep in mind for these case
 [`Option`]:http://www.scala-lang.org/api/current/index.html#scala.Option
 [`sequence`]:http://nrinaudo.github.io/kantan.codecs/api/#kantan.codecs.Result$@sequence[F,S,M[X]<:TraversableOnce[X]](rs:M[kantan.codecs.Result[F,S]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[kantan.codecs.Result[F,S]],S,M[S]]):kantan.codecs.Result[F,M[S]]
 [`getOrElse`]:http://nrinaudo.github.io/kantan.codecs/api/#kantan.codecs.Result@getOrElse[SS>:S](default:=>SS):SS
+[`ReadError`]:{{ site.baseurl }}/api/#kantan.csv.ReadError
+[`Success`]:http://nrinaudo.github.io/kantan.codecs/api/#kantan.codecs.Result$$Success
