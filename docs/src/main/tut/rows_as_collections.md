@@ -4,22 +4,22 @@ title:  "Decoding rows as collections"
 section: tutorial
 sort: 1
 ---
-A simple but very common type of CSV data is rows of numerical values, such as the following:
+A simple but very common type of CSV data is rows of numerical values. This is something that kantan.csv tries to make
+as as easy as possible to deal with.
 
-```
-85.5, 54.0, 74.7, 34.2
-63.0, 75.6, 46.8, 80.1
-85.5, 39.6, 2.7, 38.7
-```
-
-I have this data as a resource, so let's make it available to the rest of this tutorial:
+First, we'll need some sample CSV data, which we'll get from this project's resources:
 
 ```tut:silent
 val rawData: java.net.URL = getClass.getResource("/nums.csv")
 ```
 
+This is what we're trying to parse:
 
-kantan.csv makes it relatively simple to parse this. All we need to do is retrieve a [`CsvReader`] instance:
+```tut
+scala.io.Source.fromURL(rawData).mkString
+```
+
+In order to turn this into useful types, all we need to do is retrieve a [`CsvReader`] instance:
 
 ```tut:silent
 import kantan.csv.ops._ // Brings in the kantan.csv syntax.
@@ -30,10 +30,10 @@ val reader = rawData.asCsvReader[List[Float]](',', false)
 The [`asCsvReader`] scaladoc can seem a bit daunting with all its implicit parameters, so let's demystify it.
 
 The first thing you'll notice is that it takes a type parameter, which is the type into which each row will be
-decoded. In our example, we requested each row to be decoded into a `List[Float]`.
+decoded. In our example, we requested each row to be decoded into a [`List[Float]`][`List`].
 
-The first value parameter, `,`, is the character that should be used as a column separator. It's usually `,`, but can
-change - Excel, for instance, is infamous for using a system-dependent column separator.
+The first value parameter, `,`, is the character that should be used as a column separator. It's usually a comma, but
+not all implementations agree on that - Excel, for instance, is infamous for using a system-dependent column separator.
 
 Finally, the last value parameter is a boolean flag that, when set to `true`, will cause the first row to be skipped.
 This is important for CSV data that contains a header row.
@@ -48,14 +48,19 @@ Note that each result is wrapped in an instance of [`ReadResult`]. This allows d
 exception will be thrown, all error conditions are encoded at the type level. If safety is not a concern and you'd
 rather let your code crash than deal with error conditions, you can use [`asUnsafeCsvReader`] instead.
 
+Finally, observant readers might have noticed that we didn't bother closing the [`CsvReader`] - we're obviously dealing
+with some sort of streamed resource, not closing it seems like a bug. In this specific case, however, it's not 
+necessary: [`CsvReader`] will automatically close any underlying resource when it's been consumed entirely, or a fatal 
+error occurs.
+
 ## What to read next
 If you want to learn more about:
 
-* [decoders and codecs](codecs.html)
-* [how we were able to turn a `URI` into CSV data](csv_sources.html)
-* [how to turn CSV rows into more useful types](rows_as_arbitrary_types.html)
- 
+* [how `CsvReader` guessed how to turn CSV rows into `List[Float]` instances](cells_as_arbitrary_types.html) 
+* [encoding rows as collections](collections_as_rows.html)
+* [how we were able to turn a `URL` into CSV data](csv_sources.html)
 
+[`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List
 [syntax]:{{ site.baseurl }}/api/#kantan.csv.ops$
 [`CsvReader`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader
 [`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package@CellDecoder[A]=kantan.codecs.Decoder[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]
