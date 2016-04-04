@@ -12,18 +12,16 @@ we'll take a deeper look at the underlying mechanism.
 
 Cell decoding is type class based: kantan.csv knows how to turn a CSV cell into a type `A`, provided that there is an
 implicit instance of [`CellDecoder[A]`][`CellDecoder`] in scope. All sane primitive types have a default implementation
-in scope, which we can check by attempting to summon them:
+in scope - `Int`, for example:
 
 ```tut
-import kantan.csv._
-
-implicitly[CellDecoder[Int]]
-implicitly[CellDecoder[Float]]
-implicitly[CellDecoder[Boolean]]
+implicitly[kantan.csv.CellDecoder[Int]]
 ```
 
+A more complete list of default instances can be found [here](default_instances.html).
+
 And so, when [`asCsvReader`] or [`readCsv`] are asked to turn a row into a [`List`] of elements `A`, it looks for a
-corresponding implicit [`CellCoder`] and relies on it for decoding:
+corresponding implicit [`CellDecoder[A]`][`CellDecoder`] and relies on it for decoding:
 
 ```tut
 import kantan.csv.ops._
@@ -37,6 +35,7 @@ In order to add support to non-standard types, all you need to do is implement a
 that type. Let's do so, for example, for Joda [`DateTime`]:
  
 ```tut:silent
+import kantan.csv._
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 
@@ -51,6 +50,12 @@ And we can now decode CSV data composed of dates:
 ```tut
 "2009-01-06,2009-01-07\n2009-01-08,2009-01-09".asCsvReader[List[DateTime]](',', false).foreach(println _)
 ```
+
+## What to read next
+If you want to learn more about:
+
+* [encoding arbitrary types](arbitrary_types_as_cells.html)
+* [declaring decoders and encoders in a single call](codecs.html)
  
 [`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package@CellDecoder[A]=kantan.codecs.Decoder[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]
 [`asCsvReader`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
