@@ -55,6 +55,7 @@ And we can now decode CSV data composed of dates:
 If you want to learn more about:
 
 * [encoding arbitrary types](arbitrary_types_as_cells.html)
+* [encoding tuples as rows](tuples_as_rows.html)
 * [declaring decoders and encoders in a single call](codecs.html)
  
 [`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package@CellDecoder[A]=kantan.codecs.Decoder[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]

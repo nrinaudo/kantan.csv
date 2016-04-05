@@ -16,7 +16,6 @@ import kantan.csv.ops._
 // File in which we'll be writing the CSV data.
 val out = java.io.File.createTempFile("kantan.csv", "csv")
 
-// Writer on `out`
 val writer = out.asCsvWriter[List[Int]](',', List("Column 1", "Column 2", "Column 3"))
 ```
 
@@ -26,7 +25,8 @@ requested any subtype of [`TraversableOnce`] of any primitive Scala type.
 
 The value parameters are the column separator and optional header row.
 
-Now that we have a [`CsvWriter`] that knows how to encode `List[Int]`, we can just call its [`write`] method repeatedly:
+Now that we have a [`CsvWriter`] that knows how to encode [`List[Int]`][`List`], we can just call its [`write`] method 
+repeatedly:
 
 ```tut:silent
 // Writes a couple of rows.
@@ -48,6 +48,16 @@ scala.io.Source.fromFile(out).mkString
 ```
 
 
+## What to read next
+If you want to learn more about:
+
+* [encoding tuples as rows](tuples_as_rows.html)
+* [encoding arbitrary types as cells](arbitrary_types_as_cells.html)
+* [decoding rows from collections](rows_from_collections.html)
+* [how we were able to turn a `File` into a `CsvWriter`](csv_sinks.html)
+
+
+[`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List
 [`CsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter
 [`Writer`]:https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html
 [`write`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter@write(a:A):kantan.csv.CsvWriter[A]

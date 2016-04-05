@@ -11,16 +11,14 @@ this tutorial, we'll take a deeper look at the underlying mechanism.
 ## General mechanism
 
 Cell encoding is type class based: kantan.csv knows how to turn a type `A` into a CSV cell, provided that there is an
-implicit instance of [`CellEncoder[A]`][`CellEncoder`] in scope. All sane primitive types have a default implementation
-in scope, which we can check by attempting to summon them:
+implicit instance of [`CellEncoder[A]`][`CellEncoder`] in scope. All sane primitive types have default implementations
+ - `Int`, for example:
 
 ```tut
-import kantan.csv._
-
-implicitly[CellEncoder[Int]]
-implicitly[CellEncoder[Float]]
-implicitly[CellEncoder[Boolean]]
+implicitly[kantan.csv.CellEncoder[Int]]
 ```
+
+A more complete list of default instances can be found [here](default_instances.html)
 
 And so, when [`asCsvWriter`], [`writeCsv`] or [`asCsv`] are asked to turn a collection of elements `A` into a CSV row,
 it looks for a corresponding implicit [`CellEncoder`] and relies on it for encoding:
@@ -37,6 +35,7 @@ In order to add support to non-standard types, all you need to do is implement a
 that type. Let's do so, for example, for Joda [`DateTime`]:
  
 ```tut:silent
+import kantan.csv._
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 
@@ -55,8 +54,16 @@ List(
 ).asCsv(',')
 ```
 
+## What to read next
+If you want to learn more about:
+
+* [decoding arbitrary types](cells_as_arbitrary_types.html)
+* [decoding rows as tuples](rows_as_tuples.html)
+* [declaring decoders and encoders in a single call](codecs.html)
+
+
 [`asCsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvOutputOps@asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvOutput[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]
 [`asCsv`]:{{ site.baseurl }}/api/#kantan.csv.ops$$TraversableOnceOps@asCsv(sep:Char,header:Seq[String])(implicitengine:kantan.csv.engine.WriterEngine,implicitae:kantan.csv.RowEncoder[A]):String
 [`writeCsv`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvOutputOps@writeCsv[B](rows:TraversableOnce[B],sep:Char,header:Seq[String])(implicitevidence$2:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvOutput[A],implicite:kantan.csv.engine.WriterEngine):Unit
-[`CellEncoder`]:{{ site.baseurl }}/api/#kantan.csv.CellEncoder$
+[`CellEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CellEncoder[A]=kantan.codecs.Encoder[String,A,kantan.csv.codecs.type]
 [`DateTime`]:http://www.joda.org/joda-time/apidocs/org/joda/time/DateTime.html

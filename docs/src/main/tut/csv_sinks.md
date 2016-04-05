@@ -8,9 +8,9 @@ All the encoding tutorials, such as [this](serialising_collections.html) one, ma
 [`asCsvWriter`] method of [`File`], when [`File`] does not in fact have such a method. This works thanks to the
 [`CsvOutput`] type class.
 
-What happens is, any type `A` such that there exists an implicit instance of `CsvOutput[A]` in scope will be enriched
-with various [useful methods]({{ site.baseurl }}/api/#kantan.csv.ops$$CsvOutputOps) for CSV serialisation. Various
-default implementations are automatically in scope, such as one for [`Writer`] or [`OutputStream`], but the most
+What happens is, any type `A` such that there exists an implicit instance of [`CsvOutput[A]`][`CsvOutput`] in scope will
+be enriched with various [useful methods]({{ site.baseurl }}/api/#kantan.csv.ops$$CsvOutputOps) for CSV serialisation.
+Various default implementations are automatically in scope, such as one for [`Writer`] or [`OutputStream`], but the most
 useful one is [`File`].
 
 ## Implementation from scratch

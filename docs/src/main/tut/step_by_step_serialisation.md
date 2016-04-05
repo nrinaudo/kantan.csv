@@ -9,7 +9,7 @@ however, always possible or even desirable: if the data to encode is obtained in
 encoded it as it comes.
 
 kantan.csv provides a useful class for this scenario: [`CsvWriter`], which can be thought of as a highly specialised
-version of [`java.io.Writer`].
+version of [`Writer`].
 
 First, let's set up a type to encode as CSV (if the reason why the following code works is not clear, you can
 [read up on it](case_classes_as_rows.html)).
@@ -53,9 +53,14 @@ Let's make sure that we get the expected output:
 scala.io.Source.fromFile(out).mkString
 ```
 
+## What to read next
+If you want to learn more about:
+
+* [how we were able to turn a `File` into a `CsvWriter`](csv_sinks.html)
+
 [`asCsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvOutputOps@asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvOutput[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]
 [`CsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter
 [`CsvOutput`]:{{ site.baseurl }}/api/#kantan.csv.CsvOutput
-[`java.io.Writer`]:https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html
+[`Writer`]:https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html
 [`write`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter@write(a:A):kantan.csv.CsvWriter[A]
 [`close`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter@close():Unit

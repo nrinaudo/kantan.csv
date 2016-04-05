@@ -49,6 +49,14 @@ that: [`asCsv`]. For example:
 ps.asCsv(',', List("Id", "Name", "Age"))
 ```
 
+## What to read next
+
+If you want to learn more about:
+
+* [how we were able to turn a `File` into a `CsvWriter`](csv_sinks.html)
+* [how to write CSV row by row](step_by_step_serialisation.html)
+
+
 [`asCsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvOutputOps@asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvOutput[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]
 [`writeCsv`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvOutputOps@writeCsv[B](rows:TraversableOnce[B],sep:Char,header:Seq[String])(implicitevidence$2:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvOutput[A],implicite:kantan.csv.engine.WriterEngine):Unit
 [`TraversableOnce`]:http://www.scala-lang.org/api/current/index.html#scala.collection.List

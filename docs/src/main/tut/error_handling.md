@@ -102,6 +102,7 @@ Following the same general idea, one could use [`Option`] for fields that are no
 
 This strategy is not always possible, but is good to keep in mind for these cases where it can be applied.
 
+
 [`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List
 [`asUnsafeCsvReader`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$4:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]
 [`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package@ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]

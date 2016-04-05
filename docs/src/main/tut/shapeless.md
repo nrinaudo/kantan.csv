@@ -9,6 +9,12 @@ some are made problematic by my strict rule against runtime reflection. Fortunat
 provides _compile time_ reflection, which makes it possible for the `generic` module to automatically derive instances
 for more common types and patterns.
 
+The `generic` module can be used by adding the following dependency to your `build.sbt`:
+
+```scala
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.1.9"
+```
+
 Let's first declare the imports we'll need in the rest of this tutorial:
 
 ```tut:silent
@@ -117,6 +123,11 @@ val decoded = "1,\n2,false".unsafeReadCsv[List, CustomTuple2[Int, Maybe[Boolean]
 
 decoded.asCsv(',')
 ```
+
+It is *very* important to realise that while this is a pretty nice feature, it's also a very limited one. The only
+time where you can get your case class codecs derived automatically is when the case class' fields and the CSV columns
+are in exactly the same order. Any other scenario and you need to use old fashioned
+[encoders](arbitrary_types_as_rows.html) and [decoders](rows_as_arbitrary_types.html).
 
 ### Sum types
 

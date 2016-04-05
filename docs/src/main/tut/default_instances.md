@@ -44,7 +44,9 @@ This is useful for CSV data where some fields are optional and an empty value is
 ### Composition
 
 It's important to realise that these instances compose automatically. `Int` has a [`CellDecoder`], which means that
-`Option[Int]` does to. `Boolean` has a [`CellDecoder`], which means that `Either[Option[Int], Boolean]` does too.
+[`Option[Int]`][`Option`] does to. `Boolean` has a [`CellDecoder`], which means that
+[`Either[Option[Int], Boolean]`][`Either`] does
+too.
 
 
 ## Rows
@@ -135,3 +137,5 @@ The following types have an instance of [`CsvOutput`] out of the box:
 [`java.net.URI`]:https://docs.oracle.com/javase/7/docs/api/java/net/URI.html
 [`CsvOutput`]:{{ site.baseurl }}/api/#kantan.csv.CsvOutput
 [`CsvInput`]:{{ site.baseurl }}/api/#kantan.csv.CsvInput
+[`Option`]:http://www.scala-lang.org/api/current/index.html#scala.Option
+[`Either`]:http://www.scala-lang.org/api/current/index.html#scala.util.Either

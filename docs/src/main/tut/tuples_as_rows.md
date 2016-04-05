@@ -19,7 +19,6 @@ import kantan.csv.ops._
 // File in which we'll be writing the CSV data.
 val out = java.io.File.createTempFile("kantan.csv", "csv")
 
-// Writer on `out`
 val writer = out.asCsvWriter[(Int, Float, Boolean)](',', List("Column 1", "Column 2", "Column 3"))
 ```
 
@@ -46,6 +45,13 @@ Let's make sure that we got the expected output:
 ```tut
 scala.io.Source.fromFile(out).mkString
 ```
+
+## What to read next
+If you want to learn more about:
+
+* [encoding case classes as rows](case_classes_as_rows.html) 
+* [decoding rows as tuples](rows_as_typles.html)
+* [how we were able to turn a `File` into a `CsvWriter`](csv_sinks.html)
 
 
 [`CsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter
