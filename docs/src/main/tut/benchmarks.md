@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Benchmarks"
+title: "Benchmarks"
 ---
 
 ## Benchmarked libraries

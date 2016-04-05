@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Scalaz-stream module"
+title: "Scalaz-stream module"
 section: tutorial
 status: wip
 sort: 24

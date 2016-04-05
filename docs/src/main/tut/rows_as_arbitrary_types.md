@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Decoding rows as arbitrary types"
+title: "Decoding rows as arbitrary types"
 section: tutorial
 sort: 5
 ---

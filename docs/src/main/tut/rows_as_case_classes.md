@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Decoding rows as case classes"
+title: "Decoding rows as case classes"
 section: tutorial
 sort: 4
 ---

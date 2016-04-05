@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Encoding collections as rows"
+title: "Encoding collections as rows"
 section: tutorial
 sort: 10
 ---

@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Encoding case classes as rows"
+title: "Encoding case classes as rows"
 section: tutorial
 sort: 13
 ---

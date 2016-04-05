@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Encoding arbitrary types as rows"
+title: "Encoding arbitrary types as rows"
 section: tutorial
 sort: 14
 ---

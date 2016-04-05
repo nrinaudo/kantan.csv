@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Encoders, decoders and codecs"
+title: "Encoders, decoders and codecs"
 section: tutorial
 sort: 18
 ---

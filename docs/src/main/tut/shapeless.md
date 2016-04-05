@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Generic module"
+title: "Generic module"
 section: tutorial
 sort: 21
 ---

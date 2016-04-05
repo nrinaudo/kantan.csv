@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "External CSV libraries"
+title: "External CSV libraries"
 section: tutorial
 sort: 20
 ---

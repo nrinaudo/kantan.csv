@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Encoding one row at a time"
+title: "Encoding one row at a time"
 section: tutorial
 sort: 16
 ---

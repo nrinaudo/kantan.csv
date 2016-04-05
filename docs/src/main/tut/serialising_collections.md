@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Encoding entire collections"
+title: "Encoding entire collections"
 section: tutorial
 sort: 15
 ---

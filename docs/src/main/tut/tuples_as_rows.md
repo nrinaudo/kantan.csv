@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Encoding tuples as rows"
+title: "Encoding tuples as rows"
 section: tutorial
 sort: 12
 ---

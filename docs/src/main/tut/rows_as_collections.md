@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Decoding rows as collections"
+title: "Decoding rows as collections"
 section: tutorial
 sort: 1
 ---

@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Decoding rows as tuples"
+title: "Decoding rows as tuples"
 section: tutorial
 sort: 3
 ---

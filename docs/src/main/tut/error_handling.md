@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Error handling"
+title: "Error handling"
 section: tutorial
 sort: 9
 ---
