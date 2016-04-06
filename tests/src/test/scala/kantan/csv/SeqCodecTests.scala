@@ -6,7 +6,7 @@ import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
-class SeqTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class SeqCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   implicit val arb: Arbitrary[Seq[Int]] = Arbitrary(Gen.nonEmptyContainerOf[Seq, Int](Arbitrary.arbitrary[Int]))
 
   checkAll("RowCodec[Seq[Int]]", RowCodecTests[Seq[Int]].codec[List[String], List[Float]])

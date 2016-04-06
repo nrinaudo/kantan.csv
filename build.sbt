@@ -2,7 +2,7 @@ import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
 import com.typesafe.sbt.SbtSite.SiteKeys._
 import UnidocKeys._
 
-val kantanCodecsVersion        = "0.1.1"
+val kantanCodecsVersion        = "0.1.2-SNAPSHOT"
 val catsVersion                = "0.4.1"
 val macroParadiseVersion       = "2.1.0"
 val scalaCheckVersion          = "1.12.5"

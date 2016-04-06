@@ -7,7 +7,7 @@ import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
-class BigDecimalTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class BigDecimalCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   // This is necessary to prevent ScalaCheck from generating BigDecimal values that cannot be serialized because their
   // scale is higher than MAX_INT.
   // Note that this isn't actually an issue with ScalaCheck but with Scala itself, and is(?) fixed in Scala 2.12:
