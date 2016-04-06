@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "Encoding arbitrary types as rows"
 section: tutorial
 sort: 14

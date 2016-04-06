@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "What can be parsed as CSV data?"
 section: tutorial
 sort: 8

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "Decoding CSV data one row at a time"
 section: tutorial
 sort: 7

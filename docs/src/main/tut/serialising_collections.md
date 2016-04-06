@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "Encoding entire collections"
 section: tutorial
 sort: 15

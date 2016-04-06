@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "Cats module"
 section: tutorial
 status: wip

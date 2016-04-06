@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "Encoding arbitrary types as cells"
 section: tutorial
 sort: 11

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "Decoding rows as collections"
 section: tutorial
 sort: 1

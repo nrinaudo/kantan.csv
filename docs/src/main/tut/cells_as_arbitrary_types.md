@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "Decoding cells as arbitrary types"
 section: tutorial
 sort: 2

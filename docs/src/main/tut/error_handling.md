@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "Error handling"
 section: tutorial
 sort: 9

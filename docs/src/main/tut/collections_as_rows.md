@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "Encoding collections as rows"
 section: tutorial
 sort: 10

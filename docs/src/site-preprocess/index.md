@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: index
 ---
 
 [![Build Status](https://travis-ci.org/nrinaudo/kantan.csv.svg)](https://travis-ci.org/nrinaudo/kantan.csv)
@@ -37,7 +37,7 @@ libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "@VERSION@"
 Additionally, while kantan.csv comes with a default parser / serializer (that has
 [pretty good]({{ site.baseurl }}/tut/benchmarks.html) performances), some people might prefer to use older, more
 reputable implementations. The following engines are currently supported:
- 
+
 ```scala
 // opencsv engine.
 libraryDependencies += "com.nrinaudo" %% "kantan.csv-opencsv" % "@VERSION@"
@@ -66,14 +66,3 @@ into it.
 While I'm pretty happy with kantan.csv, or at least the direction it's headed, I do not pretend that it will fit
 all use cases. It fits mine, but might not work for everyone. I'm happy to hear suggestions on how this can be
 addressed, though.
-
-
-## Tutorials
-
-The following tutorials are available:
-{% assign sorted_pages = (site.tut | sort: 'sort') %}
-{% for x in sorted_pages %}
-{% if x.status != "wip" and x.section == "tutorial" %}
-* [{{ x.title }}]({{ site.baseurl }}{{ x.url }})
-{% endif %}
-{% endfor %}

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "Decoding rows as case classes"
 section: tutorial
 sort: 4

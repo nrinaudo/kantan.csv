@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "Encoding case classes as rows"
 section: tutorial
 sort: 13

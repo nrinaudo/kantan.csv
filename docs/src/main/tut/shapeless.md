@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "Generic module"
 section: tutorial
 sort: 21

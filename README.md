@@ -17,15 +17,15 @@ looking for a few quick examples:
 
 ```scala
 import java.io.File
-import kantan.csv._                // All kantan.csv types.
-import kantan.csv.ops._            // Enriches types with useful methods.
-import kantan.csv.generic.codecs._ // Automatic derivation of codecs for case classes.
+import kantan.csv._         // All kantan.csv types.
+import kantan.csv.ops._     // Enriches types with useful methods.
+import kantan.csv.generic._ // Automatic derivation of codecs for case classes.
 
-// Reading from a file: returns an Iterator[(Int, Int)]
-new File("points.csv").asUnsafeCsvReader[(Int, Int)](',', false)
+// Reading from a file: returns an iterator-like structure on (Int, Int)
+new File("points.csv").asCsvReader[(Int, Int)](',', false)
 
 // "Complex" types derivation: the second column is either an int, or a string that might be empty.
-new File("dodgy.csv").asUnsafeCsvReader[(Int, Either[Int, Option[String]])](',', false)
+new File("dodgy.csv").asCsvReader[(Int, Either[Int, Option[String]])](',', false)
 
 case class Point2D(x: Int, y: Int)
 

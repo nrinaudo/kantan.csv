@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "Default instances"
 section: tutorial
 sort: 19

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "Encoding tuples as rows"
 section: tutorial
 sort: 12

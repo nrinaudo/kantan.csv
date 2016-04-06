@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "External CSV libraries"
 section: tutorial
 sort: 20

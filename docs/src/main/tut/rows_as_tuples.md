@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "Decoding rows as tuples"
 section: tutorial
 sort: 3

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "Scalaz module"
 section: tutorial
 status: wip

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "Decoding CSV data into a collection"
 section: tutorial
 sort: 6

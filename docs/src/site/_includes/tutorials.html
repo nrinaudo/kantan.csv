@@ -1,0 +1,14 @@
+<ul id="tutorials">
+    {% assign sorted_pages = (site.tut | sort: 'sort') %}
+    {% for x in sorted_pages %}
+    {% if x.status != "wip" and x.section == "tutorial" %}
+    <li><i class="fa fa-angle-right"></i>
+        {% if page.url == x.url %}
+        <span>{{ x.title }}</span>
+        {% else %}
+        <a href="{{ site.baseurl }}{{ x.url }}">{{ x.title }}</a>
+        {% endif %}
+    </li>
+    {% endif %}
+    {% endfor %}
+</ul>

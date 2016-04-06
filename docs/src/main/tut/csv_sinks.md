@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "What can CSV data be written to?"
 section: tutorial
 sort: 17

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: "Encoding one row at a time"
 section: tutorial
 sort: 16
