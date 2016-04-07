@@ -21,6 +21,8 @@ The following types have [`CellCodec`] instances available out of the box:
 * `Short`
 * `String`
 * `UUID`
+* `URI`
+* `URL`
 
 ### `Either`
 
