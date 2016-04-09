@@ -37,6 +37,9 @@ new File("output.csv").asCsvWriter[Point2D](',')
   .write(Point2D(0, 1))
   .write(Point2D(2, 3))
   .close()
+  
+// Writing a collection to a CSV file
+new File("output.csv").writeCsv[Point2D](List(Point2D(0, 1), Point2D(2, 3)), ',')
 ```
 
 kantan.csv is distributed under the [MIT License](http://opensource.org/licenses/mit-license.php).
