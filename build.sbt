@@ -2,7 +2,7 @@ import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
 import com.typesafe.sbt.SbtSite.SiteKeys._
 import UnidocKeys._
 
-val kantanCodecsVersion        = "0.1.2-SNAPSHOT"
+val kantanCodecsVersion        = "0.1.2"
 val catsVersion                = "0.4.1"
 val macroParadiseVersion       = "2.1.0"
 val scalaCheckVersion          = "1.12.5"
@@ -13,7 +13,7 @@ val scalazVersion              = "7.2.0"
 val scalazStreamVersion        = "0.8"
 val productCollectionVersion   = "1.4.3"
 val opencsvVersion             = "3.7"
-val univocityVersion           = "2.0.0"
+val univocityVersion           = "2.0.2"
 val jacksonCsvVersion          = "2.7.3"
 val commonsCsvVersion          = "1.2"
 val scalacheckShapelessVersion = "1.12.1"

@@ -8,12 +8,12 @@ title: "Benchmarks"
 | Library               | Version |
 |-----------------------|---------|
 | [commons csv]         |     1.2 |
-| [jackson csv]         |   2.7.0 |
-| [opencsv]             |     3.6 |
-| [product collections] |   1.4.2 |
-| [scala csv]           |   1.2.2 |
+| [jackson csv]         |   2.7.3 |
+| [opencsv]             |     3.7 |
+| [product collections] |   1.4.3 |
+| [scala csv]           |   1.3.0 |
 | kantan.csv            |   0.1.8 |
-| [uniVocity]           |   1.5.6 |
+| [uniVocity]           |   2.0.2 |
 
 In order to be included in this benchmark, a library must be:
 
