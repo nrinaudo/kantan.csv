@@ -220,7 +220,7 @@ lazy val jodaTime = Project(id = "joda-time", base = file("joda-time"))
     "org.scalatest" %% "scalatest"                    % scalatestVersion    % "test"
   ))
   .settings(allSettings: _*)
-  .dependsOn(scalaz, laws % "test")
+  .dependsOn(core, laws % "test")
 
 lazy val tests = project
   .enablePlugins(spray.boilerplate.BoilerplatePlugin)
