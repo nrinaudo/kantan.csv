@@ -1,13 +1,12 @@
 package kantan.csv.laws
 
-import kantan.csv.CsvInput
 import kantan.csv.engine.ReaderEngine
 import kantan.csv.ops._
 import org.scalacheck.Prop._
 
 trait ReaderEngineLaws extends RfcReaderLaws with SpectrumReaderLaws with KnownFormatsReaderLaws {
   private def asReader(csv: List[List[Cell]]): kantan.csv.CsvReader[List[Cell]] =
-    CsvInput[String].unsafeReader[List[Cell]](csv.asCsv(','), ',', false)
+    csv.asCsv(',').asUnsafeCsvReader[List[Cell]](',', false)
 
   def nextOnEmpty(csv: List[List[Cell]]): Boolean = {
     val data = asReader(csv)

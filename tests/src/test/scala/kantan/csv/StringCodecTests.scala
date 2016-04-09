@@ -1,6 +1,6 @@
 package kantan.csv
 
-import kantan.csv.laws.discipline.CellCodecTests
+import kantan.csv.laws.discipline._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline

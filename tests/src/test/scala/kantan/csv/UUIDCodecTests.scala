@@ -1,7 +1,8 @@
 package kantan.csv
 
 import java.util.UUID
-import kantan.csv.laws.discipline.CellCodecTests
+import kantan.csv.laws.discipline._
+import kantan.csv.laws.discipline.arbitrary._
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
@@ -11,4 +12,5 @@ class UUIDCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Di
   implicit val arbUUID = Arbitrary(Gen.uuid)
 
   checkAll("CellCodec[UUID]", CellCodecTests[UUID].codec[String, Float])
+  checkAll("RowCodec[UUID]", RowCodecTests[UUID].codec[String, Float])
 }

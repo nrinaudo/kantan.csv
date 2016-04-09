@@ -50,8 +50,9 @@ trait ArbitraryInstances extends kantan.csv.laws.discipline.ArbitraryArities {
 
   // - Codec values ----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-
-
   implicit def rowOpt[D: Arbitrary](implicit cd: GenCodecValue[Seq[String], D]): GenCodecValue[Seq[String], Option[D]] =
     GenCodecValue.option[Seq[String], D](Seq.empty)
+
+  implicit def rowFromCell[D: Arbitrary](implicit cd: GenCodecValue[String, D]): GenCodecValue[Seq[String], D] =
+    GenCodecValue[Seq[String], D](d ⇒ Seq(cd.encode(d)))(es ⇒ es.length != 1 || cd.isIllegal(es.head))
 }
