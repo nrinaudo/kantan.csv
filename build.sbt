@@ -93,10 +93,11 @@ lazy val root = Project(id = "kantan-csv", base = file("."))
       |import kantan.csv._
       |import kantan.csv.ops._
       |import kantan.csv.generic._
+      |import kantan.csv.joda.time._
     """.stripMargin
   )
-  .aggregate(core, cats, scalaz, scalazStream, laws, tests, docs, generic, benchmark, jackson, commons, opencsv)
-  .dependsOn(core, generic)
+  .aggregate(core, cats, scalaz, scalazStream, laws, tests, docs, generic, benchmark, jackson, commons, opencsv, jodaTime)
+  .dependsOn(core, generic, jodaTime)
 
 lazy val core = project
   .enablePlugins(spray.boilerplate.BoilerplatePlugin)
@@ -207,6 +208,19 @@ lazy val cats = project
   ))
   .settings(allSettings: _*)
   .dependsOn(core, laws % "test")
+
+lazy val jodaTime = Project(id = "joda-time", base = file("joda-time"))
+  .settings(
+    moduleName := "kantan.csv-joda-time",
+    name       := "joda-time"
+  )
+  .settings(libraryDependencies ++= Seq(
+    "com.nrinaudo"  %% "kantan.codecs-joda-time"      % kantanCodecsVersion,
+    "com.nrinaudo"  %% "kantan.codecs-joda-time-laws" % kantanCodecsVersion % "test",
+    "org.scalatest" %% "scalatest"                    % scalatestVersion    % "test"
+  ))
+  .settings(allSettings: _*)
+  .dependsOn(scalaz, laws % "test")
 
 lazy val tests = project
   .enablePlugins(spray.boilerplate.BoilerplatePlugin)
