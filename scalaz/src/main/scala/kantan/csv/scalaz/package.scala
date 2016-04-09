@@ -17,7 +17,7 @@ package object scalaz extends kantan.codecs.scalaz.ScalazInstances {
   implicit def eitherRowEncoder[A, B](implicit ea: RowEncoder[A], eb: RowEncoder[B]): RowEncoder[A \/ B] =
     RowEncoder(_.fold(ea.encode, eb.encode))
 
-  implicit def foldableRowEncoder[A, F[_]](implicit ea: CellEncoder[A], F: Foldable[F]): RowEncoder[F[A]] =
+  implicit def foldableRowEncoder[F[_], A](implicit ea: CellEncoder[A], F: Foldable[F]): RowEncoder[F[A]] =
     RowEncoder(as ⇒ F.foldLeft(as, Seq.newBuilder[String])((acc, a) ⇒ acc += ea.encode(a)).result())
 
   implicit def maybeRowEncoder[A](implicit ea: RowEncoder[A]): RowEncoder[Maybe[A]] = new RowEncoder[Maybe[A]] {
