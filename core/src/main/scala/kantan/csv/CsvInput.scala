@@ -2,6 +2,7 @@ package kantan.csv
 
 import java.io._
 import java.net.{URI, URL}
+import java.nio.file.{Files, Path}
 import kantan.codecs.Result
 import kantan.csv.DecodeError.{OutOfBounds, TypeError}
 import kantan.csv.ParseError.{IOError, NoSuchElement, SyntaxError}
@@ -183,4 +184,7 @@ object CsvInput extends LowPriorityCsvInputs {
   implicit val chars: CsvInput[Array[Char]] = reader.contramap(cs ⇒ new CharArrayReader(cs))
   /** Turns any string into a source of CSV data. */
   implicit val string: CsvInput[String] = reader.contramap(s ⇒ new StringReader(s))
+  /** Turns any path into a source of CSV data. */
+  implicit def path(implicit codec: Codec): CsvInput[Path] =
+    reader.contramapResult(p ⇒ ParseResult(Files.newBufferedReader(p, codec.charSet)))
 }

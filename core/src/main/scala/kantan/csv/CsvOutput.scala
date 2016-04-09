@@ -1,6 +1,7 @@
 package kantan.csv
 
 import java.io._
+import java.nio.file.{Files, Path}
 import kantan.csv.engine.WriterEngine
 import scala.io.Codec
 
@@ -77,4 +78,7 @@ object CsvOutput {
 
   /** Default implementation for `File`. */
   implicit def file(implicit codec: Codec): CsvOutput[File] = outputStream.contramap(f ⇒ new FileOutputStream(f))
+
+  implicit def path(implicit codec: Codec): CsvOutput[Path] =
+    writer.contramap(p ⇒ Files.newBufferedWriter(p, codec.charSet))
 }
