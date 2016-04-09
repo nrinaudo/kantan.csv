@@ -65,16 +65,16 @@ the number, the better the results.
 
 | Library                  | μs/action |
 |--------------------------|-----------|
-| [commons csv]            |     58.54 |
-| [jackson csv]            |     26.80 |
-| kantan.csv (commons csv) |     62.42 |
-| kantan.csv (internal)    |     38.78 |
-| kantan.csv (jackson csv) |     34.94 |
-| kantan.csv (opencsv)     |     73.55 |
-| [opencsv]                |     62.43 |
-| [product collections]    |     57.28 |
-| [scala csv]              |    150.04 |
-| [uniVocity]              |     43.31 |
+| [commons csv]            |     53.71 |
+| [jackson csv]            |     26.60 |
+| kantan.csv (commons csv) |     66.60 |
+| kantan.csv (internal)    |     37.78 |
+| kantan.csv (jackson csv) |     36.52 |
+| kantan.csv (opencsv)     |     73.90 |
+| [opencsv]                |     64.83 |
+| [product collections]    |     52.24 |
+| [scala csv]              |    149.58 |
+| [uniVocity]              |     38.01 |
 
 A few things are worth pointing out:
 
@@ -90,16 +90,16 @@ serialized.
 
 | Library                  | μs/action |
 |--------------------------|-----------|
-| [commons csv]            |     28.11 |
-| [jackson csv]            |     23.21 |
-| kantan.csv (commons csv) |     43.16 |
-| kantan.csv (internal)    |     52.85 |
-| kantan.csv (jackson csv) |     42.67 |
-| kantan.csv (opencsv)     |     62.00 |
-| [opencsv]                |     42.15 |
-| [product collections]    |     92.74 |
-| [scala csv]              |    249.96 |
-| [uniVocity]              |    505.09 |
+| [commons csv]            |     27.87 |
+| [jackson csv]            |     23.29 |
+| kantan.csv (commons csv) |     31.98 |
+| kantan.csv (internal)    |     34.24 |
+| kantan.csv (jackson csv) |     26.94 |
+| kantan.csv (opencsv)     |     51.86 |
+| [opencsv]                |     41.61 |
+| [product collections]    |     90.76 |
+| [scala csv]              |    285.15 |
+| [uniVocity]              |     38.69 |
 
 The one thing I feel I must point out here is that [uniVocity]'s results are so poor, the reason has probably less to do
 with the library than how I'm using it. It's probably fair to ignore that number for the moment. As soon as I work out
