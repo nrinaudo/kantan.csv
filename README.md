@@ -42,4 +42,4 @@ new File("output.csv").asCsvWriter[Point2D](',')
 new File("output.csv").writeCsv[Point2D](List(Point2D(0, 1), Point2D(2, 3)), ',')
 ```
 
-kantan.csv is distributed under the [MIT License](http://opensource.org/licenses/mit-license.php).
+kantan.csv is distributed under the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0.html).
