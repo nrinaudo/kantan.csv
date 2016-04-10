@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: index
 ---
 
 [![Build Status](https://travis-ci.org/nrinaudo/kantan.csv.svg)](https://travis-ci.org/nrinaudo/kantan.csv)
@@ -14,39 +14,42 @@ kantan.csv is a library for CSV parsing and serialisation written in the
 
 kantan.csv is currently available both for Scala 2.10 and 2.11.
 
-The current version is `0.1.8`, which can be added to your project with one or more of the following line(s)
+The current version is `0.1.9`, which can be added to your project with one or more of the following line(s)
 in your SBT build file:
 
 ```scala
 // Core library, included automatically if any other module is imported.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv" % "0.1.8"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv" % "0.1.9"
 
 // Provides scalaz type class instances for kantan.csv, and vice versa.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz" % "0.1.8"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz" % "0.1.9"
 
 // Treat CSV data as sources and sinks.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz-stream" % "0.1.8"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz-stream" % "0.1.9"
 
 // Provides cats type class instances for kantan.csv, and vice versa.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-cats" % "0.1.8"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-cats" % "0.1.9"
 
 // Automatic type class instances derivation.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.1.8"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.1.9"
+
+// Provides instances for joda time types.
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-joda-time" % "0.1.9"
 ```
 
 Additionally, while kantan.csv comes with a default parser / serializer (that has
 [pretty good]({{ site.baseurl }}/tut/benchmarks.html) performances), some people might prefer to use older, more
 reputable implementations. The following engines are currently supported:
- 
+
 ```scala
 // opencsv engine.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-opencsv" % "0.1.8"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-opencsv" % "0.1.9"
 
 // commons-csv engine.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.1.8"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.1.9"
 
 // jackson-csv engine.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.1.8"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.1.9"
 ```
 
 
@@ -66,13 +69,3 @@ into it.
 While I'm pretty happy with kantan.csv, or at least the direction it's headed, I do not pretend that it will fit
 all use cases. It fits mine, but might not work for everyone. I'm happy to hear suggestions on how this can be
 addressed, though.
-
-
-## Tutorials
-
-The following tutorials are available:
-{% for x in site.tut %}
-{% if x.status != "wip" and x.section == "tutorial" %}
-* [{{ x.title }}]({{ site.baseurl }}{{ x.url }})
-{% endif %}
-{% endfor %}

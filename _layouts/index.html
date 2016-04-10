@@ -1,0 +1,13 @@
+{% include header.html %}
+<div id="content">
+    {% if page.title %}<h1>{{ page.title }}</h1>{% endif %}
+    {{ content }}
+
+
+    <h2>Tutorials</h2>
+
+    The following tutorials are available:
+    {% include tutorials.html %}
+</div>
+</body>
+</html>

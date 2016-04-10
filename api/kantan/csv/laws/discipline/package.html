@@ -47,13 +47,35 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"></div>
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/laws/src/main/scala/kantan/csv/laws/discipline/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
+          <span class="toggle">Linear Supertypes</span>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div></div>
         
 
       <div id="mbrsel">
         <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
-        
-        
+        <div id="order">
+              <span class="filtertype">Ordering</span>
+              <ol>
+                
+                <li class="alpha in"><span>Alphabetic</span></li>
+                <li class="inherit out"><span>By Inheritance</span></li>
+              </ol>
+            </div>
+        <div id="ancestors">
+                <span class="filtertype">Inherited<br />
+                </span>
+                <ol id="linearization">
+                  <li class="in" name="kantan.csv.laws.discipline"><span>discipline</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                </ol>
+              </div><div id="ancestors">
+            <span class="filtertype"></span>
+            <ol>
+              <li class="hideall out"><span>Hide All</span></li>
+              <li class="showall in"><span>Show All</span></li>
+            </ol>
+          </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
             <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
@@ -66,53 +88,87 @@
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="kantan.csv.laws.discipline.CellCodecTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="CellCodecTests[A]extendsSafeCellCodecTests[A]withCellDecoderTests[A]"></a>
+              <ol><li name="kantan.csv.laws.discipline.ArbitraryArities" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ArbitraryAritiesextendsArbitraryInstances"></a>
+      <a id="ArbitraryArities:ArbitraryArities"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="ArbitraryArities.html"><span class="name">ArbitraryArities</span></a><span class="result"> extends <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.laws.discipline.ArbitraryInstances" class="extype" target="_top">codecs.laws.discipline.ArbitraryInstances</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.package@ArbitraryAritiesextendsArbitraryInstances" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="kantan.csv.laws.discipline.ArbitraryInstances" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ArbitraryInstancesextendsArbitraryArities"></a>
+      <a id="ArbitraryInstances:ArbitraryInstances"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="ArbitraryInstances.html"><span class="name">ArbitraryInstances</span></a><span class="result"> extends <a href="ArbitraryArities.html" class="extype" name="kantan.csv.laws.discipline.ArbitraryArities">ArbitraryArities</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.package@ArbitraryInstancesextendsArbitraryArities" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="kantan.csv.laws.discipline.CellCodecTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CellCodecTests[A]=kantan.codecs.laws.discipline.CodecTests[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]"></a>
       <a id="CellCodecTests[A]:CellCodecTests[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">trait</span>
+        <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <a href="CellCodecTests.html"><span class="name">CellCodecTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="SafeCellCodecTests.html" class="extype" name="kantan.csv.laws.discipline.SafeCellCodecTests">SafeCellCodecTests</a>[<span class="extype" name="kantan.csv.laws.discipline.CellCodecTests.A">A</span>] with <a href="CellDecoderTests.html" class="extype" name="kantan.csv.laws.discipline.CellDecoderTests">CellDecoderTests</a>[<span class="extype" name="kantan.csv.laws.discipline.CellCodecTests.A">A</span>]</span>
+        <span class="name">CellCodecTests</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.laws.discipline.CodecTests" class="extype" target="_top">CodecTests</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.csv.laws.discipline.CellCodecTests.A">A</span>, <a href="../../DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="../../codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.package@CellCodecTests[A]extendsSafeCellCodecTests[A]withCellDecoderTests[A]" title="Permalink" target="_top">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.package@CellCodecTests[A]=kantan.codecs.laws.discipline.CodecTests[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
-    </li><li name="kantan.csv.laws.discipline.CellDecoderTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="CellDecoderTests[A]extendsSafeCellDecoderTests[A]withRowDecoderTests[A]"></a>
+    </li><li name="kantan.csv.laws.discipline.CellDecoderTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CellDecoderTests[A]=kantan.codecs.laws.discipline.DecoderTests[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]"></a>
       <a id="CellDecoderTests[A]:CellDecoderTests[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">trait</span>
+        <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <a href="CellDecoderTests.html"><span class="name">CellDecoderTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="SafeCellDecoderTests.html" class="extype" name="kantan.csv.laws.discipline.SafeCellDecoderTests">SafeCellDecoderTests</a>[<span class="extype" name="kantan.csv.laws.discipline.CellDecoderTests.A">A</span>] with <a href="RowDecoderTests.html" class="extype" name="kantan.csv.laws.discipline.RowDecoderTests">RowDecoderTests</a>[<span class="extype" name="kantan.csv.laws.discipline.CellDecoderTests.A">A</span>]</span>
+        <span class="name">CellDecoderTests</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.laws.discipline.DecoderTests" class="extype" target="_top">DecoderTests</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.csv.laws.discipline.CellDecoderTests.A">A</span>, <a href="../../DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="../../codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.package@CellDecoderTests[A]extendsSafeCellDecoderTests[A]withRowDecoderTests[A]" title="Permalink" target="_top">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.package@CellDecoderTests[A]=kantan.codecs.laws.discipline.DecoderTests[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
-    </li><li name="kantan.csv.laws.discipline.CellEncoderTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="CellEncoderTests[A]extendsRowEncoderTests[A]"></a>
+    </li><li name="kantan.csv.laws.discipline.CellEncoderTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CellEncoderTests[A]=kantan.codecs.laws.discipline.EncoderTests[String,A,kantan.csv.codecs.type]"></a>
       <a id="CellEncoderTests[A]:CellEncoderTests[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">trait</span>
+        <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <a href="CellEncoderTests.html"><span class="name">CellEncoderTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="RowEncoderTests.html" class="extype" name="kantan.csv.laws.discipline.RowEncoderTests">RowEncoderTests</a>[<span class="extype" name="kantan.csv.laws.discipline.CellEncoderTests.A">A</span>]</span>
+        <span class="name">CellEncoderTests</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.laws.discipline.EncoderTests" class="extype" target="_top">EncoderTests</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.csv.laws.discipline.CellEncoderTests.A">A</span>, <a href="../../codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.package@CellEncoderTests[A]extendsRowEncoderTests[A]" title="Permalink" target="_top">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.package@CellEncoderTests[A]=kantan.codecs.laws.discipline.EncoderTests[String,A,kantan.csv.codecs.type]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -168,121 +224,53 @@
       </a>
     </span>
       
-    </li><li name="kantan.csv.laws.discipline.RowCodecTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="RowCodecTests[A]extendsSafeRowCodecTests[A]withRowDecoderTests[A]"></a>
+    </li><li name="kantan.csv.laws.discipline.RowCodecTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="RowCodecTests[A]=kantan.codecs.laws.discipline.CodecTests[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]"></a>
       <a id="RowCodecTests[A]:RowCodecTests[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">trait</span>
+        <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <a href="RowCodecTests.html"><span class="name">RowCodecTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="SafeRowCodecTests.html" class="extype" name="kantan.csv.laws.discipline.SafeRowCodecTests">SafeRowCodecTests</a>[<span class="extype" name="kantan.csv.laws.discipline.RowCodecTests.A">A</span>] with <a href="RowDecoderTests.html" class="extype" name="kantan.csv.laws.discipline.RowDecoderTests">RowDecoderTests</a>[<span class="extype" name="kantan.csv.laws.discipline.RowCodecTests.A">A</span>]</span>
+        <span class="name">RowCodecTests</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.laws.discipline.CodecTests" class="extype" target="_top">CodecTests</a>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="kantan.csv.laws.discipline.RowCodecTests.A">A</span>, <a href="../../DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="../../codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.package@RowCodecTests[A]extendsSafeRowCodecTests[A]withRowDecoderTests[A]" title="Permalink" target="_top">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.package@RowCodecTests[A]=kantan.codecs.laws.discipline.CodecTests[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
-    </li><li name="kantan.csv.laws.discipline.RowDecoderTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="RowDecoderTests[A]extendsSafeRowDecoderTests[A]"></a>
+    </li><li name="kantan.csv.laws.discipline.RowDecoderTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="RowDecoderTests[A]=kantan.codecs.laws.discipline.DecoderTests[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]"></a>
       <a id="RowDecoderTests[A]:RowDecoderTests[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">trait</span>
+        <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <a href="RowDecoderTests.html"><span class="name">RowDecoderTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="SafeRowDecoderTests.html" class="extype" name="kantan.csv.laws.discipline.SafeRowDecoderTests">SafeRowDecoderTests</a>[<span class="extype" name="kantan.csv.laws.discipline.RowDecoderTests.A">A</span>]</span>
+        <span class="name">RowDecoderTests</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.laws.discipline.DecoderTests" class="extype" target="_top">DecoderTests</a>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="kantan.csv.laws.discipline.RowDecoderTests.A">A</span>, <a href="../../DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="../../codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.package@RowDecoderTests[A]extendsSafeRowDecoderTests[A]" title="Permalink" target="_top">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.package@RowDecoderTests[A]=kantan.codecs.laws.discipline.DecoderTests[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
-    </li><li name="kantan.csv.laws.discipline.RowEncoderTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="RowEncoderTests[A]extendsLaws"></a>
+    </li><li name="kantan.csv.laws.discipline.RowEncoderTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="RowEncoderTests[A]=kantan.codecs.laws.discipline.EncoderTests[Seq[String],A,kantan.csv.codecs.type]"></a>
       <a id="RowEncoderTests[A]:RowEncoderTests[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">trait</span>
+        <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <a href="RowEncoderTests.html"><span class="name">RowEncoderTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="org.typelevel.discipline.Laws">Laws</span></span>
+        <span class="name">RowEncoderTests</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.laws.discipline.EncoderTests" class="extype" target="_top">EncoderTests</a>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="kantan.csv.laws.discipline.RowEncoderTests.A">A</span>, <a href="../../codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.package@RowEncoderTests[A]extendsLaws" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="kantan.csv.laws.discipline.SafeCellCodecTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="SafeCellCodecTests[A]extendsCellEncoderTests[A]withSafeCellDecoderTests[A]"></a>
-      <a id="SafeCellCodecTests[A]:SafeCellCodecTests[A]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">trait</span>
-      </span>
-      <span class="symbol">
-        <a href="SafeCellCodecTests.html"><span class="name">SafeCellCodecTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="CellEncoderTests.html" class="extype" name="kantan.csv.laws.discipline.CellEncoderTests">CellEncoderTests</a>[<span class="extype" name="kantan.csv.laws.discipline.SafeCellCodecTests.A">A</span>] with <a href="SafeCellDecoderTests.html" class="extype" name="kantan.csv.laws.discipline.SafeCellDecoderTests">SafeCellDecoderTests</a>[<span class="extype" name="kantan.csv.laws.discipline.SafeCellCodecTests.A">A</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.package@SafeCellCodecTests[A]extendsCellEncoderTests[A]withSafeCellDecoderTests[A]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="kantan.csv.laws.discipline.SafeCellDecoderTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="SafeCellDecoderTests[A]extendsSafeRowDecoderTests[A]"></a>
-      <a id="SafeCellDecoderTests[A]:SafeCellDecoderTests[A]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">trait</span>
-      </span>
-      <span class="symbol">
-        <a href="SafeCellDecoderTests.html"><span class="name">SafeCellDecoderTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="SafeRowDecoderTests.html" class="extype" name="kantan.csv.laws.discipline.SafeRowDecoderTests">SafeRowDecoderTests</a>[<span class="extype" name="kantan.csv.laws.discipline.SafeCellDecoderTests.A">A</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.package@SafeCellDecoderTests[A]extendsSafeRowDecoderTests[A]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="kantan.csv.laws.discipline.SafeRowCodecTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="SafeRowCodecTests[A]extendsRowEncoderTests[A]withSafeRowDecoderTests[A]"></a>
-      <a id="SafeRowCodecTests[A]:SafeRowCodecTests[A]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">trait</span>
-      </span>
-      <span class="symbol">
-        <a href="SafeRowCodecTests.html"><span class="name">SafeRowCodecTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="RowEncoderTests.html" class="extype" name="kantan.csv.laws.discipline.RowEncoderTests">RowEncoderTests</a>[<span class="extype" name="kantan.csv.laws.discipline.SafeRowCodecTests.A">A</span>] with <a href="SafeRowDecoderTests.html" class="extype" name="kantan.csv.laws.discipline.SafeRowDecoderTests">SafeRowDecoderTests</a>[<span class="extype" name="kantan.csv.laws.discipline.SafeRowCodecTests.A">A</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.package@SafeRowCodecTests[A]extendsRowEncoderTests[A]withSafeRowDecoderTests[A]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="kantan.csv.laws.discipline.SafeRowDecoderTests" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="SafeRowDecoderTests[A]extendsLaws"></a>
-      <a id="SafeRowDecoderTests[A]:SafeRowDecoderTests[A]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">trait</span>
-      </span>
-      <span class="symbol">
-        <a href="SafeRowDecoderTests.html"><span class="name">SafeRowDecoderTests</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="org.typelevel.discipline.Laws">Laws</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.package@SafeRowDecoderTests[A]extendsLaws" title="Permalink" target="_top">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.package@RowEncoderTests[A]=kantan.codecs.laws.discipline.EncoderTests[Seq[String],A,kantan.csv.codecs.type]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -447,74 +435,6 @@
       </a>
     </span>
       
-    </li><li name="kantan.csv.laws.discipline.SafeCellCodecTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="SafeCellCodecTests"></a>
-      <a id="SafeCellCodecTests:SafeCellCodecTests"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a href="SafeCellCodecTests$.html"><span class="name">SafeCellCodecTests</span></a>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.package@SafeCellCodecTests" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="kantan.csv.laws.discipline.SafeCellDecoderTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="SafeCellDecoderTests"></a>
-      <a id="SafeCellDecoderTests:SafeCellDecoderTests"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a href="SafeCellDecoderTests$.html"><span class="name">SafeCellDecoderTests</span></a>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.package@SafeCellDecoderTests" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="kantan.csv.laws.discipline.SafeRowCodecTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="SafeRowCodecTests"></a>
-      <a id="SafeRowCodecTests:SafeRowCodecTests"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a href="SafeRowCodecTests$.html"><span class="name">SafeRowCodecTests</span></a>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.package@SafeRowCodecTests" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="kantan.csv.laws.discipline.SafeRowDecoderTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="SafeRowDecoderTests"></a>
-      <a id="SafeRowDecoderTests:SafeRowDecoderTests"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a href="SafeRowDecoderTests$.html"><span class="name">SafeRowDecoderTests</span></a>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.package@SafeRowDecoderTests" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
     </li><li name="kantan.csv.laws.discipline.WriterEngineTests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="WriterEngineTests"></a>
       <a id="WriterEngineTests:WriterEngineTests"></a>
@@ -541,7 +461,7 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a href="arbitrary$.html"><span class="name">arbitrary</span></a>
+        <a href="arbitrary$.html"><span class="name">arbitrary</span></a><span class="result"> extends <a href="ArbitraryInstances.html" class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances">ArbitraryInstances</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#kantan.csv.laws.discipline.package@arbitrary" title="Permalink" target="_top">
@@ -575,7 +495,11 @@
         </div>
 
         <div id="inheritedMembers">
-        
+        <div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+            </div>
         
         </div>
 

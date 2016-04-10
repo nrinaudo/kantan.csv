@@ -2,7 +2,7 @@ body {
 	line-height:    120%;
     font-family:    "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size:      14px;
-    background:     #fff;
+    background:     #ecf0f4;
     margin:         0;
 	padding:        0;
 	border:         0;
@@ -67,6 +67,11 @@ pre {
     font-size: 13px;
 }
 
+#content li {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
 a {
     color: #2980b9;
     text-decoration: none;
@@ -75,8 +80,8 @@ a {
 hr {
     border:           none;
     height:           1px;
-    color:            #333;
-    background-color: #333;
+    color:            #2980b9;
+    background-color: #2980b9;
 }
 
 h1, h2, h3 {
@@ -140,4 +145,20 @@ tr td {
 
 tr td:first-child {
     padding-left: 10px;
+}
+
+#tutorials li {
+    vertical-align: top;
+    margin-right: 20px;
+    display:   inline-block;
+    width:     30%;
+    min-width: 120px;
+}
+
+#tutorials i {
+    color: #2980b9;
+}
+
+#tutorials a, #tutorials span {
+    margin-left: 10px;
 }

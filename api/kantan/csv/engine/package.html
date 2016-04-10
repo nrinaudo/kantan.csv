@@ -47,13 +47,35 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"></div>
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/engine/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
+          <span class="toggle">Linear Supertypes</span>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div></div>
         
 
       <div id="mbrsel">
         <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
-        
-        
+        <div id="order">
+              <span class="filtertype">Ordering</span>
+              <ol>
+                
+                <li class="alpha in"><span>Alphabetic</span></li>
+                <li class="inherit out"><span>By Inheritance</span></li>
+              </ol>
+            </div>
+        <div id="ancestors">
+                <span class="filtertype">Inherited<br />
+                </span>
+                <ol id="linearization">
+                  <li class="in" name="kantan.csv.engine"><span>engine</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                </ol>
+              </div><div id="ancestors">
+            <span class="filtertype"></span>
+            <ol>
+              <li class="hideall out"><span>Hide All</span></li>
+              <li class="showall in"><span>Show All</span></li>
+            </ol>
+          </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
             <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
@@ -66,7 +88,7 @@
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="kantan.csv.engine.ReaderEngine" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+              <ol><li name="kantan.csv.engine.ReaderEngine" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="ReaderEngineextendsAnyRef"></a>
       <a id="ReaderEngine:ReaderEngine"></a>
       <h4 class="signature">
@@ -82,8 +104,11 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
-    </li><li name="kantan.csv.engine.WriterEngine" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Provides kantan.csv with CSV parsing functionalities.</p><div class="fullcomment"><div class="comment cmt"><p>Provides kantan.csv with CSV parsing functionalities.</p><p>All methods that will need to create a new instance of <a href="../CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a> expect and rely on an implicit <a href="ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a>
+parameter. This allows third party libraries to plug into kantan.csv and replace the default parser at the cost
+of a simple import.
+</p></div></div>
+    </li><li name="kantan.csv.engine.WriterEngine" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="WriterEngineextendsAnyRef"></a>
       <a id="WriterEngine:WriterEngine"></a>
       <h4 class="signature">
@@ -99,7 +124,10 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Provides factory-like services for <a href="../CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Provides factory-like services for <a href="../CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a>.</p><p>Functions that create instances of <a href="../CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a>, either as part of their return types or for internal operations,
+can declare an implicit <a href="../CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a> parameter. If one is imported explicitly (such as the Jackson engine), it will
+be used. Otherwise, the <a href="WriterEngine$.html#internal:kantan.csv.engine.WriterEngine" class="extmbr" name="kantan.csv.engine.WriterEngine#internal">internal</a> one is always in scope.
+</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></p></span></dd></dl></div>
     </li></ol>
             </div>
 
@@ -123,7 +151,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Provides instance creation methods and default implementations.</p>
     </li><li name="kantan.csv.engine.WriterEngine" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="WriterEngine"></a>
       <a id="WriterEngine:WriterEngine"></a>
@@ -140,24 +168,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
-    </li><li name="kantan.csv.engine.commons" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="commons"></a>
-      <a id="commons:commons"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a href="commons/package.html"><span class="name">commons</span></a>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.engine.package@commons" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
+      <p class="shortcomment cmt">Provides creation methods and default implementations.</p>
     </li><li name="kantan.csv.engine.jackson" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="jackson"></a>
       <a id="jackson:jackson"></a>
@@ -175,23 +186,24 @@
       </a>
     </span>
       
-    </li><li name="kantan.csv.engine.opencsv" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="opencsv"></a>
-      <a id="opencsv:opencsv"></a>
+    </li><li name="kantan.csv.engine#javaIterator" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="javaIterator(it:java.util.Iterator[Array[String]]):Iterator[Seq[String]]"></a>
+      <a id="javaIterator(Iterator[Array[String]]):Iterator[Seq[String]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <a href="opencsv/package.html"><span class="name">opencsv</span></a>
+        <span class="name">javaIterator</span><span class="params">(<span name="it">it: <span class="extype" name="java.util.Iterator">Iterator</span>[<a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Array" class="extype" target="_top">Array</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>)</span><span class="result">: <span class="extype" name="scala.Iterator">Iterator</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.engine.package@opencsv" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.engine.package@javaIterator(it:java.util.Iterator[Array[String]]):Iterator[Seq[String]]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Converts a java iterator of arrays of strings into something that can be used with
+<a href="../CsvReader$.html#fromUnsafe[I,R](in:I)(open:I=&gt;Iterator[R])(release:I=&gt;Unit):kantan.csv.CsvReader[kantan.csv.ParseResult[R]]" class="extmbr" name="kantan.csv.CsvReader#fromUnsafe">kantan.csv.CsvReader.fromUnsafe</a>.</p>
     </li></ol>
             </div>
 
@@ -201,7 +213,11 @@
         </div>
 
         <div id="inheritedMembers">
-        
+        <div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+            </div>
         
         </div>
 

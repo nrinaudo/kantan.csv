@@ -51,9 +51,18 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</dd><dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/CsvReader.scala" target="_blank">CsvReader.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Iterator on CSV rows.</p><p>Instances of <a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a> are commonly obtained through <a href="ops$$CsvInputOps.html#asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]" class="extmbr" name="kantan.csv.ops.CsvInputOps#asCsvReader">kantan.csv.ops.CsvInputOps.asCsvReader</a>:</p><pre><span class="kw">import</span> kantan.csv.ops._
+
+<span class="kw">val</span> file: File = ??? <span class="cmt">// some CSV file.</span>
+file.asCsvReader[<span class="std">List</span>[<span class="std">Int</span>]](<span class="lit">','</span>, <span class="kw">true</span>)</pre><p><a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a> provides most of the common Scala collection operations, such as <a href="#map[B](f:A=&gt;B):kantan.csv.CsvReader[B]" class="extmbr" name="kantan.csv.CsvReader#map">map</a> or <a href="#filter(p:A=&gt;Boolean):kantan.csv.CsvReader[A]" class="extmbr" name="kantan.csv.CsvReader#filter">filter</a>. However,
+working with a <code>CsvReader</code> of <a href="package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a> is a very common pattern that doesn't lend itself well to using such
+combinators: mapping on each row would require first mapping into the <a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a>, then into each <a href="package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>,
+which is cumbersome and not terribly clear.</p><p>kantan.csv provides syntax for this pattern with <a href="ops$$CsvReaderOps.html" class="extype" name="kantan.csv.ops.CsvReaderOps">kantan.csv.ops.CsvReaderOps</a>: filtering into a result, for
+example, is made easier by <a href="ops$$CsvReaderOps.html#filterResult(f:A=&gt;Boolean):kantan.csv.CsvReader[kantan.csv.ReadResult[A]]" class="extmbr" name="kantan.csv.ops.CsvReaderOps#filterResult">kantan.csv.ops.CsvReaderOps.filterResult</a></p><pre><span class="kw">import</span> kantan.csv.ops._
+
+file.asCsvReader[<span class="std">List</span>[<span class="std">Int</span>]](<span class="lit">','</span>, <span class="kw">true</span>).filterResult(_ % <span class="num">2</span> == <span class="num">0</span>)</pre></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</dd><dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/CsvReader.scala" target="_blank">CsvReader.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><span class="extype" name="java.io.Closeable">Closeable</span>, <span class="extype" name="java.lang.AutoCloseable">AutoCloseable</span>, <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.collection.TraversableOnce" class="extype" target="_top">TraversableOnce</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>], <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.collection.GenTraversableOnce" class="extype" target="_top">GenTraversableOnce</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="java.io.Closeable">Closeable</span>, <span class="extype" name="java.lang.AutoCloseable">AutoCloseable</span>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.collection.TraversableOnce" class="extype" target="_top">TraversableOnce</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>], <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.collection.GenTraversableOnce" class="extype" target="_top">GenTraversableOnce</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -64,7 +73,7 @@
               <ol>
                 
                 <li class="alpha in"><span>Alphabetic</span></li>
-                <li class="inherit out"><span>By inheritance</span></li>
+                <li class="inherit out"><span>By Inheritance</span></li>
               </ol>
             </div>
         <div id="ancestors">
@@ -77,7 +86,7 @@
             <span class="filtertype"></span>
             <ol>
               <li class="hideall out"><span>Hide All</span></li>
-              <li class="showall in"><span>Show all</span></li>
+              <li class="showall in"><span>Show All</span></li>
             </ol>
           </div>
         <div id="visbl">
@@ -103,14 +112,16 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">close</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">close</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@close():Unit" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a> → Closeable → AutoCloseable</dd></dl></div>
+      <p class="shortcomment cmt">Releases any resource used by this <a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Releases any resource used by this <a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a>.</p><p>This happens automatically whenever a fatal error occurs or there is no more CSV rows to read. Applications that
+do not read the entire stream, however, need to call <a href="#close():Unit" class="extmbr" name="kantan.csv.CsvReader#close">close</a> manually.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a> → Closeable → AutoCloseable</dd></dl></div>
     </li><li name="kantan.csv.CsvReader#hasNext" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="hasNext:Boolean"></a>
       <a id="hasNext:Boolean"></a>
@@ -120,14 +131,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hasNext</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">hasNext</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@hasNext:Boolean" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Returns <code>true</code> if there is at least one mor row to read, <code>false</code> otherwise.</p>
     </li><li name="kantan.csv.CsvReader#readNext" visbl="prt" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="readNext():A"></a>
       <a id="readNext():A"></a>
@@ -144,7 +155,8 @@
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+      <p class="shortcomment cmt">Reads the next CSV row.</p><div class="fullcomment"><div class="comment cmt"><p>Reads the next CSV row.</p><p>This method is not meant for internal purposes only and is not meant to be called directly. Use <a href="#next():A" class="extmbr" name="kantan.csv.CsvReader#next">next</a> instead.
+</p></div><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
     </li></ol>
             </div>
 
@@ -159,7 +171,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@!=(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -176,7 +188,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@##():Int" title="Permalink" target="_top">
@@ -227,7 +239,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@==(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -343,6 +355,27 @@
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="kantan.csv.CsvReader#collect" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="collect[B](f:PartialFunction[A,B]):kantan.csv.CsvReader[B]"></a>
+      <a id="collect[B](PartialFunction[A,B]):CsvReader[B]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">collect</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="f">f: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.PartialFunction" class="extype" target="_top">PartialFunction</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>, <span class="extype" name="kantan.csv.CsvReader.collect.B">B</span>]</span>)</span><span class="result">: <a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="kantan.csv.CsvReader.collect.B">B</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.CsvReader@collect[B](f:PartialFunction[A,B]):kantan.csv.CsvReader[B]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Applies the specified partial function to all CSV rows.</p><div class="fullcomment"><div class="comment cmt"><p>Applies the specified partial function to all CSV rows.</p><p>Any row for which the function is not defined will be filtered out. All other rows will be replaced by the
+returned value.</p><p>This is particularly useful when dealing with <a href="package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">kantan.csv.ReadResult</a>: it's an easy way of skipping over all
+failures and keeping successes only:</p><pre><span class="kw">val</span> rows: CsvReader[(<span class="std">Int</span>, <span class="std">String</span>)] = file.asCsvReader[(<span class="std">Int</span>, <span class="std">String</span>)](<span class="lit">','</span>, <span class="kw">true</span>).collect {
+  <span class="kw">case</span> Success(a) ⇒ a
+}</pre></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>partial function to apply to each row.</p></dd></dl></div>
     </li><li name="scala.collection.TraversableOnce#collectFirst" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="collectFirst[B&lt;:&lt;?&gt;](pf:&lt;?&gt;):Option[B]"></a>
       <a id="collectFirst[B](PartialFunction[A,B]):Option[B]"></a>
@@ -352,7 +385,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">collectFirst</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.PartialFunction" class="extype" target="_top">PartialFunction</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>, <span class="extype" name="scala.collection.TraversableOnce.collectFirst.B">B</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="scala.collection.TraversableOnce.collectFirst.B">B</span>]</span>
+        <span class="name">collectFirst</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.PartialFunction" class="extype" target="_top">PartialFunction</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>, <span class="extype" name="scala.collection.TraversableOnce.collectFirst.B">B</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="scala.collection.TraversableOnce.collectFirst.B">B</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@collectFirst[B](pf:PartialFunction[A,B]):Option[B]" title="Permalink" target="_top">
@@ -369,7 +402,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">copyToArray</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="kantan.csv.CsvReader.A">A</span></span>]</span><span class="params">(<span name="xs">xs: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Array" class="extype" target="_top">Array</a>[<span class="extype" name="kantan.csv.CsvReader.copyToArray.B">B</span>]</span>, <span name="start">start: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>, <span name="len">len: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">copyToArray</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="kantan.csv.CsvReader.A">A</span></span>]</span><span class="params">(<span name="xs">xs: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Array" class="extype" target="_top">Array</a>[<span class="extype" name="kantan.csv.CsvReader.copyToArray.B">B</span>]</span>, <span name="start">start: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>, <span name="len">len: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@copyToArray[B&gt;:A](xs:Array[B],start:Int,len:Int):Unit" title="Permalink" target="_top">
@@ -386,7 +419,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">copyToArray</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="kantan.csv.CsvReader.A">A</span></span>]</span><span class="params">(<span name="xs">xs: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Array" class="extype" target="_top">Array</a>[<span class="extype" name="scala.collection.TraversableOnce.copyToArray.B">B</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">copyToArray</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="kantan.csv.CsvReader.A">A</span></span>]</span><span class="params">(<span name="xs">xs: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Array" class="extype" target="_top">Array</a>[<span class="extype" name="scala.collection.TraversableOnce.copyToArray.B">B</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@copyToArray[B&gt;:A](xs:Array[B]):Unit" title="Permalink" target="_top">
@@ -403,7 +436,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">copyToArray</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="kantan.csv.CsvReader.A">A</span></span>]</span><span class="params">(<span name="xs">xs: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Array" class="extype" target="_top">Array</a>[<span class="extype" name="scala.collection.TraversableOnce.copyToArray.B">B</span>]</span>, <span name="start">start: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">copyToArray</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="kantan.csv.CsvReader.A">A</span></span>]</span><span class="params">(<span name="xs">xs: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Array" class="extype" target="_top">Array</a>[<span class="extype" name="scala.collection.TraversableOnce.copyToArray.B">B</span>]</span>, <span name="start">start: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@copyToArray[B&gt;:A](xs:Array[B],start:Int):Unit" title="Permalink" target="_top">
@@ -420,7 +453,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">copyToBuffer</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="kantan.csv.CsvReader.A">A</span></span>]</span><span class="params">(<span name="dest">dest: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.collection.mutable.Buffer" class="extype" target="_top">Buffer</a>[<span class="extype" name="scala.collection.TraversableOnce.copyToBuffer.B">B</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">copyToBuffer</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="kantan.csv.CsvReader.A">A</span></span>]</span><span class="params">(<span name="dest">dest: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.collection.mutable.Buffer" class="extype" target="_top">Buffer</a>[<span class="extype" name="scala.collection.TraversableOnce.copyToBuffer.B">B</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@copyToBuffer[B&gt;:A](dest:scala.collection.mutable.Buffer[B]):Unit" title="Permalink" target="_top">
@@ -437,7 +470,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">count</span><span class="params">(<span name="p">p: (<span class="extype" name="kantan.csv.CsvReader.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>
+        <span class="name">count</span><span class="params">(<span name="p">p: (<span class="extype" name="kantan.csv.CsvReader.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@count(p:A=&gt;Boolean):Int" title="Permalink" target="_top">
@@ -445,7 +478,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>TraversableOnce → GenTraversableOnce</dd></dl></div>
-    </li><li name="kantan.csv.CsvReader#drop" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.csv.CsvReader#drop" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="drop(n:Int):kantan.csv.CsvReader[A]"></a>
       <a id="drop(Int):CsvReader[A]"></a>
       <h4 class="signature">
@@ -454,15 +487,16 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">drop</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
+        <span class="name">drop</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@drop(n:Int):kantan.csv.CsvReader[A]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
-    </li><li name="kantan.csv.CsvReader#dropWhile" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Discards the first <code>n</code> rows.</p><div class="fullcomment"><div class="comment cmt"><p>Discards the first <code>n</code> rows.
+</p></div><dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>number of rows to discard.</p></dd></dl></div>
+    </li><li name="kantan.csv.CsvReader#dropWhile" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="dropWhile(p:A=&gt;Boolean):kantan.csv.CsvReader[A]"></a>
       <a id="dropWhile((A)⇒Boolean):CsvReader[A]"></a>
       <h4 class="signature">
@@ -471,14 +505,15 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">dropWhile</span><span class="params">(<span name="p">p: (<span class="extype" name="kantan.csv.CsvReader.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
+        <span class="name">dropWhile</span><span class="params">(<span name="p">p: (<span class="extype" name="kantan.csv.CsvReader.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@dropWhile(p:A=&gt;Boolean):kantan.csv.CsvReader[A]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Discards rows while the specified predicate holds.</p><div class="fullcomment"><div class="comment cmt"><p>Discards rows while the specified predicate holds.</p><p>The returned <a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a> will start at the first row for which <code>p</code> returned <code>false</code>.
+</p></div><dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>predicate to apply to each row.</p></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -488,7 +523,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
@@ -505,7 +540,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@equals(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -522,7 +557,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">exists</span><span class="params">(<span name="p">p: (<span class="extype" name="kantan.csv.CsvReader.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">exists</span><span class="params">(<span name="p">p: (<span class="extype" name="kantan.csv.CsvReader.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@exists(p:A=&gt;Boolean):Boolean" title="Permalink" target="_top">
@@ -530,7 +565,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a> → TraversableOnce → GenTraversableOnce</dd></dl></div>
-    </li><li name="kantan.csv.CsvReader#filter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.csv.CsvReader#filter" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="filter(p:A=&gt;Boolean):kantan.csv.CsvReader[A]"></a>
       <a id="filter((A)⇒Boolean):CsvReader[A]"></a>
       <h4 class="signature">
@@ -539,14 +574,17 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">filter</span><span class="params">(<span name="p">p: (<span class="extype" name="kantan.csv.CsvReader.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
+        <span class="name">filter</span><span class="params">(<span name="p">p: (<span class="extype" name="kantan.csv.CsvReader.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@filter(p:A=&gt;Boolean):kantan.csv.CsvReader[A]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Filters out all rows that validate the specified predicate.</p><div class="fullcomment"><div class="comment cmt"><p>Filters out all rows that validate the specified predicate.</p><p>Working with <a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a> of <a href="package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a> is such a common pattern that kantan.csv provides syntax for
+filtering directly into the <a href="package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>:</p><pre><span class="kw">import</span> kantan.csv.ops._
+
+someFile.asCsvReader[Person](<span class="lit">','</span>, <span class="kw">true</span>).filterResult(_.age &gt; <span class="num">18</span>)</pre></div></div>
     </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <a id="finalize():Unit"></a>
@@ -556,7 +594,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@finalize():Unit" title="Permalink" target="_top">
@@ -579,7 +617,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">find</span><span class="params">(<span name="p">p: (<span class="extype" name="kantan.csv.CsvReader.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
+        <span class="name">find</span><span class="params">(<span name="p">p: (<span class="extype" name="kantan.csv.CsvReader.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@find(p:A=&gt;Boolean):Option[A]" title="Permalink" target="_top">
@@ -587,7 +625,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a> → TraversableOnce → GenTraversableOnce</dd></dl></div>
-    </li><li name="kantan.csv.CsvReader#flatMap" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.csv.CsvReader#flatMap" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="flatMap[B](f:A=&gt;kantan.csv.CsvReader[B]):kantan.csv.CsvReader[B]"></a>
       <a id="flatMap[B]((A)⇒CsvReader[B]):CsvReader[B]"></a>
       <h4 class="signature">
@@ -603,7 +641,8 @@
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns a <code>CsvReader[A]</code> into a <code>CsvReader[B]</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns a <code>CsvReader[A]</code> into a <code>CsvReader[B]</code>.
+</p></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>function to apply to each row.</p></dd></dl></div>
     </li><li name="scala.collection.TraversableOnce#fold" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="fold[A1&gt;:A](z:A1)(op:(A1,A1)=&gt;A1):A1"></a>
       <a id="fold[A1&gt;:A](A1)((A1,A1)⇒A1):A1"></a>
@@ -664,7 +703,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">forall</span><span class="params">(<span name="p">p: (<span class="extype" name="kantan.csv.CsvReader.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">forall</span><span class="params">(<span name="p">p: (<span class="extype" name="kantan.csv.CsvReader.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@forall(p:A=&gt;Boolean):Boolean" title="Permalink" target="_top">
@@ -681,7 +720,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">foreach</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.csv.CsvReader.A">A</span>) ⇒ <span class="extype" name="kantan.csv.CsvReader.foreach.U">U</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">foreach</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.csv.CsvReader.A">A</span>) ⇒ <span class="extype" name="kantan.csv.CsvReader.foreach.U">U</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@foreach[U](f:A=&gt;U):Unit" title="Permalink" target="_top">
@@ -715,7 +754,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hasDefiniteSize</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">hasDefiniteSize</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@hasDefiniteSize:Boolean" title="Permalink" target="_top">
@@ -732,7 +771,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@hashCode():Int" title="Permalink" target="_top">
@@ -749,7 +788,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isEmpty</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">isEmpty</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@isEmpty:Boolean" title="Permalink" target="_top">
@@ -766,7 +805,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
@@ -783,7 +822,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isTraversableAgain</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">isTraversableAgain</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@isTraversableAgain:Boolean" title="Permalink" target="_top">
@@ -791,7 +830,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a> → GenTraversableOnce</dd></dl></div>
-    </li><li name="kantan.csv.CsvReader#map" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.csv.CsvReader#map" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="map[B](f:A=&gt;B):kantan.csv.CsvReader[B]"></a>
       <a id="map[B]((A)⇒B):CsvReader[B]"></a>
       <h4 class="signature">
@@ -807,7 +846,10 @@
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Turns a <code>CsvReader[A]</code> into a <code>CsvReader[B]</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns a <code>CsvReader[A]</code> into a <code>CsvReader[B]</code>.</p><p>Working with <a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a> of <a href="package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a> is such a common pattern that kantan.csv provides syntax for mapping
+directly into the <a href="package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>:</p><pre><span class="kw">import</span> kantan.csv.ops._
+
+someFile.asCsvReader[Person](<span class="lit">','</span>, <span class="kw">true</span>).mapResult(_.name)</pre></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>function to apply to each row.</p></dd></dl></div>
     </li><li name="scala.collection.TraversableOnce#max" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="max[B&gt;:A](implicitcmp:Ordering[B]):A"></a>
       <a id="max[B&gt;:A](Ordering[B]):A"></a>
@@ -936,7 +978,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
@@ -944,7 +986,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="kantan.csv.CsvReader#next" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.csv.CsvReader#next" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="next():A"></a>
       <a id="next():A"></a>
       <h4 class="signature">
@@ -960,7 +1002,8 @@
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Reads the next CSV row.</p><div class="fullcomment"><div class="comment cmt"><p>Reads the next CSV row.</p><p>This method will automatically call <a href="#close():Unit" class="extmbr" name="kantan.csv.CsvReader#close">close</a> if an error occurs or the end of the CSV data has been reached.
+</p></div></div>
     </li><li name="scala.collection.TraversableOnce#nonEmpty" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="nonEmpty:Boolean"></a>
       <a id="nonEmpty:Boolean"></a>
@@ -970,7 +1013,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">nonEmpty</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">nonEmpty</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@nonEmpty:Boolean" title="Permalink" target="_top">
@@ -987,7 +1030,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@notify():Unit" title="Permalink" target="_top">
@@ -1004,7 +1047,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@notifyAll():Unit" title="Permalink" target="_top">
@@ -1072,7 +1115,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">reduceLeftOption</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="kantan.csv.CsvReader.A">A</span></span>]</span><span class="params">(<span name="op">op: (<span class="extype" name="scala.collection.TraversableOnce.reduceLeftOption.B">B</span>, <span class="extype" name="kantan.csv.CsvReader.A">A</span>) ⇒ <span class="extype" name="scala.collection.TraversableOnce.reduceLeftOption.B">B</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="scala.collection.TraversableOnce.reduceLeftOption.B">B</span>]</span>
+        <span class="name">reduceLeftOption</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="kantan.csv.CsvReader.A">A</span></span>]</span><span class="params">(<span name="op">op: (<span class="extype" name="scala.collection.TraversableOnce.reduceLeftOption.B">B</span>, <span class="extype" name="kantan.csv.CsvReader.A">A</span>) ⇒ <span class="extype" name="scala.collection.TraversableOnce.reduceLeftOption.B">B</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="scala.collection.TraversableOnce.reduceLeftOption.B">B</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@reduceLeftOption[B&gt;:A](op:(B,A)=&gt;B):Option[B]" title="Permalink" target="_top">
@@ -1089,7 +1132,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">reduceOption</span><span class="tparams">[<span name="A1">A1 &gt;: <span class="extype" name="kantan.csv.CsvReader.A">A</span></span>]</span><span class="params">(<span name="op">op: (<span class="extype" name="scala.collection.TraversableOnce.reduceOption.A1">A1</span>, <span class="extype" name="scala.collection.TraversableOnce.reduceOption.A1">A1</span>) ⇒ <span class="extype" name="scala.collection.TraversableOnce.reduceOption.A1">A1</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="scala.collection.TraversableOnce.reduceOption.A1">A1</span>]</span>
+        <span class="name">reduceOption</span><span class="tparams">[<span name="A1">A1 &gt;: <span class="extype" name="kantan.csv.CsvReader.A">A</span></span>]</span><span class="params">(<span name="op">op: (<span class="extype" name="scala.collection.TraversableOnce.reduceOption.A1">A1</span>, <span class="extype" name="scala.collection.TraversableOnce.reduceOption.A1">A1</span>) ⇒ <span class="extype" name="scala.collection.TraversableOnce.reduceOption.A1">A1</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="scala.collection.TraversableOnce.reduceOption.A1">A1</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@reduceOption[A1&gt;:A](op:(A1,A1)=&gt;A1):Option[A1]" title="Permalink" target="_top">
@@ -1123,7 +1166,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">reduceRightOption</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="kantan.csv.CsvReader.A">A</span></span>]</span><span class="params">(<span name="op">op: (<span class="extype" name="kantan.csv.CsvReader.A">A</span>, <span class="extype" name="scala.collection.TraversableOnce.reduceRightOption.B">B</span>) ⇒ <span class="extype" name="scala.collection.TraversableOnce.reduceRightOption.B">B</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="scala.collection.TraversableOnce.reduceRightOption.B">B</span>]</span>
+        <span class="name">reduceRightOption</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="kantan.csv.CsvReader.A">A</span></span>]</span><span class="params">(<span name="op">op: (<span class="extype" name="kantan.csv.CsvReader.A">A</span>, <span class="extype" name="scala.collection.TraversableOnce.reduceRightOption.B">B</span>) ⇒ <span class="extype" name="scala.collection.TraversableOnce.reduceRightOption.B">B</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="scala.collection.TraversableOnce.reduceRightOption.B">B</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@reduceRightOption[B&gt;:A](op:(A,B)=&gt;B):Option[B]" title="Permalink" target="_top">
@@ -1174,7 +1217,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">size</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>
+        <span class="name">size</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@size:Int" title="Permalink" target="_top">
@@ -1216,7 +1259,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="kantan.csv.CsvReader#take" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.csv.CsvReader#take" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="take(n:Int):kantan.csv.CsvReader[A]"></a>
       <a id="take(Int):CsvReader[A]"></a>
       <h4 class="signature">
@@ -1225,14 +1268,15 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">take</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
+        <span class="name">take</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@take(n:Int):kantan.csv.CsvReader[A]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Takes the first <code>n</code> rows, discarding the remaining ones.</p><div class="fullcomment"><div class="comment cmt"><p>Takes the first <code>n</code> rows, discarding the remaining ones.
+</p></div><dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>number of rows to take.</p></dd></dl></div>
     </li><li name="scala.collection.TraversableOnce#to" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="to[Col[_]](implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,A,Col[A@scala.annotation.unchecked.uncheckedVariance]]):Col[A@scala.annotation.unchecked.uncheckedVariance]"></a>
       <a id="to[Col[_]](CanBuildFrom[Nothing,A,Col[A]]):Col[A]"></a>
@@ -1242,7 +1286,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">to</span><span class="tparams">[<span name="Col">Col<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="cbf">cbf: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.collection.generic.CanBuildFrom" class="extype" target="_top">CanBuildFrom</a>[<span class="extype" name="scala.Nothing">Nothing</span>, <span class="extype" name="kantan.csv.CsvReader.A">A</span>, <span class="extype" name="scala.collection.TraversableOnce.to.Col">Col</span>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]]</span>)</span><span class="result">: <span class="extype" name="scala.collection.TraversableOnce.to.Col">Col</span>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
+        <span class="name">to</span><span class="tparams">[<span name="Col">Col<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="cbf">cbf: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.collection.generic.CanBuildFrom" class="extype" target="_top">CanBuildFrom</a>[<span class="extype" name="scala.Nothing">Nothing</span>, <span class="extype" name="kantan.csv.CsvReader.A">A</span>, <span class="extype" name="scala.collection.TraversableOnce.to.Col">Col</span>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]]</span>)</span><span class="result">: <span class="extype" name="scala.collection.TraversableOnce.to.Col">Col</span>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@to[Col[_]](implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,A,Col[A@scala.annotation.unchecked.uncheckedVariance]]):Col[A@scala.annotation.unchecked.uncheckedVariance]" title="Permalink" target="_top">
@@ -1259,7 +1303,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toArray</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="kantan.csv.CsvReader.A">A</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.reflect.ClassTag" class="extype" target="_top">ClassTag</a>[<span class="extype" name="scala.collection.TraversableOnce.toArray.B">B</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Array" class="extype" target="_top">Array</a>[<span class="extype" name="scala.collection.TraversableOnce.toArray.B">B</span>]</span>
+        <span class="name">toArray</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="kantan.csv.CsvReader.A">A</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.reflect.ClassTag" class="extype" target="_top">ClassTag</a>[<span class="extype" name="scala.collection.TraversableOnce.toArray.B">B</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Array" class="extype" target="_top">Array</a>[<span class="extype" name="scala.collection.TraversableOnce.toArray.B">B</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@toArray[B&gt;:A](implicitevidence$1:scala.reflect.ClassTag[B]):Array[B]" title="Permalink" target="_top">
@@ -1276,7 +1320,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toBuffer</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="kantan.csv.CsvReader.A">A</span></span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.collection.mutable.Buffer" class="extype" target="_top">Buffer</a>[<span class="extype" name="scala.collection.TraversableOnce.toBuffer.B">B</span>]</span>
+        <span class="name">toBuffer</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="kantan.csv.CsvReader.A">A</span></span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.collection.mutable.Buffer" class="extype" target="_top">Buffer</a>[<span class="extype" name="scala.collection.TraversableOnce.toBuffer.B">B</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@toBuffer[B&gt;:A]:scala.collection.mutable.Buffer[B]" title="Permalink" target="_top">
@@ -1293,7 +1337,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toIndexedSeq</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.collection.immutable.IndexedSeq" class="extype" target="_top">IndexedSeq</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
+        <span class="name">toIndexedSeq</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.collection.immutable.IndexedSeq" class="extype" target="_top">IndexedSeq</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@toIndexedSeq:scala.collection.immutable.IndexedSeq[A]" title="Permalink" target="_top">
@@ -1310,7 +1354,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toIterable</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.collection.Iterable" class="extype" target="_top">Iterable</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
+        <span class="name">toIterable</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.collection.Iterable" class="extype" target="_top">Iterable</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@toIterable:Iterable[A]" title="Permalink" target="_top">
@@ -1361,7 +1405,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toMap</span><span class="tparams">[<span name="T">T</span>, <span name="U">U</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>, (<span class="extype" name="scala.collection.TraversableOnce.toMap.T">T</span>, <span class="extype" name="scala.collection.TraversableOnce.toMap.U">U</span>)]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.collection.immutable.Map" class="extype" target="_top">Map</a>[<span class="extype" name="scala.collection.TraversableOnce.toMap.T">T</span>, <span class="extype" name="scala.collection.TraversableOnce.toMap.U">U</span>]</span>
+        <span class="name">toMap</span><span class="tparams">[<span name="T">T</span>, <span name="U">U</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>, (<span class="extype" name="scala.collection.TraversableOnce.toMap.T">T</span>, <span class="extype" name="scala.collection.TraversableOnce.toMap.U">U</span>)]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.collection.immutable.Map" class="extype" target="_top">Map</a>[<span class="extype" name="scala.collection.TraversableOnce.toMap.T">T</span>, <span class="extype" name="scala.collection.TraversableOnce.toMap.U">U</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@toMap[T,U](implicitev:&lt;:&lt;[A,(T,U)]):scala.collection.immutable.Map[T,U]" title="Permalink" target="_top">
@@ -1378,7 +1422,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toSeq</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.collection.Seq" class="extype" target="_top">Seq</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
+        <span class="name">toSeq</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.collection.Seq" class="extype" target="_top">Seq</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@toSeq:Seq[A]" title="Permalink" target="_top">
@@ -1480,7 +1524,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@wait():Unit" title="Permalink" target="_top">
@@ -1503,7 +1547,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Long" class="extype" target="_top">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Long" class="extype" target="_top">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
@@ -1526,7 +1570,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Long" class="extype" target="_top">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Long" class="extype" target="_top">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@wait(x$1:Long):Unit" title="Permalink" target="_top">
@@ -1549,7 +1593,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">withFilter</span><span class="params">(<span name="p">p: (<span class="extype" name="kantan.csv.CsvReader.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
+        <span class="name">withFilter</span><span class="params">(<span name="p">p: (<span class="extype" name="kantan.csv.CsvReader.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.CsvReader@withFilter(p:A=&gt;Boolean):kantan.csv.CsvReader[A]" title="Permalink" target="_top">
@@ -1571,9 +1615,9 @@
             </div><div class="parent" name="java.lang.AutoCloseable">
               <h3>Inherited from <span class="extype" name="java.lang.AutoCloseable">AutoCloseable</span></h3>
             </div><div class="parent" name="scala.collection.TraversableOnce">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.collection.TraversableOnce" class="extype" target="_top">TraversableOnce</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.collection.TraversableOnce" class="extype" target="_top">TraversableOnce</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</h3>
             </div><div class="parent" name="scala.collection.GenTraversableOnce">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.collection.GenTraversableOnce" class="extype" target="_top">GenTraversableOnce</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.collection.GenTraversableOnce" class="extype" target="_top">GenTraversableOnce</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">

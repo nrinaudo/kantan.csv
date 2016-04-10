@@ -60,7 +60,7 @@
               <ol>
                 
                 <li class="alpha in"><span>Alphabetic</span></li>
-                <li class="inherit out"><span>By inheritance</span></li>
+                <li class="inherit out"><span>By Inheritance</span></li>
               </ol>
             </div>
         <div id="ancestors">
@@ -73,7 +73,7 @@
             <span class="filtertype"></span>
             <ol>
               <li class="hideall out"><span>Hide All</span></li>
-              <li class="showall in"><span>Show all</span></li>
+              <li class="showall in"><span>Show All</span></li>
             </ol>
           </div>
         <div id="visbl">
@@ -89,7 +89,7 @@
         <div id="types" class="types members">
               <h3>Type Members</h3>
               <ol><li name="kantan.csv.scalaz.stream.CsvSink" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="CsvSink[S]extendsAnywithSerializable"></a>
+      <a id="CsvSink[S]extendsSerializable"></a>
       <a id="CsvSink[S]:CsvSink[S]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -97,18 +97,18 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="CsvSink.html"><span class="name">CsvSink</span></a><span class="tparams">[<span name="S">S</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+        <a href="CsvSink.html"><span class="name">CsvSink</span></a><span class="tparams">[<span name="S">S</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.scalaz.stream.package@CsvSink[S]extendsAnywithSerializable" title="Permalink" target="_top">
+      <a href="../../../../index.html#kantan.csv.scalaz.stream.package@CsvSink[S]extendsSerializable" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Turns instances of <code>S</code> into CSV sinks.</p><div class="fullcomment"><div class="comment cmt"><p>Turns instances of <code>S</code> into CSV sinks.</p><p>Any type <code>S</code> that has a implicit instance of <a href="CsvSink.html" class="extype" name="kantan.csv.scalaz.stream.CsvSink">CsvSink</a> in scope will be enriched by the <code>asCsvSink</code> method (which
-maps to <a href="CsvSink.html#sink[A](s:S,sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[A],implicitengine:kantan.csv.engine.WriterEngine):scalaz.stream.Sink[scalaz.concurrent.Task,A]" class="extmbr" name="kantan.csv.scalaz.stream.CsvSink#sink">sink</a>).</p><p>Additionally, any type that has an instance of <code>CsvOutput</code> in scope automatically gets an instance of <a href="CsvSink.html" class="extype" name="kantan.csv.scalaz.stream.CsvSink">CsvSink</a>.
+maps to <a href="CsvSink.html#sink[A](s:S,sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[A],implicite:kantan.csv.engine.WriterEngine):scalaz.stream.Sink[scalaz.concurrent.Task,A]" class="extmbr" name="kantan.csv.scalaz.stream.CsvSink#sink">sink</a>).</p><p>Additionally, any type that has an instance of <code>CsvOutput</code> in scope automatically gets an instance of <a href="CsvSink.html" class="extype" name="kantan.csv.scalaz.stream.CsvSink">CsvSink</a>.
 </p></div></div>
     </li><li name="kantan.csv.scalaz.stream.CsvSource" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="CsvSource[S]extendsAnywithSerializable"></a>
+      <a id="CsvSource[S]extendsSerializable"></a>
       <a id="CsvSource[S]:CsvSource[S]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -116,15 +116,15 @@ maps to <a href="CsvSink.html#sink[A](s:S,sep:Char,header:Seq[String])(implicite
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="CsvSource.html"><span class="name">CsvSource</span></a><span class="tparams">[<span name="S">S</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+        <a href="CsvSource.html"><span class="name">CsvSource</span></a><span class="tparams">[<span name="S">S</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.scalaz.stream.package@CsvSource[S]extendsAnywithSerializable" title="Permalink" target="_top">
+      <a href="../../../../index.html#kantan.csv.scalaz.stream.package@CsvSource[S]extendsSerializable" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Turns instances of <code>S</code> into CSV sources.</p><div class="fullcomment"><div class="comment cmt"><p>Turns instances of <code>S</code> into CSV sources.</p><p>Any type <code>S</code> that has a implicit instance of <a href="CsvSource.html" class="extype" name="kantan.csv.scalaz.stream.CsvSource">CsvSource</a> in scope will be enriched by the <code>asCsvSource</code> and
-<code>asUnsafeCsvSource</code> methods (which map to <a href="CsvSource.html#source[A](s:S,sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[A],implicitengine:kantan.csv.engine.ReaderEngine):scalaz.stream.Process[scalaz.concurrent.Task,kantan.csv.DecodeResult[A]]" class="extmbr" name="kantan.csv.scalaz.stream.CsvSource#source">source</a> and <a href="CsvSource.html#unsafeSource[A](s:S,sep:Char,header:Boolean)(implicitevidence$2:kantan.csv.RowDecoder[A],implicitengine:kantan.csv.engine.ReaderEngine):scalaz.stream.Process[scalaz.concurrent.Task,A]" class="extmbr" name="kantan.csv.scalaz.stream.CsvSource#unsafeSource">unsafeSource</a> respectively).</p><p>Additionally, any type that has an instance of <code>CsvInput</code> in scope automatically gets an instance of <a href="CsvSource.html" class="extype" name="kantan.csv.scalaz.stream.CsvSource">CsvSource</a>.
+<code>asUnsafeCsvSource</code> methods (which map to <a href="CsvSource.html#source[A](s:S,sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[A],implicitengine:kantan.csv.engine.ReaderEngine):scalaz.stream.Process[scalaz.concurrent.Task,kantan.csv.ReadResult[A]]" class="extmbr" name="kantan.csv.scalaz.stream.CsvSource#source">source</a> and <a href="CsvSource.html#unsafeSource[A](s:S,sep:Char,header:Boolean)(implicitevidence$2:kantan.csv.RowDecoder[A],implicitengine:kantan.csv.engine.ReaderEngine):scalaz.stream.Process[scalaz.concurrent.Task,A]" class="extmbr" name="kantan.csv.scalaz.stream.CsvSource#unsafeSource">unsafeSource</a> respectively).</p><p>Additionally, any type that has an instance of <code>CsvInput</code> in scope automatically gets an instance of <a href="CsvSource.html" class="extype" name="kantan.csv.scalaz.stream.CsvSource">CsvSource</a>.
 </p></div></div>
     </li></ol>
             </div>
@@ -142,7 +142,7 @@ maps to <a href="CsvSink.html#sink[A](s:S,sep:Char,header:Seq[String])(implicite
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a href="CsvSink$.html"><span class="name">CsvSink</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+        <a href="CsvSink$.html"><span class="name">CsvSink</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#kantan.csv.scalaz.stream.package@CsvSink" title="Permalink" target="_top">
@@ -159,7 +159,7 @@ maps to <a href="CsvSink.html#sink[A](s:S,sep:Char,header:Seq[String])(implicite
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a href="CsvSource$.html"><span class="name">CsvSource</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+        <a href="CsvSource$.html"><span class="name">CsvSource</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#kantan.csv.scalaz.stream.package@CsvSource" title="Permalink" target="_top">
@@ -176,7 +176,7 @@ maps to <a href="CsvSink.html#sink[A](s:S,sep:Char,header:Seq[String])(implicite
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a href="ops$.html"><span class="name">ops</span></a><span class="result"> extends <a href="CsvSource$$ToCsvSourceOps.html" class="extype" name="kantan.csv.scalaz.stream.CsvSource.ToCsvSourceOps">ToCsvSourceOps</a> with <a href="CsvSink$$ToCsvSinkOps.html" class="extype" name="kantan.csv.scalaz.stream.CsvSink.ToCsvSinkOps">ToCsvSinkOps</a></span>
+        <a href="ops$.html"><span class="name">ops</span></a>
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#kantan.csv.scalaz.stream.package@ops" title="Permalink" target="_top">
