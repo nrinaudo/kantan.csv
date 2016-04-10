@@ -1,6 +1,7 @@
 import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
 import com.typesafe.sbt.SbtSite.SiteKeys._
 import UnidocKeys._
+import de.heikoseeberger.sbtheader.license.Apache2_0
 
 val kantanCodecsVersion        = "0.1.2"
 val catsVersion                = "0.4.1"
@@ -9,7 +10,7 @@ val scalaCheckVersion          = "1.12.5"
 val disciplineVersion          = "0.4"
 val shapelessVersion           = "2.3.0"
 val scalatestVersion           = "3.0.0-M9"
-val scalazVersion              = "7.2.0"
+val scalazVersion              = "7.2.2"
 val scalazStreamVersion        = "0.8"
 val productCollectionVersion   = "1.4.3"
 val opencsvVersion             = "3.7"
@@ -51,6 +52,7 @@ lazy val baseSettings = Seq(
     Resolver.sonatypeRepo("releases"),
     Resolver.sonatypeRepo("snapshots")
   ),
+  headers := Map("scala" -> Apache2_0("2016", "Nicolas Rinaudo")),
   coverageExcludedPackages := "kantan\\.csv\\.laws\\..*",
   incOptions := incOptions.value.withNameHashing(true)
 )
@@ -63,7 +65,7 @@ lazy val noPublishSettings = Seq(
 
 lazy val publishSettings = Seq(
   homepage := Some(url("https://nrinaudo.github.io/kantan.csv/")),
-  licenses := Seq("MIT License" → url("http://www.opensource.org/licenses/mit-license.php")),
+  licenses := Seq("Apache-2.0" → url("https://www.apache.org/licenses/LICENSE-2.0.html")),
   apiURL := Some(url("https://nrinaudo.github.io/kantan.csv/api/")),
   scmInfo := Some(
     ScmInfo(
@@ -98,6 +100,7 @@ lazy val root = Project(id = "kantan-csv", base = file("."))
   )
   .aggregate(core, cats, scalaz, scalazStream, laws, tests, docs, generic, benchmark, jackson, commons, opencsv, jodaTime)
   .dependsOn(core, generic, jodaTime)
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val core = project
   .enablePlugins(spray.boilerplate.BoilerplatePlugin)
@@ -107,42 +110,46 @@ lazy val core = project
   )
   .settings(libraryDependencies += "com.nrinaudo" %% "kantan.codecs" % kantanCodecsVersion)
   .settings(allSettings: _*)
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val jackson = project
   .settings(
-      moduleName := "kantan.csv-jackson",
-      name       := "jackson"
-    )
-    .settings(libraryDependencies ++= Seq(
-      "com.fasterxml.jackson.dataformat" %  "jackson-dataformat-csv" % jacksonCsvVersion,
-      "org.scalatest"                    %% "scalatest"              % scalatestVersion % "test"
-    ))
-    .settings(allSettings: _*)
-    .dependsOn(core, laws % "test")
+    moduleName := "kantan.csv-jackson",
+    name       := "jackson"
+  )
+  .settings(libraryDependencies ++= Seq(
+    "com.fasterxml.jackson.dataformat" %  "jackson-dataformat-csv" % jacksonCsvVersion,
+    "org.scalatest"                    %% "scalatest"              % scalatestVersion % "test"
+  ))
+  .settings(allSettings: _*)
+  .dependsOn(core, laws % "test")
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val commons = project
   .settings(
-      moduleName := "kantan.csv-commons",
-      name       := "commons"
-    )
-    .settings(libraryDependencies ++= Seq(
-      "org.apache.commons" %  "commons-csv" % commonsCsvVersion,
-      "org.scalatest"      %% "scalatest"   % scalatestVersion % "test"
-    ))
-    .settings(allSettings: _*)
-    .dependsOn(core, laws % "test")
+    moduleName := "kantan.csv-commons",
+    name       := "commons"
+  )
+  .settings(libraryDependencies ++= Seq(
+    "org.apache.commons" %  "commons-csv" % commonsCsvVersion,
+    "org.scalatest"      %% "scalatest"   % scalatestVersion % "test"
+  ))
+  .settings(allSettings: _*)
+  .dependsOn(core, laws % "test")
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val opencsv = project
   .settings(
-      moduleName := "kantan.csv-opencsv",
-      name       := "opencsv"
-    )
-    .settings(libraryDependencies ++= Seq(
-      "com.opencsv"   %  "opencsv"   % opencsvVersion,
-      "org.scalatest" %% "scalatest" % scalatestVersion % "test"
-    ))
-    .settings(allSettings: _*)
-    .dependsOn(core, laws % "test")
+    moduleName := "kantan.csv-opencsv",
+    name       := "opencsv"
+  )
+  .settings(libraryDependencies ++= Seq(
+    "com.opencsv"   %  "opencsv"   % opencsvVersion,
+    "org.scalatest" %% "scalatest" % scalatestVersion % "test"
+  ))
+  .settings(allSettings: _*)
+  .dependsOn(core, laws % "test")
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val laws = project
   .enablePlugins(spray.boilerplate.BoilerplatePlugin)
@@ -157,6 +164,7 @@ lazy val laws = project
   ))
   .settings(allSettings: _*)
   .dependsOn(core)
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val generic = project
   .settings(
@@ -170,6 +178,7 @@ lazy val generic = project
     "com.github.alexarchambault" %% "scalacheck-shapeless" % scalacheckShapelessVersion % "test"  exclude("com.chuusai", "shapeless_2.10.4")
   ))
   .dependsOn(core, laws % "test")
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val scalaz = project
   .settings(
@@ -183,6 +192,7 @@ lazy val scalaz = project
     "org.scalatest" %% "scalatest"                 % scalatestVersion    % "test"
   ))
   .dependsOn(core, laws % "test")
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val scalazStream = Project(id = "scalaz-stream", base = file("scalaz-stream"))
   .settings(
@@ -195,6 +205,7 @@ lazy val scalazStream = Project(id = "scalaz-stream", base = file("scalaz-stream
   ))
   .settings(allSettings: _*)
   .dependsOn(scalaz, laws % "test")
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val cats = project
   .settings(
@@ -208,6 +219,7 @@ lazy val cats = project
   ))
   .settings(allSettings: _*)
   .dependsOn(core, laws % "test")
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val jodaTime = Project(id = "joda-time", base = file("joda-time"))
   .settings(
@@ -221,6 +233,7 @@ lazy val jodaTime = Project(id = "joda-time", base = file("joda-time"))
   ))
   .settings(allSettings: _*)
   .dependsOn(core, laws % "test")
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val tests = project
   .enablePlugins(spray.boilerplate.BoilerplatePlugin)
@@ -228,6 +241,7 @@ lazy val tests = project
   .settings(noPublishSettings: _*)
   .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
   .dependsOn(core, laws % "test")
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val benchmark = project
   .settings(buildSettings: _*)
@@ -241,6 +255,7 @@ lazy val benchmark = project
     "org.scalatest"         %% "scalatest"              % scalatestVersion % "test"
   ))
   .dependsOn(core, jackson, opencsv, commons)
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val docs = project
   .settings(allSettings: _*)
