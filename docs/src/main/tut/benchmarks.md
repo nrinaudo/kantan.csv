@@ -12,7 +12,7 @@ title: "Benchmarks"
 | [opencsv]             |     3.7 |
 | [product collections] |   1.4.3 |
 | [scala csv]           |   1.3.0 |
-| kantan.csv            |   0.1.8 |
+| kantan.csv            |   0.1.9 |
 | [uniVocity]           |   2.0.2 |
 
 In order to be included in this benchmark, a library must be:
@@ -100,10 +100,6 @@ serialized.
 | [product collections]    |     90.76 |
 | [scala csv]              |    285.15 |
 | [uniVocity]              |     38.69 |
-
-The one thing I feel I must point out here is that [uniVocity]'s results are so poor, the reason has probably less to do
-with the library than how I'm using it. It's probably fair to ignore that number for the moment. As soon as I work out
-what I'm doing wrong, I'll amend the results.
 
 [commons csv]:https://commons.apache.org/proper/commons-csv/
 [jackson csv]:https://github.com/FasterXML/jackson-dataformat-csv
