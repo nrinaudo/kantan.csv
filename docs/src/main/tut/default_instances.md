@@ -18,6 +18,7 @@ The following types have [`CellCodec`] instances available out of the box:
 * `Float`
 * `Int`
 * `Long`
+* [`Path`]
 * `Short`
 * `String`
 * [`java.util.UUID`]
@@ -158,3 +159,4 @@ The following types have an instance of [`CsvOutput`] out of the box:
 [`Either`]:http://www.scala-lang.org/api/current/index.html#scala.util.Either
 [`BigInt`]:http://www.scala-lang.org/api/current/index.html#scala.math.BigInt
 [`BigDecimal`]:http://www.scala-lang.org/api/current/index.html#scala.math.BigDecimal
+[`Path`]:https://docs.oracle.com/javase/7/docs/api/java/nio/file/Path.html
