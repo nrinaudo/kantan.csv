@@ -43,7 +43,7 @@ an iterator with a `close` method:
 
 ```scala
 scala> val iterator = rawData.asCsvReader[Car](',', true)
-iterator: kantan.csv.CsvReader[kantan.csv.ReadResult[Car]] = kantan.csv.CsvReader$$anon$4@149d0554
+iterator: kantan.csv.CsvReader[kantan.csv.ReadResult[Car]] = kantan.csv.CsvReader$$anon$4@623ec974
 ```
 
 [`asCsvReader`] is explained in some depths [here](rows_as_collections.html), but we're more interested in what we
@@ -57,7 +57,7 @@ multiple `filter` and `map` operations, and nothing will happen until each row i
 
 ```scala
 scala> val filtered = iterator.filter(_.exists(_.year >= 1997)).map(_.map(_.make))
-filtered: kantan.csv.CsvReader[kantan.codecs.Result[kantan.csv.ReadError,String]] = kantan.csv.CsvReader$$anon$4@5ce246f1
+filtered: kantan.csv.CsvReader[kantan.codecs.Result[kantan.csv.ReadError,String]] = kantan.csv.CsvReader$$anon$4@742a2100
 ```
 
 Note that this is a bit cumbersome - our iterator contains [`ReadResult[Car]`][`ReadResult`], which forces us to use
@@ -65,7 +65,7 @@ two levels of filtering / mapping. [`CsvReaderOps`] provides more comfortable al
 
 ```scala
 scala> val filtered = iterator.filterResult(_.year >= 1997).mapResult(_.make)
-filtered: kantan.csv.CsvReader[kantan.csv.ReadResult[String]] = kantan.csv.CsvReader$$anon$4@4ab4099
+filtered: kantan.csv.CsvReader[kantan.csv.ReadResult[String]] = kantan.csv.CsvReader$$anon$4@587417c0
 ```
 
 At this point, no data has been parsed yet. We can now, say, take the first element:

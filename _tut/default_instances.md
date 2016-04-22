@@ -18,7 +18,6 @@ The following types have [`CellCodec`] instances available out of the box:
 * `Float`
 * `Int`
 * `Long`
-* [`Path`]
 * `Short`
 * `String`
 * [`java.util.UUID`]
@@ -126,6 +125,7 @@ The following types have an instance of [`CsvInput`] out of the box:
 * [`java.io.File`]
 * `Array[Byte]`
 * `Array[Char`]
+* [`Path`]
 * `String`
 * [`java.net.URL`]
 * [`java.net.URI`]
@@ -136,6 +136,7 @@ The following types have an instance of [`CsvOutput`] out of the box:
 
 * [`java.io.Writer`]
 * [`java.io.OutputStream`]
+* [`Path`]
 * [`java.io.File`]
 
 [`CellCodec`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CellCodec[A]=kantan.codecs.Codec[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]
