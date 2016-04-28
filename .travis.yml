@@ -6,7 +6,7 @@ jdk:
   - oraclejdk7
   - oraclejdk8
 script:
-  - sbt ++$TRAVIS_SCALA_VERSION clean scalastyle test:scalastyle coverage test coverageReport coverageAggregate docs/makeSite
+  - sbt ++$TRAVIS_SCALA_VERSION validate
 before_install:
   - pip install --user codecov
 after_success:

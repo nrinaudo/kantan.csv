@@ -289,3 +289,4 @@ lazy val docs = project
 
 addCommandAlias("runBench",    "benchmark/jmh:run -i 10 -wi 10 -f 2 -t 1 -rf csv -rff benchmarks.csv")
 addCommandAlias("runProfiler", "benchmark/jmh:run -i 10 -wi 5 -f 1 -t 1 -o profiler.txt -prof stack:detailLine=true;lines=5;period=1 kantan.csv.benchmark.*kantan.*")
+addCommandAlias("validate", "; clean; scalastyle; test:scalastyle; coverage; test; coverageReport; coverageAggregate; docs/makeSite")
