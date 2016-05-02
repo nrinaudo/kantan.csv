@@ -15,6 +15,12 @@ The `generic` module can be used by adding the following dependency to your `bui
 libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.1.9"
 ```
 
+If you're using Scala 2.10.x, you should also add the macro paradise plugin to your build:
+
+```scala
+libraryDependencies += compilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
+```
+
 Let's first declare the imports we'll need in the rest of this tutorial:
 
 ```tut:silent
@@ -37,7 +43,7 @@ Here's a case object example:
 case object Foo
 ```
 
-This can be encoded and decoded without any specific declaration: 
+This can be encoded and decoded without any specific declaration:
 
 ```tut
 val decoded = ",,\n,,".unsafeReadCsv[List, List[Foo.type]](',', false)
@@ -45,7 +51,7 @@ val decoded = ",,\n,,".unsafeReadCsv[List, List[Foo.type]](',', false)
 decoded.asCsv(',')
 ```
 
-While this might not seem terribly useful, its purpose will become clearer when dealing with sum types. 
+While this might not seem terribly useful, its purpose will become clearer when dealing with sum types.
 
 
 ### Case classes of arity 1
@@ -108,7 +114,7 @@ decoded.asCsv(',')
 ### Case classes
 
 All case classes have [`RowEncoder`] and [`RowDecoder`] instances, provided all their fields also do.
- 
+
 Take, for example, a custom [`Tuple2`] implementation (using an actual [`Tuple2`] might not be very convincing, as
 it's supported by kantan.csv without needing the `generic` module):
 
