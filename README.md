@@ -1,6 +1,6 @@
 # kantan.csv
 
-[![Build Status](https://travis-ci.org/nrinaudo/kantan.csv.svg)](https://travis-ci.org/nrinaudo/kantan.csv)
+[![Build Status](https://travis-ci.org/nrinaudo/kantan.csv.svg?branch=master)](https://travis-ci.org/nrinaudo/kantan.csv)
 [![codecov](https://codecov.io/gh/nrinaudo/kantan.csv/branch/master/graph/badge.svg)](https://codecov.io/gh/nrinaudo/kantan.csv)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.nrinaudo/kantan.csv_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.nrinaudo/kantan.csv_2.11)
 [![Join the chat at https://gitter.im/nrinaudo/kantan.csv](https://img.shields.io/badge/gitter-join%20chat-52c435.svg)](https://gitter.im/nrinaudo/kantan.csv)
