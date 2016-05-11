@@ -16,7 +16,7 @@ implicit instance of [`CellEncoder[A]`][`CellEncoder`] in scope. All sane primit
 
 ```scala
 scala> implicitly[kantan.csv.CellEncoder[Int]]
-res0: kantan.csv.CellEncoder[Int] = kantan.codecs.Codec$$anon$1@7b0bc6d8
+res0: kantan.csv.CellEncoder[Int] = kantan.codecs.Codec$$anon$1@6751d1c
 ```
 
 A more complete list of default instances can be found [here](default_instances.html)
