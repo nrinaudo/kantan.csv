@@ -5,15 +5,15 @@ title: "Benchmarks"
 
 ## Benchmarked libraries
 
-| Library               | Version |
-|-----------------------|---------|
-| [commons csv]         |     1.2 |
-| [jackson csv]         |   2.7.3 |
-| [opencsv]             |     3.7 |
-| [product collections] |   1.4.3 |
-| [scala csv]           |   1.3.1 |
-| kantan.csv            |   0.1.9 |
-| [uniVocity]           |   2.1.0 |
+| Library               | Version  |
+|-----------------------|----------|
+| [commons csv]         |     1.2  |
+| [jackson csv]         |   2.7.3  |
+| [opencsv]             |     3.7  |
+| [product collections] |   1.4.3  |
+| [scala csv]           |   1.3.1  |
+| kantan.csv            |   0.1.10 |
+| [uniVocity]           |   2.1.0  |
 
 In order to be included in this benchmark, a library must be:
 
@@ -30,7 +30,7 @@ condition, and have disqualified some libraries that I could not get to pass the
 minor (quoted CRLFs are transformed in LFs) that I chose to disregard it, however.
 
 ### PureCSV
-One library that I wish I could have included is [PureCSV](https://github.com/melrief/PureCSV), if only because 
+One library that I wish I could have included is [PureCSV](https://github.com/melrief/PureCSV), if only because
 there should be more pure Scala libraries in there. It failed my tests so utterly however that I had to disqualify it -
 although the results were so bad that I believe they might be my fault rather than the library's. I'll probably give it
 another go for a later benchmark and try to see if I can work around the issues.
@@ -59,9 +59,9 @@ that's not much of an issue.
 ## Reading
 Reading is benchmarked by repeatedly parsing a known, simple, RFC-compliant
 [input](https://github.com/nrinaudo/kantan.csv/blob/master/benchmark/src/main/scala/kantan/csv/benchmark/package.scala).
- 
+
 Results are expressed in μs/action, where and action is a complete read of the sample input. This means that the lower
-the number, the better the results.  
+the number, the better the results.
 
 | Library                  | μs/action |
 |--------------------------|-----------|

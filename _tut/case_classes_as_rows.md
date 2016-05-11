@@ -52,13 +52,12 @@ the one they were declared in the class. For this, we need to go a little bit cl
 [`RowEncoder`].
 
 Luckily, case classes are such a common case that kantan.csv has all sorts of helpers for them - in our specific case,
-we're looking for the [`caseEncoderXXX`] method of object [`RowEncoder`], where `XXX` is the number of fields in the
-class. This method simply takes the case class' `unapply` method and a list of integers mapping fields to their index
-in the CSV row:
+we're looking for the [`caseEncoder`] method of object [`RowEncoder`], which simply takes a list of integers mapping
+fields to their index in the CSV row and the case class' `unapply` method: 
 
 ```scala
 import kantan.csv._
-implicit val personEncoder: RowEncoder[Person] = RowEncoder.caseEncoder3(Person.unapply)(0, 2, 1) 
+implicit val personEncoder: RowEncoder[Person] = RowEncoder.caseEncoder(0, 2, 1)(Person.unapply) 
 ```
 
 And to check whether that worked out, let's use another helper function: most Scala collections (all subtypes of
@@ -84,6 +83,6 @@ If you want to learn more about:
 [shapeless]:https://github.com/milessabin/shapeless
 [`CsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter
 [`RowEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]
-[`caseEncoderXXX`]:{{ site.baseurl }}/api/#kantan.csv.RowEncoder$@caseEncoder3[C,A1,A2,A3](f:C=>Option[(A1,A2,A3)])(i1:Int,i2:Int,i3:Int)(implicitevidence$5:kantan.csv.CellEncoder[A1],implicitevidence$6:kantan.csv.CellEncoder[A2],implicitevidence$7:kantan.csv.CellEncoder[A3]):kantan.csv.RowEncoder[C]
+[`caseEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.RowEncoder$@caseEncoder[C,A1,A2,A3](i1:Int,i2:Int,i3:Int)(f:C=>Option[(A1,A2,A3)])(implicitevidence$5:kantan.csv.CellEncoder[A1],implicitevidence$6:kantan.csv.CellEncoder[A2],implicitevidence$7:kantan.csv.CellEncoder[A3]):kantan.csv.RowEncoder[C]
 [`TraversableOnce`]:http://www.scala-lang.org/api/current/index.html#scala.collection.List
 [`asCsv`]:{{ site.baseurl }}/api/#kantan.csv.ops$$TraversableOnceOps@asCsv(sep:Char,header:Seq[String])(implicitengine:kantan.csv.engine.WriterEngine,implicitae:kantan.csv.RowEncoder[A]):String
