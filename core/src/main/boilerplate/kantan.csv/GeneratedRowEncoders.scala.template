@@ -2,7 +2,7 @@ package kantan.csv
 
 trait GeneratedRowEncoders {
   /** Creates a new [[RowEncoder]] from the specified unary function. */
-  def encoder1[C, A1](f: C ⇒ A1)(implicit e1: CellEncoder[A1]): RowEncoder[C] =
+  def encoder[C, A1](f: C ⇒ A1)(implicit e1: CellEncoder[A1]): RowEncoder[C] =
     RowEncoder(c ⇒ List(e1.encode(f(c))))
   [2..#/** Creates a new [[RowEncoder]] from the specified function.
     *
@@ -10,7 +10,7 @@ trait GeneratedRowEncoders {
     [#* @param i1 index of the cell that should be passed as parameter number 1 of `f`#
     ]
     */
-  def encoder1[C, [#A1#]](f: C ⇒ Tuple1[[#A1#]])([#i1: Int#])(implicit [#e1: CellEncoder[A1]#]): RowEncoder[C] =
+  def encoder[C, [#A1#]]([#i1: Int#])(f: C ⇒ Tuple1[[#A1#]])(implicit [#e1: CellEncoder[A1]#]): RowEncoder[C] =
     RowEncoder { c ⇒
       val e = f(c)
       val dest = new Array[String](1)
@@ -22,14 +22,10 @@ trait GeneratedRowEncoders {
   ]
 
   /** Creates a new [[RowEncoder]] from the specified unary function. */
-  def ordered1[C, A1: CellEncoder](f: C ⇒ A1): RowEncoder[C] =
-    encoder1(f)
-  [2..#/** Creates a new [[RowEncoder]] from the specified function.
-    *
-    * The difference between this and [[encoder1]] is that the former expects CSV cells to be ordered in the exact same
-    * sequence as the parameters expected by the specified function, while the later lets you customise these indexes.
-    */
-    def ordered1[C, [#A1#]](f: C ⇒ Tuple1[[#A1#]])(implicit [#e1: CellEncoder[A1]#]): RowEncoder[C] =
+  def ordered[C, A1: CellEncoder](f: C ⇒ A1): RowEncoder[C] =
+    encoder(f)
+  [2..#/** Creates a new [[RowEncoder]] from the specified function. */
+  def ordered[C, [#A1#]](f: C ⇒ Tuple1[[#A1#]])(implicit [#e1: CellEncoder[A1]#]): RowEncoder[C] =
     RowEncoder { c ⇒
       val e = f(c)
       val dest = new Array[String](1)
@@ -45,8 +41,8 @@ trait GeneratedRowEncoders {
     * This is meant for case classes and is unsafe for any other type: a case class' `unapply` method never returns
     * `Some`, which allows `caseEncoder1` to call `get` on the return value.
     */
-  def caseEncoder1[C, A1: CellEncoder](f: C ⇒ Option[A1]): RowEncoder[C] =
-    encoder1(f andThen (_.get))
+  def caseEncoder[C, A1: CellEncoder](f: C ⇒ Option[A1]): RowEncoder[C] =
+    encoder(f andThen (_.get))
   [2..#/** Creates a new [[RowEncoder]] from the specified `unapply` method of a case class' companion object.
     *
     * This is meant for case classes and is unsafe for any other type: a case class' `unapply` method never returns
@@ -56,22 +52,19 @@ trait GeneratedRowEncoders {
     [#* @param i1 index of the cell that should be passed as parameter number 1 of `f`#
     ]
     */
-    def caseEncoder1[C, [#A1: CellEncoder#]](f: C ⇒ Option[Tuple1[[#A1#]]])([#i1: Int#]): RowEncoder[C] =
-      encoder1(f andThen (_.get))([#i1#])#
+    def caseEncoder[C, [#A1: CellEncoder#]]([#i1: Int#])(f: C ⇒ Option[Tuple1[[#A1#]]]): RowEncoder[C] =
+      encoder([#i1#])(f andThen (_.get))#
   ]
 
   /** Creates a new [[RowEncoder]] from the specified `unapply` method of a case class' companion object. */
 
-  def caseOrdered1[C, A1: CellEncoder](f: C ⇒ Option[A1]): RowEncoder[C] =
-    encoder1(f andThen (_.get))
+  def caseOrdered[C, A1: CellEncoder](f: C ⇒ Option[A1]): RowEncoder[C] =
+    encoder(f andThen (_.get))
   [2..#/** Creates a new [[RowEncoder]] from the specified `unapply` method of a case class' companion object.
     *
-    * The difference between this and [[caseEncoder1]] is that the former expects CSV cells to be ordered in the exact
-    * same sequence as the parameters expected by the specified function, while the later lets you customise these
-    * indexes.
-    *
     * Consider using the `generics` kantan.csv module instead: it can automatically derive instances for this use case.
-    */def caseOrdered1[C, [#A1: CellEncoder#]](f: C ⇒ Option[Tuple1[[#A1#]]]): RowEncoder[C] =
-    ordered1(f andThen (_.get))#
+    */
+    def caseOrdered[C, [#A1: CellEncoder#]](f: C ⇒ Option[Tuple1[[#A1#]]]): RowEncoder[C] =
+      ordered(f andThen (_.get))#
   ]
 }

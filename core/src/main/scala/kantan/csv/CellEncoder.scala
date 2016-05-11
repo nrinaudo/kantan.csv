@@ -16,7 +16,7 @@
 
 package kantan.csv
 
-import kantan.codecs.Encoder
+import kantan.codecs.{Encoder, Optional}
 import kantan.codecs.strings._
 
 /** Provides useful methods for summoning and creating instances of [[CellEncoder]]. */
@@ -35,4 +35,6 @@ object CellEncoder {
 trait CellEncoderInstances {
   /** Turns existing `StringEncoder` instances into [[CellEncoder]] ones. */
   implicit def fromStringEncoder[A](implicit ea: StringEncoder[A]): CellEncoder[A] = ea.tag[codecs.type]
+  implicit def cellEncoderOpt[A: CellEncoder]: CellEncoder[Option[A]] = Encoder.optionalEncoder
+  implicit def cellEncoderEither[A: CellEncoder, B: CellEncoder]: CellEncoder[Either[A, B]] = Encoder.eitherEncoder
 }

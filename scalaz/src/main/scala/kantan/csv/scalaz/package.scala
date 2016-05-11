@@ -54,15 +54,7 @@ package object scalaz extends kantan.codecs.scalaz.ScalazInstances {
 
   // - ReadError -------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit val readErrorEqual: Equal[ReadError] = new Equal[ReadError] {
-    override def equal(a1: ReadError, a2: ReadError): Boolean = a1 == a2
-  }
-
-  implicit val decodeErrorEqual: Equal[DecodeError] = new Equal[DecodeError] {
-    override def equal(a1: DecodeError, a2: DecodeError): Boolean = a1 == a2
-  }
-
-  implicit val parseErrorEqual: Equal[ParseError] = new Equal[ParseError] {
-    override def equal(a1: ParseError, a2: ParseError): Boolean = a1 == a2
-  }
+  implicit val readErrorEqual: Equal[ReadError] = Equal.equalA[ReadError]
+  implicit val decodeErrorEqual: Equal[DecodeError] = Equal.equalA[DecodeError]
+  implicit val parseErrorEqual: Equal[ParseError] = Equal.equalA[ParseError]
 }

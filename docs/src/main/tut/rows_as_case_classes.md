@@ -54,20 +54,16 @@ case class Car2(make: String, year: Int, model: String, price: Float)
 ```
 
 This cannot be derived automatically, and we need to provide an instance of [`RowDecoder[Car2]`][`RowDecoder`]. This is
-made easy by helper methods meant for just this problem, the various
-[`RowDecoder.decoderXXX`][`decoder4`] methods, where `XXX` is the
-number of values we're interested in extracting. In our case, `Car2` has four fields, so we want [`decoder4`]:
+made easy by helper methods meant for just this problem, the various [`decoder`] methods:
 
 ```tut:silent
 import kantan.csv._
-implicit val carDecoder: RowDecoder[Car2] = RowDecoder.decoder4(Car2.apply)(1, 0, 2, 4)
+implicit val carDecoder: RowDecoder[Car2] = RowDecoder.decoder(1, 0, 2, 4)(Car2.apply)
 ```
 
-The first parameter to [`decoder4`] is a function that takes 4 arguments and return a value of the type we want to
-create a decoder for - with a case class, that's precisely the `apply` method declared in the companion object.
-
-We must then provide a list of integer values representing the index in a CSV row at which to look for the data of
-the corresponding field.
+The first parameter to [`decoder`] is a list of indexes that map CSV columns to case class fields. The second one 
+is a function that takes 4 arguments and return a value of the type we want to create a decoder for - with a case class,
+that's precisely the `apply` method declared in the companion object.
 
 Let's verify that this worked as expected:
 
@@ -85,4 +81,4 @@ If you want to learn more about:
  
 
 [`RowDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package@RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]
-[`decoder4`]:{{ site.baseurl }}/api/#kantan.csv.RowDecoder$@decoder4[A1,A2,A3,A4,R](f:(A1,A2,A3,A4)=>R)(i1:Int,i2:Int,i3:Int,i4:Int)(implicita1:kantan.csv.CellDecoder[A1],implicita2:kantan.csv.CellDecoder[A2],implicita3:kantan.csv.CellDecoder[A3],implicita4:kantan.csv.CellDecoder[A4]):kantan.csv.RowDecoder[R]
+[`decoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.RowDecoder$@decoder[A1,A2,A3,A4,R](i1:Int,i2:Int,i3:Int,i4:Int)(f:(A1,A2,A3,A4)=>R)(implicita1:kantan.csv.CellDecoder[A1],implicita2:kantan.csv.CellDecoder[A2],implicita3:kantan.csv.CellDecoder[A3],implicita4:kantan.csv.CellDecoder[A4]):kantan.csv.RowDecoder[R]

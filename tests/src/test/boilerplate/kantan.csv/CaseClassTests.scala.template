@@ -12,13 +12,13 @@ import org.typelevel.discipline.scalatest.Discipline
 
 object CaseClass1 {
   implicit val arb = Arbitrary(arbitrary[Int].map((CaseClass1.apply _)))
-  implicit val codec = RowCodec.caseCodec1(CaseClass1.apply)(CaseClass1.unapply)
+  implicit val codec = RowCodec.caseCodec(CaseClass1.apply)(CaseClass1.unapply)
 }
 case class CaseClass1(f1: Int)
 
 [2..#object CaseClass1 {
   implicit val arb = Arbitrary(arbitrary[Tuple1[[#Int#]]].map((CaseClass1.apply _).tupled))
-  implicit val codec = RowCodec.caseCodec1(CaseClass1.apply)(CaseClass1.unapply)([#0#])
+  implicit val codec = RowCodec.caseCodec([#0#])(CaseClass1.apply)(CaseClass1.unapply)
 }
 case class CaseClass1([#f1: Int#])#
 

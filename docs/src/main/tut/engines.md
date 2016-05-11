@@ -14,9 +14,9 @@ hood.
 ### Open CSV
 
 The [opencsv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
- 
+
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-opencsv" % "0.1.9"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-opencsv" % "0.1.10"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -28,9 +28,9 @@ import kantan.csv.engine.opencsv._
 ### Commons CSV
 
 The [commons csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
- 
+
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.1.9"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.1.10"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -38,13 +38,13 @@ You then need to bring the right implicits in scope through:
 ```tut:silent
 import kantan.csv.engine.commons._
 ```
- 
+
 ### Jackson CSV
 
 The [jackson csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
- 
+
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.1.9"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.1.10"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -56,7 +56,7 @@ import kantan.csv.engine.jackson._
 ## Supporting a new library
 
 For the purpose of this tutorial, let's make up an hypothetical CSV library, EasyCSV, that provides the following:
- 
+
 ```tut:silent
 import java.io._
 
@@ -81,7 +81,7 @@ Creating a new instance of [`ReaderEngine`] is meant to be fairly straightforwar
 [`ReaderEngine.apply`] method that takes care of this. It still means we need to be able to write a
 `(Reader, Char) ⇒ ReadResult[Seq[String]]`, which is surprisingly tricky to get right and not leak exceptions.
 
-Fortunately, there's a helper for that too: [`CsvReader.fromUnsafe`]. Put together, the code is deceptively simple: 
+Fortunately, there's a helper for that too: [`CsvReader.fromUnsafe`]. Put together, the code is deceptively simple:
 
 ```tut:silent
 import kantan.csv.engine._
@@ -96,14 +96,14 @@ implicit val readerEngine = ReaderEngine { (in: Reader, sep: Char) ⇒
 
 Serialising is very similar to parsing, except that instead of providing a [`ReaderEngine`], you need to provide a
 [`WriterEngine`]. This is achieved through [`WriterEngine.apply`], the argument to which you most likely want to create
-through [`CsvWriter.apply`]: 
+through [`CsvWriter.apply`]:
 
 ```tut:silent
 implicit val writerEngine = WriterEngine { (writer: Writer, sep: Char) ⇒
   CsvWriter(EasyCSV.write(writer, sep))(_ write _.toArray)(_.close())
 }
 ```
- 
+
 
 
 

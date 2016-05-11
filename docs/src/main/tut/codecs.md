@@ -54,7 +54,7 @@ val ps = List(Person(0, "Nicolas", 38), Person(1, "Kazuma", 1), Person(2, "John"
 We want to be able to both encode and decode that, so we can create a [`RowCodec[Person]`][`RowCodec`] instance:
 
 ```tut:silent
-implicit val personCodec: RowCodec[Person] = RowCodec.caseCodec3(Person.apply)(Person.unapply)(0, 2, 1)
+implicit val personCodec: RowCodec[Person] = RowCodec.caseCodec(0, 2, 1)(Person.apply)(Person.unapply)
 ```
 
 And with that one line, we're done:

@@ -11,22 +11,15 @@ trait GeneratedRowDecoders {
     [#* @param i1 index of the cell that should be passed as parameter number 1 of `f`#
     ]
     */
-    def decoder1[[#A1#], R](f: ([#A1#]) ⇒ R)([#i1: Int#])(implicit [#a1: CellDecoder[A1]#]): RowDecoder[R] =
+  def decoder[[#A1#], R]([#i1: Int#])(f: ([#A1#]) ⇒ R)(implicit [#a1: CellDecoder[A1]#]): RowDecoder[R] =
     RowDecoder(ss ⇒ for {
       [#f1 ← decode(ss, i1, a1)#
       ]
     } yield f([#f1#]))#
   ]
 
-  [#/** Creates a new [[RowDecoder]] from the specified function.
-    *
-    * The difference between this and [[decoder1]] is that the former expects CSV cells to be ordered in the exact same
-    * sequence as the parameters expected by the specified function, while the later lets you customise these indexes.
-    */
-    def ordered1[[#A1#], R](f: ([#A1#]) ⇒ R)(implicit [#a1: CellDecoder[A1]#]): RowDecoder[R] =
-    RowDecoder(ss ⇒ for {
-      [#f1 ← decode(ss, 0, a1)#
-      ]
-    } yield f([#f1#]))#
+  [#/** Creates a new [[RowDecoder]] from the specified function. */
+  def ordered[[#A1#], R](f: ([#A1#]) ⇒ R)(implicit [#a1: CellDecoder[A1]#]): RowDecoder[R] =
+      decoder([#0#])(f)#
   ]
 }
