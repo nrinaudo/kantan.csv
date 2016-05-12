@@ -24,7 +24,7 @@ import scala.io.Codec
 /** Type class for all types that can be turned into [[CsvWriter]] instances.
   *
   * Instances of [[CsvOutput]] are rarely used directly. The preferred, idiomatic way is to use the implicit syntax
-  * provided by [[ops.CsvOutputOps CsvOutputOps]], brought in scope by importing `kantan.csv.ops._`.
+  * provided by [[ops.csvOutput CsvOutputOps]], brought in scope by importing `kantan.csv.ops._`.
   *
   * See the [[CsvOutput companion object]] for default implementations and construction methods.
   */
