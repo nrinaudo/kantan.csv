@@ -51,6 +51,10 @@ object DecodeError {
 
     override def hashCode(): Int = cause.hashCode()
   }
+
+  object TypeError {
+    def apply(str: String): TypeError = TypeError(new Exception(str))
+  }
 }
 
 sealed abstract class ParseError extends ReadError
