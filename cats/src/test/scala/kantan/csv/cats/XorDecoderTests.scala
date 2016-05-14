@@ -23,7 +23,7 @@ import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
-class XorTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class XorDecoderTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   checkAll("Xor[Int, Boolean]", CellCodecTests[Xor[Int, Boolean]].codec[Byte, Float])
   checkAll("Xor[(Int, Int, Int), (Boolean, Float)]",
     RowCodecTests[Xor[(Int, Int, Int), (Boolean, Float)]].codec[Byte, String])
