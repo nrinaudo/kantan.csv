@@ -6,17 +6,17 @@
           <meta name="keywords" content="CsvReaderOps kantan.csv.ops.CsvReaderOps" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
-      <link href="../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
-      <link href="../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
-      <script type="text/javascript" src="../../lib/jquery.js" id="jquery-js"></script>
-      <script type="text/javascript" src="../../lib/jquery-ui.js"></script>
-      <script type="text/javascript" src="../../lib/template.js"></script>
-      <script type="text/javascript" src="../../lib/tools.tooltip.js"></script>
+      <link href="../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../lib/tools.tooltip.js"></script>
       
       <script type="text/javascript">
          if(top === self) {
-            var url = '../../index.html';
-            var hash = 'kantan.csv.ops$$CsvReaderOps';
+            var url = '../../../index.html';
+            var hash = 'kantan.csv.ops.CsvReaderOps';
             var anchor = window.location.hash;
             var anchor_opt = '';
             if (anchor.length >= 1)
@@ -28,20 +28,20 @@
         </head>
         <body class="type">
       <div id="definition">
-        <img alt="Class" src="../../lib/class_big.png" />
-        <p id="owner"><a href="../package.html" class="extype" name="kantan">kantan</a>.<a href="package.html" class="extype" name="kantan.csv">csv</a>.<a href="ops$.html" class="extype" name="kantan.csv.ops">ops</a></p>
+        <img alt="Class" src="../../../lib/class_big.png" />
+        <p id="owner"><a href="../../package.html" class="extype" name="kantan">kantan</a>.<a href="../package.html" class="extype" name="kantan.csv">csv</a>.<a href="package.html" class="extype" name="kantan.csv.ops">ops</a></p>
         <h1>CsvReaderOps</h1><h3><span class="morelinks"><div>Related Doc:
-            <a href="ops$.html" class="extype" name="kantan.csv.ops">package ops</a>
+            <a href="package.html" class="extype" name="kantan.csv.ops">package ops</a>
           </div></span></h3><span class="permalink">
-      <a href="../../index.html#kantan.csv.ops$$CsvReaderOps" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
+      <a href="../../../index.html#kantan.csv.ops.CsvReaderOps" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       </div>
 
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
-        <span class="modifier">implicit final </span>
+        <span class="modifier">final </span>
         <span class="kind">class</span>
       </span>
       <span class="symbol">
@@ -49,12 +49,12 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides useful syntax for <code>CsvReader[ReadResult[A]]</code>.</p><p>When parsing CSV data, a very common scenario is to get an instance of <a href="CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a> and then use common
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides useful syntax for <code>CsvReader[ReadResult[A]]</code>.</p><p>When parsing CSV data, a very common scenario is to get an instance of <a href="../CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a> and then use common
 combinators such as <code>map</code> and <code>flatMap</code> on it. This can be awkward when the actual interesting value is
-itself within a <a href="package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a> which also needs to be mapped into. <a href="" class="extype" name="kantan.csv.ops.CsvReaderOps">CsvReaderOps</a> provides shortcuts, such as:</p><pre><span class="kw">val</span> reader: CsvReader[ReadResult[<span class="std">List</span>[<span class="std">Int</span>]]] = ???
+itself within a <a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a> which also needs to be mapped into. <a href="" class="extype" name="kantan.csv.ops.CsvReaderOps">CsvReaderOps</a> provides shortcuts, such as:</p><pre><span class="kw">val</span> reader: CsvReader[ReadResult[<span class="std">List</span>[<span class="std">Int</span>]]] = ???
 
 <span class="cmt">// Not the most useful code in the world, but shows how one can map and filter directly on the nested value.</span>
-reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span class="num">0</span>)</pre></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/ops.scala" target="_blank">ops.scala</a></dd></dl><div class="toggleContainer block">
+reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span class="num">0</span>)</pre></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/ops/CsvReaderOps.scala" target="_blank">CsvReaderOps.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyVal">AnyVal</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -94,7 +94,7 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="kantan.csv.ops.CsvReaderOps#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(results:kantan.csv.CsvReader[kantan.csv.ReadResult[A]]):kantan.csv.ops.CsvReaderOps[A]"></a>
+      <a id="&lt;init&gt;(as:kantan.csv.CsvReader[kantan.csv.ReadResult[A]]):kantan.csv.ops.CsvReaderOps[A]"></a>
       <a id="&lt;init&gt;:CsvReaderOps[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -102,11 +102,11 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">CsvReaderOps</span><span class="params">(<span name="results">results: <a href="CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<a href="package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>]]</span>)</span>
+        <span class="name">CsvReaderOps</span><span class="params">(<span name="as">as: <a href="../CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>]]</span>)</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.ops$$CsvReaderOps@&lt;init&gt;(results:kantan.csv.CsvReader[kantan.csv.ReadResult[A]]):kantan.csv.ops.CsvReaderOps[A]" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
+      <a href="../../../index.html#kantan.csv.ops.CsvReaderOps@&lt;init&gt;(as:kantan.csv.CsvReader[kantan.csv.ReadResult[A]]):kantan.csv.ops.CsvReaderOps[A]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -131,8 +131,8 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
         <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.ops$$CsvReaderOps@!=(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
+      <a href="../../../index.html#kantan.csv.ops.CsvReaderOps@!=(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -148,8 +148,8 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
         <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.ops$$CsvReaderOps@##():Int" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
+      <a href="../../../index.html#kantan.csv.ops.CsvReaderOps@##():Int" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -165,11 +165,28 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
         <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.ops$$CsvReaderOps@==(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
+      <a href="../../../index.html#kantan.csv.ops.CsvReaderOps@==(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="kantan.csv.ops.CsvReaderOps#as" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="as:kantan.csv.CsvReader[kantan.csv.ReadResult[A]]"></a>
+      <a id="as:CsvReader[ReadResult[A]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">as</span><span class="result">: <a href="../CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#kantan.csv.ops.CsvReaderOps@as:kantan.csv.CsvReader[kantan.csv.ReadResult[A]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -182,8 +199,8 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
         <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.ops$$CsvReaderOps@asInstanceOf[T0]:T0" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
+      <a href="../../../index.html#kantan.csv.ops.CsvReaderOps@asInstanceOf[T0]:T0" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -196,11 +213,11 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">filterResult</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<a href="package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>]]</span>
+        <span class="name">filterResult</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="../CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.ops$$CsvReaderOps@filterResult(f:A=&gt;Boolean):kantan.csv.CsvReader[kantan.csv.ReadResult[A]]" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
+      <a href="../../../index.html#kantan.csv.ops.CsvReaderOps@filterResult(f:A=&gt;Boolean):kantan.csv.CsvReader[kantan.csv.ReadResult[A]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Filters on all successful values that match the specified predicate.</p>
@@ -213,11 +230,11 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">flatMapResult</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>) ⇒ <a href="package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.flatMapResult.B">B</span>]</span>)</span><span class="result">: <a href="CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<a href="package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.flatMapResult.B">B</span>]]</span>
+        <span class="name">flatMapResult</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>) ⇒ <a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.flatMapResult.B">B</span>]</span>)</span><span class="result">: <a href="../CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.flatMapResult.B">B</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.ops$$CsvReaderOps@flatMapResult[B](f:A=&gt;kantan.csv.ReadResult[B]):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
+      <a href="../../../index.html#kantan.csv.ops.CsvReaderOps@flatMapResult[B](f:A=&gt;kantan.csv.ReadResult[B]):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Turns a <code>CsvReader[ReadResult[A]]</code> into a <code>CsvReader[ReadResult[B]]</code>.</p>
@@ -233,8 +250,8 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
         <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Predef.Class">Class</span>[_ &lt;: <span class="extype" name="scala.AnyVal">AnyVal</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.ops$$CsvReaderOps@getClass():Class[_&lt;:AnyVal]" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
+      <a href="../../../index.html#kantan.csv.ops.CsvReaderOps@getClass():Class[_&lt;:AnyVal]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyVal → Any</dd></dl></div>
@@ -250,8 +267,8 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
         <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.ops$$CsvReaderOps@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
+      <a href="../../../index.html#kantan.csv.ops.CsvReaderOps@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -264,31 +281,14 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">mapResult</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>) ⇒ <span class="extype" name="kantan.csv.ops.CsvReaderOps.mapResult.B">B</span></span>)</span><span class="result">: <a href="CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<a href="package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.mapResult.B">B</span>]]</span>
+        <span class="name">mapResult</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>) ⇒ <span class="extype" name="kantan.csv.ops.CsvReaderOps.mapResult.B">B</span></span>)</span><span class="result">: <a href="../CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.mapResult.B">B</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.ops$$CsvReaderOps@mapResult[B](f:A=&gt;B):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
+      <a href="../../../index.html#kantan.csv.ops.CsvReaderOps@mapResult[B](f:A=&gt;B):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Turns a <code>CsvReader[ReadResult[A]]</code> into a <code>CsvReader[ReadResult[B]]</code>.</p>
-    </li><li name="kantan.csv.ops.CsvReaderOps#results" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="results:kantan.csv.CsvReader[kantan.csv.ReadResult[A]]"></a>
-      <a id="results:CsvReader[ReadResult[A]]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">results</span><span class="result">: <a href="CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<a href="package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>]]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.ops$$CsvReaderOps@results:kantan.csv.CsvReader[kantan.csv.ReadResult[A]]" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
     </li><li name="scala.Any#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
       <a id="toString():String"></a>
@@ -301,8 +301,8 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
         <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.ops$$CsvReaderOps@toString():String" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
+      <a href="../../../index.html#kantan.csv.ops.CsvReaderOps@toString():String" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>

@@ -216,7 +216,7 @@ into more complex instances of <a href="#RowEncoder[A]=kantan.codecs.Encoder[Seq
       </a>
     </span>
       <p class="shortcomment cmt">Turns instances of <code>S</code> into valid sources of CSV data.</p><div class="fullcomment"><div class="comment cmt"><p>Turns instances of <code>S</code> into valid sources of CSV data.</p><p>Instances of <a href="CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a> are rarely used directly. The preferred, idiomatic way is to use the implicit syntax
-provided by <a href="ops$$CsvInputOps.html" class="extype" name="kantan.csv.ops.CsvInputOps">CsvInputOps</a>, brought in scope by importing <code>kantan.csv.ops._</code>.</p><p>See the <a href="CsvInput$.html" class="extype" name="kantan.csv.CsvInput">companion object</a> for default implementations and construction methods.
+provided by <a href="ops/CsvInputOps.html" class="extype" name="kantan.csv.ops.CsvInputOps">CsvInputOps</a>, brought in scope by importing <code>kantan.csv.ops._</code>.</p><p>See the <a href="CsvInput$.html" class="extype" name="kantan.csv.CsvInput">companion object</a> for default implementations and construction methods.
 </p></div></div>
     </li><li name="kantan.csv.CsvOutput" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="CsvOutput[-S]extendsSerializable"></a>
@@ -235,7 +235,7 @@ provided by <a href="ops$$CsvInputOps.html" class="extype" name="kantan.csv.ops.
       </a>
     </span>
       <p class="shortcomment cmt">Type class for all types that can be turned into <a href="CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a> instances.</p><div class="fullcomment"><div class="comment cmt"><p>Type class for all types that can be turned into <a href="CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a> instances.</p><p>Instances of <a href="CsvOutput.html" class="extype" name="kantan.csv.CsvOutput">CsvOutput</a> are rarely used directly. The preferred, idiomatic way is to use the implicit syntax
-provided by <a href="ops$$CsvOutputOps.html" class="extype" name="kantan.csv.ops.CsvOutputOps">CsvOutputOps</a>, brought in scope by importing <code>kantan.csv.ops._</code>.</p><p>See the <a href="CsvOutput.html" class="extype" name="kantan.csv.CsvOutput">companion object</a> for default implementations and construction methods.
+provided by <a href="ops/csvOutput$.html" class="extype" name="kantan.csv.ops.csvOutput">CsvOutputOps</a>, brought in scope by importing <code>kantan.csv.ops._</code>.</p><p>See the <a href="CsvOutput.html" class="extype" name="kantan.csv.CsvOutput">companion object</a> for default implementations and construction methods.
 </p></div></div>
     </li><li name="kantan.csv.CsvReader" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="CsvReader[+A]extendsTraversableOnce[A]withCloseable"></a>
@@ -253,14 +253,14 @@ provided by <a href="ops$$CsvOutputOps.html" class="extype" name="kantan.csv.ops
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Iterator on CSV rows.</p><div class="fullcomment"><div class="comment cmt"><p>Iterator on CSV rows.</p><p>Instances of <a href="CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a> are commonly obtained through <a href="ops$$CsvInputOps.html#asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]" class="extmbr" name="kantan.csv.ops.CsvInputOps#asCsvReader">kantan.csv.ops.CsvInputOps.asCsvReader</a>:</p><pre><span class="kw">import</span> kantan.csv.ops._
+      <p class="shortcomment cmt">Iterator on CSV rows.</p><div class="fullcomment"><div class="comment cmt"><p>Iterator on CSV rows.</p><p>Instances of <a href="CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a> are commonly obtained through <a href="ops/CsvInputOps.html#asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]" class="extmbr" name="kantan.csv.ops.CsvInputOps#asCsvReader">kantan.csv.ops.CsvInputOps.asCsvReader</a>:</p><pre><span class="kw">import</span> kantan.csv.ops._
 
 <span class="kw">val</span> file: File = ??? <span class="cmt">// some CSV file.</span>
 file.asCsvReader[<span class="std">List</span>[<span class="std">Int</span>]](<span class="lit">','</span>, <span class="kw">true</span>)</pre><p><a href="CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a> provides most of the common Scala collection operations, such as <a href="CsvReader.html#map[B](f:A=&gt;B):kantan.csv.CsvReader[B]" class="extmbr" name="kantan.csv.CsvReader#map">map</a> or <a href="CsvReader.html#filter(p:A=&gt;Boolean):kantan.csv.CsvReader[A]" class="extmbr" name="kantan.csv.CsvReader#filter">filter</a>. However,
 working with a <code>CsvReader</code> of <a href="#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a> is a very common pattern that doesn't lend itself well to using such
 combinators: mapping on each row would require first mapping into the <a href="CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a>, then into each <a href="#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>,
-which is cumbersome and not terribly clear.</p><p>kantan.csv provides syntax for this pattern with <a href="ops$$CsvReaderOps.html" class="extype" name="kantan.csv.ops.CsvReaderOps">kantan.csv.ops.CsvReaderOps</a>: filtering into a result, for
-example, is made easier by <a href="ops$$CsvReaderOps.html#filterResult(f:A=&gt;Boolean):kantan.csv.CsvReader[kantan.csv.ReadResult[A]]" class="extmbr" name="kantan.csv.ops.CsvReaderOps#filterResult">kantan.csv.ops.CsvReaderOps.filterResult</a></p><pre><span class="kw">import</span> kantan.csv.ops._
+which is cumbersome and not terribly clear.</p><p>kantan.csv provides syntax for this pattern with <a href="ops/CsvReaderOps.html" class="extype" name="kantan.csv.ops.CsvReaderOps">kantan.csv.ops.CsvReaderOps</a>: filtering into a result, for
+example, is made easier by <a href="ops/CsvReaderOps.html#filterResult(f:A=&gt;Boolean):kantan.csv.CsvReader[kantan.csv.ReadResult[A]]" class="extmbr" name="kantan.csv.ops.CsvReaderOps#filterResult">kantan.csv.ops.CsvReaderOps.filterResult</a></p><pre><span class="kw">import</span> kantan.csv.ops._
 
 file.asCsvReader[<span class="std">List</span>[<span class="std">Int</span>]](<span class="lit">','</span>, <span class="kw">true</span>).filterResult(_ % <span class="num">2</span> == <span class="num">0</span>)</pre></div></div>
     </li><li name="kantan.csv.CsvWriter" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
@@ -903,10 +903,10 @@ can automatically derive valid instances for a lot of common scenarios.
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">object</span>
+        <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a href="ops$.html"><span class="name">ops</span></a>
+        <a href="ops/package.html"><span class="name">ops</span></a>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.package@ops" title="Permalink" target="_top">
