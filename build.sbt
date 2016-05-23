@@ -3,11 +3,10 @@ import com.typesafe.sbt.SbtSite.SiteKeys._
 import UnidocKeys._
 import de.heikoseeberger.sbtheader.license.Apache2_0
 
-val kantanCodecsVersion        = "0.1.5"
+val kantanCodecsVersion        = "0.1.6-SNAPSHOT"
 val catsVersion                = "0.5.0"
 val scalaCheckVersion          = "1.12.5"
 val disciplineVersion          = "0.4"
-val shapelessVersion           = "2.3.0"
 val scalatestVersion           = "3.0.0-M9"
 val scalazVersion              = "7.2.2"
 val scalazStreamVersion        = "0.8"
@@ -172,9 +171,9 @@ lazy val generic = project
   )
   .settings(allSettings: _*)
   .settings(libraryDependencies ++= Seq(
-    "com.chuusai"                %% "shapeless"            % shapelessVersion,
-    "org.scalatest"              %% "scalatest"            % scalatestVersion           % "test",
-    "com.github.alexarchambault" %% "scalacheck-shapeless" % scalacheckShapelessVersion % "test"  exclude("com.chuusai", "shapeless_2.10.4")
+    "com.nrinaudo"               %% "kantan.codecs-shapeless"      % kantanCodecsVersion,
+    "org.scalatest"              %% "scalatest"                    % scalatestVersion     % "test",
+    "com.nrinaudo"               %% "kantan.codecs-shapeless-laws" % kantanCodecsVersion  % "test"
   ))
   .dependsOn(core, laws % "test")
   .enablePlugins(AutomateHeaderPlugin)

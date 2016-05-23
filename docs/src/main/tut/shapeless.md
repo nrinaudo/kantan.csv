@@ -32,28 +32,6 @@ The rest of this post will be a simple list of supported types.
 
 ## `CellEncoder`s and `CellDecoder`s
 
-### Case objects
-
-While not the most obviously useful instance, case objects automatically have a [`CellDecoder`] and [`CellEncoder`]
-instance, working from and to the empty string.
-
-Here's a case object example:
-
-```tut:silent
-case object Foo
-```
-
-This can be encoded and decoded without any specific declaration:
-
-```tut
-val decoded = ",,\n,,".unsafeReadCsv[List, List[Foo.type]](',', false)
-
-decoded.asCsv(',')
-```
-
-While this might not seem terribly useful, its purpose will become clearer when dealing with sum types.
-
-
 ### Case classes of arity 1
 
 All case classes of arity 1 have [`CellDecoder`] and [`CellEncoder`] instances, provided the type of their single field
@@ -79,29 +57,13 @@ We can also get free [`CellDecoder`] and [`CellEncoder`] instances for sum types
 [`CellDecoder`] and [`CellEncoder`]. For example:
 
 ```tut:silent
-sealed abstract class Maybe[+A]
-case class Just[A](value: A) extends Maybe[A]
-case object Nothing extends Maybe[Nothing]
-```
-
-`Just` is a unary case class, so it has a [`CellCodec`] instance if its type argument has one. `Nothing` is a case
-object, so it automatically has [`CellCodec`]. This allows us to write:
-
-```tut
-val decoded = "1,, 3\n4, , 6".unsafeReadCsv[List, List[Maybe[Wrapper[Int]]]](',', false)
-
-decoded.asCsv(',')
-```
-
-Here's another common example, to show that sum types where both alternatives hold values are supported:
-
-```tut:silent
 sealed abstract class Xor[+A, +B]
 case class Left[A](value: A) extends Xor[A, Nothing]
 case class Right[B](value: B) extends Xor[Nothing, B]
 ```
 
-Encoding and decoding work just as well as before:
+`Left` is a unary case class and will have a [`CellDecoder`] if its type parameter has one, and the same goes for
+`Right`. This allows us to write:
 
 ```tut
 val decoded = "1,true\nfalse,2".unsafeReadCsv[List, List[Xor[Int, Boolean]]](',', false)
@@ -125,7 +87,7 @@ case class CustomTuple2[A, B](a: A, b: B)
 We can encode from and decode to that type for free:
 
 ```tut
-val decoded = "1,\n2,false".unsafeReadCsv[List, CustomTuple2[Int, Maybe[Boolean]]](',', false)
+val decoded = "1,\n2,false".unsafeReadCsv[List, CustomTuple2[Int, Option[Boolean]]](',', false)
 
 decoded.asCsv(',')
 ```
@@ -142,10 +104,10 @@ As with cells, sum types have [`RowEncoder`] and [`RowDecoder`] instances provid
 In the following example:
 
 * `(Int, Boolean)` has both, since it's a [`Tuple2`] of primitive types.
-* `CustomTuple2[String, Maybe[Boolean]]` has both, since it's a case class where all fields also do.
+* `CustomTuple2[String, Option[Boolean]]` has both, since it's a case class where all fields also do.
 
 ```tut
-val decoded = "1,true\nfoobar,".unsafeReadCsv[List, Xor[(Int, Boolean), CustomTuple2[String, Maybe[Boolean]]]](',', false)
+val decoded = "1,true\nfoobar,".unsafeReadCsv[List, Xor[(Int, Boolean), CustomTuple2[String, Option[Boolean]]]](',', false)
 
 decoded.asCsv(',')
 ```
