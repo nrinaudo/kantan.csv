@@ -34,5 +34,5 @@ class DerivedCellCodecTests extends FunSuite with GeneratorDrivenPropertyChecks 
     Try(s.toInt).isFailure && Try(s.toBoolean).isFailure
   }
 
-  checkAll("Or[Int, Boolean]", CellCodecTests[Or[Int, Boolean]].codec[Byte, String])
+  checkAll("CellCodec[Or[Int, Boolean]]", CellCodecTests[Or[Int, Boolean]].codec[Byte, String])
 }
