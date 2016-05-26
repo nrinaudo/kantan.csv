@@ -16,9 +16,11 @@
 
 package kantan.csv.generic
 
+import kantan.codecs.laws.CodecValue.IllegalValue
 import kantan.codecs.shapeless.laws.{Left, Or, Right}
 import kantan.codecs.shapeless.laws.discipline.arbitrary._
 import kantan.csv.laws.discipline.RowCodecTests
+import org.scalacheck.Arbitrary
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
@@ -31,16 +33,16 @@ class DerivedRowCodecTests extends FunSuite with GeneratorDrivenPropertyChecks w
   implicit val arbLegal = arbLegalValue((o: Or[Complex, Simple]) ⇒ o match {
     case Left(Complex(i, b, c)) ⇒ Seq(i.toString, b.toString, c.map(_.toString).getOrElse(""))
     case Right(Simple(i))       ⇒ Seq(i.toString)
-
   })
 
-  implicit val arbIllegal = arbIllegalValue[Seq[String], Or[Complex, Simple]] {
+  implicit val arbIllegal = arbIllegalValue[Seq[String], Or[Complex, Simple]](_.toList match {
     case i :: b :: c :: _ ⇒ Try(i.toInt).isFailure     ||
                             Try(b.toBoolean).isFailure ||
                             (c.trim.nonEmpty && Try(c.toFloat).isFailure)
     case i :: _           ⇒ Try(i.toInt).isFailure
     case _                ⇒ true
-  }
+  })
+
 
   checkAll("RowCodec[Or[Complex, Simple]]", RowCodecTests[Or[Complex, Simple]].codec[Byte, Float])
 }

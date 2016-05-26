@@ -155,9 +155,9 @@ lazy val laws = project
     name       := "laws"
   )
   .settings(libraryDependencies ++= Seq(
-    "org.scalacheck" %% "scalacheck"        % scalaCheckVersion,
-    "org.typelevel"  %% "discipline"        % disciplineVersion,
-    "com.nrinaudo"  %% "kantan.codecs-laws" % kantanCodecsVersion
+    "org.scalacheck" %% "scalacheck"         % scalaCheckVersion,
+    "org.typelevel"  %% "discipline"         % disciplineVersion,
+    "com.nrinaudo"   %% "kantan.codecs-laws" % kantanCodecsVersion
   ))
   .settings(allSettings: _*)
   .dependsOn(core)
@@ -170,9 +170,9 @@ lazy val generic = project
   )
   .settings(allSettings: _*)
   .settings(libraryDependencies ++= Seq(
-    "com.nrinaudo"               %% "kantan.codecs-shapeless"      % kantanCodecsVersion,
-    "org.scalatest"              %% "scalatest"                    % scalatestVersion     % "test",
-    "com.nrinaudo"               %% "kantan.codecs-shapeless-laws" % kantanCodecsVersion  % "test"
+    "com.nrinaudo"  %% "kantan.codecs-shapeless"      % kantanCodecsVersion,
+    "org.scalatest" %% "scalatest"                    % scalatestVersion     % "test",
+    "com.nrinaudo"  %% "kantan.codecs-shapeless-laws" % kantanCodecsVersion  % "test"
   ))
   .dependsOn(core, laws % "test")
   .enablePlugins(AutomateHeaderPlugin)
@@ -286,4 +286,4 @@ lazy val docs = project
 
 addCommandAlias("runBench",    "benchmark/jmh:run -i 10 -wi 10 -f 2 -t 1 -rf csv -rff benchmarks.csv")
 addCommandAlias("runProfiler", "benchmark/jmh:run -i 10 -wi 5 -f 1 -t 1 -o profiler.txt -prof stack:detailLine=true;lines=5;period=1 kantan.csv.benchmark.*kantan.*")
-addCommandAlias("validate", "; clean; scalastyle; test:scalastyle; coverage; test; coverageReport; coverageAggregate; docs/makeSite")
+addCommandAlias("validate", ";clean;scalastyle;test:scalastyle;coverage;test;coverageReport;coverageAggregate;docs/makeSite")
