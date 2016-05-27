@@ -1,7 +1,7 @@
 package kantan.csv.laws.discipline
 
 import kantan.codecs.laws.discipline.GenCodecValue
-import org.scalacheck.{Arbitrary, Gen}
+import org.scalacheck.Arbitrary
 
 trait ArbitraryArities extends kantan.codecs.laws.discipline.ArbitraryInstances {
   implicit def arbTuple1[A](implicit a1: Arbitrary[A]): Arbitrary[Tuple1[A]] =

@@ -16,7 +16,7 @@
 
 package kantan.csv
 
-import kantan.codecs.{Encoder, Optional}
+import kantan.codecs.Encoder
 import kantan.codecs.strings._
 
 /** Provides useful methods for summoning and creating instances of [[CellEncoder]]. */

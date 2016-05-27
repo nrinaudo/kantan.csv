@@ -1,6 +1,5 @@
 package kantan.csv
 
-import kantan.codecs.laws.CodecValue
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import kantan.csv.laws.discipline.RowCodecTests
 import kantan.csv.laws.discipline.arbitrary._

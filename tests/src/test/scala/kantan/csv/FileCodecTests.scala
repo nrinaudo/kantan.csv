@@ -17,11 +17,15 @@
 package kantan.csv
 
 import java.io.File
+import kantan.codecs.laws.CodecValue
 import kantan.csv.laws.discipline._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class FileCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+  // This is necessary for Scala 2.10.
+  implicit val arb = CodecValue.arbLegalStrFile
+
   checkAll("CellCodec[File]", CellCodecTests[File].bijectiveCodec[Int, Float])
 }

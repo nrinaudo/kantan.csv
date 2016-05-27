@@ -16,11 +16,9 @@
 
 package kantan.csv.generic
 
-import kantan.codecs.laws.CodecValue.IllegalValue
-import kantan.codecs.shapeless.laws.{Left, Or, Right}
+import kantan.codecs.shapeless.laws._
 import kantan.codecs.shapeless.laws.discipline.arbitrary._
 import kantan.csv.laws.discipline.RowCodecTests
-import org.scalacheck.Arbitrary
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline

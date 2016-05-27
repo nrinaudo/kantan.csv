@@ -3,22 +3,18 @@ import com.typesafe.sbt.SbtSite.SiteKeys._
 import UnidocKeys._
 import de.heikoseeberger.sbtheader.license.Apache2_0
 
-val kantanCodecsVersion        = "0.1.6-SNAPSHOT"
-val catsVersion                = "0.5.0"
-val scalaCheckVersion          = "1.12.5"
-val disciplineVersion          = "0.4"
-val scalatestVersion           = "3.0.0-M9"
-val scalazVersion              = "7.2.2"
-val scalazStreamVersion        = "0.8"
-val productCollectionVersion   = "1.4.3"
-val opencsvVersion             = "3.7"
-val univocityVersion           = "2.1.0"
-val jacksonCsvVersion          = "2.7.3"
-val commonsCsvVersion          = "1.2"
-val jodaVersion                = "2.9.3"
+val commonsCsvVersion          = "1.3"
+val jacksonCsvVersion          = "2.7.4"
+val jodaVersion                = "2.9.4"
 val jodaConvertVersion         = "1.8.1"
+val kantanCodecsVersion        = "0.1.6-SNAPSHOT"
+val macroParadiseVersion       = "2.1.0"
+val opencsvVersion             = "3.7"
+val productCollectionVersion   = "1.4.3"
 val scalaCsvVersion            = "1.3.1"
-val kindProjectorVersion       = "0.7.1"
+val scalatestVersion           = "3.0.0-M9"
+val scalazStreamVersion        = "0.8.1"
+val univocityVersion           = "2.1.1"
 
 lazy val buildSettings = Seq(
   organization       := "com.nrinaudo",
@@ -34,6 +30,7 @@ lazy val compilerOptions = Seq("-deprecation",
   "-language:existentials",
   "-language:higherKinds",
   "-language:implicitConversions",
+  "-language:experimental.macros",
   "-unchecked",
   "-Xfatal-warnings",
   "-Xlint",
@@ -44,13 +41,22 @@ lazy val compilerOptions = Seq("-deprecation",
   "-Xfuture")
 
 lazy val baseSettings = Seq(
-  scalacOptions ++= compilerOptions,
+  scalacOptions ++= compilerOptions ++ (
+    CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((2, 11)) => Seq("-Ywarn-unused-import")
+      case Some((2, 10)) => Seq("-Xdivergence211")
+      case _ => Nil
+    }
+  ),
+  scalacOptions in (Compile, console) ~= {
+    _.filterNot(Set("-Ywarn-unused-import"))
+  },
   resolvers ++= Seq(
     Resolver.sonatypeRepo("releases"),
     Resolver.sonatypeRepo("snapshots")
   ),
   headers := Map("scala" -> Apache2_0("2016", "Nicolas Rinaudo")),
-  coverageExcludedPackages := "kantan\\.csv\\.laws\\..*",
+  ScoverageSbtPlugin.ScoverageKeys.coverageExcludedPackages := "kantan\\.csv\\.laws\\..*",
   incOptions := incOptions.value.withNameHashing(true)
 )
 
@@ -155,9 +161,7 @@ lazy val laws = project
     name       := "laws"
   )
   .settings(libraryDependencies ++= Seq(
-    "org.scalacheck" %% "scalacheck"         % scalaCheckVersion,
-    "org.typelevel"  %% "discipline"         % disciplineVersion,
-    "com.nrinaudo"   %% "kantan.codecs-laws" % kantanCodecsVersion
+    "com.nrinaudo" %% "kantan.codecs-laws" % kantanCodecsVersion
   ))
   .settings(allSettings: _*)
   .dependsOn(core)
@@ -173,7 +177,7 @@ lazy val generic = project
     "com.nrinaudo"  %% "kantan.codecs-shapeless"      % kantanCodecsVersion,
     "org.scalatest" %% "scalatest"                    % scalatestVersion     % "test",
     "com.nrinaudo"  %% "kantan.codecs-shapeless-laws" % kantanCodecsVersion  % "test"
-  ))
+  ) ++ macroDependencies(scalaVersion.value))
   .dependsOn(core, laws % "test")
   .enablePlugins(AutomateHeaderPlugin)
 
@@ -272,7 +276,9 @@ lazy val docs = project
     "joda-time" % "joda-time"    % jodaVersion,
     "org.joda"  % "joda-convert" % jodaConvertVersion
   ))
+  .settings(libraryDependencies ++= macroDependencies(scalaVersion.value))
   .settings(tutSettings: _*)
+  .settings(tutScalacOptions ~= (_.filterNot(Set("-Ywarn-unused-import"))))
   .settings(
     site.addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), "api"),
     site.addMappingsToSiteDir(tut, "_tut"),
@@ -283,6 +289,12 @@ lazy val docs = project
   )
   .settings(noPublishSettings:_*)
   .dependsOn(core, scalazStream, laws, cats, scalaz, generic, jackson, commons, opencsv)
+
+def macroDependencies(v: String): List[ModuleID] =
+  ("org.scala-lang" % "scala-reflect" % v % "provided") :: {
+    if(v.startsWith("2.10")) List(compilerPlugin("org.scalamacros" % "paradise" % macroParadiseVersion cross CrossVersion.full))
+    else Nil
+  }
 
 addCommandAlias("runBench",    "benchmark/jmh:run -i 10 -wi 10 -f 2 -t 1 -rf csv -rff benchmarks.csv")
 addCommandAlias("runProfiler", "benchmark/jmh:run -i 10 -wi 5 -f 1 -t 1 -o profiler.txt -prof stack:detailLine=true;lines=5;period=1 kantan.csv.benchmark.*kantan.*")

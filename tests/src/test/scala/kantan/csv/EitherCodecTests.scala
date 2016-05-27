@@ -16,7 +16,6 @@
 
 package kantan.csv
 
-import kantan.codecs.Encoder
 import kantan.csv.laws.discipline._
 import kantan.csv.laws.discipline.arbitrary._
 import org.scalatest.FunSuite

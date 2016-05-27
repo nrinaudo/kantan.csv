@@ -107,9 +107,7 @@ In the following example:
 * `CustomTuple2[String, Option[Boolean]]` has both, since it's a case class where all fields also do.
 
 ```tut
-val decoded = "1,true\nfoobar,".unsafeReadCsv[List, Xor[(Int, Boolean), CustomTuple2[String, Option[Boolean]]]](',', false)
-
-decoded.asCsv(',')
+"1,true\nfoobar,".unsafeReadCsv[List, Xor[(Int, Boolean), CustomTuple2[String, Option[Boolean]]]](',', false)
 ```
 
 [`RowDecoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]
