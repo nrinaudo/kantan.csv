@@ -27,8 +27,6 @@ import org.typelevel.discipline.scalatest.Discipline
 import scala.util.Try
 
 class DerivedCellCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  implicitly[Arbitrary[Left[Int]]]
-
   implicit val arbLegal = arbLegalValue((o: Or[Int, Boolean]) ⇒ o match {
     case Left(i) ⇒ i.toString
     case Right(b) ⇒ b.toString
