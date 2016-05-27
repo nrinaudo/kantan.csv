@@ -12,7 +12,7 @@ for more common types and patterns.
 The `generic` module can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.1.11"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.1.12"
 ```
 
 If you're using Scala 2.10.x, you should also add the macro paradise plugin to your build:
@@ -57,16 +57,16 @@ We can also get free [`CellDecoder`] and [`CellEncoder`] instances for sum types
 [`CellDecoder`] and [`CellEncoder`]. For example:
 
 ```tut:silent
-sealed abstract class Xor[+A, +B]
-case class Left[A](value: A) extends Xor[A, Nothing]
-case class Right[B](value: B) extends Xor[Nothing, B]
+sealed abstract class Or[+A, +B]
+case class Left[A](value: A) extends Or[A, Nothing]
+case class Right[B](value: B) extends Or[Nothing, B]
 ```
 
 `Left` is a unary case class and will have a [`CellDecoder`] if its type parameter has one, and the same goes for
 `Right`. This allows us to write:
 
 ```tut
-val decoded = "1,true\nfalse,2".unsafeReadCsv[List, List[Xor[Int, Boolean]]](',', false)
+val decoded = "1,true\nfalse,2".unsafeReadCsv[List, List[Int Or Boolean]](',', false)
 
 decoded.asCsv(',')
 ```
@@ -107,7 +107,7 @@ In the following example:
 * `CustomTuple2[String, Option[Boolean]]` has both, since it's a case class where all fields also do.
 
 ```tut
-"1,true\nfoobar,".unsafeReadCsv[List, Xor[(Int, Boolean), CustomTuple2[String, Option[Boolean]]]](',', false)
+"1,true\nfoobar,".unsafeReadCsv[List, (Int, Boolean) Or CustomTuple2[String, Option[Boolean]]](',', false)
 ```
 
 [`RowDecoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]
