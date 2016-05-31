@@ -26,7 +26,7 @@ The following types have [`CellCodec`] instances available out of the box:
 
 ### `java.util.Date`
 
-There also is a default [`CellCodec`] instance available for `Date`, but this one is slightly more complicated. There
+There also is a default [`CellCodec`] instance available for [`Date`], but this one is slightly more complicated. There
 are so many different ways of writing dates that there is no reasonable default behaviour - one might argue that
 defaulting to ISO 8601 might make sense, but there doesn't appear to be a sane way of implementing that in Java's
 crusty date / time API.
@@ -34,6 +34,7 @@ crusty date / time API.
 Instead of providing a default implementation that is likely going to be incorrect for most people, kantan.csv
 expects an implicit [`DateFormat`] instance in scope, and will decode and encode using that format.
 
+Note that kantan.csv has a joda-time module, a very well thought out alternative to [`Date`].
 
 ### `Either`
 
@@ -171,3 +172,4 @@ The following types have an instance of [`CsvOutput`] out of the box:
 [`URI`]:https://docs.oracle.com/javase/7/docs/api/java/net/URI.html
 [`CanBuildFrom`]:http://www.scala-lang.org/api/current/index.html#scala.collection.generic.CanBuildFrom
 [`TraversableOnce`]:http://www.scala-lang.org/api/current/index.html#scala.collection.TraversableOnce
+[`Date`]:https://docs.oracle.com/javase/7/docs/api/java/util/Date.html
