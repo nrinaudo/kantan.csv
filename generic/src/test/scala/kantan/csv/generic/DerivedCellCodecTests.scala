@@ -16,7 +16,6 @@
 
 package kantan.csv.generic
 
-
 import kantan.codecs.shapeless.laws._
 import kantan.codecs.shapeless.laws.discipline.arbitrary._
 import kantan.csv.laws.discipline.CellCodecTests
