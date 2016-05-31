@@ -17,6 +17,7 @@
 package kantan.csv.scalaz
 
 import _root_.scalaz.scalacheck.ScalazProperties.equal
+import kantan.codecs.scalaz.laws.discipline.scalatest.ScalazSuite
 import kantan.csv._
 import kantan.csv.scalaz.arbitrary._
 
