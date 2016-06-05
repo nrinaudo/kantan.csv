@@ -19,7 +19,7 @@ looking for a few quick examples:
 import java.io.File
 import kantan.csv._         // All kantan.csv types.
 import kantan.csv.ops._     // Enriches types with useful methods.
-import kantan.csv.generic._ // Automatic derivation of codecs for case classes.
+import kantan.csv.generic._ // Automatic derivation of codecs.
 
 // Reading from a file: returns an iterator-like structure on (Int, Int)
 new File("points.csv").asCsvReader[(Int, Int)](',', false)
