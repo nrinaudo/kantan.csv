@@ -12,7 +12,7 @@ for more common types and patterns.
 The `generic` module can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.1.11"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.1.12"
 ```
 
 If you're using Scala 2.10.x, you should also add the macro paradise plugin to your build:
@@ -32,33 +32,6 @@ The rest of this post will be a simple list of supported types.
 
 ## `CellEncoder`s and `CellDecoder`s
 
-### Case objects
-
-While not the most obviously useful instance, case objects automatically have a [`CellDecoder`] and [`CellEncoder`]
-instance, working from and to the empty string.
-
-Here's a case object example:
-
-```scala
-case object Foo
-```
-
-This can be encoded and decoded without any specific declaration:
-
-```scala
-scala> val decoded = ",,\n,,".unsafeReadCsv[List, List[Foo.type]](',', false)
-decoded: List[List[Foo.type]] = List(List(Foo, Foo, Foo), List(Foo, Foo, Foo))
-
-scala> decoded.asCsv(',')
-res0: String =
-",,
-,,
-"
-```
-
-While this might not seem terribly useful, its purpose will become clearer when dealing with sum types.
-
-
 ### Case classes of arity 1
 
 All case classes of arity 1 have [`CellDecoder`] and [`CellEncoder`] instances, provided the type of their single field
@@ -77,7 +50,7 @@ scala> val decoded = "1, 2, 3\n4, 5, 6".unsafeReadCsv[List, List[Wrapper[Int]]](
 decoded: List[List[Wrapper[Int]]] = List(List(Wrapper(1), Wrapper(2), Wrapper(3)), List(Wrapper(4), Wrapper(5), Wrapper(6)))
 
 scala> decoded.asCsv(',')
-res1: String =
+res0: String =
 "1,2,3
 4,5,6
 "
@@ -89,41 +62,20 @@ We can also get free [`CellDecoder`] and [`CellEncoder`] instances for sum types
 [`CellDecoder`] and [`CellEncoder`]. For example:
 
 ```scala
-sealed abstract class Maybe[+A]
-case class Just[A](value: A) extends Maybe[A]
-case object Nothing extends Maybe[Nothing]
+sealed abstract class Or[+A, +B]
+case class Left[A](value: A) extends Or[A, Nothing]
+case class Right[B](value: B) extends Or[Nothing, B]
 ```
 
-`Just` is a unary case class, so it has a [`CellCodec`] instance if its type argument has one. `Nothing` is a case
-object, so it automatically has [`CellCodec`]. This allows us to write:
+`Left` is a unary case class and will have a [`CellDecoder`] if its type parameter has one, and the same goes for
+`Right`. This allows us to write:
 
 ```scala
-scala> val decoded = "1,, 3\n4, , 6".unsafeReadCsv[List, List[Maybe[Wrapper[Int]]]](',', false)
-decoded: List[List[Maybe[Wrapper[Int]]]] = List(List(Just(Wrapper(1)), Nothing, Just(Wrapper(3))), List(Just(Wrapper(4)), Nothing, Just(Wrapper(6))))
+scala> val decoded = "1,true\nfalse,2".unsafeReadCsv[List, List[Int Or Boolean]](',', false)
+decoded: List[List[Or[Int,Boolean]]] = List(List(Left(1), Right(true)), List(Right(false), Left(2)))
 
 scala> decoded.asCsv(',')
-res2: String =
-"1,,3
-4,,6
-"
-```
-
-Here's another common example, to show that sum types where both alternatives hold values are supported:
-
-```scala
-sealed abstract class Xor[+A, +B]
-case class Left[A](value: A) extends Xor[A, Nothing]
-case class Right[B](value: B) extends Xor[Nothing, B]
-```
-
-Encoding and decoding work just as well as before:
-
-```scala
-scala> val decoded = "1,true\nfalse,2".unsafeReadCsv[List, List[Xor[Int, Boolean]]](',', false)
-decoded: List[List[Xor[Int,Boolean]]] = List(List(Left(1), Right(true)), List(Right(false), Left(2)))
-
-scala> decoded.asCsv(',')
-res3: String =
+res1: String =
 "1,true
 false,2
 "
@@ -145,11 +97,11 @@ case class CustomTuple2[A, B](a: A, b: B)
 We can encode from and decode to that type for free:
 
 ```scala
-scala> val decoded = "1,\n2,false".unsafeReadCsv[List, CustomTuple2[Int, Maybe[Boolean]]](',', false)
-decoded: List[CustomTuple2[Int,Maybe[Boolean]]] = List(CustomTuple2(1,Nothing), CustomTuple2(2,Just(false)))
+scala> val decoded = "1,\n2,false".unsafeReadCsv[List, CustomTuple2[Int, Option[Boolean]]](',', false)
+decoded: List[CustomTuple2[Int,Option[Boolean]]] = List(CustomTuple2(1,None), CustomTuple2(2,Some(false)))
 
 scala> decoded.asCsv(',')
-res4: String =
+res2: String =
 "1,
 2,false
 "
@@ -167,17 +119,11 @@ As with cells, sum types have [`RowEncoder`] and [`RowDecoder`] instances provid
 In the following example:
 
 * `(Int, Boolean)` has both, since it's a [`Tuple2`] of primitive types.
-* `CustomTuple2[String, Maybe[Boolean]]` has both, since it's a case class where all fields also do.
+* `CustomTuple2[String, Option[Boolean]]` has both, since it's a case class where all fields also do.
 
 ```scala
-scala> val decoded = "1,true\nfoobar,".unsafeReadCsv[List, Xor[(Int, Boolean), CustomTuple2[String, Maybe[Boolean]]]](',', false)
-decoded: List[Xor[(Int, Boolean),CustomTuple2[String,Maybe[Boolean]]]] = List(Left((1,true)), Right(CustomTuple2(foobar,Nothing)))
-
-scala> decoded.asCsv(',')
-res5: String =
-"1,true
-foobar,
-"
+scala> "1,true\nfoobar,".unsafeReadCsv[List, (Int, Boolean) Or CustomTuple2[String, Option[Boolean]]](',', false)
+res3: List[Or[(Int, Boolean),CustomTuple2[String,Option[Boolean]]]] = List(Left((1,true)), Right(CustomTuple2(foobar,None)))
 ```
 
 [`RowDecoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]
