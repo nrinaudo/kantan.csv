@@ -288,7 +288,7 @@ lazy val docs = project
                                  "*.eot" | "*.svg" | "*.ttf" | "*.woff" | "*.woff2" | "*.otf"
   )
   .settings(noPublishSettings:_*)
-  .dependsOn(core, scalazStream, laws, cats, scalaz, generic, jackson, commons, opencsv)
+  .dependsOn(core, scalazStream, laws, cats, scalaz, generic, jackson, commons, opencsv, jodaTime)
 
 def macroDependencies(v: String): List[ModuleID] =
   ("org.scala-lang" % "scala-reflect" % v % "provided") :: {
