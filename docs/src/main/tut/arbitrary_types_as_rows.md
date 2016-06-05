@@ -48,5 +48,4 @@ If you want to learn more about:
 [`CellEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CellEncoder[A]=kantan.codecs.Encoder[String,A,kantan.csv.codecs.type]
 [`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List
 [`RowEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]
-[`CellEncoder`]:{{ site.baseurl }}/api/#kantan.csv.CellEncoder$
 [`encoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.RowEncoder$@encoder[C,A1,A2,A3](i1:Int,i2:Int,i3:Int)(f:C=>(A1,A2,A3))(implicite1:kantan.csv.CellEncoder[A1],implicite2:kantan.csv.CellEncoder[A2],implicite3:kantan.csv.CellEncoder[A3]):kantan.csv.RowEncoder[C]
