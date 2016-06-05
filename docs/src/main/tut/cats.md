@@ -19,7 +19,6 @@ You then need to import the corresponding package:
 import kantan.csv.cats._
 ```
 
-
 ## `Xor` codecs
 
 For any two types `A` and `B` that each have a [`CellEncoder`], there exists a
