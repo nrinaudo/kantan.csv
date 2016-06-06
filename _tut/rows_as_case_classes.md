@@ -2,14 +2,14 @@
 layout: tutorial
 title: "Decoding rows as case classes"
 section: tutorial
-sort: 4
+sort_order: 4
 ---
 
 ## Overview
 In a [previous tutorial](rows_as_tuples), we saw how to decode CSV rows into tuples. This is useful, but we sometimes
 want a more specific type - a `Point` instead of an `(Int, Int)`, say. Case classes lend themselves well to such
 scenarios, and kantan.csv has various mechanisms to support them.
- 
+
 Take, for example, the [wikipedia CSV example](https://en.wikipedia.org/wiki/Comma-separated_values#Example), which
 we'll get from this project's resources:
 
@@ -73,7 +73,7 @@ import kantan.csv._
 implicit val carDecoder: RowDecoder[Car2] = RowDecoder.decoder(1, 0, 2, 4)(Car2.apply)
 ```
 
-The first parameter to [`decoder`] is a list of indexes that map CSV columns to case class fields. The second one 
+The first parameter to [`decoder`] is a list of indexes that map CSV columns to case class fields. The second one
 is a function that takes 4 arguments and return a value of the type we want to create a decoder for - with a case class,
 that's precisely the `apply` method declared in the companion object.
 
@@ -94,7 +94,7 @@ If you want to learn more about:
 * [decoding rows as arbitrary types](rows_as_arbitrary_types.html)
 * [encoding case classes as rows](case_classes_as_rows.html)
 * [how we were able to turn a `URL` into CSV data](csv_sources.html)
- 
+
 
 [`RowDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package@RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]
 [`decoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.RowDecoder$@decoder[A1,A2,A3,A4,R](i1:Int,i2:Int,i3:Int,i4:Int)(f:(A1,A2,A3,A4)=>R)(implicita1:kantan.csv.CellDecoder[A1],implicita2:kantan.csv.CellDecoder[A2],implicita3:kantan.csv.CellDecoder[A3],implicita4:kantan.csv.CellDecoder[A4]):kantan.csv.RowDecoder[R]

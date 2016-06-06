@@ -2,10 +2,10 @@
 layout: tutorial
 title: "Encoding arbitrary types as cells"
 section: tutorial
-sort: 11
+sort_order: 11
 ---
 We've seen in a [previous post](collections_as_rows.html) how to encode collections as CSV rows. Exactly *how* that
-happened and how individual elements of the collection were turned into CSV cells was sort of glossed over, though. In 
+happened and how individual elements of the collection were turned into CSV cells was sort of glossed over, though. In
 this tutorial, we'll take a deeper look at the underlying mechanism.
 
 ## General mechanism
@@ -16,7 +16,7 @@ implicit instance of [`CellEncoder[A]`][`CellEncoder`] in scope. All sane primit
 
 ```scala
 scala> implicitly[kantan.csv.CellEncoder[Int]]
-res0: kantan.csv.CellEncoder[Int] = kantan.codecs.Codec$$anon$1@7687ea44
+res0: kantan.csv.CellEncoder[Int] = kantan.codecs.Codec$$anon$1@7c0a0498
 ```
 
 A more complete list of default instances can be found [here](default_instances.html)
@@ -39,7 +39,7 @@ res1: String =
 
 In order to add support to non-standard types, all you need to do is implement an implicit [`CellEncoder`] instance for
 that type. Let's do so, for example, for Joda [`DateTime`]:
- 
+
 ```scala
 import kantan.csv._
 import org.joda.time.DateTime
@@ -59,8 +59,8 @@ scala> List(
      |   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
      | ).asCsv(',')
 res3: String =
-"2016-06-05,2016-06-06
-2016-06-07,2016-06-08
+"2016-06-06,2016-06-07
+2016-06-08,2016-06-09
 "
 ```
 

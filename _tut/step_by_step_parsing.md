@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Decoding CSV data one row at a time"
 section: tutorial
-sort: 7
+sort_order: 7
 ---
 CSV data is sometimes unreasonably large - I've had to deal with CSV files in the multiple gigabytes - and cannot
 comfortably fit in memory. It's better to treat these cases as an iterator of sorts, which is kantan.csv's default
@@ -43,12 +43,12 @@ an iterator with a `close` method:
 
 ```scala
 scala> val iterator = rawData.asCsvReader[Car](',', true)
-iterator: kantan.csv.CsvReader[kantan.csv.ReadResult[Car]] = kantan.csv.CsvReader$$anon$4@64f4a425
+iterator: kantan.csv.CsvReader[kantan.csv.ReadResult[Car]] = kantan.csv.CsvReader$$anon$4@30f9c698
 ```
 
 [`asCsvReader`] is explained in some depths [here](rows_as_collections.html), but we're more interested in what we
 can do with our [`CsvReader`].
- 
+
 The first, fairly important thing we can do is [`close`] it if we don't intend to read the whole thing. If we do,
 however, it will happen automatically and needs not be done explicitly.
 
@@ -57,7 +57,7 @@ multiple `filter` and `map` operations, and nothing will happen until each row i
 
 ```scala
 scala> val filtered = iterator.filter(_.exists(_.year >= 1997)).map(_.map(_.make))
-filtered: kantan.csv.CsvReader[kantan.codecs.Result[kantan.csv.ReadError,String]] = kantan.csv.CsvReader$$anon$4@effaae4
+filtered: kantan.csv.CsvReader[kantan.codecs.Result[kantan.csv.ReadError,String]] = kantan.csv.CsvReader$$anon$4@55eaa0c3
 ```
 
 Note that this is a bit cumbersome - our iterator contains [`ReadResult[Car]`][`ReadResult`], which forces us to use
@@ -65,11 +65,11 @@ two levels of filtering / mapping. [`CsvReaderOps`] provides more comfortable al
 
 ```scala
 scala> val filtered = iterator.filterResult(_.year >= 1997).mapResult(_.make)
-filtered: kantan.csv.CsvReader[kantan.csv.ReadResult[String]] = kantan.csv.CsvReader$$anon$4@33ef2f6
+filtered: kantan.csv.CsvReader[kantan.csv.ReadResult[String]] = kantan.csv.CsvReader$$anon$4@11d5109
 ```
 
 At this point, no data has been parsed yet. We can now, say, take the first element:
- 
+
 ```scala
 scala> filtered.next
 res2: kantan.csv.ReadResult[String] = Success(Chevy)

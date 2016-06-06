@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Decoding cells as arbitrary types"
 section: tutorial
-sort: 2
+sort_order: 2
 ---
 We've seen in a [previous post](rows_as_collections.html) how to decode CSV rows as collections. Exactly *how* that
 happened and how individual cells were turned into useful types was sort of glossed over, though. In this tutorial,
@@ -16,7 +16,7 @@ in scope - `Int`, for example:
 
 ```scala
 scala> implicitly[kantan.csv.CellDecoder[Int]]
-res0: kantan.csv.CellDecoder[Int] = kantan.codecs.Codec$$anon$1@1269717b
+res0: kantan.csv.CellDecoder[Int] = kantan.codecs.Codec$$anon$1@58ee8619
 ```
 
 A more complete list of default instances can be found [here](default_instances.html).
@@ -36,7 +36,7 @@ res1: List[kantan.csv.ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Succ
 
 In order to add support to non-standard types, all you need to do is implement an implicit [`CellDecoder`] instance for
 that type. Let's do so, for example, for Joda [`DateTime`]:
- 
+
 ```scala
 import kantan.csv._
 import org.joda.time.DateTime
@@ -62,7 +62,7 @@ If you want to learn more about:
 * [encoding arbitrary types](arbitrary_types_as_cells.html)
 * [encoding tuples as rows](tuples_as_rows.html)
 * [declaring decoders and encoders in a single call](codecs.html)
- 
+
 [`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package@CellDecoder[A]=kantan.codecs.Decoder[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]
 [`asCsvReader`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
 [`readCsv`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@readCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$5:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[B],C[kantan.csv.ReadResult[B]]],implicite:kantan.csv.engine.ReaderEngine):C[kantan.csv.ReadResult[B]]

@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Encoding tuples as rows"
 section: tutorial
-sort: 12
+sort_order: 12
 ---
 In a [previous post](collections_as_rows.html), we've seen how to encode collections as CSV rows. This is useful when
 dealing with homogeneous data, but not so much when not all cells in a given row are of the same time. One way of
@@ -23,7 +23,7 @@ val writer = out.asCsvWriter[(Int, Float, Boolean)](',', List("Column 1", "Colum
 ```
 
 Note the type parameter to [`asCsvWriter`]: this is what the returned instance of [`CsvWriter`] will know to encode.
-We're trying to write instances of `(Int, Float, Boolean)`, which is what we passed. 
+We're trying to write instances of `(Int, Float, Boolean)`, which is what we passed.
 
 The value parameters are the column separator and optional header row.
 
@@ -54,7 +54,7 @@ res6: String =
 ## What to read next
 If you want to learn more about:
 
-* [encoding case classes as rows](case_classes_as_rows.html) 
+* [encoding case classes as rows](case_classes_as_rows.html)
 * [decoding rows as tuples](rows_as_typles.html)
 * [how we were able to turn a `File` into a `CsvWriter`](csv_sinks.html)
 

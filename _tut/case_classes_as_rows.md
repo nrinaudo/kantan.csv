@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Encoding case classes as rows"
 section: tutorial
-sort: 13
+sort_order: 13
 ---
 In a [previous post](tuples_as_rows.html), we've seen how to encode tuples as CSV rows. While useful, actual code
 rarely stores business objects as tuples - encoding case classes is a much more common need than encoding tuples.
@@ -53,11 +53,11 @@ the one they were declared in the class. For this, we need to go a little bit cl
 
 Luckily, case classes are such a common case that kantan.csv has all sorts of helpers for them - in our specific case,
 we're looking for the [`caseEncoder`] method of object [`RowEncoder`], which simply takes a list of integers mapping
-fields to their index in the CSV row and the case class' `unapply` method: 
+fields to their index in the CSV row and the case class' `unapply` method:
 
 ```scala
 import kantan.csv._
-implicit val personEncoder: RowEncoder[Person] = RowEncoder.caseEncoder(0, 2, 1)(Person.unapply) 
+implicit val personEncoder: RowEncoder[Person] = RowEncoder.caseEncoder(0, 2, 1)(Person.unapply)
 ```
 
 And to check whether that worked out, let's use another helper function: most Scala collections (all subtypes of

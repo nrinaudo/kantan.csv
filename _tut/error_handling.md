@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Error handling"
 section: tutorial
-sort: 9
+sort_order: 9
 ---
 There are many ways of dealing with parse errors in kantan.csv. This tutorial shows the most common strategies, but
 it essentially boils down to knowing how [`Result`] (the underlying type of [`ReadResult`]) works.
@@ -33,7 +33,7 @@ val rawData: java.net.URL = getClass.getResource("/dodgy.csv")
 
 The simplest, least desirable error handling mechanism is to ignore the possibility of failure and allow exceptions
 to be thrown. This is achieved by using [`asUnsafeCsvReader`]:
- 
+
 ```scala
 scala> scala.util.Try(rawData.asUnsafeCsvReader[Person](',', false).toList)
 res2: scala.util.Try[List[Person]] = Failure(java.lang.IllegalArgumentException: For input string: "28")
@@ -60,7 +60,7 @@ This is achieved in an entirely safe way, validated at compile time.
 
 Note that we're using types from a previously unseen package, `kantan.codecs`. This contains a lot of shared code
 between various kantan libraries, and our [`ReadResult`] is simply a type alias for [`Result`] with hard-coded type
-parameters. This can be ignored most of the time, but "advanced" error handling requires us to get closer to the metal.  
+parameters. This can be ignored most of the time, but "advanced" error handling requires us to get closer to the metal.
 
 
 ## Fail if at least one row fails to decode
@@ -74,10 +74,10 @@ res4: kantan.codecs.Result[kantan.csv.ReadError,List[Person]] = Failure(TypeErro
 ```
 
 The only real downside to this approach is that it requires loading the entire data in memory.
- 
+
 
 ## Turn errors into default values
-Some data types have reasonable default values that can be used instead of errors - one could turn a 
+Some data types have reasonable default values that can be used instead of errors - one could turn a
 [`ReadError[Int]`][`ReadError`] into [`Success(0)`][`Success`], for instance.
 
 This is achieved through [`getOrElse`] (even if this example doesn't make much practical sense):

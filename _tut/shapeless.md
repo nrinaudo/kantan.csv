@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Generic module"
 section: tutorial
-sort: 21
+sort_order: 21
 ---
 While kantan.csv goes out of its way to provide [default instance](default_instances.html) for as many types as it can,
 some are made problematic by my strict rule against runtime reflection. Fortunately, [shapeless](http://shapeless.io)

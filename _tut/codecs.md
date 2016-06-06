@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Encoders, decoders and codecs"
 section: tutorial
-sort: 18
+sort_order: 18
 ---
 We've seen how kantan.csv uses encoders and decoders as a convenient way to support new types. This didn't account for
 a fairly common scenario, however: types for which one wishes to declare both an encoder and a decoder. It's certainly
@@ -35,12 +35,12 @@ scala> val dates = List(
      |   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
      | ).asCsv(',')
 dates: String =
-"2016-06-05,2016-06-06
-2016-06-07,2016-06-08
+"2016-06-06,2016-06-07
+2016-06-08,2016-06-09
 "
 
 scala> dates.readCsv[List, List[DateTime]](',', false)
-res1: List[kantan.csv.ReadResult[List[org.joda.time.DateTime]]] = List(Success(List(2016-06-05T00:00:00.000+02:00, 2016-06-06T00:00:00.000+02:00)), Success(List(2016-06-07T00:00:00.000+02:00, 2016-06-08T00:00:00.000+02:00)))
+res1: List[kantan.csv.ReadResult[List[org.joda.time.DateTime]]] = List(Success(List(2016-06-06T00:00:00.000+02:00, 2016-06-07T00:00:00.000+02:00)), Success(List(2016-06-08T00:00:00.000+02:00, 2016-06-09T00:00:00.000+02:00)))
 ```
 
 
