@@ -3,5 +3,5 @@ layout: tutorial
 title: "Scalaz-stream module"
 section: tutorial
 status: wip
-sort: 24
+sort_order: 24
 ---

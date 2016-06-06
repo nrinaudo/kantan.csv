@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Default instances"
 section: tutorial
-sort: 19
+sort_order: 19
 ---
 ## Cells
 
@@ -44,13 +44,13 @@ For any two types `A` and `B` that each have a [`CellEncoder`], there exists a
 By the same token, for any two types `A` and `B` that each have a [`CellDecoder`], there exists a
 [`CellDecoder[Either[A, B]]`][`CellDecoder`].
 
-This is useful for dodgy CSV data where the type of a column is not well defined - it might sometimes be an int, 
+This is useful for dodgy CSV data where the type of a column is not well defined - it might sometimes be an int,
 sometimes a boolean, for example.
 
 ### `Option`
 
 For any type `A` that as a [`CellEncoder`], there exists a [`CellEncoder[Option[A]]`][`CellEncoder`].
- 
+
 By the same token, for any type `A` that as a [`CellDecoder`], there exists a [`CellDecoder[Option[A]]`][`CellDecoder`].
 
 This is useful for CSV data where some fields are optional and an empty value is legal.
@@ -108,7 +108,7 @@ a `Dog`, for example.
 ### Option
 
 For any type `A` that as a [`RowEncoder`], there exists a [`RowEncoder[Option[A]]`][`RowEncoder`].
- 
+
 By the same token, for any type `A` that as a [`RowDecoder`], there exists a [`RowDecoder[Option[A]]`][`RowDecoder`].
 
 This is useful for CSV data where some rows might be empty. Note that this is a bit of a dodgy case: the RFC states

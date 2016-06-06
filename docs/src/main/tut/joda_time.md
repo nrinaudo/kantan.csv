@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Joda-time module"
 section: tutorial
-sort: 25
+sort_order: 25
 ---
 [Joda-Time](http://www.joda.org/joda-time/) is a very well thought out date and time library for Java that happens to
 be very popular in Scala - at the very least, it's quite a bit better than the stdlib [`Date`]. kantan.csv provides
@@ -30,7 +30,7 @@ the choice, it would end up more often wrong than right. What you can do, howeve
 * [`LocalTime`]
 
 Let's imagine for example that we want to extract dates from the following string:
- 
+
 ```tut:silent
 import kantan.csv.ops._
 

@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Encoding collections as rows"
 section: tutorial
-sort: 10
+sort_order: 10
 ---
 CSV is often used to store rows of homogeneous data - each cell could be an `Int`, for instance. We'll see in this post
 how kantan.csv supports this kind of scenario.
@@ -21,11 +21,11 @@ val writer = out.asCsvWriter[List[Int]](',', List("Column 1", "Column 2", "Colum
 
 Note the type parameter to [`asCsvWriter`]: this is what the returned instance of [`CsvWriter`] will know to encode.
 Since we're trying to write lists of integers, we requested a [`CsvWriter[List[Int]]`][`CsvWriter`], but we could have
-requested any subtype of [`TraversableOnce`] of any primitive Scala type. 
+requested any subtype of [`TraversableOnce`] of any primitive Scala type.
 
 The value parameters are the column separator and optional header row.
 
-Now that we have a [`CsvWriter`] that knows how to encode [`List[Int]`][`List`], we can just call its [`write`] method 
+Now that we have a [`CsvWriter`] that knows how to encode [`List[Int]`][`List`], we can just call its [`write`] method
 repeatedly:
 
 ```tut:silent

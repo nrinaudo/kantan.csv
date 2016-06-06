@@ -2,10 +2,10 @@
 layout: tutorial
 title: "Encoding arbitrary types as cells"
 section: tutorial
-sort: 11
+sort_order: 11
 ---
 We've seen in a [previous post](collections_as_rows.html) how to encode collections as CSV rows. Exactly *how* that
-happened and how individual elements of the collection were turned into CSV cells was sort of glossed over, though. In 
+happened and how individual elements of the collection were turned into CSV cells was sort of glossed over, though. In
 this tutorial, we'll take a deeper look at the underlying mechanism.
 
 ## General mechanism
@@ -33,7 +33,7 @@ List(List(1, 2, 3), List(4, 5, 6)).asCsv(',')
 
 In order to add support to non-standard types, all you need to do is implement an implicit [`CellEncoder`] instance for
 that type. Let's do so, for example, for Joda [`DateTime`]:
- 
+
 ```tut:silent
 import kantan.csv._
 import org.joda.time.DateTime

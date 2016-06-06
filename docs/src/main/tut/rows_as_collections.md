@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Decoding rows as collections"
 section: tutorial
-sort: 1
+sort_order: 1
 ---
 A simple but very common type of CSV data is rows of numerical values. This is something that kantan.csv tries to make
 as as easy as possible to deal with.
@@ -49,15 +49,15 @@ exception will be thrown, all error conditions are encoded at the type level. If
 rather let your code crash than deal with error conditions, you can use [`asUnsafeCsvReader`] instead.
 
 Finally, observant readers might have noticed that we didn't bother closing the [`CsvReader`] - we're obviously dealing
-with some sort of streamed resource, not closing it seems like a bug. In this specific case, however, it's not 
-necessary: [`CsvReader`] will automatically close any underlying resource when it's been consumed entirely, or a fatal 
+with some sort of streamed resource, not closing it seems like a bug. In this specific case, however, it's not
+necessary: [`CsvReader`] will automatically close any underlying resource when it's been consumed entirely, or a fatal
 error occurs.
 
 ## What to read next
 If you want to learn more about:
 
 * [decoding rows as tuples](rows_as_tuples.html)
-* [how `CsvReader` guessed how to turn CSV rows into `List[Float]` instances](cells_as_arbitrary_types.html) 
+* [how `CsvReader` guessed how to turn CSV rows into `List[Float]` instances](cells_as_arbitrary_types.html)
 * [encoding collections as rows](collections_as_rows.html)
 * [how we were able to turn a `URL` into CSV data](csv_sources.html)
 

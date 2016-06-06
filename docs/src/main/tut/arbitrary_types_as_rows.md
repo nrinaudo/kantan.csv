@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Encoding arbitrary types as rows"
 section: tutorial
-sort: 14
+sort_order: 14
 ---
 Other tutorials covered encoding [collections](collections_as_rows.html), [tuples](tuples_as_rows.html)
 and [case classes](case_classes_as_rows.html) as CSV rows. While those are the most common scenarios, it is sometimes

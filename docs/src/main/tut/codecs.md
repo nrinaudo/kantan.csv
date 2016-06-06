@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Encoders, decoders and codecs"
 section: tutorial
-sort: 18
+sort_order: 18
 ---
 We've seen how kantan.csv uses encoders and decoders as a convenient way to support new types. This didn't account for
 a fairly common scenario, however: types for which one wishes to declare both an encoder and a decoder. It's certainly

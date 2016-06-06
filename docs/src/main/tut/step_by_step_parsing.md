@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Decoding CSV data one row at a time"
 section: tutorial
-sort: 7
+sort_order: 7
 ---
 CSV data is sometimes unreasonably large - I've had to deal with CSV files in the multiple gigabytes - and cannot
 comfortably fit in memory. It's better to treat these cases as an iterator of sorts, which is kantan.csv's default
@@ -40,7 +40,7 @@ val iterator = rawData.asCsvReader[Car](',', true)
 
 [`asCsvReader`] is explained in some depths [here](rows_as_collections.html), but we're more interested in what we
 can do with our [`CsvReader`].
- 
+
 The first, fairly important thing we can do is [`close`] it if we don't intend to read the whole thing. If we do,
 however, it will happen automatically and needs not be done explicitly.
 
@@ -59,7 +59,7 @@ val filtered = iterator.filterResult(_.year >= 1997).mapResult(_.make)
 ```
 
 At this point, no data has been parsed yet. We can now, say, take the first element:
- 
+
 ```tut
 filtered.next
 ```

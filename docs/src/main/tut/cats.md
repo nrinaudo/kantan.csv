@@ -2,19 +2,19 @@
 layout: tutorial
 title: "Cats module"
 section: tutorial
-sort: 21
+sort_order: 21
 ---
 Kantan.csv has a [cats](https://github.com/typelevel/cats) module that is, in its current incarnation, fairly bare
 bones: it provides decoders for [`Xor`] as well as a few useful type class instances.
- 
+
 The `cats` module can be used by adding the following dependency to your `build.sbt`:
- 
+
 ```scala
 libraryDependencies += "com.nrinaudo" %% "kantan.csv-cats" % "0.1.12"
 ```
- 
+
 You then need to import the corresponding package:
- 
+
 ```tut:silent
 import kantan.csv.cats._
 ```

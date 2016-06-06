@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Decoding rows as tuples"
 section: tutorial
-sort: 3
+sort_order: 3
 ---
 
 In a [previous tutorial](rows_as_collections.html), we saw how to deal with CSV data composed of rows of homogeneous
@@ -47,10 +47,10 @@ reader.foreach(println _)
 If you want to learn more about:
 
 * [decoding rows as case classes](rows_as_case_classes.html)
-* [how `CsvReader` guessed how to turn CSV rows into `Car` instances](rows_as_arbitrary_types.html) 
+* [how `CsvReader` guessed how to turn CSV rows into `Car` instances](rows_as_arbitrary_types.html)
 * [encoding tuples as rows](collections_as_rows.html)
 * [how we were able to turn a `URL` into CSV data](csv_sources.html)
- 
+
 
 [`asCsvReader`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
 [`CsvReader`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader

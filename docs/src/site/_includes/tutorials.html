@@ -1,5 +1,5 @@
 <ul id="tutorials">
-    {% assign sorted_pages = (site.tut | sort: 'sort') %}
+    {% assign sorted_pages = (site.tut | sort: 'sort_order') %}
     {% for x in sorted_pages %}
     {% if x.status != "wip" and x.section == "tutorial" %}
     <li><i class="fa fa-angle-right"></i>
