@@ -81,14 +81,14 @@ Creating a new instance of [`ReaderEngine`] is meant to be fairly straightforwar
 [`ReaderEngine.apply`] method that takes care of this. It still means we need to be able to write a
 `(Reader, Char) ⇒ ReadResult[Seq[String]]`, which is surprisingly tricky to get right and not leak exceptions.
 
-Fortunately, there's a helper for that too: [`CsvReader.fromUnsafe`]. Put together, the code is deceptively simple:
+Fortunately, there's a helper for that too: [`CsvReader.fromResource`]. Put together, the code is deceptively simple:
 
 ```tut:silent
 import kantan.csv.engine._
 import kantan.csv._
 
 implicit val readerEngine = ReaderEngine { (in: Reader, sep: Char) ⇒
-   CsvReader.fromUnsafe(EasyCSV.read(in, sep))(it ⇒ it)(_.close)
+   CsvReader.fromResource(EasyCSV.read(in, sep))(it ⇒ it)(_.close)
 }
 ```
 
@@ -114,6 +114,6 @@ implicit val writerEngine = WriterEngine { (writer: Writer, sep: Char) ⇒
 [`WriterEngine`]:{{ site.baseurl }}/api/#kantan.csv.engine.WriterEngine
 [`CsvReader`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader
 [`ReaderEngine.apply`]:{{ site.baseurl }}/api/#kantan.csv.engine.ReaderEngine$@apply(f:(java.io.Reader,Char)=>kantan.csv.CsvReader[kantan.csv.ReadResult[Seq[String]]]):kantan.csv.engine.ReaderEngine
-[`CsvReader.fromUnsafe`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader$@fromUnsafe[I,R](in:I)(open:I=>Iterator[R])(release:I=>Unit):kantan.csv.CsvReader[kantan.csv.ParseResult[R]]
+[`CsvReader.fromResource`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader$@fromResource[I,R](in:I)(open:I=>Iterator[R])(release:I=>Unit):kantan.csv.CsvReader[kantan.csv.ParseResult[R]]
 [`WriterEngine.apply`]:{{ site.baseurl }}/api/#kantan.csv.engine.WriterEngine$@apply(f:(java.io.Writer,Char)=>kantan.csv.CsvWriter[Seq[String]]):kantan.csv.engine.WriterEngine
 [`CsvWriter.apply`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter$@apply[A](writer:java.io.Writer,separator:Char,header:Seq[String])(implicitea:kantan.csv.RowEncoder[A],implicitengine:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[A]

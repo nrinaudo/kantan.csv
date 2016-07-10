@@ -21,7 +21,7 @@ import kantan.csv._
 
 package object jackson {
   implicit val reader = ReaderEngine { (reader: Reader, separator: Char) ⇒
-    CsvReader.fromUnsafe(JacksonCsv.parse(reader, separator))(it ⇒ it)(_.close())
+    CsvReader.fromResource(JacksonCsv.parse(reader, separator))(it ⇒ it)(_.close())
   }
 
   implicit val writer = WriterEngine { (writer: Writer, separator: Char) ⇒

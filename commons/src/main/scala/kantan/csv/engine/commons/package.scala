@@ -24,8 +24,8 @@ import scala.collection.JavaConverters._
 package object commons {
   def format(sep: Char): CSVFormat = CSVFormat.RFC4180.withDelimiter(sep)
 
-  implicit val reader = ReaderEngine  { (reader: Reader, sep: Char) ⇒
-    CsvReader.fromUnsafe(format(sep).parse(reader))(_.iterator.asScala.map(CsvSeq.apply))(_.close())
+  implicit val reader = ReaderEngine { (reader: Reader, sep: Char) ⇒
+    CsvReader.fromResource(format(sep).parse(reader))(_.iterator.asScala.map(CsvSeq.apply))(_.close())
   }
 
   implicit val writer = WriterEngine { (writer: Writer, sep: Char) ⇒

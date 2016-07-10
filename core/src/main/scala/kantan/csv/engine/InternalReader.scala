@@ -21,26 +21,9 @@ import kantan.csv._
 import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer
 
-private object InternalReader {
-  // Possible reasons for breaking off a cell or row.
-  case object Separator extends Break
-  case object CR extends Break
-  case object LF extends Break
-  case object EOF extends Break
-  sealed trait Break
-
-  // Possible outcomes of parsing the beginning of a cell.
-  case class Finished(reason: Break) extends CellStart
-  val CSeparator = Finished(Separator)
-  val CCR = Finished(CR)
-  val CLF = Finished(LF)
-  val CEOF = Finished(EOF)
-  case object Escaped extends CellStart
-  case object Raw extends CellStart
-  sealed trait CellStart
-}
-
-private[engine] class InternalReader(val data: Reader, val separator: Char) extends CsvReader[ReadResult[Seq[String]]] {
+private[engine] class InternalReader private (val data: Reader, val separator: Char,
+                                              val characters: Array[Char], var length: Int)
+  extends CsvReader[ReadResult[Seq[String]]] {
   private val cell = new StringBuilder
   private val row  = ArrayBuffer[String]()
 
@@ -49,8 +32,7 @@ private[engine] class InternalReader(val data: Reader, val separator: Char) exte
 
   private var mark: Int = 0
   private var index: Int = 0
-  private var length: Int = 0
-  private val characters: Array[Char] = new Array[Char](2048)
+
 
   @inline
   private def dumpCell(): Unit = {
@@ -234,13 +216,40 @@ private[engine] class InternalReader(val data: Reader, val separator: Char) exte
       ()
   }
 
-  override def hasNext: Boolean = hasNextChar || hasLeftover
-  override protected def readNext(): ReadResult[Seq[String]] = {
+  // TODO: make sure that checkNext never actually reads anything from the stream. There are cases where it still does.
+  override def checkNext: Boolean = hasNextChar || hasLeftover
+  override def readNext(): ReadResult[Seq[String]] = {
     row.clear()
     if(hasLeftover) nextRow(leftover)
     else if(hasNextChar) nextRow(nextChar())
     else throw new NoSuchElementException
     ParseResult.success(row)
   }
-  override def close()  = data.close()
+  override def release() = data.close()
+}
+
+private object InternalReader {
+  def apply(data: Reader, separator: Char): InternalReader = {
+    val characters = new Array[Char](2048)
+    val length = data.read(characters)
+
+    new InternalReader(data, separator, characters, length)
+  }
+
+  // Possible reasons for breaking off a cell or row.
+  case object Separator extends Break
+  case object CR extends Break
+  case object LF extends Break
+  case object EOF extends Break
+  sealed trait Break
+
+  // Possible outcomes of parsing the beginning of a cell.
+  case class Finished(reason: Break) extends CellStart
+  val CSeparator = Finished(Separator)
+  val CCR = Finished(CR)
+  val CLF = Finished(LF)
+  val CEOF = Finished(EOF)
+  case object Escaped extends CellStart
+  case object Raw extends CellStart
+  sealed trait CellStart
 }

@@ -19,7 +19,7 @@ package kantan.csv
 import java.io._
 import java.net.{URI, URL}
 import java.nio.file.{Files, Path}
-import kantan.codecs.Result
+import kantan.codecs.{ResourceIterator, Result}
 import kantan.csv.DecodeError.{OutOfBounds, TypeError}
 import kantan.csv.ParseError.{IOError, NoSuchElement, SyntaxError}
 import kantan.csv.engine.ReaderEngine
@@ -60,7 +60,7 @@ trait CsvInput[-S] extends Serializable { self ⇒
     */
   def reader[A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit e: ReaderEngine): CsvReader[ReadResult[A]] =
     open(s).map(reader ⇒ CsvReader(reader, sep, header))
-      .valueOr(error ⇒ CsvReader.singleton(Result.failure(error)))
+      .valueOr(error ⇒ ResourceIterator(Result.failure(error)))
 
   /** Turns the specified `S` into an iterator on `A`.
     *

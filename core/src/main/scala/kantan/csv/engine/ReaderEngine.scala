@@ -36,7 +36,7 @@ object ReaderEngine {
     *
     * Note that the `f` parameter can be tricky to get right without leaking exceptions. The recommended way of creating
     * new [[CsvReader]] instances from anything that might throw (because it's IO-bound) is to use
-    * [[CsvReader.fromUnsafe]].
+    * [[CsvReader.fromResource]].
     *
     * @param f how to create new instances of [[CsvReader]].
     */
@@ -45,5 +45,5 @@ object ReaderEngine {
   }
 
   /** Default reader engine, used whenever a custom one is not explicitly brought in scope. */
-  implicit val internal: ReaderEngine = ReaderEngine((reader, sep) ⇒ new InternalReader(reader, sep))
+  implicit val internal: ReaderEngine = ReaderEngine(InternalReader.apply)
 }

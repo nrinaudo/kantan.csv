@@ -16,9 +16,13 @@
 
 package kantan
 
-import kantan.codecs.{Codec, Decoder, Encoder, Result}
+import kantan.codecs._
 
 package object csv {
+  type CsvReader[A] = ResourceIterator[A]
+
+
+
   // - Results ---------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** Result of a reading operation, which can be either a success or a failure.
