@@ -21,23 +21,6 @@ import kantan.csv.engine.ReaderEngine
 
 /** Provides instance creation and summoning methods. */
 object CsvReader {
-  /** Creates a new instance of [[CsvReader]].
-    *
-    * @param in where to read data from
-    * @param open function that turns `in` into an iterator.
-    * @param cls function that closes `in` when no longer needed.
-    */
-  // TODO: open is unsafe, should return a Result[F, Iterator[R]]
-  def fromResource[I, R](in: I)(open: I ⇒ Iterator[R])(cls: I ⇒ Unit): CsvReader[ParseResult[R]] =
-    new CsvReader[ParseResult[R]] {
-      val it = open(in)
-      override def checkNext = it.hasNext
-      override def readNext() =
-        if(it.hasNext) ParseResult(it.next())
-        else           ParseResult.noSuchElement
-      override def release() = cls(in)
-    }
-
   /** Opens a [[CsvReader]] on the specified `Reader`.
     *
     * @param reader what to parse as CSV

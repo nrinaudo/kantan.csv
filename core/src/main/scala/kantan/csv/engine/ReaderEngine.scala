@@ -17,7 +17,8 @@
 package kantan.csv.engine
 
 import java.io.Reader
-import kantan.csv.{CsvReader, ReadResult}
+import kantan.codecs.{ResourceIterator, Result}
+import kantan.csv.{CsvReader, ParseError, ParseResult, ReadResult}
 
 /** Provides kantan.csv with CSV parsing functionalities.
   *
@@ -26,22 +27,22 @@ import kantan.csv.{CsvReader, ReadResult}
   * of a simple import.
   */
 trait ReaderEngine {
-  /** Turns the specified `Reader` into a `CsvReader`. */
-  def readerFor(reader: Reader, separator: Char): CsvReader[ReadResult[Seq[String]]]
+  /** Turns the specified `Reader` into a [[CsvReader]]. */
+  def unsafeReaderFor(reader: Reader, separator: Char): CsvReader[Seq[String]]
+
+  /** Turns the specified `Reader` into a safe [[CsvReader]]. */
+  def readerFor(reader: ⇒ Reader, separator: Char): CsvReader[ReadResult[Seq[String]]] =
+    ParseResult(unsafeReaderFor(reader, separator))
+      .map(_.safe(ParseError.NoSuchElement: ParseError)(e ⇒ ParseError.IOError(e)))
+      .valueOr(e ⇒ ResourceIterator(Result.failure(e)))
+      .withClose(() ⇒ reader.close())
 }
 
 /** Provides instance creation methods and default implementations. */
 object ReaderEngine {
-  /** Creates a new [[ReaderEngine]] instance.
-    *
-    * Note that the `f` parameter can be tricky to get right without leaking exceptions. The recommended way of creating
-    * new [[CsvReader]] instances from anything that might throw (because it's IO-bound) is to use
-    * [[CsvReader.fromResource]].
-    *
-    * @param f how to create new instances of [[CsvReader]].
-    */
-  def apply(f: (Reader, Char) ⇒ CsvReader[ReadResult[Seq[String]]]): ReaderEngine = new ReaderEngine {
-    override def readerFor(reader: Reader, separator: Char): CsvReader[ReadResult[Seq[String]]] = f(reader, separator)
+  /** Creates a new [[ReaderEngine]] instance. */
+  def apply(f: (Reader, Char) ⇒ CsvReader[Seq[String]]): ReaderEngine = new ReaderEngine {
+    override def unsafeReaderFor(reader: Reader, separator: Char) = f(reader, separator)
   }
 
   /** Default reader engine, used whenever a custom one is not explicitly brought in scope. */

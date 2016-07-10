@@ -22,18 +22,14 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
 class ParseResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("ParseResult.success should return a success") {
-    forAll { i: Int ⇒ assert(ParseResult.success(i) == Result.Success(i))}
+    forAll { i: Int ⇒ assert(ParseResult.success(i) == Result.Success(i)) }
   }
 
   test("ParseResult.apply should return a success on 'good' values") {
-    forAll { i: Int ⇒ assert(ParseResult(i) == Result.Success(i))}
+    forAll { i: Int ⇒ assert(ParseResult(i) == Result.Success(i)) }
   }
 
   test("ParseResult.apply should return a failure on 'bad' values") {
-    forAll { e: Exception ⇒ assert(ParseResult(throw e) == Result.Failure(ParseError.IOError(e)))}
-  }
-
-  test("ParseResult.syntax should return a failure ") {
-    forAll { (i: Int, j: Int) ⇒ assert(ParseResult.syntax(i, j) == Result.Failure(ParseError.SyntaxError(i, j)))}
+    forAll { e: Exception ⇒ assert(ParseResult(throw e) == Result.Failure(ParseError.IOError(e))) }
   }
 }

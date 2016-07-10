@@ -17,11 +17,12 @@
 package kantan.csv.engine
 
 import java.io.{Reader, Writer}
+import kantan.codecs.ResourceIterator
 import kantan.csv._
 
 package object jackson {
   implicit val reader = ReaderEngine { (reader: Reader, separator: Char) ⇒
-    CsvReader.fromResource(JacksonCsv.parse(reader, separator))(it ⇒ it)(_.close())
+    ResourceIterator.fromIterator(JacksonCsv.parse(reader, separator))
   }
 
   implicit val writer = WriterEngine { (writer: Writer, separator: Char) ⇒

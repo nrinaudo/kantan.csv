@@ -18,6 +18,7 @@ package kantan.csv.engine
 
 import com.opencsv.{CSVReader, CSVWriter}
 import java.io.{Reader, Writer}
+import kantan.codecs.ResourceIterator
 import kantan.csv._
 
 // TODO: known bugs
@@ -28,7 +29,7 @@ package object opencsv {
   // Note that using the `null` character as escape is a bit of a cheat, but it kind of works, mostly. Escaping is not
   // part of the CSV format, but I found no other way to disable it.
   implicit val reader = ReaderEngine { (reader: Reader, sep: Char) ⇒
-    CsvReader.fromResource(new CSVReader(reader, sep, '"', '\u0000', 0, false, false, false))(_.iterator())(_.close())
+    ResourceIterator.fromIterator(new CSVReader(reader, sep, '"', '\u0000', 0, false, false, false).iterator())
   }
 
   implicit val writer = WriterEngine { (writer: Writer, sep: Char) ⇒

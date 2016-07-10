@@ -72,5 +72,4 @@ object ParseError {
 
     override def hashCode(): Int = cause.hashCode()
   }
-  final case class SyntaxError(line: Int, col: Int) extends ParseError
 }

@@ -37,11 +37,7 @@ trait ArbitraryInstances extends kantan.csv.laws.discipline.ArbitraryArities {
   val genDecodeError: Gen[DecodeError] = Gen.oneOf(genOutOfBoundsError, genTypeError)
 
   val genIOError: Gen[ParseError.IOError] = Gen.const(ParseError.IOError(new IOException()))
-  val genSyntaxError: Gen[ParseError.SyntaxError] = for {
-    i ← arb[Int]
-    j ← arb[Int]
-  } yield ParseError.SyntaxError(i, j)
-  val genParseError: Gen[ParseError] = Gen.oneOf(genIOError, genSyntaxError)
+  val genParseError: Gen[ParseError] = Gen.oneOf(genIOError, Gen.const(ParseError.NoSuchElement))
 
   implicit val arbDecodeError: Arbitrary[DecodeError] = Arbitrary(genDecodeError)
   implicit val arbParseError: Arbitrary[ParseError] = Arbitrary(genParseError)

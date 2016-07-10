@@ -17,8 +17,9 @@
 package kantan.csv
 
 package object engine {
-  /** Converts a java iterator of arrays of strings into something that can be used with
-    * [[kantan.csv.CsvReader.fromResource]].
+  /** Converts a java iterator of arrays of strings into a scala iterator of sequence of strings.
+    *
+    * This is useful when writing [[ReaderEngine]] implementations for Java libraries.
     */
   implicit def javaIterator(it: java.util.Iterator[Array[String]]): Iterator[Seq[String]] = new Iterator[Seq[String]] {
     @inline override def hasNext = it.hasNext

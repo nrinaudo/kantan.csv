@@ -17,6 +17,7 @@
 package kantan.csv.engine
 
 import java.io.{Reader, Writer}
+import kantan.codecs.ResourceIterator
 import kantan.csv._
 import org.apache.commons.csv.{CSVFormat, CSVPrinter, QuoteMode}
 import scala.collection.JavaConverters._
@@ -25,7 +26,7 @@ package object commons {
   def format(sep: Char): CSVFormat = CSVFormat.RFC4180.withDelimiter(sep)
 
   implicit val reader = ReaderEngine { (reader: Reader, sep: Char) ⇒
-    CsvReader.fromResource(format(sep).parse(reader))(_.iterator.asScala.map(CsvSeq.apply))(_.close())
+    ResourceIterator.fromIterator(format(sep).parse(reader).iterator.asScala.map(CsvSeq.apply))
   }
 
   implicit val writer = WriterEngine { (writer: Writer, sep: Char) ⇒

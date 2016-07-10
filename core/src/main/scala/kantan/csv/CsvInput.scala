@@ -21,7 +21,7 @@ import java.net.{URI, URL}
 import java.nio.file.{Files, Path}
 import kantan.codecs.{ResourceIterator, Result}
 import kantan.csv.DecodeError.{OutOfBounds, TypeError}
-import kantan.csv.ParseError.{IOError, NoSuchElement, SyntaxError}
+import kantan.csv.ParseError.{IOError, NoSuchElement}
 import kantan.csv.engine.ReaderEngine
 import scala.collection.generic.CanBuildFrom
 import scala.io.Codec
@@ -77,7 +77,6 @@ trait CsvInput[-S] extends Serializable { self ⇒
       case NoSuchElement          ⇒ throw new NoSuchElementException
       case IOError(e)             ⇒ throw e
       case OutOfBounds(index)     ⇒ throw new ArrayIndexOutOfBoundsException(index)
-      case SyntaxError(line, col) ⇒ throw new IOException(s"Illegal CSV data found $line:$col")
     })
 
   /** Reads the entire CSV data into a collection.

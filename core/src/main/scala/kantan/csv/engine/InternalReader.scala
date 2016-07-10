@@ -23,7 +23,7 @@ import scala.collection.mutable.ArrayBuffer
 
 private[engine] class InternalReader private (val data: Reader, val separator: Char,
                                               val characters: Array[Char], var length: Int)
-  extends CsvReader[ReadResult[Seq[String]]] {
+  extends CsvReader[Seq[String]] {
   private val cell = new StringBuilder
   private val row  = ArrayBuffer[String]()
 
@@ -216,14 +216,15 @@ private[engine] class InternalReader private (val data: Reader, val separator: C
       ()
   }
 
-  // TODO: make sure that checkNext never actually reads anything from the stream. There are cases where it still does.
-  override def checkNext: Boolean = hasNextChar || hasLeftover
-  override def readNext(): ReadResult[Seq[String]] = {
+  override def checkNext = hasNextChar || hasLeftover
+  override def readNext() = {
     row.clear()
-    if(hasLeftover) nextRow(leftover)
+    if(hasLeftover)      nextRow(leftover)
     else if(hasNextChar) nextRow(nextChar())
-    else throw new NoSuchElementException
-    ParseResult.success(row)
+    else                 throw new NoSuchElementException
+
+    hasNextChar
+    row
   }
   override def release() = data.close()
 }
