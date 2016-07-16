@@ -27,12 +27,12 @@ package object laws {
   type RowEncoderLaws[A] = EncoderLaws[Seq[String], A, codecs.type]
   type RowCodecLaws[A] = CodecLaws[Seq[String], A, DecodeError, codecs.type]
 
-  type CellValue[A] = CodecValue[String, A]
-  type LegalCell[A] = CodecValue.LegalValue[String, A]
-  type IllegalCell[A] = CodecValue.IllegalValue[String, A]
-  type RowValue[A] = CodecValue[Seq[String], A]
-  type LegalRow[A] = CodecValue.LegalValue[Seq[String], A]
-  type IllegalRow[A] = CodecValue.IllegalValue[Seq[String], A]
+  type CellValue[A] = CodecValue[String, A, codecs.type]
+  type LegalCell[A] = CodecValue.LegalValue[String, A, codecs.type]
+  type IllegalCell[A] = CodecValue.IllegalValue[String, A, codecs.type]
+  type RowValue[A] = CodecValue[Seq[String], A, codecs.type]
+  type LegalRow[A] = CodecValue.LegalValue[Seq[String], A, codecs.type]
+  type IllegalRow[A] = CodecValue.IllegalValue[Seq[String], A, codecs.type]
 
   def asCsv[A](data: List[RowValue[A]], sep: Char, header: Seq[String] = Seq.empty): String =
     data.map(_.encoded).asCsv(sep, header)

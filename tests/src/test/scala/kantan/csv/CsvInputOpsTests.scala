@@ -27,8 +27,10 @@ import scala.util.Try
 
 class CsvInputOpsTests extends FunSuite with GeneratorDrivenPropertyChecks {
   def compare[F, A](csv: List[Result[F, A]], data: List[RowValue[A]]): Boolean = {
-    if(csv.length != data.length) false
-    else csv.zip(data).forall {
+    val trimmed = data.filter(_.encoded.nonEmpty)
+
+    if(csv.length != trimmed.length) false
+    else csv.zip(trimmed).forall {
       case (Success(is), CodecValue.LegalValue(_, cs)) ⇒ is == cs
       case (Failure(_), CodecValue.IllegalValue(_))    ⇒ true
       case _                                           ⇒ false

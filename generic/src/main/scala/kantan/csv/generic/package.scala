@@ -16,6 +16,4 @@
 
 package kantan.csv
 
-import kantan.codecs.shapeless.ShapelessInstances
-
-package object generic extends ShapelessInstances with GenericInstances
+package object generic extends GenericInstances

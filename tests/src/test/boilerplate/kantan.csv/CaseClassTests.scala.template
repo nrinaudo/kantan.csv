@@ -1,6 +1,6 @@
 package kantan.csv
 
-import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.csv.laws._
 import kantan.csv.laws.discipline.RowCodecTests
 import kantan.csv.laws.discipline.arbitrary._
 import org.scalacheck.Arbitrary
@@ -24,10 +24,10 @@ case class CaseClass1([#f1: Int#])#
 ]
 
 class CaseClassTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  [#implicit val arbLegalCaseClass1: Arbitrary[LegalValue[Seq[String], CaseClass1]] =
+  [#implicit val arbLegalCaseClass1: Arbitrary[LegalRow[CaseClass1]] =
     Arbitrary(genLegalWith1(([#i1: Int#]) ⇒ CaseClass1([#i1#]))(([#s1: String#]) ⇒ Seq([#s1#])))
-  implicit val arbIllegalCaseClass1: Arbitrary[IllegalValue[Seq[String], CaseClass1]] =
-    Arbitrary(genIllegalWith1[[#String#], [#Int#], Seq[String], CaseClass1](([#s1#]) ⇒ Seq([#s1#])))
+  implicit val arbIllegalCaseClass1: Arbitrary[IllegalRow[CaseClass1]] =
+    Arbitrary(genIllegalWith1[[#String#], [#Int#], Seq[String], CaseClass1, kantan.csv.codecs.type](([#s1#]) ⇒ Seq([#s1#])))
   checkAll("CaseClass1", RowCodecTests[CaseClass1].codec[List[String], List[Float]])#
 
   ]

@@ -17,7 +17,6 @@
 package kantan.csv.laws.discipline
 
 import java.io.IOException
-import kantan.codecs.laws.discipline.GenCodecValue
 import kantan.csv._
 import kantan.csv.laws._
 import org.scalacheck.{Arbitrary, Gen}
@@ -25,9 +24,11 @@ import org.scalacheck.Arbitrary.{arbitrary => arb}
 
 object arbitrary extends ArbitraryInstances
 
-trait ArbitraryInstances extends kantan.csv.laws.discipline.ArbitraryArities {
+trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstances {
   val csv: Gen[List[List[String]]] = arb[List[List[Cell]]].map(_.map(_.map(_.value)))
 
+  implicit def arbTuple1[A](implicit a1: Arbitrary[A]): Arbitrary[Tuple1[A]] =
+    Arbitrary(a1.arbitrary.map(Tuple1.apply))
 
 
   // - Errors ----------------------------------------------------------------------------------------------------------
@@ -47,6 +48,7 @@ trait ArbitraryInstances extends kantan.csv.laws.discipline.ArbitraryArities {
 
   // - Encoders and decoders -------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+
   implicit def arbCellDecoder[A: Arbitrary]: Arbitrary[CellDecoder[A]] =
     Arbitrary(arb[String ⇒ DecodeResult[A]].map(f ⇒ CellDecoder(f)))
 
@@ -58,10 +60,4 @@ trait ArbitraryInstances extends kantan.csv.laws.discipline.ArbitraryArities {
 
   implicit def arbRowEncoder[A: Arbitrary]: Arbitrary[RowEncoder[A]] =
     Arbitrary(arb[A ⇒ Seq[String]].map(f ⇒ RowEncoder(f)))
-
-
-  // - Codec values ----------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  implicit def rowFromCell[D: Arbitrary](implicit cd: GenCodecValue[String, D]): GenCodecValue[Seq[String], D] =
-    GenCodecValue[Seq[String], D](d ⇒ Seq(cd.encode(d)))(es ⇒ es.length != 1 || cd.isIllegal(es.head))
 }
