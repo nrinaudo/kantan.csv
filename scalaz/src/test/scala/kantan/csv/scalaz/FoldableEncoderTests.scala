@@ -16,6 +16,7 @@
 
 package kantan.csv.scalaz
 
+import arbitrary._
 import kantan.codecs.scalaz.laws.discipline.scalatest.ScalazSuite
 import kantan.csv.laws.discipline.RowEncoderTests
 import org.scalacheck.{Arbitrary, Gen}

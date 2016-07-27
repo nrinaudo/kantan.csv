@@ -39,5 +39,4 @@ trait CellDecoderInstances {
       da.tag[codecs.type].mapError(e ⇒ TypeError(e))
   implicit def cellDecoderOpt[A: CellDecoder]: CellDecoder[Option[A]] = Decoder.optionalDecoder
   implicit def cellDecoderEither[A: CellDecoder, B: CellDecoder]: CellDecoder[Either[A, B]] = Decoder.eitherDecoder
-
 }

@@ -20,6 +20,7 @@ import kantan.codecs.Result
 import kantan.codecs.Result.{Failure, Success}
 import kantan.codecs.laws.CodecValue
 import kantan.csv.laws._
+import kantan.csv.laws.discipline.arbitrary._
 import kantan.csv.ops._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks

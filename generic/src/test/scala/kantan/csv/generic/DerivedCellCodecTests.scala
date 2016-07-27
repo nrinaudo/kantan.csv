@@ -16,21 +16,13 @@
 
 package kantan.csv.generic
 
-import kantan.codecs.laws.CodecValue
+import arbitrary._
 import kantan.codecs.shapeless.laws._
-import kantan.codecs.shapeless.laws.discipline.arbitrary._
-import kantan.csv.laws.LegalCell
 import kantan.csv.laws.discipline.CellCodecTests
-import org.scalacheck.Arbitrary
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class DerivedCellCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  implicit val arbLegal: Arbitrary[LegalCell[Int Or Boolean]] = CodecValue.arbLegalValue((o: Int Or Boolean) ⇒ o match {
-    case Left(i) ⇒ i.toString
-    case Right(b) ⇒ b.toString
-  })
-
-  checkAll("CellCodec[Or[Int, Boolean]]", CellCodecTests[Or[Int, Boolean]].codec[Byte, String])
+  checkAll("CellCodec[Or[Int, Boolean]]", CellCodecTests[Int Or Boolean].codec[Byte, String])
 }

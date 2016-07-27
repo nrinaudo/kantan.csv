@@ -55,6 +55,7 @@ lazy val baseSettings = Seq(
     Resolver.sonatypeRepo("releases"),
     Resolver.sonatypeRepo("snapshots")
   ),
+  libraryDependencies ++= macroDependencies(scalaVersion.value),
   headers := Map("scala" -> Apache2_0("2016", "Nicolas Rinaudo")),
   ScoverageSbtPlugin.ScoverageKeys.coverageExcludedPackages := "kantan\\.csv\\.laws\\..*",
   incOptions := incOptions.value.withNameHashing(true)
@@ -177,7 +178,7 @@ lazy val generic = project
     "com.nrinaudo"  %% "kantan.codecs-shapeless"      % kantanCodecsVersion,
     "org.scalatest" %% "scalatest"                    % scalatestVersion     % "test",
     "com.nrinaudo"  %% "kantan.codecs-shapeless-laws" % kantanCodecsVersion  % "test"
-  ) ++ macroDependencies(scalaVersion.value))
+  ))
   .dependsOn(core, laws % "test")
   .enablePlugins(AutomateHeaderPlugin)
 

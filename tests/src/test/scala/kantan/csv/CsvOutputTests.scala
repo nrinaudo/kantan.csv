@@ -18,6 +18,7 @@ package kantan.csv
 
 import java.io._
 import kantan.csv.laws.discipline.arbitrary._
+import kantan.csv.laws.discipline.arbitrary._
 import kantan.csv.ops._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks

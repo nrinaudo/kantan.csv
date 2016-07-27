@@ -14,15 +14,8 @@
  * limitations under the License.
  */
 
-package kantan.csv
+package kantan.csv.generic
 
-import kantan.csv.laws.discipline._
-import kantan.csv.laws.discipline.arbitrary._
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
 
-class ByteCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("CellCodec[Byte]", CellCodecTests[Byte].codec[String, Float])
-  checkAll("RowCodec[Byte]", RowCodecTests[Byte].codec[String, Float])
-}
+object arbitrary extends kantan.codecs.shapeless.laws.discipline.ArbitraryInstances
+                         with kantan.csv.laws.discipline.ArbitraryInstances
