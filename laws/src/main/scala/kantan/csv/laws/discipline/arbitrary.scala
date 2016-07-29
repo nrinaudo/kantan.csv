@@ -16,10 +16,11 @@
 
 package kantan.csv.laws.discipline
 
-import java.io.IOException
 import kantan.csv._
+import kantan.csv.DecodeError._
+import kantan.csv.ParseError._
 import kantan.csv.laws._
-import org.scalacheck.{Arbitrary, Gen}
+import org.scalacheck._
 import org.scalacheck.Arbitrary.{arbitrary => arb}
 
 object arbitrary extends ArbitraryInstances
@@ -33,13 +34,15 @@ trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstance
 
   // - Errors ----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  val genOutOfBoundsError: Gen[DecodeError.OutOfBounds] = for(i ← Gen.posNum[Int]) yield DecodeError.OutOfBounds(i)
-  val genTypeError: Gen[DecodeError.TypeError] = Gen.const(DecodeError.TypeError(new Exception()))
+  val genOutOfBoundsError: Gen[OutOfBounds] = for(i ← Gen.posNum[Int]) yield OutOfBounds(i)
+  val genTypeError: Gen[TypeError] = genException.map(TypeError.apply)
   val genDecodeError: Gen[DecodeError] = Gen.oneOf(genOutOfBoundsError, genTypeError)
 
-  val genIOError: Gen[ParseError.IOError] = Gen.const(ParseError.IOError(new IOException()))
+  val genIOError: Gen[IOError] = genIoException.map(IOError.apply)
   val genParseError: Gen[ParseError] = Gen.oneOf(genIOError, Gen.const(ParseError.NoSuchElement))
 
+  implicit val arbTypeError: Arbitrary[TypeError] = Arbitrary(genTypeError)
+  implicit val arbIOError: Arbitrary[IOError] = Arbitrary(genIOError)
   implicit val arbDecodeError: Arbitrary[DecodeError] = Arbitrary(genDecodeError)
   implicit val arbParseError: Arbitrary[ParseError] = Arbitrary(genParseError)
   implicit val arbReadError: Arbitrary[ReadError] = Arbitrary(Gen.oneOf(genDecodeError, genParseError))

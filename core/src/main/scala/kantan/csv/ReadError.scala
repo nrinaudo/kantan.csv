@@ -49,7 +49,7 @@ object DecodeError {
       case _                 ⇒ false
     }
 
-    override def hashCode(): Int = cause.hashCode()
+    override def hashCode(): Int = TypeError.hashCode * 31 + cause.getClass.hashCode()
   }
 
   object TypeError {
@@ -70,6 +70,6 @@ object ParseError {
       case _               ⇒ false
     }
 
-    override def hashCode(): Int = cause.hashCode()
+    override def hashCode(): Int = IOError.hashCode * 31 + cause.getClass.hashCode()
   }
 }

@@ -16,23 +16,46 @@
 
 package kantan.csv
 
+import kantan.csv.laws.discipline.arbitrary._
 import kantan.csv.DecodeError.TypeError
 import kantan.csv.ParseError.IOError
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
 class ErrorTests extends FunSuite with GeneratorDrivenPropertyChecks {
-  test("TypeError") {
-    forAll { (t1: Throwable, t2: Throwable) ⇒
-      assert((TypeError(t1) == TypeError(t2)) == (t1.getClass == t2.getClass))
-      assert((TypeError(t1).hashCode() == TypeError(t2).hashCode()) == (t1.getClass == t2.getClass))
+  test("TypeErrors should be equal if the underlying exceptions have the same class") {
+    forAll { (e1: TypeError, e2: ReadError) ⇒
+      assert((e1 == e2) == ((e1, e2) match {
+        case (TypeError(t1), TypeError(t2)) ⇒ t1.getClass == t2.getClass
+        case _                              ⇒ false
+      }))
     }
   }
 
-  test("IOError") {
-    forAll { (t1: Throwable, t2: Throwable) ⇒
-      assert((IOError(t1) == IOError(t2)) == (t1.getClass == t2.getClass))
-      assert((IOError(t1).hashCode() == IOError(t2).hashCode()) == (t1.getClass == t2.getClass))
+  test("TypeErrors should have identical hashCodes if the underlying exceptions have the same class") {
+    forAll { (e1: TypeError, e2: ReadError) ⇒
+      assert((e1.hashCode() == e2.hashCode()) == ((e1, e2) match {
+        case (TypeError(t1), TypeError(t2)) ⇒ t1.getClass == t2.getClass
+        case _                              ⇒ false
+      }))
+    }
+  }
+
+  test("IOErrors should be equal if the underlying exceptions have the same class") {
+    forAll { (e1: IOError, e2: ReadError) ⇒
+      assert((e1 == e2) == ((e1, e2) match {
+        case (IOError(t1), IOError(t2)) ⇒ t1.getClass == t2.getClass
+        case _                            ⇒ false
+      }))
+    }
+  }
+
+  test("IOErrors should have identical hashCodes if the underlying exceptions have the same class") {
+    forAll { (e1: IOError, e2: ReadError) ⇒
+      assert((e1.hashCode() == e2.hashCode()) == ((e1, e2) match {
+        case (IOError(t1), IOError(t2)) ⇒ t1.getClass == t2.getClass
+        case _                            ⇒ false
+      }))
     }
   }
 }
