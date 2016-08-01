@@ -40,12 +40,12 @@ object DecodeError {
     * A typical example of this would be to try and decode a CSV cell into an `Int` when its content is, say, `foobar`.
     */
   sealed case class TypeError(message: String) extends DecodeError {
-    override final def getMessage = message
+    override final val getMessage = message
   }
 
   object TypeError {
     def apply(str: String, t: Throwable): TypeError = new TypeError(str) {
-      override def getCause = t
+      override val getCause = t
     }
 
     def apply(t: Throwable): TypeError = TypeError(Option(t.getMessage).getOrElse("Type error"), t)
@@ -58,12 +58,12 @@ object ParseError {
   final case class NoSuchElement() extends ParseError
 
   sealed case class IOError(message: String) extends ParseError {
-    override final def getMessage = message
+    override final val getMessage = message
   }
 
   object IOError {
     def apply(str: String, t: Throwable): IOError = new IOError(str) {
-      override def getCause = t
+      override val getCause = t
     }
 
     def apply(t: Throwable): IOError = IOError(Option(t.getMessage).getOrElse("IO error"), t)
