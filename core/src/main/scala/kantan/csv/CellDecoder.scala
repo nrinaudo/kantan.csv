@@ -35,8 +35,8 @@ object CellDecoder {
 /** All default [[CellDecoder]] instances. */
 trait CellDecoderInstances {
   /** Turns existing `StringDecoder` instances into [[CellDecoder]] ones. */
-    implicit def fromStringDecoder[A](implicit da: StringDecoder[A]): CellDecoder[A] =
-      da.tag[codecs.type].mapError(e ⇒ TypeError(e))
+  implicit def fromStringDecoder[A](implicit da: StringDecoder[A]): CellDecoder[A] =
+    da.tag[codecs.type].mapError(e ⇒ TypeError(e.getMessage, e.getCause))
   implicit def cellDecoderOpt[A: CellDecoder]: CellDecoder[Option[A]] = Decoder.optionalDecoder
   implicit def cellDecoderEither[A: CellDecoder, B: CellDecoder]: CellDecoder[Either[A, B]] = Decoder.eitherDecoder
 }

@@ -22,7 +22,7 @@ package kantan.csv
   *  - [[DecodeError]]: errors that occur while decoding a cell or a row.
   *  - [[ParseError]]: errors that occur while parsing raw data into CSV.
   */
-sealed abstract class ReadError extends Product with Serializable
+sealed abstract class ReadError extends Exception with Product with Serializable
 
 /** Parent type for all errors that can occur while decoding CSV data. */
 sealed abstract class DecodeError extends ReadError
@@ -38,38 +38,34 @@ object DecodeError {
   /** Error that occurs when attempting to decode a CSV cell or row into an incompatible type.
     *
     * A typical example of this would be to try and decode a CSV cell into an `Int` when its content is, say, `foobar`.
-    *
-    * @param cause exception that caused the [[TypeError]]
     */
-  final case class TypeError(cause: Throwable) extends DecodeError {
-    override def toString: String = s"TypeError(${cause.getMessage})"
-
-    override def equals(obj: Any) = obj match {
-      case TypeError(cause2) ⇒ cause.getClass == cause2.getClass
-      case _                 ⇒ false
-    }
-
-    override def hashCode(): Int = TypeError.hashCode * 31 + cause.getClass.hashCode()
+  sealed case class TypeError(message: String) extends DecodeError {
+    override final def getMessage = message
   }
 
   object TypeError {
-    def apply(str: String): TypeError = TypeError(new Exception(str))
+    def apply(str: String, t: Throwable): TypeError = new TypeError(str) {
+      override def getCause = t
+    }
+
+    def apply(t: Throwable): TypeError = TypeError(Option(t.getMessage).getOrElse("Type error"), t)
   }
 }
 
 sealed abstract class ParseError extends ReadError
 
 object ParseError {
-  case object NoSuchElement extends ParseError
+  final case class NoSuchElement() extends ParseError
 
-  final case class IOError(cause: Throwable) extends ParseError {
-    override def toString: String = s"IOError(${cause.getMessage})"
+  sealed case class IOError(message: String) extends ParseError {
+    override final def getMessage = message
+  }
 
-    override def equals(obj: Any) = obj match {
-      case IOError(cause2) ⇒ cause.getClass == cause2.getClass
-      case _               ⇒ false
+  object IOError {
+    def apply(str: String, t: Throwable): IOError = new IOError(str) {
+      override def getCause = t
     }
 
-    override def hashCode(): Int = IOError.hashCode * 31 + cause.getClass.hashCode()
+    def apply(t: Throwable): IOError = IOError(Option(t.getMessage).getOrElse("IO error"), t)
   }
 }

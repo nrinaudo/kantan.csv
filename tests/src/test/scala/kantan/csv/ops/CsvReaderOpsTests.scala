@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.csv
+package kantan.csv.ops
 
+import kantan.csv._
 import kantan.csv.laws._
 import kantan.csv.laws.discipline.arbitrary._
-import kantan.csv.ops._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 

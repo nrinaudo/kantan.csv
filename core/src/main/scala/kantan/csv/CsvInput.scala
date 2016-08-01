@@ -73,10 +73,10 @@ trait CsvInput[-S] extends Serializable { self ⇒
     */
   def unsafeReader[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[A] =
     reader[A](s, separator, header).map(_.valueOr {
-      case TypeError(e)           ⇒ throw e
-      case NoSuchElement          ⇒ throw new NoSuchElementException
-      case IOError(e)             ⇒ throw e
-      case OutOfBounds(index)     ⇒ throw new ArrayIndexOutOfBoundsException(index)
+      case e@TypeError(msg)   ⇒ throw Option(e.getCause).getOrElse(new IllegalArgumentException(msg))
+      case NoSuchElement()    ⇒ throw new NoSuchElementException
+      case e@IOError(msg)     ⇒ throw Option(e.getCause).getOrElse(new IOException(msg))
+      case OutOfBounds(index) ⇒ throw new ArrayIndexOutOfBoundsException(index)
     })
 
   /** Reads the entire CSV data into a collection.

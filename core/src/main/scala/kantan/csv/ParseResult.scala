@@ -21,6 +21,6 @@ import kantan.codecs.Result
 object ParseResult {
   def apply[A](a: ⇒ A): ParseResult[A] = Result.nonFatal(a).leftMap(ParseError.IOError.apply)
   def io(e: Throwable): ParseResult[Nothing] = Result.failure(ParseError.IOError(e))
-  def noSuchElement: ParseResult[Nothing] = Result.failure(ParseError.NoSuchElement)
+  def noSuchElement: ParseResult[Nothing] = Result.failure(ParseError.NoSuchElement())
   def success[A](a: A): ParseResult[A] = Result.success(a)
 }
