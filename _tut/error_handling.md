@@ -70,7 +70,7 @@ When not streaming data, a good option is to fail if a single row fails to decod
 
 ```scala
 scala> kantan.codecs.Result.sequence(rawData.readCsv[List, Person](',', false))
-res4: kantan.codecs.Result[kantan.csv.ReadError,List[Person]] = Failure(TypeError(For input string: "28"))
+res4: kantan.codecs.Result[kantan.csv.ReadError,List[Person]] = Failure(kantan.csv.DecodeError$TypeError$$anon$1: Not a valid Boolean: '28)
 ```
 
 The only real downside to this approach is that it requires loading the entire data in memory.

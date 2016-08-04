@@ -49,7 +49,7 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides useful syntax for <code>CsvReader[ReadResult[A]]</code>.</p><p>When parsing CSV data, a very common scenario is to get an instance of <a href="../CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a> and then use common
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides useful syntax for <code>CsvReader[ReadResult[A]]</code>.</p><p>When parsing CSV data, a very common scenario is to get an instance of <a href="../package.html#CsvReader[A]=kantan.codecs.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a> and then use common
 combinators such as <code>map</code> and <code>flatMap</code> on it. This can be awkward when the actual interesting value is
 itself within a <a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a> which also needs to be mapped into. <a href="" class="extype" name="kantan.csv.ops.CsvReaderOps">CsvReaderOps</a> provides shortcuts, such as:</p><pre><span class="kw">val</span> reader: CsvReader[ReadResult[<span class="std">List</span>[<span class="std">Int</span>]]] = ???
 
@@ -102,7 +102,7 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">CsvReaderOps</span><span class="params">(<span name="as">as: <a href="../CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>]]</span>)</span>
+        <span class="name">CsvReaderOps</span><span class="params">(<span name="as">as: <a href="../package.html#CsvReader[A]=kantan.codecs.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>]]</span>)</span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#kantan.csv.ops.CsvReaderOps@&lt;init&gt;(as:kantan.csv.CsvReader[kantan.csv.ReadResult[A]]):kantan.csv.ops.CsvReaderOps[A]" title="Permalink" target="_top">
@@ -179,7 +179,7 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">as</span><span class="result">: <a href="../CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>]]</span>
+        <span class="name">as</span><span class="result">: <a href="../package.html#CsvReader[A]=kantan.codecs.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>]]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#kantan.csv.ops.CsvReaderOps@as:kantan.csv.CsvReader[kantan.csv.ReadResult[A]]" title="Permalink" target="_top">
@@ -213,7 +213,7 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">filterResult</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="../CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>]]</span>
+        <span class="name">filterResult</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="../package.html#CsvReader[A]=kantan.codecs.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>]]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#kantan.csv.ops.CsvReaderOps@filterResult(f:A=&gt;Boolean):kantan.csv.CsvReader[kantan.csv.ReadResult[A]]" title="Permalink" target="_top">
@@ -230,7 +230,7 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">flatMapResult</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>) ⇒ <a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.flatMapResult.B">B</span>]</span>)</span><span class="result">: <a href="../CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.flatMapResult.B">B</span>]]</span>
+        <span class="name">flatMapResult</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>) ⇒ <a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.flatMapResult.B">B</span>]</span>)</span><span class="result">: <a href="../package.html#CsvReader[A]=kantan.codecs.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.flatMapResult.B">B</span>]]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#kantan.csv.ops.CsvReaderOps@flatMapResult[B](f:A=&gt;kantan.csv.ReadResult[B]):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]" title="Permalink" target="_top">
@@ -281,7 +281,7 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">mapResult</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>) ⇒ <span class="extype" name="kantan.csv.ops.CsvReaderOps.mapResult.B">B</span></span>)</span><span class="result">: <a href="../CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.mapResult.B">B</span>]]</span>
+        <span class="name">mapResult</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.csv.ops.CsvReaderOps.A">A</span>) ⇒ <span class="extype" name="kantan.csv.ops.CsvReaderOps.mapResult.B">B</span></span>)</span><span class="result">: <a href="../package.html#CsvReader[A]=kantan.codecs.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvReaderOps.mapResult.B">B</span>]]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#kantan.csv.ops.CsvReaderOps@mapResult[B](f:A=&gt;B):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]" title="Permalink" target="_top">

@@ -51,7 +51,7 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Declares all possible values of type <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/ReadError.scala" target="_blank">ReadError.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Declares all possible values of type <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/Errors.scala" target="_blank">Errors.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -115,11 +115,11 @@
       <a id="TypeError:TypeError"></a>
       <h4 class="signature">
       <span class="modifier_kind">
-        <span class="modifier">final </span>
+        <span class="modifier">sealed </span>
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="DecodeError$$TypeError.html"><span class="name">TypeError</span></a><span class="params">(<span name="cause">cause: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result"> extends <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+        <a href="DecodeError$$TypeError.html"><span class="name">TypeError</span></a><span class="params">(<span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.DecodeError$@TypeErrorextendsDecodeErrorwithProductwithSerializable" title="Permalink" target="_top">
@@ -127,7 +127,7 @@
       </a>
     </span>
       <p class="shortcomment cmt">Error that occurs when attempting to decode a CSV cell or row into an incompatible type.</p><div class="fullcomment"><div class="comment cmt"><p>Error that occurs when attempting to decode a CSV cell or row into an incompatible type.</p><p>A typical example of this would be to try and decode a CSV cell into an <code>Int</code> when its content is, say, <code>foobar</code>.
-</p></div><dl class="paramcmts block"><dt class="param">cause</dt><dd class="cmt"><p>exception that caused the <a href="DecodeError$$TypeError.html" class="extype" name="kantan.csv.DecodeError.TypeError">TypeError</a></p></dd></dl></div>
+</p></div></div>
     </li></ol>
             </div>
 

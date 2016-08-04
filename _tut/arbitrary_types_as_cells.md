@@ -16,7 +16,7 @@ implicit instance of [`CellEncoder[A]`][`CellEncoder`] in scope. All sane primit
 
 ```scala
 scala> implicitly[kantan.csv.CellEncoder[Int]]
-res0: kantan.csv.CellEncoder[Int] = kantan.codecs.Codec$$anon$1@7c0a0498
+res0: kantan.csv.CellEncoder[Int] = kantan.codecs.Codec$$anon$1@7414f00f
 ```
 
 A more complete list of default instances can be found [here](default_instances.html)
@@ -59,8 +59,8 @@ scala> List(
      |   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
      | ).asCsv(',')
 res3: String =
-"2016-06-06,2016-06-07
-2016-06-08,2016-06-09
+"2016-08-04,2016-08-05
+2016-08-06,2016-08-07
 "
 ```
 

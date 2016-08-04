@@ -89,7 +89,7 @@
         <div id="types" class="types members">
               <h3>Type Members</h3>
               <ol><li name="kantan.csv.generic.GenericInstances" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="GenericInstancesextendsAnyRef"></a>
+      <a id="GenericInstancesextendsShapelessInstances"></a>
       <a id="GenericInstances:GenericInstances"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -97,10 +97,10 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="GenericInstances.html"><span class="name">GenericInstances</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a href="GenericInstances.html"><span class="name">GenericInstances</span></a><span class="result"> extends <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.shapeless.ShapelessInstances" class="extype" target="_top">ShapelessInstances</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.generic.package@GenericInstancesextendsAnyRef" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.generic.package@GenericInstancesextendsShapelessInstances" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -113,35 +113,35 @@
         <div id="values" class="values members">
               <h3>Value Members</h3>
               <ol><li name="kantan.codecs.shapeless.ShapelessInstances#caseClassDecoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="caseClassDecoder[E,D,F,T,H&lt;:shapeless.HList](implicitgen:shapeless.Generic.Aux[D,H],implicitdr:shapeless.Lazy[kantan.codecs.Decoder[E,H,F,T]]):kantan.codecs.export.Exported[kantan.codecs.Decoder[E,D,F,T]]"></a>
-      <a id="caseClassDecoder[E,D,F,T,H&lt;:HList](Aux[D,H],Lazy[Decoder[E,H,F,T]]):Exported[Decoder[E,D,F,T]]"></a>
+      <a id="caseClassDecoder[E,D,F,T,H&lt;:shapeless.HList](implicitgen:shapeless.Generic.Aux[D,H],implicitdr:shapeless.Lazy[kantan.codecs.Decoder[E,H,F,T]]):kantan.codecs.export.DerivedDecoder[E,D,F,T]"></a>
+      <a id="caseClassDecoder[E,D,F,T,H&lt;:HList](Aux[D,H],Lazy[Decoder[E,H,F,T]]):DerivedDecoder[E,D,F,T]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">caseClassDecoder</span><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="F">F</span>, <span name="T">T</span>, <span name="H">H &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="gen">gen: <span class="extype" name="shapeless.Generic.Aux">Aux</span>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassDecoder.D">D</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassDecoder.H">H</span>]</span>, <span name="dr">dr: <span class="extype" name="shapeless.Lazy">Lazy</span>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Decoder" class="extype" target="_top">Decoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassDecoder.E">E</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassDecoder.H">H</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassDecoder.F">F</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassDecoder.T">T</span>]]</span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.export.Exported" class="extype" target="_top">Exported</a>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Decoder" class="extype" target="_top">Decoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassDecoder.E">E</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassDecoder.D">D</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassDecoder.F">F</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassDecoder.T">T</span>]]</span>
+        <span class="name">caseClassDecoder</span><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="F">F</span>, <span name="T">T</span>, <span name="H">H &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="gen">gen: <span class="extype" name="shapeless.Generic.Aux">Aux</span>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassDecoder.D">D</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassDecoder.H">H</span>]</span>, <span name="dr">dr: <span class="extype" name="shapeless.Lazy">Lazy</span>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Decoder" class="extype" target="_top">Decoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassDecoder.E">E</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassDecoder.H">H</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassDecoder.F">F</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassDecoder.T">T</span>]]</span>)</span><span class="result">: <span class="extype" name="kantan.codecs.export.DerivedDecoder">DerivedDecoder</span>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassDecoder.E">E</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassDecoder.D">D</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassDecoder.F">F</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassDecoder.T">T</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.generic.package@caseClassDecoder[E,D,F,T,H&lt;:shapeless.HList](implicitgen:shapeless.Generic.Aux[D,H],implicitdr:shapeless.Lazy[kantan.codecs.Decoder[E,H,F,T]]):kantan.codecs.export.Exported[kantan.codecs.Decoder[E,D,F,T]]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.generic.package@caseClassDecoder[E,D,F,T,H&lt;:shapeless.HList](implicitgen:shapeless.Generic.Aux[D,H],implicitdr:shapeless.Lazy[kantan.codecs.Decoder[E,H,F,T]]):kantan.codecs.export.DerivedDecoder[E,D,F,T]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ShapelessInstances</dd></dl></div>
     </li><li name="kantan.codecs.shapeless.ShapelessInstances#caseClassEncoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="caseClassEncoder[E,D,T,H&lt;:shapeless.HList](implicitgen:shapeless.Generic.Aux[D,H],impliciter:shapeless.Lazy[kantan.codecs.Encoder[E,H,T]]):kantan.codecs.export.Exported[kantan.codecs.Encoder[E,D,T]]"></a>
-      <a id="caseClassEncoder[E,D,T,H&lt;:HList](Aux[D,H],Lazy[Encoder[E,H,T]]):Exported[Encoder[E,D,T]]"></a>
+      <a id="caseClassEncoder[E,D,T,H&lt;:shapeless.HList](implicitgen:shapeless.Generic.Aux[D,H],impliciter:shapeless.Lazy[kantan.codecs.Encoder[E,H,T]]):kantan.codecs.export.DerivedEncoder[E,D,T]"></a>
+      <a id="caseClassEncoder[E,D,T,H&lt;:HList](Aux[D,H],Lazy[Encoder[E,H,T]]):DerivedEncoder[E,D,T]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">caseClassEncoder</span><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="T">T</span>, <span name="H">H &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="gen">gen: <span class="extype" name="shapeless.Generic.Aux">Aux</span>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassEncoder.D">D</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassEncoder.H">H</span>]</span>, <span name="er">er: <span class="extype" name="shapeless.Lazy">Lazy</span>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Encoder" class="extype" target="_top">Encoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassEncoder.E">E</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassEncoder.H">H</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassEncoder.T">T</span>]]</span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.export.Exported" class="extype" target="_top">Exported</a>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Encoder" class="extype" target="_top">Encoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassEncoder.E">E</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassEncoder.D">D</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassEncoder.T">T</span>]]</span>
+        <span class="name">caseClassEncoder</span><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="T">T</span>, <span name="H">H &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="gen">gen: <span class="extype" name="shapeless.Generic.Aux">Aux</span>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassEncoder.D">D</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassEncoder.H">H</span>]</span>, <span name="er">er: <span class="extype" name="shapeless.Lazy">Lazy</span>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Encoder" class="extype" target="_top">Encoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassEncoder.E">E</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassEncoder.H">H</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassEncoder.T">T</span>]]</span>)</span><span class="result">: <span class="extype" name="kantan.codecs.export.DerivedEncoder">DerivedEncoder</span>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassEncoder.E">E</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassEncoder.D">D</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.caseClassEncoder.T">T</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.generic.package@caseClassEncoder[E,D,T,H&lt;:shapeless.HList](implicitgen:shapeless.Generic.Aux[D,H],impliciter:shapeless.Lazy[kantan.codecs.Encoder[E,H,T]]):kantan.codecs.export.Exported[kantan.codecs.Encoder[E,D,T]]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.generic.package@caseClassEncoder[E,D,T,H&lt;:shapeless.HList](implicitgen:shapeless.Generic.Aux[D,H],impliciter:shapeless.Lazy[kantan.codecs.Encoder[E,H,T]]):kantan.codecs.export.DerivedEncoder[E,D,T]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -163,23 +163,40 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="GenericInstances.html" class="extype" name="kantan.csv.generic.GenericInstances">GenericInstances</a></dd></dl></div>
-    </li><li name="kantan.csv.generic.GenericInstances#cnilCellEncoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="cnilCellEncoder:kantan.csv.CellEncoder[shapeless.CNil]"></a>
-      <a id="cnilCellEncoder:CellEncoder[CNil]"></a>
+    </li><li name="kantan.codecs.shapeless.ShapelessInstances#cnilDecoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="cnilDecoder[E,F,T](f:E=&gt;F):kantan.codecs.Decoder[E,shapeless.CNil,F,T]"></a>
+      <a id="cnilDecoder[E,F,T]((E)⇒F):Decoder[E,CNil,F,T]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
+        <span class="modifier"></span>
+        <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">cnilCellEncoder</span><span class="result">: <a href="../package.html#CellEncoder[A]=kantan.codecs.Encoder[String,A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.CellEncoder">CellEncoder</a>[<span class="extype" name="shapeless.CNil">CNil</span>]</span>
+        <span class="name">cnilDecoder</span><span class="tparams">[<span name="E">E</span>, <span name="F">F</span>, <span name="T">T</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.E">E</span>) ⇒ <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.F">F</span></span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Decoder" class="extype" target="_top">Decoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.E">E</span>, <span class="extype" name="shapeless.CNil">CNil</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.F">F</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.T">T</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.generic.package@cnilCellEncoder:kantan.csv.CellEncoder[shapeless.CNil]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.generic.package@cnilDecoder[E,F,T](f:E=&gt;F):kantan.codecs.Decoder[E,shapeless.CNil,F,T]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="GenericInstances.html" class="extype" name="kantan.csv.generic.GenericInstances">GenericInstances</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ShapelessInstances</dd></dl></div>
+    </li><li name="kantan.codecs.shapeless.ShapelessInstances#cnilEncoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="cnilEncoder[E,D,T]:kantan.codecs.Encoder[E,shapeless.CNil,T]"></a>
+      <a id="cnilEncoder[E,D,T]:Encoder[E,CNil,T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">cnilEncoder</span><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="T">T</span>]</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Encoder" class="extype" target="_top">Encoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilEncoder.E">E</span>, <span class="extype" name="shapeless.CNil">CNil</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilEncoder.T">T</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#kantan.csv.generic.package@cnilEncoder[E,D,T]:kantan.codecs.Encoder[E,shapeless.CNil,T]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ShapelessInstances</dd></dl></div>
     </li><li name="kantan.csv.generic.GenericInstances#cnilRowDecoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="cnilRowDecoder:kantan.csv.RowDecoder[shapeless.CNil]"></a>
       <a id="cnilRowDecoder:RowDecoder[CNil]"></a>
@@ -197,91 +214,40 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="GenericInstances.html" class="extype" name="kantan.csv.generic.GenericInstances">GenericInstances</a></dd></dl></div>
-    </li><li name="kantan.csv.generic.GenericInstances#cnilRowEncoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="cnilRowEncoder:kantan.csv.RowEncoder[shapeless.CNil]"></a>
-      <a id="cnilRowEncoder:RowEncoder[CNil]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">cnilRowEncoder</span><span class="result">: <a href="../package.html#RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="shapeless.CNil">CNil</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.generic.package@cnilRowEncoder:kantan.csv.RowEncoder[shapeless.CNil]" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="GenericInstances.html" class="extype" name="kantan.csv.generic.GenericInstances">GenericInstances</a></dd></dl></div>
-    </li><li name="kantan.csv.generic.GenericInstances#coproductCellDecoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="coproductCellDecoder[H,T&lt;:shapeless.Coproduct](implicitdh:kantan.csv.CellDecoder[H],implicitdt:kantan.csv.CellDecoder[T]):kantan.csv.CellDecoder[shapeless.:+:[H,T]]"></a>
-      <a id="coproductCellDecoder[H,T&lt;:Coproduct](CellDecoder[H],CellDecoder[T]):CellDecoder[:+:[H,T]]"></a>
+    </li><li name="kantan.codecs.shapeless.ShapelessInstances#coproductDecoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="coproductDecoder[E,H,D&lt;:shapeless.Coproduct,F,T](implicitdh:kantan.codecs.Decoder[E,H,F,T],implicitdt:kantan.codecs.Decoder[E,D,F,T]):kantan.codecs.Decoder[E,shapeless.:+:[H,D],F,T]"></a>
+      <a id="coproductDecoder[E,H,D&lt;:Coproduct,F,T](Decoder[E,H,F,T],Decoder[E,D,F,T]):Decoder[E,:+:[H,D],F,T]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">coproductCellDecoder</span><span class="tparams">[<span name="H">H</span>, <span name="T">T &lt;: <span class="extype" name="shapeless.Coproduct">Coproduct</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="dh">dh: <a href="../package.html#CellDecoder[A]=kantan.codecs.Decoder[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.CellDecoder">CellDecoder</a>[<span class="extype" name="kantan.csv.generic.GenericInstances.coproductCellDecoder.H">H</span>]</span>, <span name="dt">dt: <a href="../package.html#CellDecoder[A]=kantan.codecs.Decoder[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.CellDecoder">CellDecoder</a>[<span class="extype" name="kantan.csv.generic.GenericInstances.coproductCellDecoder.T">T</span>]</span>)</span><span class="result">: <a href="../package.html#CellDecoder[A]=kantan.codecs.Decoder[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.CellDecoder">CellDecoder</a>[<span class="extype" name="shapeless.:+:">:+:</span>[<span class="extype" name="kantan.csv.generic.GenericInstances.coproductCellDecoder.H">H</span>, <span class="extype" name="kantan.csv.generic.GenericInstances.coproductCellDecoder.T">T</span>]]</span>
+        <span class="name">coproductDecoder</span><span class="tparams">[<span name="E">E</span>, <span name="H">H</span>, <span name="D">D &lt;: <span class="extype" name="shapeless.Coproduct">Coproduct</span></span>, <span name="F">F</span>, <span name="T">T</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="dh">dh: <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Decoder" class="extype" target="_top">Decoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductDecoder.E">E</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductDecoder.H">H</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductDecoder.F">F</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductDecoder.T">T</span>]</span>, <span name="dt">dt: <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Decoder" class="extype" target="_top">Decoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductDecoder.E">E</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductDecoder.D">D</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductDecoder.F">F</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductDecoder.T">T</span>]</span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Decoder" class="extype" target="_top">Decoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductDecoder.E">E</span>, <span class="extype" name="shapeless.:+:">:+:</span>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductDecoder.H">H</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductDecoder.D">D</span>], <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductDecoder.F">F</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductDecoder.T">T</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.generic.package@coproductCellDecoder[H,T&lt;:shapeless.Coproduct](implicitdh:kantan.csv.CellDecoder[H],implicitdt:kantan.csv.CellDecoder[T]):kantan.csv.CellDecoder[shapeless.:+:[H,T]]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.generic.package@coproductDecoder[E,H,D&lt;:shapeless.Coproduct,F,T](implicitdh:kantan.codecs.Decoder[E,H,F,T],implicitdt:kantan.codecs.Decoder[E,D,F,T]):kantan.codecs.Decoder[E,shapeless.:+:[H,D],F,T]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="GenericInstances.html" class="extype" name="kantan.csv.generic.GenericInstances">GenericInstances</a></dd></dl></div>
-    </li><li name="kantan.csv.generic.GenericInstances#coproductCellEncoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="coproductCellEncoder[H,T&lt;:shapeless.Coproduct](impliciteh:kantan.csv.CellEncoder[H],implicitet:kantan.csv.CellEncoder[T]):kantan.csv.CellEncoder[shapeless.:+:[H,T]]"></a>
-      <a id="coproductCellEncoder[H,T&lt;:Coproduct](CellEncoder[H],CellEncoder[T]):CellEncoder[:+:[H,T]]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ShapelessInstances</dd></dl></div>
+    </li><li name="kantan.codecs.shapeless.ShapelessInstances#coproductEncoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="coproductEncoder[E,H,D&lt;:shapeless.Coproduct,T](impliciteh:kantan.codecs.Encoder[E,H,T],implicited:kantan.codecs.Encoder[E,D,T]):kantan.codecs.Encoder[E,shapeless.:+:[H,D],T]"></a>
+      <a id="coproductEncoder[E,H,D&lt;:Coproduct,T](Encoder[E,H,T],Encoder[E,D,T]):Encoder[E,:+:[H,D],T]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">coproductCellEncoder</span><span class="tparams">[<span name="H">H</span>, <span name="T">T &lt;: <span class="extype" name="shapeless.Coproduct">Coproduct</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="eh">eh: <a href="../package.html#CellEncoder[A]=kantan.codecs.Encoder[String,A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.CellEncoder">CellEncoder</a>[<span class="extype" name="kantan.csv.generic.GenericInstances.coproductCellEncoder.H">H</span>]</span>, <span name="et">et: <a href="../package.html#CellEncoder[A]=kantan.codecs.Encoder[String,A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.CellEncoder">CellEncoder</a>[<span class="extype" name="kantan.csv.generic.GenericInstances.coproductCellEncoder.T">T</span>]</span>)</span><span class="result">: <a href="../package.html#CellEncoder[A]=kantan.codecs.Encoder[String,A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.CellEncoder">CellEncoder</a>[<span class="extype" name="shapeless.:+:">:+:</span>[<span class="extype" name="kantan.csv.generic.GenericInstances.coproductCellEncoder.H">H</span>, <span class="extype" name="kantan.csv.generic.GenericInstances.coproductCellEncoder.T">T</span>]]</span>
+        <span class="name">coproductEncoder</span><span class="tparams">[<span name="E">E</span>, <span name="H">H</span>, <span name="D">D &lt;: <span class="extype" name="shapeless.Coproduct">Coproduct</span></span>, <span name="T">T</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="eh">eh: <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Encoder" class="extype" target="_top">Encoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductEncoder.E">E</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductEncoder.H">H</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductEncoder.T">T</span>]</span>, <span name="ed">ed: <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Encoder" class="extype" target="_top">Encoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductEncoder.E">E</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductEncoder.D">D</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductEncoder.T">T</span>]</span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Encoder" class="extype" target="_top">Encoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductEncoder.E">E</span>, <span class="extype" name="shapeless.:+:">:+:</span>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductEncoder.H">H</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductEncoder.D">D</span>], <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.coproductEncoder.T">T</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.generic.package@coproductCellEncoder[H,T&lt;:shapeless.Coproduct](impliciteh:kantan.csv.CellEncoder[H],implicitet:kantan.csv.CellEncoder[T]):kantan.csv.CellEncoder[shapeless.:+:[H,T]]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.generic.package@coproductEncoder[E,H,D&lt;:shapeless.Coproduct,T](impliciteh:kantan.codecs.Encoder[E,H,T],implicited:kantan.codecs.Encoder[E,D,T]):kantan.codecs.Encoder[E,shapeless.:+:[H,D],T]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="GenericInstances.html" class="extype" name="kantan.csv.generic.GenericInstances">GenericInstances</a></dd></dl></div>
-    </li><li name="kantan.csv.generic.GenericInstances#coproductRowDecoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="coproductRowDecoder[H,T&lt;:shapeless.Coproduct](implicitdh:kantan.csv.RowDecoder[H],implicitdt:kantan.csv.RowDecoder[T]):kantan.csv.RowDecoder[shapeless.:+:[H,T]]"></a>
-      <a id="coproductRowDecoder[H,T&lt;:Coproduct](RowDecoder[H],RowDecoder[T]):RowDecoder[:+:[H,T]]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">coproductRowDecoder</span><span class="tparams">[<span name="H">H</span>, <span name="T">T &lt;: <span class="extype" name="shapeless.Coproduct">Coproduct</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="dh">dh: <a href="../package.html#RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.generic.GenericInstances.coproductRowDecoder.H">H</span>]</span>, <span name="dt">dt: <a href="../package.html#RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.generic.GenericInstances.coproductRowDecoder.T">T</span>]</span>)</span><span class="result">: <a href="../package.html#RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="shapeless.:+:">:+:</span>[<span class="extype" name="kantan.csv.generic.GenericInstances.coproductRowDecoder.H">H</span>, <span class="extype" name="kantan.csv.generic.GenericInstances.coproductRowDecoder.T">T</span>]]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.generic.package@coproductRowDecoder[H,T&lt;:shapeless.Coproduct](implicitdh:kantan.csv.RowDecoder[H],implicitdt:kantan.csv.RowDecoder[T]):kantan.csv.RowDecoder[shapeless.:+:[H,T]]" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="GenericInstances.html" class="extype" name="kantan.csv.generic.GenericInstances">GenericInstances</a></dd></dl></div>
-    </li><li name="kantan.csv.generic.GenericInstances#coproductRowEncoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="coproductRowEncoder[H,T&lt;:shapeless.Coproduct](impliciteh:kantan.csv.RowEncoder[H],implicitet:kantan.csv.RowEncoder[T]):kantan.csv.RowEncoder[shapeless.:+:[H,T]]"></a>
-      <a id="coproductRowEncoder[H,T&lt;:Coproduct](RowEncoder[H],RowEncoder[T]):RowEncoder[:+:[H,T]]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">coproductRowEncoder</span><span class="tparams">[<span name="H">H</span>, <span name="T">T &lt;: <span class="extype" name="shapeless.Coproduct">Coproduct</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="eh">eh: <a href="../package.html#RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="kantan.csv.generic.GenericInstances.coproductRowEncoder.H">H</span>]</span>, <span name="et">et: <a href="../package.html#RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="kantan.csv.generic.GenericInstances.coproductRowEncoder.T">T</span>]</span>)</span><span class="result">: <a href="../package.html#RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="shapeless.:+:">:+:</span>[<span class="extype" name="kantan.csv.generic.GenericInstances.coproductRowEncoder.H">H</span>, <span class="extype" name="kantan.csv.generic.GenericInstances.coproductRowEncoder.T">T</span>]]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.generic.package@coproductRowEncoder[H,T&lt;:shapeless.Coproduct](impliciteh:kantan.csv.RowEncoder[H],implicitet:kantan.csv.RowEncoder[T]):kantan.csv.RowEncoder[shapeless.:+:[H,T]]" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="GenericInstances.html" class="extype" name="kantan.csv.generic.GenericInstances">GenericInstances</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ShapelessInstances</dd></dl></div>
     </li><li name="kantan.csv.generic.GenericInstances#hlistCellDecoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hlistCellDecoder[H](implicitdh:kantan.csv.CellDecoder[H]):kantan.csv.CellDecoder[shapeless.::[H,shapeless.HNil]]"></a>
       <a id="hlistCellDecoder[H](CellDecoder[H]):CellDecoder[::[H,HNil]]"></a>
@@ -419,35 +385,35 @@
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="GenericInstances.html" class="extype" name="kantan.csv.generic.GenericInstances">GenericInstances</a></dd></dl></div>
     </li><li name="kantan.codecs.shapeless.ShapelessInstances#sumTypeDecoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="sumTypeDecoder[E,D,F,T,C&lt;:shapeless.Coproduct](implicitgen:shapeless.Generic.Aux[D,C],implicitdr:shapeless.Lazy[kantan.codecs.Decoder[E,C,F,T]]):kantan.codecs.export.Exported[kantan.codecs.Decoder[E,D,F,T]]"></a>
-      <a id="sumTypeDecoder[E,D,F,T,C&lt;:Coproduct](Aux[D,C],Lazy[Decoder[E,C,F,T]]):Exported[Decoder[E,D,F,T]]"></a>
+      <a id="sumTypeDecoder[E,D,F,T,C&lt;:shapeless.Coproduct](implicitgen:shapeless.Generic.Aux[D,C],implicitdr:shapeless.Lazy[kantan.codecs.Decoder[E,C,F,T]]):kantan.codecs.export.DerivedDecoder[E,D,F,T]"></a>
+      <a id="sumTypeDecoder[E,D,F,T,C&lt;:Coproduct](Aux[D,C],Lazy[Decoder[E,C,F,T]]):DerivedDecoder[E,D,F,T]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">sumTypeDecoder</span><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="F">F</span>, <span name="T">T</span>, <span name="C">C &lt;: <span class="extype" name="shapeless.Coproduct">Coproduct</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="gen">gen: <span class="extype" name="shapeless.Generic.Aux">Aux</span>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeDecoder.D">D</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeDecoder.C">C</span>]</span>, <span name="dr">dr: <span class="extype" name="shapeless.Lazy">Lazy</span>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Decoder" class="extype" target="_top">Decoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeDecoder.E">E</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeDecoder.C">C</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeDecoder.F">F</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeDecoder.T">T</span>]]</span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.export.Exported" class="extype" target="_top">Exported</a>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Decoder" class="extype" target="_top">Decoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeDecoder.E">E</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeDecoder.D">D</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeDecoder.F">F</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeDecoder.T">T</span>]]</span>
+        <span class="name">sumTypeDecoder</span><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="F">F</span>, <span name="T">T</span>, <span name="C">C &lt;: <span class="extype" name="shapeless.Coproduct">Coproduct</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="gen">gen: <span class="extype" name="shapeless.Generic.Aux">Aux</span>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeDecoder.D">D</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeDecoder.C">C</span>]</span>, <span name="dr">dr: <span class="extype" name="shapeless.Lazy">Lazy</span>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Decoder" class="extype" target="_top">Decoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeDecoder.E">E</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeDecoder.C">C</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeDecoder.F">F</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeDecoder.T">T</span>]]</span>)</span><span class="result">: <span class="extype" name="kantan.codecs.export.DerivedDecoder">DerivedDecoder</span>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeDecoder.E">E</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeDecoder.D">D</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeDecoder.F">F</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeDecoder.T">T</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.generic.package@sumTypeDecoder[E,D,F,T,C&lt;:shapeless.Coproduct](implicitgen:shapeless.Generic.Aux[D,C],implicitdr:shapeless.Lazy[kantan.codecs.Decoder[E,C,F,T]]):kantan.codecs.export.Exported[kantan.codecs.Decoder[E,D,F,T]]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.generic.package@sumTypeDecoder[E,D,F,T,C&lt;:shapeless.Coproduct](implicitgen:shapeless.Generic.Aux[D,C],implicitdr:shapeless.Lazy[kantan.codecs.Decoder[E,C,F,T]]):kantan.codecs.export.DerivedDecoder[E,D,F,T]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ShapelessInstances</dd></dl></div>
     </li><li name="kantan.codecs.shapeless.ShapelessInstances#sumTypeEncoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="sumTypeEncoder[E,D,T,C&lt;:shapeless.Coproduct](implicitgen:shapeless.Generic.Aux[D,C],impliciter:shapeless.Lazy[kantan.codecs.Encoder[E,C,T]]):kantan.codecs.export.Exported[kantan.codecs.Encoder[E,D,T]]"></a>
-      <a id="sumTypeEncoder[E,D,T,C&lt;:Coproduct](Aux[D,C],Lazy[Encoder[E,C,T]]):Exported[Encoder[E,D,T]]"></a>
+      <a id="sumTypeEncoder[E,D,T,C&lt;:shapeless.Coproduct](implicitgen:shapeless.Generic.Aux[D,C],impliciter:shapeless.Lazy[kantan.codecs.Encoder[E,C,T]]):kantan.codecs.export.DerivedEncoder[E,D,T]"></a>
+      <a id="sumTypeEncoder[E,D,T,C&lt;:Coproduct](Aux[D,C],Lazy[Encoder[E,C,T]]):DerivedEncoder[E,D,T]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">sumTypeEncoder</span><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="T">T</span>, <span name="C">C &lt;: <span class="extype" name="shapeless.Coproduct">Coproduct</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="gen">gen: <span class="extype" name="shapeless.Generic.Aux">Aux</span>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeEncoder.D">D</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeEncoder.C">C</span>]</span>, <span name="er">er: <span class="extype" name="shapeless.Lazy">Lazy</span>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Encoder" class="extype" target="_top">Encoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeEncoder.E">E</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeEncoder.C">C</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeEncoder.T">T</span>]]</span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.export.Exported" class="extype" target="_top">Exported</a>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Encoder" class="extype" target="_top">Encoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeEncoder.E">E</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeEncoder.D">D</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeEncoder.T">T</span>]]</span>
+        <span class="name">sumTypeEncoder</span><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="T">T</span>, <span name="C">C &lt;: <span class="extype" name="shapeless.Coproduct">Coproduct</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="gen">gen: <span class="extype" name="shapeless.Generic.Aux">Aux</span>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeEncoder.D">D</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeEncoder.C">C</span>]</span>, <span name="er">er: <span class="extype" name="shapeless.Lazy">Lazy</span>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Encoder" class="extype" target="_top">Encoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeEncoder.E">E</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeEncoder.C">C</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeEncoder.T">T</span>]]</span>)</span><span class="result">: <span class="extype" name="kantan.codecs.export.DerivedEncoder">DerivedEncoder</span>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeEncoder.E">E</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeEncoder.D">D</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.sumTypeEncoder.T">T</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.generic.package@sumTypeEncoder[E,D,T,C&lt;:shapeless.Coproduct](implicitgen:shapeless.Generic.Aux[D,C],impliciter:shapeless.Lazy[kantan.codecs.Encoder[E,C,T]]):kantan.codecs.export.Exported[kantan.codecs.Encoder[E,D,T]]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.generic.package@sumTypeEncoder[E,D,T,C&lt;:shapeless.Coproduct](implicitgen:shapeless.Generic.Aux[D,C],impliciter:shapeless.Lazy[kantan.codecs.Encoder[E,C,T]]):kantan.codecs.export.DerivedEncoder[E,D,T]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>

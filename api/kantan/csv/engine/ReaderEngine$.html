@@ -147,26 +147,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="kantan.csv.engine.ReaderEngine#apply" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="apply(f:(java.io.Reader,Char)=&gt;kantan.csv.CsvReader[kantan.csv.ReadResult[Seq[String]]]):kantan.csv.engine.ReaderEngine"></a>
-      <a id="apply((Reader,Char)⇒CsvReader[ReadResult[Seq[String]]]):ReaderEngine"></a>
+    </li><li name="kantan.csv.engine.ReaderEngine#apply" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="apply(f:(java.io.Reader,Char)=&gt;kantan.csv.CsvReader[Seq[String]]):kantan.csv.engine.ReaderEngine"></a>
+      <a id="apply((Reader,Char)⇒CsvReader[Seq[String]]):ReaderEngine"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="params">(<span name="f">f: (<span class="extype" name="java.io.Reader">Reader</span>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Char" class="extype" target="_top">Char</a>) ⇒ <a href="../CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]]]</span>)</span><span class="result">: <a href="ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>
+        <span class="name">apply</span><span class="params">(<span name="f">f: (<span class="extype" name="java.io.Reader">Reader</span>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Char" class="extype" target="_top">Char</a>) ⇒ <a href="../package.html#CsvReader[A]=kantan.codecs.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>)</span><span class="result">: <a href="ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.engine.ReaderEngine$@apply(f:(java.io.Reader,Char)=&gt;kantan.csv.CsvReader[kantan.csv.ReadResult[Seq[String]]]):kantan.csv.engine.ReaderEngine" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.engine.ReaderEngine$@apply(f:(java.io.Reader,Char)=&gt;kantan.csv.CsvReader[Seq[String]]):kantan.csv.engine.ReaderEngine" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Creates a new <a href="ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a> instance.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new <a href="ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a> instance.</p><p>Note that the <code>f</code> parameter can be tricky to get right without leaking exceptions. The recommended way of creating
-new <a href="../CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a> instances from anything that might throw (because it's IO-bound) is to use
-<a href="../CsvReader$.html#fromUnsafe[I,R](in:I)(open:I=&gt;Iterator[R])(release:I=&gt;Unit):kantan.csv.CsvReader[kantan.csv.ParseResult[R]]" class="extmbr" name="kantan.csv.CsvReader#fromUnsafe">CsvReader.fromUnsafe</a>.
-</p></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>how to create new instances of <a href="../CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a>.</p></dd></dl></div>
+      <p class="shortcomment cmt">Creates a new <a href="ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a> instance.</p>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>

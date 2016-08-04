@@ -51,7 +51,7 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/ReadError.scala" target="_blank">ReadError.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/Errors.scala" target="_blank">Errors.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -97,11 +97,11 @@
       <a id="IOError:IOError"></a>
       <h4 class="signature">
       <span class="modifier_kind">
-        <span class="modifier">final </span>
+        <span class="modifier">sealed </span>
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="ParseError$$IOError.html"><span class="name">IOError</span></a><span class="params">(<span name="cause">cause: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result"> extends <a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+        <a href="ParseError$$IOError.html"><span class="name">IOError</span></a><span class="params">(<span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.ParseError$@IOErrorextendsParseErrorwithProductwithSerializable" title="Permalink" target="_top">
@@ -109,19 +109,19 @@
       </a>
     </span>
       
-    </li><li name="kantan.csv.ParseError.SyntaxError" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="SyntaxErrorextendsParseErrorwithProductwithSerializable"></a>
-      <a id="SyntaxError:SyntaxError"></a>
+    </li><li name="kantan.csv.ParseError.NoSuchElement" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="NoSuchElementextendsParseErrorwithProductwithSerializable"></a>
+      <a id="NoSuchElement:NoSuchElement"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">final </span>
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="ParseError$$SyntaxError.html"><span class="name">SyntaxError</span></a><span class="params">(<span name="line">line: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>, <span name="col">col: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result"> extends <a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+        <a href="ParseError$$NoSuchElement.html"><span class="name">NoSuchElement</span></a><span class="params">()</span><span class="result"> extends <a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.ParseError$@SyntaxErrorextendsParseErrorwithProductwithSerializable" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.ParseError$@NoSuchElementextendsParseErrorwithProductwithSerializable" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -184,19 +184,19 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="kantan.csv.ParseError.NoSuchElement" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="NoSuchElement"></a>
-      <a id="NoSuchElement:NoSuchElement"></a>
+    </li><li name="kantan.csv.ParseError.IOError" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="IOError"></a>
+      <a id="IOError:IOError"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a href="ParseError$$NoSuchElement$.html"><span class="name">NoSuchElement</span></a><span class="result"> extends <a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+        <a href="ParseError$$IOError$.html"><span class="name">IOError</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.ParseError$@NoSuchElement" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.ParseError$@IOError" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>

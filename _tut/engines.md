@@ -16,7 +16,7 @@ hood.
 The [opencsv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-opencsv" % "0.1.12"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-opencsv" % "0.1.13"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -30,7 +30,7 @@ import kantan.csv.engine.opencsv._
 The [commons csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.1.12"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.1.13"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -44,7 +44,7 @@ import kantan.csv.engine.commons._
 The [jackson csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.1.12"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.1.13"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -79,16 +79,15 @@ to create an instance of [`CsvReader`] rely on an implicit instance of [`ReaderE
 
 Creating a new instance of [`ReaderEngine`] is meant to be fairly straightforward: there's a helper
 [`ReaderEngine.apply`] method that takes care of this. It still means we need to be able to write a
-`(Reader, Char) ⇒ ReadResult[Seq[String]]`, which is surprisingly tricky to get right and not leak exceptions.
-
-Fortunately, there's a helper for that too: [`CsvReader.fromUnsafe`]. Put together, the code is deceptively simple:
+`(Reader, Char) ⇒ CsvReader[Seq[String]]`, but the most common scenario is already covered: if you can write a
+`(Reader, Char) ⇒ Iterator[Seq[String]]`, you can simply use [`ResourceIterator.fromIterator`]: 
 
 ```scala
 import kantan.csv.engine._
 import kantan.csv._
 
 implicit val readerEngine = ReaderEngine { (in: Reader, sep: Char) ⇒
-   CsvReader.fromUnsafe(EasyCSV.read(in, sep))(it ⇒ it)(_.close)
+  kantan.codecs.ResourceIterator.fromIterator(EasyCSV.read(in, sep))
 }
 ```
 
@@ -104,9 +103,6 @@ implicit val writerEngine = WriterEngine { (writer: Writer, sep: Char) ⇒
 }
 ```
 
-
-
-
 [commons csv]:https://commons.apache.org/proper/commons-csv/
 [jackson csv]:https://github.com/FasterXML/jackson-dataformat-csv
 [opencsv]:http://opencsv.sourceforge.net
@@ -114,6 +110,7 @@ implicit val writerEngine = WriterEngine { (writer: Writer, sep: Char) ⇒
 [`WriterEngine`]:{{ site.baseurl }}/api/#kantan.csv.engine.WriterEngine
 [`CsvReader`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader
 [`ReaderEngine.apply`]:{{ site.baseurl }}/api/#kantan.csv.engine.ReaderEngine$@apply(f:(java.io.Reader,Char)=>kantan.csv.CsvReader[kantan.csv.ReadResult[Seq[String]]]):kantan.csv.engine.ReaderEngine
-[`CsvReader.fromUnsafe`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader$@fromUnsafe[I,R](in:I)(open:I=>Iterator[R])(release:I=>Unit):kantan.csv.CsvReader[kantan.csv.ParseResult[R]]
+[`CsvReader.fromResource`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader$@fromResource[I,R](in:I)(open:I=>Iterator[R])(release:I=>Unit):kantan.csv.CsvReader[kantan.csv.ParseResult[R]]
 [`WriterEngine.apply`]:{{ site.baseurl }}/api/#kantan.csv.engine.WriterEngine$@apply(f:(java.io.Writer,Char)=>kantan.csv.CsvWriter[Seq[String]]):kantan.csv.engine.WriterEngine
 [`CsvWriter.apply`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter$@apply[A](writer:java.io.Writer,separator:Char,header:Seq[String])(implicitea:kantan.csv.RowEncoder[A],implicitengine:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[A]
+[`ResourceIterator.fromIterator`]:http://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.ResourceIterator$@fromIterator[A](as:Iterator[A]):kantan.codecs.ResourceIterator[A]

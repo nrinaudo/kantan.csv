@@ -43,18 +43,18 @@
 
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
-        <span class="modifier">final </span>
+        <span class="modifier">sealed </span>
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">TypeError</span><span class="params">(<span name="cause">cause: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result"> extends <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+        <span class="name">TypeError</span><span class="params">(<span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
       </span>
       </h4>
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Error that occurs when attempting to decode a CSV cell or row into an incompatible type.</p><p>A typical example of this would be to try and decode a CSV cell into an <code>Int</code> when its content is, say, <code>foobar</code>.
-</p></div><dl class="paramcmts block"><dt class="param">cause</dt><dd class="cmt"><p>exception that caused the <a href="" class="extype" name="kantan.csv.DecodeError.TypeError">TypeError</a></p></dd></dl><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/ReadError.scala" target="_blank">ReadError.scala</a></dd></dl><div class="toggleContainer block">
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/Errors.scala" target="_blank">Errors.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="ReadError.html" class="extype" name="kantan.csv.ReadError">ReadError</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Equals" class="extype" target="_top">Equals</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="ReadError.html" class="extype" name="kantan.csv.ReadError">ReadError</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Equals" class="extype" target="_top">Equals</a>, <span class="extype" name="java.lang.Exception">Exception</span>, <span class="extype" name="java.lang.Throwable">Throwable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -72,7 +72,7 @@
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="kantan.csv.DecodeError.TypeError"><span>TypeError</span></li><li class="in" name="kantan.csv.DecodeError"><span>DecodeError</span></li><li class="in" name="kantan.csv.ReadError"><span>ReadError</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.Product"><span>Product</span></li><li class="in" name="scala.Equals"><span>Equals</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="kantan.csv.DecodeError.TypeError"><span>TypeError</span></li><li class="in" name="kantan.csv.DecodeError"><span>DecodeError</span></li><li class="in" name="kantan.csv.ReadError"><span>ReadError</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="scala.Product"><span>Product</span></li><li class="in" name="scala.Equals"><span>Equals</span></li><li class="in" name="java.lang.Exception"><span>Exception</span></li><li class="in" name="java.lang.Throwable"><span>Throwable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -91,8 +91,8 @@
         <div id="allMembers">
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
-              <ol><li name="kantan.csv.DecodeError.TypeError#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(cause:Throwable):kantan.csv.DecodeError.TypeError"></a>
+              <ol><li name="kantan.csv.DecodeError.TypeError#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="&lt;init&gt;(message:String):kantan.csv.DecodeError.TypeError"></a>
       <a id="&lt;init&gt;:TypeError"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -100,14 +100,14 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">TypeError</span><span class="params">(<span name="cause">cause: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span>
+        <span class="name">TypeError</span><span class="params">(<span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.DecodeError$$TypeError@&lt;init&gt;(cause:Throwable):kantan.csv.DecodeError.TypeError" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.DecodeError$$TypeError@&lt;init&gt;(message:String):kantan.csv.DecodeError.TypeError" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">cause</dt><dd class="cmt"><p>exception that caused the <a href="" class="extype" name="kantan.csv.DecodeError.TypeError">TypeError</a></p></dd></dl></div>
+      
     </li></ol>
             </div>
 
@@ -168,6 +168,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="java.lang.Throwable#addSuppressed" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="addSuppressed(x$1:Throwable):Unit"></a>
+      <a id="addSuppressed(Throwable):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">addSuppressed</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="java.lang.Throwable">Throwable</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.DecodeError$$TypeError@addSuppressed(x$1:Throwable):Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Throwable</dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -185,23 +202,6 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="kantan.csv.DecodeError.TypeError#cause" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="cause:Throwable"></a>
-      <a id="cause:Throwable"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">cause</span><span class="result">: <span class="extype" name="scala.Throwable">Throwable</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.DecodeError$$TypeError@cause:Throwable" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">exception that caused the <a href="" class="extype" name="kantan.csv.DecodeError.TypeError">TypeError</a></p>
     </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a>
       <a id="clone():AnyRef"></a>
@@ -242,23 +242,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="kantan.csv.DecodeError.TypeError#equals" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="equals(obj:Any):Boolean"></a>
-      <a id="equals(Any):Boolean"></a>
+    </li><li name="java.lang.Throwable#fillInStackTrace" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="fillInStackTrace():Throwable"></a>
+      <a id="fillInStackTrace():Throwable"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="obj">obj: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">fillInStackTrace</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Throwable">Throwable</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.DecodeError$$TypeError@equals(obj:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.DecodeError$$TypeError@fillInStackTrace():Throwable" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="kantan.csv.DecodeError.TypeError">TypeError</a> → Equals → AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Throwable</dd></dl></div>
     </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <a id="finalize():Unit"></a>
@@ -282,6 +282,23 @@
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="java.lang.Throwable#getCause" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getCause():Throwable"></a>
+      <a id="getCause():Throwable"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getCause</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Throwable">Throwable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.DecodeError$$TypeError@getCause():Throwable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Throwable</dd></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <a id="getClass():Class[_]"></a>
@@ -299,23 +316,91 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="kantan.csv.DecodeError.TypeError#hashCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="hashCode():Int"></a>
-      <a id="hashCode():Int"></a>
+    </li><li name="java.lang.Throwable#getLocalizedMessage" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getLocalizedMessage():String"></a>
+      <a id="getLocalizedMessage():String"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>
+        <span class="name">getLocalizedMessage</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.DecodeError$$TypeError@hashCode():Int" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.DecodeError$$TypeError@getLocalizedMessage():String" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="kantan.csv.DecodeError.TypeError">TypeError</a> → AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Throwable</dd></dl></div>
+    </li><li name="kantan.csv.DecodeError.TypeError#getMessage" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getMessage:String"></a>
+      <a id="getMessage:String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getMessage</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.DecodeError$$TypeError@getMessage:String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="kantan.csv.DecodeError.TypeError">TypeError</a> → Throwable</dd></dl></div>
+    </li><li name="java.lang.Throwable#getStackTrace" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getStackTrace():Array[StackTraceElement]"></a>
+      <a id="getStackTrace():Array[StackTraceElement]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getStackTrace</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Array" class="extype" target="_top">Array</a>[<span class="extype" name="java.lang.StackTraceElement">StackTraceElement</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.DecodeError$$TypeError@getStackTrace():Array[StackTraceElement]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Throwable</dd></dl></div>
+    </li><li name="java.lang.Throwable#getSuppressed" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getSuppressed():Array[Throwable]"></a>
+      <a id="getSuppressed():Array[Throwable]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getSuppressed</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Array" class="extype" target="_top">Array</a>[<span class="extype" name="java.lang.Throwable">Throwable</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.DecodeError$$TypeError@getSuppressed():Array[Throwable]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Throwable</dd></dl></div>
+    </li><li name="java.lang.Throwable#initCause" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="initCause(x$1:Throwable):Throwable"></a>
+      <a id="initCause(Throwable):Throwable"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">initCause</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="java.lang.Throwable">Throwable</span></span>)</span><span class="result">: <span class="extype" name="java.lang.Throwable">Throwable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.DecodeError$$TypeError@initCause(x$1:Throwable):Throwable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Throwable</dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -333,6 +418,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="kantan.csv.DecodeError.TypeError#message" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="message:String"></a>
+      <a id="message:String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">message</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.DecodeError$$TypeError@message:String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
       <a id="ne(AnyRef):Boolean"></a>
@@ -384,6 +486,74 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="java.lang.Throwable#printStackTrace" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="printStackTrace(x$1:java.io.PrintWriter):Unit"></a>
+      <a id="printStackTrace(PrintWriter):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">printStackTrace</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="java.io.PrintWriter">PrintWriter</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.DecodeError$$TypeError@printStackTrace(x$1:java.io.PrintWriter):Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Throwable</dd></dl></div>
+    </li><li name="java.lang.Throwable#printStackTrace" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="printStackTrace(x$1:java.io.PrintStream):Unit"></a>
+      <a id="printStackTrace(PrintStream):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">printStackTrace</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="java.io.PrintStream">PrintStream</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.DecodeError$$TypeError@printStackTrace(x$1:java.io.PrintStream):Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Throwable</dd></dl></div>
+    </li><li name="java.lang.Throwable#printStackTrace" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="printStackTrace():Unit"></a>
+      <a id="printStackTrace():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">printStackTrace</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.DecodeError$$TypeError@printStackTrace():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Throwable</dd></dl></div>
+    </li><li name="java.lang.Throwable#setStackTrace" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="setStackTrace(x$1:Array[StackTraceElement]):Unit"></a>
+      <a id="setStackTrace(Array[StackTraceElement]):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">setStackTrace</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Array" class="extype" target="_top">Array</a>[<span class="extype" name="java.lang.StackTraceElement">StackTraceElement</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.DecodeError$$TypeError@setStackTrace(x$1:Array[StackTraceElement]):Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Throwable</dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
@@ -401,7 +571,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="kantan.csv.DecodeError.TypeError#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="java.lang.Throwable#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
       <a id="toString():String"></a>
       <h4 class="signature">
@@ -410,14 +580,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#kantan.csv.DecodeError$$TypeError@toString():String" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="kantan.csv.DecodeError.TypeError">TypeError</a> → AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Throwable → AnyRef → Any</dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>
@@ -502,12 +672,16 @@
               <h3>Inherited from <a href="ReadError.html" class="extype" name="kantan.csv.ReadError">ReadError</a></h3>
             </div><div class="parent" name="scala.Serializable">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></h3>
-            </div><div class="parent" name="java.io.Serializable">
-              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
             </div><div class="parent" name="scala.Product">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a></h3>
             </div><div class="parent" name="scala.Equals">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Equals" class="extype" target="_top">Equals</a></h3>
+            </div><div class="parent" name="java.lang.Exception">
+              <h3>Inherited from <span class="extype" name="java.lang.Exception">Exception</span></h3>
+            </div><div class="parent" name="java.lang.Throwable">
+              <h3>Inherited from <span class="extype" name="java.lang.Throwable">Throwable</span></h3>
+            </div><div class="parent" name="java.io.Serializable">
+              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">

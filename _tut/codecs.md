@@ -35,12 +35,12 @@ scala> val dates = List(
      |   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
      | ).asCsv(',')
 dates: String =
-"2016-06-06,2016-06-07
-2016-06-08,2016-06-09
+"2016-08-04,2016-08-05
+2016-08-06,2016-08-07
 "
 
 scala> dates.readCsv[List, List[DateTime]](',', false)
-res1: List[kantan.csv.ReadResult[List[org.joda.time.DateTime]]] = List(Success(List(2016-06-06T00:00:00.000+02:00, 2016-06-07T00:00:00.000+02:00)), Success(List(2016-06-08T00:00:00.000+02:00, 2016-06-09T00:00:00.000+02:00)))
+res1: List[kantan.csv.ReadResult[List[org.joda.time.DateTime]]] = List(Success(List(2016-08-04T00:00:00.000+02:00, 2016-08-05T00:00:00.000+02:00)), Success(List(2016-08-06T00:00:00.000+02:00, 2016-08-07T00:00:00.000+02:00)))
 ```
 
 
