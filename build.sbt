@@ -2,6 +2,7 @@ import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
 import com.typesafe.sbt.SbtSite.SiteKeys._
 import UnidocKeys._
 import de.heikoseeberger.sbtheader.license.Apache2_0
+import scala.xml.transform.{RewriteRule, RuleTransformer}
 
 val commonsCsvVersion          = "1.4"
 val jacksonCsvVersion          = "2.8.0"
@@ -57,6 +58,20 @@ lazy val baseSettings = Seq(
   ),
   libraryDependencies ++= macroDependencies(scalaVersion.value),
   headers := Map("scala" -> Apache2_0("2016", "Nicolas Rinaudo")),
+    // don't include scoverage as a dependency in the pom
+  // this code was copied from https://github.com/mongodb/mongo-spark
+  pomPostProcess := { (node: xml.Node) =>
+    new RuleTransformer(
+      new RewriteRule {
+        override def transform(node: xml.Node): Seq[xml.Node] = node match {
+          case e: xml.Elem
+              if e.label == "dependency" && e.child.exists(child => child.label == "groupId" && child.text == "org.scoverage") => Nil
+          case _ => Seq(node)
+
+        }
+
+      }).transform(node).head
+  },
   ScoverageSbtPlugin.ScoverageKeys.coverageExcludedPackages := "kantan\\.csv\\.laws\\..*",
   incOptions := incOptions.value.withNameHashing(true)
 )
