@@ -16,7 +16,7 @@
 
 package kantan.csv.cats
 
-import _root_.cats.std.list._
+import _root_.cats.instances.list._
 import arbitrary._
 import kantan.csv.laws.discipline.RowEncoderTests
 import org.scalacheck.{Arbitrary, Gen}

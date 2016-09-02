@@ -5,17 +5,17 @@ import de.heikoseeberger.sbtheader.license.Apache2_0
 import scala.xml.transform.{RewriteRule, RuleTransformer}
 
 val commonsCsvVersion          = "1.4"
-val jacksonCsvVersion          = "2.8.0"
+val jacksonCsvVersion          = "2.8.2"
 val jodaVersion                = "2.9.4"
 val jodaConvertVersion         = "1.8.1"
-val kantanCodecsVersion        = "0.1.7"
+val kantanCodecsVersion        = "0.1.8-SNAPSHOT"
 val macroParadiseVersion       = "2.1.0"
 val opencsvVersion             = "3.8"
 val productCollectionVersion   = "1.4.3"
 val scalaCsvVersion            = "1.3.3"
 val scalatestVersion           = "3.0.0-M9"
-val scalazStreamVersion        = "0.8.3"
-val univocityVersion           = "2.1.2"
+val scalazStreamVersion        = "0.8.4"
+val univocityVersion           = "2.2.1"
 
 lazy val buildSettings = Seq(
   organization       := "com.nrinaudo",
@@ -58,7 +58,7 @@ lazy val baseSettings = Seq(
   ),
   libraryDependencies ++= macroDependencies(scalaVersion.value),
   headers := Map("scala" -> Apache2_0("2016", "Nicolas Rinaudo")),
-    // don't include scoverage as a dependency in the pom
+  // don't include scoverage as a dependency in the pom
   // this code was copied from https://github.com/mongodb/mongo-spark
   pomPostProcess := { (node: xml.Node) =>
     new RuleTransformer(
