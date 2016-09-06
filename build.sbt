@@ -1,10 +1,3 @@
-import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
-import UnidocKeys._
-import de.heikoseeberger.sbtheader.license.Apache2_0
-import scala.xml.transform.{RewriteRule, RuleTransformer}
-
-
-
 // - Dependency versions -----------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 val commonsCsvVersion        = "1.4"
@@ -19,126 +12,7 @@ val scalatestVersion         = "3.0.0-M9"
 val scalazStreamVersion      = "0.8.4"
 val univocityVersion         = "2.2.1"
 
-
-
-// - Common settings ---------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-// Basic build settings.
-lazy val buildSettings = Seq(
-  organization       := "com.nrinaudo",
-  scalaVersion       := "2.11.8",
-  crossScalaVersions := Seq("2.10.6", "2.11.8"),
-  autoAPIMappings    := true
-)
-
-// Minimum set of compiler flags for sane development.
-lazy val compilerOptions = Seq(
-  "-deprecation",
-  "-target:jvm-1.7",
-  "-encoding", "UTF-8",
-  "-feature",
-  "-language:existentials",
-  "-language:higherKinds",
-  "-language:implicitConversions",
-  "-language:experimental.macros",
-  "-unchecked",
-  "-Xfatal-warnings",
-  "-Xlint",
-  "-Yno-adapted-args",
-  "-Ywarn-dead-code",
-  "-Ywarn-numeric-widen",
-  "-Ywarn-value-discard",
-  "-Xfuture"
-)
-
-// Settings that should be enabled in all modules.
-lazy val baseSettings = Seq(
-  // Version-specific compiler options.
-  scalacOptions ++= compilerOptions ++ (
-    CrossVersion.partialVersion(scalaVersion.value) match {
-      case Some((2, 11)) ⇒ Seq("-Ywarn-unused-import")
-      case Some((2, 10)) ⇒ Seq("-Xdivergence211")
-      case _             ⇒ Nil
-    }
-  ),
-
-  // Disable -Ywarn-unused-imports in the console.
-  scalacOptions in (Compile, console) ~= { _.filterNot(Set("-Ywarn-unused-import")) },
-
-  // Standard resolvers.
-  resolvers ++= Seq(
-    Resolver.sonatypeRepo("releases"),
-    Resolver.sonatypeRepo("snapshots")
-  ),
-
-  // Copyright header.
-  headers := Map("scala" → Apache2_0("2016", "Nicolas Rinaudo")),
-
-  // Common dependencies.
-  libraryDependencies ++= macroDependencies(scalaVersion.value),
-  libraryDependencies += compilerPlugin("org.spire-math" % "kind-projector" % kindProjectorVersion cross CrossVersion.binary),
-
-  // don't include scoverage as a dependency in the pom
-  // this code was copied from https://github.com/mongodb/mongo-spark
-  pomPostProcess := { (node: xml.Node) ⇒
-    new RuleTransformer(
-      new RewriteRule {
-        override def transform(node: xml.Node): Seq[xml.Node] = node match {
-          case e: xml.Elem
-              if e.label == "dependency" && e.child.exists(child ⇒ child.label == "groupId" && child.text == "org.scoverage") ⇒ Nil
-          case _ ⇒ Seq(node)
-        }
-      }).transform(node).head
-  },
-
-  // Exclude laws from code coverage.
-  ScoverageSbtPlugin.ScoverageKeys.coverageExcludedPackages := "kantan\\.csv\\.laws\\..*",
-
-  // Speeds compilation up.
-  incOptions := incOptions.value.withNameHashing(true)
-)
-
-// Settings for all modules that won't be published.
-lazy val noPublishSettings = Seq(
-  publish         := (),
-  publishLocal    := (),
-  publishArtifact := false
-)
-
-// Settings for all modules that will be published.
-lazy val publishSettings = Seq(
-  homepage := Some(url("https://nrinaudo.github.io/kantan.csv/")),
-  licenses := Seq("Apache-2.0" → url("https://www.apache.org/licenses/LICENSE-2.0.html")),
-  apiURL := Some(url("https://nrinaudo.github.io/kantan.csv/api/")),
-  scmInfo := Some(
-    ScmInfo(
-      url("https://github.com/nrinaudo/kantan.csv"),
-      "scm:git:git@github.com:nrinaudo/kantan.csv.git"
-    )
-  ),
-  pomExtra := <developers>
-    <developer>
-      <id>nrinaudo</id>
-      <name>Nicolas Rinaudo</name>
-      <url>http://nrinaudo.github.io</url>
-    </developer>
-  </developers>
-)
-
-// Base settings for all modules.
-// Modules that shouldn't be published must also use noPublishSettings.
-lazy val allSettings = buildSettings ++ baseSettings ++ publishSettings
-
-// Platform specific list of dependencies for macros.
-def macroDependencies(v: String): List[ModuleID] =
-  ("org.scala-lang" % "scala-reflect" % v % "provided") :: {
-    if(v.startsWith("2.10")) List(compilerPlugin("org.scalamacros" % "paradise" % macroParadiseVersion cross CrossVersion.full))
-    else Nil
-  }
-
-// Custom settings required by sbt.site.
-lazy val tutSiteDir = settingKey[String]("Website tutorial directory")
-lazy val apiSiteDir = settingKey[String]("Unidoc API directory")
+kantanProject in ThisBuild := "csv"
 
 
 
@@ -146,8 +20,7 @@ lazy val apiSiteDir = settingKey[String]("Unidoc API directory")
 // ---------------------------------------------------------------------------------------------------------------------
 lazy val root = Project(id = "kantan-csv", base = file("."))
   .settings(moduleName := "root")
-  .settings(allSettings)
-  .settings(noPublishSettings)
+  .enablePlugins(UnpublishedPlugin)
   .settings(
     initialCommands in console :=
     """
@@ -157,15 +30,12 @@ lazy val root = Project(id = "kantan-csv", base = file("."))
       |import kantan.csv.joda.time._
     """.stripMargin
   )
-  .enablePlugins(AutomateHeaderPlugin)
   .aggregate(core, cats, scalaz, scalazStream, laws, tests, docs, generic, benchmark, jackson, commons, opencsv, jodaTime)
   .dependsOn(core, generic, jodaTime)
 
 lazy val tests = project
-  .settings(allSettings)
-  .settings(noPublishSettings)
+  .enablePlugins(UnpublishedPlugin)
   .enablePlugins(spray.boilerplate.BoilerplatePlugin)
-  .enablePlugins(AutomateHeaderPlugin)
   .dependsOn(core, jackson, commons, opencsv, laws, cats, generic, jodaTime, scalaz, scalazStream, benchmark)
   .settings(libraryDependencies ++= Seq(
     "org.scalatest" %% "scalatest"                    % scalatestVersion    % "test",
@@ -176,40 +46,11 @@ lazy val tests = project
   ))
 
 lazy val docs = project
-  .settings(allSettings)
-  .enablePlugins(PreprocessPlugin)
-  .settings(ghpages.settings)
-  .settings(unidocSettings)
-  .settings(
-    unidocProjectFilter in (ScalaUnidoc, unidoc) := inAnyProject -- inProjects(benchmark),
-    apiURL := Some(url("http://nrinaudo.github.io/kantan.csv/api/")),
-    scalacOptions in (ScalaUnidoc, unidoc) ++= Seq(
-      "-doc-source-url", scmInfo.value.get.browseUrl + "/tree/master€{FILE_PATH}.scala",
-      "-sourcepath", baseDirectory.in(LocalRootProject).value.getAbsolutePath
-    )
-  )
-  .settings(libraryDependencies ++= macroDependencies(scalaVersion.value))
-  .settings(tutSettings)
-  .settings(tutScalacOptions ~= (_.filterNot(Set("-Ywarn-unused-import"))))
-  .settings(
-    tutSiteDir := "_tut",
-    apiSiteDir := "api",
-    addMappingsToSiteDir(tut, tutSiteDir),
-    addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), apiSiteDir),
-    git.remoteRepo := "git@github.com:nrinaudo/kantan.csv.git",
-    ghpagesNoJekyll := false,
-    includeFilter in makeSite := "*.yml" | "*.md" | "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" |
-                                 "*.eot" | "*.svg" | "*.ttf" | "*.woff" | "*.woff2" | "*.otf"
-  )
-  .settings(noPublishSettings)
+  .enablePlugins(DocumentationPlugin)
   .dependsOn(core, scalazStream, laws, cats, scalaz, generic, jackson, commons, opencsv, jodaTime)
 
 lazy val benchmark = project
-  .settings(buildSettings)
-  .settings(baseSettings)
-  .settings(noPublishSettings)
-  .enablePlugins(AutomateHeaderPlugin)
-  .enablePlugins(JmhPlugin)
+  .enablePlugins(UnpublishedPlugin, JmhPlugin)
   .dependsOn(core, jackson, opencsv, commons)
   .settings(libraryDependencies ++= Seq(
     "com.github.marklister" %% "product-collections" % productCollectionVersion,
@@ -225,9 +66,8 @@ lazy val core = project
   .settings(
     moduleName := "kantan.csv",
     name       := "core"
-  )
-  .settings(allSettings)
-  .enablePlugins(AutomateHeaderPlugin)
+)
+  .enablePlugins(PublishedPlugin)
   .enablePlugins(spray.boilerplate.BoilerplatePlugin)
   .settings(libraryDependencies += "com.nrinaudo" %% "kantan.codecs" % kantanCodecsVersion)
 
@@ -236,8 +76,7 @@ lazy val laws = project
     moduleName := "kantan.csv-laws",
     name       := "laws"
   )
-  .settings(allSettings)
-  .enablePlugins(AutomateHeaderPlugin)
+  .enablePlugins(PublishedPlugin)
   .enablePlugins(spray.boilerplate.BoilerplatePlugin)
   .dependsOn(core)
   .settings(libraryDependencies += "com.nrinaudo" %% "kantan.codecs-laws" % kantanCodecsVersion)
@@ -251,9 +90,8 @@ lazy val jackson = project
     moduleName := "kantan.csv-jackson",
     name       := "jackson"
   )
-  .settings(allSettings)
-  .enablePlugins(AutomateHeaderPlugin)
-  .dependsOn(core, laws % "test")
+  .enablePlugins(PublishedPlugin)
+  .dependsOn(core)
   .settings(libraryDependencies += "com.fasterxml.jackson.dataformat" % "jackson-dataformat-csv" % jacksonCsvVersion)
 
 lazy val commons = project
@@ -261,9 +99,8 @@ lazy val commons = project
     moduleName := "kantan.csv-commons",
     name       := "commons"
   )
-  .settings(allSettings)
-  .enablePlugins(AutomateHeaderPlugin)
-  .dependsOn(core, laws % "test")
+  .enablePlugins(PublishedPlugin)
+  .dependsOn(core)
   .settings(libraryDependencies += "org.apache.commons" % "commons-csv" % commonsCsvVersion)
 
 lazy val opencsv = project
@@ -271,9 +108,8 @@ lazy val opencsv = project
     moduleName := "kantan.csv-opencsv",
     name       := "opencsv"
   )
-  .settings(allSettings)
-  .enablePlugins(AutomateHeaderPlugin)
-  .dependsOn(core, laws % "test")
+  .enablePlugins(PublishedPlugin)
+  .dependsOn(core)
   .settings(libraryDependencies += "com.opencsv" % "opencsv" % opencsvVersion)
 
 
@@ -285,8 +121,7 @@ lazy val generic = project
     moduleName := "kantan.csv-generic",
     name       := "generic"
   )
-  .settings(allSettings)
-  .enablePlugins(AutomateHeaderPlugin)
+  .enablePlugins(PublishedPlugin)
   .dependsOn(core)
   .settings(libraryDependencies += "com.nrinaudo" %% "kantan.codecs-shapeless" % kantanCodecsVersion)
 
@@ -299,8 +134,7 @@ lazy val scalaz = project
     moduleName := "kantan.csv-scalaz",
     name       := "scalaz"
   )
-  .settings(allSettings)
-  .enablePlugins(AutomateHeaderPlugin)
+  .enablePlugins(PublishedPlugin)
   .dependsOn(core)
   .settings(libraryDependencies += "com.nrinaudo" %% "kantan.codecs-scalaz" % kantanCodecsVersion)
 
@@ -313,8 +147,7 @@ lazy val scalazStream = Project(id = "scalaz-stream", base = file("scalaz-stream
     moduleName := "kantan.csv-scalaz-stream",
     name       := "scalaz-stream"
   )
-  .settings(allSettings)
-  .enablePlugins(AutomateHeaderPlugin)
+  .enablePlugins(PublishedPlugin)
   .dependsOn(scalaz)
   .settings(libraryDependencies += "org.scalaz.stream" %% "scalaz-stream" % scalazStreamVersion)
 
@@ -327,8 +160,7 @@ lazy val cats = project
     moduleName := "kantan.csv-cats",
     name       := "cats"
   )
-  .settings(allSettings)
-  .enablePlugins(AutomateHeaderPlugin)
+  .enablePlugins(PublishedPlugin)
   .dependsOn(core)
   .settings(libraryDependencies += "com.nrinaudo" %% "kantan.codecs-cats" % kantanCodecsVersion)
 
@@ -341,8 +173,7 @@ lazy val jodaTime = Project(id = "joda-time", base = file("joda-time"))
     moduleName := "kantan.csv-joda-time",
     name       := "joda-time"
   )
-  .settings(allSettings)
-  .enablePlugins(AutomateHeaderPlugin)
+  .enablePlugins(PublishedPlugin)
   .dependsOn(core)
   .settings(libraryDependencies += "com.nrinaudo" %% "kantan.codecs-joda-time" % kantanCodecsVersion)
 
@@ -352,4 +183,3 @@ lazy val jodaTime = Project(id = "joda-time", base = file("joda-time"))
 // ---------------------------------------------------------------------------------------------------------------------
 addCommandAlias("runBench",    "benchmark/jmh:run -i 10 -wi 10 -f 2 -t 1 -rf csv -rff benchmarks.csv")
 addCommandAlias("runProfiler", "benchmark/jmh:run -i 10 -wi 5 -f 1 -t 1 -o profiler.txt -prof stack:detailLine=true;lines=5;period=1 kantan.csv.benchmark.*kantan.*")
-addCommandAlias("validate", ";clean;scalastyle;test:scalastyle;coverage;test;coverageReport;coverageAggregate;docs/makeSite")
