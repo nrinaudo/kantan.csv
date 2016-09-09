@@ -23,7 +23,7 @@ import org.joda.time.format.ISODateTimeFormat
 
 implicit val jodaDateTime: CellCodec[DateTime] = {
   val format = ISODateTimeFormat.date()
-  CellCodec(s ⇒ DecodeResult(format.parseDateTime(s)))(d ⇒ format.print(d))
+  CellCodec.from(s ⇒ DecodeResult(format.parseDateTime(s)))(d ⇒ format.print(d))
 }
 ```
 

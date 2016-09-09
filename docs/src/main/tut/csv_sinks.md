@@ -28,7 +28,7 @@ import java.io._
 import scala.io._
 
 implicit def fileOutput(implicit c: Codec): CsvOutput[File] =
-  CsvOutput(f ⇒ new OutputStreamWriter(new FileOutputStream(f), c.charSet))
+  CsvOutput.from(f ⇒ new OutputStreamWriter(new FileOutputStream(f), c.charSet))
 ```
 
 ## Adapting existing instances

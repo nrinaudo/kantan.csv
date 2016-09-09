@@ -3,7 +3,7 @@ package kantan.csv
 trait GeneratedRowEncoders {
   /** Creates a new [[RowEncoder]] from the specified unary function. */
   def encoder[C, A1](f: C ⇒ A1)(implicit e1: CellEncoder[A1]): RowEncoder[C] =
-    RowEncoder(c ⇒ List(e1.encode(f(c))))
+    RowEncoder.from(c ⇒ List(e1.encode(f(c))))
   [2..#/** Creates a new [[RowEncoder]] from the specified function.
     *
     * @param f encoding function.
@@ -11,7 +11,7 @@ trait GeneratedRowEncoders {
     ]
     */
   def encoder[C, [#A1#]]([#i1: Int#])(f: C ⇒ Tuple1[[#A1#]])(implicit [#e1: CellEncoder[A1]#]): RowEncoder[C] =
-    RowEncoder { c ⇒
+    RowEncoder.from { c ⇒
       val e = f(c)
       val dest = new Array[String](1)
 
@@ -26,7 +26,7 @@ trait GeneratedRowEncoders {
     encoder(f)
   [2..#/** Creates a new [[RowEncoder]] from the specified function. */
   def ordered[C, [#A1#]](f: C ⇒ Tuple1[[#A1#]])(implicit [#e1: CellEncoder[A1]#]): RowEncoder[C] =
-    RowEncoder { c ⇒
+    RowEncoder.from { c ⇒
       val e = f(c)
       val dest = new Array[String](1)
 

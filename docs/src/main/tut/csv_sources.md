@@ -28,7 +28,7 @@ strings:
 import kantan.csv._
 import java.io._
 
-implicit val stringInput: CsvInput[String] = CsvInput(s ⇒ ParseResult(new StringReader(s)))
+implicit val stringInput: CsvInput[String] = CsvInput.from(s ⇒ ParseResult(new StringReader(s)))
 ```
 
 

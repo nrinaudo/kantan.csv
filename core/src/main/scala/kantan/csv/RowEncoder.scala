@@ -41,18 +41,22 @@ object RowEncoder extends GeneratedRowEncoders {
   def apply[A](implicit ea: RowEncoder[A]): RowEncoder[A] = ea
 
   /** Creates a new [[RowEncoder]] using the specified function for encoding. */
-  def apply[A](f: A ⇒ Seq[String]): RowEncoder[A] = Encoder(f)
+  def from[A](f: A ⇒ Seq[String]): RowEncoder[A] = Encoder.from(f)
+
+  @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
+  def apply[A](f: A ⇒ Seq[String]): RowEncoder[A] = RowEncoder.from(f)
 }
 
 /** Provides reasonable default [[RowEncoder]] instances for various types. */
 trait RowEncoderInstances {
   /** Turns a [[CellEncoder]] into a [[RowEncoder]], for rows that contain a single value. */
-  implicit def fromCellEncoder[A](implicit ea: CellEncoder[A]): RowEncoder[A] = RowEncoder(a ⇒ Seq(ea.encode(a)))
+  implicit def fromCellEncoder[A](implicit ea: CellEncoder[A]): RowEncoder[A] =
+    RowEncoder.from(a ⇒ Seq(ea.encode(a)))
 
   /** Provides a [[RowEncoder]] instance for all traversable collections.
     *
     * Note that the elements of the collections are expected to have a [[CellEncoder]].
     */
   implicit def traversable[A, M[X] <: TraversableOnce[X]](implicit ea: CellEncoder[A]): RowEncoder[M[A]] =
-    RowEncoder { as ⇒ as.foldLeft(Seq.newBuilder[String])((acc, a) ⇒ acc += ea.encode(a)).result() }
+    RowEncoder .from(_.foldLeft(Seq.newBuilder[String])((acc, a) ⇒ acc += ea.encode(a)).result())
 }

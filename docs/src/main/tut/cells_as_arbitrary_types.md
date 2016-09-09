@@ -41,7 +41,7 @@ import org.joda.time.format.ISODateTimeFormat
 
 implicit val jodaDateTime: CellDecoder[DateTime] = {
   val format = ISODateTimeFormat.date()
-  CellDecoder(s ⇒ DecodeResult(format.parseDateTime(s)))
+  CellDecoder.from(s ⇒ DecodeResult(format.parseDateTime(s)))
 }
 ```
 

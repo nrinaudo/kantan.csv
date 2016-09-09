@@ -23,18 +23,18 @@ import _root_.scalaz.Scalaz._
 /** Declares various type class instances for bridging `kantan.csv` and `scalaz`. */
 package object scalaz extends kantan.codecs.scalaz.ScalazInstances {
   implicit def eitherRowDecoder[A, B](implicit da: RowDecoder[A], db: RowDecoder[B]): RowDecoder[A \/ B] =
-    RowDecoder(row ⇒ da.decode(row).map(_.left[B]).orElse(db.decode(row).map(_.right[A])))
+    RowDecoder.from(row ⇒ da.decode(row).map(_.left[B]).orElse(db.decode(row).map(_.right[A])))
 
-  implicit def maybeRowDecoder[A](implicit da: RowDecoder[A]): RowDecoder[Maybe[A]] = RowDecoder { row ⇒
+  implicit def maybeRowDecoder[A](implicit da: RowDecoder[A]): RowDecoder[Maybe[A]] = RowDecoder.from { row ⇒
     if(row.isEmpty) DecodeResult.success(empty)
     else da.decode(row).map(just)
   }
 
   implicit def eitherRowEncoder[A, B](implicit ea: RowEncoder[A], eb: RowEncoder[B]): RowEncoder[A \/ B] =
-    RowEncoder(_.fold(ea.encode, eb.encode))
+    RowEncoder.from(_.fold(ea.encode, eb.encode))
 
   implicit def foldableRowEncoder[F[_], A](implicit ea: CellEncoder[A], F: Foldable[F]): RowEncoder[F[A]] =
-    RowEncoder(as ⇒ F.foldLeft(as, Seq.newBuilder[String])((acc, a) ⇒ acc += ea.encode(a)).result())
+    RowEncoder.from(as ⇒ F.foldLeft(as, Seq.newBuilder[String])((acc, a) ⇒ acc += ea.encode(a)).result())
 
   implicit def maybeRowEncoder[A](implicit ea: RowEncoder[A]): RowEncoder[Maybe[A]] = new RowEncoder[Maybe[A]] {
     override def encode(a: Maybe[A]) = a.map(ea.encode).getOrElse(Seq.empty)

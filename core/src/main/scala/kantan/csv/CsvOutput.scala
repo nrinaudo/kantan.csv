@@ -39,7 +39,7 @@ trait CsvOutput[-S] extends Serializable { self ⇒
     * @param header optional header row, defaults to none.
     */
   def writer[A: RowEncoder](s: S, sep: Char, header: Seq[String] = Seq.empty)(implicit e: WriterEngine): CsvWriter[A] =
-    CsvWriter(open(s), sep, header)
+  CsvWriter(open(s), sep, header)
 
   /** Writes the specified collections directly in the specifie `S`.
     *
@@ -50,7 +50,7 @@ trait CsvOutput[-S] extends Serializable { self ⇒
     */
   def write[A: RowEncoder](s: S, rows: TraversableOnce[A], sep: Char, header: Seq[String] = Seq.empty)
                           (implicit e: WriterEngine): Unit =
-    writer(s, sep, header).write(rows).close()
+  writer(s, sep, header).write(rows).close()
 
   /** Turns a `CsvOutput[S]` into a `CsvOutput[T]`.
     *
@@ -61,7 +61,7 @@ trait CsvOutput[-S] extends Serializable { self ⇒
     *     CsvOutput[OutputStream].contramap(f ⇒ new FileOutputStream(f, c.charSet))
     * }}}
     */
-  def contramap[T](f: T ⇒ S): CsvOutput[T] = CsvOutput(t ⇒ self.open(f(t)))
+  def contramap[T](f: T ⇒ S): CsvOutput[T] = CsvOutput.from(f andThen self.open)
 }
 
 /** Provides default instances as well as instance summoning and creation methods. */
@@ -81,16 +81,19 @@ object CsvOutput {
     * Note that it's usually better to compose an existing instance through [[CsvOutput.contramap]] rather than create
     * one from scratch.
     */
-  def apply[A](f: A ⇒ Writer): CsvOutput[A] = new CsvOutput[A] {
+  def from[A](f: A ⇒ Writer): CsvOutput[A] = new CsvOutput[A] {
     override def open(s: A): Writer = f(s)
   }
 
+  @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
+  def apply[A](f: A ⇒ Writer): CsvOutput[A] = CsvOutput.from(f)
+
   /** Default implementation for `Writer`. */
-  implicit def writer: CsvOutput[Writer] = CsvOutput(w ⇒ w)
+  implicit def writer: CsvOutput[Writer] = CsvOutput.from(identity)
 
   /** Default implementation for `OutputStream`. */
   implicit def outputStream(implicit codec: Codec): CsvOutput[OutputStream] =
-    writer.contramap(o ⇒ new BufferedWriter(new OutputStreamWriter(o, codec.charSet)))
+  writer.contramap(o ⇒ new BufferedWriter(new OutputStreamWriter(o, codec.charSet)))
 
   /** Default implementation for `File`. */
   implicit def file(implicit codec: Codec): CsvOutput[File] = outputStream.contramap(f ⇒ new FileOutputStream(f))

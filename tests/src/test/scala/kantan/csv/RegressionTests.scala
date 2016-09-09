@@ -24,8 +24,8 @@ class RegressionTests extends FunSuite {
   class A
   class B
 
-  implicit val cellCodecA: CellCodec[A] = CellCodec(s ⇒ DecodeResult.success(new A))(_ ⇒ "")
-  implicit val cellCodecB: CellCodec[B] = CellCodec(s ⇒ DecodeResult.success(new B))(_ ⇒ "")
+  implicit val cellCodecA: CellCodec[A] = CellCodec.from(_ ⇒ DecodeResult.success(new A))(_ ⇒ "")
+  implicit val cellCodecB: CellCodec[B] = CellCodec.from(_ ⇒ DecodeResult.success(new B))(_ ⇒ "")
 
   test("Option decoders should be available for types that do not have a StringDecoder") {
     CellDecoder[Option[A]]

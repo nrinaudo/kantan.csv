@@ -39,9 +39,9 @@ object Cell {
     override def encoded = ""
   }
 
-  implicit val cellEncoder: CellEncoder[Cell] = CellEncoder(_.value)
-  implicit val cellDecoder: CellDecoder[Cell] = CellDecoder(s ⇒ DecodeResult(Cell(s)))
-  implicit val nonEscapedCellEncoder: CellEncoder[Cell.NonEscaped] = CellEncoder(_.value)
+  implicit val cellEncoder: CellEncoder[Cell] = CellEncoder.from(_.value)
+  implicit val cellDecoder: CellDecoder[Cell] = CellDecoder.from(s ⇒ DecodeResult(Cell(s)))
+  implicit val nonEscapedCellEncoder: CellEncoder[Cell.NonEscaped] = CellEncoder.from(_.value)
 
   def apply(value: String): Cell =
     if(value == "")                                                            Empty

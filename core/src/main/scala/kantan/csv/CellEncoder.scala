@@ -28,7 +28,10 @@ object CellEncoder {
   def apply[A](implicit ea: CellEncoder[A]): CellEncoder[A] = ea
 
   /** Creates a new [[CellEncoder]] from the specified function. */
-  def apply[A](f: A ⇒ String): CellEncoder[A] = Encoder(f)
+  def from[A](f: A ⇒ String): CellEncoder[A] = Encoder.from(f)
+
+  @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
+  def apply[A](f: A ⇒ String): CellEncoder[A] = CellEncoder.from(f)
 }
 
 /** All default [[CellEncoder]] instances. */

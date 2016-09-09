@@ -44,7 +44,6 @@ object CsvSink {
       Task.now((a: A) ⇒ Task.delay { out.write(a); () })
     }
 
-
   def apply[A: RowEncoder](writer: ⇒ Writer, sep: Char, header: Seq[String] = Seq.empty)
                           (implicit e: WriterEngine): Sink[Task, A] =
     CsvSink(CsvWriter[A](writer, sep, header))

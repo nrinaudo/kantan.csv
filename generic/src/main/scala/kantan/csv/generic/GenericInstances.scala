@@ -34,7 +34,7 @@ trait GenericInstances extends ShapelessInstances {
     dh.map(h ⇒ h :: HNil)
 
   implicit def hlistRowDecoder[H, T <: HList](implicit dh: CellDecoder[H], dt: RowDecoder[T]): RowDecoder[H :: T] =
-    RowDecoder(row ⇒
+    RowDecoder.from(row ⇒
       row.headOption.map(s ⇒
         for {
           h ← dh.decode(s)
@@ -45,7 +45,7 @@ trait GenericInstances extends ShapelessInstances {
 
   implicit def hlistCellDecoder[H](implicit dh: CellDecoder[H]): CellDecoder[H :: HNil] = dh.map(h ⇒ h :: HNil)
 
-  implicit val hnilRowDecoder: RowDecoder[HNil] = RowDecoder(_ ⇒ DecodeResult.success(HNil))
+  implicit val hnilRowDecoder: RowDecoder[HNil] = RowDecoder.from(_ ⇒ DecodeResult.success(HNil))
 
 
 
@@ -56,13 +56,13 @@ trait GenericInstances extends ShapelessInstances {
   }
 
   implicit def hlistRowEncoder[H, T <: HList](implicit eh: CellEncoder[H], et: RowEncoder[T]): RowEncoder[H :: T] =
-    RowEncoder((a: H :: T) ⇒ a match {
+    RowEncoder.from {
       case h :: t ⇒ eh.encode(h) +: et.encode(t)
-    })
+    }
 
   implicit def hlistCellEncoder[H](implicit eh: CellEncoder[H]): CellEncoder[H :: HNil] = eh.contramap {
     case (h :: _) ⇒ h
   }
 
-  implicit val hnilRowEncoder: RowEncoder[HNil] = RowEncoder(_ ⇒ Seq.empty)
+  implicit val hnilRowEncoder: RowEncoder[HNil] = RowEncoder.from(_ ⇒ Seq.empty)
 }

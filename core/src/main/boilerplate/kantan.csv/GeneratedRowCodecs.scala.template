@@ -1,7 +1,8 @@
 package kantan.csv
 
 trait GeneratedRowCodecs {
-  private def combine[A](decoder: RowDecoder[A])(encoder: RowEncoder[A]): RowCodec[A] = RowCodec(decoder.decode _)(encoder.encode _)
+  private def combine[A](decoder: RowDecoder[A])(encoder: RowEncoder[A]): RowCodec[A] =
+    RowCodec.from(decoder.decode _)(encoder.encode _)
 
   /** Creates a new [[RowCodec]] instance from the specified encoding and decoding functions. */
   def codec[C, A1: CellEncoder: CellDecoder](f: A1 ⇒ C)(g: C ⇒ A1): RowCodec[C] =

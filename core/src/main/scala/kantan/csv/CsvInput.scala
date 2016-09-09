@@ -124,7 +124,7 @@ trait CsvInput[-S] extends Serializable { self ⇒
     *
     * @see [[contramapResult]]
     */
-  def contramap[T](f: T ⇒ S): CsvInput[T] = CsvInput((t: T) ⇒ self.open(f(t)))
+  def contramap[T](f: T ⇒ S): CsvInput[T] = CsvInput.from(f andThen self.open)
 
   /** Turns an instance of `CsvInput[S]` into one of `CsvInput[T]`.
     *
@@ -139,7 +139,7 @@ trait CsvInput[-S] extends Serializable { self ⇒
     *
     * @see [[contramap]]
     */
-  def contramapResult[T](f: T ⇒ ParseResult[S]): CsvInput[T] = CsvInput((t: T) ⇒ f(t).flatMap(self.open))
+  def contramapResult[T](f: T ⇒ ParseResult[S]): CsvInput[T] = CsvInput.from(t ⇒ f(t).flatMap(self.open))
 }
 
 trait LowPriorityCsvInputs
@@ -175,12 +175,15 @@ object CsvInput extends LowPriorityCsvInputs {
     * @see [[CsvInput.contramap]]
     * @see [[CsvInput.contramapResult]]
     */
-  def apply[A](f: A ⇒ ParseResult[Reader]): CsvInput[A] = new CsvInput[A] {
+  def from[A](f: A ⇒ ParseResult[Reader]): CsvInput[A] = new CsvInput[A] {
     override def open(a: A) = f(a)
   }
 
+  @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
+  def apply[A](f: A ⇒ ParseResult[Reader]): CsvInput[A] = CsvInput.from(f)
+
   /** Turns any `java.io.Reader` into a source of CSV data. */
-  implicit def reader: CsvInput[Reader] = CsvInput(r ⇒ ParseResult.success(r))
+  implicit def reader: CsvInput[Reader] = CsvInput.from(ParseResult.success)
 
   /** Turns any `java.io.InputStream` into a source of CSV data. */
   implicit def inputStream(implicit codec: Codec): CsvInput[InputStream] =

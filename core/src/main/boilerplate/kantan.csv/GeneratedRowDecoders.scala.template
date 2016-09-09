@@ -12,7 +12,7 @@ trait GeneratedRowDecoders {
     ]
     */
   def decoder[[#A1#], R]([#i1: Int#])(f: ([#A1#]) ⇒ R)(implicit [#a1: CellDecoder[A1]#]): RowDecoder[R] =
-    RowDecoder(ss ⇒ for {
+    RowDecoder.from(ss ⇒ for {
       [#f1 ← decode(ss, i1, a1)#
       ]
     } yield f([#f1#]))#

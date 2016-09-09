@@ -53,14 +53,14 @@ trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstance
   // -------------------------------------------------------------------------------------------------------------------
 
   implicit def arbCellDecoder[A: Arbitrary]: Arbitrary[CellDecoder[A]] =
-    Arbitrary(arb[String ⇒ DecodeResult[A]].map(f ⇒ CellDecoder(f)))
+    Arbitrary(arb[String ⇒ DecodeResult[A]].map(CellDecoder.from))
 
   implicit def arbCellEncoder[A: Arbitrary]: Arbitrary[CellEncoder[A]] =
-    Arbitrary(arb[A ⇒ String].map(f ⇒ CellEncoder(f)))
+    Arbitrary(arb[A ⇒ String].map(CellEncoder.from))
 
   implicit def arbRowDecoder[A: Arbitrary]: Arbitrary[RowDecoder[A]] =
-    Arbitrary(arb[Seq[String] ⇒ DecodeResult[A]].map(f ⇒ RowDecoder(f)))
+    Arbitrary(arb[Seq[String] ⇒ DecodeResult[A]].map(RowDecoder.from))
 
   implicit def arbRowEncoder[A: Arbitrary]: Arbitrary[RowEncoder[A]] =
-    Arbitrary(arb[A ⇒ Seq[String]].map(f ⇒ RowEncoder(f)))
+    Arbitrary(arb[A ⇒ Seq[String]].map(RowEncoder.from))
 }

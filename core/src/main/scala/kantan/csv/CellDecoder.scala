@@ -29,7 +29,10 @@ object CellDecoder {
   def apply[A](implicit da: CellDecoder[A]): CellDecoder[A] = da
 
   /** Creates a new instance of [[CellDecoder]] that uses the specified function to decode data. */
-  def apply[A](f: String ⇒ DecodeResult[A]): CellDecoder[A] = Decoder(f)
+  def from[A](f: String ⇒ DecodeResult[A]): CellDecoder[A] = Decoder.from(f)
+
+  @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
+  def apply[A](f: String ⇒ DecodeResult[A]): CellDecoder[A] = CellDecoder.from(f)
 }
 
 /** All default [[CellDecoder]] instances. */
