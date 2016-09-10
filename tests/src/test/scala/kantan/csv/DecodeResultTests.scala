@@ -16,25 +16,24 @@
 
 package kantan.csv
 
-import kantan.codecs.Result
 import kantan.csv.laws.discipline.arbitrary._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
 class DecodeResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("DecodeResult.success should return a success") {
-    forAll { i: Int ⇒ assert(DecodeResult.success(i) == Result.Success(i))}
+    forAll { i: Int ⇒ assert(DecodeResult.success(i) == Success(i))}
   }
 
   test("DecodeResult.apply should return a success on 'good' values") {
-    forAll { i: Int ⇒ assert(DecodeResult(i) == Result.Success(i))}
+    forAll { i: Int ⇒ assert(DecodeResult(i) == Success(i))}
   }
 
   test("DecodeResult.apply should return a failure on 'bad' values") {
-    forAll { e: Exception ⇒ assert(DecodeResult(throw e) == Result.Failure(DecodeError.TypeError(e)))}
+    forAll { e: Exception ⇒ assert(DecodeResult(throw e) == Failure(DecodeError.TypeError(e)))}
   }
 
   test("DecodeResult.outOfBounds should return a failure ") {
-    forAll { i: Int ⇒ assert(DecodeResult.outOfBounds(i) == Result.Failure(DecodeError.OutOfBounds(i)))}
+    forAll { i: Int ⇒ assert(DecodeResult.outOfBounds(i) == Failure(DecodeError.OutOfBounds(i)))}
   }
 }

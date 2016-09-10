@@ -16,20 +16,19 @@
 
 package kantan.csv
 
-import kantan.codecs.Result
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
 class ParseResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("ParseResult.success should return a success") {
-    forAll { i: Int ⇒ assert(ParseResult.success(i) == Result.Success(i)) }
+    forAll { i: Int ⇒ assert(ParseResult.success(i) == Success(i)) }
   }
 
   test("ParseResult.apply should return a success on 'good' values") {
-    forAll { i: Int ⇒ assert(ParseResult(i) == Result.Success(i)) }
+    forAll { i: Int ⇒ assert(ParseResult(i) == Success(i)) }
   }
 
   test("ParseResult.apply should return a failure on 'bad' values") {
-    forAll { e: Exception ⇒ assert(ParseResult(throw e) == Result.Failure(ParseError.IOError(e))) }
+    forAll { e: Exception ⇒ assert(ParseResult(throw e) == Failure(ParseError.IOError(e))) }
   }
 }

@@ -25,6 +25,12 @@ package object csv {
 
   // - Results ---------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  type Success[A] = Result.Success[A]
+  val Success = Result.Success
+
+  type Failure[A] = Result.Failure[A]
+  val Failure = Result.Failure
+
   /** Result of a reading operation, which can be either a success or a failure.
     *
     * Both [[ParseResult]] and [[DecodeResult]] are valid values of type [[ReadResult]].

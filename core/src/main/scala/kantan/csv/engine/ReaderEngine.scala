@@ -20,7 +20,7 @@ import java.io.Reader
 import kantan.codecs.{ResourceIterator, Result}
 import kantan.csv.{CsvReader, ParseError, ParseResult, ReadResult}
 
-/** Provides kantan.csv with CSV parsing functionalities.
+/** Provides kantan.csv with CSV parsing functionality.
   *
   * All methods that will need to create a new instance of [[CsvReader]] expect and rely on an implicit [[ReaderEngine]]
   * parameter. This allows third party libraries to plug into kantan.csv and replace the default parser at the cost
