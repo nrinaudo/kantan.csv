@@ -23,7 +23,7 @@ import org.joda.time.format.ISODateTimeFormat
 
 implicit val jodaDateTime: CellCodec[DateTime] = {
   val format = ISODateTimeFormat.date()
-  CellCodec(s ⇒ DecodeResult(format.parseDateTime(s)))(d ⇒ format.print(d))
+  CellCodec.from(s ⇒ DecodeResult(format.parseDateTime(s)))(d ⇒ format.print(d))
 }
 ```
 
@@ -35,12 +35,12 @@ scala> val dates = List(
      |   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
      | ).asCsv(',')
 dates: String =
-"2016-08-04,2016-08-05
-2016-08-06,2016-08-07
+"2016-09-11,2016-09-12
+2016-09-13,2016-09-14
 "
 
 scala> dates.readCsv[List, List[DateTime]](',', false)
-res1: List[kantan.csv.ReadResult[List[org.joda.time.DateTime]]] = List(Success(List(2016-08-04T00:00:00.000+02:00, 2016-08-05T00:00:00.000+02:00)), Success(List(2016-08-06T00:00:00.000+02:00, 2016-08-07T00:00:00.000+02:00)))
+res1: List[kantan.csv.ReadResult[List[org.joda.time.DateTime]]] = List(Success(List(2016-09-11T00:00:00.000+02:00, 2016-09-12T00:00:00.000+02:00)), Success(List(2016-09-13T00:00:00.000+02:00, 2016-09-14T00:00:00.000+02:00)))
 ```
 
 

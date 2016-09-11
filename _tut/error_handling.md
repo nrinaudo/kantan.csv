@@ -21,6 +21,7 @@ Let's first declare the basic things we need to decode such a CSV file (see [thi
 not make sense to you):
 
 ```scala
+import kantan.csv._
 import kantan.csv.ops._
 import kantan.csv.generic._
 
@@ -47,7 +48,7 @@ reliability or maintainability are not an issue, for example.
 Another common, if not always viable strategy is to use [`collect`] to simply drop whatever rows failed to decode:
 
 ```scala
-scala> rawData.asCsvReader[Person](',', false).collect { case kantan.codecs.Result.Success(a) ⇒ a }.toList
+scala> rawData.asCsvReader[Person](',', false).collect { case Success(a) ⇒ a }.toList
 res3: List[Person] = List(Person(1,Nicolas,true), Person(3,John,false))
 ```
 
@@ -120,4 +121,4 @@ This strategy is not always possible, but is good to keep in mind for these case
 [`sequence`]:http://nrinaudo.github.io/kantan.codecs/api/#kantan.codecs.Result$@sequence[F,S,M[X]<:TraversableOnce[X]](rs:M[kantan.codecs.Result[F,S]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[kantan.codecs.Result[F,S]],S,M[S]]):kantan.codecs.Result[F,M[S]]
 [`getOrElse`]:http://nrinaudo.github.io/kantan.codecs/api/#kantan.codecs.Result@getOrElse[SS>:S](default:=>SS):SS
 [`ReadError`]:{{ site.baseurl }}/api/#kantan.csv.ReadError
-[`Success`]:http://nrinaudo.github.io/kantan.codecs/api/#kantan.codecs.Result$$Success
+[`Success`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@Success[A]=kantan.codecs.Result.Success[A]

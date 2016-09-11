@@ -16,7 +16,7 @@ in scope - `Int`, for example:
 
 ```scala
 scala> implicitly[kantan.csv.CellDecoder[Int]]
-res0: kantan.csv.CellDecoder[Int] = kantan.codecs.Codec$$anon$1@4f43875e
+res0: kantan.csv.CellDecoder[Int] = kantan.codecs.Codec$$anon$1@40b80a2d
 ```
 
 A more complete list of default instances can be found [here](default_instances.html).
@@ -44,7 +44,7 @@ import org.joda.time.format.ISODateTimeFormat
 
 implicit val jodaDateTime: CellDecoder[DateTime] = {
   val format = ISODateTimeFormat.date()
-  CellDecoder(s ⇒ DecodeResult(format.parseDateTime(s)))
+  CellDecoder.from(s ⇒ DecodeResult(format.parseDateTime(s)))
 }
 ```
 
