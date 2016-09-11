@@ -23,7 +23,7 @@ import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
 class ErrorTests extends FunSuite with GeneratorDrivenPropertyChecks {
-  test("TypeErrors should be equal if the underlying exceptions are the same") {
+  test("TypeErrors should be equal if the underlying errors are the same") {
     forAll { (e1: TypeError, e2: ReadError) ⇒
       assert((e1 == e2) == ((e1, e2) match {
         case (TypeError(t1), TypeError(t2)) ⇒ t1 == t2
@@ -32,16 +32,13 @@ class ErrorTests extends FunSuite with GeneratorDrivenPropertyChecks {
     }
   }
 
-  test("TypeErrors should have identical hashCodes if the underlying exceptions are the same") {
-    forAll { (e1: TypeError, e2: ReadError) ⇒
-      assert((e1.hashCode() == e2.hashCode()) == ((e1, e2) match {
-        case (TypeError(t1), TypeError(t2)) ⇒ t1 == t2
-        case _                              ⇒ false
-      }))
+  test("TypeErrors should have identical hashCodes if the underlying errors have identical hashCodes") {
+    forAll { (e1: TypeError, e2: TypeError) ⇒
+      assert((e1.hashCode() == e2.hashCode()) == (e1.message.hashCode == e2.message.hashCode))
     }
   }
 
-  test("IOErrors should be equal if the underlying exceptions are the same") {
+  test("IOErrors should be equal if the underlying errors are the same") {
     forAll { (e1: IOError, e2: ReadError) ⇒
       assert((e1 == e2) == ((e1, e2) match {
         case (IOError(t1), IOError(t2)) ⇒ t1 == t2
@@ -50,12 +47,9 @@ class ErrorTests extends FunSuite with GeneratorDrivenPropertyChecks {
     }
   }
 
-  test("IOErrors should have identical hashCodes if the underlying exceptions are the same") {
-    forAll { (e1: IOError, e2: ReadError) ⇒
-      assert((e1.hashCode() == e2.hashCode()) == ((e1, e2) match {
-        case (IOError(t1), IOError(t2)) ⇒ t1 == t2
-        case _                          ⇒ false
-      }))
+  test("IOErrors should have identical hashCodes if the underlying errors have identical hashCodes") {
+    forAll { (e1: IOError, e2: IOError) ⇒
+      assert((e1.hashCode() == e2.hashCode()) == (e1.message.hashCode == e2.message.hashCode))
     }
   }
 }
