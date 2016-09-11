@@ -2,7 +2,7 @@
 // ---------------------------------------------------------------------------------------------------------------------
 val commonsCsvVersion        = "1.4"
 val jacksonCsvVersion        = "2.8.2"
-val kantanCodecsVersion      = "0.1.8-SNAPSHOT"
+val kantanCodecsVersion      = "0.1.8"
 val kindProjectorVersion     = "0.8.1"
 val macroParadiseVersion     = "2.1.0"
 val opencsvVersion           = "3.8"
