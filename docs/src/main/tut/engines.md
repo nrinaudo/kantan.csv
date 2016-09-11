@@ -16,7 +16,7 @@ hood.
 The [opencsv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-opencsv" % "0.1.13"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-opencsv" % "0.1.14"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -30,7 +30,7 @@ import kantan.csv.engine.opencsv._
 The [commons csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.1.13"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.1.14"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -44,7 +44,7 @@ import kantan.csv.engine.commons._
 The [jackson csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.1.13"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.1.14"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -80,7 +80,7 @@ to create an instance of [`CsvReader`] rely on an implicit instance of [`ReaderE
 Creating a new instance of [`ReaderEngine`] is meant to be fairly straightforward: there's a helper
 [`ReaderEngine.apply`] method that takes care of this. It still means we need to be able to write a
 `(Reader, Char) ⇒ CsvReader[Seq[String]]`, but the most common scenario is already covered: if you can write a
-`(Reader, Char) ⇒ Iterator[Seq[String]]`, you can simply use [`ResourceIterator.fromIterator`]: 
+`(Reader, Char) ⇒ Iterator[Seq[String]]`, you can simply use [`ResourceIterator.fromIterator`]:
 
 ```tut:silent
 import kantan.csv.engine._
