@@ -87,7 +87,7 @@ import kantan.csv.engine._
 import kantan.csv._
 
 implicit val readerEngine = ReaderEngine { (in: Reader, sep: Char) ⇒
-  kantan.codecs.ResourceIterator.fromIterator(EasyCSV.read(in, sep))
+  kantan.codecs.resource.ResourceIterator.fromIterator(EasyCSV.read(in, sep))
 }
 ```
 

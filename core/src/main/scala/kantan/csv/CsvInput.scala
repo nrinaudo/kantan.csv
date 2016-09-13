@@ -17,14 +17,12 @@
 package kantan.csv
 
 import java.io._
-import java.net.{URI, URL}
-import java.nio.file.{Files, Path}
-import kantan.codecs.{ResourceIterator, Result}
+import kantan.codecs.Result
+import kantan.codecs.resource.{ReaderResource, ResourceIterator}
 import kantan.csv.DecodeError.{OutOfBounds, TypeError}
 import kantan.csv.ParseError.{IOError, NoSuchElement}
 import kantan.csv.engine.ReaderEngine
 import scala.collection.generic.CanBuildFrom
-import scala.io.Codec
 
 /** Turns instances of `S` into valid sources of CSV data.
   *
@@ -182,27 +180,6 @@ object CsvInput extends LowPriorityCsvInputs {
   @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
   def apply[A](f: A ⇒ ParseResult[Reader]): CsvInput[A] = CsvInput.from(f)
 
-  /** Turns any `java.io.Reader` into a source of CSV data. */
-  implicit def reader: CsvInput[Reader] = CsvInput.from(ParseResult.success)
-
-  /** Turns any `java.io.InputStream` into a source of CSV data. */
-  implicit def inputStream(implicit codec: Codec): CsvInput[InputStream] =
-    reader.contramap(i ⇒ new InputStreamReader(i, codec.charSet))
-  /** Turns any `java.io.File` into a source of CSV data. */
-  implicit def file(implicit codec: Codec): CsvInput[File] =
-    inputStream.contramapResult(f ⇒ ParseResult(new FileInputStream(f)))
-  /** Turns any array of bytes into a source of CSV data. */
-  implicit def bytes(implicit codec: Codec): CsvInput[Array[Byte]] =
-    inputStream.contramap(bs ⇒ new ByteArrayInputStream(bs))
-  /** Turns any `java.net.URL` into a source of CSV data. */
-  implicit def url(implicit codec: Codec): CsvInput[URL] = inputStream.contramapResult(u ⇒ ParseResult(u.openStream()))
-  /** Turns any `java.net.URI` into a source of CSV data. */
-  implicit def uri(implicit codec: Codec): CsvInput[URI] = url.contramap(_.toURL)
-  /** Turns any array of chars into a source of CSV data. */
-  implicit val chars: CsvInput[Array[Char]] = reader.contramap(cs ⇒ new CharArrayReader(cs))
-  /** Turns any string into a source of CSV data. */
-  implicit val string: CsvInput[String] = reader.contramap(s ⇒ new StringReader(s))
-  /** Turns any path into a source of CSV data. */
-  implicit def path(implicit codec: Codec): CsvInput[Path] =
-    reader.contramapResult(p ⇒ ParseResult(Files.newBufferedReader(p, codec.charSet)))
+  implicit def fromResource[A](implicit ra: ReaderResource[A]): CsvInput[A] =
+    CsvInput.from(a ⇒ ra.open(a).leftMap(e ⇒ ParseError.IOError(e.getMessage, e.getCause)))
 }

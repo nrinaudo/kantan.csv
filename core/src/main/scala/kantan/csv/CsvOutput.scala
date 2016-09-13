@@ -17,9 +17,8 @@
 package kantan.csv
 
 import java.io._
-import java.nio.file.{Files, Path}
+import kantan.codecs.resource.WriterResource
 import kantan.csv.engine.WriterEngine
-import scala.io.Codec
 
 /** Type class for all types that can be turned into [[CsvWriter]] instances.
   *
@@ -88,16 +87,7 @@ object CsvOutput {
   @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
   def apply[A](f: A ⇒ Writer): CsvOutput[A] = CsvOutput.from(f)
 
-  /** Default implementation for `Writer`. */
-  implicit def writer: CsvOutput[Writer] = CsvOutput.from(identity)
-
-  /** Default implementation for `OutputStream`. */
-  implicit def outputStream(implicit codec: Codec): CsvOutput[OutputStream] =
-  writer.contramap(o ⇒ new BufferedWriter(new OutputStreamWriter(o, codec.charSet)))
-
-  /** Default implementation for `File`. */
-  implicit def file(implicit codec: Codec): CsvOutput[File] = outputStream.contramap(f ⇒ new FileOutputStream(f))
-
-  implicit def path(implicit codec: Codec): CsvOutput[Path] =
-    writer.contramap(p ⇒ Files.newBufferedWriter(p, codec.charSet))
+  // TODO: unsafe, unacceptable, what was I thinking.
+  implicit def fromResource[A](implicit ra: WriterResource[A]): CsvOutput[A] =
+    CsvOutput.from(a ⇒ ra.open(a).get)
 }

@@ -17,7 +17,8 @@
 package kantan.csv.engine
 
 import java.io.Reader
-import kantan.codecs.{ResourceIterator, Result}
+import kantan.codecs.Result
+import kantan.codecs.resource.ResourceIterator
 import kantan.csv.{CsvReader, ParseError, ParseResult, ReadResult}
 
 /** Provides kantan.csv with CSV parsing functionality.

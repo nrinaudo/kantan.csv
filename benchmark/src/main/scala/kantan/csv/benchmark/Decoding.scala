@@ -78,9 +78,7 @@ object Decoding {
   // - Benchmarks ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def kantan(str: String)(implicit e: ReaderEngine): List[CsvEntry] =
-    CsvInput.string.unsafeReader[CsvEntry](str, ',', false).toList
-
-
+    CsvInput[String].unsafeReader[CsvEntry](str, ',', false).toList
 
   // Note: we must call trim on the input since product-collections does not accept the last row ending with a line
   // break. I believe that to be a bug.

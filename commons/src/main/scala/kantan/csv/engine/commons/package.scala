@@ -17,7 +17,7 @@
 package kantan.csv.engine
 
 import java.io.{Reader, Writer}
-import kantan.codecs.ResourceIterator
+import kantan.codecs.resource.ResourceIterator
 import kantan.csv._
 import org.apache.commons.csv.{CSVFormat, CSVPrinter, QuoteMode}
 import scala.collection.JavaConverters._
