@@ -18,7 +18,7 @@ package kantan.csv.engine
 
 import com.opencsv.{CSVReader, CSVWriter}
 import java.io.{Reader, Writer}
-import kantan.codecs.ResourceIterator
+import kantan.codecs.resource.ResourceIterator
 import kantan.csv._
 
 // TODO: known bugs

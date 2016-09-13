@@ -17,6 +17,7 @@
 package kantan
 
 import kantan.codecs._
+import kantan.codecs.resource.ResourceIterator
 
 package object csv {
   type CsvReader[A] = ResourceIterator[A]
