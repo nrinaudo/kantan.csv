@@ -27,12 +27,12 @@ object CsvReader {
     * @param sep column separator
     * @param header whether or not to skip the first row
     */
-  def apply[A](reader: Reader, sep: Char, header: Boolean)
-              (implicit da: RowDecoder[A], e: ReaderEngine): CsvReader[ReadResult[A]] = {
+  def apply[A: RowDecoder](reader: Reader, sep: Char, header: Boolean)
+              (implicit e: ReaderEngine): CsvReader[ReadResult[A]] = {
     val data: CsvReader[ReadResult[Seq[String]]] = e.readerFor(reader, sep)
 
     if(header && data.hasNext) data.next()
 
-    data.map(_.flatMap(da.decode))
+    data.map(_.flatMap(RowDecoder[A].decode))
   }
 }

@@ -16,6 +16,7 @@
 
 package kantan.csv.laws.discipline
 
+import imp.imp
 import kantan.csv._
 import kantan.csv.DecodeError._
 import kantan.csv.ParseError._
@@ -28,8 +29,8 @@ object arbitrary extends ArbitraryInstances
 trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstances {
   val csv: Gen[List[List[String]]] = arb[List[List[Cell]]].map(_.map(_.map(_.value)))
 
-  implicit def arbTuple1[A](implicit a1: Arbitrary[A]): Arbitrary[Tuple1[A]] =
-    Arbitrary(a1.arbitrary.map(Tuple1.apply))
+  implicit def arbTuple1[A: Arbitrary]: Arbitrary[Tuple1[A]] =
+    Arbitrary(imp[Arbitrary[A]].arbitrary.map(Tuple1.apply))
 
 
   // - Errors ----------------------------------------------------------------------------------------------------------

@@ -38,7 +38,7 @@ object RowEncoder extends GeneratedRowEncoders {
     *
     * This is essentially a shorter way of calling `implicitly[RowEncoder[A]]`.
     */
-  def apply[A](implicit ea: RowEncoder[A]): RowEncoder[A] = ea
+  def apply[A](implicit ev: RowEncoder[A]): RowEncoder[A] = macro imp.summon[RowEncoder[A]]
 
   /** Creates a new [[RowEncoder]] using the specified function for encoding. */
   def from[A](f: A ⇒ Seq[String]): RowEncoder[A] = Encoder.from(f)
@@ -50,13 +50,13 @@ object RowEncoder extends GeneratedRowEncoders {
 /** Provides reasonable default [[RowEncoder]] instances for various types. */
 trait RowEncoderInstances {
   /** Turns a [[CellEncoder]] into a [[RowEncoder]], for rows that contain a single value. */
-  implicit def fromCellEncoder[A](implicit ea: CellEncoder[A]): RowEncoder[A] =
-    RowEncoder.from(a ⇒ Seq(ea.encode(a)))
+  implicit def fromCellEncoder[A: CellEncoder]: RowEncoder[A] =
+    RowEncoder.from(a ⇒ Seq(CellEncoder[A].encode(a)))
 
   /** Provides a [[RowEncoder]] instance for all traversable collections.
     *
     * Note that the elements of the collections are expected to have a [[CellEncoder]].
     */
-  implicit def traversable[A, M[X] <: TraversableOnce[X]](implicit ea: CellEncoder[A]): RowEncoder[M[A]] =
-    RowEncoder .from(_.foldLeft(Seq.newBuilder[String])((acc, a) ⇒ acc += ea.encode(a)).result())
+  implicit def traversable[A: CellEncoder, M[X] <: TraversableOnce[X]]: RowEncoder[M[A]] =
+    RowEncoder .from(_.foldLeft(Seq.newBuilder[String])((acc, a) ⇒ acc += CellEncoder[A].encode(a)).result())
 }

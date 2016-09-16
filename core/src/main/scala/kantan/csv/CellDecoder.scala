@@ -19,6 +19,7 @@ package kantan.csv
 import kantan.codecs.Decoder
 import kantan.codecs.strings._
 import kantan.csv.DecodeError.TypeError
+import scala.language.experimental.macros
 
 /** Provides useful methods for summoning and creating instances of [[CellDecoder]]. */
 object CellDecoder {
@@ -26,7 +27,7 @@ object CellDecoder {
     *
     * This is essentially a shorter way of calling `implicitly[CellDecoder[A]]`.
     */
-  def apply[A](implicit da: CellDecoder[A]): CellDecoder[A] = da
+  def apply[A](implicit ev: CellDecoder[A]): CellDecoder[A] = macro imp.summon[CellDecoder[A]]
 
   /** Creates a new instance of [[CellDecoder]] that uses the specified function to decode data. */
   def from[A](f: String ⇒ DecodeResult[A]): CellDecoder[A] = Decoder.from(f)
@@ -38,8 +39,8 @@ object CellDecoder {
 /** All default [[CellDecoder]] instances. */
 trait CellDecoderInstances {
   /** Turns existing `StringDecoder` instances into [[CellDecoder]] ones. */
-  implicit def fromStringDecoder[A](implicit da: StringDecoder[A]): CellDecoder[A] =
-    da.tag[codecs.type].mapError(e ⇒ TypeError(e.getMessage, e.getCause))
+  implicit def fromStringDecoder[A: StringDecoder]: CellDecoder[A] =
+    StringDecoder[A].tag[codecs.type].mapError(e ⇒ TypeError(e.getMessage, e.getCause))
   implicit def cellDecoderOpt[A: CellDecoder]: CellDecoder[Option[A]] = Decoder.optionalDecoder
   implicit def cellDecoderEither[A: CellDecoder, B: CellDecoder]: CellDecoder[Either[A, B]] = Decoder.eitherDecoder
 }

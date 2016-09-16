@@ -73,7 +73,7 @@ object CsvOutput {
     *   val file2: CsvOutput[File] = implicitly[CsvOutput[File]]
     * }}}
     */
-  def apply[A](implicit oa: CsvOutput[A]): CsvOutput[A] = oa
+  def apply[A](implicit ev: CsvOutput[A]): CsvOutput[A] = macro imp.summon[CsvOutput[A]]
 
   /** Turns the specified function into a [[CsvOutput]].
     *
@@ -88,6 +88,6 @@ object CsvOutput {
   def apply[A](f: A ⇒ Writer): CsvOutput[A] = CsvOutput.from(f)
 
   // TODO: unsafe, unacceptable, what was I thinking.
-  implicit def fromResource[A](implicit ra: WriterResource[A]): CsvOutput[A] =
-    CsvOutput.from(a ⇒ ra.open(a).get)
+  implicit def fromResource[A: WriterResource]: CsvOutput[A] =
+    CsvOutput.from(a ⇒ WriterResource[A].open(a).get)
 }

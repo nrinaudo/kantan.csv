@@ -25,7 +25,7 @@ object CellEncoder {
     *
     * This is essentially a shorter way of calling `implicitly[CellEncoder[A]]`.
     */
-  def apply[A](implicit ea: CellEncoder[A]): CellEncoder[A] = ea
+  def apply[A](implicit ev: CellEncoder[A]): CellEncoder[A] = macro imp.summon[CellEncoder[A]]
 
   /** Creates a new [[CellEncoder]] from the specified function. */
   def from[A](f: A ⇒ String): CellEncoder[A] = Encoder.from(f)
@@ -37,7 +37,7 @@ object CellEncoder {
 /** All default [[CellEncoder]] instances. */
 trait CellEncoderInstances {
   /** Turns existing `StringEncoder` instances into [[CellEncoder]] ones. */
-  implicit def fromStringEncoder[A](implicit ea: StringEncoder[A]): CellEncoder[A] = ea.tag[codecs.type]
+  implicit def fromStringEncoder[A: StringEncoder]: CellEncoder[A] = StringEncoder[A].tag[codecs.type]
   implicit def cellEncoderOpt[A: CellEncoder]: CellEncoder[Option[A]] = Encoder.optionalEncoder
   implicit def cellEncoderEither[A: CellEncoder, B: CellEncoder]: CellEncoder[Either[A, B]] = Encoder.eitherEncoder
 }

@@ -46,7 +46,7 @@ final class CsvOutputOps[A](val a: A) extends AnyVal {
 }
 
 trait ToCsvOutputOps {
-  implicit def toCsvOutputOps[A](a: A)(implicit oa: CsvOutput[A]): CsvOutputOps[A] = new CsvOutputOps(a)
+  implicit def toCsvOutputOps[A](a: A): CsvOutputOps[A] = new CsvOutputOps(a)
 }
 
 object csvOutput extends ToCsvOutputOps

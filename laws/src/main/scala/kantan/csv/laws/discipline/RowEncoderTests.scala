@@ -22,6 +22,6 @@ import kantan.csv.laws._
 import org.scalacheck.Arbitrary
 
 object RowEncoderTests {
-  def apply[A](implicit l: RowEncoderLaws[A], al: Arbitrary[LegalRow[A]]): RowEncoderTests[A] =
+  def apply[A: RowEncoderLaws](implicit al: Arbitrary[LegalRow[A]]): RowEncoderTests[A] =
     EncoderTests[Seq[String], A, codecs.type]
 }

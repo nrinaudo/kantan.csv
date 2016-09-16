@@ -66,13 +66,13 @@ object CsvWriter {
     * @param header optional header row, defaults to none.
     * @tparam A type of values that the returned instance will know to encode.
     */
-  def apply[A](writer: Writer, separator: Char, header: Seq[String] = Seq.empty)
-              (implicit ea: RowEncoder[A], engine: WriterEngine): CsvWriter[A] = {
-    if(header.isEmpty) engine.writerFor(writer, separator).contramap(ea.encode)
+  def apply[A: RowEncoder](writer: Writer, separator: Char, header: Seq[String] = Seq.empty)
+              (implicit engine: WriterEngine): CsvWriter[A] = {
+    if(header.isEmpty) engine.writerFor(writer, separator).contramap(RowEncoder[A].encode)
     else {
       val w = engine.writerFor(writer, separator)
       w.write(header)
-      w.contramap(ea.encode)
+      w.contramap(RowEncoder[A].encode)
     }
   }
 

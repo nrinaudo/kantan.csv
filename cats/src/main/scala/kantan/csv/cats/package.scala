@@ -19,17 +19,20 @@ package kantan.csv
 import _root_.cats._
 import _root_.cats.data.Xor
 import _root_.cats.functor.Contravariant
+import imp.imp
 
 /** Declares various type class instances for bridging `kantan.csv` and `cats`. */
 package object cats extends kantan.codecs.cats.CatsInstances {
-  implicit def xorRowDecoder[A, B](implicit da: RowDecoder[A], db: RowDecoder[B]): RowDecoder[Xor[A, B]] =
-    RowDecoder.from(row ⇒ da.decode(row).map(a ⇒ Xor.Left(a)).orElse(db.decode(row).map(b ⇒ Xor.Right(b))))
+  implicit def xorRowDecoder[A: RowDecoder, B: RowDecoder]: RowDecoder[Xor[A, B]] =
+    RowDecoder.from(row ⇒ RowDecoder[A].decode(row).map(a ⇒ Xor.Left(a))
+      .orElse(RowDecoder[B].decode(row).map(b ⇒ Xor.Right(b))))
 
-  implicit def xorRowEncoder[A, B](implicit ea: RowEncoder[A], eb: RowEncoder[B]): RowEncoder[Xor[A, B]] =
-    RowEncoder.from(_.fold(ea.encode, eb.encode))
+  implicit def xorRowEncoder[A: RowEncoder, B: RowEncoder]: RowEncoder[Xor[A, B]] =
+    RowEncoder.from(_.fold(RowEncoder[A].encode, RowEncoder[B].encode))
 
-  implicit def foldableRowEncoder[F[_], A](implicit ea: CellEncoder[A], F: Foldable[F]): RowEncoder[F[A]] =
-    RowEncoder.from(as ⇒ F.foldLeft(as, Seq.newBuilder[String])((acc, a) ⇒ acc += ea.encode(a)).result())
+  implicit def foldableRowEncoder[F[_]: Foldable, A: CellEncoder]: RowEncoder[F[A]] =
+    RowEncoder.from(as ⇒ imp[Foldable[F]]
+      .foldLeft(as, Seq.newBuilder[String])((acc, a) ⇒ acc += CellEncoder[A].encode(a)).result())
 
 
 

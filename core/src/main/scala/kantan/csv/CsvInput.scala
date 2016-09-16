@@ -160,7 +160,7 @@ object CsvInput extends LowPriorityCsvInputs {
     *   val str2: CsvInput[String] = implicitly[CsvInput[String]]
     * }}}
     */
-  def apply[A](implicit ia: CsvInput[A]): CsvInput[A] = ia
+  def apply[A](implicit ev: CsvInput[A]): CsvInput[A] = macro imp.summon[CsvInput[A]]
 
   /** Turns the specified function into a [[CsvInput]].
     *
@@ -180,6 +180,6 @@ object CsvInput extends LowPriorityCsvInputs {
   @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
   def apply[A](f: A ⇒ ParseResult[Reader]): CsvInput[A] = CsvInput.from(f)
 
-  implicit def fromResource[A](implicit ra: ReaderResource[A]): CsvInput[A] =
-    CsvInput.from(a ⇒ ra.open(a).leftMap(e ⇒ ParseError.IOError(e.getMessage, e.getCause)))
+  implicit def fromResource[A: ReaderResource]: CsvInput[A] =
+    CsvInput.from(a ⇒ ReaderResource[A].open(a).leftMap(e ⇒ ParseError.IOError(e.getMessage, e.getCause)))
 }

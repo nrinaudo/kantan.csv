@@ -23,6 +23,6 @@ import kantan.csv.laws.discipline.arbitrary._
 import org.scalacheck.Arbitrary
 
 object RowDecoderTests {
-  def apply[A](implicit l: RowDecoderLaws[A], al: Arbitrary[LegalRow[A]]): RowDecoderTests[A] =
+  def apply[A: RowDecoderLaws](implicit al: Arbitrary[LegalRow[A]]): RowDecoderTests[A] =
     DecoderTests[Seq[String], A, DecodeError, codecs.type]
 }

@@ -41,7 +41,7 @@ trait CsvSource[S] extends Serializable {
 }
 
 object CsvSource {
-  def apply[A](implicit sa: CsvSource[A]): CsvSource[A] = sa
+  def apply[A](implicit ev: CsvSource[A]): CsvSource[A] = macro imp.summon[CsvSource[A]]
 
   def apply[A](reader: ⇒ CsvReader[A]): Process[Task, A] =
     io.iteratorR(Task.delay(reader))(csv ⇒ Task.delay(csv.close()))(csv ⇒ Task.delay(csv.toIterator))
@@ -50,7 +50,7 @@ object CsvSource {
                           (implicit engine: ReaderEngine): Process[Task, ReadResult[A]] =
     CsvSource(CsvReader[A](reader, sep, header))
 
-  implicit def fromInput[S](implicit is: CsvInput[S]): CsvSource[S] = new CsvSource[S] {
-    override def reader(s: S) = is.open(s)
+  implicit def fromInput[S: CsvInput]: CsvSource[S] = new CsvSource[S] {
+    override def reader(s: S) = CsvInput[S].open(s)
   }
 }

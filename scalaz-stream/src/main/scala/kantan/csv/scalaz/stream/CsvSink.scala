@@ -37,7 +37,7 @@ trait CsvSink[S] extends Serializable {
 }
 
 object CsvSink {
-  def apply[A](implicit sa: CsvSink[A]): CsvSink[A] = sa
+  def apply[A](implicit ev: CsvSink[A]): CsvSink[A] = macro imp.summon[CsvSink[A]]
 
   def apply[A](writer: ⇒ CsvWriter[A]): Sink[Task, A] =
     io.resource(Task.delay(writer))(out ⇒ Task.delay(out.close())) { out ⇒
@@ -48,7 +48,7 @@ object CsvSink {
                           (implicit e: WriterEngine): Sink[Task, A] =
     CsvSink(CsvWriter[A](writer, sep, header))
 
-  implicit def fromOutput[S](implicit os: CsvOutput[S]): CsvSink[S] = new CsvSink[S] {
-    override def writer(s: S) = os.open(s)
+  implicit def fromOutput[S: CsvOutput]: CsvSink[S] = new CsvSink[S] {
+    override def writer(s: S) = CsvOutput[S].open(s)
   }
 }

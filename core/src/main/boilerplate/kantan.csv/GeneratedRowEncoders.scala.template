@@ -2,20 +2,20 @@ package kantan.csv
 
 trait GeneratedRowEncoders {
   /** Creates a new [[RowEncoder]] from the specified unary function. */
-  def encoder[C, A1](f: C ⇒ A1)(implicit e1: CellEncoder[A1]): RowEncoder[C] =
-    RowEncoder.from(c ⇒ List(e1.encode(f(c))))
+  def encoder[C, A1: CellEncoder](f: C ⇒ A1): RowEncoder[C] =
+    RowEncoder.from(c ⇒ List(CellEncoder[A1].encode(f(c))))
   [2..#/** Creates a new [[RowEncoder]] from the specified function.
     *
     * @param f encoding function.
     [#* @param i1 index of the cell that should be passed as parameter number 1 of `f`#
     ]
     */
-  def encoder[C, [#A1#]]([#i1: Int#])(f: C ⇒ Tuple1[[#A1#]])(implicit [#e1: CellEncoder[A1]#]): RowEncoder[C] =
+  def encoder[C, [#A1: CellEncoder#]]([#i1: Int#])(f: C ⇒ Tuple1[[#A1#]]): RowEncoder[C] =
     RowEncoder.from { c ⇒
       val e = f(c)
       val dest = new Array[String](1)
 
-      [#dest(i1) = e1.encode(e._1)#
+      [#dest(i1) = CellEncoder[A1].encode(e._1)#
       ]
       dest.toSeq
     }#
@@ -25,12 +25,12 @@ trait GeneratedRowEncoders {
   def ordered[C, A1: CellEncoder](f: C ⇒ A1): RowEncoder[C] =
     encoder(f)
   [2..#/** Creates a new [[RowEncoder]] from the specified function. */
-  def ordered[C, [#A1#]](f: C ⇒ Tuple1[[#A1#]])(implicit [#e1: CellEncoder[A1]#]): RowEncoder[C] =
+  def ordered[C, [#A1: CellEncoder#]](f: C ⇒ Tuple1[[#A1#]]): RowEncoder[C] =
     RowEncoder.from { c ⇒
       val e = f(c)
       val dest = new Array[String](1)
 
-      [#dest(0) = e1.encode(e._1)#
+      [#dest(0) = CellEncoder[A1].encode(e._1)#
       ]
       dest.toSeq
     }#

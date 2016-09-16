@@ -38,7 +38,7 @@ object RowDecoder extends GeneratedRowDecoders {
     *
     * This is essentially a shorter way of calling `implicitly[RowDecoder[A]]`.
     */
-  def apply[A](implicit da: RowDecoder[A]): RowDecoder[A] = da
+  def apply[A](implicit ev: RowDecoder[A]): RowDecoder[A] = macro imp.summon[RowDecoder[A]]
 
   /** Creates a new [[RowDecoder]] using the specified function for decoding. */
   def from[A](f: Seq[String] ⇒ DecodeResult[A]): RowDecoder[A] = Decoder.from(f)
@@ -50,19 +50,18 @@ object RowDecoder extends GeneratedRowDecoders {
 /** Provides reasonable default [[RowDecoder]] instances for various types. */
 trait RowDecoderInstances {
   /** Turns a [[CellDecoder]] into a [[RowDecoder]], for rows that contain a single value. */
-  implicit def fromCellDecoder[A](implicit da: CellDecoder[A]): RowDecoder[A] = RowDecoder.from(ss ⇒
-    ss.headOption.map(h ⇒ if(ss.tail.isEmpty) da.decode(h) else DecodeResult.outOfBounds(1))
+  implicit def fromCellDecoder[A: CellDecoder]: RowDecoder[A] = RowDecoder.from(ss ⇒
+    ss.headOption.map(h ⇒ if(ss.tail.isEmpty) CellDecoder[A].decode(h) else DecodeResult.outOfBounds(1))
       .getOrElse(DecodeResult.outOfBounds(0))
   )
 
   /** Provides a [[RowDecoder]] instance for all types that have an `CanBuildFrom`, provided the inner type has a
     * [[CellDecoder]].
     */
-  implicit def cbfRowDecoder[A, M[X]]
-  (implicit da: CellDecoder[A], cbf: CanBuildFrom[Nothing, A, M[A]]): RowDecoder[M[A]] =
+  implicit def cbfRowDecoder[A: CellDecoder, M[X]](implicit cbf: CanBuildFrom[Nothing, A, M[A]]): RowDecoder[M[A]] =
     RowDecoder.from(_.foldLeft(DecodeResult(cbf.apply())) { (racc, s) ⇒ for {
       acc ← racc
-      a   ← da.decode(s)
+      a   ← CellDecoder[A].decode(s)
     } yield acc += a
     }.map(_.result()))
 }
