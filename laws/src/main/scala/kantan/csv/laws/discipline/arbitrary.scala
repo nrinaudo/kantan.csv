@@ -17,6 +17,7 @@
 package kantan.csv.laws.discipline
 
 import imp.imp
+import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import kantan.csv._
 import kantan.csv.DecodeError._
 import kantan.csv.ParseError._
@@ -50,9 +51,24 @@ trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstance
 
 
 
+  // - Codec values ----------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit def arbLegalRow[A](implicit arb: Arbitrary[LegalCell[A]]): Arbitrary[LegalRow[A]] = Arbitrary {
+    arb.arbitrary.map { c ⇒
+      LegalValue(Seq(c.encoded), c.decoded)
+    }
+  }
+
+  implicit def arbIllegalRow[A](implicit arb: Arbitrary[IllegalCell[A]]): Arbitrary[IllegalRow[A]] = Arbitrary {
+    arb.arbitrary.map { c ⇒
+      IllegalValue(Seq(c.encoded))
+    }
+  }
+
+
+
   // - Encoders and decoders -------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-
   implicit def arbCellDecoder[A: Arbitrary]: Arbitrary[CellDecoder[A]] =
     Arbitrary(arb[String ⇒ DecodeResult[A]].map(CellDecoder.from))
 
