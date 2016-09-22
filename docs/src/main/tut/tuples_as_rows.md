@@ -55,6 +55,6 @@ If you want to learn more about:
 
 
 [`CsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter
-[`asCsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvOutputOps@asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvOutput[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]
+[`asCsvWriter`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSinkOps@asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]
 [`write`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter@write(a:A):kantan.csv.CsvWriter[A]
 [`close]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter@close():Unit

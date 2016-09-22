@@ -38,14 +38,14 @@ package object cats extends kantan.codecs.cats.CatsInstances {
 
   // - CSV input / output ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  /** `Contravariant` instance for `CsvInput`. */
-  implicit val csvInput: Contravariant[CsvInput] = new Contravariant[CsvInput] {
-    override def contramap[A, B](r: CsvInput[A])(f: B ⇒ A) = r.contramap(f)
+  /** `Contravariant` instance for `CsvSource`. */
+  implicit val csvSource: Contravariant[CsvSource] = new Contravariant[CsvSource] {
+    override def contramap[A, B](r: CsvSource[A])(f: B ⇒ A) = r.contramap(f)
   }
 
-  /** `Contravariant` instance for `CsvOutput`. */
-  implicit val csvOutput: Contravariant[CsvOutput] = new Contravariant[CsvOutput] {
-    override def contramap[A, B](r: CsvOutput[A])(f: B ⇒ A) = r.contramap(f)
+  /** `Contravariant` instance for `CsvSink`. */
+  implicit val csvSink: Contravariant[CsvSink] = new Contravariant[CsvSink] {
+    override def contramap[A, B](r: CsvSink[A])(f: B ⇒ A) = r.contramap(f)
   }
 
 

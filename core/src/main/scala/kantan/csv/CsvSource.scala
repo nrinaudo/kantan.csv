@@ -26,18 +26,18 @@ import scala.collection.generic.CanBuildFrom
 
 /** Turns instances of `S` into valid sources of CSV data.
   *
-  * Instances of [[CsvInput]] are rarely used directly. The preferred, idiomatic way is to use the implicit syntax
-  * provided by [[ops.CsvInputOps CsvInputOps]], brought in scope by importing `kantan.csv.ops._`.
+  * Instances of [[CsvSource]] are rarely used directly. The preferred, idiomatic way is to use the implicit syntax
+  * provided by [[ops.CsvSourceOps CsvSourceOps]], brought in scope by importing `kantan.csv.ops._`.
   *
-  * See the [[CsvInput$ companion object]] for default implementations and construction methods.
+  * See the [[CsvSource$ companion object]] for default implementations and construction methods.
   */
-trait CsvInput[-S] extends Serializable { self ⇒
+trait CsvSource[-S] extends Serializable { self ⇒
   /** Turns the specified `S` into a `Reader`.
     *
     * Implementations of this method *must* be safe: all non-fatal exceptions should be caught and wrapped in an
     * [[ParseError.IOError]]. This is easily achieved by wrapping unsafe code in a call to [[ParseResult.apply]].
     *
-    * @param s instance of `S` to turn into a [[CsvInput]].
+    * @param s instance of `S` to turn into a [[CsvSource]].
     */
   def open(s: S): ParseResult[Reader]
 
@@ -109,12 +109,12 @@ trait CsvInput[-S] extends Serializable { self ⇒
     unsafeReader(s, separator, header).to[C]
 
 
-  /** Turns an instance of `CsvInput[S]` into one of `CsvInput[T]`.
+  /** Turns an instance of `CsvSource[S]` into one of `CsvSource[T]`.
     *
-    * This allows developers to adapt existing instances of [[CsvInput]] rather than write one from scratch.
-    * One could, for example, write `CsvInput[String]` by basing it on `CsvInput[Reader]`:
+    * This allows developers to adapt existing instances of [[CsvSource]] rather than write one from scratch.
+    * One could, for example, write `CsvSource[String]` by basing it on `CsvSource[Reader]`:
     * {{{
-    *   val urlInput: CsvInput[String] = CsvInput[Reader].contramap((s: String) ⇒ new java.io.StringReader(s))
+    *   val urlInput: CsvSource[String] = CsvSource[Reader].contramap((s: String) ⇒ new java.io.StringReader(s))
     * }}}
     *
     * Note that this method assumes that the transformation from `T` to `S` is safe. If it fail, one should use
@@ -122,14 +122,14 @@ trait CsvInput[-S] extends Serializable { self ⇒
     *
     * @see [[contramapResult]]
     */
-  def contramap[T](f: T ⇒ S): CsvInput[T] = CsvInput.from(f andThen self.open)
+  def contramap[T](f: T ⇒ S): CsvSource[T] = CsvSource.from(f andThen self.open)
 
-  /** Turns an instance of `CsvInput[S]` into one of `CsvInput[T]`.
+  /** Turns an instance of `CsvSource[S]` into one of `CsvSource[T]`.
     *
-    * This allows developers to adapt existing instances of [[CsvInput]] rather than write one from scratch.
-    * One could, for example, write `CsvInput[URL]` by basing it on `CsvInput[InputStream]`:
+    * This allows developers to adapt existing instances of [[CsvSource]] rather than write one from scratch.
+    * One could, for example, write `CsvSource[URL]` by basing it on `CsvSource[InputStream]`:
     * {{{
-    *   val urlInput: CsvInput[URL] = CsvInput[InputStream].contramap((url: URL) ⇒ url.openStream())
+    *   val urlInput: CsvSource[URL] = CsvSource[InputStream].contramap((url: URL) ⇒ url.openStream())
     * }}}
     *
     * Note that if the transformation from `T` to `S` is safe, it's better to use [[contramap]] and bypass the error
@@ -137,49 +137,49 @@ trait CsvInput[-S] extends Serializable { self ⇒
     *
     * @see [[contramap]]
     */
-  def contramapResult[T](f: T ⇒ ParseResult[S]): CsvInput[T] = CsvInput.from(t ⇒ f(t).flatMap(self.open))
+  def contramapResult[T](f: T ⇒ ParseResult[S]): CsvSource[T] = CsvSource.from(t ⇒ f(t).flatMap(self.open))
 }
 
-trait LowPriorityCsvInputs
+trait LowPriorityCsvSourceInstances
 
-/** Defines convenience methods for creating and retrieving instances of [[CsvInput]].
+/** Defines convenience methods for creating and retrieving instances of [[CsvSource]].
   *
   * Implicit default implementations of standard types are also declared here, always bringing them in scope with a low
   * priority.
   *
   * These default implementations can also be useful when writing more complex instances: if you need to write a
-  * `CsvInput[T]` and have both a `CsvInput[S]` and a `T ⇒ S`, you need just use [[CsvInput.contramap]] to create
+  * `CsvSource[T]` and have both a `CsvSource[S]` and a `T ⇒ S`, you need just use [[CsvSource.contramap]] to create
   * your implementation.
   */
-object CsvInput extends LowPriorityCsvInputs {
-  /** Summons an implicit instance of `CsvInput[A]` if one can be found.
+object CsvSource extends LowPriorityCsvSourceInstances {
+  /** Summons an implicit instance of `CsvSource[A]` if one can be found.
     *
     * This is simply a convenience method. The two following calls are equivalent:
     * {{{
-    *   val str: CsvInput[String] = CsvInput[String]
-    *   val str2: CsvInput[String] = implicitly[CsvInput[String]]
+    *   val str: CsvSource[String] = CsvSource[String]
+    *   val str2: CsvSource[String] = implicitly[CsvSource[String]]
     * }}}
     */
-  def apply[A](implicit ev: CsvInput[A]): CsvInput[A] = macro imp.summon[CsvInput[A]]
+  def apply[A](implicit ev: CsvSource[A]): CsvSource[A] = macro imp.summon[CsvSource[A]]
 
-  /** Turns the specified function into a [[CsvInput]].
+  /** Turns the specified function into a [[CsvSource]].
     *
-    * Note that it's usually better to compose an existing instance through [[CsvInput.contramap]] or
-    * [[CsvInput.contramapResult]] rather than create one from scratch. For example:
+    * Note that it's usually better to compose an existing instance through [[CsvSource.contramap]] or
+    * [[CsvSource.contramapResult]] rather than create one from scratch. For example:
     * {{{
-    *   val urlInput: CsvInput[URL] = CsvInput[InputStream].contramap((url: URL) ⇒ url.openStream())
+    *   val urlInput: CsvSource[URL] = CsvSource[InputStream].contramap((url: URL) ⇒ url.openStream())
     * }}}
     *
-    * @see [[CsvInput.contramap]]
-    * @see [[CsvInput.contramapResult]]
+    * @see [[CsvSource.contramap]]
+    * @see [[CsvSource.contramapResult]]
     */
-  def from[A](f: A ⇒ ParseResult[Reader]): CsvInput[A] = new CsvInput[A] {
+  def from[A](f: A ⇒ ParseResult[Reader]): CsvSource[A] = new CsvSource[A] {
     override def open(a: A) = f(a)
   }
 
   @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
-  def apply[A](f: A ⇒ ParseResult[Reader]): CsvInput[A] = CsvInput.from(f)
+  def apply[A](f: A ⇒ ParseResult[Reader]): CsvSource[A] = CsvSource.from(f)
 
-  implicit def fromResource[A: ReaderResource]: CsvInput[A] =
-    CsvInput.from(a ⇒ ReaderResource[A].open(a).leftMap(e ⇒ ParseError.IOError(e.getMessage, e.getCause)))
+  implicit def fromResource[A: ReaderResource]: CsvSource[A] =
+    CsvSource.from(a ⇒ ReaderResource[A].open(a).leftMap(e ⇒ ParseError.IOError(e.getMessage, e.getCause)))
 }

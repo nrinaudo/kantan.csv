@@ -118,9 +118,9 @@ that empty rows should be ignored, so serialising a collection that contains `No
 result will not yield the original list.
 
 
-## `CsvInput`
+## `CsvSource`
 
-The following types have an instance of [`CsvInput`] out of the box:
+The following types have an instance of [`CsvSource`] out of the box:
 
 * [`Reader`]
 * [`InputStream`]
@@ -132,9 +132,9 @@ The following types have an instance of [`CsvInput`] out of the box:
 * [`URL`]
 * [`URI`]
 
-## `CsvOutput`
+## `CsvSink`
 
-The following types have an instance of [`CsvOutput`] out of the box:
+The following types have an instance of [`CsvSink`] out of the box:
 
 * [`Writer`]
 * [`OutputStream`]
@@ -152,9 +152,9 @@ The following types have an instance of [`CsvOutput`] out of the box:
 [`Writer`]:https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html
 [`OutputStream`]:https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html
 [`java.util.Date`]:https://docs.oracle.com/javase/7/docs/api/java/util/Date.html
-[`CsvOutput`]:{{ site.baseurl }}/api/#kantan.csv.CsvOutput
+[`CsvSink`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvSink
 [`DateFormat`]:https://docs.oracle.com/javase/7/docs/api/java/text/DateFormat.html
-[`CsvInput`]:{{ site.baseurl }}/api/#kantan.csv.CsvInput
+[`CsvSource`]:{{ site.baseurl }}/api/#kantan.csv.CsvSource
 [`Option`]:http://www.scala-lang.org/api/current/index.html#scala.Option
 [`Either`]:http://www.scala-lang.org/api/current/index.html#scala.util.Either
 [`Path`]:https://docs.oracle.com/javase/7/docs/api/java/nio/file/Path.html

@@ -25,7 +25,7 @@ import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import scala.util.Try
 
-class CsvInputOpsTests extends FunSuite with GeneratorDrivenPropertyChecks {
+class CsvSourceOpsTests extends FunSuite with GeneratorDrivenPropertyChecks {
   def compare[F, A](csv: List[Result[F, A]], data: List[RowValue[A]]): Boolean = {
     val trimmed = data.filter(_.encoded.nonEmpty)
 
@@ -37,13 +37,13 @@ class CsvInputOpsTests extends FunSuite with GeneratorDrivenPropertyChecks {
     }
   }
 
-  test("CsvInput instances should have a working asCsvReader method") {
+  test("CsvSource instances should have a working asCsvReader method") {
     forAll { data: List[RowValue[List[Int]]] ⇒
       assert(compare(asCsv(data, ',').asCsvReader[List[Int]](',', false).toList, data))
     }
   }
 
-  test("CsvInput instances should have a working readCsv method") {
+  test("CsvSource instances should have a working readCsv method") {
     forAll { data: List[RowValue[List[Int]]] ⇒
       assert(compare(asCsv(data, ',').readCsv[List, List[Int]](',', false), data))
     }
@@ -65,13 +65,13 @@ class CsvInputOpsTests extends FunSuite with GeneratorDrivenPropertyChecks {
     }
   }
 
-  test("CsvInput instances should have a working asUnsafeCsvReader method") {
+  test("CsvSource instances should have a working asUnsafeCsvReader method") {
     forAll { data: List[RowValue[List[Int]]] ⇒
       assert(compareUnsafe(asCsv(data, ',').asUnsafeCsvReader[List[Int]](',', false).toList, data))
     }
   }
 
-  test("CsvInput instances should have a working unsafeReadCsv method") {
+  test("CsvSource instances should have a working unsafeReadCsv method") {
     forAll { data: List[RowValue[List[Int]]] ⇒
       assert(compareUnsafe(asCsv(data, ',').unsafeReadCsv[List, List[Int]](',', false), data))
     }

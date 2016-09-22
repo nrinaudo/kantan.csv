@@ -18,7 +18,7 @@ package kantan.csv.benchmark
 
 import java.io.StringReader
 import java.util.concurrent.TimeUnit
-import kantan.csv.CsvInput
+import kantan.csv.CsvSource
 import kantan.csv.engine.ReaderEngine
 import kantan.csv.engine.jackson.JacksonCsv
 import org.openjdk.jmh.annotations._
@@ -78,7 +78,7 @@ object Decoding {
   // - Benchmarks ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def kantan(str: String)(implicit e: ReaderEngine): List[CsvEntry] =
-    CsvInput[String].unsafeReader[CsvEntry](str, ',', false).toList
+    CsvSource[String].unsafeReader[CsvEntry](str, ',', false).toList
 
   // Note: we must call trim on the input since product-collections does not accept the last row ending with a line
   // break. I believe that to be a bug.

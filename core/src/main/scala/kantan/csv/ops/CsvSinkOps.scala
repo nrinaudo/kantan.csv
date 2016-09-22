@@ -16,10 +16,10 @@
 
 package kantan.csv.ops
 
-import kantan.csv.{CsvOutput, CsvWriter, _}
+import kantan.csv._
 import kantan.csv.engine.WriterEngine
 
-/** Provides useful syntax for that types that have implicit instances of [[CsvOutput]] in scope.
+/** Provides useful syntax for that types that have implicit instances of [[CsvSink]] in scope.
   *
   * The most common use case is to turn a value into a [[CsvWriter]] through [[asCsvWriter]]:
   * {{{
@@ -33,20 +33,20 @@ import kantan.csv.engine.WriterEngine
   *   f.writeCsv[List[Int]](List(List(1, 2, 3), List(4, 5, 6)), ',', true)
   * }}}
   */
-final class CsvOutputOps[A](val a: A) extends AnyVal {
-  /** Shorthand for [[CsvOutput.writer]]. */
+final class CsvSinkOps[A](val a: A) extends AnyVal {
+  /** Shorthand for [[CsvSink.writer]]. */
   def asCsvWriter[B: RowEncoder](sep: Char, header: Seq[String] = Seq.empty)
-                                (implicit oa: CsvOutput[A], e: WriterEngine): CsvWriter[B] =
+                                (implicit oa: CsvSink[A], e: WriterEngine): CsvWriter[B] =
     oa.writer(a, sep, header)
 
-  /** Shorthand for [[CsvOutput.write]]. */
+  /** Shorthand for [[CsvSink.write]]. */
   def writeCsv[B: RowEncoder](rows: TraversableOnce[B], sep: Char, header: Seq[String] = Seq.empty)
-                             (implicit oa: CsvOutput[A], e: WriterEngine): Unit =
+                             (implicit oa: CsvSink[A], e: WriterEngine): Unit =
     oa.write(a, rows, sep, header)
 }
 
-trait ToCsvOutputOps {
-  implicit def toCsvOutputOps[A](a: A): CsvOutputOps[A] = new CsvOutputOps(a)
+trait ToCsvSinkOps {
+  implicit def toCsvOutputOps[A](a: A): CsvSinkOps[A] = new CsvSinkOps(a)
 }
 
-object csvOutput extends ToCsvOutputOps
+object sink extends ToCsvSinkOps

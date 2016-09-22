@@ -22,12 +22,12 @@ import kantan.csv.engine.WriterEngine
 
 /** Type class for all types that can be turned into [[CsvWriter]] instances.
   *
-  * Instances of [[CsvOutput]] are rarely used directly. The preferred, idiomatic way is to use the implicit syntax
-  * provided by [[ops.csvOutput CsvOutputOps]], brought in scope by importing `kantan.csv.ops._`.
+  * Instances of [[CsvSink]] are rarely used directly. The preferred, idiomatic way is to use the implicit syntax
+  * provided by [[ops.sink CsvSinkOps]], brought in scope by importing `kantan.csv.ops._`.
   *
-  * See the [[CsvOutput companion object]] for default implementations and construction methods.
+  * See the [[CsvSink companion object]] for default implementations and construction methods.
   */
-trait CsvOutput[-S] extends Serializable { self ⇒
+trait CsvSink[-S] extends Serializable { self ⇒
   /** Opens a `Writer` on the specified `S`. */
   def open(s: S): Writer
 
@@ -51,43 +51,43 @@ trait CsvOutput[-S] extends Serializable { self ⇒
                           (implicit e: WriterEngine): Unit =
   writer(s, sep, header).write(rows).close()
 
-  /** Turns a `CsvOutput[S]` into a `CsvOutput[T]`.
+  /** Turns a `CsvSink[S]` into a `CsvSink[T]`.
     *
-    * This allows developers to adapt existing instances of [[CsvOutput]] rather than write one from scratch.
-    * One could, for example, write `CsvInput[File]` by basing it on `CsvInput[OutputStream]`:
+    * This allows developers to adapt existing instances of [[CsvSink]] rather than write one from scratch.
+    * One could, for example, write `CsvSource[File]` by basing it on `CsvSource[OutputStream]`:
     * {{{
-    *   def fileOutput(implicit c: scala.io.Codec): CsvOutput[File] =
-    *     CsvOutput[OutputStream].contramap(f ⇒ new FileOutputStream(f, c.charSet))
+    *   def fileOutput(implicit c: scala.io.Codec): CsvSink[File] =
+    *     CsvSink[OutputStream].contramap(f ⇒ new FileOutputStream(f, c.charSet))
     * }}}
     */
-  def contramap[T](f: T ⇒ S): CsvOutput[T] = CsvOutput.from(f andThen self.open)
+  def contramap[T](f: T ⇒ S): CsvSink[T] = CsvSink.from(f andThen self.open)
 }
 
 /** Provides default instances as well as instance summoning and creation methods. */
-object CsvOutput {
-  /** Summons an implicit instance of `CsvOutput[A]` if one can be found.
+object CsvSink {
+  /** Summons an implicit instance of `CsvSink[A]` if one can be found.
     *
     * This is simply a convenience method. The two following calls are equivalent:
     * {{{
-    *   val file: CsvOutput[File] = CsvOutput[File]
-    *   val file2: CsvOutput[File] = implicitly[CsvOutput[File]]
+    *   val file: CsvSink[File] = CsvSink[File]
+    *   val file2: CsvSink[File] = implicitly[CsvSink[File]]
     * }}}
     */
-  def apply[A](implicit ev: CsvOutput[A]): CsvOutput[A] = macro imp.summon[CsvOutput[A]]
+  def apply[A](implicit ev: CsvSink[A]): CsvSink[A] = macro imp.summon[CsvSink[A]]
 
-  /** Turns the specified function into a [[CsvOutput]].
+  /** Turns the specified function into a [[CsvSink]].
     *
-    * Note that it's usually better to compose an existing instance through [[CsvOutput.contramap]] rather than create
+    * Note that it's usually better to compose an existing instance through [[CsvSink.contramap]] rather than create
     * one from scratch.
     */
-  def from[A](f: A ⇒ Writer): CsvOutput[A] = new CsvOutput[A] {
+  def from[A](f: A ⇒ Writer): CsvSink[A] = new CsvSink[A] {
     override def open(s: A): Writer = f(s)
   }
 
   @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
-  def apply[A](f: A ⇒ Writer): CsvOutput[A] = CsvOutput.from(f)
+  def apply[A](f: A ⇒ Writer): CsvSink[A] = CsvSink.from(f)
 
   // TODO: unsafe, unacceptable, what was I thinking.
-  implicit def fromResource[A: WriterResource]: CsvOutput[A] =
-    CsvOutput.from(a ⇒ WriterResource[A].open(a).get)
+  implicit def fromResource[A: WriterResource]: CsvSink[A] =
+    CsvSink.from(a ⇒ WriterResource[A].open(a).get)
 }

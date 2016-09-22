@@ -22,7 +22,7 @@ case class Person(id: Int, name: String, age: Int)
 ```
 
 Obtaining an instance of [`CsvWriter`] is achieved by calling the [`asCsvWriter`] method that enriches any type that
-has an implicit instance of [`CsvOutput`] in scope - or, to keep things simple, any type that you expect to be able to
+has an implicit instance of [`CsvSink`] in scope - or, to keep things simple, any type that you expect to be able to
 write CSV directly to. You can read up more on that mechanism [here](csv_sinks.html).
 
 ```tut:silent
@@ -58,9 +58,9 @@ If you want to learn more about:
 
 * [how we were able to turn a `File` into a `CsvWriter`](csv_sinks.html)
 
-[`asCsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvOutputOps@asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvOutput[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]
+[`asCsvWriter`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSinkOps@asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]
 [`CsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter
-[`CsvOutput`]:{{ site.baseurl }}/api/#kantan.csv.CsvOutput
+[`CsvSink`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvSink
 [`Writer`]:https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html
 [`write`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter@write(a:A):kantan.csv.CsvWriter[A]
 [`close`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter@close():Unit

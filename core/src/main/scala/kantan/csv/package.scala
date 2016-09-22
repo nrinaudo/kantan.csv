@@ -24,6 +24,19 @@ package object csv {
 
 
 
+  // - Backward compatibility ------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  @deprecated("use CsvSource instead (see https://github.com/nrinaudo/kantan.csv/issues/49)", "0.1.15")
+  type CsvInput[A] = CsvSource[A]
+  @deprecated("use CsvSource instead (see https://github.com/nrinaudo/kantan.csv/issues/49)", "0.1.15")
+  val CsvInput = CsvSource
+  @deprecated("use CsvSink instead (see https://github.com/nrinaudo/kantan.csv/issues/49)", "0.1.15")
+  type CsvOutput[A] = CsvSink[A]
+  @deprecated("use CsvSink instead (see https://github.com/nrinaudo/kantan.csv/issues/49)", "0.1.15")
+  val CsvOutput = CsvSink
+
+
+
   // - Results ---------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   type Success[A] = Result.Success[A]
@@ -114,7 +127,7 @@ package object csv {
   /** Describes how to decode CSV rows into specific types.
     *
     * All types `A` such that there exists an implicit instance of `RowDecoder[A]` in scope can be decoded from CSV
-    * rows by functions such as [[CsvInput.reader]] or [[CsvInput.read]].
+    * rows by functions such as [[CsvSource.reader]] or [[CsvSource.read]].
     *
     * See the [[RowDecoder$ companion object]] for creation and summoning methods.
     *
@@ -126,7 +139,7 @@ package object csv {
   /** Describes how to encode values of a specific type to CSV rows.
     *
     * All types `A` such that there exists an implicit instance of `RowEncoder[A]` in scope can be encoded to CSV
-    * rows by functions such as [[CsvOutput.writer]] or [[CsvOutput.write]].
+    * rows by functions such as [[CsvSink.writer]] or [[CsvSink.write]].
     *
     * See the [[RowEncoder$ companion object]] for creation and summoning methods.
     *

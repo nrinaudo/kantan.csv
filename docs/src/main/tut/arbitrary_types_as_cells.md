@@ -62,8 +62,8 @@ If you want to learn more about:
 * [declaring decoders and encoders in a single call](codecs.html)
 
 
-[`asCsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvOutputOps@asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvOutput[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]
-[`asCsv`]:{{ site.baseurl }}/api/#kantan.csv.ops$$TraversableOnceOps@asCsv(sep:Char,header:Seq[String])(implicitengine:kantan.csv.engine.WriterEngine,implicitae:kantan.csv.RowEncoder[A]):String
-[`writeCsv`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvOutputOps@writeCsv[B](rows:TraversableOnce[B],sep:Char,header:Seq[String])(implicitevidence$2:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvOutput[A],implicite:kantan.csv.engine.WriterEngine):Unit
+[`asCsvWriter`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSinkOps@asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]
+[`asCsv`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvRowsOps@asCsv(sep:Char,header:Seq[String])(implicitea:kantan.csv.RowEncoder[A],implicite:kantan.csv.engine.WriterEngine):String
+[`writeCsv`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSinkOps@writeCsv[B](rows:TraversableOnce[B],sep:Char,header:Seq[String])(implicitevidence$2:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):Unit
 [`CellEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CellEncoder[A]=kantan.codecs.Encoder[String,A,kantan.csv.codecs.type]
 [`DateTime`]:http://www.joda.org/joda-time/apidocs/org/joda/time/DateTime.html

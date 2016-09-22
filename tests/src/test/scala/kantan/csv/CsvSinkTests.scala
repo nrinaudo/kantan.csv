@@ -24,7 +24,7 @@ import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import scala.io.Codec
 
-class CsvOutputTests extends FunSuite with GeneratorDrivenPropertyChecks {
+class CsvSinkTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("CSV data should be correctly written to an output stream (bit by bit)") {
     forAll(csv) { csv ⇒
       val out = new ByteArrayOutputStream()

@@ -20,6 +20,7 @@ import _root_.scalaz.concurrent.Task
 import _root_.scalaz.stream._
 import java.io.Reader
 import kantan.csv._
+import kantan.csv.{CsvSource => CSource}
 import kantan.csv.engine.ReaderEngine
 
 /** Turns instances of `S` into CSV sources.
@@ -27,7 +28,8 @@ import kantan.csv.engine.ReaderEngine
   * Any type `S` that has a implicit instance of [[CsvSource]] in scope will be enriched by the `asCsvSource` and
   * `asUnsafeCsvSource` methods (which map to [[source]] and [[unsafeSource]] respectively).
   *
-  * Additionally, any type that has an instance of `CsvInput` in scope automatically gets an instance of [[CsvSource]].
+  * Additionally, any type that has an instance of `kantan.csv.CsvSource` in scope automatically gets an instance of
+  * [[CsvSource]].
   */
 trait CsvSource[S] extends Serializable {
   def reader(s: S): ParseResult[Reader]
@@ -50,7 +52,7 @@ object CsvSource {
                           (implicit engine: ReaderEngine): Process[Task, ReadResult[A]] =
     CsvSource(CsvReader[A](reader, sep, header))
 
-  implicit def fromInput[S: CsvInput]: CsvSource[S] = new CsvSource[S] {
-    override def reader(s: S) = CsvInput[S].open(s)
+  implicit def fromInput[S: CSource]: CsvSource[S] = new CsvSource[S] {
+    override def reader(s: S) = CSource[S].open(s)
   }
 }

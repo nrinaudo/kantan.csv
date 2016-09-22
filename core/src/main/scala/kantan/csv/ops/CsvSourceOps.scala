@@ -16,11 +16,11 @@
 
 package kantan.csv.ops
 
-import kantan.csv.{CsvInput, CsvReader, _}
+import kantan.csv._
 import kantan.csv.engine.ReaderEngine
 import scala.collection.generic.CanBuildFrom
 
-/** Provides useful syntax for types that have implicit instances of [[CsvInput]] in scope.
+/** Provides useful syntax for types that have implicit instances of [[CsvSource]] in scope.
   *
   * The most common use case is to turn a value into a [[CsvReader]] through [[asCsvReader]]:
   * {{{
@@ -36,32 +36,32 @@ import scala.collection.generic.CanBuildFrom
   *
   * Unsafe versions of these methods are also available, even if usually advised against.
   */
-final class CsvInputOps[A](val a: A) extends AnyVal {
-  /** Shorthand for [[CsvInput!.reader CsvInput.reader]]. */
+final class CsvSourceOps[A](val a: A) extends AnyVal {
+  /** Shorthand for [[CsvSource!.reader CsvSource.reader]]. */
   def asCsvReader[B: RowDecoder](sep: Char, header: Boolean)
-                                (implicit ia: CsvInput[A], e: ReaderEngine): CsvReader[ReadResult[B]] =
+                                (implicit ia: CsvSource[A], e: ReaderEngine): CsvReader[ReadResult[B]] =
     ia.reader[B](a, sep, header)
 
-  /** Shorthand for [[CsvInput.unsafeReader]]. */
+  /** Shorthand for [[CsvSource.unsafeReader]]. */
   def asUnsafeCsvReader[B: RowDecoder](sep: Char, header: Boolean)
-                                      (implicit ia: CsvInput[A], e: ReaderEngine): CsvReader[B] =
+                                      (implicit ia: CsvSource[A], e: ReaderEngine): CsvReader[B] =
     ia.unsafeReader[B](a, sep, header)
 
-  /** Shorthand for [[CsvInput.read]]. */
+  /** Shorthand for [[CsvSource.read]]. */
   def readCsv[C[_], B: RowDecoder](sep: Char, header: Boolean)
-                                  (implicit ia: CsvInput[A], e: ReaderEngine,
+                                  (implicit ia: CsvSource[A], e: ReaderEngine,
                                    cbf: CanBuildFrom[Nothing, ReadResult[B], C[ReadResult[B]]]): C[ReadResult[B]] =
     ia.read[C, B](a, sep, header)
 
-  /** Shorthand for [[CsvInput.unsafeRead]]. */
+  /** Shorthand for [[CsvSource.unsafeRead]]. */
   def unsafeReadCsv[C[_], B: RowDecoder](sep: Char, header: Boolean)
-                                        (implicit ia: CsvInput[A], e: ReaderEngine,
+                                        (implicit ia: CsvSource[A], e: ReaderEngine,
                                          cbf: CanBuildFrom[Nothing, B, C[B]]): C[B] =
     ia.unsafeRead[C, B](a, sep, header)
 }
 
-trait ToCsvInputOps {
-  implicit def toCsvInputOps[A](a: A): CsvInputOps[A] = new CsvInputOps(a)
+trait ToCsvSourceOps {
+  implicit def toCsvInputOps[A](a: A): CsvSourceOps[A] = new CsvSourceOps(a)
 }
 
-object csvInput extends ToCsvInputOps
+object source extends ToCsvSourceOps

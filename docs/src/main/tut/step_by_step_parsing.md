@@ -75,7 +75,7 @@ If you want to learn more about:
 
 
 [`close`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader@close():Unit
-[`asCsvReader`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
+[`asCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
 [`CsvReader`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader
 [`CsvReaderOps`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvReaderOps
 [`Set`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Set

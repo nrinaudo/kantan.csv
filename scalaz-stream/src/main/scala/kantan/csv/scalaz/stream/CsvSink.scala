@@ -17,17 +17,19 @@
 package kantan.csv.scalaz.stream
 
 import java.io.Writer
-import kantan.csv.{CsvOutput, CsvWriter, RowEncoder}
+import kantan.csv.{CsvWriter, RowEncoder}
+import kantan.csv.{CsvSink => CSink}
 import kantan.csv.engine.WriterEngine
 import scalaz.concurrent.Task
 import scalaz.stream._
 
 /** Turns instances of `S` into CSV sinks.
   *
-  * Any type `S` that has a implicit instance of [[CsvSink]] in scope will be enriched by the `asCsvSink` method (which
-  * maps to [[sink]]).
+  * Any type `S` that has a implicit instance of [[kantan.csv.CsvSink]] in scope will be enriched by the `asCsvSink`
+  * method (which maps to [[sink]]).
   *
-  * Additionally, any type that has an instance of `CsvOutput` in scope automatically gets an instance of [[CsvSink]].
+  * Additionally, any type that has an instance of `kantan.csv.CsvSink` in scope automatically gets an instance of
+  * [[CsvSink]].
   */
 trait CsvSink[S] extends Serializable {
   def writer(s: S): Writer
@@ -48,7 +50,7 @@ object CsvSink {
                           (implicit e: WriterEngine): Sink[Task, A] =
     CsvSink(CsvWriter[A](writer, sep, header))
 
-  implicit def fromOutput[S: CsvOutput]: CsvSink[S] = new CsvSink[S] {
-    override def writer(s: S) = CsvOutput[S].open(s)
+  implicit def fromOutput[S: CSink]: CsvSink[S] = new CsvSink[S] {
+    override def writer(s: S) = CSink[S].open(s)
   }
 }
