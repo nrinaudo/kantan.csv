@@ -20,8 +20,8 @@ implicitly[kantan.csv.CellDecoder[Int]]
 
 A more complete list of default instances can be found [here](default_instances.html).
 
-And so, when [`asCsvReader`] or [`readCsv`] are asked to turn a row into a [`List`] of elements `A`, it looks for a
-corresponding implicit [`CellDecoder[A]`][`CellDecoder`] and relies on it for decoding:
+And so, when [`asCsvReader`] or [`readCsv`] are asked to turn a row into a [`List`] of elements `A`, they look for a
+corresponding implicit [`CellDecoder[A]`][`CellDecoder`] and rely on it for decoding:
 
 ```tut
 import kantan.csv.ops._

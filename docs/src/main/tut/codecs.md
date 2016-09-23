@@ -13,7 +13,7 @@ encoder and a decoder rolled into one.
 
 We've seen before how to create a [CellEncoder](arbitrary_types_as_cells.html) and a
 [CellDecoder](cells_as_arbitrary_types.html) for joda's [`DateTime`]. [`CellCodec`] allows you to do the same thing, but
-in a single go:
+in one go:
 
 ```tut:silent
 import kantan.csv._

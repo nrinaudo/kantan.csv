@@ -10,10 +10,11 @@ that "can be turned into CSV" with useful methods, such as the oft-used [`asCsvR
 * [`URL`]
 * [`URI`]
 * [`File`]
-* `String`
+* [`String`]
 
-This is done through the [`CsvSource`] type class: any type `A` such that there exists a value of type `CsvSource[A]` in
-the implicit scope will be enriched with [useful methods]({{ site.baseurl }}/api/#kantan.csv.ops$$CsvSourceOps).
+This is done through the [`CsvSource`] type class: any type `A` such that there exists a value of type
+[`CsvSource[A]`][`CsvSource`] in the implicit scope will be enriched with
+[useful methods]({{ site.baseurl }}/api/#kantan.csv.ops.CsvSourceOps).
 
 Implementing your own instances of [`CsvSource`] for types that aren't supported by default is fairly simple.
 
@@ -51,3 +52,4 @@ implicit val stringInput: CsvSource[String] = CsvSource[Reader].contramap(s ⇒ 
 [`Reader`]:https://docs.oracle.com/javase/7/docs/api/java/io/Reader.html
 [`contramap`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvSource@contramap[T](f:T=>S):kantan.csv.CsvSource[T]
 [`contramapResult`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvSource@contramapResult[T](f:T=>kantan.csv.ParseResult[S]):kantan.csv.CsvSource[T]
+[`String`]:https://docs.oracle.com/javase/7/docs/api/java/lang/String.html

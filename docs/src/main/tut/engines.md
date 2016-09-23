@@ -108,7 +108,7 @@ implicit val writerEngine = WriterEngine { (writer: Writer, sep: Char) ⇒
 [opencsv]:http://opencsv.sourceforge.net
 [`ReaderEngine`]:{{ site.baseurl }}/api/#kantan.csv.engine.ReaderEngine
 [`WriterEngine`]:{{ site.baseurl }}/api/#kantan.csv.engine.WriterEngine
-[`CsvReader`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader
+[`CsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]
 [`ReaderEngine.apply`]:{{ site.baseurl }}/api/#kantan.csv.engine.ReaderEngine$@apply(f:(java.io.Reader,Char)=>kantan.csv.CsvReader[kantan.csv.ReadResult[Seq[String]]]):kantan.csv.engine.ReaderEngine
 [`CsvReader.fromResource`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader$@fromResource[I,R](in:I)(open:I=>Iterator[R])(release:I=>Unit):kantan.csv.CsvReader[kantan.csv.ParseResult[R]]
 [`WriterEngine.apply`]:{{ site.baseurl }}/api/#kantan.csv.engine.WriterEngine$@apply(f:(java.io.Writer,Char)=>kantan.csv.CsvWriter[Seq[String]]):kantan.csv.engine.WriterEngine

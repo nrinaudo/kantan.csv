@@ -36,7 +36,7 @@ crusty date / time API.
 Instead of providing a default implementation that is likely going to be incorrect for most people, kantan.csv
 expects an implicit [`DateFormat`] instance in scope, and will decode and encode using that format.
 
-Note that kantan.csv has a joda-time module, a very well thought out alternative to [`Date`].
+Note that kantan.csv has a [joda-time](joda_time.html) module, a very well thought out alternative to [`Date`].
 
 ### `Either`
 
@@ -128,7 +128,7 @@ The following types have an instance of [`CsvSource`] out of the box:
 * `Array[Byte]`
 * `Array[Char`]
 * [`Path`]
-* `String`
+* [`String`]
 * [`URL`]
 * [`URI`]
 

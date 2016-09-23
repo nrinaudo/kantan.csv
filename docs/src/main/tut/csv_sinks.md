@@ -9,7 +9,7 @@ All the encoding tutorials, such as [this](serialising_collections.html) one, ma
 [`CsvSink`] type class.
 
 What happens is, any type `A` such that there exists an implicit instance of [`CsvSink[A]`][`CsvSink`] in scope will
-be enriched with various [useful methods]({{ site.baseurl }}/api/#kantan.csv.ops$$CsvSinkOps) for CSV serialisation.
+be enriched with various [useful methods]({{ site.baseurl }}/api/#kantan.csv.ops.CsvSinkOps) for CSV serialisation.
 Various default implementations are automatically in scope, such as one for [`Writer`] or [`OutputStream`], but the most
 useful one is [`File`].
 

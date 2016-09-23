@@ -41,7 +41,7 @@ val iterator = rawData.asCsvReader[Car](',', true)
 [`asCsvReader`] is explained in some depths [here](rows_as_collections.html), but we're more interested in what we
 can do with our [`CsvReader`].
 
-The first, fairly important thing we can do is [`close`] it if we don't intend to read the whole thing. If we do,
+The first, fairly important thing we can do is `close` it if we don't intend to read the whole thing. If we do,
 however, it will happen automatically and needs not be done explicitly.
 
 Other than that, it looks a lot like any other standard collection. And being an iterator, it's lazy: you can apply
@@ -74,8 +74,8 @@ If you want to learn more about:
 * [error handling when parsing CSV data](error_handling.html)
 
 
-[`close`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader@close():Unit
 [`asCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
-[`CsvReader`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader
-[`CsvReaderOps`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvReaderOps
+[`CsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]
+[`CsvReaderOps`]:{{ site.baseurl }}/api/#kantan.csv.ops.CsvReaderOps
 [`Set`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Set
+[`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package@ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]
