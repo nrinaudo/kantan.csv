@@ -59,10 +59,10 @@ private[csv] class InternalWriter(private val out: Writer, val sep: Char) extend
     var first = true
     for(s ← ss) {
       if(first) first = false
-      else out.write(sep.toInt)
+      else      out.write(sep.toInt)
       safeWrite(s)
     }
-    if(!first) out.write("\r\n") // According to the RFC, \n alone is not valid.
+    /*if(!first)*/ out.write("\r\n") // According to the RFC, \n alone is not valid.
     this
   }
 
