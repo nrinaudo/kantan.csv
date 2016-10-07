@@ -38,5 +38,5 @@ class DerivedRowCodecTests extends FunSuite with GeneratorDrivenPropertyChecks w
 
 
 
-  checkAll("RowCodec[Or[Complex, Simple]]", RowCodecTests[Or[Complex, Simple]].codec[Byte, Float])
+  checkAll("DerivedRowCodec[Or[Complex, Simple]]", RowCodecTests[Or[Complex, Simple]].codec[Byte, Float])
 }

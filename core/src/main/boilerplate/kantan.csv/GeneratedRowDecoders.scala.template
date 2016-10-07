@@ -2,8 +2,10 @@ package kantan.csv
 
 trait GeneratedRowDecoders {
   private def decode[A](ss: Seq[String], i: Int, da: CellDecoder[A]): DecodeResult[A] =
-    if(ss.isDefinedAt(i)) da.decode(ss(i))
-    else                  DecodeResult.outOfBounds(i)
+    if(ss.isDefinedAt(i))   da.decode(ss(i))
+    // Special case, see https://github.com/nrinaudo/kantan.csv/issues/53
+    else if(i == ss.length) da.decode("")
+    else                    DecodeResult.outOfBounds(i)
 
   [#/** Creates a new [[RowDecoder]] from the specified function.
     *
