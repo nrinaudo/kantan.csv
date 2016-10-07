@@ -46,4 +46,12 @@ class RegressionTests extends FunSuite {
     CellEncoder[Either[A, B]]
     ()
   }
+
+  test("Trailing optional cells should decode as expected (https://github.com/nrinaudo/kantan.csv/issues/53)") {
+    import kantan.csv.ops._
+
+    assert("1,a,100\n2,b".unsafeReadCsv[List, (Int, String, Option[Int])](',', false) ==
+      List((1, "a", Some(100)), (2, "b", None))
+    )
+  }
 }

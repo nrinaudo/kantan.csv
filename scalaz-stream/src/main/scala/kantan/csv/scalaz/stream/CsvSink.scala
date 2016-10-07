@@ -25,7 +25,7 @@ import scalaz.stream._
 
 /** Turns instances of `S` into CSV sinks.
   *
-  * Any type `S` that has a implicit instance of [[kantan.csv.CsvSink]] in scope will be enriched by the `asCsvSink`
+  * Any type `S` that has a implicit instance of `kantan.csv.CsvSink` in scope will be enriched by the `asCsvSink`
   * method (which maps to [[sink]]).
   *
   * Additionally, any type that has an instance of `kantan.csv.CsvSink` in scope automatically gets an instance of
