@@ -59,10 +59,6 @@ res3: List[Person] = List(Person(1,Nicolas,true), Person(3,John,false))
 
 This is achieved in an entirely safe way, validated at compile time.
 
-Note that we're using types from a previously unseen package, `kantan.codecs`. This contains a lot of shared code
-between various kantan libraries, and our [`ReadResult`] is simply a type alias for [`Result`] with hard-coded type
-parameters. This can be ignored most of the time, but "advanced" error handling requires us to get closer to the metal.
-
 
 ## Fail if at least one row fails to decode
 When not streaming data, a good option is to fail if a single row fails to decode - turn a
@@ -110,12 +106,12 @@ This strategy is not always possible, but is good to keep in mind for these case
 
 
 [`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List
-[`asUnsafeCsvReader`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$4:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]
+[`asUnsafeCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$2:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]
 [`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package@ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]
 [`Result`]:http://nrinaudo.github.io/kantan.codecs/api/#kantan.codecs.Result
-[`collect`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader@collect[B](f:PartialFunction[A,B]):kantan.csv.CsvReader[B]
-[`filter`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader@filter(p:A=>Boolean):kantan.csv.CsvReader[A]
-[`map`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader@map[B](f:A=>B):kantan.csv.CsvReader[B]
+[`collect`]:http://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.ResourceIterator@collect[B](f:PartialFunction[A,B]):kantan.codecs.ResourceIterator[B]
+[`filter`]:http://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.ResourceIterator@filter(p:A=>Boolean):kantan.codecs.ResourceIterator[A]
+[`map`]:http://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.ResourceIterator@map[B](f:A=>B):kantan.codecs.ResourceIterator[B]
 [`Either`]:http://www.scala-lang.org/api/current/index.html#scala.util.Either
 [`Option`]:http://www.scala-lang.org/api/current/index.html#scala.Option
 [`sequence`]:http://nrinaudo.github.io/kantan.codecs/api/#kantan.codecs.Result$@sequence[F,S,M[X]<:TraversableOnce[X]](rs:M[kantan.codecs.Result[F,S]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[kantan.codecs.Result[F,S]],S,M[S]]):kantan.codecs.Result[F,M[S]]

@@ -49,7 +49,7 @@
       
           <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/ops/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><a href="ToCsvReaderOps.html" class="extype" name="kantan.csv.ops.ToCsvReaderOps">ToCsvReaderOps</a>, <a href="ToCsvRowsOps.html" class="extype" name="kantan.csv.ops.ToCsvRowsOps">ToCsvRowsOps</a>, <a href="ToCsvInputOps.html" class="extype" name="kantan.csv.ops.ToCsvInputOps">ToCsvInputOps</a>, <a href="ToCsvOutputOps.html" class="extype" name="kantan.csv.ops.ToCsvOutputOps">ToCsvOutputOps</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></div>
+          <div class="superTypes hiddenContent"><a href="ToCsvReaderOps.html" class="extype" name="kantan.csv.ops.ToCsvReaderOps">ToCsvReaderOps</a>, <a href="ToCsvRowsOps.html" class="extype" name="kantan.csv.ops.ToCsvRowsOps">ToCsvRowsOps</a>, <a href="ToCsvSourceOps.html" class="extype" name="kantan.csv.ops.ToCsvSourceOps">ToCsvSourceOps</a>, <a href="ToCsvSinkOps.html" class="extype" name="kantan.csv.ops.ToCsvSinkOps">ToCsvSinkOps</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></div>
         </div></div>
         
 
@@ -67,7 +67,7 @@
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="kantan.csv.ops"><span>ops</span></li><li class="in" name="kantan.csv.ops.ToCsvReaderOps"><span>ToCsvReaderOps</span></li><li class="in" name="kantan.csv.ops.ToCsvRowsOps"><span>ToCsvRowsOps</span></li><li class="in" name="kantan.csv.ops.ToCsvInputOps"><span>ToCsvInputOps</span></li><li class="in" name="kantan.csv.ops.ToCsvOutputOps"><span>ToCsvOutputOps</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="kantan.csv.ops"><span>ops</span></li><li class="in" name="kantan.csv.ops.ToCsvReaderOps"><span>ToCsvReaderOps</span></li><li class="in" name="kantan.csv.ops.ToCsvRowsOps"><span>ToCsvRowsOps</span></li><li class="in" name="kantan.csv.ops.ToCsvSourceOps"><span>ToCsvSourceOps</span></li><li class="in" name="kantan.csv.ops.ToCsvSinkOps"><span>ToCsvSinkOps</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -88,46 +88,7 @@
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="kantan.csv.ops.CsvInputOps" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="CsvInputOps[A]extendsAnyVal"></a>
-      <a id="CsvInputOps[A]:CsvInputOps[A]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">class</span>
-      </span>
-      <span class="symbol">
-        <a href="CsvInputOps.html"><span class="name">CsvInputOps</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyVal" class="extype" target="_top">AnyVal</a></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.ops.package@CsvInputOps[A]extendsAnyVal" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Provides useful syntax for types that have implicit instances of <a href="../CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a> in scope.</p><div class="fullcomment"><div class="comment cmt"><p>Provides useful syntax for types that have implicit instances of <a href="../CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a> in scope.</p><p>The most common use case is to turn a value into a <a href="../package.html#CsvReader[A]=kantan.codecs.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a> through <a href="CsvInputOps.html#asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]" class="extmbr" name="kantan.csv.ops.CsvInputOps#asCsvReader">asCsvReader</a>:</p><pre><span class="kw">val</span> f: java.io.File = ???
-f.asCsvReader[<span class="std">List</span>[<span class="std">Int</span>]](<span class="lit">','</span>, <span class="kw">true</span>)</pre><p>A slightly less common use case is to load an entire CSV file in memory through <a href="CsvInputOps.html#readCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[B],C[kantan.csv.ReadResult[B]]]):C[kantan.csv.ReadResult[B]]" class="extmbr" name="kantan.csv.ops.CsvInputOps#readCsv">readCsv</a>:</p><pre><span class="kw">val</span> f: java.io.File = ???
-f.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span class="std">Int</span>]](<span class="lit">','</span>, <span class="kw">true</span>)</pre><p>Unsafe versions of these methods are also available, even if usually advised against.
-</p></div></div>
-    </li><li name="kantan.csv.ops.CsvOutputOps" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="CsvOutputOps[A]extendsAnyVal"></a>
-      <a id="CsvOutputOps[A]:CsvOutputOps[A]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">class</span>
-      </span>
-      <span class="symbol">
-        <a href="CsvOutputOps.html"><span class="name">CsvOutputOps</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyVal" class="extype" target="_top">AnyVal</a></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.ops.package@CsvOutputOps[A]extendsAnyVal" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Provides useful syntax for that types that have implicit instances of <a href="../CsvOutput.html" class="extype" name="kantan.csv.CsvOutput">CsvOutput</a> in scope.</p><div class="fullcomment"><div class="comment cmt"><p>Provides useful syntax for that types that have implicit instances of <a href="../CsvOutput.html" class="extype" name="kantan.csv.CsvOutput">CsvOutput</a> in scope.</p><p>The most common use case is to turn a value into a <a href="../CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a> through <a href="CsvOutputOps.html#asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvOutput[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]" class="extmbr" name="kantan.csv.ops.CsvOutputOps#asCsvWriter">asCsvWriter</a>:</p><pre><span class="kw">val</span> f: java.io.File = ???
-f.asCsvWriter[<span class="std">List</span>[<span class="std">Int</span>]](<span class="lit">','</span>, <span class="kw">true</span>)</pre><p>A slightly less common use case is encode an entire collection to CSV through <a href="CsvOutputOps.html#writeCsv[B](rows:TraversableOnce[B],sep:Char,header:Seq[String])(implicitevidence$2:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvOutput[A],implicite:kantan.csv.engine.WriterEngine):Unit" class="extmbr" name="kantan.csv.ops.CsvOutputOps#writeCsv">writeCsv</a>:</p><pre><span class="kw">val</span> f: java.io.File = ???
-f.writeCsv[<span class="std">List</span>[<span class="std">Int</span>]](<span class="std">List</span>(<span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>), <span class="std">List</span>(<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>)), <span class="lit">','</span>, <span class="kw">true</span>)</pre></div></div>
-    </li><li name="kantan.csv.ops.CsvReaderOps" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+              <ol><li name="kantan.csv.ops.CsvReaderOps" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="CsvReaderOps[A]extendsAnyVal"></a>
       <a id="CsvReaderOps[A]:CsvReaderOps[A]"></a>
       <h4 class="signature">
@@ -143,7 +104,7 @@ f.writeCsv[<span class="std">List</span>[<span class="std">Int</span>]](<span cl
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Provides useful syntax for <code>CsvReader[ReadResult[A]]</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Provides useful syntax for <code>CsvReader[ReadResult[A]]</code>.</p><p>When parsing CSV data, a very common scenario is to get an instance of <a href="../package.html#CsvReader[A]=kantan.codecs.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a> and then use common
+      <p class="shortcomment cmt">Provides useful syntax for <code>CsvReader[ReadResult[A]]</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Provides useful syntax for <code>CsvReader[ReadResult[A]]</code>.</p><p>When parsing CSV data, a very common scenario is to get an instance of <a href="../package.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a> and then use common
 combinators such as <code>map</code> and <code>flatMap</code> on it. This can be awkward when the actual interesting value is
 itself within a <a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a> which also needs to be mapped into. <a href="CsvReaderOps.html" class="extype" name="kantan.csv.ops.CsvReaderOps">CsvReaderOps</a> provides shortcuts, such as:</p><pre><span class="kw">val</span> reader: CsvReader[ReadResult[<span class="std">List</span>[<span class="std">Int</span>]]] = ???
 
@@ -166,40 +127,45 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
       </a>
     </span>
       <p class="shortcomment cmt">Provides useful syntax for collections.</p><div class="fullcomment"><div class="comment cmt"><p>Provides useful syntax for collections.</p><p>The sole purpose of this implicit class is to encode collections as CSV into a string through <a href="CsvRowsOps.html#asCsv(sep:Char,header:Seq[String])(implicitea:kantan.csv.RowEncoder[A],implicite:kantan.csv.engine.WriterEngine):String" class="extmbr" name="kantan.csv.ops.CsvRowsOps#asCsv">asCsv</a>:</p><pre><span class="std">List</span>(<span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>), <span class="std">List</span>(<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>)).asCsv(<span class="lit">','</span>)</pre></div></div>
-    </li><li name="kantan.csv.ops.ToCsvInputOps" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="ToCsvInputOpsextendsAnyRef"></a>
-      <a id="ToCsvInputOps:ToCsvInputOps"></a>
+    </li><li name="kantan.csv.ops.CsvSinkOps" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CsvSinkOps[A]extendsAnyVal"></a>
+      <a id="CsvSinkOps[A]:CsvSinkOps[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">trait</span>
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a href="ToCsvInputOps.html"><span class="name">ToCsvInputOps</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+        <a href="CsvSinkOps.html"><span class="name">CsvSinkOps</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyVal" class="extype" target="_top">AnyVal</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.ops.package@ToCsvInputOpsextendsAnyRef" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.ops.package@CsvSinkOps[A]extendsAnyVal" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
-    </li><li name="kantan.csv.ops.ToCsvOutputOps" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="ToCsvOutputOpsextendsAnyRef"></a>
-      <a id="ToCsvOutputOps:ToCsvOutputOps"></a>
+      <p class="shortcomment cmt">Provides useful syntax for that types that have implicit instances of <a href="../CsvSink.html" class="extype" name="kantan.csv.CsvSink">CsvSink</a> in scope.</p><div class="fullcomment"><div class="comment cmt"><p>Provides useful syntax for that types that have implicit instances of <a href="../CsvSink.html" class="extype" name="kantan.csv.CsvSink">CsvSink</a> in scope.</p><p>The most common use case is to turn a value into a <a href="../CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a> through <a href="CsvSinkOps.html#asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]" class="extmbr" name="kantan.csv.ops.CsvSinkOps#asCsvWriter">asCsvWriter</a>:</p><pre><span class="kw">val</span> f: java.io.File = ???
+f.asCsvWriter[<span class="std">List</span>[<span class="std">Int</span>]](<span class="lit">','</span>, <span class="kw">true</span>)</pre><p>A slightly less common use case is encode an entire collection to CSV through <a href="CsvSinkOps.html#writeCsv[B](rows:TraversableOnce[B],sep:Char,header:Seq[String])(implicitevidence$2:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):Unit" class="extmbr" name="kantan.csv.ops.CsvSinkOps#writeCsv">writeCsv</a>:</p><pre><span class="kw">val</span> f: java.io.File = ???
+f.writeCsv[<span class="std">List</span>[<span class="std">Int</span>]](<span class="std">List</span>(<span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>), <span class="std">List</span>(<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>)), <span class="lit">','</span>, <span class="kw">true</span>)</pre></div></div>
+    </li><li name="kantan.csv.ops.CsvSourceOps" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CsvSourceOps[A]extendsAnyVal"></a>
+      <a id="CsvSourceOps[A]:CsvSourceOps[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">trait</span>
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a href="ToCsvOutputOps.html"><span class="name">ToCsvOutputOps</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+        <a href="CsvSourceOps.html"><span class="name">CsvSourceOps</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyVal" class="extype" target="_top">AnyVal</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.ops.package@ToCsvOutputOpsextendsAnyRef" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.ops.package@CsvSourceOps[A]extendsAnyVal" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Provides useful syntax for types that have implicit instances of <a href="../CsvSource.html" class="extype" name="kantan.csv.CsvSource">CsvSource</a> in scope.</p><div class="fullcomment"><div class="comment cmt"><p>Provides useful syntax for types that have implicit instances of <a href="../CsvSource.html" class="extype" name="kantan.csv.CsvSource">CsvSource</a> in scope.</p><p>The most common use case is to turn a value into a <a href="../package.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a> through <a href="CsvSourceOps.html#asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]" class="extmbr" name="kantan.csv.ops.CsvSourceOps#asCsvReader">asCsvReader</a>:</p><pre><span class="kw">val</span> f: java.io.File = ???
+f.asCsvReader[<span class="std">List</span>[<span class="std">Int</span>]](<span class="lit">','</span>, <span class="kw">true</span>)</pre><p>A slightly less common use case is to load an entire CSV file in memory through <a href="CsvSourceOps.html#readCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[B],C[kantan.csv.ReadResult[B]]]):C[kantan.csv.ReadResult[B]]" class="extmbr" name="kantan.csv.ops.CsvSourceOps#readCsv">readCsv</a>:</p><pre><span class="kw">val</span> f: java.io.File = ???
+f.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span class="std">Int</span>]](<span class="lit">','</span>, <span class="kw">true</span>)</pre><p>Unsafe versions of these methods are also available, even if usually advised against.
+</p></div></div>
     </li><li name="kantan.csv.ops.ToCsvReaderOps" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="ToCsvReaderOpsextendsAnyRef"></a>
       <a id="ToCsvReaderOps:ToCsvReaderOps"></a>
@@ -234,6 +200,40 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
       </a>
     </span>
       
+    </li><li name="kantan.csv.ops.ToCsvSinkOps" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ToCsvSinkOpsextendsAnyRef"></a>
+      <a id="ToCsvSinkOps:ToCsvSinkOps"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="ToCsvSinkOps.html"><span class="name">ToCsvSinkOps</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#kantan.csv.ops.package@ToCsvSinkOpsextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="kantan.csv.ops.ToCsvSourceOps" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ToCsvSourceOpsextendsAnyRef"></a>
+      <a id="ToCsvSourceOps:ToCsvSourceOps"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="ToCsvSourceOps.html"><span class="name">ToCsvSourceOps</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#kantan.csv.ops.package@ToCsvSourceOpsextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li></ol>
             </div>
 
@@ -241,41 +241,7 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
 
         <div id="values" class="values members">
               <h3>Value Members</h3>
-              <ol><li name="kantan.csv.ops.csvInput" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="csvInput"></a>
-      <a id="csvInput:csvInput"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a href="csvInput$.html"><span class="name">csvInput</span></a><span class="result"> extends <a href="ToCsvInputOps.html" class="extype" name="kantan.csv.ops.ToCsvInputOps">ToCsvInputOps</a></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.ops.package@csvInput" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="kantan.csv.ops.csvOutput" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="csvOutput"></a>
-      <a id="csvOutput:csvOutput"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a href="csvOutput$.html"><span class="name">csvOutput</span></a><span class="result"> extends <a href="ToCsvOutputOps.html" class="extype" name="kantan.csv.ops.ToCsvOutputOps">ToCsvOutputOps</a></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.ops.package@csvOutput" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="kantan.csv.ops.csvReader" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+              <ol><li name="kantan.csv.ops.csvReader" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="csvReader"></a>
       <a id="csvReader:csvReader"></a>
       <h4 class="signature">
@@ -309,40 +275,74 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
       </a>
     </span>
       
-    </li><li name="kantan.csv.ops.ToCsvInputOps#toCsvInputOps" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="toCsvInputOps[A](a:A):kantan.csv.ops.CsvInputOps[A]"></a>
-      <a id="toCsvInputOps[A](A):CsvInputOps[A]"></a>
+    </li><li name="kantan.csv.ops.sink" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="sink"></a>
+      <a id="sink:sink"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="sink$.html"><span class="name">sink</span></a><span class="result"> extends <a href="ToCsvSinkOps.html" class="extype" name="kantan.csv.ops.ToCsvSinkOps">ToCsvSinkOps</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#kantan.csv.ops.package@sink" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="kantan.csv.ops.source" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="source"></a>
+      <a id="source:source"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="source$.html"><span class="name">source</span></a><span class="result"> extends <a href="ToCsvSourceOps.html" class="extype" name="kantan.csv.ops.ToCsvSourceOps">ToCsvSourceOps</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#kantan.csv.ops.package@source" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="kantan.csv.ops.ToCsvSourceOps#toCsvInputOps" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toCsvInputOps[A](a:A):kantan.csv.ops.CsvSourceOps[A]"></a>
+      <a id="toCsvInputOps[A](A):CsvSourceOps[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toCsvInputOps</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="kantan.csv.ops.ToCsvInputOps.toCsvInputOps.A">A</span></span>)</span><span class="result">: <a href="CsvInputOps.html" class="extype" name="kantan.csv.ops.CsvInputOps">CsvInputOps</a>[<span class="extype" name="kantan.csv.ops.ToCsvInputOps.toCsvInputOps.A">A</span>]</span>
+        <span class="name">toCsvInputOps</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="kantan.csv.ops.ToCsvSourceOps.toCsvInputOps.A">A</span></span>)</span><span class="result">: <a href="CsvSourceOps.html" class="extype" name="kantan.csv.ops.CsvSourceOps">CsvSourceOps</a>[<span class="extype" name="kantan.csv.ops.ToCsvSourceOps.toCsvInputOps.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.ops.package@toCsvInputOps[A](a:A):kantan.csv.ops.CsvInputOps[A]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.ops.package@toCsvInputOps[A](a:A):kantan.csv.ops.CsvSourceOps[A]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ToCsvInputOps.html" class="extype" name="kantan.csv.ops.ToCsvInputOps">ToCsvInputOps</a></dd></dl></div>
-    </li><li name="kantan.csv.ops.ToCsvOutputOps#toCsvOutputOps" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="toCsvOutputOps[A](a:A)(implicitoa:kantan.csv.CsvOutput[A]):kantan.csv.ops.CsvOutputOps[A]"></a>
-      <a id="toCsvOutputOps[A](A)(CsvOutput[A]):CsvOutputOps[A]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ToCsvSourceOps.html" class="extype" name="kantan.csv.ops.ToCsvSourceOps">ToCsvSourceOps</a></dd></dl></div>
+    </li><li name="kantan.csv.ops.ToCsvSinkOps#toCsvOutputOps" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toCsvOutputOps[A](a:A):kantan.csv.ops.CsvSinkOps[A]"></a>
+      <a id="toCsvOutputOps[A](A):CsvSinkOps[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toCsvOutputOps</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="kantan.csv.ops.ToCsvOutputOps.toCsvOutputOps.A">A</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="oa">oa: <a href="../CsvOutput.html" class="extype" name="kantan.csv.CsvOutput">CsvOutput</a>[<span class="extype" name="kantan.csv.ops.ToCsvOutputOps.toCsvOutputOps.A">A</span>]</span>)</span><span class="result">: <a href="CsvOutputOps.html" class="extype" name="kantan.csv.ops.CsvOutputOps">CsvOutputOps</a>[<span class="extype" name="kantan.csv.ops.ToCsvOutputOps.toCsvOutputOps.A">A</span>]</span>
+        <span class="name">toCsvOutputOps</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="kantan.csv.ops.ToCsvSinkOps.toCsvOutputOps.A">A</span></span>)</span><span class="result">: <a href="CsvSinkOps.html" class="extype" name="kantan.csv.ops.CsvSinkOps">CsvSinkOps</a>[<span class="extype" name="kantan.csv.ops.ToCsvSinkOps.toCsvOutputOps.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.ops.package@toCsvOutputOps[A](a:A)(implicitoa:kantan.csv.CsvOutput[A]):kantan.csv.ops.CsvOutputOps[A]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.ops.package@toCsvOutputOps[A](a:A):kantan.csv.ops.CsvSinkOps[A]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ToCsvOutputOps.html" class="extype" name="kantan.csv.ops.ToCsvOutputOps">ToCsvOutputOps</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ToCsvSinkOps.html" class="extype" name="kantan.csv.ops.ToCsvSinkOps">ToCsvSinkOps</a></dd></dl></div>
     </li><li name="kantan.csv.ops.ToCsvReaderOps#toCsvReaderOps" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toCsvReaderOps[A](results:kantan.csv.CsvReader[kantan.csv.ReadResult[A]]):kantan.csv.ops.CsvReaderOps[A]"></a>
       <a id="toCsvReaderOps[A](CsvReader[ReadResult[A]]):CsvReaderOps[A]"></a>
@@ -352,7 +352,7 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toCsvReaderOps</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="results">results: <a href="../package.html#CsvReader[A]=kantan.codecs.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.ToCsvReaderOps.toCsvReaderOps.A">A</span>]]</span>)</span><span class="result">: <a href="CsvReaderOps.html" class="extype" name="kantan.csv.ops.CsvReaderOps">CsvReaderOps</a>[<span class="extype" name="kantan.csv.ops.ToCsvReaderOps.toCsvReaderOps.A">A</span>]</span>
+        <span class="name">toCsvReaderOps</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="results">results: <a href="../package.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package.html#ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]" class="extmbr" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.ToCsvReaderOps.toCsvReaderOps.A">A</span>]]</span>)</span><span class="result">: <a href="CsvReaderOps.html" class="extype" name="kantan.csv.ops.CsvReaderOps">CsvReaderOps</a>[<span class="extype" name="kantan.csv.ops.ToCsvReaderOps.toCsvReaderOps.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#kantan.csv.ops.package@toCsvReaderOps[A](results:kantan.csv.CsvReader[kantan.csv.ReadResult[A]]):kantan.csv.ops.CsvReaderOps[A]" title="Permalink" target="_top">
@@ -390,10 +390,10 @@ reader.mapResult(_.sum).filterResult(_ % <span class="num">2</span> == <span cla
               <h3>Inherited from <a href="ToCsvReaderOps.html" class="extype" name="kantan.csv.ops.ToCsvReaderOps">ToCsvReaderOps</a></h3>
             </div><div class="parent" name="kantan.csv.ops.ToCsvRowsOps">
               <h3>Inherited from <a href="ToCsvRowsOps.html" class="extype" name="kantan.csv.ops.ToCsvRowsOps">ToCsvRowsOps</a></h3>
-            </div><div class="parent" name="kantan.csv.ops.ToCsvInputOps">
-              <h3>Inherited from <a href="ToCsvInputOps.html" class="extype" name="kantan.csv.ops.ToCsvInputOps">ToCsvInputOps</a></h3>
-            </div><div class="parent" name="kantan.csv.ops.ToCsvOutputOps">
-              <h3>Inherited from <a href="ToCsvOutputOps.html" class="extype" name="kantan.csv.ops.ToCsvOutputOps">ToCsvOutputOps</a></h3>
+            </div><div class="parent" name="kantan.csv.ops.ToCsvSourceOps">
+              <h3>Inherited from <a href="ToCsvSourceOps.html" class="extype" name="kantan.csv.ops.ToCsvSourceOps">ToCsvSourceOps</a></h3>
+            </div><div class="parent" name="kantan.csv.ops.ToCsvSinkOps">
+              <h3>Inherited from <a href="ToCsvSinkOps.html" class="extype" name="kantan.csv.ops.ToCsvSinkOps">ToCsvSinkOps</a></h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">

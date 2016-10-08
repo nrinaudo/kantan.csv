@@ -83,6 +83,6 @@ If you want to learn more about:
 [shapeless]:https://github.com/milessabin/shapeless
 [`CsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter
 [`RowEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]
-[`caseEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.RowEncoder$@caseEncoder[C,A1,A2,A3](i1:Int,i2:Int,i3:Int)(f:C=>Option[(A1,A2,A3)])(implicitevidence$5:kantan.csv.CellEncoder[A1],implicitevidence$6:kantan.csv.CellEncoder[A2],implicitevidence$7:kantan.csv.CellEncoder[A3]):kantan.csv.RowEncoder[C]
-[`TraversableOnce`]:http://www.scala-lang.org/api/current/index.html#scala.collection.List
-[`asCsv`]:{{ site.baseurl }}/api/#kantan.csv.ops$$TraversableOnceOps@asCsv(sep:Char,header:Seq[String])(implicitengine:kantan.csv.engine.WriterEngine,implicitae:kantan.csv.RowEncoder[A]):String
+[`caseEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.RowEncoder$@caseEncoder[C,A1,A2,A3,A4](i1:Int,i2:Int,i3:Int,i4:Int)(f:C=>Option[(A1,A2,A3,A4)])(implicitevidence$513:kantan.csv.CellEncoder[A1],implicitevidence$514:kantan.csv.CellEncoder[A2],implicitevidence$515:kantan.csv.CellEncoder[A3],implicitevidence$516:kantan.csv.CellEncoder[A4]):kantan.csv.RowEncoder[C]
+[`TraversableOnce`]:http://www.scala-lang.org/api/current/index.html#scala.collection.TraversableOnce
+[`asCsv`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvRowsOps@asCsv(sep:Char,header:Seq[String])(implicitea:kantan.csv.RowEncoder[A],implicite:kantan.csv.engine.WriterEngine):String

@@ -13,7 +13,7 @@ encoder and a decoder rolled into one.
 
 We've seen before how to create a [CellEncoder](arbitrary_types_as_cells.html) and a
 [CellDecoder](cells_as_arbitrary_types.html) for joda's [`DateTime`]. [`CellCodec`] allows you to do the same thing, but
-in a single go:
+in one go:
 
 ```scala
 import kantan.csv._
@@ -35,12 +35,12 @@ scala> val dates = List(
      |   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
      | ).asCsv(',')
 dates: String =
-"2016-09-11,2016-09-12
-2016-09-13,2016-09-14
+"2016-10-08,2016-10-09
+2016-10-10,2016-10-11
 "
 
 scala> dates.readCsv[List, List[DateTime]](',', false)
-res1: List[kantan.csv.ReadResult[List[org.joda.time.DateTime]]] = List(Success(List(2016-09-11T00:00:00.000+02:00, 2016-09-12T00:00:00.000+02:00)), Success(List(2016-09-13T00:00:00.000+02:00, 2016-09-14T00:00:00.000+02:00)))
+res1: List[kantan.csv.ReadResult[List[org.joda.time.DateTime]]] = List(Success(List(2016-10-08T00:00:00.000+02:00, 2016-10-09T00:00:00.000+02:00)), Success(List(2016-10-10T00:00:00.000+02:00, 2016-10-11T00:00:00.000+02:00)))
 ```
 
 

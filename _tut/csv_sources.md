@@ -10,25 +10,26 @@ that "can be turned into CSV" with useful methods, such as the oft-used [`asCsvR
 * [`URL`]
 * [`URI`]
 * [`File`]
-* `String`
+* [`String`]
 
-This is done through the [`CsvInput`] type class: any type `A` such that there exists a value of type `CsvInput[A]` in
-the implicit scope will be enriched with [useful methods]({{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps).
+This is done through the [`CsvSource`] type class: any type `A` such that there exists a value of type
+[`CsvSource[A]`][`CsvSource`] in the implicit scope will be enriched with
+[useful methods]({{ site.baseurl }}/api/#kantan.csv.ops.CsvSourceOps).
 
-Implementing your own instances of [`CsvInput`] for types that aren't supported by default is fairly simple.
+Implementing your own instances of [`CsvSource`] for types that aren't supported by default is fairly simple.
 
 ## Implementation from scratch
-Reduced to its simplest expression, a [`CsvInput`] is essentially a `A ⇒ ParseResult[Reader]` - that is, a function
+Reduced to its simplest expression, a [`CsvSource`] is essentially a `A ⇒ ParseResult[Reader]` - that is, a function
 that takes an `A` and turns it into a [`Reader`], with the possibility of safe failure encoded in [`ParseResult`].
 
-If you can write such a function, you can trivially turn it into a valid instance of [`CsvInput`] - for example,
+If you can write such a function, you can trivially turn it into a valid instance of [`CsvSource`] - for example,
 strings:
 
 ```scala
 import kantan.csv._
 import java.io._
 
-implicit val stringInput: CsvInput[String] = CsvInput.from(s ⇒ ParseResult(new StringReader(s)))
+implicit val stringInput: CsvSource[String] = CsvSource.from(s ⇒ ParseResult(new StringReader(s)))
 ```
 
 
@@ -38,17 +39,17 @@ has an instance. This is achieved either through [`contramap`] (if the transform
 [`contramapResult`] (if, as with most IO-related things, it can fail). For example:
 
 ```scala
-implicit val stringInput: CsvInput[String] = CsvInput[Reader].contramap(s ⇒ new StringReader(s))
+implicit val stringInput: CsvSource[String] = CsvSource[Reader].contramap(s ⇒ new StringReader(s))
 ```
 
 
-[`CsvInput`]:{{ site.baseurl }}/api/#kantan.csv.CsvInput
+[`CsvSource`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvWriter
 [`ParseResult`]:{{ site.baseurl }}/api/#kantan.csv.package@ParseResult[A]=kantan.codecs.Result[kantan.csv.ParseError,A]
-[`asCsvReader`]:{{ site.baseurl }}/api/#kantan.csv.ops$$CsvInputOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
+[`asCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
 [`URL`]:https://docs.oracle.com/javase/7/docs/api/java/net/URL.html
 [`URI`]:https://docs.oracle.com/javase/7/docs/api/java/net/URI.html
 [`File`]:https://docs.oracle.com/javase/7/docs/api/java/io/File.html
 [`Reader`]:https://docs.oracle.com/javase/7/docs/api/java/io/Reader.html
-
-[`contramap`]:/api/#kantan.csv.CsvInput@contramap[T](f:T=>S):kantan.csv.CsvInput[T]
-[`contramapResult`]:/api/#kantan.csv.CsvInput@contramapResult[T](f:T=>kantan.csv.ParseResult[S]):kantan.csv.CsvInput[T]
+[`contramap`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvSource@contramap[T](f:T=>S):kantan.csv.CsvSource[T]
+[`contramapResult`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvSource@contramapResult[T](f:T=>kantan.csv.ParseResult[S]):kantan.csv.CsvSource[T]
+[`String`]:https://docs.oracle.com/javase/7/docs/api/java/lang/String.html

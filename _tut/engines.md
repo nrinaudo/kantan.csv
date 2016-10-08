@@ -16,7 +16,7 @@ hood.
 The [opencsv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-opencsv" % "0.1.14"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-opencsv" % "0.1.15"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -30,7 +30,7 @@ import kantan.csv.engine.opencsv._
 The [commons csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.1.14"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.1.15"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -44,7 +44,7 @@ import kantan.csv.engine.commons._
 The [jackson csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.1.14"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.1.15"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -87,7 +87,7 @@ import kantan.csv.engine._
 import kantan.csv._
 
 implicit val readerEngine = ReaderEngine { (in: Reader, sep: Char) ⇒
-  kantan.codecs.ResourceIterator.fromIterator(EasyCSV.read(in, sep))
+  kantan.codecs.resource.ResourceIterator.fromIterator(EasyCSV.read(in, sep))
 }
 ```
 
@@ -108,7 +108,7 @@ implicit val writerEngine = WriterEngine { (writer: Writer, sep: Char) ⇒
 [opencsv]:http://opencsv.sourceforge.net
 [`ReaderEngine`]:{{ site.baseurl }}/api/#kantan.csv.engine.ReaderEngine
 [`WriterEngine`]:{{ site.baseurl }}/api/#kantan.csv.engine.WriterEngine
-[`CsvReader`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader
+[`CsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]
 [`ReaderEngine.apply`]:{{ site.baseurl }}/api/#kantan.csv.engine.ReaderEngine$@apply(f:(java.io.Reader,Char)=>kantan.csv.CsvReader[kantan.csv.ReadResult[Seq[String]]]):kantan.csv.engine.ReaderEngine
 [`CsvReader.fromResource`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader$@fromResource[I,R](in:I)(open:I=>Iterator[R])(release:I=>Unit):kantan.csv.CsvReader[kantan.csv.ParseResult[R]]
 [`WriterEngine.apply`]:{{ site.baseurl }}/api/#kantan.csv.engine.WriterEngine$@apply(f:(java.io.Writer,Char)=>kantan.csv.CsvWriter[Seq[String]]):kantan.csv.engine.WriterEngine

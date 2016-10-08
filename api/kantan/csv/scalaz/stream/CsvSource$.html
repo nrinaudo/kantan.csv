@@ -173,7 +173,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="reader">reader: ⇒ <a href="../../package.html#CsvReader[A]=kantan.codecs.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="kantan.csv.scalaz.stream.CsvSource.apply.A">A</span>]</span>)</span><span class="result">: <a href="http://docs.typelevel.org/api/scalaz-stream/stable/0.8.4/doc/index.html#scalaz.stream.Process" class="extype" target="_top">Process</a>[<span class="extype" name="scalaz.concurrent.Task">Task</span>, <span class="extype" name="kantan.csv.scalaz.stream.CsvSource.apply.A">A</span>]</span>
+        <span class="name">apply</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="reader">reader: ⇒ <a href="../../package.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="kantan.csv.scalaz.stream.CsvSource.apply.A">A</span>]</span>)</span><span class="result">: <a href="http://docs.typelevel.org/api/scalaz-stream/stable/0.8.4/doc/index.html#scalaz.stream.Process" class="extype" target="_top">Process</a>[<span class="extype" name="scalaz.concurrent.Task">Task</span>, <span class="extype" name="kantan.csv.scalaz.stream.CsvSource.apply.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#kantan.csv.scalaz.stream.CsvSource$@apply[A](reader:=&gt;kantan.csv.CsvReader[A]):scalaz.stream.Process[scalaz.concurrent.Task,A]" title="Permalink" target="_top">
@@ -182,18 +182,18 @@
     </span>
       
     </li><li name="kantan.csv.scalaz.stream.CsvSource#apply" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="apply[A](implicitsa:kantan.csv.scalaz.stream.CsvSource[A]):kantan.csv.scalaz.stream.CsvSource[A]"></a>
+      <a id="apply[A](implicitev:kantan.csv.scalaz.stream.CsvSource[A]):kantan.csv.scalaz.stream.CsvSource[A]"></a>
       <a id="apply[A](CsvSource[A]):CsvSource[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
-        <span class="modifier"></span>
+        <span class="modifier">macro </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="sa">sa: <a href="CsvSource.html" class="extype" name="kantan.csv.scalaz.stream.CsvSource">CsvSource</a>[<span class="extype" name="kantan.csv.scalaz.stream.CsvSource.apply.A">A</span>]</span>)</span><span class="result">: <a href="CsvSource.html" class="extype" name="kantan.csv.scalaz.stream.CsvSource">CsvSource</a>[<span class="extype" name="kantan.csv.scalaz.stream.CsvSource.apply.A">A</span>]</span>
+        <span class="name">apply</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <a href="CsvSource.html" class="extype" name="kantan.csv.scalaz.stream.CsvSource">CsvSource</a>[<span class="extype" name="kantan.csv.scalaz.stream.CsvSource.apply.A">A</span>]</span>)</span><span class="result">: <a href="CsvSource.html" class="extype" name="kantan.csv.scalaz.stream.CsvSource">CsvSource</a>[<span class="extype" name="kantan.csv.scalaz.stream.CsvSource.apply.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.scalaz.stream.CsvSource$@apply[A](implicitsa:kantan.csv.scalaz.stream.CsvSource[A]):kantan.csv.scalaz.stream.CsvSource[A]" title="Permalink" target="_top">
+      <a href="../../../../index.html#kantan.csv.scalaz.stream.CsvSource$@apply[A](implicitev:kantan.csv.scalaz.stream.CsvSource[A]):kantan.csv.scalaz.stream.CsvSource[A]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -296,18 +296,18 @@
               
         </dd></dl></div>
     </li><li name="kantan.csv.scalaz.stream.CsvSource#fromInput" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="fromInput[S](implicitis:kantan.csv.CsvInput[S]):kantan.csv.scalaz.stream.CsvSource[S]"></a>
-      <a id="fromInput[S](CsvInput[S]):CsvSource[S]"></a>
+      <a id="fromInput[S](implicitevidence$4:kantan.csv.CsvSource[S]):kantan.csv.scalaz.stream.CsvSource[S]"></a>
+      <a id="fromInput[S](csv.CsvSource[S]):CsvSource[S]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">fromInput</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="is">is: <a href="../../CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a>[<span class="extype" name="kantan.csv.scalaz.stream.CsvSource.fromInput.S">S</span>]</span>)</span><span class="result">: <a href="CsvSource.html" class="extype" name="kantan.csv.scalaz.stream.CsvSource">CsvSource</a>[<span class="extype" name="kantan.csv.scalaz.stream.CsvSource.fromInput.S">S</span>]</span>
+        <span class="name">fromInput</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../../CsvSource.html" class="extype" name="kantan.csv.CsvSource">csv.CsvSource</a>[<span class="extype" name="kantan.csv.scalaz.stream.CsvSource.fromInput.S">S</span>]</span>)</span><span class="result">: <a href="CsvSource.html" class="extype" name="kantan.csv.scalaz.stream.CsvSource">CsvSource</a>[<span class="extype" name="kantan.csv.scalaz.stream.CsvSource.fromInput.S">S</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.scalaz.stream.CsvSource$@fromInput[S](implicitis:kantan.csv.CsvInput[S]):kantan.csv.scalaz.stream.CsvSource[S]" title="Permalink" target="_top">
+      <a href="../../../../index.html#kantan.csv.scalaz.stream.CsvSource$@fromInput[S](implicitevidence$4:kantan.csv.CsvSource[S]):kantan.csv.scalaz.stream.CsvSource[S]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>

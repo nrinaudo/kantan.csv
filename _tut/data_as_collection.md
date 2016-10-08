@@ -71,7 +71,7 @@ If you want to learn more about:
 [`Set`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Set
 [`Map`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Map
 [`Vector`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Vector
-[`readCsv`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops$$CsvInputOps@readCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$5:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[B],C[kantan.csv.ReadResult[B]]]):C[kantan.csv.ReadResult[B]]
-[`unsafeReadCsv`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops$$CsvInputOps@unsafeReadCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$6:kantan.csv.RowDecoder[B],implicitai:kantan.csv.CsvInput[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,B,C[B]]):C[B]
+[`readCsv`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@readCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[B],C[kantan.csv.ReadResult[B]]]):C[kantan.csv.ReadResult[B]]
+[`unsafeReadCsv`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@unsafeReadCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$4:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,B,C[B]]):C[B]
 [`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package@ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]
 [`CanBuildFrom`]:http://www.scala-lang.org/api/current/index.html#scala.collection.generic.CanBuildFrom

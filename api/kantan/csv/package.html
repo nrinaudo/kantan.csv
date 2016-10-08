@@ -199,46 +199,8 @@ into more complex instances of <a href="#RowEncoder[A]=kantan.codecs.Encoder[Seq
       </a>
     </span>
       <p class="shortcomment cmt">All default <a href="#CellEncoder[A]=kantan.codecs.Encoder[String,A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.CellEncoder">CellEncoder</a> instances.</p>
-    </li><li name="kantan.csv.CsvInput" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="CsvInput[-S]extendsSerializable"></a>
-      <a id="CsvInput[-S]:CsvInput[S]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">trait</span>
-      </span>
-      <span class="symbol">
-        <a href="CsvInput.html"><span class="name">CsvInput</span></a><span class="tparams">[<span name="S">-S</span>]</span><span class="result"> extends <span class="extype" name="java.io.Serializable">Serializable</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.package@CsvInput[-S]extendsSerializable" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Turns instances of <code>S</code> into valid sources of CSV data.</p><div class="fullcomment"><div class="comment cmt"><p>Turns instances of <code>S</code> into valid sources of CSV data.</p><p>Instances of <a href="CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a> are rarely used directly. The preferred, idiomatic way is to use the implicit syntax
-provided by <a href="ops/CsvInputOps.html" class="extype" name="kantan.csv.ops.CsvInputOps">CsvInputOps</a>, brought in scope by importing <code>kantan.csv.ops._</code>.</p><p>See the <a href="CsvInput$.html" class="extype" name="kantan.csv.CsvInput">companion object</a> for default implementations and construction methods.
-</p></div></div>
-    </li><li name="kantan.csv.CsvOutput" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="CsvOutput[-S]extendsSerializable"></a>
-      <a id="CsvOutput[-S]:CsvOutput[S]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">trait</span>
-      </span>
-      <span class="symbol">
-        <a href="CsvOutput.html"><span class="name">CsvOutput</span></a><span class="tparams">[<span name="S">-S</span>]</span><span class="result"> extends <span class="extype" name="java.io.Serializable">Serializable</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.package@CsvOutput[-S]extendsSerializable" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Type class for all types that can be turned into <a href="CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a> instances.</p><div class="fullcomment"><div class="comment cmt"><p>Type class for all types that can be turned into <a href="CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a> instances.</p><p>Instances of <a href="CsvOutput.html" class="extype" name="kantan.csv.CsvOutput">CsvOutput</a> are rarely used directly. The preferred, idiomatic way is to use the implicit syntax
-provided by <a href="ops/csvOutput$.html" class="extype" name="kantan.csv.ops.csvOutput">CsvOutputOps</a>, brought in scope by importing <code>kantan.csv.ops._</code>.</p><p>See the <a href="CsvOutput.html" class="extype" name="kantan.csv.CsvOutput">companion object</a> for default implementations and construction methods.
-</p></div></div>
     </li><li name="kantan.csv.CsvReader" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="CsvReader[A]=kantan.codecs.ResourceIterator[A]"></a>
+      <a id="CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]"></a>
       <a id="CsvReader[A]:CsvReader[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -246,14 +208,52 @@ provided by <a href="ops/csvOutput$.html" class="extype" name="kantan.csv.ops.cs
         <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">CsvReader</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.ResourceIterator" class="extype" target="_top">ResourceIterator</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
+        <span class="name">CsvReader</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.resource.ResourceIterator" class="extype" target="_top">ResourceIterator</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.package@CsvReader[A]=kantan.codecs.ResourceIterator[A]" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.package@CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
+    </li><li name="kantan.csv.CsvSink" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="CsvSink[-S]extendsSerializable"></a>
+      <a id="CsvSink[-S]:CsvSink[S]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="CsvSink.html"><span class="name">CsvSink</span></a><span class="tparams">[<span name="S">-S</span>]</span><span class="result"> extends <span class="extype" name="java.io.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.package@CsvSink[-S]extendsSerializable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Type class for all types that can be turned into <a href="CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a> instances.</p><div class="fullcomment"><div class="comment cmt"><p>Type class for all types that can be turned into <a href="CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a> instances.</p><p>Instances of <a href="CsvSink.html" class="extype" name="kantan.csv.CsvSink">CsvSink</a> are rarely used directly. The preferred, idiomatic way is to use the implicit syntax
+provided by <a href="ops/sink$.html" class="extype" name="kantan.csv.ops.sink">CsvSinkOps</a>, brought in scope by importing <code>kantan.csv.ops._</code>.</p><p>See the <a href="CsvSink.html" class="extype" name="kantan.csv.CsvSink">companion object</a> for default implementations and construction methods.
+</p></div></div>
+    </li><li name="kantan.csv.CsvSource" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="CsvSource[-S]extendsSerializable"></a>
+      <a id="CsvSource[-S]:CsvSource[S]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="CsvSource.html"><span class="name">CsvSource</span></a><span class="tparams">[<span name="S">-S</span>]</span><span class="result"> extends <span class="extype" name="java.io.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.package@CsvSource[-S]extendsSerializable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Turns instances of <code>S</code> into valid sources of CSV data.</p><div class="fullcomment"><div class="comment cmt"><p>Turns instances of <code>S</code> into valid sources of CSV data.</p><p>Instances of <a href="CsvSource.html" class="extype" name="kantan.csv.CsvSource">CsvSource</a> are rarely used directly. The preferred, idiomatic way is to use the implicit syntax
+provided by <a href="ops/CsvSourceOps.html" class="extype" name="kantan.csv.ops.CsvSourceOps">CsvSourceOps</a>, brought in scope by importing <code>kantan.csv.ops._</code>.</p><p>See the <a href="CsvSource$.html" class="extype" name="kantan.csv.CsvSource">companion object</a> for default implementations and construction methods.
+</p></div></div>
     </li><li name="kantan.csv.CsvWriter" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="CsvWriter[A]extendsCloseable"></a>
       <a id="CsvWriter[A]:CsvWriter[A]"></a>
@@ -378,19 +378,19 @@ useful Scala types.</p><p>Failure cases are all encoded as <a href="DecodeError.
       </a>
     </span>
       
-    </li><li name="kantan.csv.LowPriorityCsvInputs" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="LowPriorityCsvInputsextendsAnyRef"></a>
-      <a id="LowPriorityCsvInputs:LowPriorityCsvInputs"></a>
+    </li><li name="kantan.csv.LowPriorityCsvSourceInstances" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="LowPriorityCsvSourceInstancesextendsAnyRef"></a>
+      <a id="LowPriorityCsvSourceInstances:LowPriorityCsvSourceInstances"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="LowPriorityCsvInputs.html"><span class="name">LowPriorityCsvInputs</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+        <a href="LowPriorityCsvSourceInstances.html"><span class="name">LowPriorityCsvSourceInstances</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.package@LowPriorityCsvInputsextendsAnyRef" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.package@LowPriorityCsvSourceInstancesextendsAnyRef" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -522,7 +522,7 @@ bound or expected as an implicit parameter.
       </a>
     </span>
       <p class="shortcomment cmt">Describes how to decode CSV rows into specific types.</p><div class="fullcomment"><div class="comment cmt"><p>Describes how to decode CSV rows into specific types.</p><p>All types <code>A</code> such that there exists an implicit instance of <code>RowDecoder[A]</code> in scope can be decoded from CSV
-rows by functions such as <a href="CsvInput$.html#reader:kantan.csv.CsvInput[java.io.Reader]" class="extmbr" name="kantan.csv.CsvInput#reader">CsvInput.reader</a> or <a href="CsvInput.html#read[C[_],A](s:S,sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[A],C[kantan.csv.ReadResult[A]]]):C[kantan.csv.ReadResult[A]]" class="extmbr" name="kantan.csv.CsvInput#read">CsvInput.read</a>.</p><p>See the <a href="RowDecoder$.html" class="extype" name="kantan.csv.RowDecoder">companion object</a> for creation and summoning methods.
+rows by functions such as <a href="CsvSource.html#reader[A](s:S,sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[A]]" class="extmbr" name="kantan.csv.CsvSource#reader">CsvSource.reader</a> or <a href="CsvSource.html#read[C[_],A](s:S,sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[A],C[kantan.csv.ReadResult[A]]]):C[kantan.csv.ReadResult[A]]" class="extmbr" name="kantan.csv.CsvSource#read">CsvSource.read</a>.</p><p>See the <a href="RowDecoder$.html" class="extype" name="kantan.csv.RowDecoder">companion object</a> for creation and summoning methods.
 </p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p>kantan.codecs.Decoder</p></span></dd></dl></div>
     </li><li name="kantan.csv.RowDecoderInstances" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="RowDecoderInstancesextendsAnyRef"></a>
@@ -558,7 +558,7 @@ rows by functions such as <a href="CsvInput$.html#reader:kantan.csv.CsvInput[jav
       </a>
     </span>
       <p class="shortcomment cmt">Describes how to encode values of a specific type to CSV rows.</p><div class="fullcomment"><div class="comment cmt"><p>Describes how to encode values of a specific type to CSV rows.</p><p>All types <code>A</code> such that there exists an implicit instance of <code>RowEncoder[A]</code> in scope can be encoded to CSV
-rows by functions such as <a href="CsvOutput$.html#writer:kantan.csv.CsvOutput[java.io.Writer]" class="extmbr" name="kantan.csv.CsvOutput#writer">CsvOutput.writer</a> or <a href="CsvOutput.html#write[A](s:S,rows:TraversableOnce[A],sep:Char,header:Seq[String])(implicitevidence$2:kantan.csv.RowEncoder[A],implicite:kantan.csv.engine.WriterEngine):Unit" class="extmbr" name="kantan.csv.CsvOutput#write">CsvOutput.write</a>.</p><p>See the <a href="RowEncoder$.html" class="extype" name="kantan.csv.RowEncoder">companion object</a> for creation and summoning methods.
+rows by functions such as <a href="CsvSink.html#writer[A](s:S,sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[A]" class="extmbr" name="kantan.csv.CsvSink#writer">CsvSink.writer</a> or <a href="CsvSink.html#write[A](s:S,rows:TraversableOnce[A],sep:Char,header:Seq[String])(implicitevidence$2:kantan.csv.RowEncoder[A],implicite:kantan.csv.engine.WriterEngine):Unit" class="extmbr" name="kantan.csv.CsvSink#write">CsvSink.write</a>.</p><p>See the <a href="RowEncoder$.html" class="extype" name="kantan.csv.RowEncoder">companion object</a> for creation and summoning methods.
 </p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p>kantan.codecs.Encoder</p></span></dd></dl></div>
     </li><li name="kantan.csv.RowEncoderInstances" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="RowEncoderInstancesextendsAnyRef"></a>
@@ -611,6 +611,46 @@ rows by functions such as <a href="CsvOutput$.html#writer:kantan.csv.CsvOutput[j
       </a>
     </span>
       
+    </li><li name="kantan.csv.CsvInput" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CsvInput[A]=kantan.csv.CsvSource[A]"></a>
+      <a id="CsvInput[A]:CsvInput[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 0.1.15) use CsvSource instead (see https://github.com/nrinaudo/kantan.csv/issues/49)">CsvInput</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="CsvSource.html" class="extype" name="kantan.csv.CsvSource">CsvSource</a>[<span class="extype" name="kantan.csv.CsvInput.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.package@CsvInput[A]=kantan.csv.CsvSource[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 0.1.15)</i> use CsvSource instead (see https://github.com/nrinaudo/kantan.csv/issues/49)</p></dd></dl></div>
+    </li><li name="kantan.csv.CsvOutput" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CsvOutput[A]=kantan.csv.CsvSink[A]"></a>
+      <a id="CsvOutput[A]:CsvOutput[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 0.1.15) use CsvSink instead (see https://github.com/nrinaudo/kantan.csv/issues/49)">CsvOutput</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="CsvSink.html" class="extype" name="kantan.csv.CsvSink">CsvSink</a>[<span class="extype" name="kantan.csv.CsvOutput.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.package@CsvOutput[A]=kantan.csv.CsvSink[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 0.1.15)</i> use CsvSink instead (see https://github.com/nrinaudo/kantan.csv/issues/49)</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -669,44 +709,6 @@ rows by functions such as <a href="CsvOutput$.html#writer:kantan.csv.CsvOutput[j
       </a>
     </span>
       <p class="shortcomment cmt">Provides useful methods for summoning and creating instances of <a href="#CellEncoder[A]=kantan.codecs.Encoder[String,A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.CellEncoder">CellEncoder</a>.</p>
-    </li><li name="kantan.csv.CsvInput" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="CsvInput"></a>
-      <a id="CsvInput:CsvInput"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a href="CsvInput$.html"><span class="name">CsvInput</span></a><span class="result"> extends <a href="LowPriorityCsvInputs.html" class="extype" name="kantan.csv.LowPriorityCsvInputs">LowPriorityCsvInputs</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.package@CsvInput" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Defines convenience methods for creating and retrieving instances of <a href="CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines convenience methods for creating and retrieving instances of <a href="CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a>.</p><p>Implicit default implementations of standard types are also declared here, always bringing them in scope with a low
-priority.</p><p>These default implementations can also be useful when writing more complex instances: if you need to write a
-<code>CsvInput[T]</code> and have both a <code>CsvInput[S]</code> and a <code>T ⇒ S</code>, you need just use <a href="CsvInput.html#contramap[T](f:T=&gt;S):kantan.csv.CsvInput[T]" class="extmbr" name="kantan.csv.CsvInput#contramap">CsvInput.contramap</a> to create
-your implementation.
-</p></div></div>
-    </li><li name="kantan.csv.CsvOutput" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="CsvOutput"></a>
-      <a id="CsvOutput:CsvOutput"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a href="CsvOutput$.html"><span class="name">CsvOutput</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.package@CsvOutput" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Provides default instances as well as instance summoning and creation methods.</p>
     </li><li name="kantan.csv.CsvReader" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="CsvReader"></a>
       <a id="CsvReader:CsvReader"></a>
@@ -724,6 +726,44 @@ your implementation.
       </a>
     </span>
       <p class="shortcomment cmt">Provides instance creation and summoning methods.</p>
+    </li><li name="kantan.csv.CsvSink" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CsvSink"></a>
+      <a id="CsvSink:CsvSink"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="CsvSink$.html"><span class="name">CsvSink</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.package@CsvSink" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Provides default instances as well as instance summoning and creation methods.</p>
+    </li><li name="kantan.csv.CsvSource" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CsvSource"></a>
+      <a id="CsvSource:CsvSource"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="CsvSource$.html"><span class="name">CsvSource</span></a><span class="result"> extends <a href="LowPriorityCsvSourceInstances.html" class="extype" name="kantan.csv.LowPriorityCsvSourceInstances">LowPriorityCsvSourceInstances</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.package@CsvSource" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Defines convenience methods for creating and retrieving instances of <a href="CsvSource.html" class="extype" name="kantan.csv.CsvSource">CsvSource</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines convenience methods for creating and retrieving instances of <a href="CsvSource.html" class="extype" name="kantan.csv.CsvSource">CsvSource</a>.</p><p>Implicit default implementations of standard types are also declared here, always bringing them in scope with a low
+priority.</p><p>These default implementations can also be useful when writing more complex instances: if you need to write a
+<code>CsvSource[T]</code> and have both a <code>CsvSource[S]</code> and a <code>T ⇒ S</code>, you need just use <a href="CsvSource.html#contramap[T](f:T=&gt;S):kantan.csv.CsvSource[T]" class="extmbr" name="kantan.csv.CsvSource#contramap">CsvSource.contramap</a> to create
+your implementation.
+</p></div></div>
     </li><li name="kantan.csv.CsvWriter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="CsvWriter"></a>
       <a id="CsvWriter:CsvWriter"></a>
@@ -1029,7 +1069,50 @@ can automatically derive valid instances for a lot of common scenarios.
 
         
 
-        
+        <div id="values" class="values members">
+              <h3>Deprecated Value Members</h3>
+              <ol><li name="kantan.csv#CsvInput" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CsvInput:kantan.csv.CsvSource.type"></a>
+      <a id="CsvInput:CsvSource.type"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 0.1.15) use CsvSource instead (see https://github.com/nrinaudo/kantan.csv/issues/49)">CsvInput</span><span class="result">: <a href="CsvSource$.html" class="extype" name="kantan.csv.CsvSource">CsvSource</a>.type</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.package@CsvInput:kantan.csv.CsvSource.type" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 0.1.15)</i> use CsvSource instead (see https://github.com/nrinaudo/kantan.csv/issues/49)</p></dd></dl></div>
+    </li><li name="kantan.csv#CsvOutput" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CsvOutput:kantan.csv.CsvSink.type"></a>
+      <a id="CsvOutput:CsvSink.type"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 0.1.15) use CsvSink instead (see https://github.com/nrinaudo/kantan.csv/issues/49)">CsvOutput</span><span class="result">: <a href="CsvSink$.html" class="extype" name="kantan.csv.CsvSink">CsvSink</a>.type</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.package@CsvOutput:kantan.csv.CsvSink.type" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 0.1.15)</i> use CsvSink instead (see https://github.com/nrinaudo/kantan.csv/issues/49)</p></dd></dl></div>
+    </li></ol>
+            </div>
         </div>
 
         <div id="inheritedMembers">

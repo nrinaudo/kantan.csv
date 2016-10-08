@@ -92,40 +92,40 @@
 
         <div id="values" class="values members">
               <h3>Value Members</h3>
-              <ol><li name="kantan.csv.scalaz#csvInput" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="csvInput:scalaz.Contravariant[kantan.csv.CsvInput]"></a>
-      <a id="csvInput:Contravariant[CsvInput]"></a>
+              <ol><li name="kantan.csv.scalaz#csvSink" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="csvSink:scalaz.Contravariant[kantan.csv.CsvSink]"></a>
+      <a id="csvSink:Contravariant[CsvSink]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">csvInput</span><span class="result">: <span class="extype" name="scalaz.Contravariant">Contravariant</span>[<a href="../CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a>]</span>
+        <span class="name">csvSink</span><span class="result">: <span class="extype" name="scalaz.Contravariant">Contravariant</span>[<a href="../CsvSink.html" class="extype" name="kantan.csv.CsvSink">CsvSink</a>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.scalaz.package@csvInput:scalaz.Contravariant[kantan.csv.CsvInput]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.scalaz.package@csvSink:scalaz.Contravariant[kantan.csv.CsvSink]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt"><code>Contravariant</code> instance for <code>CsvInput</code>.</p>
-    </li><li name="kantan.csv.scalaz#csvOutput" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="csvOutput:scalaz.Contravariant[kantan.csv.CsvOutput]"></a>
-      <a id="csvOutput:Contravariant[CsvOutput]"></a>
+      <p class="shortcomment cmt"><code>Contravariant</code> instance for <code>CsvSink</code>.</p>
+    </li><li name="kantan.csv.scalaz#csvSource" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="csvSource:scalaz.Contravariant[kantan.csv.CsvSource]"></a>
+      <a id="csvSource:Contravariant[CsvSource]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">csvOutput</span><span class="result">: <span class="extype" name="scalaz.Contravariant">Contravariant</span>[<a href="../CsvOutput.html" class="extype" name="kantan.csv.CsvOutput">CsvOutput</a>]</span>
+        <span class="name">csvSource</span><span class="result">: <span class="extype" name="scalaz.Contravariant">Contravariant</span>[<a href="../CsvSource.html" class="extype" name="kantan.csv.CsvSource">CsvSource</a>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.scalaz.package@csvOutput:scalaz.Contravariant[kantan.csv.CsvOutput]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.scalaz.package@csvSource:scalaz.Contravariant[kantan.csv.CsvSource]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt"><code>Contravariant</code> instance for <code>CsvOutput</code>.</p>
+      <p class="shortcomment cmt"><code>Contravariant</code> instance for <code>CsvSource</code>.</p>
     </li><li name="kantan.csv.scalaz#decodeErrorEqual" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="decodeErrorEqual:scalaz.Equal[kantan.csv.DecodeError]"></a>
       <a id="decodeErrorEqual:Equal[DecodeError]"></a>
@@ -195,7 +195,7 @@
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ScalazInstances</dd></dl></div>
     </li><li name="kantan.csv.scalaz#eitherRowDecoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="eitherRowDecoder[A,B](implicitda:kantan.csv.RowDecoder[A],implicitdb:kantan.csv.RowDecoder[B]):kantan.csv.RowDecoder[scalaz.\/[A,B]]"></a>
+      <a id="eitherRowDecoder[A,B](implicitevidence$1:kantan.csv.RowDecoder[A],implicitevidence$2:kantan.csv.RowDecoder[B]):kantan.csv.RowDecoder[scalaz.\/[A,B]]"></a>
       <a id="eitherRowDecoder[A,B](RowDecoder[A],RowDecoder[B]):RowDecoder[\/[A,B]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -203,16 +203,16 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eitherRowDecoder</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="da">da: <a href="../package.html#RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.scalaz.eitherRowDecoder.A">A</span>]</span>, <span name="db">db: <a href="../package.html#RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.scalaz.eitherRowDecoder.B">B</span>]</span>)</span><span class="result">: <a href="../package.html#RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="scalaz.\/">\/</span>[<span class="extype" name="kantan.csv.scalaz.eitherRowDecoder.A">A</span>, <span class="extype" name="kantan.csv.scalaz.eitherRowDecoder.B">B</span>]]</span>
+        <span class="name">eitherRowDecoder</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package.html#RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.scalaz.eitherRowDecoder.A">A</span>]</span>, <span name="arg1">arg1: <a href="../package.html#RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.scalaz.eitherRowDecoder.B">B</span>]</span>)</span><span class="result">: <a href="../package.html#RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="scalaz.\/">\/</span>[<span class="extype" name="kantan.csv.scalaz.eitherRowDecoder.A">A</span>, <span class="extype" name="kantan.csv.scalaz.eitherRowDecoder.B">B</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.scalaz.package@eitherRowDecoder[A,B](implicitda:kantan.csv.RowDecoder[A],implicitdb:kantan.csv.RowDecoder[B]):kantan.csv.RowDecoder[scalaz.\/[A,B]]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.scalaz.package@eitherRowDecoder[A,B](implicitevidence$1:kantan.csv.RowDecoder[A],implicitevidence$2:kantan.csv.RowDecoder[B]):kantan.csv.RowDecoder[scalaz.\/[A,B]]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="kantan.csv.scalaz#eitherRowEncoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="eitherRowEncoder[A,B](implicitea:kantan.csv.RowEncoder[A],impliciteb:kantan.csv.RowEncoder[B]):kantan.csv.RowEncoder[scalaz.\/[A,B]]"></a>
+      <a id="eitherRowEncoder[A,B](implicitevidence$4:kantan.csv.RowEncoder[A],implicitevidence$5:kantan.csv.RowEncoder[B]):kantan.csv.RowEncoder[scalaz.\/[A,B]]"></a>
       <a id="eitherRowEncoder[A,B](RowEncoder[A],RowEncoder[B]):RowEncoder[\/[A,B]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -220,10 +220,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eitherRowEncoder</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ea">ea: <a href="../package.html#RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="kantan.csv.scalaz.eitherRowEncoder.A">A</span>]</span>, <span name="eb">eb: <a href="../package.html#RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="kantan.csv.scalaz.eitherRowEncoder.B">B</span>]</span>)</span><span class="result">: <a href="../package.html#RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="scalaz.\/">\/</span>[<span class="extype" name="kantan.csv.scalaz.eitherRowEncoder.A">A</span>, <span class="extype" name="kantan.csv.scalaz.eitherRowEncoder.B">B</span>]]</span>
+        <span class="name">eitherRowEncoder</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package.html#RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="kantan.csv.scalaz.eitherRowEncoder.A">A</span>]</span>, <span name="arg1">arg1: <a href="../package.html#RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="kantan.csv.scalaz.eitherRowEncoder.B">B</span>]</span>)</span><span class="result">: <a href="../package.html#RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="scalaz.\/">\/</span>[<span class="extype" name="kantan.csv.scalaz.eitherRowEncoder.A">A</span>, <span class="extype" name="kantan.csv.scalaz.eitherRowEncoder.B">B</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.scalaz.package@eitherRowEncoder[A,B](implicitea:kantan.csv.RowEncoder[A],impliciteb:kantan.csv.RowEncoder[B]):kantan.csv.RowEncoder[scalaz.\/[A,B]]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.scalaz.package@eitherRowEncoder[A,B](implicitevidence$4:kantan.csv.RowEncoder[A],implicitevidence$5:kantan.csv.RowEncoder[B]):kantan.csv.RowEncoder[scalaz.\/[A,B]]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -246,18 +246,18 @@
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ScalazInstances</dd></dl></div>
     </li><li name="kantan.csv.scalaz#foldableRowEncoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="foldableRowEncoder[F[_],A](implicitea:kantan.csv.CellEncoder[A],implicitF:scalaz.Foldable[F]):kantan.csv.RowEncoder[F[A]]"></a>
-      <a id="foldableRowEncoder[F[_],A](CellEncoder[A],Foldable[F]):RowEncoder[F[A]]"></a>
+      <a id="foldableRowEncoder[F[_],A](implicitevidence$6:scalaz.Foldable[F],implicitevidence$7:kantan.csv.CellEncoder[A]):kantan.csv.RowEncoder[F[A]]"></a>
+      <a id="foldableRowEncoder[F[_],A](Foldable[F],CellEncoder[A]):RowEncoder[F[A]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">foldableRowEncoder</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ea">ea: <a href="../package.html#CellEncoder[A]=kantan.codecs.Encoder[String,A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.CellEncoder">CellEncoder</a>[<span class="extype" name="kantan.csv.scalaz.foldableRowEncoder.A">A</span>]</span>, <span name="F">F: <span class="extype" name="scalaz.Foldable">Foldable</span>[<span class="extype" name="kantan.csv.scalaz.foldableRowEncoder.F">F</span>]</span>)</span><span class="result">: <a href="../package.html#RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="kantan.csv.scalaz.foldableRowEncoder.F">F</span>[<span class="extype" name="kantan.csv.scalaz.foldableRowEncoder.A">A</span>]]</span>
+        <span class="name">foldableRowEncoder</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="scalaz.Foldable">Foldable</span>[<span class="extype" name="kantan.csv.scalaz.foldableRowEncoder.F">F</span>]</span>, <span name="arg1">arg1: <a href="../package.html#CellEncoder[A]=kantan.codecs.Encoder[String,A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.CellEncoder">CellEncoder</a>[<span class="extype" name="kantan.csv.scalaz.foldableRowEncoder.A">A</span>]</span>)</span><span class="result">: <a href="../package.html#RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="kantan.csv.scalaz.foldableRowEncoder.F">F</span>[<span class="extype" name="kantan.csv.scalaz.foldableRowEncoder.A">A</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.scalaz.package@foldableRowEncoder[F[_],A](implicitea:kantan.csv.CellEncoder[A],implicitF:scalaz.Foldable[F]):kantan.csv.RowEncoder[F[A]]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.scalaz.package@foldableRowEncoder[F[_],A](implicitevidence$6:scalaz.Foldable[F],implicitevidence$7:kantan.csv.CellEncoder[A]):kantan.csv.RowEncoder[F[A]]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -297,7 +297,7 @@
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ScalazInstances</dd></dl></div>
     </li><li name="kantan.csv.scalaz#maybeRowDecoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="maybeRowDecoder[A](implicitda:kantan.csv.RowDecoder[A]):kantan.csv.RowDecoder[scalaz.Maybe[A]]"></a>
+      <a id="maybeRowDecoder[A](implicitevidence$3:kantan.csv.RowDecoder[A]):kantan.csv.RowDecoder[scalaz.Maybe[A]]"></a>
       <a id="maybeRowDecoder[A](RowDecoder[A]):RowDecoder[Maybe[A]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -305,16 +305,16 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">maybeRowDecoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="da">da: <a href="../package.html#RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.scalaz.maybeRowDecoder.A">A</span>]</span>)</span><span class="result">: <a href="../package.html#RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="scalaz.Maybe">Maybe</span>[<span class="extype" name="kantan.csv.scalaz.maybeRowDecoder.A">A</span>]]</span>
+        <span class="name">maybeRowDecoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package.html#RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.scalaz.maybeRowDecoder.A">A</span>]</span>)</span><span class="result">: <a href="../package.html#RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="scalaz.Maybe">Maybe</span>[<span class="extype" name="kantan.csv.scalaz.maybeRowDecoder.A">A</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.scalaz.package@maybeRowDecoder[A](implicitda:kantan.csv.RowDecoder[A]):kantan.csv.RowDecoder[scalaz.Maybe[A]]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.scalaz.package@maybeRowDecoder[A](implicitevidence$3:kantan.csv.RowDecoder[A]):kantan.csv.RowDecoder[scalaz.Maybe[A]]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="kantan.csv.scalaz#maybeRowEncoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="maybeRowEncoder[A](implicitea:kantan.csv.RowEncoder[A]):kantan.csv.RowEncoder[scalaz.Maybe[A]]"></a>
+      <a id="maybeRowEncoder[A](implicitevidence$8:kantan.csv.RowEncoder[A]):kantan.csv.RowEncoder[scalaz.Maybe[A]]"></a>
       <a id="maybeRowEncoder[A](RowEncoder[A]):RowEncoder[Maybe[A]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -322,10 +322,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">maybeRowEncoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ea">ea: <a href="../package.html#RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="kantan.csv.scalaz.maybeRowEncoder.A">A</span>]</span>)</span><span class="result">: <a href="../package.html#RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="scalaz.Maybe">Maybe</span>[<span class="extype" name="kantan.csv.scalaz.maybeRowEncoder.A">A</span>]]</span>
+        <span class="name">maybeRowEncoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package.html#RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="kantan.csv.scalaz.maybeRowEncoder.A">A</span>]</span>)</span><span class="result">: <a href="../package.html#RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="scalaz.Maybe">Maybe</span>[<span class="extype" name="kantan.csv.scalaz.maybeRowEncoder.A">A</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.scalaz.package@maybeRowEncoder[A](implicitea:kantan.csv.RowEncoder[A]):kantan.csv.RowEncoder[scalaz.Maybe[A]]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.scalaz.package@maybeRowEncoder[A](implicitevidence$8:kantan.csv.RowEncoder[A]):kantan.csv.RowEncoder[scalaz.Maybe[A]]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -382,7 +382,7 @@
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ScalazInstances</dd></dl></div>
     </li><li name="kantan.codecs.scalaz.LowPriorityScalazInstances#resultEqual" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="resultEqual[F,S](implicitef:scalaz.Equal[F],implicites:scalaz.Equal[S]):scalaz.Equal[kantan.codecs.Result[F,S]]"></a>
+      <a id="resultEqual[F,S](implicitevidence$1:scalaz.Equal[F],implicitevidence$2:scalaz.Equal[S]):scalaz.Equal[kantan.codecs.Result[F,S]]"></a>
       <a id="resultEqual[F,S](Equal[F],Equal[S]):Equal[Result[F,S]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -390,10 +390,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">resultEqual</span><span class="tparams">[<span name="F">F</span>, <span name="S">S</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ef">ef: <span class="extype" name="scalaz.Equal">Equal</span>[<span class="extype" name="kantan.codecs.scalaz.LowPriorityScalazInstances.resultEqual.F">F</span>]</span>, <span name="es">es: <span class="extype" name="scalaz.Equal">Equal</span>[<span class="extype" name="kantan.codecs.scalaz.LowPriorityScalazInstances.resultEqual.S">S</span>]</span>)</span><span class="result">: <span class="extype" name="scalaz.Equal">Equal</span>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Result" class="extype" target="_top">Result</a>[<span class="extype" name="kantan.codecs.scalaz.LowPriorityScalazInstances.resultEqual.F">F</span>, <span class="extype" name="kantan.codecs.scalaz.LowPriorityScalazInstances.resultEqual.S">S</span>]]</span>
+        <span class="name">resultEqual</span><span class="tparams">[<span name="F">F</span>, <span name="S">S</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="scalaz.Equal">Equal</span>[<span class="extype" name="kantan.codecs.scalaz.LowPriorityScalazInstances.resultEqual.F">F</span>]</span>, <span name="arg1">arg1: <span class="extype" name="scalaz.Equal">Equal</span>[<span class="extype" name="kantan.codecs.scalaz.LowPriorityScalazInstances.resultEqual.S">S</span>]</span>)</span><span class="result">: <span class="extype" name="scalaz.Equal">Equal</span>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Result" class="extype" target="_top">Result</a>[<span class="extype" name="kantan.codecs.scalaz.LowPriorityScalazInstances.resultEqual.F">F</span>, <span class="extype" name="kantan.codecs.scalaz.LowPriorityScalazInstances.resultEqual.S">S</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.scalaz.package@resultEqual[F,S](implicitef:scalaz.Equal[F],implicites:scalaz.Equal[S]):scalaz.Equal[kantan.codecs.Result[F,S]]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.scalaz.package@resultEqual[F,S](implicitevidence$1:scalaz.Equal[F],implicitevidence$2:scalaz.Equal[S]):scalaz.Equal[kantan.codecs.Result[F,S]]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -416,7 +416,7 @@
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ScalazInstances</dd></dl></div>
     </li><li name="kantan.codecs.scalaz.ScalazInstances#resultMonoid" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="resultMonoid[F,S](implicitsf:scalaz.Semigroup[F],implicitms:scalaz.Monoid[S]):scalaz.Monoid[kantan.codecs.Result[F,S]]"></a>
+      <a id="resultMonoid[F,S](implicitevidence$5:scalaz.Semigroup[F],implicitevidence$6:scalaz.Monoid[S]):scalaz.Monoid[kantan.codecs.Result[F,S]]"></a>
       <a id="resultMonoid[F,S](Semigroup[F],Monoid[S]):Monoid[Result[F,S]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -424,16 +424,16 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">resultMonoid</span><span class="tparams">[<span name="F">F</span>, <span name="S">S</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="sf">sf: <span class="extype" name="scalaz.Semigroup">Semigroup</span>[<span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultMonoid.F">F</span>]</span>, <span name="ms">ms: <span class="extype" name="scalaz.Monoid">Monoid</span>[<span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultMonoid.S">S</span>]</span>)</span><span class="result">: <span class="extype" name="scalaz.Monoid">Monoid</span>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Result" class="extype" target="_top">Result</a>[<span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultMonoid.F">F</span>, <span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultMonoid.S">S</span>]]</span>
+        <span class="name">resultMonoid</span><span class="tparams">[<span name="F">F</span>, <span name="S">S</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="scalaz.Semigroup">Semigroup</span>[<span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultMonoid.F">F</span>]</span>, <span name="arg1">arg1: <span class="extype" name="scalaz.Monoid">Monoid</span>[<span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultMonoid.S">S</span>]</span>)</span><span class="result">: <span class="extype" name="scalaz.Monoid">Monoid</span>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Result" class="extype" target="_top">Result</a>[<span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultMonoid.F">F</span>, <span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultMonoid.S">S</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.scalaz.package@resultMonoid[F,S](implicitsf:scalaz.Semigroup[F],implicitms:scalaz.Monoid[S]):scalaz.Monoid[kantan.codecs.Result[F,S]]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.scalaz.package@resultMonoid[F,S](implicitevidence$5:scalaz.Semigroup[F],implicitevidence$6:scalaz.Monoid[S]):scalaz.Monoid[kantan.codecs.Result[F,S]]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ScalazInstances</dd></dl></div>
     </li><li name="kantan.codecs.scalaz.ScalazInstances#resultOrder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="resultOrder[F,S](implicitof:scalaz.Order[F],implicitos:scalaz.Order[S]):scalaz.Order[kantan.codecs.Result[F,S]]"></a>
+      <a id="resultOrder[F,S](implicitevidence$1:scalaz.Order[F],implicitevidence$2:scalaz.Order[S]):scalaz.Order[kantan.codecs.Result[F,S]]"></a>
       <a id="resultOrder[F,S](Order[F],Order[S]):Order[Result[F,S]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -441,16 +441,16 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">resultOrder</span><span class="tparams">[<span name="F">F</span>, <span name="S">S</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="of">of: <span class="extype" name="scalaz.Order">Order</span>[<span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultOrder.F">F</span>]</span>, <span name="os">os: <span class="extype" name="scalaz.Order">Order</span>[<span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultOrder.S">S</span>]</span>)</span><span class="result">: <span class="extype" name="scalaz.Order">Order</span>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Result" class="extype" target="_top">Result</a>[<span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultOrder.F">F</span>, <span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultOrder.S">S</span>]]</span>
+        <span class="name">resultOrder</span><span class="tparams">[<span name="F">F</span>, <span name="S">S</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="scalaz.Order">Order</span>[<span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultOrder.F">F</span>]</span>, <span name="arg1">arg1: <span class="extype" name="scalaz.Order">Order</span>[<span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultOrder.S">S</span>]</span>)</span><span class="result">: <span class="extype" name="scalaz.Order">Order</span>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Result" class="extype" target="_top">Result</a>[<span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultOrder.F">F</span>, <span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultOrder.S">S</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.scalaz.package@resultOrder[F,S](implicitof:scalaz.Order[F],implicitos:scalaz.Order[S]):scalaz.Order[kantan.codecs.Result[F,S]]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.scalaz.package@resultOrder[F,S](implicitevidence$1:scalaz.Order[F],implicitevidence$2:scalaz.Order[S]):scalaz.Order[kantan.codecs.Result[F,S]]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ScalazInstances</dd></dl></div>
     </li><li name="kantan.codecs.scalaz.LowPriorityScalazInstances#resultSemigroup" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="resultSemigroup[F,S](implicitsf:scalaz.Semigroup[F],implicitss:scalaz.Semigroup[S]):scalaz.Semigroup[kantan.codecs.Result[F,S]]"></a>
+      <a id="resultSemigroup[F,S](implicitevidence$3:scalaz.Semigroup[F],implicitevidence$4:scalaz.Semigroup[S]):scalaz.Semigroup[kantan.codecs.Result[F,S]]"></a>
       <a id="resultSemigroup[F,S](Semigroup[F],Semigroup[S]):Semigroup[Result[F,S]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -458,16 +458,16 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">resultSemigroup</span><span class="tparams">[<span name="F">F</span>, <span name="S">S</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="sf">sf: <span class="extype" name="scalaz.Semigroup">Semigroup</span>[<span class="extype" name="kantan.codecs.scalaz.LowPriorityScalazInstances.resultSemigroup.F">F</span>]</span>, <span name="ss">ss: <span class="extype" name="scalaz.Semigroup">Semigroup</span>[<span class="extype" name="kantan.codecs.scalaz.LowPriorityScalazInstances.resultSemigroup.S">S</span>]</span>)</span><span class="result">: <span class="extype" name="scalaz.Semigroup">Semigroup</span>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Result" class="extype" target="_top">Result</a>[<span class="extype" name="kantan.codecs.scalaz.LowPriorityScalazInstances.resultSemigroup.F">F</span>, <span class="extype" name="kantan.codecs.scalaz.LowPriorityScalazInstances.resultSemigroup.S">S</span>]]</span>
+        <span class="name">resultSemigroup</span><span class="tparams">[<span name="F">F</span>, <span name="S">S</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="scalaz.Semigroup">Semigroup</span>[<span class="extype" name="kantan.codecs.scalaz.LowPriorityScalazInstances.resultSemigroup.F">F</span>]</span>, <span name="arg1">arg1: <span class="extype" name="scalaz.Semigroup">Semigroup</span>[<span class="extype" name="kantan.codecs.scalaz.LowPriorityScalazInstances.resultSemigroup.S">S</span>]</span>)</span><span class="result">: <span class="extype" name="scalaz.Semigroup">Semigroup</span>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Result" class="extype" target="_top">Result</a>[<span class="extype" name="kantan.codecs.scalaz.LowPriorityScalazInstances.resultSemigroup.F">F</span>, <span class="extype" name="kantan.codecs.scalaz.LowPriorityScalazInstances.resultSemigroup.S">S</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.scalaz.package@resultSemigroup[F,S](implicitsf:scalaz.Semigroup[F],implicitss:scalaz.Semigroup[S]):scalaz.Semigroup[kantan.codecs.Result[F,S]]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.scalaz.package@resultSemigroup[F,S](implicitevidence$3:scalaz.Semigroup[F],implicitevidence$4:scalaz.Semigroup[S]):scalaz.Semigroup[kantan.codecs.Result[F,S]]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>LowPriorityScalazInstances</dd></dl></div>
     </li><li name="kantan.codecs.scalaz.ScalazInstances#resultShow" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="resultShow[F,S](implicitsf:scalaz.Show[F],implicitss:scalaz.Show[S]):scalaz.Show[kantan.codecs.Result[F,S]]"></a>
+      <a id="resultShow[F,S](implicitevidence$3:scalaz.Show[F],implicitevidence$4:scalaz.Show[S]):scalaz.Show[kantan.codecs.Result[F,S]]"></a>
       <a id="resultShow[F,S](Show[F],Show[S]):Show[Result[F,S]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -475,10 +475,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">resultShow</span><span class="tparams">[<span name="F">F</span>, <span name="S">S</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="sf">sf: <span class="extype" name="scalaz.Show">Show</span>[<span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultShow.F">F</span>]</span>, <span name="ss">ss: <span class="extype" name="scalaz.Show">Show</span>[<span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultShow.S">S</span>]</span>)</span><span class="result">: <span class="extype" name="scalaz.Show">Show</span>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Result" class="extype" target="_top">Result</a>[<span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultShow.F">F</span>, <span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultShow.S">S</span>]]</span>
+        <span class="name">resultShow</span><span class="tparams">[<span name="F">F</span>, <span name="S">S</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="scalaz.Show">Show</span>[<span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultShow.F">F</span>]</span>, <span name="arg1">arg1: <span class="extype" name="scalaz.Show">Show</span>[<span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultShow.S">S</span>]</span>)</span><span class="result">: <span class="extype" name="scalaz.Show">Show</span>[<a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Result" class="extype" target="_top">Result</a>[<span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultShow.F">F</span>, <span class="extype" name="kantan.codecs.scalaz.ScalazInstances.resultShow.S">S</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.csv.scalaz.package@resultShow[F,S](implicitsf:scalaz.Show[F],implicitss:scalaz.Show[S]):scalaz.Show[kantan.codecs.Result[F,S]]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.csv.scalaz.package@resultShow[F,S](implicitevidence$3:scalaz.Show[F],implicitevidence$4:scalaz.Show[S]):scalaz.Show[kantan.codecs.Result[F,S]]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>

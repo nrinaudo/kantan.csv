@@ -163,7 +163,7 @@
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ArbitraryInstances</dd></dl></div>
     </li><li name="kantan.csv.laws.discipline.ArbitraryInstances#arbCellDecoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="arbCellDecoder[A](implicitevidence$1:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.csv.CellDecoder[A]]"></a>
+      <a id="arbCellDecoder[A](implicitevidence$2:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.csv.CellDecoder[A]]"></a>
       <a id="arbCellDecoder[A](Arbitrary[A]):Arbitrary[CellDecoder[A]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -174,13 +174,13 @@
         <span class="name">arbCellDecoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances.arbCellDecoder.A">A</span>]</span>)</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../../package.html#CellDecoder[A]=kantan.codecs.Decoder[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.CellDecoder">CellDecoder</a>[<span class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances.arbCellDecoder.A">A</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbCellDecoder[A](implicitevidence$1:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.csv.CellDecoder[A]]" title="Permalink" target="_top">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbCellDecoder[A](implicitevidence$2:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.csv.CellDecoder[A]]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ArbitraryInstances.html" class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances">ArbitraryInstances</a></dd></dl></div>
     </li><li name="kantan.csv.laws.discipline.ArbitraryInstances#arbCellEncoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="arbCellEncoder[A](implicitevidence$2:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.csv.CellEncoder[A]]"></a>
+      <a id="arbCellEncoder[A](implicitevidence$3:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.csv.CellEncoder[A]]"></a>
       <a id="arbCellEncoder[A](Arbitrary[A]):Arbitrary[CellEncoder[A]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -191,7 +191,7 @@
         <span class="name">arbCellEncoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances.arbCellEncoder.A">A</span>]</span>)</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../../package.html#CellEncoder[A]=kantan.codecs.Encoder[String,A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.CellEncoder">CellEncoder</a>[<span class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances.arbCellEncoder.A">A</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbCellEncoder[A](implicitevidence$2:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.csv.CellEncoder[A]]" title="Permalink" target="_top">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbCellEncoder[A](implicitevidence$3:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.csv.CellEncoder[A]]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -298,8 +298,59 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ArbitraryInstances.html" class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances">ArbitraryInstances</a></dd></dl></div>
+    </li><li name="kantan.codecs.laws.discipline.ArbitraryInstances#arbIllegalPath" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="arbIllegalPath[T]:org.scalacheck.Arbitrary[kantan.codecs.laws.CodecValue.IllegalValue[String,java.nio.file.Path,T]]"></a>
+      <a id="arbIllegalPath[T]:Arbitrary[IllegalValue[String,Path,T]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbIllegalPath</span><span class="tparams">[<span name="T">T</span>]</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="kantan.codecs.laws.CodecValue.IllegalValue">IllegalValue</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="java.nio.file.Path">Path</span>, <span class="extype" name="kantan.codecs.laws.discipline.ArbitraryInstances.arbIllegalPath.T">T</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbIllegalPath[T]:org.scalacheck.Arbitrary[kantan.codecs.laws.CodecValue.IllegalValue[String,java.nio.file.Path,T]]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ArbitraryInstances</dd></dl></div>
+    </li><li name="kantan.csv.laws.discipline.ArbitraryInstances#arbIllegalRow" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="arbIllegalRow[A](implicitarb:org.scalacheck.Arbitrary[kantan.csv.laws.IllegalCell[A]]):org.scalacheck.Arbitrary[kantan.csv.laws.IllegalRow[A]]"></a>
+      <a id="arbIllegalRow[A](Arbitrary[IllegalCell[A]]):Arbitrary[IllegalRow[A]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbIllegalRow</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arb">arb: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#IllegalCell[A]=kantan.codecs.laws.CodecValue.IllegalValue[String,A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.laws.IllegalCell">IllegalCell</a>[<span class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances.arbIllegalRow.A">A</span>]]</span>)</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#IllegalRow[A]=kantan.codecs.laws.CodecValue.IllegalValue[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.laws.IllegalRow">IllegalRow</a>[<span class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances.arbIllegalRow.A">A</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbIllegalRow[A](implicitarb:org.scalacheck.Arbitrary[kantan.csv.laws.IllegalCell[A]]):org.scalacheck.Arbitrary[kantan.csv.laws.IllegalRow[A]]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ArbitraryInstances.html" class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances">ArbitraryInstances</a></dd></dl></div>
+    </li><li name="kantan.codecs.laws.discipline.ArbitraryInstances#arbIllegalURI" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="arbIllegalURI[T]:org.scalacheck.Arbitrary[kantan.codecs.laws.CodecValue.IllegalValue[String,java.net.URI,T]]"></a>
+      <a id="arbIllegalURI[T]:Arbitrary[IllegalValue[String,URI,T]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbIllegalURI</span><span class="tparams">[<span name="T">T</span>]</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="kantan.codecs.laws.CodecValue.IllegalValue">IllegalValue</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="java.net.URI">URI</span>, <span class="extype" name="kantan.codecs.laws.discipline.ArbitraryInstances.arbIllegalURI.T">T</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbIllegalURI[T]:org.scalacheck.Arbitrary[kantan.codecs.laws.CodecValue.IllegalValue[String,java.net.URI,T]]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ArbitraryInstances</dd></dl></div>
     </li><li name="kantan.codecs.laws.discipline.ArbitraryInstances#arbIllegalValue" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="arbIllegalValue[E,A,T](illegal:E=&gt;Boolean)(implicitarbE:org.scalacheck.Arbitrary[E]):org.scalacheck.Arbitrary[kantan.codecs.laws.CodecValue.IllegalValue[E,A,T]]"></a>
+      <a id="arbIllegalValue[E,A,T](illegal:E=&gt;Boolean)(implicitevidence$9:org.scalacheck.Arbitrary[E]):org.scalacheck.Arbitrary[kantan.codecs.laws.CodecValue.IllegalValue[E,A,T]]"></a>
       <a id="arbIllegalValue[E,A,T]((E)⇒Boolean)(Arbitrary[E]):Arbitrary[IllegalValue[E,A,T]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -307,10 +358,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">arbIllegalValue</span><span class="tparams">[<span name="E">E</span>, <span name="A">A</span>, <span name="T">T</span>]</span><span class="params">(<span name="illegal">illegal: (<span class="extype" name="kantan.codecs.laws.discipline.ArbitraryInstances.arbIllegalValue.E">E</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arbE">arbE: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="kantan.codecs.laws.discipline.ArbitraryInstances.arbIllegalValue.E">E</span>]</span>)</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="kantan.codecs.laws.CodecValue.IllegalValue">IllegalValue</span>[<span class="extype" name="kantan.codecs.laws.discipline.ArbitraryInstances.arbIllegalValue.E">E</span>, <span class="extype" name="kantan.codecs.laws.discipline.ArbitraryInstances.arbIllegalValue.A">A</span>, <span class="extype" name="kantan.codecs.laws.discipline.ArbitraryInstances.arbIllegalValue.T">T</span>]]</span>
+        <span class="name">arbIllegalValue</span><span class="tparams">[<span name="E">E</span>, <span name="A">A</span>, <span name="T">T</span>]</span><span class="params">(<span name="illegal">illegal: (<span class="extype" name="kantan.codecs.laws.discipline.ArbitraryInstances.arbIllegalValue.E">E</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="kantan.codecs.laws.discipline.ArbitraryInstances.arbIllegalValue.E">E</span>]</span>)</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="kantan.codecs.laws.CodecValue.IllegalValue">IllegalValue</span>[<span class="extype" name="kantan.codecs.laws.discipline.ArbitraryInstances.arbIllegalValue.E">E</span>, <span class="extype" name="kantan.codecs.laws.discipline.ArbitraryInstances.arbIllegalValue.A">A</span>, <span class="extype" name="kantan.codecs.laws.discipline.ArbitraryInstances.arbIllegalValue.T">T</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbIllegalValue[E,A,T](illegal:E=&gt;Boolean)(implicitarbE:org.scalacheck.Arbitrary[E]):org.scalacheck.Arbitrary[kantan.codecs.laws.CodecValue.IllegalValue[E,A,T]]" title="Permalink" target="_top">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbIllegalValue[E,A,T](illegal:E=&gt;Boolean)(implicitevidence$9:org.scalacheck.Arbitrary[E]):org.scalacheck.Arbitrary[kantan.codecs.laws.CodecValue.IllegalValue[E,A,T]]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -349,6 +400,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ArbitraryInstances</dd></dl></div>
+    </li><li name="kantan.csv.laws.discipline.ArbitraryInstances#arbLegalRow" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="arbLegalRow[A](implicitarb:org.scalacheck.Arbitrary[kantan.csv.laws.LegalCell[A]]):org.scalacheck.Arbitrary[kantan.csv.laws.LegalRow[A]]"></a>
+      <a id="arbLegalRow[A](Arbitrary[LegalCell[A]]):Arbitrary[LegalRow[A]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbLegalRow</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arb">arb: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#LegalCell[A]=kantan.codecs.laws.CodecValue.LegalValue[String,A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.laws.LegalCell">LegalCell</a>[<span class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances.arbLegalRow.A">A</span>]]</span>)</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../package.html#LegalRow[A]=kantan.codecs.laws.CodecValue.LegalValue[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.laws.LegalRow">LegalRow</a>[<span class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances.arbLegalRow.A">A</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbLegalRow[A](implicitarb:org.scalacheck.Arbitrary[kantan.csv.laws.LegalCell[A]]):org.scalacheck.Arbitrary[kantan.csv.laws.LegalRow[A]]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ArbitraryInstances.html" class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances">ArbitraryInstances</a></dd></dl></div>
     </li><li name="kantan.codecs.laws.discipline.ArbitraryInstances#arbLegalValue" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="arbLegalValue[E,A,T](encode:A=&gt;E)(implicitarbA:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.codecs.laws.CodecValue.LegalValue[E,A,T]]"></a>
       <a id="arbLegalValue[E,A,T]((A)⇒E)(Arbitrary[A]):Arbitrary[LegalValue[E,A,T]]"></a>
@@ -400,6 +468,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ArbitraryInstances.html" class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances">ArbitraryInstances</a></dd></dl></div>
+    </li><li name="kantan.codecs.laws.discipline.ArbitraryInstances#arbPath" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="arbPath:org.scalacheck.Arbitrary[java.nio.file.Path]"></a>
+      <a id="arbPath:Arbitrary[Path]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbPath</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="java.nio.file.Path">Path</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbPath:org.scalacheck.Arbitrary[java.nio.file.Path]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ArbitraryInstances</dd></dl></div>
     </li><li name="kantan.csv.laws.discipline.ArbitraryInstances#arbReadError" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="arbReadError:org.scalacheck.Arbitrary[kantan.csv.ReadError]"></a>
       <a id="arbReadError:Arbitrary[ReadError]"></a>
@@ -435,7 +520,7 @@
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ArbitraryInstances</dd></dl></div>
     </li><li name="kantan.csv.laws.discipline.ArbitraryInstances#arbRowDecoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="arbRowDecoder[A](implicitevidence$3:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.csv.RowDecoder[A]]"></a>
+      <a id="arbRowDecoder[A](implicitevidence$4:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.csv.RowDecoder[A]]"></a>
       <a id="arbRowDecoder[A](Arbitrary[A]):Arbitrary[RowDecoder[A]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -446,13 +531,13 @@
         <span class="name">arbRowDecoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances.arbRowDecoder.A">A</span>]</span>)</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../../package.html#RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances.arbRowDecoder.A">A</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbRowDecoder[A](implicitevidence$3:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.csv.RowDecoder[A]]" title="Permalink" target="_top">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbRowDecoder[A](implicitevidence$4:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.csv.RowDecoder[A]]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ArbitraryInstances.html" class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances">ArbitraryInstances</a></dd></dl></div>
     </li><li name="kantan.csv.laws.discipline.ArbitraryInstances#arbRowEncoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="arbRowEncoder[A](implicitevidence$4:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.csv.RowEncoder[A]]"></a>
+      <a id="arbRowEncoder[A](implicitevidence$5:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.csv.RowEncoder[A]]"></a>
       <a id="arbRowEncoder[A](Arbitrary[A]):Arbitrary[RowEncoder[A]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -463,7 +548,7 @@
         <span class="name">arbRowEncoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances.arbRowEncoder.A">A</span>]</span>)</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<a href="../../package.html#RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances.arbRowEncoder.A">A</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbRowEncoder[A](implicitevidence$4:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.csv.RowEncoder[A]]" title="Permalink" target="_top">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbRowEncoder[A](implicitevidence$5:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.csv.RowEncoder[A]]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -486,7 +571,7 @@
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ArbitraryInstances</dd></dl></div>
     </li><li name="kantan.codecs.laws.discipline.ArbitraryInstances#arbStringDecoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="arbStringDecoder[A](implicitevidence$10:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.codecs.strings.StringDecoder[A]]"></a>
+      <a id="arbStringDecoder[A](implicitevidence$11:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.codecs.strings.StringDecoder[A]]"></a>
       <a id="arbStringDecoder[A](Arbitrary[A]):Arbitrary[StringDecoder[A]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -497,13 +582,13 @@
         <span class="name">arbStringDecoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="kantan.codecs.laws.discipline.ArbitraryInstances.arbStringDecoder.A">A</span>]</span>)</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="kantan.codecs.strings.StringDecoder">StringDecoder</span>[<span class="extype" name="kantan.codecs.laws.discipline.ArbitraryInstances.arbStringDecoder.A">A</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbStringDecoder[A](implicitevidence$10:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.codecs.strings.StringDecoder[A]]" title="Permalink" target="_top">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbStringDecoder[A](implicitevidence$11:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.codecs.strings.StringDecoder[A]]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ArbitraryInstances</dd></dl></div>
     </li><li name="kantan.codecs.laws.discipline.ArbitraryInstances#arbStringEncoder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="arbStringEncoder[A](implicitevidence$9:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.codecs.strings.StringEncoder[A]]"></a>
+      <a id="arbStringEncoder[A](implicitevidence$10:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.codecs.strings.StringEncoder[A]]"></a>
       <a id="arbStringEncoder[A](Arbitrary[A]):Arbitrary[StringEncoder[A]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -514,7 +599,7 @@
         <span class="name">arbStringEncoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="kantan.codecs.laws.discipline.ArbitraryInstances.arbStringEncoder.A">A</span>]</span>)</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="kantan.codecs.strings.StringEncoder">StringEncoder</span>[<span class="extype" name="kantan.codecs.laws.discipline.ArbitraryInstances.arbStringEncoder.A">A</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbStringEncoder[A](implicitevidence$9:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.codecs.strings.StringEncoder[A]]" title="Permalink" target="_top">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbStringEncoder[A](implicitevidence$10:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[kantan.codecs.strings.StringEncoder[A]]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -554,7 +639,7 @@
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ArbitraryInstances</dd></dl></div>
     </li><li name="kantan.csv.laws.discipline.ArbitraryInstances#arbTuple1" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="arbTuple1[A](implicita1:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[(A,)]"></a>
+      <a id="arbTuple1[A](implicitevidence$1:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[(A,)]"></a>
       <a id="arbTuple1[A](Arbitrary[A]):Arbitrary[(A)]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -562,10 +647,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">arbTuple1</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="a1">a1: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances.arbTuple1.A">A</span>]</span>)</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[(<span class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances.arbTuple1.A">A</span>)]</span>
+        <span class="name">arbTuple1</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[<span class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances.arbTuple1.A">A</span>]</span>)</span><span class="result">: <span class="extype" name="org.scalacheck.Arbitrary">Arbitrary</span>[(<span class="extype" name="kantan.csv.laws.discipline.ArbitraryInstances.arbTuple1.A">A</span>)]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbTuple1[A](implicita1:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[(A,)]" title="Permalink" target="_top">
+      <a href="../../../../index.html#kantan.csv.laws.discipline.arbitrary$@arbTuple1[A](implicitevidence$1:org.scalacheck.Arbitrary[A]):org.scalacheck.Arbitrary[(A,)]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>

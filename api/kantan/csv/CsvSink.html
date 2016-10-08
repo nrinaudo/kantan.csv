@@ -1,9 +1,9 @@
 <!DOCTYPE html >
 <html>
         <head>
-          <title>CsvInput - kantan.csv.CsvInput</title>
-          <meta name="description" content="CsvInput - kantan.csv.CsvInput" />
-          <meta name="keywords" content="CsvInput kantan.csv.CsvInput" />
+          <title>CsvSink - kantan.csv.CsvSink</title>
+          <meta name="description" content="CsvSink - kantan.csv.CsvSink" />
+          <meta name="keywords" content="CsvSink kantan.csv.CsvSink" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
@@ -16,7 +16,7 @@
       <script type="text/javascript">
          if(top === self) {
             var url = '../../index.html';
-            var hash = 'kantan.csv.CsvInput$';
+            var hash = 'kantan.csv.CsvSink';
             var anchor = window.location.hash;
             var anchor_opt = '';
             if (anchor.length >= 1)
@@ -26,16 +26,16 @@
    	  </script>
     
         </head>
-        <body class="value">
+        <body class="type">
       <div id="definition">
-        <a href="CsvInput.html" title="See companion trait"><img alt="Object/Trait" src="../../lib/object_to_trait_big.png" /></a>
+        <a href="CsvSink$.html" title="See companion object"><img alt="Trait/Object" src="../../lib/trait_to_object_big.png" /></a>
         <p id="owner"><a href="../package.html" class="extype" name="kantan">kantan</a>.<a href="package.html" class="extype" name="kantan.csv">csv</a></p>
-        <h1><a href="CsvInput.html" title="See companion trait">CsvInput</a></h1><h3><span class="morelinks"><div>
+        <h1><a href="CsvSink$.html" title="See companion object">CsvSink</a></h1><h3><span class="morelinks"><div>
             Related Docs:
-            <a href="CsvInput.html" title="See companion trait">trait CsvInput</a>
+            <a href="CsvSink$.html" title="See companion object">object CsvSink</a>
             | <a href="package.html" class="extype" name="kantan.csv">package csv</a>
           </div></span></h3><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -44,20 +44,18 @@
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">object</span>
+        <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">CsvInput</span><span class="result"> extends <a href="LowPriorityCsvInputs.html" class="extype" name="kantan.csv.LowPriorityCsvInputs">LowPriorityCsvInputs</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+        <span class="name">CsvSink</span><span class="tparams">[<span name="S">-S</span>]</span><span class="result"> extends <span class="extype" name="java.io.Serializable">Serializable</span></span>
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Defines convenience methods for creating and retrieving instances of <a href="CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a>.</p><p>Implicit default implementations of standard types are also declared here, always bringing them in scope with a low
-priority.</p><p>These default implementations can also be useful when writing more complex instances: if you need to write a
-<code>CsvInput[T]</code> and have both a <code>CsvInput[S]</code> and a <code>T ⇒ S</code>, you need just use <a href="CsvInput.html#contramap[T](f:T=&gt;S):kantan.csv.CsvInput[T]" class="extmbr" name="kantan.csv.CsvInput#contramap">CsvInput.contramap</a> to create
-your implementation.
-</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/CsvInput.scala" target="_blank">CsvInput.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Type class for all types that can be turned into <a href="CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a> instances.</p><p>Instances of <a href="" class="extype" name="kantan.csv.CsvSink">CsvSink</a> are rarely used directly. The preferred, idiomatic way is to use the implicit syntax
+provided by <a href="ops/sink$.html" class="extype" name="kantan.csv.ops.sink">CsvSinkOps</a>, brought in scope by importing <code>kantan.csv.ops._</code>.</p><p>See the <a href="" class="extype" name="kantan.csv.CsvSink">companion object</a> for default implementations and construction methods.
+</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="kantan.csv.CsvSink">CsvSink</a>[<span class="extype" name="kantan.csv.CsvSink.S">S</span>]</dd><dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/CsvSink.scala" target="_blank">CsvSink.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="LowPriorityCsvInputs.html" class="extype" name="kantan.csv.LowPriorityCsvInputs">LowPriorityCsvInputs</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></div>
         </div></div>
         
 
@@ -75,7 +73,7 @@ your implementation.
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="kantan.csv.CsvInput"><span>CsvInput</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="kantan.csv.LowPriorityCsvInputs"><span>LowPriorityCsvInputs</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="kantan.csv.CsvSink"><span>CsvSink</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -96,10 +94,30 @@ your implementation.
 
         
 
-        
+        <div id="values" class="values members">
+              <h3>Abstract Value Members</h3>
+              <ol><li name="kantan.csv.CsvSink#open" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="open(s:S):java.io.Writer"></a>
+      <a id="open(S):Writer"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">open</span><span class="params">(<span name="s">s: <span class="extype" name="kantan.csv.CsvSink.S">S</span></span>)</span><span class="result">: <span class="extype" name="java.io.Writer">Writer</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.CsvSink@open(s:S):java.io.Writer" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Opens a <code>Writer</code> on the specified <code>S</code>.</p>
+    </li></ol>
+            </div>
 
         <div id="values" class="values members">
-              <h3>Value Members</h3>
+              <h3>Concrete Value Members</h3>
               <ol><li name="scala.AnyRef#!=" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="!=(x$1:Any):Boolean"></a>
       <a id="!=(Any):Boolean"></a>
@@ -112,7 +130,7 @@ your implementation.
         <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@!=(x$1:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink@!=(x$1:Any):Boolean" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -129,7 +147,7 @@ your implementation.
         <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@##():Int" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink@##():Int" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -146,29 +164,11 @@ your implementation.
         <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@==(x$1:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink@==(x$1:Any):Boolean" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="kantan.csv.CsvInput#apply" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="apply[A](implicitia:kantan.csv.CsvInput[A]):kantan.csv.CsvInput[A]"></a>
-      <a id="apply[A](CsvInput[A]):CsvInput[A]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">apply</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ia">ia: <a href="CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a>[<span class="extype" name="kantan.csv.CsvInput.apply.A">A</span>]</span>)</span><span class="result">: <a href="CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a>[<span class="extype" name="kantan.csv.CsvInput.apply.A">A</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@apply[A](implicitia:kantan.csv.CsvInput[A]):kantan.csv.CsvInput[A]" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Summons an implicit instance of <code>CsvInput[A]</code> if one can be found.</p><div class="fullcomment"><div class="comment cmt"><p>Summons an implicit instance of <code>CsvInput[A]</code> if one can be found.</p><p>This is simply a convenience method. The two following calls are equivalent:</p><pre><span class="kw">val</span> str: CsvInput[<span class="std">String</span>] = CsvInput[<span class="std">String</span>]
-<span class="kw">val</span> str2: CsvInput[<span class="std">String</span>] = implicitly[CsvInput[<span class="std">String</span>]]</pre></div></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -181,45 +181,11 @@ your implementation.
         <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@asInstanceOf[T0]:T0" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink@asInstanceOf[T0]:T0" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="kantan.csv.CsvInput#bytes" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="bytes(implicitcodec:scala.io.Codec):kantan.csv.CsvInput[Array[Byte]]"></a>
-      <a id="bytes(Codec):CsvInput[Array[Byte]]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">bytes</span><span class="params">(<span class="implicit">implicit </span><span name="codec">codec: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.io.Codec" class="extype" target="_top">Codec</a></span>)</span><span class="result">: <a href="CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a>[<span class="extype" name="scala.Array">Array</span>[<a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Byte" class="extype" target="_top">Byte</a>]]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@bytes(implicitcodec:scala.io.Codec):kantan.csv.CsvInput[Array[Byte]]" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Turns any array of bytes into a source of CSV data.</p>
-    </li><li name="kantan.csv.CsvInput#chars" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="chars:kantan.csv.CsvInput[Array[Char]]"></a>
-      <a id="chars:CsvInput[Array[Char]]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">chars</span><span class="result">: <a href="CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a>[<span class="extype" name="scala.Array">Array</span>[<a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Char" class="extype" target="_top">Char</a>]]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@chars:kantan.csv.CsvInput[Array[Char]]" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Turns any array of chars into a source of CSV data.</p>
     </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a>
       <a id="clone():AnyRef"></a>
@@ -232,7 +198,7 @@ your implementation.
         <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@clone():Object" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink@clone():Object" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -243,6 +209,25 @@ your implementation.
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="kantan.csv.CsvSink#contramap" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="contramap[T](f:T=&gt;S):kantan.csv.CsvSink[T]"></a>
+      <a id="contramap[T]((T)⇒S):CsvSink[T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">contramap</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.csv.CsvSink.contramap.T">T</span>) ⇒ <span class="extype" name="kantan.csv.CsvSink.S">S</span></span>)</span><span class="result">: <a href="" class="extype" name="kantan.csv.CsvSink">CsvSink</a>[<span class="extype" name="kantan.csv.CsvSink.contramap.T">T</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.CsvSink@contramap[T](f:T=&gt;S):kantan.csv.CsvSink[T]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Turns a <code>CsvSink[S]</code> into a <code>CsvSink[T]</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns a <code>CsvSink[S]</code> into a <code>CsvSink[T]</code>.</p><p>This allows developers to adapt existing instances of <a href="" class="extype" name="kantan.csv.CsvSink">CsvSink</a> rather than write one from scratch.
+One could, for example, write <code>CsvSource[File]</code> by basing it on <code>CsvSource[OutputStream]</code>:</p><pre><span class="kw">def</span> fileOutput(<span class="kw">implicit</span> c: scala.io.Codec): CsvSink[File] =
+  CsvSink[OutputStream].contramap(f ⇒ <span class="kw">new</span> FileOutputStream(f, c.charSet))</pre></div></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -255,7 +240,7 @@ your implementation.
         <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -272,28 +257,11 @@ your implementation.
         <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@equals(x$1:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink@equals(x$1:Any):Boolean" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="kantan.csv.CsvInput#file" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="file(implicitcodec:scala.io.Codec):kantan.csv.CsvInput[java.io.File]"></a>
-      <a id="file(Codec):CsvInput[File]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">file</span><span class="params">(<span class="implicit">implicit </span><span name="codec">codec: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.io.Codec" class="extype" target="_top">Codec</a></span>)</span><span class="result">: <a href="CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a>[<span class="extype" name="java.io.File">File</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@file(implicitcodec:scala.io.Codec):kantan.csv.CsvInput[java.io.File]" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Turns any <code>java.io.File</code> into a source of CSV data.</p>
     </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <a id="finalize():Unit"></a>
@@ -306,7 +274,7 @@ your implementation.
         <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@finalize():Unit" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink@finalize():Unit" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -317,24 +285,6 @@ your implementation.
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="kantan.csv.CsvInput#from" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="from[A](f:A=&gt;kantan.csv.ParseResult[java.io.Reader]):kantan.csv.CsvInput[A]"></a>
-      <a id="from[A]((A)⇒ParseResult[Reader]):CsvInput[A]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">from</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.csv.CsvInput.from.A">A</span>) ⇒ <a href="package.html#ParseResult[A]=kantan.codecs.Result[kantan.csv.ParseError,A]" class="extmbr" name="kantan.csv.ParseResult">ParseResult</a>[<span class="extype" name="java.io.Reader">Reader</span>]</span>)</span><span class="result">: <a href="CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a>[<span class="extype" name="kantan.csv.CsvInput.from.A">A</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@from[A](f:A=&gt;kantan.csv.ParseResult[java.io.Reader]):kantan.csv.CsvInput[A]" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Turns the specified function into a <a href="CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns the specified function into a <a href="CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a>.</p><p>Note that it's usually better to compose an existing instance through <a href="CsvInput.html#contramap[T](f:T=&gt;S):kantan.csv.CsvInput[T]" class="extmbr" name="kantan.csv.CsvInput#contramap">CsvInput.contramap</a> or
-<a href="CsvInput.html#contramapResult[T](f:T=&gt;kantan.csv.ParseResult[S]):kantan.csv.CsvInput[T]" class="extmbr" name="kantan.csv.CsvInput#contramapResult">CsvInput.contramapResult</a> rather than create one from scratch. For example:</p><pre><span class="kw">val</span> urlInput: CsvInput[URL] = CsvInput[InputStream].contramap((url: URL) ⇒ url.openStream())</pre></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="CsvInput.html#contramapResult[T](f:T=&gt;kantan.csv.ParseResult[S]):kantan.csv.CsvInput[T]" class="extmbr" name="kantan.csv.CsvInput#contramapResult">CsvInput.contramapResult</a></p></span><span class="cmt"><p><a href="CsvInput.html#contramap[T](f:T=&gt;S):kantan.csv.CsvInput[T]" class="extmbr" name="kantan.csv.CsvInput#contramap">CsvInput.contramap</a></p></span></dd></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <a id="getClass():Class[_]"></a>
@@ -347,7 +297,7 @@ your implementation.
         <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@getClass():Class[_]" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink@getClass():Class[_]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -364,28 +314,11 @@ your implementation.
         <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@hashCode():Int" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink@hashCode():Int" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="kantan.csv.CsvInput#inputStream" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="inputStream(implicitcodec:scala.io.Codec):kantan.csv.CsvInput[java.io.InputStream]"></a>
-      <a id="inputStream(Codec):CsvInput[InputStream]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">inputStream</span><span class="params">(<span class="implicit">implicit </span><span name="codec">codec: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.io.Codec" class="extype" target="_top">Codec</a></span>)</span><span class="result">: <a href="CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a>[<span class="extype" name="java.io.InputStream">InputStream</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@inputStream(implicitcodec:scala.io.Codec):kantan.csv.CsvInput[java.io.InputStream]" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Turns any <code>java.io.InputStream</code> into a source of CSV data.</p>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -398,7 +331,7 @@ your implementation.
         <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -415,7 +348,7 @@ your implementation.
         <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -432,7 +365,7 @@ your implementation.
         <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@notify():Unit" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink@notify():Unit" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -449,62 +382,11 @@ your implementation.
         <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@notifyAll():Unit" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink@notifyAll():Unit" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="kantan.csv.CsvInput#path" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="path(implicitcodec:scala.io.Codec):kantan.csv.CsvInput[java.nio.file.Path]"></a>
-      <a id="path(Codec):CsvInput[Path]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">path</span><span class="params">(<span class="implicit">implicit </span><span name="codec">codec: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.io.Codec" class="extype" target="_top">Codec</a></span>)</span><span class="result">: <a href="CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a>[<span class="extype" name="java.nio.file.Path">Path</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@path(implicitcodec:scala.io.Codec):kantan.csv.CsvInput[java.nio.file.Path]" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Turns any path into a source of CSV data.</p>
-    </li><li name="kantan.csv.CsvInput#reader" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="reader:kantan.csv.CsvInput[java.io.Reader]"></a>
-      <a id="reader:CsvInput[Reader]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">reader</span><span class="result">: <a href="CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a>[<span class="extype" name="java.io.Reader">Reader</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@reader:kantan.csv.CsvInput[java.io.Reader]" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Turns any <code>java.io.Reader</code> into a source of CSV data.</p>
-    </li><li name="kantan.csv.CsvInput#string" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="string:kantan.csv.CsvInput[String]"></a>
-      <a id="string:CsvInput[String]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">string</span><span class="result">: <a href="CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@string:kantan.csv.CsvInput[String]" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Turns any string into a source of CSV data.</p>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
@@ -517,7 +399,7 @@ your implementation.
         <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -534,45 +416,11 @@ your implementation.
         <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@toString():String" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink@toString():String" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="kantan.csv.CsvInput#uri" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="uri(implicitcodec:scala.io.Codec):kantan.csv.CsvInput[java.net.URI]"></a>
-      <a id="uri(Codec):CsvInput[URI]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">uri</span><span class="params">(<span class="implicit">implicit </span><span name="codec">codec: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.io.Codec" class="extype" target="_top">Codec</a></span>)</span><span class="result">: <a href="CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a>[<span class="extype" name="java.net.URI">URI</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@uri(implicitcodec:scala.io.Codec):kantan.csv.CsvInput[java.net.URI]" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Turns any <code>java.net.URI</code> into a source of CSV data.</p>
-    </li><li name="kantan.csv.CsvInput#url" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="url(implicitcodec:scala.io.Codec):kantan.csv.CsvInput[java.net.URL]"></a>
-      <a id="url(Codec):CsvInput[URL]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">url</span><span class="params">(<span class="implicit">implicit </span><span name="codec">codec: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.io.Codec" class="extype" target="_top">Codec</a></span>)</span><span class="result">: <a href="CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a>[<span class="extype" name="java.net.URL">URL</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@url(implicitcodec:scala.io.Codec):kantan.csv.CsvInput[java.net.URL]" title="Permalink" target="_top">
-        <img src="../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Turns any <code>java.net.URL</code> into a source of CSV data.</p>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>
@@ -585,7 +433,7 @@ your implementation.
         <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@wait():Unit" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink@wait():Unit" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -608,7 +456,7 @@ your implementation.
         <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Long" class="extype" target="_top">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -631,7 +479,7 @@ your implementation.
         <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Long" class="extype" target="_top">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@wait(x$1:Long):Unit" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink@wait(x$1:Long):Unit" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -642,44 +490,53 @@ your implementation.
     </span>)</span>
               
         </dd></dl></div>
-    </li></ol>
-            </div>
-
-        
-
-        <div id="values" class="values members">
-              <h3>Deprecated Value Members</h3>
-              <ol><li name="kantan.csv.CsvInput#apply" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="apply[A](f:A=&gt;kantan.csv.ParseResult[java.io.Reader]):kantan.csv.CsvInput[A]"></a>
-      <a id="apply[A]((A)⇒ParseResult[Reader]):CsvInput[A]"></a>
+    </li><li name="kantan.csv.CsvSink#write" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="write[A](s:S,rows:TraversableOnce[A],sep:Char,header:Seq[String])(implicitevidence$2:kantan.csv.RowEncoder[A],implicite:kantan.csv.engine.WriterEngine):Unit"></a>
+      <a id="write[A](S,TraversableOnce[A],Char,Seq[String])(RowEncoder[A],WriterEngine):Unit"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 0.1.14) use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)">apply</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.csv.CsvInput.apply.A">A</span>) ⇒ <a href="package.html#ParseResult[A]=kantan.codecs.Result[kantan.csv.ParseError,A]" class="extmbr" name="kantan.csv.ParseResult">ParseResult</a>[<span class="extype" name="java.io.Reader">Reader</span>]</span>)</span><span class="result">: <a href="CsvInput.html" class="extype" name="kantan.csv.CsvInput">CsvInput</a>[<span class="extype" name="kantan.csv.CsvInput.apply.A">A</span>]</span>
+        <span class="name">write</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="s">s: <span class="extype" name="kantan.csv.CsvSink.S">S</span></span>, <span name="rows">rows: <span class="extype" name="scala.TraversableOnce">TraversableOnce</span>[<span class="extype" name="kantan.csv.CsvSink.write.A">A</span>]</span>, <span name="sep">sep: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Char" class="extype" target="_top">Char</a></span>, <span name="header">header: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">Seq.empty</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="package.html#RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="kantan.csv.CsvSink.write.A">A</span>]</span>, <span name="e">e: <a href="engine/WriterEngine.html" class="extype" name="kantan.csv.engine.WriterEngine">WriterEngine</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.csv.CsvInput$@apply[A](f:A=&gt;kantan.csv.ParseResult[java.io.Reader]):kantan.csv.CsvInput[A]" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.csv.CsvSink@write[A](s:S,rows:TraversableOnce[A],sep:Char,header:Seq[String])(implicitevidence$2:kantan.csv.RowEncoder[A],implicite:kantan.csv.engine.WriterEngine):Unit" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 0.1.14)</i> use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)</p></dd></dl></div>
+      <p class="shortcomment cmt">Writes the specified collections directly in the specifie <code>S</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Writes the specified collections directly in the specifie <code>S</code>.
+</p></div><dl class="paramcmts block"><dt class="param">s</dt><dd class="cmt"><p>where to write the CSV data.</p></dd><dt class="param">rows</dt><dd class="cmt"><p>CSV data to encode and serialise.</p></dd><dt class="param">sep</dt><dd class="cmt"><p>column separator.</p></dd><dt class="param">header</dt><dd class="cmt"><p>optional header row, defaults to none.</p></dd></dl></div>
+    </li><li name="kantan.csv.CsvSink#writer" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="writer[A](s:S,sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[A]"></a>
+      <a id="writer[A](S,Char,Seq[String])(RowEncoder[A],WriterEngine):CsvWriter[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">writer</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="s">s: <span class="extype" name="kantan.csv.CsvSink.S">S</span></span>, <span name="sep">sep: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Char" class="extype" target="_top">Char</a></span>, <span name="header">header: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">Seq.empty</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="package.html#RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="kantan.csv.CsvSink.writer.A">A</span>]</span>, <span name="e">e: <a href="engine/WriterEngine.html" class="extype" name="kantan.csv.engine.WriterEngine">WriterEngine</a></span>)</span><span class="result">: <a href="CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a>[<span class="extype" name="kantan.csv.CsvSink.writer.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.csv.CsvSink@writer[A](s:S,sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Opens a <a href="CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a> on the specified <code>S</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Opens a <a href="CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a> on the specified <code>S</code>.
+</p></div><dl class="paramcmts block"><dt class="param">s</dt><dd class="cmt"><p>what to open a <a href="CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a> on.</p></dd><dt class="param">sep</dt><dd class="cmt"><p>column separator.</p></dd><dt class="param">header</dt><dd class="cmt"><p>optional header row, defaults to none.</p></dd></dl></div>
     </li></ol>
             </div>
+
+        
+
+        
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.Serializable">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></h3>
-            </div><div class="parent" name="java.io.Serializable">
+        <div class="parent" name="java.io.Serializable">
               <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
-            </div><div class="parent" name="kantan.csv.LowPriorityCsvInputs">
-              <h3>Inherited from <a href="LowPriorityCsvInputs.html" class="extype" name="kantan.csv.LowPriorityCsvInputs">LowPriorityCsvInputs</a></h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
