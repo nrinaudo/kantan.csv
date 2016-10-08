@@ -16,7 +16,7 @@ hood.
 The [opencsv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-opencsv" % "0.1.14"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-opencsv" % "0.1.15"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -30,7 +30,7 @@ import kantan.csv.engine.opencsv._
 The [commons csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.1.14"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.1.15"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -44,7 +44,7 @@ import kantan.csv.engine.commons._
 The [jackson csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.1.14"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.1.15"
 ```
 
 You then need to bring the right implicits in scope through:
