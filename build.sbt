@@ -1,16 +1,15 @@
 // - Dependency versions -----------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 val commonsCsvVersion        = "1.4"
-val jacksonCsvVersion        = "2.8.2"
-val kantanCodecsVersion      = "0.1.9-SNAPSHOT"
-val kindProjectorVersion     = "0.8.1"
+val jacksonCsvVersion        = "2.8.3"
+val kantanCodecsVersion      = "0.1.9"
 val macroParadiseVersion     = "2.1.0"
 val opencsvVersion           = "3.8"
 val productCollectionVersion = "1.4.3"
 val scalaCsvVersion          = "1.3.3"
 val scalatestVersion         = "3.0.0-M9"
 val scalazStreamVersion      = "0.8.4"
-val univocityVersion         = "2.2.1"
+val univocityVersion         = "2.2.2"
 
 kantanProject in ThisBuild := "csv"
 
