@@ -65,16 +65,16 @@ the number, the better the results.
 
 | Library                  | μs/action |
 |--------------------------|-----------|
-| [commons csv]            |     56.15 |
-| [jackson csv]            |     26.64 |
-| kantan.csv (commons csv) |     74.34 |
-| kantan.csv (internal)    |     48.91 |
-| kantan.csv (jackson csv) |     44.37 |
-| kantan.csv (opencsv)     |     81.45 |
-| [opencsv]                |     64.23 |
-| [product collections]    |     52.85 |
-| [scala csv]              |    155.87 |
-| [uniVocity]              |     29.27 |
+| [commons csv]            |     54.48 |
+| [jackson csv]            |     29.91 |
+| kantan.csv (commons csv) |     72.03 |
+| kantan.csv (internal)    |     50.30 |
+| kantan.csv (jackson csv) |     44.24 |
+| kantan.csv (opencsv)     |     80.76 |
+| [opencsv]                |     63.59 |
+| [product collections]    |     53.06 |
+| [scala csv]              |    155.05 |
+| [uniVocity]              |     29.09 |
 
 A few things are worth pointing out:
 
@@ -90,16 +90,16 @@ serialized.
 
 | Library                  | μs/action |
 |--------------------------|-----------|
-| [commons csv]            |     27.59 |
-| [jackson csv]            |     23.16 |
-| kantan.csv (commons csv) |     32.63 |
-| kantan.csv (internal)    |     29.96 |
-| kantan.csv (jackson csv) |     26.91 |
-| kantan.csv (opencsv)     |     65.50 |
-| [opencsv]                |     55.38 |
-| [product collections]    |     91.63 |
-| [scala csv]              |     54.79 |
-| [uniVocity]              |     31.35 |
+| [commons csv]            |     27.45 |
+| [jackson csv]            |     22.59 |
+| kantan.csv (commons csv) |     32.03 |
+| kantan.csv (internal)    |     34.24 |
+| kantan.csv (jackson csv) |     26.93 |
+| kantan.csv (opencsv)     |     65.16 |
+| [opencsv]                |     53.93 |
+| [product collections]    |     91.51 |
+| [scala csv]              |     54.89 |
+| [uniVocity]              |     31.17 |
 
 [commons csv]:https://commons.apache.org/proper/commons-csv/
 [jackson csv]:https://github.com/FasterXML/jackson-dataformat-csv
