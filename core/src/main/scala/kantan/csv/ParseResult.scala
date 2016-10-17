@@ -16,11 +16,10 @@
 
 package kantan.csv
 
-import kantan.codecs.Result
+import kantan.codecs.ResultCompanion
 
-object ParseResult {
-  def apply[A](a: ⇒ A): ParseResult[A] = Result.nonFatal(a).leftMap(ParseError.IOError.apply)
-  def io(e: Throwable): ParseResult[Nothing] = Result.failure(ParseError.IOError(e))
-  def noSuchElement: ParseResult[Nothing] = Result.failure(ParseError.NoSuchElement())
-  def success[A](a: A): ParseResult[A] = Result.success(a)
+object ParseResult extends ResultCompanion.WithDefault[ParseError] {
+  override protected def fromThrowable(t: Throwable): ParseError = ParseError.IOError(t)
+  def io(e: Throwable): ParseResult[Nothing] = failure(ParseError.IOError(e))
+  def noSuchElement: ParseResult[Nothing] = failure(ParseError.NoSuchElement())
 }

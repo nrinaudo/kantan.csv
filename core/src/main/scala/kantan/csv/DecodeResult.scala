@@ -16,12 +16,11 @@
 
 package kantan.csv
 
-import kantan.codecs.Result
+import kantan.codecs.ResultCompanion
 
-object DecodeResult {
-  def apply[A](a: ⇒ A): DecodeResult[A] = Result.nonFatal(a).leftMap(DecodeError.TypeError.apply)
-  def outOfBounds(index: Int): DecodeResult[Nothing] = Result.failure(DecodeError.OutOfBounds(index))
-  def success[A](a: A): DecodeResult[A] = Result.success(a)
-  def typeError(str: String): DecodeResult[Nothing] = Result.failure(DecodeError.TypeError(str))
-  def typeError(e: Exception): DecodeResult[Nothing] = Result.failure(DecodeError.TypeError(e))
+object DecodeResult extends ResultCompanion.WithDefault[DecodeError] {
+  override protected def fromThrowable(t: Throwable) = DecodeError.TypeError(t)
+  def outOfBounds(index: Int): DecodeResult[Nothing] = failure(DecodeError.OutOfBounds(index))
+  def typeError(str: String): DecodeResult[Nothing] = failure(DecodeError.TypeError(str))
+  def typeError(e: Exception): DecodeResult[Nothing] = failure(DecodeError.TypeError(e))
 }
