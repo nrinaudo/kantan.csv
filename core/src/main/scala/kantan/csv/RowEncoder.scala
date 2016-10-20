@@ -16,7 +16,7 @@
 
 package kantan.csv
 
-import kantan.codecs.Encoder
+import kantan.codecs.EncoderCompanion
 
 /** Provides various instance creation and summoning methods.
   *
@@ -33,18 +33,15 @@ import kantan.codecs.Encoder
   * Note that a lot of types already have implicit instances: tuples, collections... moreover, the `generics` module
   * can automatically derive valid instances for a lot of common scenarios.
   */
-object RowEncoder extends GeneratedRowEncoders {
+object RowEncoder extends GeneratedRowEncoders with EncoderCompanion[Seq[String], codecs.type] {
   /** Summons an implicit instance of [[RowEncoder]] for the desired type if one can be found.
     *
     * This is essentially a shorter way of calling `implicitly[RowEncoder[A]]`.
     */
   def apply[A](implicit ev: RowEncoder[A]): RowEncoder[A] = macro imp.summon[RowEncoder[A]]
 
-  /** Creates a new [[RowEncoder]] using the specified function for encoding. */
-  def from[A](f: A ⇒ Seq[String]): RowEncoder[A] = Encoder.from(f)
-
   @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
-  def apply[A](f: A ⇒ Seq[String]): RowEncoder[A] = RowEncoder.from(f)
+  def apply[A](f: A ⇒ Seq[String]): RowEncoder[A] = from(f)
 }
 
 /** Provides reasonable default [[RowEncoder]] instances for various types. */

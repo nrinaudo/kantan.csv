@@ -16,7 +16,7 @@
 
 package kantan.csv
 
-import kantan.codecs.Decoder
+import kantan.codecs.DecoderCompanion
 import scala.collection.generic.CanBuildFrom
 
 /** Provides various instance creation and summoning methods.
@@ -33,15 +33,12 @@ import scala.collection.generic.CanBuildFrom
   * Note that a lot of types already have implicit instances: tuples, collections... moreover, the `generics` module
   * can automatically derive valid instances for a lot of common scenarios.
   */
-object RowDecoder extends GeneratedRowDecoders {
+object RowDecoder extends GeneratedRowDecoders with DecoderCompanion[Seq[String], DecodeError, codecs.type] {
   /** Summons an implicit instance of [[RowDecoder]] for the desired type if one can be found.
     *
     * This is essentially a shorter way of calling `implicitly[RowDecoder[A]]`.
     */
   def apply[A](implicit ev: RowDecoder[A]): RowDecoder[A] = macro imp.summon[RowDecoder[A]]
-
-  /** Creates a new [[RowDecoder]] using the specified function for decoding. */
-  def from[A](f: Seq[String] ⇒ DecodeResult[A]): RowDecoder[A] = Decoder.from(f)
 
   @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
   def apply[A](f: Seq[String] ⇒ DecodeResult[A]): RowDecoder[A] = RowDecoder.from(f)

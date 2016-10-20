@@ -16,24 +16,21 @@
 
 package kantan.csv
 
-import kantan.codecs.Decoder
-import kantan.codecs.strings._
+import kantan.codecs.{Decoder, DecoderCompanion}
+import kantan.codecs.strings.StringDecoder
 import kantan.csv.DecodeError.TypeError
 import scala.language.experimental.macros
 
 /** Provides useful methods for summoning and creating instances of [[CellDecoder]]. */
-object CellDecoder {
+object CellDecoder extends DecoderCompanion[String, DecodeError, codecs.type] {
   /** Summons an instance of [[CellDecoder]] if an implicit one can be found in scope.
     *
     * This is essentially a shorter way of calling `implicitly[CellDecoder[A]]`.
     */
   def apply[A](implicit ev: CellDecoder[A]): CellDecoder[A] = macro imp.summon[CellDecoder[A]]
 
-  /** Creates a new instance of [[CellDecoder]] that uses the specified function to decode data. */
-  def from[A](f: String ⇒ DecodeResult[A]): CellDecoder[A] = Decoder.from(f)
-
   @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
-  def apply[A](f: String ⇒ DecodeResult[A]): CellDecoder[A] = CellDecoder.from(f)
+  def apply[A](f: String ⇒ DecodeResult[A]): CellDecoder[A] = from(f)
 }
 
 /** All default [[CellDecoder]] instances. */

@@ -16,15 +16,12 @@
 
 package kantan.csv
 
-import kantan.codecs.Codec
+import kantan.codecs.CodecCompanion
 
 /** Declares helpful methods for [[CellCodec]] creation. */
-object CellCodec {
-  /** Creates a new [[CellCodec]] from the specified decoding and encoding functions. */
-  def from[A](decoder: String ⇒ DecodeResult[A])(encoder: A ⇒ String): CellCodec[A] = Codec.from(decoder)(encoder)
-
+object CellCodec extends CodecCompanion[String, DecodeError, codecs.type] {
   @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
-  def apply[A](decoder: String ⇒ DecodeResult[A])(encoder: A ⇒ String): CellCodec[A] = CellCodec.from(decoder)(encoder)
+  def apply[A](decoder: String ⇒ DecodeResult[A])(encoder: A ⇒ String): CellCodec[A] = from(decoder)(encoder)
 }
 
 trait CellCodecInstances extends CellEncoderInstances with CellDecoderInstances
