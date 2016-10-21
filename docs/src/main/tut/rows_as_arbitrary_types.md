@@ -66,6 +66,6 @@ If you want to learn more about:
 * [encoding arbitrary types as rows](arbitrary_types_as_rows.html)
 * [how we were able to turn a `URL` into CSV data](csv_sources.html)
 
-[`RowDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package@RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]
+[`RowDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowDecoder
 [`decoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.RowDecoder$@decoder[A1,A2,A3,A4,R](i1:Int,i2:Int,i3:Int,i4:Int)(f:(A1,A2,A3,A4)=>R)(implicitevidence$7:kantan.csv.CellDecoder[A1],implicitevidence$8:kantan.csv.CellDecoder[A2],implicitevidence$9:kantan.csv.CellDecoder[A3],implicitevidence$10:kantan.csv.CellDecoder[A4]):kantan.csv.RowDecoder[R]
 [`ordered`]:{{ site.baseurl }}/api/index.html#kantan.csv.RowDecoder$@ordered[A1,A2,A3,A4,A5,R](f:(A1,A2,A3,A4,A5)=>R)(implicitevidence$264:kantan.csv.CellDecoder[A1],implicitevidence$265:kantan.csv.CellDecoder[A2],implicitevidence$266:kantan.csv.CellDecoder[A3],implicitevidence$267:kantan.csv.CellDecoder[A4],implicitevidence$268:kantan.csv.CellDecoder[A5]):kantan.csv.RowDecoder[R]

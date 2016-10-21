@@ -44,7 +44,7 @@ implicit val stringInput: CsvSource[String] = CsvSource[Reader].contramap(s ⇒ 
 
 
 [`CsvSource`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvWriter
-[`ParseResult`]:{{ site.baseurl }}/api/#kantan.csv.package@ParseResult[A]=kantan.codecs.Result[kantan.csv.ParseError,A]
+[`ParseResult`]:{{ site.baseurl }}/api/#kantan.csv.package$$ParseResult
 [`asCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
 [`URL`]:https://docs.oracle.com/javase/7/docs/api/java/net/URL.html
 [`URI`]:https://docs.oracle.com/javase/7/docs/api/java/net/URI.html

@@ -102,7 +102,7 @@ This strategy is not always possible, but is good to keep in mind for these case
 
 [`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List
 [`asUnsafeCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$2:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]
-[`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package@ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]
+[`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package$$ReadResult
 [`Result`]:http://nrinaudo.github.io/kantan.codecs/api/#kantan.codecs.Result
 [`collect`]:http://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.ResourceIterator@collect[B](f:PartialFunction[A,B]):kantan.codecs.ResourceIterator[B]
 [`filter`]:http://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.ResourceIterator@filter(p:A=>Boolean):kantan.codecs.ResourceIterator[A]

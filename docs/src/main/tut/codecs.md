@@ -69,7 +69,7 @@ csv.readCsv[List, Person](',', false)
 
 
 [`DateTime`]:http://www.joda.org/joda-time/apidocs/org/joda/time/DateTime.html
-[`CellCodec`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CellCodec[A]=kantan.codecs.Codec[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]
-[`RowCodec`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@RowCodec[A]=kantan.codecs.Codec[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]
-[`RowDecoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]
-[`RowEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]
+[`CellCodec`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellCodec
+[`RowCodec`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowCodec
+[`RowDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowDecoder
+[`RowEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowEncoder

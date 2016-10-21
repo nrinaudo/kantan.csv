@@ -141,11 +141,11 @@ The following types have an instance of [`CsvSink`] out of the box:
 * [`Path`]
 * [`File`]
 
-[`CellCodec`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CellCodec[A]=kantan.codecs.Codec[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]
-[`CellDecoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CellDecoder[A]=kantan.codecs.Decoder[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]
-[`CellEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CellEncoder[A]=kantan.codecs.Encoder[String,A,kantan.csv.codecs.type]
-[`RowDecoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]
-[`RowEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]
+[`CellCodec`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellCodec
+[`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellDecoder
+[`CellEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellEncoder
+[`RowDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowDecoder
+[`RowEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowEncoder
 [`Reader`]:https://docs.oracle.com/javase/7/docs/api/java/io/Reader.html
 [`File`]:https://docs.oracle.com/javase/7/docs/api/java/io/File.html
 [`InputStream`]:https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html

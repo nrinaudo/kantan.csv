@@ -64,7 +64,7 @@ If you want to learn more about:
 [`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List
 [syntax]:{{ site.baseurl }}/api/#kantan.csv.ops$
 [`CsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]
-[`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package@CellDecoder[A]=kantan.codecs.Decoder[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]
-[`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package@ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]
+[`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellDecoder
+[`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package$$ReadResult
 [`asCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
 [`asUnsafeCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$2:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]

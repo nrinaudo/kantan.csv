@@ -110,9 +110,9 @@ In the following example:
 "1,true\nfoobar,".unsafeReadCsv[List, (Int, Boolean) Or CustomTuple2[String, Option[Boolean]]](',', false)
 ```
 
-[`RowDecoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]
-[`RowEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]
-[`CellCodec`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CellCodec[A]=kantan.codecs.Codec[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]
-[`CellDecoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CellDecoder[A]=kantan.codecs.Decoder[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]
-[`CellEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CellEncoder[A]=kantan.codecs.Encoder[String,A,kantan.csv.codecs.type]
+[`RowDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowDecoder
+[`RowEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowEncoder
+[`CellCodec`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellCodec
+[`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellDecoder
+[`CellEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellEncoder
 [`Tuple2`]:http://www.scala-lang.org/api/current/index.html#scala.Tuple2

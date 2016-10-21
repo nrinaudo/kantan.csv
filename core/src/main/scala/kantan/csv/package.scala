@@ -32,7 +32,7 @@ package object csv {
   val CsvInput = CsvSource
   @deprecated("use CsvSink instead (see https://github.com/nrinaudo/kantan.csv/issues/49)", "0.1.15")
   type CsvOutput[A] = CsvSink[A]
-  @deprecated("use CsvSink instead (see https://github.com/nrinaudo/kantan.csv/issues/49)", "0.1.15")
+  @deprecated ("use CsvSink instead (see https://github.com/nrinaudo/kantan.csv/issues/49)", "0.1.15")
   val CsvOutput = CsvSink
 
 
@@ -47,9 +47,10 @@ package object csv {
 
   /** Result of a reading operation, which can be either a success or a failure.
     *
-    * Both [[ParseResult]] and [[DecodeResult]] are valid values of type [[ReadResult]].
+    * Both [[kantan.csv.ParseResult]] and [[DecodeResult]] are valid values of type [[ReadResult]].
     *
     * @see kantan.codecs.Result
+    * @documentable
     */
   type ReadResult[A] = Result[ReadError, A]
 
@@ -62,6 +63,7 @@ package object csv {
     * Failure cases are all encoded as [[ParseError]].
     *
     * @see kantan.codecs.Result
+    * @documentable
     */
   type ParseResult[A] = Result[ParseError, A]
 
@@ -74,6 +76,7 @@ package object csv {
     * Failure cases are all encoded as [[DecodeError]].
     *
     * @see kantan.codecs.Result
+    * @documentable
     */
   type DecodeResult[A] = Result[DecodeError, A]
 
@@ -92,6 +95,7 @@ package object csv {
     *
     * @tparam A type this instance know to decode from.
     * @see kantan.codecs.Decoder
+    * @documentable
     */
   type CellDecoder[A] = Decoder[String, A, DecodeError, codecs.type]
 
@@ -107,6 +111,7 @@ package object csv {
     *
     * @tparam A type this instance knows to encode to.
     * @see kantan.codecs.Encoder
+    * @documentable
     */
   type CellEncoder[A] = Encoder[String, A, codecs.type]
 
@@ -117,6 +122,7 @@ package object csv {
     * bound or expected as an implicit parameter.
     *
     * @see kantan.codecs.Codec
+    * @documentable
     */
   type CellCodec[A] = Codec[String, A, DecodeError, codecs.type]
 
@@ -133,6 +139,7 @@ package object csv {
     *
     * @tparam A type this instance know to decode from.
     * @see kantan.codecs.Decoder
+    * @documentable
     */
   type RowDecoder[A] = Decoder[Seq[String], A, DecodeError, codecs.type]
 
@@ -145,6 +152,7 @@ package object csv {
     *
     * @tparam A type this instance knows to encode to.
     * @see kantan.codecs.Encoder
+    * @documentable
     */
   type RowEncoder[A] = Encoder[Seq[String], A, codecs.type]
 
@@ -155,6 +163,7 @@ package object csv {
     * bound or expected as an implicit parameter.
     *
     * @see kantan.codecs.Codec
+    * @documentable
     */
   type RowCodec[A] = Codec[Seq[String], A, DecodeError, codecs.type]
 }

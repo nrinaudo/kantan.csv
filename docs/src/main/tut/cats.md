@@ -65,10 +65,10 @@ The following instance for cats type classes are provided:
 [`Monad`]:http://typelevel.org/cats/api/index.html#cats.Monad
 [`Xor`]:http://typelevel.org/cats/api/#cats.data.Xor
 [`Monoid`]:http://typelevel.org/cats/api/index.html#cats.package@Monoid[A]=cats.kernel.Monoid[A]
-[`CellEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CellEncoder[A]=kantan.codecs.Encoder[String,A,kantan.csv.codecs.type]
-[`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package@CellDecoder[A]=kantan.codecs.Decoder[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]
-[`RowDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package@RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]
-[`RowEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]
-[`ReadResult`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]
-[`ParseResult`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@ParseResult[A]=kantan.codecs.Result[kantan.csv.ParseError,A]
-[`DecodeResult`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@DecodeResult[A]=kantan.codecs.Result[kantan.csv.DecodeError,A]
+[`CellEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellEncoder
+[`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellDecoder
+[`RowDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowDecoder
+[`RowEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowEncoder
+[`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package$$ReadResult
+[`ParseResult`]:{{ site.baseurl }}/api/#kantan.csv.package$$ParseResult
+[`DecodeResult`]:{{ site.baseurl }}/api/#kantan.csv.package$$DecodeResult

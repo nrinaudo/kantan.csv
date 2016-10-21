@@ -78,4 +78,4 @@ If you want to learn more about:
 [`CsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]
 [`CsvReaderOps`]:{{ site.baseurl }}/api/#kantan.csv.ops.CsvReaderOps
 [`Set`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Set
-[`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package@ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]
+[`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package$$ReadResult

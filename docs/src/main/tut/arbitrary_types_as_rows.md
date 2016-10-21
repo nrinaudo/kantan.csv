@@ -45,7 +45,7 @@ If you want to learn more about:
 * [decoding rows as arbitrary types](rows_as_arbitrary_types.html)
 * [how we were able to turn a `File` into a `CsvWriter`](csv_sinks.html)
 
-[`CellEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CellEncoder[A]=kantan.codecs.Encoder[String,A,kantan.csv.codecs.type]
+[`CellEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellEncoder
 [`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List
-[`RowEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]
+[`RowEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowEncoder
 [`encoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.RowEncoder$@encoder[C,A1,A2,A3,A4](i1:Int,i2:Int,i3:Int,i4:Int)(f:C=>(A1,A2,A3,A4))(implicitevidence$7:kantan.csv.CellEncoder[A1],implicitevidence$8:kantan.csv.CellEncoder[A2],implicitevidence$9:kantan.csv.CellEncoder[A3],implicitevidence$10:kantan.csv.CellEncoder[A4]):kantan.csv.RowEncoder[C]
