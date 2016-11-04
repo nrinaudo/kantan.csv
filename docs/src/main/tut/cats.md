@@ -5,7 +5,7 @@ section: tutorial
 sort_order: 21
 ---
 Kantan.csv has a [cats](https://github.com/typelevel/cats) module that is, in its current incarnation, fairly bare
-bones: it provides decoders for [`Xor`] as well as a few useful type class instances.
+bones: it simply provides a few useful type class instances.
 
 The `cats` module can be used by adding the following dependency to your `build.sbt`:
 
@@ -18,30 +18,6 @@ You then need to import the corresponding package:
 ```tut:silent
 import kantan.csv.cats._
 ```
-
-## `Xor` codecs
-
-For any two types `A` and `B` that each have a [`CellEncoder`], there exists a
-`CellEncoder[A Xor B]`. If `A` and `B` each have a [`RowEncoder`], there exists a `RowEncoder[A Xor B]`.
-
-By the same token, for any two types `A` and `B` that each have a [`CellDecoder`], there exists a
-`CellDecoder[A Xor B]`. If `A` and `B` each have a [`RowDecoder`], there exists a `RowDecoder[A Xor B]`.
-
-First, a few imports:
-
-```tut:silent
-import cats.data.Xor
-import kantan.csv.ops._
-```
-
-We can then simply write the following:
-
-```tut
-"1,2\n4,true".readCsv[List, (Int, Int Xor Boolean)](',', false)
-
-"1,2\n4,true".readCsv[List, (Int, Int) Xor (Int, Boolean)](',', false)
-```
-
 
 ## Cats instances
 
@@ -63,7 +39,6 @@ The following instance for cats type classes are provided:
 [`Show`]:http://typelevel.org/cats/api/index.html#cats.Show
 [`Traverse`]:http://typelevel.org/cats/api/index.html#cats.Traverse
 [`Monad`]:http://typelevel.org/cats/api/index.html#cats.Monad
-[`Xor`]:http://typelevel.org/cats/api/#cats.data.Xor
 [`Monoid`]:http://typelevel.org/cats/api/index.html#cats.package@Monoid[A]=cats.kernel.Monoid[A]
 [`CellEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellEncoder
 [`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellDecoder
