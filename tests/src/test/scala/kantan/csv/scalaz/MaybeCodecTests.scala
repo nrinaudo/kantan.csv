@@ -22,8 +22,9 @@ import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 import scalaz.Maybe
+import scalaz.scalacheck.ScalazArbitrary._
 
-class MaybeDecoderTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class MaybeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   checkAll("Maybe[Int]", CellCodecTests[Maybe[Int]].codec[String, Float])
   checkAll("Maybe[(Int, Int)]", RowCodecTests[Maybe[(Int, Int)]].codec[String, Float])
 }

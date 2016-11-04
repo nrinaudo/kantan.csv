@@ -20,9 +20,9 @@ import kantan.codecs.laws.discipline.CodecTests
 import kantan.csv._
 import kantan.csv.laws._
 import kantan.csv.laws.discipline.arbitrary._
-import org.scalacheck.Arbitrary
+import org.scalacheck.{Arbitrary, Cogen}
 
 object RowCodecTests {
-  def apply[A: RowCodecLaws](implicit al: Arbitrary[LegalRow[A]]): RowCodecTests[A] =
+  def apply[A: RowCodecLaws: Arbitrary: Cogen](implicit al: Arbitrary[LegalRow[A]]): RowCodecTests[A] =
     CodecTests[Seq[String], A, DecodeError, codecs.type]
 }

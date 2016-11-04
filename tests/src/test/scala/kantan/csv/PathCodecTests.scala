@@ -24,6 +24,6 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class PathCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("CellCodec[Path]", CellCodecTests[Path].codec[String, Float])
-  checkAll("RowCodec[Path]", RowCodecTests[Path].codec[String, Float])
+  checkAll("CellCodec[Path]", CellCodecTests[Path].bijectiveCodec[String, Float])
+  checkAll("RowCodec[Path]", RowCodecTests[Path].bijectiveCodec[String, Float])
 }

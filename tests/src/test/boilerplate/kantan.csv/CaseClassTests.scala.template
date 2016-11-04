@@ -3,21 +3,23 @@ package kantan.csv
 import kantan.csv.laws._
 import kantan.csv.laws.discipline.RowCodecTests
 import kantan.csv.laws.discipline.arbitrary._
-import org.scalacheck.Arbitrary
+import org.scalacheck._
 import org.scalacheck.Arbitrary._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 object CaseClass1 {
-  implicit val arb = Arbitrary(arbitrary[Int].map((CaseClass1.apply _)))
-  implicit val codec = RowCodec.caseCodec(CaseClass1.apply)(CaseClass1.unapply)
+  implicit val arb: Arbitrary[CaseClass1]  = Arbitrary(arbitrary[Int].map((CaseClass1.apply _)))
+  implicit val codec: RowCodec[CaseClass1] = RowCodec.caseCodec(CaseClass1.apply)(CaseClass1.unapply)
+  implicit val cogen: Cogen[CaseClass1]    = Cogen.cogenInt.contramap(_.f1)
 }
 case class CaseClass1(f1: Int)
 
 [2..#object CaseClass1 {
-  implicit val arb = Arbitrary(arbitrary[Tuple1[[#Int#]]].map((CaseClass1.apply _).tupled))
-  implicit val codec = RowCodec.caseCodec([#0#])(CaseClass1.apply)(CaseClass1.unapply)
+  implicit val arb: Arbitrary[CaseClass1]  = Arbitrary(arbitrary[Tuple1[[#Int#]]].map((CaseClass1.apply _).tupled))
+  implicit val codec: RowCodec[CaseClass1] = RowCodec.caseCodec([#0#])(CaseClass1.apply)(CaseClass1.unapply)
+  implicit val cogen: Cogen[CaseClass1]    = Cogen.cogenList[Int].contramap(f ⇒ List([#f.f1#]))
 }
 case class CaseClass1([#f1: Int#])#
 

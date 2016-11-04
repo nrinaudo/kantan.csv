@@ -16,8 +16,9 @@
 
 package kantan.csv.laws
 
+import imp.imp
 import kantan.csv.{CellDecoder, CellEncoder, DecodeResult}
-import org.scalacheck.{Arbitrary, Gen}
+import org.scalacheck.{Arbitrary, Cogen, Gen}
 
 sealed trait Cell {
   def value: String
@@ -74,6 +75,8 @@ object Cell {
   implicit val arbEscaped: Arbitrary[Escaped] = Arbitrary(escaped)
   implicit val arbNonEscaped: Arbitrary[NonEscaped] = Arbitrary(nonEscaped)
   implicit val arbCell: Arbitrary[Cell] = Arbitrary(cell)
+
+  implicit val cogenCell: Cogen[Cell] = imp[Cogen[String]].contramap(_.value)
 
 
   // - CSV row generators ----------------------------------------------------------------------------------------------
