@@ -19,11 +19,7 @@ package kantan.csv
 import kantan.codecs.CodecCompanion
 
 /** Provides useful methods for [[RowCodec]] instance creation. */
-object RowCodec extends GeneratedRowCodecs with CodecCompanion[Seq[String], DecodeError, codecs.type] {
-  @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
-  def apply[A](decoder: Seq[String] ⇒ DecodeResult[A])(encoder: A ⇒ Seq[String]): RowCodec[A] =
-    from(decoder)(encoder)
-}
+object RowCodec extends GeneratedRowCodecs with CodecCompanion[Seq[String], DecodeError, codecs.type]
 
 trait RowCodecInstances extends RowEncoderInstances with RowDecoderInstances {
   implicit val stringSeqRowCodec: RowCodec[Seq[String]] = RowCodec.from(ss ⇒ DecodeResult(ss))(identity)

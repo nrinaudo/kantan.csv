@@ -14,6 +14,10 @@ scala:
 jdk:
   - oraclejdk7
   - oraclejdk8
+matrix:
+  include:
+  - scala: 2.12.0
+    jdk: oraclejdk8
 script:
   - sbt ++$TRAVIS_SCALA_VERSION validate
 before_install:

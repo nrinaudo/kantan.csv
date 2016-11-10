@@ -39,9 +39,6 @@ object RowEncoder extends GeneratedRowEncoders with EncoderCompanion[Seq[String]
     * This is essentially a shorter way of calling `implicitly[RowEncoder[A]]`.
     */
   def apply[A](implicit ev: RowEncoder[A]): RowEncoder[A] = macro imp.summon[RowEncoder[A]]
-
-  @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
-  def apply[A](f: A ⇒ Seq[String]): RowEncoder[A] = from(f)
 }
 
 /** Provides reasonable default [[RowEncoder]] instances for various types. */

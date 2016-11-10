@@ -28,9 +28,6 @@ object CellDecoder extends DecoderCompanion[String, DecodeError, codecs.type] {
     * This is essentially a shorter way of calling `implicitly[CellDecoder[A]]`.
     */
   def apply[A](implicit ev: CellDecoder[A]): CellDecoder[A] = macro imp.summon[CellDecoder[A]]
-
-  @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
-  def apply[A](f: String ⇒ DecodeResult[A]): CellDecoder[A] = from(f)
 }
 
 /** All default [[CellDecoder]] instances. */

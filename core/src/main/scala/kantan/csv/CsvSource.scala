@@ -137,7 +137,7 @@ trait CsvSource[-S] extends Serializable { self ⇒
     *
     * @see [[contramap]]
     */
-  def contramapResult[T](f: T ⇒ ParseResult[S]): CsvSource[T] = CsvSource.from(t ⇒ f(t).flatMap(self.open))
+  def contramapResult[SS <: S, T](f: T ⇒ ParseResult[SS]): CsvSource[T] = CsvSource.from(t ⇒ f(t).flatMap(self.open))
 }
 
 trait LowPriorityCsvSourceInstances
@@ -176,9 +176,6 @@ object CsvSource extends LowPriorityCsvSourceInstances {
   def from[A](f: A ⇒ ParseResult[Reader]): CsvSource[A] = new CsvSource[A] {
     override def open(a: A) = f(a)
   }
-
-  @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
-  def apply[A](f: A ⇒ ParseResult[Reader]): CsvSource[A] = CsvSource.from(f)
 
   implicit def fromResource[A: ReaderResource]: CsvSource[A] =
     CsvSource.from(a ⇒ ReaderResource[A].open(a).leftMap(e ⇒ ParseError.IOError(e.getMessage, e.getCause)))

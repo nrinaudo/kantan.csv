@@ -1,0 +1,31 @@
+package kantan.csv
+
+import kantan.csv.laws.{IllegalRow, LegalRow}
+import kantan.csv.laws.discipline.RowCodecTests
+import kantan.csv.laws.discipline.arbitrary._
+import org.scalacheck.{Arbitrary, Cogen}
+import org.scalacheck.Arbitrary._
+import org.scalatest.FunSuite
+import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.typelevel.discipline.scalatest.Discipline
+
+class CaseClassTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+  implicit val arbCaseClass1: Arbitrary[CaseClass1]  = Arbitrary(arbitrary[Int].map((CaseClass1.apply _)))
+  implicit val caseClass1codec: RowCodec[CaseClass1] = RowCodec.caseCodec(CaseClass1.apply)(CaseClass1.unapply)
+  implicit val cogenCaseClass1: Cogen[CaseClass1]    = Cogen.cogenInt.contramap(_.f1)
+  implicit val arbLegalCaseClass1: Arbitrary[LegalRow[CaseClass1]] = arbLegalValueFromEnc[Seq[String], CaseClass1, kantan.csv.codecs.type]
+  implicit val arbIllegalCaseClass1: Arbitrary[IllegalRow[CaseClass1]] = arbIllegalValueFromDec[Seq[String], CaseClass1, kantan.csv.codecs.type]
+  case class CaseClass1(f1: Int)
+
+  [2..#implicit val arbCaseClass1: Arbitrary[CaseClass1]  = Arbitrary(arbitrary[Tuple1[[#Int#]]].map((CaseClass1.apply _).tupled))
+  implicit val caseClass1codec: RowCodec[CaseClass1] = RowCodec.caseCodec([#0#])(CaseClass1.apply)(CaseClass1.unapply)
+  implicit val cogenCaseClass1: Cogen[CaseClass1]    = Cogen.cogenList[Int].contramap(f ⇒ List([#f.f1#]))
+  implicit val arbLegalCaseClass1: Arbitrary[LegalRow[CaseClass1]] = arbLegalValueFromEnc[Seq[String], CaseClass1, kantan.csv.codecs.type]
+  implicit val arbIllegalCaseClass1: Arbitrary[IllegalRow[CaseClass1]] = arbIllegalValueFromDec[Seq[String], CaseClass1, kantan.csv.codecs.type]
+  case class CaseClass1([#f1: Int#])#
+
+  ]
+
+  [#checkAll("CaseClass1", RowCodecTests[CaseClass1].codec[List[String], List[Float]])#
+  ]
+}

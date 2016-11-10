@@ -8,8 +8,9 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class TupleTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  //implicit def tuple1[A: Arbitrary]: Arbitrary[Tuple1[A]] = Arbitrary(arbitrary[A].map(Tuple1.apply))
+  [#implicit val arbLegal1 = arbLegalValueFromEnc[Seq[String], Tuple1[[#Int#]], kantan.csv.codecs.type]
+  implicit val arbIllegal1 = arbIllegalValueFromDec[Seq[String], Tuple1[[#Int#]], kantan.csv.codecs.type]
+  checkAll("([#Int#])", RowCodecTests[Tuple1[[#Int#]]].codec[List[String], List[Float]])#
 
-  [#checkAll("([#Int#])", RowCodecTests[Tuple1[[#Int#]]].codec[List[String], List[Float]])#
   ]
 }

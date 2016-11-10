@@ -26,9 +26,6 @@ object CellEncoder extends EncoderCompanion[String, codecs.type] {
     * This is essentially a shorter way of calling `implicitly[CellEncoder[A]]`.
     */
   def apply[A](implicit ev: CellEncoder[A]): CellEncoder[A] = macro imp.summon[CellEncoder[A]]
-
-  @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
-  def apply[A](f: A ⇒ String): CellEncoder[A] = from(f)
 }
 
 /** All default [[CellEncoder]] instances. */

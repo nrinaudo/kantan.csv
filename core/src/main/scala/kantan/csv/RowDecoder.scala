@@ -39,9 +39,6 @@ object RowDecoder extends GeneratedRowDecoders with DecoderCompanion[Seq[String]
     * This is essentially a shorter way of calling `implicitly[RowDecoder[A]]`.
     */
   def apply[A](implicit ev: RowDecoder[A]): RowDecoder[A] = macro imp.summon[RowDecoder[A]]
-
-  @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
-  def apply[A](f: Seq[String] ⇒ DecodeResult[A]): RowDecoder[A] = RowDecoder.from(f)
 }
 
 /** Provides reasonable default [[RowDecoder]] instances for various types. */

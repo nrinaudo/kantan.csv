@@ -84,9 +84,6 @@ object CsvSink {
     override def open(s: A): Writer = f(s)
   }
 
-  @deprecated("use from instead (see https://github.com/nrinaudo/kantan.csv/issues/44)", "0.1.14")
-  def apply[A](f: A ⇒ Writer): CsvSink[A] = CsvSink.from(f)
-
   // TODO: unsafe, unacceptable, what was I thinking.
   implicit def fromResource[A: WriterResource]: CsvSink[A] =
     CsvSink.from(a ⇒ WriterResource[A].open(a).get)

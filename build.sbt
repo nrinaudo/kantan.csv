@@ -5,13 +5,12 @@ val jacksonCsvVersion        = "2.8.4"
 val kantanCodecsVersion      = "0.1.10-SNAPSHOT"
 val opencsvVersion           = "3.8"
 val productCollectionVersion = "1.4.5"
-val scalaCsvVersion          = "1.3.3"
+val scalaCsvVersion          = "1.3.4"
 val scalatestVersion         = "3.0.0"
 val scalazStreamVersion      = "0.8.6"
 val univocityVersion         = "2.2.3"
 
 kantanProject in ThisBuild := "csv"
-
 
 
 // - root projects -----------------------------------------------------------------------------------------------------
