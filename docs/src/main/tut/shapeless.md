@@ -110,9 +110,9 @@ In the following example:
 "1,true\nfoobar,".unsafeReadCsv[List, (Int, Boolean) Or CustomTuple2[String, Option[Boolean]]](',', false)
 ```
 
-[`RowDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowDecoder
-[`RowEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowEncoder
-[`CellCodec`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellCodec
-[`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellDecoder
-[`CellEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellEncoder
-[`Tuple2`]:http://www.scala-lang.org/api/current/index.html#scala.Tuple2
+[`RowDecoder`]:{{ site.baseurl }}/api/kantan/csv/RowDecoder$.html
+[`RowEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$RowEncoder.html
+[`CellCodec`]:{{ site.baseurl }}/api/kantan/csv/package$$CellCodec.html
+[`CellDecoder`]:{{ site.baseurl }}/api/kantan/csv/CellDecoder$.html
+[`CellEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$CellEncoder.html
+[`Tuple2`]:http://www.scala-lang.org/api/current/scala/Tuple2.html

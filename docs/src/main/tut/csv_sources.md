@@ -14,7 +14,7 @@ that "can be turned into CSV" with useful methods, such as the oft-used [`asCsvR
 
 This is done through the [`CsvSource`] type class: any type `A` such that there exists a value of type
 [`CsvSource[A]`][`CsvSource`] in the implicit scope will be enriched with
-[useful methods]({{ site.baseurl }}/api/#kantan.csv.ops.CsvSourceOps).
+[useful methods]({{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html).
 
 Implementing your own instances of [`CsvSource`] for types that aren't supported by default is fairly simple.
 
@@ -43,13 +43,13 @@ implicit val stringInput: CsvSource[String] = CsvSource[Reader].contramap(s ⇒ 
 ```
 
 
-[`CsvSource`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvWriter
-[`ParseResult`]:{{ site.baseurl }}/api/#kantan.csv.package$$ParseResult
-[`asCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
+[`CsvSource`]:{{ site.baseurl }}/api/kantan/csv/CsvSource.html
+[`ParseResult`]:{{ site.baseurl }}/api/kantan/csv/ParseResult$.html
+[`asCsvReader`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
 [`URL`]:https://docs.oracle.com/javase/7/docs/api/java/net/URL.html
 [`URI`]:https://docs.oracle.com/javase/7/docs/api/java/net/URI.html
 [`File`]:https://docs.oracle.com/javase/7/docs/api/java/io/File.html
 [`Reader`]:https://docs.oracle.com/javase/7/docs/api/java/io/Reader.html
-[`contramap`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvSource@contramap[T](f:T=>S):kantan.csv.CsvSource[T]
-[`contramapResult`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvSource@contramapResult[T](f:T=>kantan.csv.ParseResult[S]):kantan.csv.CsvSource[T]
+[`contramap`]:{{ site.baseurl }}/api/kantan/csv/CsvSource.html#contramap[T](f:T=>S):kantan.csv.CsvSource[T]
+[`contramapResult`]:{{ site.baseurl }}/api/kantan/csv/CsvSource.html#contramapResult[SS<:S,T](f:T=>kantan.csv.ParseResult[SS]):kantan.csv.CsvSource[T]
 [`String`]:https://docs.oracle.com/javase/7/docs/api/java/lang/String.html

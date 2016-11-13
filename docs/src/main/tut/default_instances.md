@@ -35,11 +35,11 @@ crusty date / time API.
 
 Instead of providing a default implementation that is likely going to be incorrect for most people, kantan.csv
 provides easy ways of creating [`CellEncoder`], [`CellDecoder`] and [`CellCodec`] instances provided you can create a
-[`DateFormat`] for you dates: 
+[`DateFormat`] for you dates:
 
-* [`CellCodec.dateCodec`]
-* [`CellEncoder.dateEncoder`]
-* [`CellDecoder.dateDecoder`]
+* [`CellCodec.dateCodec`]({{ site.baseurl }}/api/kantan/csv/CellCodec$.html#dateCodec(format:java.text.DateFormat):kantan.csv.CellCodec[java.util.Date])
+* [`CellEncoder.dateEncoder`]({{ site.baseurl }}/api/kantan/csv/CellEncoder$.html#dateEncoder(format:java.text.DateFormat):kantan.csv.CellEncoder[java.util.Date])
+* [`CellDecoder.dateDecoder`]({{ site.baseurl }}/api/kantan/csv/CellDecoder$.html#dateDecoder(format:java.text.DateFormat):kantan.csv.CellDecoder[java.util.Date])
 
 Note that kantan.csv has a [joda-time](joda_time.html) module, a very well thought out alternative to [`Date`].
 
@@ -65,7 +65,7 @@ This is useful for CSV data where some fields are optional and an empty value is
 ### Composition
 
 It's important to realise that these instances compose automatically. `Int` has a [`CellDecoder`], which means that
-[`Option[Int]`][`Option`] does to. `Boolean` has a [`CellDecoder`], which means that
+[`Option[Int]`][`Option`] does to. [`Boolean`] has a [`CellDecoder`], which means that
 [`Either[Option[Int], Boolean]`][`Either`] does
 too.
 
@@ -146,25 +146,25 @@ The following types have an instance of [`CsvSink`] out of the box:
 * [`Path`]
 * [`File`]
 
-[`CellCodec`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellCodec
-[`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellDecoder
-[`CellEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellEncoder
-[`RowDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowDecoder
-[`RowEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowEncoder
+[`CellCodec`]:{{ site.baseurl }}/api/kantan/csv/package$$CellCodec.html
+[`CellDecoder`]:{{ site.baseurl }}/api/kantan/csv/CellDecoder$.html
+[`CellEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$CellEncoder.html
+[`RowDecoder`]:{{ site.baseurl }}/api/kantan/csv/package$$RowDecoder.html
+[`RowEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$RowEncoder.html
 [`Reader`]:https://docs.oracle.com/javase/7/docs/api/java/io/Reader.html
 [`File`]:https://docs.oracle.com/javase/7/docs/api/java/io/File.html
 [`InputStream`]:https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html
 [`Writer`]:https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html
 [`OutputStream`]:https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html
 [`java.util.Date`]:https://docs.oracle.com/javase/7/docs/api/java/util/Date.html
-[`CsvSink`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvSink
+[`CsvSink`]:{{ site.baseurl }}/api/kantan/csv/CsvSink.html
 [`DateFormat`]:https://docs.oracle.com/javase/7/docs/api/java/text/DateFormat.html
-[`CsvSource`]:{{ site.baseurl }}/api/#kantan.csv.CsvSource
-[`Option`]:http://www.scala-lang.org/api/current/index.html#scala.Option
-[`Either`]:http://www.scala-lang.org/api/current/index.html#scala.util.Either
+[`CsvSource`]:{{ site.baseurl }}/api/kantan/csv/CsvSource.html
+[`Option`]:http://www.scala-lang.org/api/current/scala/Option.html
+[`Either`]:http://www.scala-lang.org/api/current/scala/util/Either.html
 [`Path`]:https://docs.oracle.com/javase/7/docs/api/java/nio/file/Path.html
-[`BigInt`]:http://www.scala-lang.org/api/current/index.html#scala.math.BigInt
-[`BigDecimal`]:http://www.scala-lang.org/api/current/index.html#scala.math.BigDecimal
+[`BigInt`]:http://www.scala-lang.org/api/current/scala/math/BigInt.html
+[`BigDecimal`]:http://www.scala-lang.org/api/current/scala/math/BigDecimal.html
 [`Byte`]:https://docs.oracle.com/javase/7/docs/api/java/lang/Byte.html
 [`Char`]:https://docs.oracle.com/javase/7/docs/api/java/lang/Character.html
 [`Boolean`]:https://docs.oracle.com/javase/7/docs/api/java/lang/Boolean.html
@@ -177,6 +177,6 @@ The following types have an instance of [`CsvSink`] out of the box:
 [`UUID`]:https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html
 [`URL`]:https://docs.oracle.com/javase/7/docs/api/java/net/URL.html
 [`URI`]:https://docs.oracle.com/javase/7/docs/api/java/net/URI.html
-[`CanBuildFrom`]:http://www.scala-lang.org/api/current/index.html#scala.collection.generic.CanBuildFrom
-[`TraversableOnce`]:http://www.scala-lang.org/api/current/index.html#scala.collection.TraversableOnce
+[`CanBuildFrom`]:http://www.scala-lang.org/api/current/scala/collection/generic/CanBuildFrom.html
+[`TraversableOnce`]:http://www.scala-lang.org/api/current/scala/collection/TraversableOnce.html
 [`Date`]:https://docs.oracle.com/javase/7/docs/api/java/util/Date.html

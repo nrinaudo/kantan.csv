@@ -80,11 +80,11 @@ The following instance for cats type classes are provided:
 [`Monoid`]:https://oss.sonatype.org/service/local/repositories/releases/archive/org/scalaz/scalaz_2.11/7.2.3/scalaz_2.11-7.2.3-javadoc.jar/!/index.html#scalaz.Monoid
 [`\/`]:https://oss.sonatype.org/service/local/repositories/releases/archive/org/scalaz/scalaz_2.11/7.2.3/scalaz_2.11-7.2.3-javadoc.jar/!/index.html#scalaz.$bslash$div
 [`Maybe`]:https://oss.sonatype.org/service/local/repositories/releases/archive/org/scalaz/scalaz_2.11/7.2.3/scalaz_2.11-7.2.3-javadoc.jar/!/index.html#scalaz.Maybe
-[`CellEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellEncoder
-[`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellDecoder
-[`RowDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowDecoder
-[`RowEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowEncoder
-[`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package$$ReadResult
-[`ParseResult`]:{{ site.baseurl }}/api/#kantan.csv.package$$ParseResult
+[`CellEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$CellEncoder.html
+[`CellDecoder`]:{{ site.baseurl }}/api/kantan/csv/CellDecoder$.html
+[`RowDecoder`]:{{ site.baseurl }}/api/kantan/csv/RowDecoder$.html
+[`RowEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$RowEncoder.html
+[`ReadResult`]:{{ site.baseurl }}/api/kantan/csv/ReadResult$.html
+[`ParseResult`]:{{ site.baseurl }}/api/kantan/csv/ParseResult$.html
 [`DecodeResult`]:{{ site.baseurl }}/api/#kantan.csv.package$$DecodeResult
 [`Contravariant`]:https://oss.sonatype.org/service/local/repositories/releases/archive/org/scalaz/scalaz_2.11/7.2.3/scalaz_2.11-7.2.3-javadoc.jar/!/index.html#scalaz.Contravariant

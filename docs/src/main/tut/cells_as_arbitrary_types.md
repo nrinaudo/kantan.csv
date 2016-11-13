@@ -58,8 +58,8 @@ If you want to learn more about:
 * [encoding tuples as rows](tuples_as_rows.html)
 * [declaring decoders and encoders in a single call](codecs.html)
 
-[`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellDecoder
-[`asCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
-[`readCsv`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@readCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[B],C[kantan.csv.ReadResult[B]]]):C[kantan.csv.ReadResult[B]]
-[`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List
+[`CellDecoder`]:{{ site.baseurl }}/api/kantan/csv/CellDecoder$.html
+[`asCsvReader`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
+[`readCsv`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#readCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[B],C[kantan.csv.ReadResult[B]]]):C[kantan.csv.ReadResult[B]]
+[`List`]:http://www.scala-lang.org/api/current/scala/collection/immutable/List.html
 [`DateTime`]:http://www.joda.org/joda-time/apidocs/org/joda/time/DateTime.html

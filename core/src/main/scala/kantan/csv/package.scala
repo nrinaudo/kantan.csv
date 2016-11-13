@@ -26,12 +26,16 @@ package object csv {
 
   // - Backward compatibility ------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  /** @documentable */
   @deprecated("use CsvSource instead (see https://github.com/nrinaudo/kantan.csv/issues/49)", "0.1.15")
   type CsvInput[A] = CsvSource[A]
+  /** @documentable */
   @deprecated("use CsvSource instead (see https://github.com/nrinaudo/kantan.csv/issues/49)", "0.1.15")
   val CsvInput = CsvSource
+  /** @documentable */
   @deprecated("use CsvSink instead (see https://github.com/nrinaudo/kantan.csv/issues/49)", "0.1.15")
   type CsvOutput[A] = CsvSink[A]
+  /** @documentable */
   @deprecated ("use CsvSink instead (see https://github.com/nrinaudo/kantan.csv/issues/49)", "0.1.15")
   val CsvOutput = CsvSink
 

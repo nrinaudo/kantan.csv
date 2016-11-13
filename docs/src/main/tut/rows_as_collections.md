@@ -61,10 +61,10 @@ If you want to learn more about:
 * [encoding collections as rows](collections_as_rows.html)
 * [how we were able to turn a `URL` into CSV data](csv_sources.html)
 
-[`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List
-[syntax]:{{ site.baseurl }}/api/#kantan.csv.ops$
-[`CsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]
-[`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellDecoder
-[`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package$$ReadResult
-[`asCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
-[`asUnsafeCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$2:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]
+[`List`]:http://www.scala-lang.org/api/current/scala/collection/immutable/List.html
+[syntax]:{{ site.baseurl }}/api/kantan/csv/ops/index.html
+[`CsvReader`]:{{ site.baseurl }}/api/kantan/csv/index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]
+[`CellDecoder`]:{{ site.baseurl }}/api/kantan/csv/CellDecoder$.html
+[`ReadResult`]:{{ site.baseurl }}/api/kantan/csv/ReadResult$.html
+[`asCsvReader`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
+[`asUnsafeCsvReader`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$2:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]

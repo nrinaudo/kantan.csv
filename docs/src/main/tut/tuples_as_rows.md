@@ -54,7 +54,7 @@ If you want to learn more about:
 * [how we were able to turn a `File` into a `CsvWriter`](csv_sinks.html)
 
 
-[`CsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter
-[`asCsvWriter`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSinkOps@asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]
-[`write`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter@write(a:A):kantan.csv.CsvWriter[A]
-[`close]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter@close():Unit
+[`CsvWriter`]:{{ site.baseurl }}/api/kantan/csv/CsvWriter.html
+[`asCsvWriter`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSinkOps.html#asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]
+[`write`]:{{ site.baseurl }}/api/kantan/csv/CsvSink.html#write[A](s:S,rows:TraversableOnce[A],sep:Char,header:Seq[String])(implicitevidence$2:kantan.csv.RowEncoder[A],implicite:kantan.csv.engine.WriterEngine):Unit
+[`close`]:{{ site.baseurl }}/api/kantan/csv/CsvWriter.html#close():Unit

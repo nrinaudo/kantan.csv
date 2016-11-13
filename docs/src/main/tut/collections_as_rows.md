@@ -57,10 +57,10 @@ If you want to learn more about:
 * [how we were able to turn a `File` into a `CsvWriter`](csv_sinks.html)
 
 
-[`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List
-[`CsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter
+[`List`]:http://www.scala-lang.org/api/current/scala/collection/immutable/List.html
+[`CsvWriter`]:{{ site.baseurl }}/api/kantan/csv/CsvWriter.html
 [`Writer`]:https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html
-[`write`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter@write(a:A):kantan.csv.CsvWriter[A]
-[`close`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter@close():Unit
-[`asCsvWriter`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSinkOps@asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]
-[`TraversableOnce`]:http://www.scala-lang.org/api/current/index.html#scala.collection.TraversableOnce
+[`write`]:{{ site.baseurl }}/api/kantan/csv/CsvWriter.html#write(as:TraversableOnce[A]):kantan.csv.CsvWriter[A]
+[`close`]:{{ site.baseurl }}/api/kantan/csv/CsvWriter.html#close():Unit
+[`asCsvWriter`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSinkOps.html#asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]
+[`TraversableOnce`]:http://www.scala-lang.org/api/current/scala/collection/TraversableOnce.html

@@ -52,5 +52,5 @@ If you want to learn more about:
 * [how we were able to turn a `URL` into CSV data](csv_sources.html)
 
 
-[`asCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
-[`CsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]
+[`asCsvReader`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
+[`CsvReader`]:{{ site.baseurl }}/api/kantan/csv/index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]

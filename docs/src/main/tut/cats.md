@@ -32,18 +32,18 @@ The following instance for cats type classes are provided:
 * [`Monad`] for all result types.
 * [`BiFunctor`] for all result types.
 
-[`Functor`]:http://typelevel.org/cats/api/#cats.Functor
-[`Contravariant`]:http://typelevel.org/cats/api/#cats.functor.Contravariant
-[`BiFunctor`]:http://typelevel.org/cats/api/#cats.functor.Bifunctor
-[`Order`]:http://typelevel.org/cats/api/index.html#cats.package@Order[A]=cats.kernel.Order[A]
-[`Show`]:http://typelevel.org/cats/api/index.html#cats.Show
-[`Traverse`]:http://typelevel.org/cats/api/index.html#cats.Traverse
-[`Monad`]:http://typelevel.org/cats/api/index.html#cats.Monad
-[`Monoid`]:http://typelevel.org/cats/api/index.html#cats.package@Monoid[A]=cats.kernel.Monoid[A]
-[`CellEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellEncoder
-[`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellDecoder
-[`RowDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowDecoder
-[`RowEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowEncoder
-[`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package$$ReadResult
-[`ParseResult`]:{{ site.baseurl }}/api/#kantan.csv.package$$ParseResult
-[`DecodeResult`]:{{ site.baseurl }}/api/#kantan.csv.package$$DecodeResult
+[`Functor`]:http://typelevel.org/cats/api/cats/Functor.html
+[`Contravariant`]:http://typelevel.org/cats/api/cats/functor/Contravariant.html
+[`BiFunctor`]:http://typelevel.org/cats/api/cats/functor/Bifunctor.html
+[`Order`]:http://typelevel.org/cats/api/cats/kernel/Order.html
+[`Show`]:http://typelevel.org/cats/api/cats/Show.html
+[`Traverse`]:http://typelevel.org/cats/api/cats/Traverse.html
+[`Monad`]:http://typelevel.org/cats/api/cats/Monad.html
+[`Monoid`]:http://typelevel.org/cats/api/cats/kernel/Monoid.html
+[`CellEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$CellEncoder.html
+[`CellDecoder`]:{{ site.baseurl }}/api/kantan/csv/CellDecoder$.html
+[`RowDecoder`]:{{ site.baseurl }}/api/kantan/csv/package$$RowDecoder.html
+[`RowEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$RowEncoder.html
+[`ReadResult`]:{{ site.baseurl }}/api/kantan/csv/ReadResult$.html
+[`ParseResult`]:{{ site.baseurl }}/api/kantan/csv/ParseResult$.html
+[`DecodeResult`]:{{ site.baseurl }}/api/kantan/csv/DecodeResult$.html

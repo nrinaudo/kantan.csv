@@ -74,8 +74,8 @@ If you want to learn more about:
 * [error handling when parsing CSV data](error_handling.html)
 
 
-[`asCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
-[`CsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]
-[`CsvReaderOps`]:{{ site.baseurl }}/api/#kantan.csv.ops.CsvReaderOps
-[`Set`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Set
-[`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package$$ReadResult
+[`asCsvReader`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
+[`CsvReader`]:{{ site.baseurl }}/api/kantan/csv/index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]
+[`CsvReaderOps`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvReaderOps.html
+[`Set`]:http://www.scala-lang.org/api/current/scala/collection/Set.html
+[`ReadResult`]:{{ site.baseurl }}/api/kantan/csv/ReadResult$.html

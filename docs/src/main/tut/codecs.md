@@ -65,11 +65,8 @@ val csv = ps.asCsv(',')
 csv.readCsv[List, Person](',', false)
 ```
 
-
-
-
 [`DateTime`]:http://www.joda.org/joda-time/apidocs/org/joda/time/DateTime.html
-[`CellCodec`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellCodec
-[`RowCodec`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowCodec
-[`RowDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowDecoder
-[`RowEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$RowEncoder
+[`CellCodec`]:{{ site.baseurl }}/api/kantan/csv/package$$CellCodec.html
+[`RowCodec`]:{{ site.baseurl }}/api/kantan/csv/package$$RowCodec.html
+[`RowDecoder`]:{{ site.baseurl }}/api/kantan/csv/package$$RowDecoder.html
+[`RowEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$RowEncoder.html

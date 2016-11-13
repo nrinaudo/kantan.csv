@@ -21,7 +21,7 @@ import kantan.csv.joda.time._
 ```
 
 There are so many different ways of serialising dates that kantan.csv doesn't have a default implementation - whatever
-the choice, it would end up more often wrong than right. 
+the choice, it would end up more often wrong than right.
 
 If you can provide a [`DateTimeFormat`] instance, however, you can easily get [`CellDecoder`], [`CellEncoder`] and
 [`CellCodec`] instances for the following types:
@@ -85,6 +85,6 @@ implicit val encoder = localDateCodec(format)
 [`LocalDateTime`]:http://joda-time.sourceforge.net/apidocs/org/joda/time/LocalDateTime.html
 [`LocalTime`]:http://joda-time.sourceforge.net/apidocs/org/joda/time/LocalTime.html
 [`DateTimeFormat`]:http://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormat.html
-[`CellEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellEncoder
-[`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellDecoder
-[`CellCodec`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellCodec
+[`CellEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$CellEncoder.html
+[`CellDecoder`]:{{ site.baseurl }}/api/kantan/csv/CellDecoder$.html
+[`CellCodec`]:{{ site.baseurl }}/api/kantan/csv/package$$CellCodec.html
