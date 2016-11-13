@@ -21,8 +21,10 @@ import kantan.csv.joda.time._
 ```
 
 There are so many different ways of serialising dates that kantan.csv doesn't have a default implementation - whatever
-the choice, it would end up more often wrong than right. What you can do, however, is declare an implicit
-[`DateTimeFormat`]. This will get you a [`CellDecoder`] and [`CellEncoder`] instance for the following types:
+the choice, it would end up more often wrong than right. 
+
+If you can provide a [`DateTimeFormat`] instance, however, you can easily get [`CellDecoder`], [`CellEncoder`] and
+[`CellCodec`] instances for the following types:
 
 * [`DateTime`]
 * [`LocalDate`]
@@ -42,7 +44,15 @@ We'd first need to declare the appropriate [`DateTimeFormat`]:
 ```tut:silent
 import org.joda.time.format._
 
-implicit val format = DateTimeFormat.forPattern("DD-MM-yyyy")
+val format = DateTimeFormat.forPattern("DD-MM-yyyy")
+```
+
+We then need to build a decoder for it and stick it in the implicit scope:
+
+```tut:silent
+import kantan.csv.joda.time._
+
+implicit val decoder = localDateDecoder(format)
 ```
 
 And we're done:
@@ -51,12 +61,23 @@ And we're done:
 val res = input.unsafeReadCsv[List, (Int, org.joda.time.LocalDate)](',', false)
 ```
 
-By the same token, we got an encoder for free:
+Similarly, this is how you create and encoder:
+
+```tut:silent
+implicit val encoder = localDateEncoder(format)
+```
+
+And you can now easily encode data that contains instances of [`LocalDate`]:
 
 ```tut
 res.asCsv(',')
 ```
 
+Note that if you're going to both encode and decode dates, you can create a [`CellCodec`] in a single call instead:
+
+```tut:silent
+implicit val encoder = localDateCodec(format)
+```
 
 [`Date`]:https://docs.oracle.com/javase/7/docs/api/java/util/Date.html
 [`DateTime`]:http://joda-time.sourceforge.net/apidocs/org/joda/time/DateTime.html
@@ -66,3 +87,4 @@ res.asCsv(',')
 [`DateTimeFormat`]:http://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormat.html
 [`CellEncoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellEncoder
 [`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellDecoder
+[`CellCodec`]:{{ site.baseurl }}/api/#kantan.csv.package$$CellCodec

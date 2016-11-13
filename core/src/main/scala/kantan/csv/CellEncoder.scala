@@ -16,6 +16,8 @@
 
 package kantan.csv
 
+import java.text.DateFormat
+import java.util.Date
 import kantan.codecs.{Encoder, EncoderCompanion}
 import kantan.codecs.strings.StringEncoder
 
@@ -26,6 +28,9 @@ object CellEncoder extends EncoderCompanion[String, codecs.type] {
     * This is essentially a shorter way of calling `implicitly[CellEncoder[A]]`.
     */
   def apply[A](implicit ev: CellEncoder[A]): CellEncoder[A] = macro imp.summon[CellEncoder[A]]
+
+  def dateEncoder(format: DateFormat): CellEncoder[Date] =
+    codecs.fromStringEncoder(StringEncoder.dateEncoder(format))
 }
 
 /** All default [[CellEncoder]] instances. */

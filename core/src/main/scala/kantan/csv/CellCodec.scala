@@ -16,9 +16,14 @@
 
 package kantan.csv
 
+import java.text.DateFormat
+import java.util.Date
 import kantan.codecs.CodecCompanion
 
 /** Declares helpful methods for [[CellCodec]] creation. */
-object CellCodec extends CodecCompanion[String, DecodeError, codecs.type]
+object CellCodec extends CodecCompanion[String, DecodeError, codecs.type] {
+  def dateCodec(format: DateFormat): CellCodec[Date] =
+    from(CellDecoder.dateDecoder(format), CellEncoder.dateEncoder(format))
+}
 
 trait CellCodecInstances extends CellEncoderInstances with CellDecoderInstances

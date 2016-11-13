@@ -16,21 +16,13 @@
 
 package kantan.csv.generic
 
-import imp._
 import kantan.codecs.shapeless.laws._
 import kantan.csv.generic.arbitrary._
 import kantan.csv.laws.discipline.CellCodecTests
-import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class DerivedCellCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  // TODO: let scalacheck-shapeless deal with that when fixed, see
-  // https://github.com/alexarchambault/scalacheck-shapeless/issues/50
-  implicit def arbOr[A: Arbitrary, B: Arbitrary]: Arbitrary[Or[A, B]] = Arbitrary(
-    Gen.oneOf(imp[Arbitrary[Left[A]]].arbitrary, imp[Arbitrary[Right[B]]].arbitrary)
-  )
-
   checkAll("CellCodec[Or[Int, Boolean]]", CellCodecTests[Int Or Boolean].codec[Byte, String])
 }

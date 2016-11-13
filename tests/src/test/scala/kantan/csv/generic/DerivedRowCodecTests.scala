@@ -17,12 +17,11 @@
 package kantan.csv.generic
 
 import arbitrary._
-import imp._
 import kantan.codecs.shapeless.laws._
 import kantan.csv.laws.discipline.RowCodecTests
 import kantan.csv.laws.LegalRow
 import kantan.csv.laws.discipline.RowCodecTests
-import org.scalacheck.{Arbitrary, Gen}
+import org.scalacheck.Arbitrary
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
@@ -36,13 +35,6 @@ class DerivedRowCodecTests extends FunSuite with GeneratorDrivenPropertyChecks w
       case Left(Complex(i, b, c)) ⇒ Seq(i.toString, b.toString, c.fold("")(_.toString))
       case Right(Simple(i))       ⇒ Seq(i.toString)
     })
-
-
-  // TODO: let scalacheck-shapeless deal with that when fixed, see
-  // https://github.com/alexarchambault/scalacheck-shapeless/issues/50
-  implicit def arbOr[A: Arbitrary, B: Arbitrary]: Arbitrary[Or[A, B]] = Arbitrary(
-    Gen.oneOf(imp[Arbitrary[Left[A]]].arbitrary, imp[Arbitrary[Right[B]]].arbitrary)
-  )
 
   checkAll("DerivedRowCodec[Or[Complex, Simple]]", RowCodecTests[Or[Complex, Simple]].codec[Byte, Float])
 }

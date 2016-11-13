@@ -34,7 +34,12 @@ defaulting to ISO 8601 might make sense, but there doesn't appear to be a sane w
 crusty date / time API.
 
 Instead of providing a default implementation that is likely going to be incorrect for most people, kantan.csv
-expects an implicit [`DateFormat`] instance in scope, and will decode and encode using that format.
+provides easy ways of creating [`CellEncoder`], [`CellDecoder`] and [`CellCodec`] instances provided you can create a
+[`DateFormat`] for you dates: 
+
+* [`CellCodec.dateCodec`]
+* [`CellEncoder.dateEncoder`]
+* [`CellDecoder.dateDecoder`]
 
 Note that kantan.csv has a [joda-time](joda_time.html) module, a very well thought out alternative to [`Date`].
 

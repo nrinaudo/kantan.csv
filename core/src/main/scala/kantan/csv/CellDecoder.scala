@@ -16,6 +16,8 @@
 
 package kantan.csv
 
+import java.text.DateFormat
+import java.util.Date
 import kantan.codecs.{Decoder, DecoderCompanion}
 import kantan.codecs.strings.StringDecoder
 import kantan.csv.DecodeError.TypeError
@@ -28,6 +30,9 @@ object CellDecoder extends DecoderCompanion[String, DecodeError, codecs.type] {
     * This is essentially a shorter way of calling `implicitly[CellDecoder[A]]`.
     */
   def apply[A](implicit ev: CellDecoder[A]): CellDecoder[A] = macro imp.summon[CellDecoder[A]]
+
+  def dateDecoder(format: DateFormat): CellDecoder[Date] =
+    codecs.fromStringDecoder(StringDecoder.dateDecoder(format))
 }
 
 /** All default [[CellDecoder]] instances. */
