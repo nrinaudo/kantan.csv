@@ -23,7 +23,7 @@ trait WriterEngineLaws {
   implicit def engine: WriterEngine
 
   def roundTrip(csv: List[List[Cell]], header: Seq[String]): Boolean =
-    csv.asCsv(',', header).unsafeReadCsv[List, List[Cell]](',', header.nonEmpty) == csv
+    csv.asCsv(',', header:_*).unsafeReadCsv[List, List[Cell]](',', header.nonEmpty) == csv
 
   def noTrailingSeparator(csv: List[List[Cell.NonEscaped]]): Boolean =
     csv.asCsv(',').split("\n").forall(!_.endsWith(","))

@@ -47,11 +47,22 @@ class RegressionTests extends FunSuite {
     ()
   }
 
-  test("Trailing optional cells should decode as expected (https://github.com/nrinaudo/kantan.csv/issues/53)") {
+  test("Trailing optional cells should decode as expected (#53)") {
     import kantan.csv.ops._
 
     assert("1,a,100\n2,b".unsafeReadCsv[List, (Int, String, Option[Int])](',', false) ==
       List((1, "a", Some(100)), (2, "b", None))
     )
+  }
+
+  test("Implicit resolution should not be impacted by the presence of default arguments (#65)") {
+    case class A(i: Int)
+
+    object Test {
+      import kantan.csv.generic._
+      import kantan.csv.ops._
+
+      List(A(3)).asCsv(',')
+    }
   }
 }

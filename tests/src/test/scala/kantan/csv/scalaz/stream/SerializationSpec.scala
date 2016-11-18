@@ -34,7 +34,7 @@ class SerializationSpec extends FunSuite with GeneratorDrivenPropertyChecks {
     val iterator = data.iterator
 
     Process.repeatEval(Task.delay { if(iterator.hasNext) iterator.next() else throw Cause.Terminated(Cause.End) })
-      .to(CsvSink[List[String]](sw, ',', Seq.empty)).run.unsafePerformSync
+      .to(CsvSink[List[String]](sw, ',')).run.unsafePerformSync
 
     sw.toString
   }

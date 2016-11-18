@@ -66,7 +66,7 @@ object CsvWriter {
     * @param header optional header row, defaults to none.
     * @tparam A type of values that the returned instance will know to encode.
     */
-  def apply[A: RowEncoder](writer: Writer, separator: Char, header: Seq[String] = Seq.empty)
+  def apply[A: RowEncoder](writer: Writer, separator: Char, header: String*)
               (implicit engine: WriterEngine): CsvWriter[A] = {
     if(header.isEmpty) engine.writerFor(writer, separator).contramap(RowEncoder[A].encode)
     else {

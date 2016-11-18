@@ -34,9 +34,9 @@ final class CsvRowsOps[A](val as: TraversableOnce[A]) extends AnyVal {
     * @param sep character used to separate columns.
     * @param header optional header row.
     */
-  def asCsv(sep: Char, header: Seq[String] = Seq.empty)(implicit ea: RowEncoder[A], e: WriterEngine): String = {
+  def asCsv(sep: Char, header: String*)(implicit ea: RowEncoder[A], e: WriterEngine): String = {
     val out = new StringWriter()
-    CsvWriter(out, sep, header).write(as).close()
+    CsvWriter(out, sep, header:_*).write(as).close()
     out.toString
   }
 }

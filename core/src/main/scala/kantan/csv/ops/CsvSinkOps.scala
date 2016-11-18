@@ -35,14 +35,14 @@ import kantan.csv.engine.WriterEngine
   */
 final class CsvSinkOps[A](val a: A) extends AnyVal {
   /** Shorthand for [[CsvSink.writer]]. */
-  def asCsvWriter[B: RowEncoder](sep: Char, header: Seq[String] = Seq.empty)
+  def asCsvWriter[B: RowEncoder](sep: Char, header: String*)
                                 (implicit oa: CsvSink[A], e: WriterEngine): CsvWriter[B] =
-    oa.writer(a, sep, header)
+    oa.writer(a, sep, header:_*)
 
   /** Shorthand for [[CsvSink.write]]. */
-  def writeCsv[B: RowEncoder](rows: TraversableOnce[B], sep: Char, header: Seq[String] = Seq.empty)
+  def writeCsv[B: RowEncoder](rows: TraversableOnce[B], sep: Char, header: String*)
                              (implicit oa: CsvSink[A], e: WriterEngine): Unit =
-    oa.write(a, rows, sep, header)
+    oa.write(a, rows, sep, header:_*)
 }
 
 trait ToCsvSinkOps {
