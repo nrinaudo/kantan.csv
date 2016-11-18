@@ -53,7 +53,7 @@ lazy val tests = project
 
 lazy val docs = project
   .settings(unidocProjectFilter in (ScalaUnidoc, unidoc) :=
-    inAnyProject -- inProjects(ifNotJava8(Seq(java8)):_*)
+    inAnyProject -- inProjects((ifNotJava8(Seq(java8))):_*) -- inProjects(benchmark)
   )
   .enablePlugins(DocumentationPlugin)
   .dependsOn(core, scalazStream, laws, cats, scalaz, generic, jackson, commons, opencsv, jodaTime)

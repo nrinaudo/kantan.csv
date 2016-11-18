@@ -26,7 +26,7 @@ import kantan.csv.generic._
 // File in which we'll be writing the CSV data.
 val out = java.io.File.createTempFile("kantan.csv", "csv")
 
-val writer = out.asCsvWriter[Person](',', List("Column 1", "Column 2", "Column 3"))
+val writer = out.asCsvWriter[Person](',', "Column 1", "Column 2", "Column 3")
 ```
 
 We're dealing with a list of values, which [`CsvWriter`] as a helper method for which we haven't seen before:
