@@ -195,7 +195,7 @@ lazy val java8 = project
     name          := "java8"
   )
   .enablePlugins(PublishedPlugin)
-  .dependsOn(core, laws)
+  .dependsOn(core, laws % "test")
   .settings(libraryDependencies ++= Seq(
     "com.nrinaudo"  %% "kantan.codecs-java8"      % kantanCodecsVersion,
     "com.nrinaudo"  %% "kantan.codecs-java8-laws" % kantanCodecsVersion % "test",
