@@ -20,11 +20,7 @@ You then need to import the corresponding package:
 import kantan.csv.joda.time._
 ```
 
-There are so many different ways of serialising dates that kantan.csv doesn't have a default implementation - whatever
-the choice, it would end up more often wrong than right.
-
-If you can provide a [`DateTimeFormat`] instance, however, you can easily get [`CellDecoder`], [`CellEncoder`] and
-[`CellCodec`] instances for the following types:
+kantan.csv has default, ISO 8601 compliant [`CellDecoder`] and [`CellEncoder`] instances for the following types:
 
 * [`DateTime`]
 * [`LocalDate`]
@@ -36,15 +32,26 @@ Let's imagine for example that we want to extract dates from the following strin
 ```tut:silent
 import kantan.csv.ops._
 
-val input = "1,12-10-1978\n2,09-01-2015"
+val input = "1,1978-12-10\n2,2015-01-09"
 ```
 
-We'd first need to declare the appropriate [`DateTimeFormat`]:
+This is directly supported:
+
+```tut
+val res = input.unsafeReadCsv[List, (Int, org.joda.time.LocalDate)](',', false)
+
+res.asCsv(',')
+```
+
+It's also possible to declare your own [`CellDecoder`] and [`CellEncoder`] instances. Let's take, for example,
+the following custom format:
 
 ```tut:silent
 import org.joda.time.format._
 
-val format = DateTimeFormat.forPattern("DD-MM-yyyy")
+val input = "1,10-12-1978\n2,09-01-2015"
+
+val format = DateTimeFormat.forPattern("dd-MM-yyyy")
 ```
 
 We then need to build a decoder for it and stick it in the implicit scope:
@@ -76,8 +83,11 @@ res.asCsv(',')
 Note that if you're going to both encode and decode dates, you can create a [`CellCodec`] in a single call instead:
 
 ```tut:silent
-implicit val encoder = localDateCodec(format)
+implicit val codec = localDateCodec(format)
 ```
+
+
+
 
 [`Date`]:https://docs.oracle.com/javase/7/docs/api/java/util/Date.html
 [`DateTime`]:http://joda-time.sourceforge.net/apidocs/org/joda/time/DateTime.html
