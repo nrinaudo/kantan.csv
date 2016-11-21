@@ -16,14 +16,19 @@
 
 package kantan.csv.java8
 
-import java.time.OffsetDateTime
+import java.time.LocalDate
+import kantan.csv._
 import kantan.csv.java8.arbitrary._
 import kantan.csv.laws.discipline.{CellCodecTests, RowCodecTests}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
-class OffsetDateTimeDecoderTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("CellCodec[OffsetDateTime]", CellCodecTests[OffsetDateTime].codec[String, Float])
-  checkAll("RowCodec[OffsetDateTime]", RowCodecTests[OffsetDateTime].codec[String, Float])
+class LocalDateCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+  // This is apparently necessary for Scala 2.10
+  implicit val decoder: CellDecoder[LocalDate] = defaultLocalDateDecoder.value
+  implicit val encoder: CellEncoder[LocalDate] = defaultLocalDateEncoder.value
+
+  checkAll("CellCodec[LocalDate]", CellCodecTests[LocalDate].codec[String, Float])
+  checkAll("RowCodec[LocalDate]", RowCodecTests[LocalDate].codec[String, Float])
 }

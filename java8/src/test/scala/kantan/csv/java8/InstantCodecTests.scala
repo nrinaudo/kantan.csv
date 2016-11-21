@@ -17,13 +17,18 @@
 package kantan.csv.java8
 
 import java.time.Instant
+import kantan.csv.{CellDecoder, CellEncoder}
 import kantan.csv.java8.arbitrary._
 import kantan.csv.laws.discipline.{CellCodecTests, RowCodecTests}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
-class InstantDecoderTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class InstantCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+  // This is apparently necessary for Scala 2.10
+  implicit val decoder: CellDecoder[Instant] = defaultInstantDecoder.value
+  implicit val encoder: CellEncoder[Instant] = defaultInstantEncoder.value
+
   checkAll("CellCodec[Instant]", CellCodecTests[Instant].codec[String, Float])
   checkAll("RowCodec[Instant]", RowCodecTests[Instant].codec[String, Float])
 }
