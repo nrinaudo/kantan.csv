@@ -16,7 +16,9 @@
 
 package kantan.csv.joda
 
+import kantan.codecs.strings._
 import kantan.codecs.strings.joda.time._
+import kantan.csv.{codecs, DecodeError}
 
 /** Declares [[kantan.csv.CellDecoder]] and [[kantan.csv.CellEncoder]] instances for joda-time types.
   *
@@ -26,4 +28,7 @@ import kantan.codecs.strings.joda.time._
   * `kantan.codec.strings.joda.time._`. The sole purpose of this is to keep things simple for users that don't want or
   * need to learn about kantan.csv's internals.
   */
-package object time extends JodaTimeInstances
+package object time extends JodaTimeCodecCompanion[String, DecodeError, codecs.type] {
+  override def decoderFrom[D](d: StringDecoder[D]) = codecs.fromStringDecoder(d)
+  override def encoderFrom[D](e: StringEncoder[D]) = codecs.fromStringEncoder(e)
+}

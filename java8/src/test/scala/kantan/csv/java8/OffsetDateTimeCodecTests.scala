@@ -26,8 +26,8 @@ import org.typelevel.discipline.scalatest.Discipline
 
 class OffsetDateTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   // This is apparently necessary for Scala 2.10
-    implicit val decoder: CellDecoder[OffsetDateTime] = defaultOffsetDateTimeDecoder.value
-    implicit val encoder: CellEncoder[OffsetDateTime] = defaultOffsetDateTimeEncoder.value
+  implicit val decoder: CellDecoder[OffsetDateTime] = defaultOffsetDateTimeDecoder.value
+  implicit val encoder: CellEncoder[OffsetDateTime] = defaultOffsetDateTimeEncoder.value
 
   checkAll("CellCodec[OffsetDateTime]", CellCodecTests[OffsetDateTime].codec[String, Float])
   checkAll("RowCodec[OffsetDateTime]", RowCodecTests[OffsetDateTime].codec[String, Float])

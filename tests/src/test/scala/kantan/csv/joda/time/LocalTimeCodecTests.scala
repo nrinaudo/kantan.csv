@@ -17,15 +17,18 @@
 package kantan.csv.joda.time
 
 import kantan.codecs.strings.joda.time.laws.discipline.arbitrary._
+import kantan.csv._
 import kantan.csv.laws.discipline.CellCodecTests
 import org.joda.time.LocalTime
-import org.joda.time.format.DateTimeFormat
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class LocalTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  implicit val codec = localTimeCodec(DateTimeFormat.mediumTime())
+  // This is apparently necessary for Scala 2.10
+  implicit val decoder: CellDecoder[LocalTime] = defaultLocalTimeDecoder.value
+  implicit val encoder: CellEncoder[LocalTime] = defaultLocalTimeEncoder.value
+
 
   checkAll("CellCodec[LocalTime]", CellCodecTests[LocalTime].codec[String, Float])
 }

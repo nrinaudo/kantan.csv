@@ -26,8 +26,8 @@ import org.typelevel.discipline.scalatest.Discipline
 
 class LocalTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   // This is apparently necessary for Scala 2.10
-    implicit val decoder: CellDecoder[LocalTime] = defaultLocalTimeDecoder.value
-    implicit val encoder: CellEncoder[LocalTime] = defaultLocalTimeEncoder.value
+  implicit val decoder: CellDecoder[LocalTime] = defaultLocalTimeDecoder.value
+  implicit val encoder: CellEncoder[LocalTime] = defaultLocalTimeEncoder.value
 
   checkAll("CellCodec[LocalTime]", CellCodecTests[LocalTime].codec[String, Float])
   checkAll("RowCodec[LocalTime]", RowCodecTests[LocalTime].codec[String, Float])
