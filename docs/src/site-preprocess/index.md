@@ -21,6 +21,9 @@ in your SBT build file:
 // Core library, included automatically if any other module is imported.
 libraryDependencies += "com.nrinaudo" %% "kantan.csv" % "@VERSION@"
 
+// Java 8 date and time instances.
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-java8" % "@VERSION@"
+
 // Provides scalaz type class instances for kantan.csv, and vice versa.
 libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz" % "@VERSION@"
 
