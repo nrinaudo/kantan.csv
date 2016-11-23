@@ -31,18 +31,15 @@ lazy val root = Project(id = "kantan-csv", base = file("."))
       |import kantan.csv.joda.time._
     """.stripMargin
 )
-  .aggregate((
-    Seq[ProjectReference](core, cats, scalaz, scalazStream, laws, tests, docs, generic, benchmark, jackson, commons,
-      opencsv, jodaTime) ++
-      ifJava8(Seq(java8))
-  ):_*)
+  .aggregate(core, cats, scalaz, scalazStream, laws, tests, docs, generic, benchmark, jackson, commons, opencsv, jodaTime)
+  .aggregate(ifJava8[ProjectReference](java8):_*)
   .dependsOn(core, generic, jodaTime)
 
 lazy val tests = project
   .enablePlugins(UnpublishedPlugin)
   .enablePlugins(spray.boilerplate.BoilerplatePlugin)
   .dependsOn(core, jackson, commons, opencsv, laws, cats, generic, jodaTime, scalaz, scalazStream, benchmark)
-  .aggregate(ifJava8(Seq(java8)):_*)
+  .aggregate(ifJava8[ProjectReference](java8):_*)
   .settings(libraryDependencies ++= Seq(
     "org.scalatest" %% "scalatest"                    % scalatestVersion    % "test",
     "com.nrinaudo"  %% "kantan.codecs-cats-laws"      % kantanCodecsVersion % "test",
@@ -53,10 +50,11 @@ lazy val tests = project
 
 lazy val docs = project
   .settings(unidocProjectFilter in (ScalaUnidoc, unidoc) :=
-    inAnyProject -- inProjects((ifNotJava8(Seq(java8))):_*) -- inProjects(benchmark)
+    inAnyProject -- inProjects(ifNotJava8[ProjectReference](java8):_*) -- inProjects(benchmark)
   )
   .enablePlugins(DocumentationPlugin)
   .dependsOn(core, scalazStream, laws, cats, scalaz, generic, jackson, commons, opencsv, jodaTime)
+  .dependsOn(ifJava8[ClasspathDep[ProjectReference]](java8):_*)
 
 lazy val benchmark = project
   .enablePlugins(UnpublishedPlugin, JmhPlugin)

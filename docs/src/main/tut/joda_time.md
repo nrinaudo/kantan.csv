@@ -57,8 +57,6 @@ val format = DateTimeFormat.forPattern("dd-MM-yyyy")
 We then need to build a decoder for it and stick it in the implicit scope:
 
 ```tut:silent
-import kantan.csv.joda.time._
-
 implicit val decoder = localDateDecoder(format)
 ```
 
