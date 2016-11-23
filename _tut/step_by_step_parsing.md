@@ -43,7 +43,7 @@ an iterator with a `close` method:
 
 ```scala
 scala> val iterator = rawData.asCsvReader[Car](',', true)
-iterator: kantan.csv.CsvReader[kantan.csv.ReadResult[Car]] = kantan.codecs.resource.ResourceIterator$$anon$6@610e1f96
+iterator: kantan.csv.CsvReader[kantan.csv.ReadResult[Car]] = kantan.codecs.resource.ResourceIterator$$anon$6@10869b6f
 ```
 
 [`asCsvReader`] is explained in some depths [here](rows_as_collections.html), but we're more interested in what we
@@ -57,7 +57,7 @@ multiple `filter` and `map` operations, and nothing will happen until each row i
 
 ```scala
 scala> val filtered = iterator.filter(_.exists(_.year >= 1997)).map(_.map(_.make))
-filtered: kantan.codecs.resource.ResourceIterator[kantan.codecs.Result[kantan.csv.ReadError,String]] = kantan.codecs.resource.ResourceIterator$$anon$6@236afa12
+filtered: kantan.codecs.resource.ResourceIterator[kantan.codecs.Result[kantan.csv.ReadError,String]] = kantan.codecs.resource.ResourceIterator$$anon$6@4f865ad0
 ```
 
 Note that this is a bit cumbersome - our iterator contains [`ReadResult[Car]`][`ReadResult`], which forces us to use
@@ -65,7 +65,7 @@ two levels of filtering / mapping. [`CsvReaderOps`] provides more comfortable al
 
 ```scala
 scala> val filtered = iterator.filterResult(_.year >= 1997).mapResult(_.make)
-filtered: kantan.csv.CsvReader[kantan.csv.ReadResult[String]] = kantan.codecs.resource.ResourceIterator$$anon$6@6e9c3ab4
+filtered: kantan.csv.CsvReader[kantan.csv.ReadResult[String]] = kantan.codecs.resource.ResourceIterator$$anon$6@38d62a0c
 ```
 
 At this point, no data has been parsed yet. We can now, say, take the first element:
@@ -85,8 +85,8 @@ If you want to learn more about:
 * [error handling when parsing CSV data](error_handling.html)
 
 
-[`asCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
-[`CsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]
-[`CsvReaderOps`]:{{ site.baseurl }}/api/#kantan.csv.ops.CsvReaderOps
-[`Set`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Set
-[`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package@ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]
+[`asCsvReader`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
+[`CsvReader`]:{{ site.baseurl }}/api/kantan/csv/index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]
+[`CsvReaderOps`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvReaderOps.html
+[`Set`]:http://www.scala-lang.org/api/current/scala/collection/Set.html
+[`ReadResult`]:{{ site.baseurl }}/api/kantan/csv/ReadResult$.html

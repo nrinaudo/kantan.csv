@@ -67,11 +67,11 @@ If you want to learn more about:
 * [how to parse CSV row by row](step_by_step_parsing.html)
 
 
-[`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List
-[`Set`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Set
+[`List`]:http://www.scala-lang.org/api/current/scala/collection/immutable/List.html
+[`Set`]:http://www.scala-lang.org/api/current/scala/collection/Set.html
 [`Map`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Map
-[`Vector`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Vector
-[`readCsv`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@readCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[B],C[kantan.csv.ReadResult[B]]]):C[kantan.csv.ReadResult[B]]
-[`unsafeReadCsv`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@unsafeReadCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$4:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,B,C[B]]):C[B]
-[`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package@ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]
-[`CanBuildFrom`]:http://www.scala-lang.org/api/current/index.html#scala.collection.generic.CanBuildFrom
+[`Vector`]:http://www.scala-lang.org/api/current/scala/collection/immutable/Vector.html
+[`readCsv`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#readCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[B],C[kantan.csv.ReadResult[B]]]):C[kantan.csv.ReadResult[B]]
+[`unsafeReadCsv`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#unsafeReadCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$4:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,B,C[B]]):C[B]
+[`ReadResult`]:{{ site.baseurl }}/api/kantan/csv/ReadResult$.html
+[`CanBuildFrom`]:http://www.scala-lang.org/api/current/scala/collection/generic/CanBuildFrom.html

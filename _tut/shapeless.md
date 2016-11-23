@@ -12,7 +12,7 @@ for more common types and patterns.
 The `generic` module can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.1.15"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.1.16"
 ```
 
 If you're using Scala 2.10.x, you should also add the macro paradise plugin to your build:
@@ -126,9 +126,9 @@ scala> "1,true\nfoobar,".unsafeReadCsv[List, (Int, Boolean) Or CustomTuple2[Stri
 res3: List[Or[(Int, Boolean),CustomTuple2[String,Option[Boolean]]]] = List(Left((1,true)), Right(CustomTuple2(foobar,None)))
 ```
 
-[`RowDecoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]
-[`RowEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]
-[`CellCodec`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CellCodec[A]=kantan.codecs.Codec[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]
-[`CellDecoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CellDecoder[A]=kantan.codecs.Decoder[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]
-[`CellEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CellEncoder[A]=kantan.codecs.Encoder[String,A,kantan.csv.codecs.type]
-[`Tuple2`]:http://www.scala-lang.org/api/current/index.html#scala.Tuple2
+[`RowDecoder`]:{{ site.baseurl }}/api/kantan/csv/RowDecoder$.html
+[`RowEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$RowEncoder.html
+[`CellCodec`]:{{ site.baseurl }}/api/kantan/csv/package$$CellCodec.html
+[`CellDecoder`]:{{ site.baseurl }}/api/kantan/csv/CellDecoder$.html
+[`CellEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$CellEncoder.html
+[`Tuple2`]:http://www.scala-lang.org/api/current/scala/Tuple2.html

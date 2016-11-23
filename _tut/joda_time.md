@@ -11,7 +11,7 @@ support for it through a dedicated module.
 The `joda-time` module can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-joda-time" % "0.1.15"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-joda-time" % "0.1.16"
 ```
 
 You then need to import the corresponding package:
@@ -20,9 +20,7 @@ You then need to import the corresponding package:
 import kantan.csv.joda.time._
 ```
 
-There are so many different ways of serialising dates that kantan.csv doesn't have a default implementation - whatever
-the choice, it would end up more often wrong than right. What you can do, however, is declare an implicit
-[`DateTimeFormat`]. This will get you a [`CellDecoder`] and [`CellEncoder`] instance for the following types:
+kantan.csv has default, ISO 8601 compliant [`CellDecoder`] and [`CellEncoder`] instances for the following types:
 
 * [`DateTime`]
 * [`LocalDate`]
@@ -34,33 +32,69 @@ Let's imagine for example that we want to extract dates from the following strin
 ```scala
 import kantan.csv.ops._
 
-val input = "1,12-10-1978\n2,09-01-2015"
+val input = "1,1978-12-10\n2,2015-01-09"
 ```
 
-We'd first need to declare the appropriate [`DateTimeFormat`]:
+This is directly supported:
+
+```scala
+scala> val res = input.unsafeReadCsv[List, (Int, org.joda.time.LocalDate)](',', false)
+res: List[(Int, org.joda.time.LocalDate)] = List((1,1978-12-10), (2,2015-01-09))
+
+scala> res.asCsv(',')
+res1: String =
+"1,1978-12-10
+2,2015-01-09
+"
+```
+
+It's also possible to declare your own [`CellDecoder`] and [`CellEncoder`] instances. Let's take, for example,
+the following custom format:
 
 ```scala
 import org.joda.time.format._
 
-implicit val format = DateTimeFormat.forPattern("DD-MM-yyyy")
+val input = "1,10-12-1978\n2,09-01-2015"
+
+val format = DateTimeFormat.forPattern("dd-MM-yyyy")
+```
+
+We then need to build a decoder for it and stick it in the implicit scope:
+
+```scala
+implicit val decoder = localDateDecoder(format)
 ```
 
 And we're done:
 
 ```scala
 scala> val res = input.unsafeReadCsv[List, (Int, org.joda.time.LocalDate)](',', false)
-res: List[(Int, org.joda.time.LocalDate)] = List((1,1978-01-12), (2,2015-01-09))
+res: List[(Int, org.joda.time.LocalDate)] = List((1,1978-12-10), (2,2015-01-09))
 ```
 
-By the same token, we got an encoder for free:
+Similarly, this is how you create and encoder:
+
+```scala
+implicit val encoder = localDateEncoder(format)
+```
+
+And you can now easily encode data that contains instances of [`LocalDate`]:
 
 ```scala
 scala> res.asCsv(',')
-res2: String =
-"1,12-01-1978
+res4: String =
+"1,10-12-1978
 2,09-01-2015
 "
 ```
+
+Note that if you're going to both encode and decode dates, you can create a [`CellCodec`] in a single call instead:
+
+```scala
+implicit val codec = localDateCodec(format)
+```
+
+
 
 
 [`Date`]:https://docs.oracle.com/javase/7/docs/api/java/util/Date.html
@@ -69,5 +103,6 @@ res2: String =
 [`LocalDateTime`]:http://joda-time.sourceforge.net/apidocs/org/joda/time/LocalDateTime.html
 [`LocalTime`]:http://joda-time.sourceforge.net/apidocs/org/joda/time/LocalTime.html
 [`DateTimeFormat`]:http://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormat.html
-[`CellEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CellEncoder[A]=kantan.codecs.Encoder[String,A,kantan.csv.codecs.type]
-[`CellDecoder`]:{{ site.baseurl }}/api/#kantan.csv.package@CellDecoder[A]=kantan.codecs.Decoder[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]
+[`CellEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$CellEncoder.html
+[`CellDecoder`]:{{ site.baseurl }}/api/kantan/csv/CellDecoder$.html
+[`CellCodec`]:{{ site.baseurl }}/api/kantan/csv/package$$CellCodec.html

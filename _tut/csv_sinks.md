@@ -9,7 +9,7 @@ All the encoding tutorials, such as [this](serialising_collections.html) one, ma
 [`CsvSink`] type class.
 
 What happens is, any type `A` such that there exists an implicit instance of [`CsvSink[A]`][`CsvSink`] in scope will
-be enriched with various [useful methods]({{ site.baseurl }}/api/#kantan.csv.ops.CsvSinkOps) for CSV serialisation.
+be enriched with various [useful methods]({{ site.baseurl }}/api/kantan/csv/ops/CsvSinkOps.html) for CSV serialisation.
 Various default implementations are automatically in scope, such as one for [`Writer`] or [`OutputStream`], but the most
 useful one is [`File`].
 
@@ -43,10 +43,10 @@ implicit def fileOutput(implicit c: Codec): CsvSink[File] =
 ```
 
 
-[`asCsvWriter`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSinkOps@asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]
-[`CsvWriter`]:{{ site.baseurl }}/api/#kantan.csv.CsvWriter
-[`CsvSink`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvSink
+[`asCsvWriter`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSinkOps.html#asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]
+[`CsvWriter`]:{{ site.baseurl }}/api/kantan/csv/CsvWriter.html
+[`CsvSink`]:{{ site.baseurl }}/api/kantan/csv/CsvSink.html
 [`Writer`]:https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html
 [`File`]:https://docs.oracle.com/javase/7/docs/api/java/io/File.html
 [`OutputStream`]:https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html
-[`contramap`]:{{ site.baseurl }}/api/index.html#kantan.csv.CsvSink@contramap[T](f:T=>S):kantan.csv.CsvSink[T]
+[`contramap`]:{{ site.baseurl }}/api/kantan/csv/CsvSink.html#contramap[T](f:T=>S):kantan.csv.CsvSink[T]

@@ -35,12 +35,12 @@ scala> val dates = List(
      |   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
      | ).asCsv(',')
 dates: String =
-"2016-10-08,2016-10-09
-2016-10-10,2016-10-11
+"2016-11-23,2016-11-24
+2016-11-25,2016-11-26
 "
 
 scala> dates.readCsv[List, List[DateTime]](',', false)
-res1: List[kantan.csv.ReadResult[List[org.joda.time.DateTime]]] = List(Success(List(2016-10-08T00:00:00.000+02:00, 2016-10-09T00:00:00.000+02:00)), Success(List(2016-10-10T00:00:00.000+02:00, 2016-10-11T00:00:00.000+02:00)))
+res1: List[kantan.csv.ReadResult[List[org.joda.time.DateTime]]] = List(Success(List(2016-11-23T00:00:00.000+01:00, 2016-11-24T00:00:00.000+01:00)), Success(List(2016-11-25T00:00:00.000+01:00, 2016-11-26T00:00:00.000+01:00)))
 ```
 
 
@@ -76,11 +76,8 @@ scala> csv.readCsv[List, Person](',', false)
 res3: List[kantan.csv.ReadResult[Person]] = List(Success(Person(0,Nicolas,38)), Success(Person(1,Kazuma,1)), Success(Person(2,John,18)))
 ```
 
-
-
-
 [`DateTime`]:http://www.joda.org/joda-time/apidocs/org/joda/time/DateTime.html
-[`CellCodec`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@CellCodec[A]=kantan.codecs.Codec[String,A,kantan.csv.DecodeError,kantan.csv.codecs.type]
-[`RowCodec`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@RowCodec[A]=kantan.codecs.Codec[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]
-[`RowDecoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@RowDecoder[A]=kantan.codecs.Decoder[Seq[String],A,kantan.csv.DecodeError,kantan.csv.codecs.type]
-[`RowEncoder`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@RowEncoder[A]=kantan.codecs.Encoder[Seq[String],A,kantan.csv.codecs.type]
+[`CellCodec`]:{{ site.baseurl }}/api/kantan/csv/package$$CellCodec.html
+[`RowCodec`]:{{ site.baseurl }}/api/kantan/csv/package$$RowCodec.html
+[`RowDecoder`]:{{ site.baseurl }}/api/kantan/csv/package$$RowDecoder.html
+[`RowEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$RowEncoder.html

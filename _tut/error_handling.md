@@ -67,7 +67,7 @@ When not streaming data, a good option is to fail if a single row fails to decod
 
 ```scala
 scala> kantan.codecs.Result.sequence(rawData.readCsv[List, Person](',', false))
-res4: kantan.codecs.Result[kantan.csv.ReadError,List[Person]] = Failure(kantan.csv.DecodeError$TypeError$$anon$1: Not a valid Boolean: '28)
+res4: kantan.codecs.Result[kantan.csv.ReadError,List[Person]] = Failure(kantan.csv.DecodeError$TypeError$$anon$1: Not a valid Boolean: '28')
 ```
 
 The only real downside to this approach is that it requires loading the entire data in memory.
@@ -105,16 +105,16 @@ Following the same general idea, one could use [`Option`] for fields that are no
 This strategy is not always possible, but is good to keep in mind for these cases where it can be applied.
 
 
-[`List`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List
-[`asUnsafeCsvReader`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSourceOps@asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$2:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]
-[`ReadResult`]:{{ site.baseurl }}/api/#kantan.csv.package@ReadResult[A]=kantan.codecs.Result[kantan.csv.ReadError,A]
+[`List`]:http://www.scala-lang.org/api/current/scala/collection/immutable/List.html
+[`asUnsafeCsvReader`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$2:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]
+[`ReadResult`]:{{ site.baseurl }}/api/kantan/csv/ReadResult$.html
 [`Result`]:http://nrinaudo.github.io/kantan.codecs/api/#kantan.codecs.Result
 [`collect`]:http://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.ResourceIterator@collect[B](f:PartialFunction[A,B]):kantan.codecs.ResourceIterator[B]
 [`filter`]:http://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.ResourceIterator@filter(p:A=>Boolean):kantan.codecs.ResourceIterator[A]
 [`map`]:http://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.ResourceIterator@map[B](f:A=>B):kantan.codecs.ResourceIterator[B]
-[`Either`]:http://www.scala-lang.org/api/current/index.html#scala.util.Either
-[`Option`]:http://www.scala-lang.org/api/current/index.html#scala.Option
+[`Either`]:http://www.scala-lang.org/api/current/scala/util/Either.html
+[`Option`]:http://www.scala-lang.org/api/current/scala/Option.html
 [`sequence`]:http://nrinaudo.github.io/kantan.codecs/api/#kantan.codecs.Result$@sequence[F,S,M[X]<:TraversableOnce[X]](rs:M[kantan.codecs.Result[F,S]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[kantan.codecs.Result[F,S]],S,M[S]]):kantan.codecs.Result[F,M[S]]
 [`getOrElse`]:http://nrinaudo.github.io/kantan.codecs/api/#kantan.codecs.Result@getOrElse[SS>:S](default:=>SS):SS
-[`ReadError`]:{{ site.baseurl }}/api/#kantan.csv.ReadError
-[`Success`]:{{ site.baseurl }}/api/index.html#kantan.csv.package@Success[A]=kantan.codecs.Result.Success[A]
+[`ReadError`]:{{ site.baseurl }}/api/kantan/csv/ReadError.html
+[`Success`]:{{ site.baseurl }}/api/kantan/csv/index.html#Success[A]=kantan.codecs.Result.Success[A]

@@ -27,7 +27,7 @@ writes them directly as CSV:
 val out = java.io.File.createTempFile("kantan.csv", "csv")
 
 // Writes ps using , as a column separator and with a header row.
-out.writeCsv(ps, ',', List("Id", "Name", "Age"))
+out.writeCsv(ps, ',', "Id", "Name", "Age")
 ```
 
 [`writeCsv`] takes three value arguments:
@@ -52,7 +52,7 @@ Note that the need for turning a collection into a CSV string is so common that 
 that: [`asCsv`]. For example:
 
 ```scala
-scala> ps.asCsv(',', List("Id", "Name", "Age"))
+scala> ps.asCsv(',', "Id", "Name", "Age")
 res7: String =
 "Id,Name,Age
 0,Nicolas,38
@@ -69,7 +69,7 @@ If you want to learn more about:
 * [how to write CSV row by row](step_by_step_serialisation.html)
 
 
-[`asCsvWriter`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSinkOps@asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]
-[`writeCsv`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvSinkOps@writeCsv[B](rows:TraversableOnce[B],sep:Char,header:Seq[String])(implicitevidence$2:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):Unit
-[`TraversableOnce`]:http://www.scala-lang.org/api/current/index.html#scala.collection.TraversableOnce
-[`asCsv`]:{{ site.baseurl }}/api/index.html#kantan.csv.ops.CsvRowsOps@asCsv(sep:Char,header:Seq[String])(implicitea:kantan.csv.RowEncoder[A],implicite:kantan.csv.engine.WriterEngine):String
+[`asCsvWriter`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSinkOps.html#asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]
+[`writeCsv`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSinkOps.html#writeCsv[B](rows:TraversableOnce[B],sep:Char,header:Seq[String])(implicitevidence$2:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):Unit
+[`TraversableOnce`]:http://www.scala-lang.org/api/current/scala/collection/TraversableOnce.html
+[`asCsv`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvRowsOps.html#asCsv(sep:Char,header:Seq[String])(implicitea:kantan.csv.RowEncoder[A],implicite:kantan.csv.engine.WriterEngine):String
