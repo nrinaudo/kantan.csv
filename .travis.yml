@@ -16,7 +16,7 @@ jdk:
   - oraclejdk8
 matrix:
   include:
-  - scala: 2.12.0
+  - scala: 2.12.1
     jdk: oraclejdk8
 script:
   - sbt ++$TRAVIS_SCALA_VERSION validate
