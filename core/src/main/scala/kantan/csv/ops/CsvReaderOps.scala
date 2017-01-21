@@ -20,6 +20,7 @@ import kantan.csv.{CsvReader, _}
 
 // Alright, yes, this is nasty. There are abstractions designed to deal with just this situation, but not everyone
 // knows about them / understands them / can afford to depend on libraries that provide them.
+
 /** Provides useful syntax for `CsvReader[ReadResult[A]]`.
   *
   * When parsing CSV data, a very common scenario is to get an instance of [[CsvReader]] and then use common
