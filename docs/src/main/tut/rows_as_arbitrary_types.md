@@ -39,7 +39,9 @@ our current task, we need to decode a row into 5 values and stick them into `Car
 import kantan.csv.ops._
 import kantan.csv._
 
-implicit val carDecoder = RowDecoder.ordered(new Car(_, _, _, _, _))
+implicit val carDecoder = RowDecoder.ordered { (i: Int, ma: String, mo: String, d: Option[String], p: Float) =>
+  new Car(i, ma, mo, d, p)
+}
 ```
 
 And we can now decode our data as usual:
@@ -52,30 +54,8 @@ The main reason this is the preferred solution is that it allows us never to hav
 row and how to decode them - we just have to describe what type we're expecting and let kantan.csv deal with decoding
 for us.
 
-Note that this case was fairly simple - the column and constructor parameters were in the same order. Let's take a
-slightly more complex scenario:
-
-```tut:silent
-class Car2(val make: String, val year: Int, val model: String, val price: Float) {
-  override def toString = s"Car2($make, $year, $model, $price)"
-}
-```
-
-For this kind of scenario, we need to use [`decoder`] instead of [`ordered`]:
-
-```tut:silent
-implicit val car2Decoder: RowDecoder[Car2] = RowDecoder.decoder(1, 0, 2, 4)(new Car2(_, _, _, _))
-```
-
-The first parameter to [`decoder`] is a list of indexes that map CSV columns to case class fields. The second one
-is a function that takes 4 arguments and return a value of the type we want to create a decoder for - our `Car2`'s
-constructor.
-
-Let's verify that this worked as expected:
-
-```tut
-rawData.asCsvReader[Car2](',', true).foreach(println _)
-```
+Note that this case was fairly simple - the column and constructor parameters were in the same order. For more complex
+scenarios, where columns might be in a different order for example, [`decoder`] would be a better fit.
 
 ## What to read next
 
