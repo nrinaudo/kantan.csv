@@ -39,15 +39,15 @@ Providing decoding support for our `Car` class is as simple as implementing an i
 and marking it as implicit.
 
 There are various ways to implement an instance of [`RowDecoder`], but by far the most idiomatic is to use one of
-the various helper methods defined in its [companion object]({{ site.baseurl }}/api/kantan/csv/RowDecoder$.html). For our
-current task, we need to decode a row into 5 values and stick them into `Car`'s constructor: we want [`decoder`].
+the various helper methods defined in its [companion object]({{ site.baseurl }}/api/kantan/csv/RowDecoder$.html). For
+our current task, we need to decode a row into 5 values and stick them into `Car`'s constructor: we want [`ordered`].
 
 ```scala
 import kantan.csv.ops._
 import kantan.csv._
 
-implicit val carDecoder = RowDecoder.decoder(0, 1, 2, 3, 4) { (y: Int, m: String, mo: String, d: Option[String], p: Float) ⇒
-  new Car(y, m, mo, d, p)
+implicit val carDecoder = RowDecoder.ordered { (i: Int, ma: String, mo: String, d: Option[String], p: Float) =>
+  new Car(i, ma, mo, d, p)
 }
 ```
 
@@ -66,9 +66,8 @@ The main reason this is the preferred solution is that it allows us never to hav
 row and how to decode them - we just have to describe what type we're expecting and let kantan.csv deal with decoding
 for us.
 
-Note that [`decoder`] also takes a list of indexes as parameter - these map each parameter to a index in a CSV row.
-If, as is our case here, there's an exact mapping between the parameters of our construction function and the cells
-of each CSV row, the [`ordered`] method is slightly easier to call.
+Note that this case was fairly simple - the column and constructor parameters were in the same order. For more complex
+scenarios, where columns might be in a different order for example, [`decoder`] would be a better fit.
 
 ## What to read next
 

@@ -70,7 +70,7 @@ made easy by helper methods meant for just this problem, the various [`decoder`]
 
 ```scala
 import kantan.csv._
-implicit val carDecoder: RowDecoder[Car2] = RowDecoder.decoder(1, 0, 2, 4)(Car2.apply)
+implicit val car2Decoder: RowDecoder[Car2] = RowDecoder.decoder(1, 0, 2, 4)(Car2.apply)
 ```
 
 The first parameter to [`decoder`] is a list of indexes that map CSV columns to case class fields. The second one
