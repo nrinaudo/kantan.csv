@@ -30,7 +30,7 @@ lazy val root = Project(id = "kantan-csv", base = file("."))
       |import kantan.csv.generic._
       |import kantan.csv.joda.time._
     """.stripMargin
-)
+  )
   .aggregate(core, cats, scalaz, scalazStream, laws, tests, docs, generic, benchmark, jackson, commons, opencsv, jodaTime)
   .aggregate(ifJava8[ProjectReference](java8):_*)
   .dependsOn(core, generic, jodaTime)
@@ -76,7 +76,10 @@ lazy val core = project
 )
   .enablePlugins(PublishedPlugin)
   .enablePlugins(spray.boilerplate.BoilerplatePlugin)
-  .settings(libraryDependencies += "com.nrinaudo" %% "kantan.codecs" % kantanCodecsVersion)
+  .settings(libraryDependencies ++= Seq(
+    "com.nrinaudo" %% "kantan.codecs" % kantanCodecsVersion,
+    "org.scalatest" %% "scalatest"    % scalatestVersion     % "test"
+  ))
 
 lazy val laws = project
   .settings(

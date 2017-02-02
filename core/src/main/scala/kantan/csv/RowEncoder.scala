@@ -43,13 +43,23 @@ object RowEncoder extends GeneratedRowEncoders with EncoderCompanion[Seq[String]
 
 /** Provides reasonable default [[RowEncoder]] instances for various types. */
 trait RowEncoderInstances {
-  /** Turns a [[CellEncoder]] into a [[RowEncoder]], for rows that contain a single value. */
+  /** Turns a [[CellEncoder]] into a [[RowEncoder]], for rows that contain a single value.
+    *
+    * {{{
+    * scala> RowEncoder[Int].encode(123)
+    * res1: Seq[String] = List(123)
+    * }}}
+    */
   implicit def fromCellEncoder[A: CellEncoder]: RowEncoder[A] =
     RowEncoder.from(a ⇒ Seq(CellEncoder[A].encode(a)))
 
   /** Provides a [[RowEncoder]] instance for all traversable collections.
     *
-    * Note that the elements of the collections are expected to have a [[CellEncoder]].
+    * `List`, for example:
+    * {{{
+    * scala> RowEncoder[List[Int]].encode(List(123, 456, 789))
+    * res1: Seq[String] = List(123, 456, 789)
+    * }}}
     */
   implicit def traversable[A: CellEncoder, M[X] <: TraversableOnce[X]]: RowEncoder[M[A]] =
     RowEncoder .from(_.foldLeft(Seq.newBuilder[String])((acc, a) ⇒ acc += CellEncoder[A].encode(a)).result())

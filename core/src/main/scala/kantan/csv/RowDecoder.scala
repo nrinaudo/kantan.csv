@@ -43,15 +43,36 @@ object RowDecoder extends GeneratedRowDecoders with DecoderCompanion[Seq[String]
 
 /** Provides reasonable default [[RowDecoder]] instances for various types. */
 trait RowDecoderInstances {
+  /** Provides a [[RowDecoder]] instance that decodes a single cell from each row.
+    *
+    * {{{
+    * RowDecoder.field[Int](1).decode(Seq("123", "456", "789"))
+    * res1: DecodeResult[Int] = Success(456)
+    * }}}
+    */
   def field[A: CellDecoder](index: Int): RowDecoder[A] = RowDecoder.from { ss ⇒
     ss.lift(index).map(CellDecoder[A].decode).getOrElse(DecodeResult.outOfBounds(index))
   }
 
-  /** Turns a [[CellDecoder]] into a [[RowDecoder]], for rows that contain a single value. */
+  /** Turns a [[CellDecoder]] into a [[RowDecoder]], for rows that contain a single value.
+    *
+    * This provides default behaviour for [[field]] by decoding the first cell.
+    *
+    * {{{
+    * RowDecoder[Int].decode(Seq("123", "456", "789"))
+    * res1: DecodeResult[Int] = Success(123)
+    * }}}
+    */
   implicit def fromCellDecoder[A: CellDecoder]: RowDecoder[A] = field[A](0)
 
   /** Provides a [[RowDecoder]] instance for all types that have an `CanBuildFrom`, provided the inner type has a
     * [[CellDecoder]].
+    *
+    * `List`, for example:
+    * {{{
+    * RowDecoder[List[Int]].decode(Seq("123", "456", "789"))
+    * res1: DecodeResult[List[Int]] = Success(List(123, 456, 789))
+    * }}}
     */
   implicit def cbfRowDecoder[A: CellDecoder, M[X]](implicit cbf: CanBuildFrom[Nothing, A, M[A]]): RowDecoder[M[A]] =
     RowDecoder.from(_.foldLeft(DecodeResult(cbf.apply())) { (racc, s) ⇒ for {

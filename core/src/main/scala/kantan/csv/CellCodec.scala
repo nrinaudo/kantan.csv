@@ -23,7 +23,7 @@ import kantan.codecs.CodecCompanion
 /** Declares helpful methods for [[CellCodec]] creation. */
 object CellCodec extends CodecCompanion[String, DecodeError, codecs.type] {
   def dateCodec(format: DateFormat): CellCodec[Date] =
-    from(CellDecoder.dateDecoder(format), CellEncoder.dateEncoder(format))
+    CellCodec.from(CellDecoder.dateDecoder(format), CellEncoder.dateEncoder(format))
 }
 
 trait CellCodecInstances extends CellEncoderInstances with CellDecoderInstances
