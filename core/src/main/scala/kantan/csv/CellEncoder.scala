@@ -53,7 +53,7 @@ trait CellEncoderInstances {
     * res1: String = 123
     * }}}
     *
-    * `Non` are encoded as the emptry string:
+    * `Non` are encoded as the empty string:
     * {{{
     * scala> CellEncoder[Option[Int]].encode(None)
     * res2: String = ""
