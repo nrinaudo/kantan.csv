@@ -1,7 +1,19 @@
 package kantan.csv
 
 trait GeneratedRowEncoders {
-  /** Creates a new [[RowEncoder]] from the specified unary function. */
+  /** Creates a new [[RowEncoder]] from the specified function.
+    *
+    * For example:
+    * {{{
+    * scala> case class Ints(i1: Int)
+    *
+    * scala> RowEncoder.encoder((is: Ints) ⇒ (is.i1)).encode(Ints(1))
+    * res0: Seq[String] = List(1)
+    * }}}
+    *
+    * @param f encoding function.
+    * @param i1 index of the cell that should be passed as parameter number 1 of `f`#
+    */
   def encoder[C, A1: CellEncoder](f: C ⇒ A1): RowEncoder[C] =
     RowEncoder.from(c ⇒ List(CellEncoder[A1].encode(f(c))))
 
@@ -30,9 +42,20 @@ trait GeneratedRowEncoders {
     }#
   ]
 
-  /** Creates a new [[RowEncoder]] from the specified unary function. */
+  /** Creates a new [[RowEncoder]] from the specified function.
+    *
+    * For example:
+    * {{{
+    * scala> case class Ints(i1: Int)
+    *
+    * scala> RowEncoder.ordered((is: Ints) ⇒ (is.i1)).encode(Ints(1))
+    * res0: Seq[String] = List(1)
+    * }}}
+    *
+    */
   def ordered[C, A1: CellEncoder](f: C ⇒ A1): RowEncoder[C] =
     encoder(f)
+
   [2..#/** Creates a new [[RowEncoder]] from the specified function.
     *
     * For example:
@@ -58,11 +81,25 @@ trait GeneratedRowEncoders {
   /** Creates a new [[RowEncoder]] from the specified `unapply` method of a case class' companion object.
     *
     * This is meant for case classes and is unsafe for any other type: a case class' `unapply` method never returns
-    * `Some`, which allows `caseEncoder1` to call `get` on the return value.
-    */
-  def caseEncoder[C, A1: CellEncoder](f: C ⇒ Option[A1]): RowEncoder[C] =
+    * None`, which allows `caseEncoder1` to call `get` on the return value.
+    *
+    * For example:
+    * {{{
+    * scala> case class Ints(i1: Int)
+    *
+    * scala> RowEncoder.caseEncoder(Ints.unapply _).encode(Ints(1))
+    * res0: Seq[String] = List(1)
+    * }}}
+    *
+    * @param f encoding method, intended to be a case class' `unapply` method.
+    * @param i1 index of the cell that should be passed as parameter number 1 of `f`#
+    */  def caseEncoder[C, A1: CellEncoder](f: C ⇒ Option[A1]): RowEncoder[C] =
     encoder(f andThen (_.get))
+
   [2..#/** Creates a new [[RowEncoder]] from the specified `unapply` method of a case class' companion object.
+    *
+    * This is meant for case classes and is unsafe for any other type: a case class' `unapply` method never returns
+    * None`, which allows `caseEncoder1` to call `get` on the return value.
     *
     * For example:
     * {{{
@@ -71,8 +108,6 @@ trait GeneratedRowEncoders {
     * scala> RowEncoder.caseEncoder([#0#])(Ints.unapply _).encode(Ints([#1#]))
     * res0: Seq[String] = WrappedArray([#1#])
     * }}}
-    * This is meant for case classes and is unsafe for any other type: a case class' `unapply` method never returns
-    * `Some`, which allows `caseEncoder1` to call `get` on the return value.
     *
     * @param f encoding method, intended to be a case class' `unapply` method.
     [#* @param i1 index of the cell that should be passed as parameter number 1 of `f`#
@@ -82,11 +117,28 @@ trait GeneratedRowEncoders {
       encoder([#i1#])(f andThen (_.get))#
   ]
 
-  /** Creates a new [[RowEncoder]] from the specified `unapply` method of a case class' companion object. */
-
+  /** Creates a new [[RowEncoder]] from the specified `unapply` method of a case class' companion object.
+    *
+    * This is meant for case classes and is unsafe for any other type: a case class' `unapply` method never returns
+    * `None`, which allows `caseOrdered` to call `get` on the return value.
+    *
+    * For example:
+    * {{{
+    * scala> case class Ints(i1: Int)
+    *
+    * scala> RowEncoder.caseOrdered(Ints.unapply _).encode(Ints(1))
+    * res0: Seq[String] = List(1)
+    * }}}
+    *
+    * Consider using the `generics` kantan.csv module instead: it can automatically derive instances for this use case.
+    */
   def caseOrdered[C, A1: CellEncoder](f: C ⇒ Option[A1]): RowEncoder[C] =
     encoder(f andThen (_.get))
+
   [2..#/** Creates a new [[RowEncoder]] from the specified `unapply` method of a case class' companion object.
+    *
+    * This is meant for case classes and is unsafe for any other type: a case class' `unapply` method never returns
+    * `None`, which allows `caseOrdered` to call `get` on the return value.
     *
     * For example:
     * {{{
@@ -95,8 +147,6 @@ trait GeneratedRowEncoders {
     * scala> RowEncoder.caseOrdered(Ints.unapply _).encode(Ints([#1#]))
     * res0: Seq[String] = WrappedArray([#1#])
     * }}}
-    * This is meant for case classes and is unsafe for any other type: a case class' `unapply` method never returns
-    * `Some`, which allows `caseEncoder1` to call `get` on the return value.
     *
     * Consider using the `generics` kantan.csv module instead: it can automatically derive instances for this use case.
     */
