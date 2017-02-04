@@ -9,6 +9,13 @@ trait GeneratedRowDecoders {
 
   [#/** Creates a new [[RowDecoder]] from the specified function.
     *
+    * For example:
+    * {{{
+    * scala> case class Ints([#i1: Int#])
+    *
+    * scala> RowDecoder.decoder([#0#])(Ints.apply _).decode(Seq([#"1"#]))
+    * res0: DecodeResult[Ints] = Success(Ints([#1#,]))
+    * }}}
     * @param f encoding function.
     [#* @param i1 index of the cell that should be passed as parameter number 1 of `f`#
     ]
@@ -20,7 +27,17 @@ trait GeneratedRowDecoders {
     } yield f([#f1#]))#
   ]
 
-  [#/** Creates a new [[RowDecoder]] from the specified function. */
+  [#/** Creates a new [[RowDecoder]] from the specified function.
+    *
+    * Cells are mapped to arguments of `f` in the order they are found. For example:
+    * {{{
+    * scala> case class Ints([#i1: Int#])
+    *
+    * scala> RowDecoder.ordered(Ints.apply _).decode(Seq([#"1"#]))
+    * res0: DecodeResult[Ints] = Success(Ints([#1#,]))
+    * }}}
+    *
+    */
   def ordered[[#A1: CellDecoder#], R](f: ([#A1#]) ⇒ R): RowDecoder[R] =
       decoder([#0#])(f)#
   ]
