@@ -27,14 +27,14 @@ import scalaz.stream.Process._
 
 class SerializationSpec extends FunSuite with GeneratorDrivenPropertyChecks {
   def read(raw: String): List[List[String]] =
-    raw.asUnsafeCsvSource[List[String]](',', false).runLog.unsafePerformSync.toList
+    raw.asUnsafeCsvSource[List[String]](',', false).runLog.run.toList
 
   def write(data: List[List[String]]): String = {
     val sw = new StringWriter()
     val iterator = data.iterator
 
     Process.repeatEval(Task.delay { if(iterator.hasNext) iterator.next() else throw Cause.Terminated(Cause.End) })
-      .to(CsvSink[List[String]](sw, ',')).run.unsafePerformSync
+      .to(CsvSink[List[String]](sw, ',')).run.run
 
     sw.toString
   }

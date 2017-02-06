@@ -54,15 +54,4 @@ class RegressionTests extends FunSuite {
       List((1, "a", Some(100)), (2, "b", None))
     )
   }
-
-  test("Implicit resolution should not be impacted by the presence of default arguments (#65)") {
-    case class A(i: Int)
-
-    object Test {
-      import kantan.csv.generic._
-      import kantan.csv.ops._
-
-      List(A(3)).asCsv(',')
-    }
-  }
 }
