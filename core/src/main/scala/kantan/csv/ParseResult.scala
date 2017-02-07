@@ -21,5 +21,5 @@ import kantan.codecs.ResultCompanion
 object ParseResult extends ResultCompanion.WithDefault[ParseError] {
   override protected def fromThrowable(t: Throwable): ParseError = ParseError.IOError(t)
   def io(e: Throwable): ParseResult[Nothing] = failure(ParseError.IOError(e))
-  def noSuchElement: ParseResult[Nothing] = failure(ParseError.NoSuchElement())
+  def noSuchElement: ParseResult[Nothing] = failure(ParseError.NoSuchElement)
 }

@@ -72,7 +72,7 @@ trait CsvSource[-S] extends Serializable { self ⇒
   def unsafeReader[A: RowDecoder](s: S, separator: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[A] =
     reader[A](s, separator, header).map(_.valueOr {
       case e@TypeError(msg)   ⇒ throw Option(e.getCause).getOrElse(new IllegalArgumentException(msg))
-      case NoSuchElement()    ⇒ throw new NoSuchElementException
+      case NoSuchElement      ⇒ throw new NoSuchElementException
       case e@IOError(msg)     ⇒ throw Option(e.getCause).getOrElse(new IOException(msg))
       case OutOfBounds(index) ⇒ throw new ArrayIndexOutOfBoundsException(index)
     })

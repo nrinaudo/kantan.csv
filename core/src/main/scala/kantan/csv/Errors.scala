@@ -22,10 +22,10 @@ package kantan.csv
   *  - [[DecodeError]]: errors that occur while decoding a cell or a row.
   *  - [[ParseError]]: errors that occur while parsing raw data into CSV.
   */
-sealed abstract class ReadError extends Exception with Product with Serializable
+sealed abstract class ReadError(msg: String) extends kantan.codecs.Error(msg)
 
 /** Parent type for all errors that can occur while decoding CSV data. */
-sealed abstract class DecodeError extends ReadError
+sealed abstract class DecodeError(msg: String) extends ReadError(msg)
 
 /** Declares all possible values of type [[DecodeError]]. */
 object DecodeError {
@@ -33,39 +33,23 @@ object DecodeError {
     *
     * @param index index that caused the issue.
     */
-  final case class OutOfBounds(index: Int) extends DecodeError
+  final case class OutOfBounds(index: Int) extends DecodeError(s"$index is not a valid index")
 
   /** Error that occurs when attempting to decode a CSV cell or row into an incompatible type.
     *
     * A typical example of this would be to try and decode a CSV cell into an `Int` when its content is, say, `foobar`.
     */
-  sealed case class TypeError(message: String) extends DecodeError {
-    override final val getMessage = message
-  }
+  final case class TypeError(message: String) extends DecodeError(message)
 
-  object TypeError {
-    def apply(str: String, t: Throwable): TypeError = new TypeError(str) {
-      override val getCause = t
-    }
-
-    def apply(t: Throwable): TypeError = TypeError(Option(t.getMessage).getOrElse("Type error"), t)
-  }
+  object TypeError extends kantan.codecs.ErrorCompanion("an unspecified type error occurred")(s ⇒ new TypeError(s))
 }
 
-sealed abstract class ParseError extends ReadError
+sealed abstract class ParseError(msg: String) extends ReadError(msg)
 
 object ParseError {
-  final case class NoSuchElement() extends ParseError
+  case object NoSuchElement extends ParseError("trying to read from an empty reader")
 
-  sealed case class IOError(message: String) extends ParseError {
-    override final val getMessage = message
-  }
+  final case class IOError(message: String) extends ParseError(message)
 
-  object IOError {
-    def apply(str: String, t: Throwable): IOError = new IOError(str) {
-      override val getCause = t
-    }
-
-    def apply(t: Throwable): IOError = IOError(Option(t.getMessage).getOrElse("IO error"), t)
-  }
+  object IOError extends kantan.codecs.ErrorCompanion("an unspecified io error occurred")(s ⇒ new IOError(s))
 }

@@ -42,7 +42,7 @@ trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstance
   val genDecodeError: Gen[DecodeError] = Gen.oneOf(genOutOfBoundsError, genTypeError)
 
   val genIOError: Gen[IOError] = genIoException.map(IOError.apply)
-  val genParseError: Gen[ParseError] = Gen.oneOf(genIOError, Gen.const(ParseError.NoSuchElement()))
+  val genParseError: Gen[ParseError] = Gen.oneOf(genIOError, Gen.const(ParseError.NoSuchElement))
 
   implicit val arbTypeError: Arbitrary[TypeError] = Arbitrary(genTypeError)
   implicit val arbIOError: Arbitrary[IOError] = Arbitrary(genIOError)

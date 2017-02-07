@@ -6,7 +6,7 @@ import sbtunidoc.Plugin.UnidocKeys._
 // ---------------------------------------------------------------------------------------------------------------------
 val commonsCsvVersion        = "1.4"
 val jacksonCsvVersion        = "2.8.6"
-val kantanCodecsVersion      = "0.1.11"
+val kantanCodecsVersion      = "0.1.12-SNAPSHOT"
 val opencsvVersion           = "3.8"
 val productCollectionVersion = "1.4.5"
 val scalaCsvVersion          = "1.3.4"
