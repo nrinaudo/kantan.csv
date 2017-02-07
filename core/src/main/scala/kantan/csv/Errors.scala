@@ -41,15 +41,24 @@ object DecodeError {
     */
   final case class TypeError(message: String) extends DecodeError(message)
 
+  /** Provides convenience methods for [[DecodeError.TypeError]] instance creation. */
   object TypeError extends kantan.codecs.ErrorCompanion("an unspecified type error occurred")(s ⇒ new TypeError(s))
 }
 
+/** Parent type for all errors that can occur while parsing CSV data. */
 sealed abstract class ParseError(msg: String) extends ReadError(msg)
 
+/** Declares all possible values of type [[ParseError]]. */
 object ParseError {
+  /** Error that occurs when attempting to read from an empty [[CsvReader]]. */
   case object NoSuchElement extends ParseError("trying to read from an empty reader")
 
+  /** Error that occurs while interacting with an IO resource.
+    *
+    * This is typically used to wrap a `java.io.IOException`.
+    */
   final case class IOError(message: String) extends ParseError(message)
 
+  /** Provides convenience methods for [[ParseError.IOError]] instance creation. */
   object IOError extends kantan.codecs.ErrorCompanion("an unspecified io error occurred")(s ⇒ new IOError(s))
 }

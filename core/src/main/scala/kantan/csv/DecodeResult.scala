@@ -22,10 +22,30 @@ import kantan.codecs.ResultCompanion
 object DecodeResult extends ResultCompanion.WithDefault[DecodeError] {
   override protected def fromThrowable(t: Throwable) = DecodeError.TypeError(t)
 
-  /** Creates a new [[DecodeResult]] failure wrapping a [[DecodeError.OutOfBounds]] error. */
+  /** Creates a new [[DecodeResult]] failure wrapping a [[DecodeError.OutOfBounds]] error.
+    *
+    * {{{
+    * scala> DecodeResult.outOfBounds(1)
+    * res0: DecodeResult[Nothing] = Failure(OutOfBounds: 1 is not a valid index)
+    * }}}
+    */
   def outOfBounds(index: Int): DecodeResult[Nothing] = failure(DecodeError.OutOfBounds(index))
-  /** Creates a new [[DecodeResult]] failure wrapping a [[DecodeError.TypeError]] error. */
+
+  /** Creates a new [[DecodeResult]] failure wrapping a [[DecodeError.TypeError]] error.
+    *
+    * {{{
+    * scala> DecodeResult.typeError("not a valid int")
+    * res0: DecodeResult[Nothing] = Failure(TypeError: not a valid int)
+    * }}}
+    */
   def typeError(str: String): DecodeResult[Nothing] = failure(DecodeError.TypeError(str))
-  /** Creates a new [[DecodeResult]] failure wrapping a [[DecodeError.TypeError]] error. */
+
+  /** Creates a new [[DecodeResult]] failure wrapping a [[DecodeError.TypeError]] error.
+    *
+    * {{{
+    * scala> DecodeResult.typeError(new Exception("not a valid int"))
+    * res0: DecodeResult[Nothing] = Failure(TypeError: not a valid int)
+    * }}}
+    */
   def typeError(e: Exception): DecodeResult[Nothing] = failure(DecodeError.TypeError(e))
 }

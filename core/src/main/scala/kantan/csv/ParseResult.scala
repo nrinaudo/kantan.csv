@@ -18,8 +18,25 @@ package kantan.csv
 
 import kantan.codecs.ResultCompanion
 
+/** Provides convenience methods for creating instances of [[ParseResult]]. */
 object ParseResult extends ResultCompanion.WithDefault[ParseError] {
   override protected def fromThrowable(t: Throwable): ParseError = ParseError.IOError(t)
+
+  /** Creates a new [[ParseResult]] failure wrapping a [[ParseError.IOError]] error.
+    *
+    * {{{
+    * scala> ParseResult.io(new java.io.IOException("some sort of io error"))
+    * res0: ParseResult[Nothing] = Failure(IOError: some sort of io error)
+    * }}}
+    */
   def io(e: Throwable): ParseResult[Nothing] = failure(ParseError.IOError(e))
+
+  /** Creates a new [[ParseResult]] failure wrapping a [[ParseError.NoSuchElement]] error.
+    *
+    * {{{
+    * scala> ParseResult.noSuchElement
+    * res0: ParseResult[Nothing] = Failure(NoSuchElement: trying to read from an empty reader)
+    * }}}
+    */
   def noSuchElement: ParseResult[Nothing] = failure(ParseError.NoSuchElement)
 }
