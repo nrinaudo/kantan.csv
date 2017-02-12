@@ -22,7 +22,7 @@ lazy val root = Project(id = "kantan-csv", base = file("."))
 lazy val docs = project
   .enablePlugins(DocumentationPlugin)
   .settings(unidocProjectFilter in (ScalaUnidoc, unidoc) :=
-    inAnyProject -- inProjectsIf(java8Supported)(java8) -- inProjects(benchmark)
+    inAnyProject -- inProjectsIf(!java8Supported)(java8) -- inProjects(benchmark)
   )
   .dependsOn(core, laws, cats, scalaz, generic, jackson, commons, opencsv, jodaTime)
   .dependsOnIf(java8Supported)(java8)
