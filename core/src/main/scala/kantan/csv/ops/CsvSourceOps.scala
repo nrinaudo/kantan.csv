@@ -24,36 +24,116 @@ import scala.collection.generic.CanBuildFrom
   *
   * The most common use case is to turn a value into a [[CsvReader]] through [[asCsvReader]]:
   * {{{
-  *   val f: java.io.File = ???
-  *   f.asCsvReader[List[Int]](',', true)
+  * scala> import kantan.csv._
+  *
+  * scala> "1,2,3\n4,5,6".asCsvReader[List[Int]](',', false).toList
+  * res0: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
   * }}}
   *
   * A slightly less common use case is to load an entire CSV file in memory through [[readCsv]]:
   * {{{
-  *   val f: java.io.File = ???
-  *   f.readCsv[List, List[Int]](',', true)
+  * scala> "1,2,3\n4,5,6".readCsv[List, List[Int]](',', false)
+  * res1: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
   * }}}
   *
   * Unsafe versions of these methods are also available, even if usually advised against.
   */
 final class CsvSourceOps[A](val a: A) extends AnyVal {
-  /** Shorthand for [[CsvSource!.reader CsvSource.reader]]. */
+  /** Opens a [[CsvReader]] on the underlying resource.
+    *
+    * For example:
+    * {{{
+    * scala> import kantan.csv._
+    *
+    * scala> "1,2,3\n4,5,6".asCsvReader[List[Int]](',', false).toList
+    * res0: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
+    * }}}
+    *
+    * This is a convenience method only, and strictly equivalent to:
+    * {{{
+    * scala> CsvSource[String].reader[List[Int]]("1,2,3\n4,5,6", ',', false).toList
+    * res1: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
+    * }}}
+    *
+    * @param  sep    column separator.
+    * @param  header whether or not to skip the first row.
+    * @tparam B      type each row will be decoded as.
+    */
   def asCsvReader[B: RowDecoder](sep: Char, header: Boolean)
                                 (implicit ia: CsvSource[A], e: ReaderEngine): CsvReader[ReadResult[B]] =
     ia.reader[B](a, sep, header)
 
-  /** Shorthand for [[CsvSource.unsafeReader]]. */
+  /** Opens an unsafe [[CsvReader]] on the underlying resource.
+    *
+    * For example:
+    * {{{
+    * scala> import kantan.csv._
+    *
+    * scala> "1,2,3\n4,5,6".asUnsafeCsvReader[List[Int]](',', false).toList
+    * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
+    * }}}
+    *
+    * This is a convenience method only, and strictly equivalent to:
+    * {{{
+    * scala> CsvSource[String].unsafeReader[List[Int]]("1,2,3\n4,5,6", ',', false).toList
+    * res1: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
+    * }}}
+    *
+    * @param  sep    column separator.
+    * @param  header whether or not to skip the first row.
+    * @tparam B      type each row will be decoded as.
+    */
   def asUnsafeCsvReader[B: RowDecoder](sep: Char, header: Boolean)
                                       (implicit ia: CsvSource[A], e: ReaderEngine): CsvReader[B] =
     ia.unsafeReader[B](a, sep, header)
 
-  /** Shorthand for [[CsvSource.read]]. */
+  /** Reads the underlying resource as a CSV stream.
+    *
+    * For example:
+    * {{{
+    * scala> import kantan.csv._
+    *
+    * scala> "1,2,3\n4,5,6".readCsv[List, List[Int]](',', false)
+    * res0: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
+    * }}}
+    *
+    * This is a convenience method only, and strictly equivalent to:
+    * {{{
+    * scala> CsvSource[String].read[List, List[Int]]("1,2,3\n4,5,6", ',', false)
+    * res1: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
+    * }}}
+    *
+    * @param  sep    column separator.
+    * @param  header whether or not to skip the first row.
+    * @tparam B      type each row will be decoded as.
+    * @tparam C      type of the collection in which the decoded CSV data will be stored.
+    */
   def readCsv[C[_], B: RowDecoder](sep: Char, header: Boolean)
                                   (implicit ia: CsvSource[A], e: ReaderEngine,
                                    cbf: CanBuildFrom[Nothing, ReadResult[B], C[ReadResult[B]]]): C[ReadResult[B]] =
     ia.read[C, B](a, sep, header)
 
-  /** Shorthand for [[CsvSource.unsafeRead]]. */
+  /** Reads the underlying resource as a CSV stream (unsafely).
+    *
+    * For example:
+    * {{{
+    * scala> import kantan.csv._
+    *
+    * scala> "1,2,3\n4,5,6".unsafeReadCsv[List, List[Int]](',', false)
+    * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
+    * }}}
+    *
+    * This is a convenience method only, and strictly equivalent to:
+    * {{{
+    * scala> CsvSource[String].unsafeRead[List, List[Int]]("1,2,3\n4,5,6", ',', false)
+    * res1: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
+    * }}}
+    *
+    * @param  sep    column separator.
+    * @param  header whether or not to skip the first row.
+    * @tparam B      type each row will be decoded as.
+    * @tparam C      type of the collection in which the decoded CSV data will be stored.
+    */
   def unsafeReadCsv[C[_], B: RowDecoder](sep: Char, header: Boolean)
                                         (implicit ia: CsvSource[A], e: ReaderEngine,
                                          cbf: CanBuildFrom[Nothing, B, C[B]]): C[B] =

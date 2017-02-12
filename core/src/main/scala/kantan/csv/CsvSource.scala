@@ -43,6 +43,12 @@ trait CsvSource[-S] extends Serializable { self ⇒
 
   /** Turns the specified `S` into an iterator on `ReadResult[A]`.
     *
+    * For example:
+    * {{{
+    * scala> CsvSource[String].reader[List[Int]]("1,2,3\n4,5,6", ',', false).toList
+    * res0: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
+    * }}}
+    *
     * This method is "safe", in that it does not throw exceptions when errors are encountered. This comes with the small
     * cost of having each row wrapped in a [[ReadResult]] that then need to be unpacked. See [[unsafeReader]] for an
     * alternative.
@@ -62,6 +68,12 @@ trait CsvSource[-S] extends Serializable { self ⇒
 
   /** Turns the specified `S` into an iterator on `A`.
     *
+    * For example:
+    * {{{
+    * scala> CsvSource[String].unsafeReader[List[Int]]("1,2,3\n4,5,6", ',', false).toList
+    * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
+    * }}}
+    *
     * This is the "unsafe" version of [[reader]]: it will throw as soon as an error is encountered.
     *
     * @param s instance of `S` that will be opened an parsed.
@@ -78,6 +90,12 @@ trait CsvSource[-S] extends Serializable { self ⇒
     })
 
   /** Reads the entire CSV data into a collection.
+    *
+    * For example:
+    * {{{
+    * scala> CsvSource[String].read[List, List[Int]]("1,2,3\n4,5,6", ',', false)
+    * res0: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
+    * }}}
     *
     * This method is "safe", in that it does not throw exceptions when errors are encountered. This comes with the small
     * cost of having each row wrapped in a [[ReadResult]] that then need to be unpacked. See [[unsafeRead]] for an
@@ -96,6 +114,12 @@ trait CsvSource[-S] extends Serializable { self ⇒
 
   /** Reads the entire CSV data into a collection.
     *
+    * For example:
+    * {{{
+    * scala> CsvSource[String].unsafeRead[List, List[Int]]("1,2,3\n4,5,6", ',', false)
+    * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
+    * }}}
+    *
     * This is the "unsafe" version of [[read]]: it will throw as soon as an error is encountered.
     *
     * @param s instance of `S` that will be opened an parsed.
@@ -111,10 +135,16 @@ trait CsvSource[-S] extends Serializable { self ⇒
 
   /** Turns an instance of `CsvSource[S]` into one of `CsvSource[T]`.
     *
-    * This allows developers to adapt existing instances of [[CsvSource]] rather than write one from scratch.
-    * One could, for example, write `CsvSource[String]` by basing it on `CsvSource[Reader]`:
+    * This allows developers to adapt existing instances of [[CsvSource]] rather than write new ones from scratch.
+    *
+    * For example:
     * {{{
-    *   val urlInput: CsvSource[String] = CsvSource[Reader].contramap((s: String) ⇒ new java.io.StringReader(s))
+    * scala> case class StringWrapper(value: String)
+    *
+    * scala> implicit val wrapperSource: CsvSource[StringWrapper] = CsvSource[String].contramap(_.value)
+    *
+    * scala> CsvSource[StringWrapper].unsafeRead[List, List[Int]](StringWrapper("1,2,3\n4,5,6"), ',', false)
+    * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
     * }}}
     *
     * Note that this method assumes that the transformation from `T` to `S` is safe. If it fail, one should use
@@ -126,10 +156,16 @@ trait CsvSource[-S] extends Serializable { self ⇒
 
   /** Turns an instance of `CsvSource[S]` into one of `CsvSource[T]`.
     *
-    * This allows developers to adapt existing instances of [[CsvSource]] rather than write one from scratch.
-    * One could, for example, write `CsvSource[URL]` by basing it on `CsvSource[InputStream]`:
+    * This allows developers to adapt existing instances of [[CsvSource]] rather than write new ones from scratch.
+    *
+    * For example:
     * {{{
-    *   val urlInput: CsvSource[URL] = CsvSource[InputStream].contramap((url: URL) ⇒ url.openStream())
+    * scala> case class StringWrapper(value: String)
+    *
+    * scala> implicit val wrapperSource = CsvSource[String].contramapResult((s: StringWrapper) ⇒ ParseResult(s.value))
+    *
+    * scala> CsvSource[StringWrapper].unsafeRead[List, List[Int]](StringWrapper("1,2,3\n4,5,6"), ',', false)
+    * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
     * }}}
     *
     * Note that if the transformation from `T` to `S` is safe, it's better to use [[contramap]] and bypass the error
@@ -140,8 +176,6 @@ trait CsvSource[-S] extends Serializable { self ⇒
   def contramapResult[SS <: S, T](f: T ⇒ ParseResult[SS]): CsvSource[T] = CsvSource.from(t ⇒ f(t).flatMap(self.open))
 }
 
-trait LowPriorityCsvSourceInstances
-
 /** Defines convenience methods for creating and retrieving instances of [[CsvSource]].
   *
   * Implicit default implementations of standard types are also declared here, always bringing them in scope with a low
@@ -151,7 +185,7 @@ trait LowPriorityCsvSourceInstances
   * `CsvSource[T]` and have both a `CsvSource[S]` and a `T ⇒ S`, you need just use [[CsvSource.contramap]] to create
   * your implementation.
   */
-object CsvSource extends LowPriorityCsvSourceInstances {
+object CsvSource {
   /** Summons an implicit instance of `CsvSource[A]` if one can be found.
     *
     * This is simply a convenience method. The two following calls are equivalent:
