@@ -1,5 +1,3 @@
-import sbtunidoc.Plugin.UnidocKeys._
-
 kantanProject in ThisBuild := "csv"
 
 
