@@ -6,6 +6,5 @@ object Versions {
   val productCollection = "1.4.5"
   val scalaCsv          = "1.3.4"
   val scalatest         = "3.0.1"
-  val scalazStream      = "0.8.6"
   val univocity         = "2.3.1"
 }

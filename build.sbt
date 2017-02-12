@@ -17,17 +17,17 @@ lazy val root = Project(id = "kantan-csv", base = file("."))
       |import kantan.csv.joda.time._
     """.stripMargin
   )
-  .aggregate(core, cats, scalaz, scalazStream, laws, docs, generic, benchmark, jackson, commons, opencsv, jodaTime)
-  .aggregate(ifJava8[ProjectReference](java8):_*)
+  .aggregate(core, cats, scalaz, laws, docs, generic, benchmark, jackson, commons, opencsv, jodaTime)
+  .aggregateIf(java8Supported)(java8)
   .dependsOn(core, generic, jodaTime)
 
 lazy val docs = project
-  .settings(unidocProjectFilter in (ScalaUnidoc, unidoc) :=
-    inAnyProject -- inProjects(ifNotJava8[ProjectReference](java8):_*) -- inProjects(benchmark)
-  )
   .enablePlugins(DocumentationPlugin)
-  .dependsOn(core, scalazStream, laws, cats, scalaz, generic, jackson, commons, opencsv, jodaTime)
-  .dependsOn(ifJava8[ClasspathDep[ProjectReference]](java8):_*)
+  .settings(unidocProjectFilter in (ScalaUnidoc, unidoc) :=
+    inAnyProject -- inProjectsIf(java8Supported)(java8) -- inProjects(benchmark)
+  )
+  .dependsOn(core, laws, cats, scalaz, generic, jackson, commons, opencsv, jodaTime)
+  .dependsOnIf(java8Supported)(java8)
 
 lazy val benchmark = project
   .enablePlugins(UnpublishedPlugin, JmhPlugin)
@@ -138,22 +138,6 @@ lazy val scalaz = project
     "com.nrinaudo"  %% "kantan.codecs-scalaz"         % Versions.kantanCodecs,
     "org.scalatest" %% "scalatest"                    % Versions.scalatest    % "test",
     "com.nrinaudo"  %% "kantan.codecs-scalaz-laws"    % Versions.kantanCodecs % "test"
-  ))
-
-
-
-// - scalaz-stream (soon to be FS2) projects ---------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-lazy val scalazStream = Project(id = "scalaz-stream", base = file("scalaz-stream"))
-  .settings(
-    moduleName := "kantan.csv-scalaz-stream",
-    name       := "scalaz-stream"
-  )
-  .enablePlugins(PublishedPlugin)
-  .dependsOn(scalaz, laws % "test")
-  .settings(libraryDependencies ++= Seq(
-    "org.scalaz.stream" %% "scalaz-stream" % Versions.scalazStream,
-    "org.scalatest"     %% "scalatest"     % Versions.scalatest     % "test"
   ))
 
 

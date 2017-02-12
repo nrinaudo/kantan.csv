@@ -27,9 +27,6 @@ libraryDependencies += "com.nrinaudo" %% "kantan.csv-java8" % "@VERSION@"
 // Provides scalaz type class instances for kantan.csv, and vice versa.
 libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz" % "@VERSION@"
 
-// Treat CSV data as sources and sinks.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz-stream" % "@VERSION@"
-
 // Provides cats type class instances for kantan.csv, and vice versa.
 libraryDependencies += "com.nrinaudo" %% "kantan.csv-cats" % "@VERSION@"
 
