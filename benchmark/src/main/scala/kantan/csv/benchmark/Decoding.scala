@@ -102,7 +102,7 @@ object Decoding {
   }
 
   def jackson(str: String): List[CsvEntry] =
-    new CsvIterator(JacksonCsv.parse(new StringReader(str), ','))(it ⇒
+    new CsvIterator(JacksonCsv.parse(new StringReader(str), JacksonCsv.defaultParserSchema(',')))(it ⇒
       if(it.hasNext) it.next()
       else           null
     ).toList

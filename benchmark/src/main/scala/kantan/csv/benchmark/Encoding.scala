@@ -92,7 +92,7 @@ object Encoding {
 
   def jackson(data: List[CsvEntry]): String = {
     val out = new StringWriter()
-    val writer = JacksonCsv.write(out, ',')
+    val writer = JacksonCsv.write(out, JacksonCsv.defaultWriterSchema(','))
     write(data) { a ⇒
       writer.write(a)
       ()
