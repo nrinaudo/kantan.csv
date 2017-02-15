@@ -28,11 +28,20 @@ import kantan.csv._
 package object opencsv {
   // Note that using the `null` character as escape is a bit of a cheat, but it kind of works, mostly. Escaping is not
   // part of the CSV format, but I found no other way to disable it.
-  implicit val reader = ReaderEngine { (reader: Reader, sep: Char) ⇒
-    ResourceIterator.fromIterator(new CSVReader(reader, sep, '"', '\u0000', 0, false, false, false).iterator())
+  def defaultReader(reader: Reader, sep: Char): CSVReader =
+    new CSVReader(reader, sep, '"', '\u0000', 0, false, false, false)
+
+
+  def readerFrom(f: (Reader, Char) ⇒ CSVReader): ReaderEngine = ReaderEngine { (r, s) ⇒
+    ResourceIterator.fromIterator(f(r, s).iterator())
   }
 
-  implicit val writer = WriterEngine { (writer: Writer, sep: Char) ⇒
-    CsvWriter(new CSVWriter(writer, sep, '"', "\r\n"))((out, ss) ⇒ out.writeNext(ss.toArray))(_.close())
+  implicit val reader: ReaderEngine = readerFrom(defaultReader)
+
+  def defaultWriter(writer: Writer, sep: Char): CSVWriter = new CSVWriter(writer, sep, '"', "\r\n")
+
+  def writerFrom(f: (Writer, Char) ⇒ CSVWriter): WriterEngine = WriterEngine { (w, s) ⇒
+    CsvWriter(f(w, s))((out, ss) ⇒ out.writeNext(ss.toArray))(_.close())
   }
+  implicit val writer: WriterEngine = writerFrom(defaultWriter)
 }
