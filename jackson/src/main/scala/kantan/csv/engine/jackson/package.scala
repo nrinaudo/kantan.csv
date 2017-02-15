@@ -16,19 +16,22 @@
 
 package kantan.csv.engine
 
-import java.io.{Reader, Writer}
+import com.fasterxml.jackson.dataformat.csv.CsvSchema
 import kantan.codecs.resource.ResourceIterator
 import kantan.csv._
 
 package object jackson {
-  implicit val reader = ReaderEngine { (reader: Reader, separator: Char) ⇒
-    ResourceIterator.fromIterator(JacksonCsv.parse(reader, separator))
-  }
+  def readerFrom(f: Char ⇒ CsvSchema): ReaderEngine =
+    ReaderEngine { (r, s) ⇒ ResourceIterator.fromIterator(JacksonCsv.parse(r, f(s))) }
 
-  implicit val writer = WriterEngine { (writer: Writer, separator: Char) ⇒
-    CsvWriter(JacksonCsv.write(writer, separator)) { (out, ss) ⇒
+  implicit val reader: ReaderEngine = readerFrom(s ⇒ JacksonCsv.defaultParserSchema(s))
+
+  def writerFrom(f: Char ⇒ CsvSchema): WriterEngine = WriterEngine { (w, s) ⇒
+    CsvWriter(JacksonCsv.write(w, f(s))) { (out, ss) ⇒
       out.write(ss.toArray)
       ()
     }(_.close())
   }
+
+  implicit val writer: WriterEngine = writerFrom(s ⇒ JacksonCsv.defaultWriterSchema(s))
 }
