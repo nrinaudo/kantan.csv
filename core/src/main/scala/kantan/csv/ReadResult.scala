@@ -18,4 +18,5 @@ package kantan.csv
 
 import kantan.codecs.ResultCompanion
 
+/** Provides useful methods for creating instances of [[ReadResult]]. */
 object ReadResult extends ResultCompanion.Simple[ReadError]

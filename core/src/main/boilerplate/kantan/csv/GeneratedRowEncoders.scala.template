@@ -1,5 +1,6 @@
 package kantan.csv
 
+/** Provides [[RowEncoder]] instance construction methods. */
 trait GeneratedRowEncoders {
   /** Creates a new [[RowEncoder]] from the specified function.
     *

@@ -1,5 +1,6 @@
 package kantan.csv
 
+/** Provides [[RowDecoder]] and [[RowEncoder]] instances for tuples of any arity. */
 trait TupleInstances {
   [#/** Provides an instance of [[RowDecoder]] for `Tuple1`, provided all internal types have an instance of [[CellDecoder]].
     *
@@ -8,7 +9,7 @@ trait TupleInstances {
     * res0: DecodeResult[Tuple1[[#Int#]]] = Success(([#1#,]))
     * }}}
     */
-   implicit def tupleDecoder1[[#A1: CellDecoder#]]: RowDecoder[Tuple1[[#A1#]]] =
+   implicit def tupleRowDecoder1[[#A1: CellDecoder#]]: RowDecoder[Tuple1[[#A1#]]] =
     RowDecoder.ordered(Tuple1.apply[[#A1#]] _)#
 
   ]
@@ -20,7 +21,7 @@ trait TupleInstances {
     * res0: Seq[String] = List(1)
     * }}}
     */
-  implicit def tupleEncoder1[A1: CellEncoder]: RowEncoder[Tuple1[A1]] =
+  implicit def tupleRowEncoder1[A1: CellEncoder]: RowEncoder[Tuple1[A1]] =
     RowEncoder.ordered((t: Tuple1[A1]) ⇒ t._1)
 
   [2..#/** Provides an instance of [[RowEncoder]] for `Tuple1`, provided all internal types have an instance of [[CellEncoder]].
@@ -29,7 +30,7 @@ trait TupleInstances {
     * scala> RowEncoder[Tuple1[[#Int#]]].encode(([#1#]))
     * res0: Seq[String] = WrappedArray([#1#])
     * }}}
-    */implicit def tupleEncoder1[[#A1: CellEncoder#]]: RowEncoder[Tuple1[[#A1#]]] =
+    */implicit def tupleRowEncoder1[[#A1: CellEncoder#]]: RowEncoder[Tuple1[[#A1#]]] =
     RowEncoder.ordered((t: Tuple1[[#A1#]]) ⇒ t)#
 
   ]

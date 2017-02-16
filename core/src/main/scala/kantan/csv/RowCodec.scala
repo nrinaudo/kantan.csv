@@ -21,6 +21,7 @@ import kantan.codecs.CodecCompanion
 /** Provides useful methods for [[RowCodec]] instance creation. */
 object RowCodec extends GeneratedRowCodecs with CodecCompanion[Seq[String], DecodeError, codecs.type]
 
+/** All default [[RowCodec]] instances. */
 trait RowCodecInstances extends RowEncoderInstances with RowDecoderInstances {
   implicit val stringSeqRowCodec: RowCodec[Seq[String]] = RowCodec.from(ss ⇒ DecodeResult(ss))(identity)
 }

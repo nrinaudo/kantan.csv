@@ -1,5 +1,6 @@
 package kantan.csv
 
+/** Provides [[RowDecoder]] instance construction methods. */
 trait GeneratedRowDecoders {
   private def decode[A](ss: Seq[String], i: Int, da: CellDecoder[A]): DecodeResult[A] =
     if(ss.isDefinedAt(i))   da.decode(ss(i))

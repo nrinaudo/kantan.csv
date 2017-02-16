@@ -26,4 +26,5 @@ object CellCodec extends CodecCompanion[String, DecodeError, codecs.type] {
     CellCodec.from(CellDecoder.dateDecoder(format), CellEncoder.dateEncoder(format))
 }
 
+/** All default [[CellCodec]] instances. */
 trait CellCodecInstances extends CellEncoderInstances with CellDecoderInstances
