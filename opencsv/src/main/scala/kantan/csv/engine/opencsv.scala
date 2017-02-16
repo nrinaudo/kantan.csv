@@ -18,7 +18,7 @@ package kantan.csv.engine
 
 import java.io.{Reader, Writer}
 import kantan.codecs.resource.ResourceIterator
-import kantan.csv._
+import kantan.csv.CsvWriter
 
 // TODO: known bugs
 // - \r\n is not preserved within quoted cells, it's turned into \n (csv spectrum test)
@@ -30,7 +30,7 @@ import kantan.csv._
   * tweak how opencsv behaves, however, you can handcraft engines though [[readerEngineFrom]] and
   * [[writerEngineFrom]].
   */
-package object opencsv {
+object opencsv {
   // - Type aliases ----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   type CSVReader = com.opencsv.CSVReader
@@ -52,7 +52,7 @@ package object opencsv {
   new CSVReader(reader, sep, '"', '\u0000', 0, false, false, false)
 
 
-  /** Creates a new [[ReaderEngine]] from the specified [[com.opencsv.CSVReaderBuilder]].
+  /** Creates a new [[ReaderEngine]] from the specified [[CSVReaderBuilder]].
     *
     * The purpose of this is to let developers use some of the open-csv features that kantan.csv does not expose through
     * its public API.

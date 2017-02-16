@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.csv.engine.commons
+package kantan.csv.engine
 
-import kantan.csv.laws.discipline.WriterEngineTests
+import kantan.csv.engine.jackson._
+import kantan.csv.laws.discipline.ReaderEngineTests
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
-class CommonsWriterTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("CommonsWriter", WriterEngineTests(commonsCsvWriterEngine).writerEngine)
+class JacksonReaderTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+  checkAll("JacksonReader", ReaderEngineTests(jacksonCsvReaderEngine).readerEngine)
 }

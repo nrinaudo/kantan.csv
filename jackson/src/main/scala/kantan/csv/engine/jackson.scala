@@ -19,7 +19,7 @@ package kantan.csv.engine
 import com.fasterxml.jackson.databind.{MappingIterator, SequenceWriter}
 import java.io.{Reader, Writer}
 import kantan.codecs.resource.ResourceIterator
-import kantan.csv._
+import kantan.csv.CsvWriter
 
 /** Provides CSV reader and writer engines using [[https://github.com/FasterXML/jackson-dataformat-csv jackson.csv]].
   *
@@ -28,7 +28,7 @@ import kantan.csv._
   * [[writerEngineFrom]] - all you need is a function that knows how to turn a column separator character in an instance
   * of `CsvSchema`.
   */
-package object jackson {
+object jackson {
   // - Schema ---------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   type CsvSchema = com.fasterxml.jackson.dataformat.csv.CsvSchema

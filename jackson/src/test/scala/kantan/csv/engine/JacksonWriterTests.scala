@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.csv.engine.opencsv
+package kantan.csv.engine
 
+import kantan.csv.engine.jackson._
+import kantan.csv.laws.discipline.WriterEngineTests
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
-class OpenCsvReaderTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline
-  // TODO: opencsv fails a *lot* of the tests. So much that something might be wrong with my implementation of the
-  // connector rather than with opencsv itself.
-  //checkAll("OpenCsvReader", ReaderEngineTests(reader).readerEngine)
+class JacksonWriterTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+  checkAll("JacksonWriter", WriterEngineTests(jacksonCsvWriterEngine).writerEngine)
+}

@@ -26,8 +26,8 @@ import kantan.csv.engine.jackson._
 ```
 
 You can tweak the behaviour of the underlying parsers and serialisers by creating them through
-[`readerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson/index.html#readerEngineFrom(f:kantan.csv.engine.jackson.package.CSVSchemaBuilder):kantan.csv.engine.ReaderEngine) 
-and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson/index.html#writerEngineFrom(f:kantan.csv.engine.jackson.package.CSVSchemaBuilder):kantan.csv.engine.WriterEngine).
+[`readerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson$.html#readerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.ReaderEngine) 
+and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson$.html#writerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.WriterEngine).
 
 ### Open CSV
 
@@ -43,6 +43,11 @@ You then need to bring the right implicits in scope through:
 import kantan.csv.engine.opencsv._
 ```
 
+You can tweak the behaviour of the underlying parsers and serialisers by creating them through
+[`readerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/opencsv$.html#readerEngineFrom(f:kantan.csv.engine.opencsv.CSVReaderBuilder):kantan.csv.engine.ReaderEngine) 
+and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/opencsv$.html#writerEngineFrom(f:kantan.csv.engine.opencsv.CSVWriterBuilder):kantan.csv.engine.WriterEngine).
+
+
 ### Commons CSV
 
 The [commons csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
@@ -56,6 +61,11 @@ You then need to bring the right implicits in scope through:
 ```tut:silent
 import kantan.csv.engine.commons._
 ```
+
+You can tweak the behaviour of the underlying parsers and serialisers by creating them through
+[`readerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/commons$.html#readerEngineFrom(f:kantan.csv.engine.commons.CSVFormatBuilder):kantan.csv.engine.ReaderEngine) 
+and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/commons$.html#writerEngineFrom(f:kantan.csv.engine.commons.CSVFormatBuilder):kantan.csv.engine.WriterEngine).
+
 
 ## Supporting a new library
 
