@@ -11,6 +11,24 @@ hood.
 
 ## Supported libraries
 
+### Jackson CSV
+
+The [jackson csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
+
+```scala
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.1.16"
+```
+
+You then need to bring the right implicits in scope through:
+
+```tut:silent
+import kantan.csv.engine.jackson._
+```
+
+You can tweak the behaviour of the underlying parsers and serialisers by creating them through
+[`readerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson/index.html#readerEngineFrom(f:kantan.csv.engine.jackson.package.CSVSchemaBuilder):kantan.csv.engine.ReaderEngine) 
+and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson/index.html#writerEngineFrom(f:kantan.csv.engine.jackson.package.CSVSchemaBuilder):kantan.csv.engine.WriterEngine).
+
 ### Open CSV
 
 The [opencsv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
@@ -37,20 +55,6 @@ You then need to bring the right implicits in scope through:
 
 ```tut:silent
 import kantan.csv.engine.commons._
-```
-
-### Jackson CSV
-
-The [jackson csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
-
-```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.1.16"
-```
-
-You then need to bring the right implicits in scope through:
-
-```tut:silent
-import kantan.csv.engine.jackson._
 ```
 
 ## Supporting a new library

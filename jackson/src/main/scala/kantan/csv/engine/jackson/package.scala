@@ -16,7 +16,8 @@
 
 package kantan.csv.engine
 
-import com.fasterxml.jackson.dataformat.csv.CsvSchema
+import com.fasterxml.jackson.databind.{MappingIterator, SequenceWriter}
+import java.io.{Reader, Writer}
 import kantan.codecs.resource.ResourceIterator
 import kantan.csv._
 
@@ -30,8 +31,26 @@ import kantan.csv._
 package object jackson {
   // - Schema ---------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  type CsvSchema = com.fasterxml.jackson.dataformat.csv.CsvSchema
+  type CsvMapper = com.fasterxml.jackson.dataformat.csv.CsvMapper
+
   /** Type of functions that create a `CSVSchema` instance from a given column separator. */
   type CSVSchemaBuilder = Char ⇒ CsvSchema
+
+  private val MAPPER: CsvMapper = new CsvMapper()
+  MAPPER.enable(com.fasterxml.jackson.dataformat.csv.CsvParser.Feature.WRAP_AS_ARRAY)
+  MAPPER.enable(com.fasterxml.jackson.dataformat.csv.CsvGenerator.Feature.STRICT_CHECK_FOR_QUOTING)
+
+  def defaultParserSchema(separator: Char): CsvSchema =
+    MAPPER.schemaFor(classOf[Array[String]]).withColumnSeparator(separator)
+
+  def parse(reader: Reader, schema: CsvSchema): MappingIterator[Array[String]] =
+    MAPPER.readerFor(classOf[Array[String]]).`with`(schema).readValues(reader)
+
+  def defaultWriterSchema(separator: Char): CsvSchema =
+    MAPPER.schemaFor(classOf[Array[String]]).withColumnSeparator(separator).withLineSeparator("\r\n").withoutComments
+
+  def write(writer: Writer, schema: CsvSchema): SequenceWriter = MAPPER.writer.`with`(schema).writeValues(writer)
 
 
   // - Reader engines --------------------------------------------------------------------------------------------------
@@ -44,8 +63,7 @@ package object jackson {
     * For example, the following declares a jackson-backed [[ReaderEngine]] that uses `#` as a quote character:
     * {{{
     * scala> import kantan.csv.ops._
-    * scala> import kantan.csv.engine.jackson.readerEngineFrom
-    * scala> import kantan.csv.engine.jackson.JacksonCsv.defaultParserSchema
+    * scala> import kantan.csv.engine.jackson.{readerEngineFrom, defaultParserSchema}
     *
     * scala> implicit val readerEngine = readerEngineFrom(s ⇒ defaultParserSchema(s).withQuoteChar('#'))
     *
@@ -54,13 +72,13 @@ package object jackson {
     * }}}
     */
   def readerEngineFrom(f: CSVSchemaBuilder): ReaderEngine =
-    ReaderEngine { (r, s) ⇒ ResourceIterator.fromIterator(JacksonCsv.parse(r, f(s))) }
+    ReaderEngine { (r, s) ⇒ ResourceIterator.fromIterator(parse(r, f(s))) }
 
   /** Default jackson.csv [[ReaderEngine]].
     *
     * It's possible to tweak the behaviour of the underlying writer through [[readerEngineFrom]].
     */
-  implicit val jacksonCsvReaderEngine: ReaderEngine = readerEngineFrom(s ⇒ JacksonCsv.defaultParserSchema(s))
+  implicit val jacksonCsvReaderEngine: ReaderEngine = readerEngineFrom(s ⇒ defaultParserSchema(s))
 
 
 
@@ -74,8 +92,7 @@ package object jackson {
     * For example, the following declares a jackson-backed [[WriterEngine]] that uses `#` as a quote character:
     * {{{
     * scala> import kantan.csv.ops._
-    * scala> import kantan.csv.engine.jackson.writerEngineFrom
-    * scala> import kantan.csv.engine.jackson.JacksonCsv.defaultParserSchema
+    * scala> import kantan.csv.engine.jackson.{writerEngineFrom, defaultParserSchema}
     *
     * scala> implicit val writerEngine = writerEngineFrom(s ⇒ defaultParserSchema(s).withQuoteChar('#'))
     *
@@ -86,7 +103,7 @@ package object jackson {
     * }}}
     */
   def writerEngineFrom(f: CSVSchemaBuilder): WriterEngine = WriterEngine { (w, s) ⇒
-    CsvWriter(JacksonCsv.write(w, f(s))) { (out, ss) ⇒
+    CsvWriter(write(w, f(s))) { (out, ss) ⇒
       out.write(ss.toArray)
       ()
     }(_.close())
@@ -96,5 +113,5 @@ package object jackson {
     *
     * It's possible to tweak the behaviour of the underlying writer through [[writerEngineFrom]].
     */
-  implicit val jacksonCsvWriterEngine: WriterEngine = writerEngineFrom(s ⇒ JacksonCsv.defaultWriterSchema(s))
+  implicit val jacksonCsvWriterEngine: WriterEngine = writerEngineFrom(s ⇒ defaultWriterSchema(s))
 }
