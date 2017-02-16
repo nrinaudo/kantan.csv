@@ -22,5 +22,5 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class CommonsWriterTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("CommonsWriter", WriterEngineTests(writer).writerEngine)
+  checkAll("CommonsWriter", WriterEngineTests(commonsCsvWriterEngine).writerEngine)
 }

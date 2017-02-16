@@ -37,7 +37,7 @@ class Decoding {
   def kantanOpenCsv: List[CsvEntry] = Decoding.kantan(strData)(kantan.csv.engine.opencsv.openCsvReaderEngine)
 
   @Benchmark
-  def kantanCommons: List[CsvEntry] = Decoding.kantan(strData)(kantan.csv.engine.commons.reader)
+  def kantanCommons: List[CsvEntry] = Decoding.kantan(strData)(kantan.csv.engine.commons.commonsCsvReaderEngine)
 
   @Benchmark
   def productCollections: List[CsvEntry] = Decoding.productCollections(strData)

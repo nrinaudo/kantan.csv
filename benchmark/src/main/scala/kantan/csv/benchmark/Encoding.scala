@@ -38,7 +38,7 @@ class Encoding {
   def kantanOpenCsv: String = Encoding.kantan(rawData)(kantan.csv.engine.opencsv.openCsvWriterEngine)
 
   @Benchmark
-  def kantanCommons: String = Encoding.kantan(rawData)(kantan.csv.engine.commons.writer)
+  def kantanCommons: String = Encoding.kantan(rawData)(kantan.csv.engine.commons.commonsCsvWriterEngine)
 
   @Benchmark
   def productCollections: String = Encoding.productCollections(rawData)

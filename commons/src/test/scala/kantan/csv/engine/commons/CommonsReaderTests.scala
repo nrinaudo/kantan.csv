@@ -22,5 +22,5 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class CommonsReaderTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("CommonsReader", ReaderEngineTests(reader).readerEngine)
+  checkAll("CommonsReader", ReaderEngineTests(commonsCsvReaderEngine).readerEngine)
 }
