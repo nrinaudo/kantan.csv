@@ -26,22 +26,56 @@ import kantan.csv._
 // - unescaped double quotes are not supported.
 
 package object opencsv {
+  // - Type aliases ----------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  /** Type of functions that turn a `Reader` and a separator character and turn them into a `CSVReader` .*/
+  type CSVReaderBuilder = (Reader, Char) ⇒ CSVReader
+
+  /** Type of functions that turn a `Writer` and a separator character and turn them into a `CSVWriter` .*/
+  type CSVWriterBuilder = (Writer, Char) ⇒ CSVWriter
+
+
+
+  // - ReaderEngine ----------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Note that using the `null` character as escape is a bit of a cheat, but it kind of works, mostly. Escaping is not
   // part of the CSV format, but I found no other way to disable it.
-  def defaultReader(reader: Reader, sep: Char): CSVReader =
+  def defaultReaderEngine(reader: Reader, sep: Char): CSVReader =
     new CSVReader(reader, sep, '"', '\u0000', 0, false, false, false)
 
 
-  def readerFrom(f: (Reader, Char) ⇒ CSVReader): ReaderEngine = ReaderEngine { (r, s) ⇒
+  /** Creates a new [[ReaderEngine]] from the specified [[CSVReaderBuilder]].
+    *
+    * The purpose of this is to let developers use some of the open-csv features that kantan.csv does not expose through
+    * its public API.
+    */
+  def readerEngineFrom(f: CSVReaderBuilder): ReaderEngine = ReaderEngine { (r, s) ⇒
     ResourceIterator.fromIterator(f(r, s).iterator())
   }
 
-  implicit val reader: ReaderEngine = readerFrom(defaultReader)
+  /** Default open-csv [[ReaderEngine]].
+    *
+    * It's possible to tweak the behaviour of the underlying writer through [[readerEngineFrom]].
+    */
+  implicit val openCsvReaderEngine: ReaderEngine = readerEngineFrom(defaultReaderEngine)
 
-  def defaultWriter(writer: Writer, sep: Char): CSVWriter = new CSVWriter(writer, sep, '"', "\r\n")
 
-  def writerFrom(f: (Writer, Char) ⇒ CSVWriter): WriterEngine = WriterEngine { (w, s) ⇒
+  // - WriterEngine ----------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  def defaultWriterEngine(writer: Writer, sep: Char): CSVWriter = new CSVWriter(writer, sep, '"', "\r\n")
+
+  /** Creates a new [[WriterEngine]] from the specified [[CSVWriterBuilder]].
+    *
+    * The purpose of this is to let developers use some of the open-csv features that kantan.csv does not expose through
+    * its public API.
+    */
+  def writerEngineFrom(f: CSVWriterBuilder): WriterEngine = WriterEngine { (w, s) ⇒
     CsvWriter(f(w, s))((out, ss) ⇒ out.writeNext(ss.toArray))(_.close())
   }
-  implicit val writer: WriterEngine = writerFrom(defaultWriter)
+
+  /** Default open-csv [[WriterEngine]].
+    *
+    * It's possible to tweak the behaviour of the underlying writer through [[writerEngineFrom]].
+    */
+  implicit val openCsvWriterEngine: WriterEngine = writerEngineFrom(defaultWriterEngine)
 }

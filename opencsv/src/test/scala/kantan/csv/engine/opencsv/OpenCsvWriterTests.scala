@@ -22,5 +22,5 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class OpenCsvWriterTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("OpenCsvWriter", WriterEngineTests(writer).writerEngine)
+  checkAll("OpenCsvWriter", WriterEngineTests(openCsvWriterEngine).writerEngine)
 }
