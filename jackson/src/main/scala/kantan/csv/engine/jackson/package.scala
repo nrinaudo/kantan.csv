@@ -21,17 +21,47 @@ import kantan.codecs.resource.ResourceIterator
 import kantan.csv._
 
 package object jackson {
-  def readerFrom(f: Char ⇒ CsvSchema): ReaderEngine =
+  // - Schema ---------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  /** Type of functions that create a `CSVSchema` instance from a given column separator. */
+  type CSVSchemaBuilder = Char ⇒ CsvSchema
+
+
+  // - Reader engines --------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  /** Creates a new [[ReaderEngine]] from the specified [[CSVSchemaBuilder]].
+    *
+    * The purpose of this is to let developers use some of the jackson.csv features that kantan.csv does not expose
+    * through its public API.
+    */
+  def readerEngineFrom(f: CSVSchemaBuilder): ReaderEngine =
     ReaderEngine { (r, s) ⇒ ResourceIterator.fromIterator(JacksonCsv.parse(r, f(s))) }
 
-  implicit val reader: ReaderEngine = readerFrom(s ⇒ JacksonCsv.defaultParserSchema(s))
+  /** Default jackson.csv [[ReaderEngine]].
+    *
+    * It's possible to tweak the behaviour of the underlying writer through [[readerEngineFrom]].
+    */
+  implicit val jacksonCsvReaderEngine: ReaderEngine = readerEngineFrom(s ⇒ JacksonCsv.defaultParserSchema(s))
 
-  def writerFrom(f: Char ⇒ CsvSchema): WriterEngine = WriterEngine { (w, s) ⇒
+
+
+  // - Writer engines --------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  /** Creates a new [[WriterEngine]] from the specified [[CSVSchemaBuilder]].
+    *
+    * The purpose of this is to let developers use some of the jackson.csv features that kantan.csv does not expose
+    * through its public API.
+    */
+  def writerEngineFrom(f: CSVSchemaBuilder): WriterEngine = WriterEngine { (w, s) ⇒
     CsvWriter(JacksonCsv.write(w, f(s))) { (out, ss) ⇒
       out.write(ss.toArray)
       ()
     }(_.close())
   }
 
-  implicit val writer: WriterEngine = writerFrom(s ⇒ JacksonCsv.defaultWriterSchema(s))
+  /** Default jackson.csv [[WriterEngine]].
+    *
+    * It's possible to tweak the behaviour of the underlying writer through [[writerEngineFrom]].
+    */
+  implicit val jacksonCsvWriterEngine: WriterEngine = writerEngineFrom(s ⇒ JacksonCsv.defaultWriterSchema(s))
 }

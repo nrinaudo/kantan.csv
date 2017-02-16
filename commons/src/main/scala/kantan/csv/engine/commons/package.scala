@@ -34,7 +34,7 @@ package object commons {
 
   // - Reader engines --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  /** Creates a new [[ReaderEngine]] from the specified function.
+  /** Creates a new [[ReaderEngine]] from the specified [[CSVFormatBuilder]].
     *
     * The purpose of this is to let developers use some of the commons.csv features that kantan.csv does not expose
     * through its public API.
