@@ -22,5 +22,5 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class InternalReaderTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("InternalReader", ReaderEngineTests(ReaderEngine.internal).readerEngine)
+  checkAll("InternalReader", ReaderEngineTests(ReaderEngine.internalCsvReaderEngine).readerEngine)
 }

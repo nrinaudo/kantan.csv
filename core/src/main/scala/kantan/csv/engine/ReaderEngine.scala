@@ -42,10 +42,10 @@ trait ReaderEngine {
 /** Provides instance creation methods and default implementations. */
 object ReaderEngine {
   /** Creates a new [[ReaderEngine]] instance. */
-  def apply(f: (Reader, Char) ⇒ CsvReader[Seq[String]]): ReaderEngine = new ReaderEngine {
+  def from(f: (Reader, Char) ⇒ CsvReader[Seq[String]]): ReaderEngine = new ReaderEngine {
     override def unsafeReaderFor(reader: Reader, separator: Char) = f(reader, separator)
   }
 
   /** Default reader engine, used whenever a custom one is not explicitly brought in scope. */
-  implicit val internal: ReaderEngine = ReaderEngine(InternalReader.apply)
+  implicit val internalCsvReaderEngine: ReaderEngine = ReaderEngine.from(InternalReader.apply)
 }

@@ -92,7 +92,7 @@ Support for parsing with external libraries is handled through the [`ReaderEngin
 to create an instance of [`CsvReader`] rely on an implicit instance of [`ReaderEngine`] to do so.
 
 Creating a new instance of [`ReaderEngine`] is meant to be fairly straightforward: there's a helper
-[`ReaderEngine.apply`] method that takes care of this. It still means we need to be able to write a
+[`ReaderEngine.from`] method that takes care of this. It still means we need to be able to write a
 `(Reader, Char) ⇒ CsvReader[Seq[String]]`, but the most common scenario is already covered: if you can write a
 `(Reader, Char) ⇒ Iterator[Seq[String]]`, you can simply use [`ResourceIterator.fromIterator`]:
 
@@ -100,7 +100,7 @@ Creating a new instance of [`ReaderEngine`] is meant to be fairly straightforwar
 import kantan.csv.engine._
 import kantan.csv._
 
-implicit val readerEngine = ReaderEngine { (in: Reader, sep: Char) ⇒
+implicit val readerEngine = ReaderEngine.from { (in: Reader, sep: Char) ⇒
   kantan.codecs.resource.ResourceIterator.fromIterator(EasyCSV.read(in, sep))
 }
 ```
@@ -108,11 +108,11 @@ implicit val readerEngine = ReaderEngine { (in: Reader, sep: Char) ⇒
 ### Serialising
 
 Serialising is very similar to parsing, except that instead of providing a [`ReaderEngine`], you need to provide a
-[`WriterEngine`]. This is achieved through [`WriterEngine.apply`], the argument to which you most likely want to create
+[`WriterEngine`]. This is achieved through [`WriterEngine.from`], the argument to which you most likely want to create
 through [`CsvWriter.apply`]:
 
 ```tut:silent
-implicit val writerEngine = WriterEngine { (writer: Writer, sep: Char) ⇒
+implicit val writerEngine = WriterEngine.from { (writer: Writer, sep: Char) ⇒
   CsvWriter(EasyCSV.write(writer, sep))(_ write _.toArray)(_.close())
 }
 ```
@@ -123,8 +123,8 @@ implicit val writerEngine = WriterEngine { (writer: Writer, sep: Char) ⇒
 [`ReaderEngine`]:{{ site.baseurl }}/api/kantan/csv/engine/ReaderEngine.html
 [`WriterEngine`]:{{ site.baseurl }}/api/kantan/csv/engine/WriterEngine.html
 [`CsvReader`]:{{ site.baseurl }}/api/kantan/csv/index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]
-[`ReaderEngine.apply`]:{{ site.baseurl }}/api/kantan/csv/engine/ReaderEngine$.html#apply(f:(java.io.Reader,Char)=>kantan.csv.CsvReader[Seq[String]]):kantan.csv.engine.ReaderEngine
+[`ReaderEngine.from`]:{{ site.baseurl }}/api/kantan/csv/engine/ReaderEngine$.html#from(f:(java.io.Reader,Char)=>kantan.csv.CsvReader[Seq[String]]):kantan.csv.engine.ReaderEngine
 [`CsvReader.fromResource`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader$@fromResource[I,R](in:I)(open:I=>Iterator[R])(release:I=>Unit):kantan.csv.CsvReader[kantan.csv.ParseResult[R]]
-[`WriterEngine.apply`]:{{ site.baseurl }}/api/kantan/csv/engine/WriterEngine$.html#apply(f:(java.io.Writer,Char)=>kantan.csv.CsvWriter[Seq[String]]):kantan.csv.engine.WriterEngine
+[`WriterEngine.from`]:{{ site.baseurl }}/api/kantan/csv/engine/WriterEngine$.html#from(f:(java.io.Writer,Char)=>kantan.csv.CsvWriter[Seq[String]]):kantan.csv.engine.WriterEngine
 [`CsvWriter.apply`]:{{ site.baseurl }}/api/kantan/csv/CsvWriter$.html#apply[A](out:A)(w:(A,Seq[String])=>Unit)(r:A=>Unit):kantan.csv.CsvWriter[Seq[String]]
 [`ResourceIterator.fromIterator`]:http://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.ResourceIterator$@fromIterator[A](as:Iterator[A]):kantan.codecs.ResourceIterator[A]

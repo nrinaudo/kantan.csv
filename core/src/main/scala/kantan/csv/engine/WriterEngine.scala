@@ -39,7 +39,7 @@ trait WriterEngine {
 /** Provides creation methods and default implementations. */
 object WriterEngine {
   /** Creates a new instance of [[WriterEngine]] that wraps the specified function. */
-  def apply(f: (Writer, Char) ⇒ CsvWriter[Seq[String]]): WriterEngine = new WriterEngine {
+  def from(f: (Writer, Char) ⇒ CsvWriter[Seq[String]]): WriterEngine = new WriterEngine {
     override def writerFor(writer: Writer, separator: Char): CsvWriter[Seq[String]] = f(writer, separator)
   }
 
@@ -47,5 +47,5 @@ object WriterEngine {
     *
     * This instance is always in scope and will be used if no other is explicitly imported.
     */
-  implicit val internal: WriterEngine = WriterEngine((writer, sep) ⇒ new InternalWriter(writer, sep))
+  implicit val internalCsvWriterEngine: WriterEngine = WriterEngine.from((w, s) ⇒ new InternalWriter(w, s))
 }

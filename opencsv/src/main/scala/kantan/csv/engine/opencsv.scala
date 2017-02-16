@@ -24,7 +24,7 @@ import kantan.csv.CsvWriter
 // - \r\n is not preserved within quoted cells, it's turned into \n (csv spectrum test)
 // - unescaped double quotes are not supported.
 
-/** Provides CSV reader and writer engines using `opencsv`.
+/** Provides CSV reader and writer engines using [[http://opencsv.sourceforge.net opencsv]].
   *
   * Importing `kantan.csv.engine.opencsv._` will replace default engines by the opencsv-backed ones. If you need to
   * tweak how opencsv behaves, however, you can handcraft engines though [[readerEngineFrom]] and
@@ -48,8 +48,9 @@ object opencsv {
   // -------------------------------------------------------------------------------------------------------------------
   // Note that using the `null` character as escape is a bit of a cheat, but it kind of works, mostly. Escaping is not
   // part of the CSV format, but I found no other way to disable it.
-  def defaultReaderEngine(reader: Reader, sep: Char): CSVReader =
-  new CSVReader(reader, sep, '"', '\u0000', 0, false, false, false)
+  /** Default `CSVReader` instance. */
+  def defaultReader(reader: Reader, sep: Char): CSVReader =
+    new CSVReader(reader, sep, '"', '\u0000', 0, false, false, false)
 
 
   /** Creates a new [[ReaderEngine]] from the specified [[CSVReaderBuilder]].
@@ -69,7 +70,7 @@ object opencsv {
     * res0: List[kantan.csv.ReadResult[List[String]]] = List(Success(List(a#b, cd)))
     * }}}
     */
-  def readerEngineFrom(f: CSVReaderBuilder): ReaderEngine = ReaderEngine { (r, s) ⇒
+  def readerEngineFrom(f: CSVReaderBuilder): ReaderEngine = ReaderEngine.from { (r, s) ⇒
     ResourceIterator.fromIterator(f(r, s).iterator())
   }
 
@@ -77,12 +78,13 @@ object opencsv {
     *
     * It's possible to tweak the behaviour of the underlying writer through [[readerEngineFrom]].
     */
-  implicit val openCsvReaderEngine: ReaderEngine = readerEngineFrom(defaultReaderEngine)
+  implicit val openCsvReaderEngine: ReaderEngine = readerEngineFrom(defaultReader)
 
 
   // - WriterEngine ----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def defaultWriterEngine(writer: Writer, sep: Char): CSVWriter = new CSVWriter(writer, sep, '"', "\r\n")
+  /** Default `CSVWriter` instance. */
+  def defaultWriter(writer: Writer, sep: Char): CSVWriter = new CSVWriter(writer, sep, '"', "\r\n")
 
   /** Creates a new [[WriterEngine]] from the specified [[CSVWriterBuilder]].
     *
@@ -101,7 +103,7 @@ object opencsv {
     * res0: String = #a"#b#,#cd#
     * }}}
     */
-  def writerEngineFrom(f: CSVWriterBuilder): WriterEngine = WriterEngine { (w, s) ⇒
+  def writerEngineFrom(f: CSVWriterBuilder): WriterEngine = WriterEngine.from { (w, s) ⇒
     CsvWriter(f(w, s))((out, ss) ⇒ out.writeNext(ss.toArray))(_.close())
   }
 
@@ -109,5 +111,5 @@ object opencsv {
     *
     * It's possible to tweak the behaviour of the underlying writer through [[writerEngineFrom]].
     */
-  implicit val openCsvWriterEngine: WriterEngine = writerEngineFrom(defaultWriterEngine)
+  implicit val openCsvWriterEngine: WriterEngine = writerEngineFrom(defaultWriter)
 }

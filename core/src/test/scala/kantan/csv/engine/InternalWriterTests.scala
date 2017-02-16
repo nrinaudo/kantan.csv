@@ -22,5 +22,5 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class InternalWriterTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("InternalWriter", WriterEngineTests(WriterEngine.internal).writerEngine)
+  checkAll("InternalWriter", WriterEngineTests(WriterEngine.internalCsvWriterEngine).writerEngine)
 }

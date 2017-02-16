@@ -21,10 +21,10 @@ import kantan.csv.CsvWriter
 import org.apache.commons.csv.{CSVFormat, CSVPrinter, CSVRecord, QuoteMode}
 import scala.collection.JavaConverters._
 
-/** Provides CSV reader and writer engines using [[https://commons.apache.org/proper/commons-csv/ commons.csv]].
+/** Provides CSV reader and writer engines using [[https://commons.apache.org/proper/commons-csv/ commons-csv]].
   *
   * Importing `kantan.csv.engine.commons._` will replace default engines by the commons-backed ones. If you need to
-  * tweak how commons.csv behaves, however, you can handcraft engines though [[readerEngineFrom]] and
+  * tweak how commons-csv behaves, however, you can handcraft engines though [[readerEngineFrom]] and
   * [[writerEngineFrom]] - all you need is a function that knows how to turn a column separator character in an instance
   * of `CSVFormat`.
   */
@@ -53,14 +53,14 @@ object commons {
   // -------------------------------------------------------------------------------------------------------------------
   /** Creates a new [[ReaderEngine]] from the specified [[CSVFormatBuilder]].
     *
-    * The purpose of this is to let developers use some of the commons.csv features that kantan.csv does not expose
+    * The purpose of this is to let developers use some of the commons-csv features that kantan.csv does not expose
     * through its public API.
     */
-  def readerEngineFrom(f: CSVFormatBuilder): ReaderEngine = ReaderEngine { (r, s) ⇒
+  def readerEngineFrom(f: CSVFormatBuilder): ReaderEngine = ReaderEngine.from { (r, s) ⇒
     ResourceIterator.fromIterator(f(s).parse(r).iterator.asScala.map(CsvSeq.apply))
   }
 
-  /** Default commons.csv [[ReaderEngine]].
+  /** Default commons-csv [[ReaderEngine]].
     *
     * It's possible to tweak the behaviour of the underlying writer through [[readerEngineFrom]].
     *
@@ -83,7 +83,7 @@ object commons {
   // -------------------------------------------------------------------------------------------------------------------
   /** Creates a new [[WriterEngine]] from the specified [[CSVFormatBuilder]].
     *
-    * The purpose of this is to let developers use some of the commons.csv features that kantan.csv does not expose
+    * The purpose of this is to let developers use some of the commons-csv features that kantan.csv does not expose
     * through its public API.
     *
     * For example, the following declares a commons-backed [[WriterEngine]] that uses `#` as a quote character:
@@ -97,13 +97,13 @@ object commons {
     * res0: String = #a##b#,cd
     * }}}
     */
-  def writerEngineFrom(f: CSVFormatBuilder): WriterEngine = WriterEngine { (w, s) ⇒
+  def writerEngineFrom(f: CSVFormatBuilder): WriterEngine = WriterEngine.from { (w, s) ⇒
     CsvWriter(new CSVPrinter(w, f(s).withQuoteMode(QuoteMode.MINIMAL))) { (csv, ss) ⇒
       csv.printRecord(ss.asJava)
     }(_.close())
   }
 
-  /** Default commons.csv [[WriterEngine]].
+  /** Default commons-csv [[WriterEngine]].
     *
     * It's possible to tweak the behaviour of the underlying writer through [[writerEngineFrom]].
     */
