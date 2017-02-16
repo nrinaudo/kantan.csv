@@ -53,12 +53,12 @@ object jackson {
 
 
 
-  /** Creates a new [[ReaderEngine]] from the specified [[CSVSchemaBuilder]].
+  /** Creates a new `ReaderEngine` from the specified [[CSVSchemaBuilder]].
     *
     * The purpose of this is to let developers use some of the jackson.csv features that kantan.csv does not expose
     * through its public API.
     *
-    * For example, the following declares a jackson-backed [[ReaderEngine]] that uses `#` as a quote character:
+    * For example, the following declares a jackson-backed `ReaderEngine` that uses `#` as a quote character:
     * {{{
     * scala> import kantan.csv.ops._
     * scala> import kantan.csv.engine.jackson.{readerEngineFrom, defaultParserSchema}
@@ -72,7 +72,7 @@ object jackson {
   def readerEngineFrom(f: CSVSchemaBuilder): ReaderEngine =
     ReaderEngine.from { (r, s) ⇒ ResourceIterator.fromIterator(parse(r, f(s))) }
 
-  /** Default jackson.csv [[ReaderEngine]].
+  /** Default jackson.csv `ReaderEngine`.
     *
     * It's possible to tweak the behaviour of the underlying writer through [[readerEngineFrom]].
     */
@@ -89,12 +89,12 @@ object jackson {
   def write(writer: Writer, schema: CsvSchema): SequenceWriter = MAPPER.writer.`with`(schema).writeValues(writer)
 
 
-  /** Creates a new [[WriterEngine]] from the specified [[CSVSchemaBuilder]].
+  /** Creates a new `WriterEngine` from the specified [[CSVSchemaBuilder]].
     *
     * The purpose of this is to let developers use some of the jackson.csv features that kantan.csv does not expose
     * through its public API.
     *
-    * For example, the following declares a jackson-backed [[WriterEngine]] that uses `#` as a quote character:
+    * For example, the following declares a jackson-backed `WriterEngine` that uses `#` as a quote character:
     * {{{
     * scala> import kantan.csv.ops._
     * scala> import kantan.csv.engine.jackson.{writerEngineFrom, defaultParserSchema}
@@ -114,7 +114,7 @@ object jackson {
     }(_.close())
   }
 
-  /** Default jackson.csv [[WriterEngine]].
+  /** Default jackson.csv `WriterEngine`.
     *
     * It's possible to tweak the behaviour of the underlying writer through [[writerEngineFrom]].
     */

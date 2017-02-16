@@ -51,7 +51,7 @@ object commons {
 
   // - Reader engines --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  /** Creates a new [[ReaderEngine]] from the specified [[CSVFormatBuilder]].
+  /** Creates a new `ReaderEngine` from the specified [[CSVFormatBuilder]].
     *
     * The purpose of this is to let developers use some of the commons-csv features that kantan.csv does not expose
     * through its public API.
@@ -60,11 +60,11 @@ object commons {
     ResourceIterator.fromIterator(f(s).parse(r).iterator.asScala.map(CsvSeq.apply))
   }
 
-  /** Default commons-csv [[ReaderEngine]].
+  /** Default commons-csv `ReaderEngine`.
     *
     * It's possible to tweak the behaviour of the underlying writer through [[readerEngineFrom]].
     *
-    * For example, the following declares a commons-backed [[ReaderEngine]] that uses `#` as a quote character:
+    * For example, the following declares a commons-backed `ReaderEngine` that uses `#` as a quote character:
     * {{{
     * scala> import kantan.csv.ops._
     * scala> import kantan.csv.engine.commons.{readerEngineFrom, defaultFormat}
@@ -81,12 +81,12 @@ object commons {
 
   // - Writer engines --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  /** Creates a new [[WriterEngine]] from the specified [[CSVFormatBuilder]].
+  /** Creates a new `WriterEngine` from the specified [[CSVFormatBuilder]].
     *
     * The purpose of this is to let developers use some of the commons-csv features that kantan.csv does not expose
     * through its public API.
     *
-    * For example, the following declares a commons-backed [[WriterEngine]] that uses `#` as a quote character:
+    * For example, the following declares a commons-backed `WriterEngine` that uses `#` as a quote character:
     * {{{
     * scala> import kantan.csv.ops._
     * scala> import kantan.csv.engine.commons.{writerEngineFrom, defaultFormat}
@@ -103,7 +103,7 @@ object commons {
     }(_.close())
   }
 
-  /** Default commons-csv [[WriterEngine]].
+  /** Default commons-csv `WriterEngine`.
     *
     * It's possible to tweak the behaviour of the underlying writer through [[writerEngineFrom]].
     */

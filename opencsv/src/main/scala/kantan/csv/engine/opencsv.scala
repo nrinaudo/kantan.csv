@@ -53,12 +53,12 @@ object opencsv {
     new CSVReader(reader, sep, '"', '\u0000', 0, false, false, false)
 
 
-  /** Creates a new [[ReaderEngine]] from the specified [[CSVReaderBuilder]].
+  /** Creates a new `ReaderEngine` from the specified [[CSVReaderBuilder]].
     *
     * The purpose of this is to let developers use some of the open-csv features that kantan.csv does not expose through
     * its public API.
     *
-    * For example, the following declares an opencsv-backed [[ReaderEngine]] that uses `#` as a quote character:
+    * For example, the following declares an opencsv-backed `ReaderEngine` that uses `#` as a quote character:
     * {{{
     * scala> import kantan.csv.ops._
     * scala> import kantan.csv.engine.opencsv.readerEngineFrom
@@ -74,7 +74,7 @@ object opencsv {
     ResourceIterator.fromIterator(f(r, s).iterator())
   }
 
-  /** Default open-csv [[ReaderEngine]].
+  /** Default open-csv `ReaderEngine`.
     *
     * It's possible to tweak the behaviour of the underlying writer through [[readerEngineFrom]].
     */
@@ -86,12 +86,12 @@ object opencsv {
   /** Default `CSVWriter` instance. */
   def defaultWriter(writer: Writer, sep: Char): CSVWriter = new CSVWriter(writer, sep, '"', "\r\n")
 
-  /** Creates a new [[WriterEngine]] from the specified [[CSVWriterBuilder]].
+  /** Creates a new `WriterEngine` from the specified [[CSVWriterBuilder]].
     *
     * The purpose of this is to let developers use some of the open-csv features that kantan.csv does not expose through
     * its public API.
     *
-    * For example, the following declares an opencsv-backed [[WriterEngine]] that uses `#` as a quote character:
+    * For example, the following declares an opencsv-backed `WriterEngine` that uses `#` as a quote character:
     * {{{
     * scala> import kantan.csv.ops._
     * scala> import kantan.csv.engine.opencsv.writerEngineFrom
@@ -107,7 +107,7 @@ object opencsv {
     CsvWriter(f(w, s))((out, ss) ⇒ out.writeNext(ss.toArray))(_.close())
   }
 
-  /** Default open-csv [[WriterEngine]].
+  /** Default open-csv `WriterEngine`.
     *
     * It's possible to tweak the behaviour of the underlying writer through [[writerEngineFrom]].
     */
