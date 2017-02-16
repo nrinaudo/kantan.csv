@@ -18,8 +18,8 @@ package kantan.csv.benchmark
 
 import java.io.StringWriter
 import java.util.concurrent.TimeUnit
+import kantan.csv.engine
 import kantan.csv.engine.WriterEngine
-import kantan.csv.engine.jackson.JacksonCsv
 import kantan.csv.ops._
 import org.apache.commons.csv.CSVFormat
 import org.openjdk.jmh.annotations._
@@ -92,7 +92,7 @@ object Encoding {
 
   def jackson(data: List[CsvEntry]): String = {
     val out = new StringWriter()
-    val writer = JacksonCsv.write(out, JacksonCsv.defaultWriterSchema(','))
+    val writer = engine.jackson.write(out, engine.jackson.defaultWriterSchema(','))
     write(data) { a ⇒
       writer.write(a)
       ()

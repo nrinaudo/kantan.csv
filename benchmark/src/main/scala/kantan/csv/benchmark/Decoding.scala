@@ -18,9 +18,8 @@ package kantan.csv.benchmark
 
 import java.io.StringReader
 import java.util.concurrent.TimeUnit
-import kantan.csv.CsvSource
+import kantan.csv._
 import kantan.csv.engine.ReaderEngine
-import kantan.csv.engine.jackson.JacksonCsv
 import org.openjdk.jmh.annotations._
 
 @State(Scope.Thread)
@@ -101,11 +100,12 @@ object Decoding {
     }.toList
   }
 
-  def jackson(str: String): List[CsvEntry] =
-    new CsvIterator(JacksonCsv.parse(new StringReader(str), JacksonCsv.defaultParserSchema(',')))(it ⇒
+  def jackson(str: String): List[CsvEntry] = {
+    new CsvIterator(engine.jackson.parse(new StringReader(str), engine.jackson.defaultParserSchema(',')))(it ⇒
       if(it.hasNext) it.next()
-      else           null
+      else null
     ).toList
+  }
 
   val univocitySettings = {
     val settings = new com.univocity.parsers.csv.CsvParserSettings
