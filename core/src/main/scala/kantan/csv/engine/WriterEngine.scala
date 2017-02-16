@@ -23,7 +23,7 @@ import kantan.csv.CsvWriter
   *
   * Functions that create instances of [[CsvWriter]], either as part of their return types or for internal operations,
   * can declare an implicit [[CsvWriter]] parameter. If one is imported explicitly (such as the Jackson engine), it will
-  * be used. Otherwise, the [[WriterEngine$.internal internal]] one is always in scope.
+  * be used. Otherwise, the [[WriterEngine$.internalCsvWriterEngine internal]] one is always in scope.
   *
   * @see [[ReaderEngine]]
   */

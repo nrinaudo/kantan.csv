@@ -59,7 +59,7 @@ object CsvWriter {
     *
     * Which implementation of [[CsvWriter]] is returned is controlled by whatever implicit
     * [[kantan.csv.engine.WriterEngine]] is found in scope. If none is explicitly imported, the
-    * [[kantan.csv.engine.WriterEngine$.internal internal]] one will be used.
+    * [[kantan.csv.engine.WriterEngine$.internalCsvWriterEngine internal]] one will be used.
     *
     * @param writer where to write CSV data to.
     * @param separator column separator.
