@@ -32,9 +32,10 @@ kantan.csv has out of the box support for decoding tuples, so you can simply pas
 [`asCsvReader`]:
 
 ```tut:silent
+import kantan.csv._
 import kantan.csv.ops._ // Brings in the kantan.csv syntax.
 
-val reader = rawData.asCsvReader[Car](',', true)
+val reader = rawData.asCsvReader[Car](CsvConfiguration.default, true)
 ```
 
 And now that we have a [`CsvReader`] on the data, we can simply iterate through it:

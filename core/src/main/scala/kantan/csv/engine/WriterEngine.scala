@@ -17,7 +17,7 @@
 package kantan.csv.engine
 
 import java.io.Writer
-import kantan.csv.CsvWriter
+import kantan.csv.{CsvConfiguration, CsvWriter}
 
 /** Provides factory-like services for [[CsvWriter]].
   *
@@ -31,21 +31,21 @@ trait WriterEngine {
   /** Creates a new instance of [[CsvWriter]] that writes encoded data to the specified writer.
     *
     * @param writer where to write encoded data.
-    * @param separator column separator.
+    * @param conf column separator.
     */
-  def writerFor(writer: Writer, separator: Char): CsvWriter[Seq[String]]
+  def writerFor(writer: Writer, conf: CsvConfiguration): CsvWriter[Seq[String]]
 }
 
 /** Provides creation methods and default implementations. */
 object WriterEngine {
   /** Creates a new instance of [[WriterEngine]] that wraps the specified function. */
-  def from(f: (Writer, Char) ⇒ CsvWriter[Seq[String]]): WriterEngine = new WriterEngine {
-    override def writerFor(writer: Writer, separator: Char): CsvWriter[Seq[String]] = f(writer, separator)
+  def from(f: (Writer, CsvConfiguration) ⇒ CsvWriter[Seq[String]]): WriterEngine = new WriterEngine {
+    override def writerFor(writer: Writer, conf: CsvConfiguration): CsvWriter[Seq[String]] = f(writer, conf)
   }
 
   /** Default engine, returns an instance of the internal [[CsvWriter]].
     *
     * This instance is always in scope and will be used if no other is explicitly imported.
     */
-  implicit val internalCsvWriterEngine: WriterEngine = WriterEngine.from((w, s) ⇒ new InternalWriter(w, s))
+  implicit val internalCsvWriterEngine: WriterEngine = WriterEngine.from((w, c) ⇒ new InternalWriter(w, c))
 }

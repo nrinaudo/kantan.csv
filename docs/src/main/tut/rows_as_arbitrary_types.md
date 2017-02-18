@@ -47,7 +47,7 @@ implicit val carDecoder = RowDecoder.ordered { (i: Int, ma: String, mo: String, 
 And we can now decode our data as usual:
 
 ```tut
-rawData.asCsvReader[Car](',', true).foreach(println _)
+rawData.asCsvReader[Car](CsvConfiguration.default, true).foreach(println _)
 ```
 
 The main reason this is the preferred solution is that it allows us never to have to think about individual cells in a

@@ -19,7 +19,7 @@ package kantan.csv.engine
 import com.fasterxml.jackson.databind.{MappingIterator, SequenceWriter}
 import java.io.{Reader, Writer}
 import kantan.codecs.resource.ResourceIterator
-import kantan.csv.CsvWriter
+import kantan.csv.{CsvConfiguration, CsvWriter}
 
 /** Provides CSV reader and writer engines using [[https://github.com/FasterXML/jackson-dataformat-csv jackson.csv]].
   *
@@ -35,7 +35,7 @@ object jackson {
   type CsvMapper = com.fasterxml.jackson.dataformat.csv.CsvMapper
 
   /** Type of functions that create a `CSVSchema` instance from a given column separator. */
-  type CSVSchemaBuilder = Char ⇒ CsvSchema
+  type CSVSchemaBuilder = CsvConfiguration ⇒ CsvSchema
 
   private val MAPPER: CsvMapper = new CsvMapper()
   MAPPER.enable(com.fasterxml.jackson.dataformat.csv.CsvParser.Feature.WRAP_AS_ARRAY)
@@ -45,8 +45,8 @@ object jackson {
   // - Reader engines --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** Default `CsvSchema` when parsing. */
-  def defaultParserSchema(separator: Char): CsvSchema =
-    MAPPER.schemaFor(classOf[Array[String]]).withColumnSeparator(separator)
+  def defaultParserSchema(conf: CsvConfiguration): CsvSchema =
+    MAPPER.schemaFor(classOf[Array[String]]).withColumnSeparator(conf.columnSeparator).withQuoteChar(conf.quote)
 
   def parse(reader: Reader, schema: CsvSchema): MappingIterator[Array[String]] =
     MAPPER.readerFor(classOf[Array[String]]).`with`(schema).readValues(reader)
@@ -57,17 +57,6 @@ object jackson {
     *
     * The purpose of this is to let developers use some of the jackson.csv features that kantan.csv does not expose
     * through its public API.
-    *
-    * For example, the following declares a jackson-backed `ReaderEngine` that uses `#` as a quote character:
-    * {{{
-    * scala> import kantan.csv.ops._
-    * scala> import kantan.csv.engine.jackson.{readerEngineFrom, defaultParserSchema}
-    *
-    * scala> implicit val readerEngine = readerEngineFrom(s ⇒ defaultParserSchema(s).withQuoteChar('#'))
-    *
-    * scala> "#a##b#,cd".readCsv[List, List[String]](',', false)
-    * res0: List[kantan.csv.ReadResult[List[String]]] = List(Success(List(a#b, cd)))
-    * }}}
     */
   def readerEngineFrom(f: CSVSchemaBuilder): ReaderEngine =
     ReaderEngine.from { (r, s) ⇒ ResourceIterator.fromIterator(parse(r, f(s))) }
@@ -83,8 +72,9 @@ object jackson {
   // - Writer engines --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** Default `CsvSchema` when writing. */
-  def defaultWriterSchema(separator: Char): CsvSchema =
-    MAPPER.schemaFor(classOf[Array[String]]).withColumnSeparator(separator).withLineSeparator("\r\n").withoutComments
+  def defaultWriterSchema(conf: CsvConfiguration): CsvSchema =
+    MAPPER.schemaFor(classOf[Array[String]]).withColumnSeparator(conf.columnSeparator)
+        .withQuoteChar(conf.quote).withLineSeparator("\r\n").withoutComments
 
   def write(writer: Writer, schema: CsvSchema): SequenceWriter = MAPPER.writer.`with`(schema).writeValues(writer)
 
@@ -93,19 +83,6 @@ object jackson {
     *
     * The purpose of this is to let developers use some of the jackson.csv features that kantan.csv does not expose
     * through its public API.
-    *
-    * For example, the following declares a jackson-backed `WriterEngine` that uses `#` as a quote character:
-    * {{{
-    * scala> import kantan.csv.ops._
-    * scala> import kantan.csv.engine.jackson.{writerEngineFrom, defaultParserSchema}
-    *
-    * scala> implicit val writerEngine = writerEngineFrom(s ⇒ defaultParserSchema(s).withQuoteChar('#'))
-    *
-    * scala> List(List("a#b", "cd")).asCsv(',')
-    * res0: String =
-    * "#a##b#,cd
-    * "
-    * }}}
     */
   def writerEngineFrom(f: CSVSchemaBuilder): WriterEngine = WriterEngine.from { (w, s) ⇒
     CsvWriter(write(w, f(s))) { (out, ss) ⇒

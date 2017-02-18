@@ -77,7 +77,7 @@ object Decoding {
   // - Benchmarks ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def kantan(str: String)(implicit e: ReaderEngine): List[CsvEntry] =
-    CsvSource[String].unsafeReader[CsvEntry](str, ',', false).toList
+    CsvSource[String].unsafeReader[CsvEntry](str).toList
 
   // Note: we must call trim on the input since product-collections does not accept the last row ending with a line
   // break. I believe that to be a bug.
@@ -101,7 +101,8 @@ object Decoding {
   }
 
   def jackson(str: String): List[CsvEntry] = {
-    new CsvIterator(engine.jackson.parse(new StringReader(str), engine.jackson.defaultParserSchema(',')))(it ⇒
+    new CsvIterator(engine.jackson.parse(new StringReader(str),
+      engine.jackson.defaultParserSchema(CsvConfiguration.default)))(it ⇒
       if(it.hasNext) it.next()
       else null
     ).toList

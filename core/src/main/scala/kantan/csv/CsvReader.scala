@@ -21,15 +21,15 @@ import kantan.csv.engine.ReaderEngine
 
 /** Provides instance creation and summoning methods. */
 object CsvReader {
-  /** Opens a [[CsvReader]] on the specified `Reader`.
-    *
-    * @param reader what to parse as CSV
-    * @param sep column separator
-    * @param header whether or not to skip the first row
-    */
+  @deprecated("use apply(Reader, CsvConfiguration, Boolean) instead", "0.1.18")
   def apply[A: RowDecoder](reader: Reader, sep: Char, header: Boolean)
+                          (implicit e: ReaderEngine): CsvReader[ReadResult[A]] =
+    CsvReader(reader, CsvConfiguration.default.withColumnSeparator(sep), header)
+
+  /** Opens a [[CsvReader]] on the specified `Reader`. */
+  def apply[A: RowDecoder](reader: Reader, conf: CsvConfiguration = CsvConfiguration.default, header: Boolean = false)
               (implicit e: ReaderEngine): CsvReader[ReadResult[A]] = {
-    val data: CsvReader[ReadResult[Seq[String]]] = e.readerFor(reader, sep)
+    val data: CsvReader[ReadResult[Seq[String]]] = e.readerFor(reader, conf)
 
     if(header && data.hasNext) data.next()
 

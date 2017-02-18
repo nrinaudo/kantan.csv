@@ -23,16 +23,21 @@ import kantan.csv.engine.WriterEngine
   *
   * Writing a single row as a `String` is a surprisingly recurrent feature request. This is how to do it:
   * {{{
-  * scala> (1, 2, 3).asCsvRow(',')
+  * scala> (1, 2, 3).asCsvRow()
   * res0: String = 1,2,3
   * }}}
   */
-final class CsvRowOps[A](val a: A) extends AnyVal {
-  def asCsvRow(sep: Char)(implicit ea: RowEncoder[A], e: WriterEngine): String = Seq(a).asCsv(sep).trim
+final class CsvRowOps[A: RowEncoder](val a: A) {
+  @deprecated("use asCsvRow(CsvConfiguration) instead", "0.1.18")
+  def asCsvRow(sep: Char)(implicit e: WriterEngine): String =
+    asCsvRow(CsvConfiguration.default.withColumnSeparator(sep))
+
+  def asCsvRow(conf: CsvConfiguration = CsvConfiguration.default)(implicit e: WriterEngine): String =
+    Seq(a).asCsv(conf).trim
 }
 
 trait ToCsvRowOps {
-  implicit def toCsvRowOps[A](a: A): CsvRowOps[A] = new CsvRowOps(a)
+  implicit def toCsvRowOps[A: RowEncoder](a: A): CsvRowOps[A] = new CsvRowOps(a)
 }
 
 object csvRow extends ToCsvRowOps

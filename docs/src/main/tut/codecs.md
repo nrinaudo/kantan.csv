@@ -33,9 +33,9 @@ And with that, we can now both encode and decode [`DateTime`]:
 val dates = List(
   List(new DateTime(), new DateTime().plusDays(1)),
   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
-).asCsv(',')
+).asCsv()
 
-dates.readCsv[List, List[DateTime]](',', false)
+dates.readCsv[List, List[DateTime]]()
 ```
 
 
@@ -60,9 +60,9 @@ implicit val personCodec: RowCodec[Person] = RowCodec.caseCodec(0, 2, 1)(Person.
 And with that one line, we're done:
 
 ```tut
-val csv = ps.asCsv(',')
+val csv = ps.asCsv()
 
-csv.readCsv[List, Person](',', false)
+csv.readCsv[List, Person]()
 ```
 
 [`DateTime`]:http://www.joda.org/joda-time/apidocs/org/joda/time/DateTime.html

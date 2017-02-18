@@ -22,7 +22,7 @@ import org.scalacheck.Prop._
 
 trait ReaderEngineLaws extends RfcReaderLaws with SpectrumReaderLaws with KnownFormatsReaderLaws {
   private def asReader(csv: List[List[Cell]]): kantan.csv.CsvReader[List[Cell]] =
-    csv.asCsv(',').asUnsafeCsvReader[List[Cell]](',', false)
+    csv.asCsv().asUnsafeCsvReader[List[Cell]]()
 
   def nextOnEmpty(csv: List[List[Cell]]): Boolean = {
     val data = asReader(csv)

@@ -50,7 +50,7 @@ class RegressionTests extends FunSuite {
   test("Trailing optional cells should decode as expected (#53)") {
     import kantan.csv.ops._
 
-    assert("1,a,100\n2,b".unsafeReadCsv[List, (Int, String, Option[Int])](',', false) ==
+    assert("1,a,100\n2,b".unsafeReadCsv[List, (Int, String, Option[Int])]() ==
       List((1, "a", Some(100)), (2, "b", None))
     )
   }

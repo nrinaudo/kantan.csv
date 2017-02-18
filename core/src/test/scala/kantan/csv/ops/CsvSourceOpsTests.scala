@@ -39,13 +39,15 @@ class CsvSourceOpsTests extends FunSuite with GeneratorDrivenPropertyChecks {
 
   test("CsvSource instances should have a working asCsvReader method") {
     forAll { data: List[RowValue[TestCase]] ⇒
-      assert(compare(asCsv(data, ',').asCsvReader[TestCase](',', false).toList, data))
+      assert(compare(asCsv(data, CsvConfiguration.default)
+        .asCsvReader[TestCase]().toList, data))
     }
   }
 
   test("CsvSource instances should have a working readCsv method") {
     forAll { data: List[RowValue[TestCase]] ⇒
-      assert(compare(asCsv(data, ',').readCsv[List, TestCase](',', false), data))
+      assert(compare(asCsv(data, CsvConfiguration.default)
+        .readCsv[List, TestCase](), data))
     }
   }
 
@@ -64,13 +66,15 @@ class CsvSourceOpsTests extends FunSuite with GeneratorDrivenPropertyChecks {
 
   test("CsvSource instances should have a working asUnsafeCsvReader method") {
     forAll { data: List[RowValue[TestCase]] ⇒
-      assert(compareUnsafe(asCsv(data, ',').asUnsafeCsvReader[TestCase](',', false).toList, data))
+      assert(compareUnsafe(asCsv(data, CsvConfiguration.default)
+        .asUnsafeCsvReader[TestCase]().toList, data))
     }
   }
 
   test("CsvSource instances should have a working unsafeReadCsv method") {
     forAll { data: List[RowValue[TestCase]] ⇒
-      assert(compareUnsafe(asCsv(data, ',').unsafeReadCsv[List, TestCase](',', false), data))
+      assert(compareUnsafe(asCsv(data, CsvConfiguration.default)
+        .unsafeReadCsv[List, TestCase](), data))
     }
   }
 }

@@ -25,8 +25,9 @@ Our goal here is to parse this resource row by row. In order to do that, we must
 row as a case class. This is exactly what we did in a [previous tutorial](rows_as_case_classes.html):
 
 ```tut:silent
-import kantan.csv.ops._     // kantan.csv syntax
-import kantan.csv.generic._ // case class decoder derivation
+import kantan.csv._
+import kantan.csv.ops._
+import kantan.csv.generic._
 
 case class Car(year: Int, make: String, model: String, desc: Option[String], price: Float)
 ```
@@ -35,7 +36,7 @@ Now that we have everything we need to decode the CSV data, here's how to turn i
 an iterator with a `close` method:
 
 ```tut
-val iterator = rawData.asCsvReader[Car](',', true)
+val iterator = rawData.asCsvReader[Car](CsvConfiguration.default, true)
 ```
 
 [`asCsvReader`] is explained in some depths [here](rows_as_collections.html), but we're more interested in what we

@@ -37,9 +37,9 @@ import kantan.csv.ops._
 We can then simply write the following:
 
 ```tut
-"1,2\n4,true".readCsv[List, (Int, Int \/ Boolean)](',', false)
+"1,2\n4,true".readCsv[List, (Int, Int \/ Boolean)]()
 
-"1,2\n4,true".readCsv[List, (Int, Int) \/ (Int, Boolean)](',', false)
+"1,2\n4,true".readCsv[List, (Int, Int) \/ (Int, Boolean)]()
 ```
 
 
@@ -55,7 +55,7 @@ For any type `A` that has:
 You can write, for example:
 
 ```tut
-"1,2\n3,".readCsv[List, (Int, Maybe[Int])](',', false)
+"1,2\n3,".readCsv[List, (Int, Maybe[Int])]()
 ```
 
 ## Scalaz instances

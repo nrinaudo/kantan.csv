@@ -21,7 +21,7 @@ import kantan.csv._
 import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer
 
-private[engine] class InternalReader private (val data: Reader, val separator: Char,
+private[engine] class InternalReader private (val data: Reader, val conf: CsvConfiguration,
                                               val characters: Array[Char], var length: Int)
   extends CsvReader[Seq[String]] {
   private val cell = new StringBuilder
@@ -72,7 +72,7 @@ private[engine] class InternalReader private (val data: Reader, val separator: C
   @tailrec
   final def cellStart(c: Char): InternalReader.CellStart = c match {
     // Separator: empty cell, but a next one is coming.
-    case `separator` ⇒
+    case conf.columnSeparator ⇒
       endCell()
       InternalReader.CSeparator
 
@@ -87,7 +87,7 @@ private[engine] class InternalReader private (val data: Reader, val separator: C
       InternalReader.CLF
 
     // ": start of escaped cell.
-    case '"'         ⇒
+    case conf.quote ⇒
       mark = index
       InternalReader.Escaped
 
@@ -115,7 +115,7 @@ private[engine] class InternalReader private (val data: Reader, val separator: C
   final def rawCell: InternalReader.Break =
     if(hasNextChar) nextChar() match {
       // Separator: cell finished.
-      case `separator` ⇒
+      case conf.columnSeparator ⇒
         endCell()
         InternalReader.Separator
 
@@ -140,7 +140,7 @@ private[engine] class InternalReader private (val data: Reader, val separator: C
 
   @tailrec
   final def escapedCellEnd(c: Char): InternalReader.Break = c match {
-    case `separator` ⇒
+    case conf.columnSeparator ⇒
       endCell()
       InternalReader.Separator
 
@@ -156,10 +156,10 @@ private[engine] class InternalReader private (val data: Reader, val separator: C
       if(hasNextChar) escapedCellEnd(nextChar())
       else            InternalReader.EOF
 
-    case '"' ⇒ escapedCell(true)
+    case conf.quote ⇒ escapedCell(true)
 
     case _ ⇒
-      cell.append('"')
+      cell.append(conf.quote)
       escapedCell(false)
   }
 
@@ -168,11 +168,11 @@ private[engine] class InternalReader private (val data: Reader, val separator: C
     if(hasNextChar) {
       val c = nextChar()
 
-      if(c == '"') {
+      if(c == conf.quote) {
         dumpCell()
         mark = index
         if(prev) {
-          cell.append('"')
+          cell.append(conf.quote)
           escapedCell(false)
         }
         else escapedCell(true)
@@ -230,11 +230,11 @@ private[engine] class InternalReader private (val data: Reader, val separator: C
 }
 
 private object InternalReader {
-  def apply(data: Reader, separator: Char): InternalReader = {
+  def apply(data: Reader, conf: CsvConfiguration): InternalReader = {
     val characters = new Array[Char](2048)
     val length = data.read(characters)
 
-    new InternalReader(data, separator, characters, length)
+    new InternalReader(data, conf, characters, length)
   }
 
   // Possible reasons for breaking off a cell or row.

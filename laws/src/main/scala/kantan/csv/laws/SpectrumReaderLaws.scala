@@ -24,7 +24,7 @@ trait SpectrumReaderLaws {
   implicit def engine: ReaderEngine
 
   private def equals(input: String, expected: List[List[String]]): Boolean =
-    input.unsafeReadCsv[List, List[String]](',', false) == expected
+    input.unsafeReadCsv[List, List[String]]() == expected
 
   def commaInQuotes: Boolean = equals("John,Doe,120 any st.,\"Anytown, WW\",08123",
     List(List("John", "Doe", "120 any st.", "Anytown, WW", "08123")))

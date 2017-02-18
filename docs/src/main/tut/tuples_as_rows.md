@@ -19,7 +19,7 @@ import kantan.csv.ops._
 // File in which we'll be writing the CSV data.
 val out = java.io.File.createTempFile("kantan.csv", "csv")
 
-val writer = out.asCsvWriter[(Int, Float, Boolean)](',', "Column 1", "Column 2", "Column 3")
+val writer = out.asCsvWriter[(Int, Float, Boolean)](header = Seq("Column 1", "Column 2", "Column 3"))
 ```
 
 Note the type parameter to [`asCsvWriter`]: this is what the returned instance of [`CsvWriter`] will know to encode.

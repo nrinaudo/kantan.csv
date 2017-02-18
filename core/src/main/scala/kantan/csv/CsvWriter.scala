@@ -55,6 +55,11 @@ trait CsvWriter[A] extends Closeable { self ⇒
 
 /** Provides useful instance creation methods. */
 object CsvWriter {
+  @deprecated("use apply(writer, CsvConfiguration, String*) instead", "0.1.18")
+  def apply[A: RowEncoder](writer: Writer, sep: Char, header: String*)
+                (implicit engine: WriterEngine): CsvWriter[A] =
+    CsvWriter(writer, CsvConfiguration.default.withColumnSeparator(sep), header)
+
   /** Creates a new [[CsvWriter]] instance that will send encoded data to the specified `Writer`.
     *
     * Which implementation of [[CsvWriter]] is returned is controlled by whatever implicit
@@ -62,15 +67,16 @@ object CsvWriter {
     * [[kantan.csv.engine.WriterEngine$.internalCsvWriterEngine internal]] one will be used.
     *
     * @param writer where to write CSV data to.
-    * @param separator column separator.
+    * @param conf CSV writing behaviour.
     * @param header optional header row, defaults to none.
     * @tparam A type of values that the returned instance will know to encode.
     */
-  def apply[A: RowEncoder](writer: Writer, separator: Char, header: String*)
+  def apply[A: RowEncoder](writer: Writer, conf: CsvConfiguration = CsvConfiguration.default,
+                           header: Seq[String] = Seq.empty)
               (implicit engine: WriterEngine): CsvWriter[A] = {
-    if(header.isEmpty) engine.writerFor(writer, separator).contramap(RowEncoder[A].encode)
+    if(header.isEmpty) engine.writerFor(writer, conf).contramap(RowEncoder[A].encode)
     else {
-      val w = engine.writerFor(writer, separator)
+      val w = engine.writerFor(writer, conf)
       w.write(header)
       w.contramap(RowEncoder[A].encode)
     }

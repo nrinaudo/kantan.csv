@@ -25,8 +25,9 @@ Our goal here is to load this entire resource as a [`List`]. In order to do that
 row as a case class. This is exactly what we did in a [previous tutorial](rows_as_case_classes.html):
 
 ```tut:silent
-import kantan.csv.ops._     // kantan.csv syntax
-import kantan.csv.generic._ // case class decoder derivation
+import kantan.csv._
+import kantan.csv.ops._
+import kantan.csv.generic._
 
 case class Car(year: Int, make: String, model: String, desc: Option[String], price: Float)
 ```
@@ -34,7 +35,7 @@ case class Car(year: Int, make: String, model: String, desc: Option[String], pri
 Now that we have everything we need to decode the CSV data, here's how to turn it into a [`List`]:
 
 ```tut
-rawData.readCsv[List, Car](',', true)
+rawData.readCsv[List, Car](CsvConfiguration.default, true)
 ```
 
 This [`readCsv`] method takes two type parameters: the type of the collection in which to store each row, and the type

@@ -38,9 +38,9 @@ val input = "1,1978-12-10\n2,2015-01-09"
 This is directly supported:
 
 ```tut
-val res = input.unsafeReadCsv[List, (Int, java.time.LocalDate)](',', false)
+val res = input.unsafeReadCsv[List, (Int, java.time.LocalDate)]()
 
-res.asCsv(',')
+res.asCsv()
 ```
 
 It's also possible to declare your own [`CellDecoder`] and [`CellEncoder`] instances. Let's take, for example,
@@ -63,7 +63,7 @@ implicit val decoder = localDateDecoder(format)
 And we're done:
 
 ```tut
-val res = input.unsafeReadCsv[List, (Int, java.time.LocalDate)](',', false)
+val res = input.unsafeReadCsv[List, (Int, java.time.LocalDate)]()
 ```
 
 Similarly, this is how you create and encoder:
@@ -75,7 +75,7 @@ implicit val encoder = localDateEncoder(format)
 And you can now easily encode data that contains instances of [`LocalDate`]:
 
 ```tut
-res.asCsv(',')
+res.asCsv()
 ```
 
 Note that if you're going to both encode and decode dates, you can create a [`CellCodec`] in a single call instead:

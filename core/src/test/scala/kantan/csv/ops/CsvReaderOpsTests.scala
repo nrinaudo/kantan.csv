@@ -24,7 +24,7 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
 class CsvReaderOpsTests extends FunSuite with GeneratorDrivenPropertyChecks {
   def asCsvReader[A: RowDecoder](data: List[RowValue[A]]): CsvReader[ReadResult[A]] =
-    asCsv(data, ',').asCsvReader[A](',', false)
+    asCsv(data, CsvConfiguration.default).asCsvReader[A]()
 
   test("CsvReader[ReadResult] instances should have a working mapResult method") {
     forAll { (data: List[RowValue[List[Int]]], f: List[Int] ⇒ List[Float]) ⇒

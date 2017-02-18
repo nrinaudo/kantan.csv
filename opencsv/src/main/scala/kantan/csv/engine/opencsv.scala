@@ -18,7 +18,7 @@ package kantan.csv.engine
 
 import java.io.{Reader, Writer}
 import kantan.codecs.resource.ResourceIterator
-import kantan.csv.CsvWriter
+import kantan.csv.{CsvConfiguration, CsvWriter}
 
 // TODO: known bugs
 // - \r\n is not preserved within quoted cells, it's turned into \n (csv spectrum test)
@@ -37,10 +37,10 @@ object opencsv {
   type CSVWriter = com.opencsv.CSVWriter
 
   /** Type of functions that turn a `Reader` and a separator character and turn them into a `CSVReader` .*/
-  type CSVReaderBuilder = (Reader, Char) ⇒ CSVReader
+  type CSVReaderBuilder = (Reader, CsvConfiguration) ⇒ CSVReader
 
   /** Type of functions that turn a `Writer` and a separator character and turn them into a `CSVWriter` .*/
-  type CSVWriterBuilder = (Writer, Char) ⇒ CSVWriter
+  type CSVWriterBuilder = (Writer, CsvConfiguration) ⇒ CSVWriter
 
 
 
@@ -49,26 +49,14 @@ object opencsv {
   // Note that using the `null` character as escape is a bit of a cheat, but it kind of works, mostly. Escaping is not
   // part of the CSV format, but I found no other way to disable it.
   /** Default `CSVReader` instance. */
-  def defaultReader(reader: Reader, sep: Char): CSVReader =
-    new CSVReader(reader, sep, '"', '\u0000', 0, false, false, false)
+  def defaultReader(reader: Reader, conf: CsvConfiguration): CSVReader =
+    new CSVReader(reader, conf.columnSeparator, conf.quote, '\u0000', 0, false, false, false)
 
 
   /** Creates a new `ReaderEngine` from the specified [[CSVReaderBuilder]].
     *
     * The purpose of this is to let developers use some of the open-csv features that kantan.csv does not expose through
     * its public API.
-    *
-    * For example, the following declares an opencsv-backed `ReaderEngine` that uses `#` as a quote character:
-    * {{{
-    * scala> import kantan.csv.ops._
-    * scala> import kantan.csv.engine.opencsv.readerEngineFrom
-    * scala> import com.opencsv.CSVReader
-    *
-    * scala> implicit val readerEngine = readerEngineFrom((r, s) ⇒ new CSVReader(r, s, '#'))
-    *
-    * scala> "#a##b#,cd".readCsv[List, List[String]](',', false)
-    * res0: List[kantan.csv.ReadResult[List[String]]] = List(Success(List(a#b, cd)))
-    * }}}
     */
   def readerEngineFrom(f: CSVReaderBuilder): ReaderEngine = ReaderEngine.from { (r, s) ⇒
     ResourceIterator.fromIterator(f(r, s).iterator())
@@ -84,24 +72,13 @@ object opencsv {
   // - WriterEngine ----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** Default `CSVWriter` instance. */
-  def defaultWriter(writer: Writer, sep: Char): CSVWriter = new CSVWriter(writer, sep, '"', "\r\n")
+  def defaultWriter(writer: Writer, conf: CsvConfiguration): CSVWriter =
+    new CSVWriter(writer, conf.columnSeparator, conf.quote, "\r\n")
 
   /** Creates a new `WriterEngine` from the specified [[CSVWriterBuilder]].
     *
     * The purpose of this is to let developers use some of the open-csv features that kantan.csv does not expose through
     * its public API.
-    *
-    * For example, the following declares an opencsv-backed `WriterEngine` that uses `#` as a quote character:
-    * {{{
-    * scala> import kantan.csv.ops._
-    * scala> import kantan.csv.engine.opencsv.writerEngineFrom
-    * scala> import com.opencsv.CSVWriter
-    *
-    * scala> implicit val writerEngine = writerEngineFrom((w, s) ⇒ new CSVWriter(w, s, '#', "\r\n"))
-    *
-    * scala> List(List("a#b", "cd")).asCsv(',').trim()
-    * res0: String = #a"#b#,#cd#
-    * }}}
     */
   def writerEngineFrom(f: CSVWriterBuilder): WriterEngine = WriterEngine.from { (w, s) ⇒
     CsvWriter(f(w, s))((out, ss) ⇒ out.writeNext(ss.toArray))(_.close())

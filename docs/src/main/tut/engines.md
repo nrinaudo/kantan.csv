@@ -26,7 +26,7 @@ import kantan.csv.engine.jackson._
 ```
 
 You can tweak the behaviour of the underlying parsers and serialisers by creating them through
-[`readerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson$.html#readerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.ReaderEngine) 
+[`readerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson$.html#readerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.ReaderEngine)
 and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson$.html#writerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.WriterEngine).
 
 ### Open CSV
@@ -44,7 +44,7 @@ import kantan.csv.engine.opencsv._
 ```
 
 You can tweak the behaviour of the underlying parsers and serialisers by creating them through
-[`readerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/opencsv$.html#readerEngineFrom(f:kantan.csv.engine.opencsv.CSVReaderBuilder):kantan.csv.engine.ReaderEngine) 
+[`readerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/opencsv$.html#readerEngineFrom(f:kantan.csv.engine.opencsv.CSVReaderBuilder):kantan.csv.engine.ReaderEngine)
 and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/opencsv$.html#writerEngineFrom(f:kantan.csv.engine.opencsv.CSVWriterBuilder):kantan.csv.engine.WriterEngine).
 
 
@@ -63,7 +63,7 @@ import kantan.csv.engine.commons._
 ```
 
 You can tweak the behaviour of the underlying parsers and serialisers by creating them through
-[`readerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/commons$.html#readerEngineFrom(f:kantan.csv.engine.commons.CSVFormatBuilder):kantan.csv.engine.ReaderEngine) 
+[`readerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/commons$.html#readerEngineFrom(f:kantan.csv.engine.commons.CSVFormatBuilder):kantan.csv.engine.ReaderEngine)
 and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/commons$.html#writerEngineFrom(f:kantan.csv.engine.commons.CSVFormatBuilder):kantan.csv.engine.WriterEngine).
 
 
@@ -100,8 +100,8 @@ Creating a new instance of [`ReaderEngine`] is meant to be fairly straightforwar
 import kantan.csv.engine._
 import kantan.csv._
 
-implicit val readerEngine = ReaderEngine.from { (in: Reader, sep: Char) ⇒
-  kantan.codecs.resource.ResourceIterator.fromIterator(EasyCSV.read(in, sep))
+implicit val readerEngine = ReaderEngine.from { (in: Reader, conf: CsvConfiguration) ⇒
+  kantan.codecs.resource.ResourceIterator.fromIterator(EasyCSV.read(in, conf.columnSeparator))
 }
 ```
 
@@ -112,8 +112,8 @@ Serialising is very similar to parsing, except that instead of providing a [`Rea
 through [`CsvWriter.apply`]:
 
 ```tut:silent
-implicit val writerEngine = WriterEngine.from { (writer: Writer, sep: Char) ⇒
-  CsvWriter(EasyCSV.write(writer, sep))(_ write _.toArray)(_.close())
+implicit val writerEngine = WriterEngine.from { (writer: Writer, conf: CsvConfiguration) ⇒
+  CsvWriter(EasyCSV.write(writer, conf.columnSeparator))(_ write _.toArray)(_.close())
 }
 ```
 

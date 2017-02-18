@@ -20,13 +20,14 @@ cells in the output CSV matches exactly the order of fields in our case class, w
 how to do that:
 
 ```tut:silent
+import kantan.csv._
 import kantan.csv.ops._
 import kantan.csv.generic._
 
 // File in which we'll be writing the CSV data.
 val out = java.io.File.createTempFile("kantan.csv", "csv")
 
-val writer = out.asCsvWriter[Person](',', "Column 1", "Column 2", "Column 3")
+val writer = out.asCsvWriter[Person](CsvConfiguration.default, Seq("Column 1", "Column 2", "Column 3"))
 ```
 
 We're dealing with a list of values, which [`CsvWriter`] as a helper method for which we haven't seen before:
@@ -58,7 +59,7 @@ And to check whether that worked out, let's use another helper function: most Sc
 [`TraversableOnce`] are augmented with an [`asCsv`] method):
 
 ```tut
-ps.asCsv(',')
+ps.asCsv()
 ```
 
 ## What to read next

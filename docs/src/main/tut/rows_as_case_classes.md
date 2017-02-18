@@ -34,10 +34,11 @@ case class have a 1-to-1 correspondence and are declared in the same order. This
 [shapeless](shapeless.html) dependency, there's very little work to do:
 
 ```tut:silent
-import kantan.csv.ops._     // kantan.csv syntax
-import kantan.csv.generic._ // case class decoder derivation
+import kantan.csv._
+import kantan.csv.ops._
+import kantan.csv.generic._
 
-val reader = rawData.asCsvReader[Car](',', true)
+val reader = rawData.asCsvReader[Car](CsvConfiguration.default, true)
 ```
 
 Let's make sure this worked by printing all decoded rows:
@@ -68,7 +69,7 @@ that's precisely the `apply` method declared in the companion object.
 Let's verify that this worked as expected:
 
 ```tut
-rawData.asCsvReader[Car2](',', true).foreach(println _)
+rawData.asCsvReader[Car2](CsvConfiguration.default, true).foreach(println _)
 ```
 
 ## What to read next

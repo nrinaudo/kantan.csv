@@ -24,7 +24,7 @@ In order to turn this into useful types, all we need to do is retrieve a [`CsvRe
 ```tut:silent
 import kantan.csv.ops._ // Brings in the kantan.csv syntax.
 
-val reader = rawData.asCsvReader[List[Float]](',', false)
+val reader = rawData.asCsvReader[List[Float]]()
 ```
 
 The [`asCsvReader`] scaladoc can seem a bit daunting with all its implicit parameters, so let's demystify it.

@@ -40,7 +40,7 @@ val input = List("ニコラ", "リノド")
 val out = java.io.File.createTempFile("kantan.csv", "csv")
 
 // Writes input using , as a column separator.
-out.writeCsv(input, ',')
+out.writeCsv(input)
 ```
 
 Since we've imported `kantan.codecs.resource.bom._`, `out` contains the UTF-8 BOM. We can verify that by attempting
@@ -54,7 +54,7 @@ implicit val codec = scala.io.Codec.ISO8859
 When we try to read it, kantan.csv will find the BOM and ignore our instruction to use ISO-LATIN-1:
 
 ```tut
-out.readCsv[List, String](',', false)
+out.readCsv[List, String]()
 ```
 
 Note that these behaviours are disabled by default: BOMs are advised against, and looking for them (and interpreting them

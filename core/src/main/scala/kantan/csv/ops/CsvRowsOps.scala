@@ -25,24 +25,29 @@ import kantan.csv.engine.WriterEngine
   * The sole purpose of this implicit class is to encode collections as CSV into a string through [[asCsv]]:
   *
   * {{{
-  *   List(List(1, 2, 3), List(4, 5, 6)).asCsv(',')
+  * List(List(1, 2, 3), List(4, 5, 6)).asCsv()
   * }}}
   */
-final class CsvRowsOps[A](val as: TraversableOnce[A]) extends AnyVal {
+final class CsvRowsOps[A: RowEncoder](val as: TraversableOnce[A]) {
+  @deprecated("use asCsv(CsvConfiguration, String*) instead", "0.1.18")
+  def asCsv(sep: Char, header: String*)(implicit e: WriterEngine): String =
+    asCsv(CsvConfiguration.default.withColumnSeparator(sep), header)
+
   /** Turns the collection into a CSV string.
     *
-    * @param sep character used to separate columns.
+    * @param conf CSV writing behaviour.
     * @param header optional header row.
     */
-  def asCsv(sep: Char, header: String*)(implicit ea: RowEncoder[A], e: WriterEngine): String = {
+  def asCsv(conf: CsvConfiguration = CsvConfiguration.default, header: Seq[String] = Seq.empty)
+           (implicit e: WriterEngine): String = {
     val out = new StringWriter()
-    CsvWriter(out, sep, header:_*).write(as).close()
+    CsvWriter(out, conf, header).write(as).close()
     out.toString
   }
 }
 
 trait ToCsvRowsOps {
-  implicit def toCsvRowsOps[A](as: TraversableOnce[A]): CsvRowsOps[A] = new CsvRowsOps(as)
+  implicit def toCsvRowsOps[A: RowEncoder](as: TraversableOnce[A]): CsvRowsOps[A] = new CsvRowsOps(as)
 }
 
 object csvRows extends ToCsvRowsOps

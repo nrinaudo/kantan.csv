@@ -36,7 +36,7 @@ The simplest, least desirable error handling mechanism is to ignore the possibil
 to be thrown. This is achieved by using [`asUnsafeCsvReader`]:
 
 ```tut
-scala.util.Try(rawData.asUnsafeCsvReader[Person](',', false).toList)
+scala.util.Try(rawData.asUnsafeCsvReader[Person]().toList)
 ```
 
 Note that this is hardly ever an acceptable solution. In idiomatic Scala, we pretend that exceptions don't exist and
@@ -47,7 +47,7 @@ reliability or maintainability are not an issue, for example.
 Another common, if not always viable strategy is to use [`collect`] to simply drop whatever rows failed to decode:
 
 ```tut
-rawData.asCsvReader[Person](',', false).collect { case Success(a) ⇒ a }.toList
+rawData.asCsvReader[Person]().collect { case Success(a) ⇒ a }.toList
 ```
 
 [`collect`] is a bit like a [`filter`] and a [`map`] rolled into one, and allows us to:
@@ -64,7 +64,7 @@ When not streaming data, a good option is to fail if a single row fails to decod
 [`sequence`] method:
 
 ```tut
-kantan.codecs.Result.sequence(rawData.readCsv[List, Person](',', false))
+kantan.codecs.Result.sequence(rawData.readCsv[List, Person]())
 ```
 
 The only real downside to this approach is that it requires loading the entire data in memory.
@@ -77,7 +77,7 @@ Some data types have reasonable default values that can be used instead of error
 This is achieved through [`getOrElse`] (even if this example doesn't make much practical sense):
 
 ```tut
-rawData.asCsvReader[Person](',', false).map(_.getOrElse(Person(0, "ERMAC", true))).toList
+rawData.asCsvReader[Person]().map(_.getOrElse(Person(0, "ERMAC", true))).toList
 ```
 
 ## Use more flexible types to prevent errors
@@ -92,7 +92,7 @@ case class Person(id: Int, name: String, flag: Either[Boolean, Int])
 We can now load the whole data without an error:
 
 ```tut
-rawData.readCsv[List, Person](',', false)
+rawData.readCsv[List, Person]()
 ```
 
 Following the same general idea, one could use [`Option`] for fields that are not always set.

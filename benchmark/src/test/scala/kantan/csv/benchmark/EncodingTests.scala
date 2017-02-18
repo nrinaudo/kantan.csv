@@ -22,7 +22,7 @@ import org.scalatest.FunSuite
 class EncodingTests extends FunSuite {
   val encoding = new Encoding
 
-  def decode(str: String): List[CsvEntry] = str.unsafeReadCsv[List, CsvEntry](',', false)
+  def decode(str: String): List[CsvEntry] = str.unsafeReadCsv[List, CsvEntry]()
 
   test("kantan internal") {
     assert(decode(encoding.kantanInternal) == rawData)

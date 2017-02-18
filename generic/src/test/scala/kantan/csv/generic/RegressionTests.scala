@@ -19,13 +19,13 @@ package kantan.csv.generic
 import org.scalatest.FunSuite
 
 class RegressionTests extends FunSuite {
-    test("Implicit resolution should not be impacted by the presence of default arguments (#65)") {
-    case class A(i: Int)
+  test("Implicit resolution should not be impacted by the presence of default arguments (#65)") {
+    case class Foobar(i: Int)
 
     object Test {
       import kantan.csv.ops._
 
-      List(A(3)).asCsv(',')
+      List(Foobar(3)).asCsv()
     }
   }
 }

@@ -17,10 +17,10 @@
 package kantan.csv.engine
 
 import java.io.Writer
-import kantan.csv.CsvWriter
+import kantan.csv.{CsvConfiguration, CsvWriter}
 import scala.annotation.tailrec
 
-private[csv] class InternalWriter(private val out: Writer, val sep: Char) extends CsvWriter[Seq[String]] {
+private[csv] class InternalWriter(private val out: Writer, val conf: CsvConfiguration) extends CsvWriter[Seq[String]] {
 
   private def safeWrite(str: String): Unit = {
     @tailrec
@@ -28,9 +28,9 @@ private[csv] class InternalWriter(private val out: Writer, val sep: Char) extend
       if(i >= str.length) {
         if(mark != i) out.write(str, mark, i - mark)
       }
-      else if(str.charAt(i) == '"') {
+      else if(str.charAt(i) == conf.quote) {
         out.write(str, mark, i - mark + 1)
-        out.write('"')
+        out.write(conf.quote.toInt)
         escape(i + 1, i + 1)
       }
       else escape(mark, i + 1)
@@ -40,7 +40,7 @@ private[csv] class InternalWriter(private val out: Writer, val sep: Char) extend
       if(index >= str.length) -1
       else {
         val c = str.charAt(index)
-        if(c == '"' || c == sep || c == '\n' || c == '\r') index
+        if(c == conf.quote || c == conf.columnSeparator || c == '\n' || c == '\r') index
         else escapeIndex(index + 1)
       }
 
@@ -48,10 +48,10 @@ private[csv] class InternalWriter(private val out: Writer, val sep: Char) extend
 
     if(index == -1) out.write(str)
     else {
-      out.write('"')
+      out.write(conf.quote.toInt)
       out.write(str, 0, index)
       escape(index, index)
-      out.write('"')
+      out.write(conf.quote.toInt)
     }
   }
 
@@ -59,7 +59,7 @@ private[csv] class InternalWriter(private val out: Writer, val sep: Char) extend
     var first = true
     for(s ← ss) {
       if(first) first = false
-      else      out.write(sep.toInt)
+      else      out.write(conf.columnSeparator.toInt)
       safeWrite(s)
     }
     /*if(!first)*/ out.write("\r\n") // According to the RFC, \n alone is not valid.

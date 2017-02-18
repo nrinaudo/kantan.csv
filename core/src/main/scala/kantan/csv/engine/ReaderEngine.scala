@@ -19,7 +19,7 @@ package kantan.csv.engine
 import java.io.Reader
 import kantan.codecs.Result
 import kantan.codecs.resource.ResourceIterator
-import kantan.csv.{CsvReader, ParseError, ParseResult, ReadResult}
+import kantan.csv._
 
 /** Provides kantan.csv with CSV parsing functionality.
   *
@@ -29,11 +29,11 @@ import kantan.csv.{CsvReader, ParseError, ParseResult, ReadResult}
   */
 trait ReaderEngine {
   /** Turns the specified `Reader` into a [[CsvReader]]. */
-  def unsafeReaderFor(reader: Reader, separator: Char): CsvReader[Seq[String]]
+  def unsafeReaderFor(reader: Reader, conf: CsvConfiguration): CsvReader[Seq[String]]
 
   /** Turns the specified `Reader` into a safe [[CsvReader]]. */
-  def readerFor(reader: ⇒ Reader, separator: Char): CsvReader[ReadResult[Seq[String]]] =
-    ParseResult(unsafeReaderFor(reader, separator))
+  def readerFor(reader: ⇒ Reader, conf: CsvConfiguration): CsvReader[ReadResult[Seq[String]]] =
+    ParseResult(unsafeReaderFor(reader, conf))
       .map(_.safe(ParseError.NoSuchElement: ParseError)(e ⇒ ParseError.IOError(e)))
       .valueOr(e ⇒ ResourceIterator(Result.failure(e)))
       .withClose(() ⇒ reader.close())
@@ -42,8 +42,8 @@ trait ReaderEngine {
 /** Provides instance creation methods and default implementations. */
 object ReaderEngine {
   /** Creates a new [[ReaderEngine]] instance. */
-  def from(f: (Reader, Char) ⇒ CsvReader[Seq[String]]): ReaderEngine = new ReaderEngine {
-    override def unsafeReaderFor(reader: Reader, separator: Char) = f(reader, separator)
+  def from(f: (Reader, CsvConfiguration) ⇒ CsvReader[Seq[String]]): ReaderEngine = new ReaderEngine {
+    override def unsafeReaderFor(reader: Reader, conf: CsvConfiguration) = f(reader, conf)
   }
 
   /** Default reader engine, used whenever a custom one is not explicitly brought in scope. */

@@ -18,7 +18,7 @@ package kantan.csv.benchmark
 
 import java.io.StringWriter
 import java.util.concurrent.TimeUnit
-import kantan.csv.engine
+import kantan.csv._
 import kantan.csv.engine.WriterEngine
 import kantan.csv.ops._
 import org.apache.commons.csv.CSVFormat
@@ -63,7 +63,7 @@ object Encoding {
   def write[A](data: List[CsvEntry])(f: Array[String] ⇒ Unit): Unit =
     data.foreach { entry ⇒ f(Array(entry._1.toString, entry._2.toString, entry._3.toString, entry._4.toString)) }
 
-  def kantan(data: List[CsvEntry])(implicit engine: WriterEngine): String = data.asCsv(',')
+  def kantan(data: List[CsvEntry])(implicit engine: WriterEngine): String = data.asCsv()
 
   def productCollections(data: List[CsvEntry]): String = {
     val out = new StringWriter()
@@ -92,7 +92,7 @@ object Encoding {
 
   def jackson(data: List[CsvEntry]): String = {
     val out = new StringWriter()
-    val writer = engine.jackson.write(out, engine.jackson.defaultWriterSchema(','))
+    val writer = engine.jackson.write(out, engine.jackson.defaultWriterSchema(CsvConfiguration.default))
     write(data) { a ⇒
       writer.write(a)
       ()

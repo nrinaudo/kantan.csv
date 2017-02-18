@@ -27,10 +27,10 @@ import kantan.csv.{CsvReader, _}
   * combinators such as `map` and `flatMap` on it. This can be awkward when the actual interesting value is
   * itself within a [[ReadResult]] which also needs to be mapped into. [[CsvReaderOps]] provides shortcuts, such as:
   * {{{
-  *   val reader: CsvReader[ReadResult[List[Int]]] = ???
+  * val reader: CsvReader[ReadResult[List[Int]]] = ???
   *
-  *   // Not the most useful code in the world, but shows how one can map and filter directly on the nested value.
-  *   reader.mapResult(_.sum).filterResult(_ % 2 == 0)
+  * // Not the most useful code in the world, but shows how one can map and filter directly on the nested value.
+  * reader.mapResult(_.sum).filterResult(_ % 2 == 0)
   * }}}
   */
 final class CsvReaderOps[A](val as: CsvReader[ReadResult[A]]) extends AnyVal {

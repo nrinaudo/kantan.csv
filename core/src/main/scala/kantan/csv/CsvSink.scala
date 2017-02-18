@@ -31,25 +31,36 @@ trait CsvSink[-S] extends Serializable { self ⇒
   /** Opens a `Writer` on the specified `S`. */
   def open(s: S): Writer
 
+  @deprecated("use writer(S, CsvConfiguration, String*) instead", "0.1.18")
+  def writer[A: RowEncoder](s: S, sep: Char, header: String*)(implicit e: WriterEngine): CsvWriter[A] =
+    writer(s, CsvConfiguration.default.withColumnSeparator(sep), header)
+
   /** Opens a [[CsvWriter]] on the specified `S`.
     *
     * @param s what to open a [[CsvWriter]] on.
-    * @param sep column separator.
+    * @param conf CSV writing behaviour.
     * @param header optional header row, defaults to none.
     */
-  def writer[A: RowEncoder](s: S, sep: Char, header: String*)(implicit e: WriterEngine): CsvWriter[A] =
-  CsvWriter(open(s), sep, header:_*)
+  def writer[A: RowEncoder](s: S, conf: CsvConfiguration = CsvConfiguration.default,
+                            header: Seq[String] = Seq.empty)(implicit e: WriterEngine): CsvWriter[A] =
+    CsvWriter(open(s), conf, header)
+
+  @deprecated("use write(S, TraversableOnce[A], CsvConfiguration, String*) instead", "0.1.18")
+  def write[A: RowEncoder](s: S, rows: TraversableOnce[A], sep: Char, header: String*)
+                            (implicit e: WriterEngine): Unit =
+    write(s, rows, CsvConfiguration.default.withColumnSeparator(sep), header)
 
   /** Writes the specified collections directly in the specifie `S`.
     *
     * @param s where to write the CSV data.
     * @param rows CSV data to encode and serialise.
-    * @param sep column separator.
+    * @param conf CSV writing behaviour.
     * @param header optional header row, defaults to none.
     */
-  def write[A: RowEncoder](s: S, rows: TraversableOnce[A], sep: Char, header: String*)
+  def write[A: RowEncoder](s: S, rows: TraversableOnce[A], conf: CsvConfiguration = CsvConfiguration.default,
+                           header: Seq[String] = Seq.empty)
                           (implicit e: WriterEngine): Unit =
-  writer(s, sep, header:_*).write(rows).close()
+  writer(s, conf, header).write(rows).close()
 
   /** Turns a `CsvSink[S]` into a `CsvSink[T]`.
     *

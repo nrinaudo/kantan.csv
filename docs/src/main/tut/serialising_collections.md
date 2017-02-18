@@ -27,7 +27,7 @@ writes them directly as CSV:
 val out = java.io.File.createTempFile("kantan.csv", "csv")
 
 // Writes ps using , as a column separator and with a header row.
-out.writeCsv(ps, ',', "Id", "Name", "Age")
+out.writeCsv(ps, header = Seq("Id", "Name", "Age"))
 ```
 
 [`writeCsv`] takes three value arguments:
@@ -46,7 +46,7 @@ Note that the need for turning a collection into a CSV string is so common that 
 that: [`asCsv`]. For example:
 
 ```tut
-ps.asCsv(',', "Id", "Name", "Age")
+ps.asCsv(header = Seq("Id", "Name", "Age"))
 ```
 
 ## What to read next

@@ -17,7 +17,7 @@
 package kantan.csv.engine
 
 import kantan.codecs.resource.ResourceIterator
-import kantan.csv.CsvWriter
+import kantan.csv.{CsvConfiguration, CsvWriter}
 import org.apache.commons.csv.{CSVFormat, CSVPrinter, CSVRecord, QuoteMode}
 import scala.collection.JavaConverters._
 
@@ -42,10 +42,11 @@ object commons {
 
 
   /** Type of functions that create a `CSVFormat` instance from a given column separator. */
-  type CSVFormatBuilder = Char ⇒ CSVFormat
+  type CSVFormatBuilder = CsvConfiguration ⇒ CSVFormat
 
   /** Creates a default `CSVFormat` instance using the specified column separator. */
-  def defaultFormat(sep: Char): CSVFormat = CSVFormat.RFC4180.withDelimiter(sep)
+  def defaultFormat(conf: CsvConfiguration): CSVFormat = CSVFormat.RFC4180
+    .withDelimiter(conf.columnSeparator).withQuote(conf.quote)
 
 
 
@@ -63,17 +64,6 @@ object commons {
   /** Default commons-csv `ReaderEngine`.
     *
     * It's possible to tweak the behaviour of the underlying writer through [[readerEngineFrom]].
-    *
-    * For example, the following declares a commons-backed `ReaderEngine` that uses `#` as a quote character:
-    * {{{
-    * scala> import kantan.csv.ops._
-    * scala> import kantan.csv.engine.commons.{readerEngineFrom, defaultFormat}
-    *
-    * scala> implicit val readerEngine = readerEngineFrom(s ⇒ defaultFormat(s).withQuote('#'))
-    *
-    * scala> "#a##b#,cd".readCsv[List, List[String]](',', false)
-    * res0: List[kantan.csv.ReadResult[List[String]]] = List(Success(List(a#b, cd)))
-    * }}}
     */
   implicit val commonsCsvReaderEngine: ReaderEngine = readerEngineFrom(defaultFormat)
 
@@ -85,17 +75,6 @@ object commons {
     *
     * The purpose of this is to let developers use some of the commons-csv features that kantan.csv does not expose
     * through its public API.
-    *
-    * For example, the following declares a commons-backed `WriterEngine` that uses `#` as a quote character:
-    * {{{
-    * scala> import kantan.csv.ops._
-    * scala> import kantan.csv.engine.commons.{writerEngineFrom, defaultFormat}
-    *
-    * scala> implicit val writerEngine = writerEngineFrom(s ⇒ defaultFormat(s).withQuote('#'))
-    *
-    * scala> List(List("a#b", "cd")).asCsv(',').trim
-    * res0: String = #a##b#,cd
-    * }}}
     */
   def writerEngineFrom(f: CSVFormatBuilder): WriterEngine = WriterEngine.from { (w, s) ⇒
     CsvWriter(new CSVPrinter(w, f(s).withQuoteMode(QuoteMode.MINIMAL))) { (csv, ss) ⇒
