@@ -24,9 +24,10 @@ And so, when [`asCsvWriter`], [`writeCsv`] or [`asCsv`] are asked to turn a coll
 it looks for a corresponding implicit [`CellEncoder`] and relies on it for encoding:
 
 ```tut
+import kantan.csv._
 import kantan.csv.ops._
 
-List(List(1, 2, 3), List(4, 5, 6)).asCsv()
+List(List(1, 2, 3), List(4, 5, 6)).asCsv(rfc)
 ```
 
 ## Adding support to new types
@@ -51,7 +52,7 @@ And we can now encode collections of dates:
 List(
   List(new DateTime(), new DateTime().plusDays(1)),
   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
-).asCsv()
+).asCsv(rfc)
 ```
 
 ## What to read next

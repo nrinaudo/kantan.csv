@@ -16,6 +16,7 @@
 
 package kantan.csv.generic
 
+import kantan.csv.rfc
 import org.scalatest.FunSuite
 
 class RegressionTests extends FunSuite {
@@ -25,7 +26,9 @@ class RegressionTests extends FunSuite {
     object Test {
       import kantan.csv.ops._
 
-      List(Foobar(3)).asCsv()
+      List(Foobar(3)).asCsv(rfc)
+
+      "1".asCsvReader[Foobar](rfc)
     }
   }
 }

@@ -38,7 +38,7 @@ import kantan.csv._
 import kantan.csv.ops._
 import kantan.csv.generic._
 
-val reader = rawData.asCsvReader[Car](CsvConfiguration.default, true)
+val reader = rawData.asCsvReader[Car](rfc.withHeader)
 ```
 
 Let's make sure this worked by printing all decoded rows:
@@ -69,7 +69,7 @@ that's precisely the `apply` method declared in the companion object.
 Let's verify that this worked as expected:
 
 ```tut
-rawData.asCsvReader[Car2](CsvConfiguration.default, true).foreach(println _)
+rawData.asCsvReader[Car2](rfc.withHeader).foreach(println _)
 ```
 
 ## What to read next

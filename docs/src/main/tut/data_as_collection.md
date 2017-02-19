@@ -35,7 +35,7 @@ case class Car(year: Int, make: String, model: String, desc: Option[String], pri
 Now that we have everything we need to decode the CSV data, here's how to turn it into a [`List`]:
 
 ```tut
-rawData.readCsv[List, Car](CsvConfiguration.default, true)
+rawData.readCsv[List, Car](rfc.withHeader)
 ```
 
 This [`readCsv`] method takes two type parameters: the type of the collection in which to store each row, and the type

@@ -16,7 +16,7 @@
 
 package kantan.csv.laws
 
-import kantan.csv.RowCodec
+import kantan.csv.{rfc, RowCodec}
 import kantan.csv.engine.ReaderEngine
 import kantan.csv.laws.KnownFormatsReaderLaws.Car
 import kantan.csv.ops._
@@ -27,7 +27,7 @@ trait KnownFormatsReaderLaws {
   implicit val carFormat = RowCodec.caseCodec(1, 2, 3, 4, 0)(Car.apply)(Car.unapply)
 
   def read(res: String): List[Car] =
-    getClass.getResource(s"/known_formats/$res.csv").unsafeReadCsv(header = true)
+    getClass.getResource(s"/known_formats/$res.csv").unsafeReadCsv(rfc.withHeader(true))
 
   lazy val reference: List[Car] = read("raw")
 

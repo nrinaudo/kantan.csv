@@ -47,9 +47,9 @@ case class Wrapper[A](a: A)
 We can directly encode from and decode to instances of `Wrapper`:
 
 ```tut
-val decoded = "1, 2, 3\n4, 5, 6".unsafeReadCsv[List, List[Wrapper[Int]]](CsvConfiguration.default, false)
+val decoded = "1, 2, 3\n4, 5, 6".unsafeReadCsv[List, List[Wrapper[Int]]](rfc)
 
-decoded.asCsv()
+decoded.asCsv(rfc)
 ```
 
 ### Sum types
@@ -67,9 +67,9 @@ case class Right[B](value: B) extends Or[Nothing, B]
 `Right`. This allows us to write:
 
 ```tut
-val decoded = "1,true\nfalse,2".unsafeReadCsv[List, List[Int Or Boolean]](CsvConfiguration.default, false)
+val decoded = "1,true\nfalse,2".unsafeReadCsv[List, List[Int Or Boolean]](rfc)
 
-decoded.asCsv()
+decoded.asCsv(rfc)
 ```
 
 ## Rows
@@ -88,9 +88,9 @@ case class CustomTuple2[A, B](a: A, b: B)
 We can encode from and decode to that type for free:
 
 ```tut
-val decoded = "1,\n2,false".unsafeReadCsv[List, CustomTuple2[Int, Option[Boolean]]](CsvConfiguration.default, false)
+val decoded = "1,\n2,false".unsafeReadCsv[List, CustomTuple2[Int, Option[Boolean]]](rfc)
 
-decoded.asCsv()
+decoded.asCsv(rfc)
 ```
 
 It is *very* important to realise that while this is a pretty nice feature, it's also a very limited one. The only
@@ -108,7 +108,7 @@ In the following example:
 * `CustomTuple2[String, Option[Boolean]]` has both, since it's a case class where all fields also do.
 
 ```tut
-"1,true\nfoobar,".unsafeReadCsv[List, (Int, Boolean) Or CustomTuple2[String, Option[Boolean]]](CsvConfiguration.default, false)
+"1,true\nfoobar,".unsafeReadCsv[List, (Int, Boolean) Or CustomTuple2[String, Option[Boolean]]](rfc)
 ```
 
 [`RowDecoder`]:{{ site.baseurl }}/api/kantan/csv/RowDecoder$.html

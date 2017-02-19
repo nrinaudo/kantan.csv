@@ -29,9 +29,9 @@ class CsvSinkTests extends FunSuite with GeneratorDrivenPropertyChecks {
     forAll(csv) { csv ⇒
       val out = new ByteArrayOutputStream()
 
-      csv.foldLeft(out.asCsvWriter[List[String]]())(_ write _).close()
+      csv.foldLeft(out.asCsvWriter[List[String]](rfc))(_ write _).close()
 
-      assert(new String(out.toByteArray, Codec.UTF8.charSet) == csv.asCsv())
+      assert(new String(out.toByteArray, Codec.UTF8.charSet) == csv.asCsv(rfc))
     }
   }
 
@@ -39,9 +39,9 @@ class CsvSinkTests extends FunSuite with GeneratorDrivenPropertyChecks {
     forAll(csv) { csv ⇒
       val out = new ByteArrayOutputStream()
 
-      out.writeCsv(csv)
+      out.writeCsv(csv, rfc)
 
-      assert(new String(out.toByteArray, Codec.UTF8.charSet) == csv.asCsv())
+      assert(new String(out.toByteArray, Codec.UTF8.charSet) == csv.asCsv(rfc))
     }
   }
 
@@ -49,9 +49,9 @@ class CsvSinkTests extends FunSuite with GeneratorDrivenPropertyChecks {
     forAll(csv) { csv ⇒
       val out = new StringWriter()
 
-      csv.foldLeft(out.asCsvWriter[List[String]]())(_ write _).close()
+      csv.foldLeft(out.asCsvWriter[List[String]](rfc))(_ write _).close()
 
-      assert(out.toString == csv.asCsv())
+      assert(out.toString == csv.asCsv(rfc))
     }
   }
 
@@ -59,9 +59,9 @@ class CsvSinkTests extends FunSuite with GeneratorDrivenPropertyChecks {
     forAll(csv) { csv ⇒
       val out = new StringWriter()
 
-      out.writeCsv(csv)
+      out.writeCsv(csv, rfc)
 
-      assert(out.toString == csv.asCsv())
+      assert(out.toString == csv.asCsv(rfc))
     }
   }
 }

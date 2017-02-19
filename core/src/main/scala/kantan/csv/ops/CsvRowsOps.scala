@@ -22,26 +22,22 @@ import kantan.csv.engine.WriterEngine
 
 /** Provides useful syntax for collections.
   *
-  * The sole purpose of this implicit class is to encode collections as CSV into a string through [[asCsv]]:
-  *
   * {{{
-  * List(List(1, 2, 3), List(4, 5, 6)).asCsv()
+  * List(List(1, 2, 3), List(4, 5, 6)).asCsv(rfc)
   * }}}
   */
 final class CsvRowsOps[A: RowEncoder](val as: TraversableOnce[A]) {
   @deprecated("use asCsv(CsvConfiguration, String*) instead", "0.1.18")
   def asCsv(sep: Char, header: String*)(implicit e: WriterEngine): String =
-    asCsv(CsvConfiguration.default.withColumnSeparator(sep), header)
+    asCsv(rfc.withColumnSeparator(sep).withHeader(header:_*))
 
   /** Turns the collection into a CSV string.
     *
     * @param conf CSV writing behaviour.
-    * @param header optional header row.
     */
-  def asCsv(conf: CsvConfiguration = CsvConfiguration.default, header: Seq[String] = Seq.empty)
-           (implicit e: WriterEngine): String = {
+  def asCsv(conf: CsvConfiguration)(implicit e: WriterEngine): String = {
     val out = new StringWriter()
-    CsvWriter(out, conf, header).write(as).close()
+    CsvWriter(out, conf).write(as).close()
     out.toString
   }
 }

@@ -34,7 +34,7 @@ kantan.csv will work out how to encode each individual field thanks to the [`Cel
 Let's make sure this worked out as expected:
 
 ```tut
-ps.asCsv()
+ps.asCsv(rfc)
 ```
 
 ## What to read next

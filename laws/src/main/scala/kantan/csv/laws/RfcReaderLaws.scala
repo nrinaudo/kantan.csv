@@ -18,12 +18,13 @@ package kantan.csv.laws
 
 import kantan.csv.engine.ReaderEngine
 import kantan.csv.ops._
+import kantan.csv.rfc
 
 trait RfcReaderLaws {
   implicit def engine: ReaderEngine
 
   private def equals(csv: String, expected: List[List[Cell]]): Boolean =
-    csv.unsafeReadCsv[List, List[String]]() == expected.map(_.map(_.value))
+    csv.unsafeReadCsv[List, List[String]](rfc) == expected.map(_.map(_.value))
 
   private def cellsToCsv(csv: List[List[Cell]], colSep: String = ",", rowSep: String = "\r\n"): String =
     valsToCsv(csv.map(_.map(_.encoded)), colSep, rowSep)

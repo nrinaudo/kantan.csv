@@ -18,13 +18,14 @@ package kantan.csv.laws
 
 import kantan.csv.engine.ReaderEngine
 import kantan.csv.ops._
+import kantan.csv.rfc
 
 /** Laws based on [[https://github.com/maxogden/csv-spectrum csv-pectrum]]. */
 trait SpectrumReaderLaws {
   implicit def engine: ReaderEngine
 
   private def equals(input: String, expected: List[List[String]]): Boolean =
-    input.unsafeReadCsv[List, List[String]]() == expected
+    input.unsafeReadCsv[List, List[String]](rfc) == expected
 
   def commaInQuotes: Boolean = equals("John,Doe,120 any st.,\"Anytown, WW\",08123",
     List(List("John", "Doe", "120 any st.", "Anytown, WW", "08123")))

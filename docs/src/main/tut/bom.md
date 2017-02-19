@@ -28,6 +28,7 @@ Once that's done, all IO operations performed by kantan.csv will be BOM aware:
 For example:
 
 ```tut:silent
+import kantan.csv._
 import kantan.csv.ops._
 
 // Let kantan.csv know that data should be written in UTF-8
@@ -40,7 +41,7 @@ val input = List("ニコラ", "リノド")
 val out = java.io.File.createTempFile("kantan.csv", "csv")
 
 // Writes input using , as a column separator.
-out.writeCsv(input)
+out.writeCsv(input, rfc)
 ```
 
 Since we've imported `kantan.codecs.resource.bom._`, `out` contains the UTF-8 BOM. We can verify that by attempting
@@ -54,7 +55,7 @@ implicit val codec = scala.io.Codec.ISO8859
 When we try to read it, kantan.csv will find the BOM and ignore our instruction to use ISO-LATIN-1:
 
 ```tut
-out.readCsv[List, String]()
+out.readCsv[List, String](rfc)
 ```
 
 Note that these behaviours are disabled by default: BOMs are advised against, and looking for them (and interpreting them

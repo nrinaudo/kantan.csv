@@ -17,12 +17,13 @@
 package kantan.csv.benchmark
 
 import kantan.csv.ops._
+import kantan.csv.rfc
 import org.scalatest.FunSuite
 
 class EncodingTests extends FunSuite {
   val encoding = new Encoding
 
-  def decode(str: String): List[CsvEntry] = str.unsafeReadCsv[List, CsvEntry]()
+  def decode(str: String): List[CsvEntry] = str.unsafeReadCsv[List, CsvEntry](rfc)
 
   test("kantan internal") {
     assert(decode(encoding.kantanInternal) == rawData)

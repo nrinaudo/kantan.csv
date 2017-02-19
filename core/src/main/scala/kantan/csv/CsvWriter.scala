@@ -58,7 +58,7 @@ object CsvWriter {
   @deprecated("use apply(writer, CsvConfiguration, String*) instead", "0.1.18")
   def apply[A: RowEncoder](writer: Writer, sep: Char, header: String*)
                 (implicit engine: WriterEngine): CsvWriter[A] =
-    CsvWriter(writer, CsvConfiguration.default.withColumnSeparator(sep), header)
+    CsvWriter(writer, rfc.withColumnSeparator(sep).withHeader(header:_*))
 
   /** Creates a new [[CsvWriter]] instance that will send encoded data to the specified `Writer`.
     *
@@ -68,16 +68,13 @@ object CsvWriter {
     *
     * @param writer where to write CSV data to.
     * @param conf CSV writing behaviour.
-    * @param header optional header row, defaults to none.
     * @tparam A type of values that the returned instance will know to encode.
     */
-  def apply[A: RowEncoder](writer: Writer, conf: CsvConfiguration = CsvConfiguration.default,
-                           header: Seq[String] = Seq.empty)
-              (implicit engine: WriterEngine): CsvWriter[A] = {
-    if(header.isEmpty) engine.writerFor(writer, conf).contramap(RowEncoder[A].encode)
+  def apply[A: RowEncoder](writer: Writer, conf: CsvConfiguration)(implicit engine: WriterEngine): CsvWriter[A] = {
+    if(!conf.hasHeader) engine.writerFor(writer, conf).contramap(RowEncoder[A].encode)
     else {
       val w = engine.writerFor(writer, conf)
-      w.write(header)
+      w.write(conf.header)
       w.contramap(RowEncoder[A].encode)
     }
   }

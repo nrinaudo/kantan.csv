@@ -63,7 +63,7 @@ object Encoding {
   def write[A](data: List[CsvEntry])(f: Array[String] ⇒ Unit): Unit =
     data.foreach { entry ⇒ f(Array(entry._1.toString, entry._2.toString, entry._3.toString, entry._4.toString)) }
 
-  def kantan(data: List[CsvEntry])(implicit engine: WriterEngine): String = data.asCsv()
+  def kantan(data: List[CsvEntry])(implicit engine: WriterEngine): String = data.asCsv(rfc)
 
   def productCollections(data: List[CsvEntry]): String = {
     val out = new StringWriter()
@@ -92,7 +92,7 @@ object Encoding {
 
   def jackson(data: List[CsvEntry]): String = {
     val out = new StringWriter()
-    val writer = engine.jackson.write(out, engine.jackson.defaultWriterSchema(CsvConfiguration.default))
+    val writer = engine.jackson.write(out, engine.jackson.defaultWriterSchema(rfc))
     write(data) { a ⇒
       writer.write(a)
       ()

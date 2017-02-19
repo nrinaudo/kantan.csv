@@ -15,6 +15,7 @@ First, let's set up a type to encode as CSV (if the reason why the following cod
 [read up on it](case_classes_as_rows.html)).
 
 ```tut:silent
+import kantan.csv._
 import kantan.csv.ops._
 import kantan.csv.generic._
 
@@ -29,7 +30,7 @@ write CSV directly to. You can read up more on that mechanism [here](csv_sinks.h
 // File in which we'll be writing the CSV data.
 val out = java.io.File.createTempFile("kantan.csv", "csv")
 
-val writer = out.asCsvWriter[Person](header = Seq("Id", "Name", "Age"))
+val writer = out.asCsvWriter[Person](rfc.withHeader("Id", "Name", "Age"))
 ```
 
 Note the type parameter on [`asCsvWriter`], this is the type that our instance will be able to write.

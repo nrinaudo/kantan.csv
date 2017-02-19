@@ -36,8 +36,8 @@ the various helper methods defined in its [companion object]({{ site.baseurl }}/
 our current task, we need to decode a row into 5 values and stick them into `Car`'s constructor: we want [`ordered`].
 
 ```tut:silent
-import kantan.csv.ops._
 import kantan.csv._
+import kantan.csv.ops._
 
 implicit val carDecoder = RowDecoder.ordered { (i: Int, ma: String, mo: String, d: Option[String], p: Float) =>
   new Car(i, ma, mo, d, p)
@@ -47,7 +47,7 @@ implicit val carDecoder = RowDecoder.ordered { (i: Int, ma: String, mo: String, 
 And we can now decode our data as usual:
 
 ```tut
-rawData.asCsvReader[Car](CsvConfiguration.default, true).foreach(println _)
+rawData.asCsvReader[Car](rfc.withHeader).foreach(println _)
 ```
 
 The main reason this is the preferred solution is that it allows us never to have to think about individual cells in a

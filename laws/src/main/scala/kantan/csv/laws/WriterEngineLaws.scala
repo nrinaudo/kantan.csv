@@ -16,24 +16,30 @@
 
 package kantan.csv.laws
 
+import kantan.csv.{CsvConfiguration, rfc}
 import kantan.csv.engine.WriterEngine
 import kantan.csv.ops._
 
 trait WriterEngineLaws {
   implicit def engine: WriterEngine
 
-  def roundTrip(csv: List[List[Cell]], header: Seq[String]): Boolean =
-    csv.asCsv(header = header)
-      .unsafeReadCsv[List, List[Cell]](header = header.nonEmpty) == csv
+  def roundTrip(csv: List[List[Cell]], conf: CsvConfiguration): Boolean = {
+    if(csv.asCsv(conf).unsafeReadCsv[List, List[Cell]](conf) != csv) {
+      println(csv.asCsv(conf).unsafeReadCsv[List, List[Cell]](conf))
+      println(csv)
+      println("###############################################")
+    }
+    csv.asCsv(conf).unsafeReadCsv[List, List[Cell]](conf) == csv
+  }
 
   def noTrailingSeparator(csv: List[List[Cell.NonEscaped]]): Boolean =
-    csv.asCsv().split("\n").forall(!_.endsWith(","))
+    csv.asCsv(rfc).split("\n").forall(!_.endsWith(","))
 
   // This test is slightly dodgy, but works: we're assuming that the data is properly serialized (this is checked by
   // roundTrip), an want to make sure that we get the right number of rows. The `trim` bit is to allow for the optional
   // empty row.
   def crlfAsRowSeparator(csv: List[List[Cell.NonEscaped]]): Boolean =
-    csv.asCsv().trim.split("\r\n").length == csv.length
+    csv.asCsv(rfc).trim.split("\r\n").length == csv.length
 }
 
 object WriterEngineLaws {

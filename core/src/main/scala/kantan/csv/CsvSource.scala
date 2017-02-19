@@ -43,19 +43,19 @@ trait CsvSource[-S] extends Serializable { self ⇒
 
   @deprecated("use reader(S, CsvConfiguration, Boolean) instead", "0.1.18")
   def reader[A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit e: ReaderEngine): CsvReader[ReadResult[A]] =
-    reader(s, CsvConfiguration.default.withColumnSeparator(sep), header)
+    reader(s, rfc.withColumnSeparator(sep).withHeader(header))
 
   /** Turns the specified `S` into an iterator on `ReadResult[A]`.
     *
     * For example:
     * {{{
-    * scala> CsvSource[String].reader[List[Int]]("1,2,3\n4,5,6").toList
+    * scala> CsvSource[String].reader[List[Int]]("1,2,3\n4,5,6", rfc).toList
     * res0: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
     * }}}
     *
     * This method is "safe", in that it does not throw exceptions when errors are encountered. This comes with the small
-    * cost of having each row wrapped in a [[ReadResult]] that then need to be unpacked. See [[unsafeReader]] for an
-    * alternative.
+    * cost of having each row wrapped in a [[ReadResult]] that then need to be unpacked. See
+    * [[unsafeReader[A](s:S,conf:kantan\.csv\.CsvConfiguration* unsafeReader]] for an alternative.
     *
     * Using common combinators such as `map`, `flatMap` and `filter` on a `CsvReader[ReadResult[A]]` can be awkward -
     * one needs to first map into the reader, then into the result. For this reason, instances of
@@ -63,38 +63,34 @@ trait CsvSource[-S] extends Serializable { self ⇒
     *
     * @param s instance of `S` that will be opened an parsed.
     * @param conf CSV parsing behaviour.
-    * @param header whether or not the first row is a header. If set to `true`, the first row will be skipped entirely.
     * @tparam A type to parse each row as. This must have a corresponding implicit [[RowDecoder]] instance in scope.
     */
-  def reader[A: RowDecoder](s: S, conf: CsvConfiguration = CsvConfiguration.default, header: Boolean = false)
-                           (implicit e: ReaderEngine)
+  def reader[A: RowDecoder](s: S, conf: CsvConfiguration)(implicit e: ReaderEngine)
   : CsvReader[ReadResult[A]] =
-    open(s).map(reader ⇒ CsvReader(reader, conf, header))
+    open(s).map(reader ⇒ CsvReader(reader, conf))
       .valueOr(error ⇒ ResourceIterator(Result.failure(error)))
 
   @deprecated("use unsafeReader(S, CsvConfiguration, Boolean) instead", "0.1.18")
   def unsafeReader[A: RowDecoder](s: S, sep: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[A] =
-    unsafeReader(s, CsvConfiguration.default.withColumnSeparator(sep), header)
+    unsafeReader(s, rfc.withColumnSeparator(sep).withHeader(header))
 
   /** Turns the specified `S` into an iterator on `A`.
     *
     * For example:
     * {{{
-    * scala> CsvSource[String].unsafeReader[List[Int]]("1,2,3\n4,5,6").toList
+    * scala> CsvSource[String].unsafeReader[List[Int]]("1,2,3\n4,5,6", rfc).toList
     * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
     * }}}
     *
-    * This is the "unsafe" version of [[reader]]: it will throw as soon as an error is encountered.
+    * This is the "unsafe" version of [[reader[A](s:S,conf:kantan\.csv\.CsvConfiguration* reader]]: it will throw as
+    * soon as an error is encountered.
     *
     * @param s instance of `S` that will be opened an parsed.
     * @param conf CSV parsing behaviour.
-    * @param header whether or not the first row is a header. If set to `true`, the first row will be skipped entirely.
     * @tparam A type to parse each row as. This must have a corresponding implicit [[RowDecoder]] instance in scope.
     */
-  def unsafeReader[A: RowDecoder](s: S, conf: CsvConfiguration = CsvConfiguration.default, header: Boolean = false)
-                                 (implicit engine: ReaderEngine)
-  : CsvReader[A] =
-    reader[A](s, conf, header).map(_.valueOr {
+  def unsafeReader[A: RowDecoder](s: S, conf: CsvConfiguration)(implicit engine: ReaderEngine): CsvReader[A] =
+    reader[A](s, conf).map(_.valueOr {
       case e@TypeError(msg)   ⇒ throw Option(e.getCause).getOrElse(new IllegalArgumentException(msg))
       case NoSuchElement      ⇒ throw new NoSuchElementException
       case e@IOError(msg)     ⇒ throw Option(e.getCause).getOrElse(new IOException(msg))
@@ -105,55 +101,55 @@ trait CsvSource[-S] extends Serializable { self ⇒
   def read[C[_], A: RowDecoder](s: S, sep: Char, header: Boolean)
                                (implicit e: ReaderEngine,
                                 cbf: CanBuildFrom[Nothing, ReadResult[A], C[ReadResult[A]]]): C[ReadResult[A]] =
-    read(s, CsvConfiguration.default.withColumnSeparator(sep), header)
+    read(s, rfc.withColumnSeparator(sep).withHeader(header))
 
   /** Reads the entire CSV data into a collection.
     *
     * For example:
     * {{{
-    * scala> CsvSource[String].read[List, List[Int]]("1,2,3\n4,5,6")
+    * scala> CsvSource[String].read[List, List[Int]]("1,2,3\n4,5,6", rfc)
     * res0: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
     * }}}
     *
     * This method is "safe", in that it does not throw exceptions when errors are encountered. This comes with the small
-    * cost of having each row wrapped in a [[ReadResult]] that then need to be unpacked. See [[unsafeRead]] for an
+    * cost of having each row wrapped in a [[ReadResult]] that then need to be unpacked. See
+    * [[unsafeRead[C[_],A](s:S,conf:kantan\.csv\.CsvConfiguration*  unsafeRead]] for an
     * alternative.
     *
     * @param s instance of `S` that will be opened an parsed.
     * @param conf CSV parsing behaviour.
-    * @param header whether or not the first row is a header. If set to `true`, the first row will be skipped entirely.
     * @tparam C collection type in which to parse the specified `S`.
     * @tparam A type in which to parse each row.
     */
-  def read[C[_], A: RowDecoder](s: S, conf: CsvConfiguration = CsvConfiguration.default, header: Boolean = false)
+  def read[C[_], A: RowDecoder](s: S, conf: CsvConfiguration)
                                (implicit e: ReaderEngine,
                                 cbf: CanBuildFrom[Nothing, ReadResult[A], C[ReadResult[A]]]): C[ReadResult[A]] =
-    reader(s, conf, header).to[C]
+    reader(s, conf).to[C]
 
   @deprecated("use unsafeRead(S, CsvConfiguration, Boolean) instead", "0.1.18")
   def unsafeRead[C[_], A: RowDecoder](s: S, sep: Char, header: Boolean)
                                      (implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, A, C[A]]): C[A] =
-    unsafeRead(s, CsvConfiguration.default.withColumnSeparator(sep), header)
+    unsafeRead(s, rfc.withColumnSeparator(sep).withHeader(header))
 
   /** Reads the entire CSV data into a collection.
     *
     * For example:
     * {{{
-    * scala> CsvSource[String].unsafeRead[List, List[Int]]("1,2,3\n4,5,6")
+    * scala> CsvSource[String].unsafeRead[List, List[Int]]("1,2,3\n4,5,6", rfc)
     * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
     * }}}
     *
-    * This is the "unsafe" version of [[read]]: it will throw as soon as an error is encountered.
+    * This is the "unsafe" version of [[read[C[_],A](s:S,conf:kantan\.csv\.CsvConfiguration* read]]: it will throw as
+    * soon as an error is encountered.
     *
     * @param s instance of `S` that will be opened an parsed.
     * @param conf CSV parsing behaviour.
-    * @param header whether or not the first row is a header. If set to `true`, the first row will be skipped entirely.
     * @tparam C collection type in which to parse the specified `S`.
     * @tparam A type in which to parse each row.
     */
-  def unsafeRead[C[_], A: RowDecoder](s: S, conf: CsvConfiguration = CsvConfiguration.default, header: Boolean = false)
+  def unsafeRead[C[_], A: RowDecoder](s: S, conf: CsvConfiguration)
                                      (implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, A, C[A]]): C[A] =
-    unsafeReader(s, conf, header).to[C]
+    unsafeReader(s, conf).to[C]
 
 
   /** Turns an instance of `CsvSource[S]` into one of `CsvSource[T]`.
@@ -166,7 +162,7 @@ trait CsvSource[-S] extends Serializable { self ⇒
     *
     * scala> implicit val wrapperSource: CsvSource[StringWrapper] = CsvSource[String].contramap(_.value)
     *
-    * scala> CsvSource[StringWrapper].unsafeRead[List, List[Int]](StringWrapper("1,2,3\n4,5,6"))
+    * scala> CsvSource[StringWrapper].unsafeRead[List, List[Int]](StringWrapper("1,2,3\n4,5,6"), rfc)
     * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
     * }}}
     *
@@ -187,7 +183,7 @@ trait CsvSource[-S] extends Serializable { self ⇒
     *
     * scala> implicit val wrapperSource = CsvSource[String].contramapResult((s: StringWrapper) ⇒ ParseResult(s.value))
     *
-    * scala> CsvSource[StringWrapper].unsafeRead[List, List[Int]](StringWrapper("1,2,3\n4,5,6"))
+    * scala> CsvSource[StringWrapper].unsafeRead[List, List[Int]](StringWrapper("1,2,3\n4,5,6"), rfc)
     * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
     * }}}
     *

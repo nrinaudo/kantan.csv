@@ -11,6 +11,7 @@ This is something that kantan.csv attempts to make as straightforward as possibl
 that needs to be serialised (see [this](case_classes_as_rows) if you're not clear what the following code is for):
 
 ```tut:silent
+import kantan.csv._
 import kantan.csv.ops._
 import kantan.csv.generic._
 
@@ -27,7 +28,7 @@ writes them directly as CSV:
 val out = java.io.File.createTempFile("kantan.csv", "csv")
 
 // Writes ps using , as a column separator and with a header row.
-out.writeCsv(ps, header = Seq("Id", "Name", "Age"))
+out.writeCsv(ps, rfc.withHeader("Id", "Name", "Age"))
 ```
 
 [`writeCsv`] takes three value arguments:
@@ -46,7 +47,7 @@ Note that the need for turning a collection into a CSV string is so common that 
 that: [`asCsv`]. For example:
 
 ```tut
-ps.asCsv(header = Seq("Id", "Name", "Age"))
+ps.asCsv(rfc.withHeader("Id", "Name", "Age"))
 ```
 
 ## What to read next

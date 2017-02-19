@@ -85,4 +85,16 @@ trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstance
 
   implicit def arbRowEncoder[A: Arbitrary: Cogen]: Arbitrary[RowEncoder[A]] =
     Arbitrary(arb[A ⇒ Seq[String]].map(RowEncoder.from))
+
+
+
+  // - CsvConfiguration ------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit val arbCsvConfiguration: Arbitrary[CsvConfiguration] = Arbitrary {
+    for {
+      sep    ← Gen.oneOf(',', ';', '\t')
+      quote  ← Gen.oneOf('"', '#')
+      header ← Arbitrary.arbitrary[Seq[String]]
+    } yield CsvConfiguration(sep, quote, header)
+  }
 }

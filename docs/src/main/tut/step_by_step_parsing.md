@@ -36,7 +36,7 @@ Now that we have everything we need to decode the CSV data, here's how to turn i
 an iterator with a `close` method:
 
 ```tut
-val iterator = rawData.asCsvReader[Car](CsvConfiguration.default, true)
+val iterator = rawData.asCsvReader[Car](rfc.withHeader)
 ```
 
 [`asCsvReader`] is explained in some depths [here](rows_as_collections.html), but we're more interested in what we

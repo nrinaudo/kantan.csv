@@ -22,6 +22,7 @@ import kantan.codecs.resource.ResourceIterator
 package object csv {
   type CsvReader[A] = ResourceIterator[A]
 
+  val rfc: CsvConfiguration = CsvConfiguration(',', '"', Seq.empty)
 
 
   // - Backward compatibility ------------------------------------------------------------------------------------------
@@ -136,9 +137,6 @@ package object csv {
   // -------------------------------------------------------------------------------------------------------------------
   /** Describes how to decode CSV rows into specific types.
     *
-    * All types `A` such that there exists an implicit instance of `RowDecoder[A]` in scope can be decoded from CSV
-    * rows by functions such as [[CsvSource.reader]] or [[CsvSource.read]].
-    *
     * See the [[RowDecoder$ companion object]] for creation and summoning methods.
     *
     * @tparam A type this instance know to decode from.
@@ -148,9 +146,6 @@ package object csv {
   type RowDecoder[A] = Decoder[Seq[String], A, DecodeError, codecs.type]
 
   /** Describes how to encode values of a specific type to CSV rows.
-    *
-    * All types `A` such that there exists an implicit instance of `RowEncoder[A]` in scope can be encoded to CSV
-    * rows by functions such as [[CsvSink.writer]] or [[CsvSink.write]].
     *
     * See the [[RowEncoder$ companion object]] for creation and summoning methods.
     *

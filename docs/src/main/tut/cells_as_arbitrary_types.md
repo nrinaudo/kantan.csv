@@ -24,9 +24,10 @@ And so, when [`asCsvReader`] or [`readCsv`] are asked to turn a row into a [`Lis
 corresponding implicit [`CellDecoder[A]`][`CellDecoder`] and rely on it for decoding:
 
 ```tut
+import kantan.csv._
 import kantan.csv.ops._
 
-"1,2,3\n4,5,6".readCsv[List, List[Int]]()
+"1,2,3\n4,5,6".readCsv[List, List[Int]](rfc)
 ```
 
 ## Adding support to new types
@@ -48,7 +49,7 @@ implicit val jodaDateTime: CellDecoder[DateTime] = {
 And we can now decode CSV data composed of dates:
 
 ```tut
-"2009-01-06,2009-01-07\n2009-01-08,2009-01-09".asCsvReader[List[DateTime]]().foreach(println _)
+"2009-01-06,2009-01-07\n2009-01-08,2009-01-09".asCsvReader[List[DateTime]](rfc).foreach(println _)
 ```
 
 ## What to read next

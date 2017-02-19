@@ -18,6 +18,7 @@ package kantan.csv.laws.discipline
 
 import kantan.csv.engine.WriterEngine
 import kantan.csv.laws.WriterEngineLaws
+import kantan.csv.laws.discipline.arbitrary._
 import org.scalacheck.Prop._
 import org.typelevel.discipline.Laws
 

@@ -31,15 +31,16 @@ First, a few imports:
 
 ```tut:silent
 import scalaz._
+import kantan.csv._
 import kantan.csv.ops._
 ```
 
 We can then simply write the following:
 
 ```tut
-"1,2\n4,true".readCsv[List, (Int, Int \/ Boolean)]()
+"1,2\n4,true".readCsv[List, (Int, Int \/ Boolean)](rfc)
 
-"1,2\n4,true".readCsv[List, (Int, Int) \/ (Int, Boolean)]()
+"1,2\n4,true".readCsv[List, (Int, Int) \/ (Int, Boolean)](rfc)
 ```
 
 
@@ -55,7 +56,7 @@ For any type `A` that has:
 You can write, for example:
 
 ```tut
-"1,2\n3,".readCsv[List, (Int, Maybe[Int])]()
+"1,2\n3,".readCsv[List, (Int, Maybe[Int])](rfc)
 ```
 
 ## Scalaz instances

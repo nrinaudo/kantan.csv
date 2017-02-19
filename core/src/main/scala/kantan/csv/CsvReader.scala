@@ -24,14 +24,14 @@ object CsvReader {
   @deprecated("use apply(Reader, CsvConfiguration, Boolean) instead", "0.1.18")
   def apply[A: RowDecoder](reader: Reader, sep: Char, header: Boolean)
                           (implicit e: ReaderEngine): CsvReader[ReadResult[A]] =
-    CsvReader(reader, CsvConfiguration.default.withColumnSeparator(sep), header)
+    CsvReader(reader, rfc.withColumnSeparator(sep).withHeader(header))
 
   /** Opens a [[CsvReader]] on the specified `Reader`. */
-  def apply[A: RowDecoder](reader: Reader, conf: CsvConfiguration = CsvConfiguration.default, header: Boolean = false)
+  def apply[A: RowDecoder](reader: Reader, conf: CsvConfiguration)
               (implicit e: ReaderEngine): CsvReader[ReadResult[A]] = {
     val data: CsvReader[ReadResult[Seq[String]]] = e.readerFor(reader, conf)
 
-    if(header && data.hasNext) data.next()
+    if(conf.hasHeader && data.hasNext) data.next()
 
     data.map(_.flatMap(RowDecoder[A].decode))
   }

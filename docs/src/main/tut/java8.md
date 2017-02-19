@@ -30,6 +30,7 @@ kantan.csv has default, ISO 8601 compliant [`CellDecoder`] and [`CellEncoder`] i
 Let's imagine for example that we want to extract dates from the following string:
 
 ```tut:silent
+import kantan.csv._
 import kantan.csv.ops._
 
 val input = "1,1978-12-10\n2,2015-01-09"
@@ -38,9 +39,9 @@ val input = "1,1978-12-10\n2,2015-01-09"
 This is directly supported:
 
 ```tut
-val res = input.unsafeReadCsv[List, (Int, java.time.LocalDate)]()
+val res = input.unsafeReadCsv[List, (Int, java.time.LocalDate)](rfc)
 
-res.asCsv()
+res.asCsv(rfc)
 ```
 
 It's also possible to declare your own [`CellDecoder`] and [`CellEncoder`] instances. Let's take, for example,
@@ -63,7 +64,7 @@ implicit val decoder = localDateDecoder(format)
 And we're done:
 
 ```tut
-val res = input.unsafeReadCsv[List, (Int, java.time.LocalDate)]()
+val res = input.unsafeReadCsv[List, (Int, java.time.LocalDate)](rfc)
 ```
 
 Similarly, this is how you create and encoder:
@@ -75,7 +76,7 @@ implicit val encoder = localDateEncoder(format)
 And you can now easily encode data that contains instances of [`LocalDate`]:
 
 ```tut
-res.asCsv()
+res.asCsv(rfc)
 ```
 
 Note that if you're going to both encode and decode dates, you can create a [`CellCodec`] in a single call instead:

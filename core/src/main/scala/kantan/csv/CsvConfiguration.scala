@@ -16,9 +16,15 @@
 
 package kantan.csv
 
-case class CsvConfiguration(columnSeparator: Char, quote: Char) {
+case class CsvConfiguration(columnSeparator: Char, quote: Char, header: Seq[String]) {
   def withQuote(char: Char): CsvConfiguration = copy(quote = char)
   def withColumnSeparator(char: Char): CsvConfiguration = copy(columnSeparator = char)
+
+  def withHeader(ss: String*): CsvConfiguration = copy(header = ss)
+  def withHeader(flag: Boolean): CsvConfiguration = if(flag) withHeader else withoutHeader
+  def withHeader: CsvConfiguration = copy(header = Seq(""))
+  def withoutHeader: CsvConfiguration = copy(header = Seq.empty)
+  def hasHeader: Boolean = header.nonEmpty
 
   // Override the default implementation to prevent compilation failures under 2.10.6.
   override def hashCode: Int = {
@@ -26,15 +32,12 @@ case class CsvConfiguration(columnSeparator: Char, quote: Char) {
     var acc: Int = -889275714
     acc = Statics.mix(acc, columnSeparator.toInt)
     acc = Statics.mix(acc, quote.toInt)
-    Statics.finalizeHash(acc, 2)
+    acc = Statics.mix(acc, header.hashCode())
+    Statics.finalizeHash(acc, 3)
   }
 
   override def equals(obj: Any): Boolean = obj match {
-    case CsvConfiguration(cs, q) ⇒ cs == columnSeparator && q == quote
-    case _                       ⇒ false
+    case CsvConfiguration(cs, q, ss) ⇒ cs == columnSeparator && q == quote && ss == header
+    case _                           ⇒ false
   }
-}
-
-object CsvConfiguration {
-  val default = CsvConfiguration(',', '"')
 }
