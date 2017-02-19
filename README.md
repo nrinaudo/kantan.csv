@@ -22,24 +22,24 @@ import kantan.csv.ops._     // Enriches types with useful methods.
 import kantan.csv.generic._ // Automatic derivation of codecs.
 
 // Reading from a file: returns an iterator-like structure on (Int, Int)
-new File("points.csv").asCsvReader[(Int, Int)]()
+new File("points.csv").asCsvReader[(Int, Int)](rfc)
 
 // "Complex" types derivation: the second column is either an int, or a string that might be empty.
-new File("dodgy.csv").asCsvReader[(Int, Either[Int, Option[String]])]()
+new File("dodgy.csv").asCsvReader[(Int, Either[Int, Option[String]])](rfc)
 
 case class Point2D(x: Int, y: Int)
 
 // Parsing the content of a remote URL as a List[Point2D].
-new java.net.URL("http://someserver.com/points.csv").readCsv[List, Point2D](header = true)
+new java.net.URL("http://someserver.com/points.csv").readCsv[List, Point2D](rfc.withHeader)
 
 // Writing to a CSV file.
-new File("output.csv").asCsvWriter[Point2D]()
+new File("output.csv").asCsvWriter[Point2D](rfc)
   .write(Point2D(0, 1))
   .write(Point2D(2, 3))
   .close()
 
 // Writing a collection to a CSV file
-new File("output.csv").writeCsv[Point2D](List(Point2D(0, 1), Point2D(2, 3)))
+new File("output.csv").writeCsv[Point2D](List(Point2D(0, 1), Point2D(2, 3)), rfc)
 ```
 
 kantan.csv is distributed under the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0.html).
