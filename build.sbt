@@ -15,7 +15,7 @@ lazy val root = Project(id = "kantan-csv", base = file("."))
       |import kantan.csv.joda.time._
     """.stripMargin
   )
-  .aggregate(core, cats, scalaz, laws, docs, generic, benchmark, jackson, commons, opencsv, jodaTime)
+  .aggregate(core, cats, scalaz, laws, docs, generic, benchmark, jackson, commons, jodaTime)
   .aggregateIf(java8Supported)(java8)
   .dependsOn(core, generic, jodaTime)
 
@@ -24,14 +24,15 @@ lazy val docs = project
   .settings(unidocProjectFilter in (ScalaUnidoc, unidoc) :=
     inAnyProject -- inProjectsIf(!java8Supported)(java8) -- inProjects(benchmark)
   )
-  .dependsOn(core, laws, cats, scalaz, generic, jackson, commons, opencsv, jodaTime)
+  .dependsOn(core, laws, cats, scalaz, generic, jackson, commons, jodaTime)
   .dependsOnIf(java8Supported)(java8)
 
 lazy val benchmark = project
   .enablePlugins(UnpublishedPlugin, JmhPlugin)
-  .dependsOn(core, jackson, opencsv, commons)
+  .dependsOn(core, jackson, commons)
   .settings(libraryDependencies ++= Seq(
     "com.github.marklister" %% "product-collections" % Versions.productCollection,
+    "com.opencsv"           %  "opencsv"             % Versions.opencsv,
     "com.univocity"         %  "univocity-parsers"   % Versions.univocity,
     "com.github.tototoshi"  %% "scala-csv"           % Versions.scalaCsv,
     "org.scalatest"         %% "scalatest"           % Versions.scalatest % "test"
@@ -90,18 +91,6 @@ lazy val commons = project
   .settings(libraryDependencies ++= Seq(
     "org.apache.commons" %  "commons-csv" % Versions.commonsCsv,
     "org.scalatest"      %% "scalatest"   % Versions.scalatest % "test"
-  ))
-
-lazy val opencsv = project
-  .settings(
-    moduleName := "kantan.csv-opencsv",
-    name       := "opencsv"
-  )
-  .enablePlugins(PublishedPlugin)
-  .dependsOn(core, laws % "test")
-  .settings(libraryDependencies ++= Seq(
-    "com.opencsv"   %  "opencsv"   % Versions.opencsv,
-    "org.scalatest" %% "scalatest" % Versions.scalatest % "test"
   ))
 
 

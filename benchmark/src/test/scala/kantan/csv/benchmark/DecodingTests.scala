@@ -33,13 +33,6 @@ class DecodingTests extends FunSuite {
     assert(decoding.kantanCommons == rawData)
   }
 
-  // TODO: broken: opencsv doesn't play nice with CRLF in quoted cells.
-  /*
-  test("kantan opencsv") {
-    assert(decoding.kantanOpenCsv == rawData)
-  }
-  */
-
   test("jackson") {
     assert(decoding.jackson == rawData)
   }

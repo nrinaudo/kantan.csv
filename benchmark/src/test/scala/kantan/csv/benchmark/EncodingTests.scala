@@ -37,10 +37,6 @@ class EncodingTests extends FunSuite {
     assert(decode(encoding.kantanCommons) == rawData)
   }
 
-  test("kantan opencsv") {
-    assert(decode(encoding.kantanOpenCsv) == rawData)
-  }
-
   test("jackson") {
     assert(decode(encoding.jackson) == rawData)
   }

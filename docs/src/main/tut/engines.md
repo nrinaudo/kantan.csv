@@ -29,26 +29,8 @@ You can tweak the behaviour of the underlying parsers and serialisers by creatin
 [`readerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson$.html#readerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.ReaderEngine)
 and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson$.html#writerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.WriterEngine).
 
-### Open CSV
 
-The [opencsv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
-
-```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-opencsv" % "0.1.16"
-```
-
-You then need to bring the right implicits in scope through:
-
-```tut:silent
-import kantan.csv.engine.opencsv._
-```
-
-You can tweak the behaviour of the underlying parsers and serialisers by creating them through
-[`readerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/opencsv$.html#readerEngineFrom(f:kantan.csv.engine.opencsv.CSVReaderBuilder):kantan.csv.engine.ReaderEngine)
-and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/opencsv$.html#writerEngineFrom(f:kantan.csv.engine.opencsv.CSVWriterBuilder):kantan.csv.engine.WriterEngine).
-
-
-### Commons CSV
+### Apache Commons CSV
 
 The [commons csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
