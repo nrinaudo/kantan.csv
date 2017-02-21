@@ -20,18 +20,18 @@ import imp.imp
 import kantan.csv.{CellDecoder, CellEncoder, DecodeResult}
 import org.scalacheck.{Arbitrary, Cogen, Gen}
 
-sealed trait Cell {
+sealed trait Cell extends Product with Serializable {
   def value: String
   def encoded: String
   def map(f: String ⇒ String): Cell = Cell(f(value))
 }
 
 object Cell {
-  case class Escaped private[Cell](override val value: String) extends Cell {
+  final case class Escaped private[Cell](override val value: String) extends Cell {
     override def encoded = "\"" + value.replaceAll("\"", "\"\"") + "\""
   }
 
-  case class NonEscaped private[Cell](override val value: String) extends Cell {
+  final case class NonEscaped private[Cell](override val value: String) extends Cell {
     override def encoded =  value
   }
 

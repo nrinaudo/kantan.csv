@@ -110,6 +110,6 @@ trait ReaderEngineLaws extends RfcReaderLaws with SpectrumReaderLaws with KnownF
 
 object ReaderEngineLaws {
   def apply(e: ReaderEngine): ReaderEngineLaws = new ReaderEngineLaws {
-    override implicit val engine = e
+    override implicit val engine: ReaderEngine = e
   }
 }

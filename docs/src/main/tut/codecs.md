@@ -46,7 +46,7 @@ however: all the helper methods we've seen for creating [`RowDecoder`] and [`Row
 [`RowCodec`]. Let's take a concrete example with case classes.
 
 ```tut:silent
-case class Person(id: Int, name: String, age: Int)
+final case class Person(id: Int, name: String, age: Int)
 
 val ps = List(Person(0, "Nicolas", 38), Person(1, "Kazuma", 1), Person(2, "John", 18))
 ```

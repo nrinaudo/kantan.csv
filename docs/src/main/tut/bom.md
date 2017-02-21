@@ -30,9 +30,10 @@ For example:
 ```tut:silent
 import kantan.csv._
 import kantan.csv.ops._
+import scala.io.Codec
 
 // Let kantan.csv know that data should be written in UTF-8
-implicit val codec = scala.io.Codec.UTF8
+implicit val codec: Codec = Codec.UTF8
 
 // Our input is in katakana, characters that cannot be encoded using ISO-LATIN-1.
 val input = List("ニコラ", "リノド")
@@ -49,7 +50,7 @@ to read it with an incompatible encoding:
 
 ```tut:silent
 // ISO-LATIN-1 cannot be used to read our file, since it does not support katakana.
-implicit val codec = scala.io.Codec.ISO8859
+implicit val codec: Codec = Codec.ISO8859
 ```
 
 When we try to read it, kantan.csv will find the BOM and ignore our instruction to use ISO-LATIN-1:

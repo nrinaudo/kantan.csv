@@ -19,6 +19,7 @@ package kantan.csv
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
+@SuppressWarnings(Array("org.wartremover.warts.Throw"))
 class ParseResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("ParseResult.success should return a success") {
     forAll { i: Int ⇒ assert(ParseResult.success(i) == Success(i)) }

@@ -34,7 +34,7 @@ object commons {
   type CSVFormat = org.apache.commons.csv.CSVFormat
   type QuoteMode = org.apache.commons.csv.QuoteMode
 
-  private case class CsvSeq(rec: CSVRecord) extends IndexedSeq[String] {
+  private final case class CsvSeq(rec: CSVRecord) extends IndexedSeq[String] {
     override def length: Int = rec.size()
     override def apply(idx: Int): String = rec.get(idx)
   }

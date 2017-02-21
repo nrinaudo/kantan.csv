@@ -16,7 +16,7 @@
 
 package kantan.csv
 
-case class CsvConfiguration(columnSeparator: Char, quote: Char, header: Seq[String]) {
+final case class CsvConfiguration(columnSeparator: Char, quote: Char, header: Seq[String]) {
   def withQuote(char: Char): CsvConfiguration = copy(quote = char)
   def withColumnSeparator(char: Char): CsvConfiguration = copy(columnSeparator = char)
 

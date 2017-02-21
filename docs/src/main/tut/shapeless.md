@@ -41,7 +41,7 @@ also does.
 Let's declare a (fairly useless) case class (we'll be making a more useful one in the next section):
 
 ```tut:silent
-case class Wrapper[A](a: A)
+final case class Wrapper[A](a: A)
 ```
 
 We can directly encode from and decode to instances of `Wrapper`:
@@ -59,8 +59,8 @@ We can also get free [`CellDecoder`] and [`CellEncoder`] instances for sum types
 
 ```tut:silent
 sealed abstract class Or[+A, +B]
-case class Left[A](value: A) extends Or[A, Nothing]
-case class Right[B](value: B) extends Or[Nothing, B]
+final case class Left[A](value: A) extends Or[A, Nothing]
+final case class Right[B](value: B) extends Or[Nothing, B]
 ```
 
 `Left` is a unary case class and will have a [`CellDecoder`] if its type parameter has one, and the same goes for
@@ -82,7 +82,7 @@ Take, for example, a custom [`Tuple2`] implementation (using an actual [`Tuple2`
 it's supported by kantan.csv without needing the `generic` module):
 
 ```tut:silent
-case class CustomTuple2[A, B](a: A, b: B)
+final case class CustomTuple2[A, B](a: A, b: B)
 ```
 
 We can encode from and decode to that type for free:

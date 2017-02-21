@@ -20,6 +20,7 @@ import kantan.csv.laws.discipline.arbitrary._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
+@SuppressWarnings(Array("org.wartremover.warts.Throw"))
 class DecodeResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("DecodeResult.success should return a success") {
     forAll { i: Int ⇒ assert(DecodeResult.success(i) == Success(i))}

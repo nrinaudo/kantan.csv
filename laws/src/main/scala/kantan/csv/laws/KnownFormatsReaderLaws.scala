@@ -24,7 +24,7 @@ import kantan.csv.ops._
 trait KnownFormatsReaderLaws {
   implicit def engine: ReaderEngine
 
-  implicit val carFormat = RowCodec.caseCodec(1, 2, 3, 4, 0)(Car.apply)(Car.unapply)
+  implicit val carFormat: RowCodec[Car] = RowCodec.caseCodec(1, 2, 3, 4, 0)(Car.apply)(Car.unapply)
 
   def read(res: String): List[Car] =
     getClass.getResource(s"/known_formats/$res.csv").unsafeReadCsv(rfc.withHeader(true))
@@ -39,5 +39,5 @@ trait KnownFormatsReaderLaws {
 }
 
 object KnownFormatsReaderLaws {
-  case class Car(make: String, model: String, description: Option[String], price: Int, year: Int)
+  final case class Car(make: String, model: String, description: Option[String], price: Int, year: Int)
 }
