@@ -32,6 +32,7 @@ Let's imagine for example that we want to extract dates from the following strin
 ```tut:silent
 import kantan.csv._
 import kantan.csv.ops._
+import org.joda.time._
 
 val input = "1,1978-12-10\n2,2015-01-09"
 ```
@@ -39,7 +40,7 @@ val input = "1,1978-12-10\n2,2015-01-09"
 This is directly supported:
 
 ```tut
-val res = input.unsafeReadCsv[List, (Int, org.joda.time.LocalDate)](rfc)
+val res = input.unsafeReadCsv[List, (Int, LocalDate)](rfc)
 
 res.asCsv(rfc)
 ```
@@ -58,19 +59,19 @@ val format = DateTimeFormat.forPattern("dd-MM-yyyy")
 We then need to build a decoder for it and stick it in the implicit scope:
 
 ```tut:silent
-implicit val decoder = localDateDecoder(format)
+implicit val decoder: CellDecoder[LocalDate] = localDateDecoder(format)
 ```
 
 And we're done:
 
 ```tut
-val res = input.unsafeReadCsv[List, (Int, org.joda.time.LocalDate)](rfc)
+val res = input.unsafeReadCsv[List, (Int, LocalDate)](rfc)
 ```
 
 Similarly, this is how you create and encoder:
 
 ```tut:silent
-implicit val encoder = localDateEncoder(format)
+implicit val encoder: CellEncoder[LocalDate] = localDateEncoder(format)
 ```
 
 And you can now easily encode data that contains instances of [`LocalDate`]:
@@ -82,7 +83,7 @@ res.asCsv(rfc)
 Note that if you're going to both encode and decode dates, you can create a [`CellCodec`] in a single call instead:
 
 ```tut:silent
-implicit val codec = localDateCodec(format)
+implicit val codec: CellCodec[LocalDate] = localDateCodec(format)
 ```
 
 

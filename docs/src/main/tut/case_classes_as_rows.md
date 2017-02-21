@@ -10,7 +10,7 @@ rarely stores business objects as tuples - encoding case classes is a much more 
 Let's imagine that we have a list of values of type `Person` to encode:
 
 ```tut:silent
-case class Person(id: Int, name: String, age: Int)
+final case class Person(id: Int, name: String, age: Int)
 
 val ps = List(Person(0, "Nicolas", 38), Person(1, "Kazuma", 1), Person(2, "John", 18))
 ```

@@ -16,7 +16,7 @@
 
 package kantan.csv
 
-import kantan.csv.laws.{IllegalRow, LegalRow}
+import kantan.csv.laws._
 import kantan.csv.laws.discipline.RowCodecTests
 import kantan.csv.laws.discipline.arbitrary._
 import org.scalacheck.Arbitrary

@@ -25,7 +25,7 @@ In our case, we want [`encoder`]:
 import kantan.csv._
 import kantan.csv.ops._
 
-implicit val personEncoder = RowEncoder.encoder(0, 2, 1)((p: Person) ⇒ (p.id, p.name, p.age))
+implicit val personEncoder: RowEncoder[Person] = RowEncoder.encoder(0, 2, 1)((p: Person) ⇒ (p.id, p.name, p.age))
 ```
 
 kantan.csv will work out how to encode each individual field thanks to the [`CellEncoder`] mechanism describe in a

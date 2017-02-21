@@ -61,7 +61,7 @@ trait RfcReaderLaws {
   }
 
   def trailingComma(csv: List[List[Cell]]): Boolean =
-    equals(cellsToCsv(csv, ",",  ",\r\n"), csv.map(_ :+ Cell.Empty))
+    equals(cellsToCsv(csv, ",", ",\r\n"), csv.map(_ :+ Cell.Empty))
 
 
   // - RFC 4180: 2.5 ---------------------------------------------------------------------------------------------------
@@ -72,7 +72,7 @@ trait RfcReaderLaws {
   def unescapedDoubleQuotes(csv: List[List[Cell.NonEscaped]]): Boolean = {
     // Note that we trim here to make sure we don't have end up with whitespace followed by a double-quote: that'd be
     // a valid start of escaped cell.
-    val corrupt = csv.map(_.map(_.map(_.trim.flatMap(c ⇒ c.toString + "\""))))
+    val corrupt = csv.map(_.map(_.map(_.trim.flatMap(_.toString + "\""))))
     equals(valsToCsv(corrupt.map(_.map(_.value)), ",", "\r\n"), corrupt)
   }
 

@@ -28,11 +28,11 @@ sealed trait Cell extends Product with Serializable {
 
 object Cell {
   final case class Escaped private[Cell](override val value: String) extends Cell {
-    override def encoded: String = "\"" + value.replaceAll("\"", "\"\"") + "\""
+    override def encoded = "\"" + value.replaceAll("\"", "\"\"") + "\""
   }
 
   final case class NonEscaped private[Cell](override val value: String) extends Cell {
-    override def encoded: String =  value
+    override def encoded =  value
   }
 
   case object Empty extends Cell {

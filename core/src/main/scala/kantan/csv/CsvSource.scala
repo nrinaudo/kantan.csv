@@ -182,7 +182,7 @@ trait CsvSource[-S] extends Serializable { self ⇒
     * {{{
     * scala> case class StringWrapper(value: String)
     *
-    * scala> implicit val wrapperSource: CsvSource[StringWrapper] = CsvSource[String].contramapResult((s: StringWrapper) ⇒ ParseResult(s.value))
+    * scala> implicit val source: CsvSource[StringWrapper] = CsvSource[String].contramapResult(s ⇒ ParseResult(s.value))
     *
     * scala> CsvSource[StringWrapper].unsafeRead[List, List[Int]](StringWrapper("1,2,3\n4,5,6"), rfc)
     * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))

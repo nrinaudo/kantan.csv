@@ -39,7 +39,7 @@ our current task, we need to decode a row into 5 values and stick them into `Car
 import kantan.csv._
 import kantan.csv.ops._
 
-implicit val carDecoder = RowDecoder.ordered { (i: Int, ma: String, mo: String, d: Option[String], p: Float) =>
+implicit val carDecoder: RowDecoder[Car] = RowDecoder.ordered { (i: Int, ma: String, mo: String, d: Option[String], p: Float) =>
   new Car(i, ma, mo, d, p)
 }
 ```

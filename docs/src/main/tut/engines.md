@@ -82,7 +82,7 @@ Creating a new instance of [`ReaderEngine`] is meant to be fairly straightforwar
 import kantan.csv.engine._
 import kantan.csv._
 
-implicit val readerEngine = ReaderEngine.from { (in: Reader, conf: CsvConfiguration) ⇒
+implicit val readerEngine: ReaderEngine = ReaderEngine.from { (in: Reader, conf: CsvConfiguration) ⇒
   kantan.codecs.resource.ResourceIterator.fromIterator(EasyCSV.read(in, conf.columnSeparator))
 }
 ```
@@ -94,7 +94,7 @@ Serialising is very similar to parsing, except that instead of providing a [`Rea
 through [`CsvWriter.apply`]:
 
 ```tut:silent
-implicit val writerEngine = WriterEngine.from { (writer: Writer, conf: CsvConfiguration) ⇒
+implicit val writerEngine: WriterEngine = WriterEngine.from { (writer: Writer, conf: CsvConfiguration) ⇒
   CsvWriter(EasyCSV.write(writer, conf.columnSeparator))(_ write _.toArray)(_.close())
 }
 ```
