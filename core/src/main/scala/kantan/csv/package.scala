@@ -25,30 +25,13 @@ package object csv {
   val rfc: CsvConfiguration = CsvConfiguration(',', '"', Seq.empty)
 
 
-  // - Backward compatibility ------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  /** @documentable */
-  @deprecated("use CsvSource instead (see https://github.com/nrinaudo/kantan.csv/issues/49)", "0.1.15")
-  type CsvInput[A] = CsvSource[A]
-  /** @documentable */
-  @deprecated("use CsvSource instead (see https://github.com/nrinaudo/kantan.csv/issues/49)", "0.1.15")
-  val CsvInput = CsvSource
-  /** @documentable */
-  @deprecated("use CsvSink instead (see https://github.com/nrinaudo/kantan.csv/issues/49)", "0.1.15")
-  type CsvOutput[A] = CsvSink[A]
-  /** @documentable */
-  @deprecated ("use CsvSink instead (see https://github.com/nrinaudo/kantan.csv/issues/49)", "0.1.15")
-  val CsvOutput = CsvSink
-
-
-
   // - Results ---------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   type Success[A] = Result.Success[A]
-  val Success = Result.Success
+  val Success: Result.Success.type = Result.Success
 
   type Failure[A] = Result.Failure[A]
-  val Failure = Result.Failure
+  val Failure: Result.Failure.type = Result.Failure
 
   /** Result of a reading operation, which can be either a success or a failure.
     *

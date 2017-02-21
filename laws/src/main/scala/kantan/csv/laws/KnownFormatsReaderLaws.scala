@@ -39,5 +39,5 @@ trait KnownFormatsReaderLaws {
 }
 
 object KnownFormatsReaderLaws {
-  case class Car(make: String, model: String, description: Option[String], price: Int, year: Int)
+  final case class Car(make: String, model: String, description: Option[String], price: Int, year: Int)
 }

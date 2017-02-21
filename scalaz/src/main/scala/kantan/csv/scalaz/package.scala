@@ -40,7 +40,7 @@ package object scalaz extends kantan.codecs.scalaz.ScalazInstances {
       .foldLeft(as, Seq.newBuilder[String])((acc, a) ⇒ acc += CellEncoder[A].encode(a)).result())
 
   implicit def maybeRowEncoder[A: RowEncoder]: RowEncoder[Maybe[A]] = new RowEncoder[Maybe[A]] {
-    override def encode(a: Maybe[A]) = a.map(RowEncoder[A].encode).getOrElse(Seq.empty)
+    override def encode(a: Maybe[A]): Seq[String] = a.map(RowEncoder[A].encode).getOrElse(Seq.empty)
   }
 
 
@@ -49,12 +49,12 @@ package object scalaz extends kantan.codecs.scalaz.ScalazInstances {
   // -------------------------------------------------------------------------------------------------------------------
   /** `Contravariant` instance for `CsvSource`. */
   implicit val csvSource: Contravariant[CsvSource] = new Contravariant[CsvSource] {
-    override def contramap[A, B](r: CsvSource[A])(f: B ⇒ A) = r.contramap(f)
+    override def contramap[A, B](r: CsvSource[A])(f: B ⇒ A): CsvSource[B] = r.contramap(f)
   }
 
   /** `Contravariant` instance for `CsvSink`. */
   implicit val csvSink: Contravariant[CsvSink] = new Contravariant[CsvSink] {
-    override def contramap[A, B](r: CsvSink[A])(f: B ⇒ A) = r.contramap(f)
+    override def contramap[A, B](r: CsvSink[A])(f: B ⇒ A): CsvSink[B] = r.contramap(f)
   }
 
   // - ReadError -------------------------------------------------------------------------------------------------------

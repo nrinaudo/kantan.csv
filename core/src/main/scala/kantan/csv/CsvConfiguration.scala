@@ -16,14 +16,14 @@
 
 package kantan.csv
 
-case class CsvConfiguration(columnSeparator: Char, quote: Char, header: Seq[String]) {
+final case class CsvConfiguration(columnSeparator: Char, quote: Char, header: Seq[String]) {
   def withQuote(char: Char): CsvConfiguration = copy(quote = char)
   def withColumnSeparator(char: Char): CsvConfiguration = copy(columnSeparator = char)
 
   def withHeader(ss: String*): CsvConfiguration = copy(header = ss)
   def withHeader(flag: Boolean): CsvConfiguration = if(flag) withHeader else withoutHeader
   def withHeader: CsvConfiguration = copy(header = Seq(""))
-  def withoutHeader: CsvConfiguration = copy(header = Seq.empty)
+  def withoutHeader: CsvConfiguration = copy(header = Seq.empty[String])
   def hasHeader: Boolean = header.nonEmpty
 
   // Override the default implementation to prevent compilation failures under 2.10.6.

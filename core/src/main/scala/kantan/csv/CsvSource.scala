@@ -89,6 +89,7 @@ trait CsvSource[-S] extends Serializable { self ⇒
     * @param conf CSV parsing behaviour.
     * @tparam A type to parse each row as. This must have a corresponding implicit [[RowDecoder]] instance in scope.
     */
+  @SuppressWarnings(Array("org.wartremover.warts.Throw"))
   def unsafeReader[A: RowDecoder](s: S, conf: CsvConfiguration)(implicit engine: ReaderEngine): CsvReader[A] =
     reader[A](s, conf).map(_.valueOr {
       case e@TypeError(msg)   ⇒ throw Option(e.getCause).getOrElse(new IllegalArgumentException(msg))
@@ -181,7 +182,7 @@ trait CsvSource[-S] extends Serializable { self ⇒
     * {{{
     * scala> case class StringWrapper(value: String)
     *
-    * scala> implicit val wrapperSource = CsvSource[String].contramapResult((s: StringWrapper) ⇒ ParseResult(s.value))
+    * scala> implicit val wrapperSource: CsvSource[StringWrapper] = CsvSource[String].contramapResult((s: StringWrapper) ⇒ ParseResult(s.value))
     *
     * scala> CsvSource[StringWrapper].unsafeRead[List, List[Int]](StringWrapper("1,2,3\n4,5,6"), rfc)
     * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
@@ -227,7 +228,7 @@ object CsvSource {
     * @see [[CsvSource.contramapResult]]
     */
   def from[A](f: A ⇒ ParseResult[Reader]): CsvSource[A] = new CsvSource[A] {
-    override def open(a: A) = f(a)
+    override def open(a: A): ParseResult[Reader] = f(a)
   }
 
   implicit def fromResource[A: ReaderResource]: CsvSource[A] =

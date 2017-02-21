@@ -32,12 +32,12 @@ package object cats extends kantan.codecs.cats.CatsInstances {
   // -------------------------------------------------------------------------------------------------------------------
   /** `Contravariant` instance for `CsvSource`. */
   implicit val csvSource: Contravariant[CsvSource] = new Contravariant[CsvSource] {
-    override def contramap[A, B](r: CsvSource[A])(f: B ⇒ A) = r.contramap(f)
+    override def contramap[A, B](r: CsvSource[A])(f: B ⇒ A): CsvSource[B] = r.contramap(f)
   }
 
   /** `Contravariant` instance for `CsvSink`. */
   implicit val csvSink: Contravariant[CsvSink] = new Contravariant[CsvSink] {
-    override def contramap[A, B](r: CsvSink[A])(f: B ⇒ A) = r.contramap(f)
+    override def contramap[A, B](r: CsvSink[A])(f: B ⇒ A): CsvSink[B] = r.contramap(f)
   }
 
 

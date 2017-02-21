@@ -21,6 +21,7 @@ import kantan.csv._
 import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer
 
+@SuppressWarnings(Array("org.wartremover.warts.MutableDataStructures", "org.wartremover.warts.Var"))
 private[engine] class InternalReader private (val data: Reader, val conf: CsvConfiguration,
                                               val characters: Array[Char], var length: Int)
   extends CsvReader[Seq[String]] {
@@ -217,6 +218,8 @@ private[engine] class InternalReader private (val data: Reader, val conf: CsvCon
   }
 
   override def checkNext = hasNextChar || hasLeftover
+
+  @SuppressWarnings(Array("org.wartremover.warts.Throw"))
   override def readNext() = {
     row.clear()
     if(hasLeftover)      nextRow(leftover)
@@ -245,7 +248,7 @@ private object InternalReader {
   sealed trait Break
 
   // Possible outcomes of parsing the beginning of a cell.
-  case class Finished(reason: Break) extends CellStart
+  final case class Finished(reason: Break) extends CellStart
   val CSeparator = Finished(Separator)
   val CCR = Finished(CR)
   val CLF = Finished(LF)

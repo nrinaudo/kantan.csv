@@ -18,13 +18,14 @@ package kantan.csv.scalaz
 
 import arbitrary._
 import kantan.codecs.scalaz.laws.discipline.scalatest.ScalazSuite
+import kantan.csv.RowEncoder
 import kantan.csv.laws.discipline.RowEncoderTests
 import org.scalacheck.{Arbitrary, Gen}
 import scalaz.std.list._
 
 class FoldableEncoderTests extends ScalazSuite {
   implicit val arb: Arbitrary[List[Int]] = Arbitrary(Gen.nonEmptyListOf(Arbitrary.arbitrary[Int]))
-  implicit val encoder = foldableRowEncoder[List, Int]
+  implicit val encoder: RowEncoder[List[Int]] = foldableRowEncoder[List, Int]
 
   checkAll("Foldable[Int]", RowEncoderTests[List[Int]].encoder[List[Byte], List[Float]])
 }

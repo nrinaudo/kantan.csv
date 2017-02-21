@@ -34,6 +34,6 @@ package object laws {
   type LegalRow[A] = CodecValue.LegalValue[Seq[String], A, codecs.type]
   type IllegalRow[A] = CodecValue.IllegalValue[Seq[String], A, codecs.type]
 
-  def asCsv[A](data: List[RowValue[A]], conf: CsvConfiguration, header: Seq[String] = Seq.empty): String =
-    data.map(_.encoded).asCsv(conf.withHeader(header:_*))
+  def asCsv[A](data: List[RowValue[A]], conf: CsvConfiguration): String =
+    data.map(_.encoded).asCsv(conf)
 }

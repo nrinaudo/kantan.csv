@@ -88,10 +88,10 @@ object CsvWriter {
     * @param r releases `out` once we're done writing.
     */
   def apply[A](out: A)(w: (A, Seq[String]) ⇒ Unit)(r: A ⇒ Unit): CsvWriter[Seq[String]] = new CsvWriter[Seq[String]] {
-    override def write(a: Seq[String]) = {
+    override def write(a: Seq[String]): CsvWriter[Seq[String]] = {
       w(out, a)
       this
     }
-    override def close() = r(out)
+    override def close(): Unit = r(out)
   }
 }

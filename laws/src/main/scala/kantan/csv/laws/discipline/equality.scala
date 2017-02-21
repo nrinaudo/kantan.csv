@@ -21,8 +21,9 @@ import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.{arbitrary => arb}
 
 object equality {
+  @SuppressWarnings(Array("org.wartremover.warts.PublicInference"))
   def eq[A, B: Arbitrary](a1: B ⇒ A, a2: B ⇒ A)(f: (A, A) ⇒ Boolean): Boolean = {
-    val samples = List.fill(100)(arb[B].sample).collect {
+    val samples: List[B] = List.fill(100)(arb[B].sample).collect {
       case Some(a) ⇒ a
       case None ⇒ sys.error("Could not generate arbitrary values to compare two functions")
     }

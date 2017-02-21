@@ -16,6 +16,7 @@
 
 package kantan.csv.benchmark
 
+import com.univocity.parsers.csv.CsvParserSettings
 import java.io.StringReader
 import java.util.concurrent.TimeUnit
 import kantan.csv._
@@ -58,8 +59,9 @@ class Decoding {
 object Decoding {
   // - Helpers ---------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  @SuppressWarnings(Array("org.wartremover.warts.Var"))
   class CsvIterator[A](iterator: A)(f: A ⇒ Array[String]) extends Iterator[CsvEntry] {
-    var n = f(iterator)
+    private var n = f(iterator)
     override def hasNext: Boolean = n != null
     override def next(): CsvEntry = {
       val temp = n
@@ -89,14 +91,15 @@ object Decoding {
   def commons(str: String): List[CsvEntry] = {
     val csv = org.apache.commons.csv.CSVFormat.RFC4180.parse(new StringReader(str)).iterator()
     new Iterator[CsvEntry] {
-      override def hasNext = csv.hasNext
-      override def next() = {
+      override def hasNext: Boolean = csv.hasNext
+      override def next(): CsvEntry = {
         val n = csv.next()
         (n.get(0).toInt, n.get(1), n.get(2).toBoolean, n.get(3).toFloat)
       }
     }.toList
   }
 
+  @SuppressWarnings(Array("org.wartremover.warts.Null"))
   def jackson(str: String): List[CsvEntry] = {
     new CsvIterator(engine.jackson.parse(new StringReader(str),
       engine.jackson.defaultParserSchema(rfc)))(it ⇒
@@ -105,7 +108,7 @@ object Decoding {
     ).toList
   }
 
-  val univocitySettings = {
+  val univocitySettings: CsvParserSettings = {
     val settings = new com.univocity.parsers.csv.CsvParserSettings
     settings.setReadInputOnSeparateThread(false)
     settings.setInputBufferSize(2048)

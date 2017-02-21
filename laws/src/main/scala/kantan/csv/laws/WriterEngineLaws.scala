@@ -38,6 +38,6 @@ trait WriterEngineLaws {
 
 object WriterEngineLaws {
   def apply(e: WriterEngine): WriterEngineLaws = new WriterEngineLaws {
-    override implicit val engine = e
+    override implicit val engine: WriterEngine = e
   }
 }

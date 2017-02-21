@@ -23,6 +23,8 @@ class RegressionTests extends FunSuite {
   test("Implicit resolution should not be impacted by the presence of default arguments (#65)") {
     case class Foobar(i: Int)
 
+    // Wart Remover false positive on statements that are not actually fields.
+    @SuppressWarnings(Array("org.wartremover.warts.PublicInference"))
     object Test {
       import kantan.csv.ops._
 

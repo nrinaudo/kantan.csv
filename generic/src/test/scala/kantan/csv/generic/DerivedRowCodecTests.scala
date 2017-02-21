@@ -26,6 +26,8 @@ import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
+// Shapeless' Lazy macros generate "invalid" code.
+@SuppressWarnings(Array("org.wartremover.warts.Null", "org.wartremover.warts.PublicInference"))
 class DerivedRowCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   case class Simple(i: Int)
   case class Complex(i: Int, b: Boolean, c: Option[Float])

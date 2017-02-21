@@ -43,7 +43,7 @@ trait ReaderEngine {
 object ReaderEngine {
   /** Creates a new [[ReaderEngine]] instance. */
   def from(f: (Reader, CsvConfiguration) ⇒ CsvReader[Seq[String]]): ReaderEngine = new ReaderEngine {
-    override def unsafeReaderFor(reader: Reader, conf: CsvConfiguration) = f(reader, conf)
+    override def unsafeReaderFor(reader: Reader, conf: CsvConfiguration): CsvReader[Seq[String]] = f(reader, conf)
   }
 
   /** Default reader engine, used whenever a custom one is not explicitly brought in scope. */

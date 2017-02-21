@@ -55,6 +55,7 @@ private[csv] class InternalWriter(private val out: Writer, val conf: CsvConfigur
     }
   }
 
+  @SuppressWarnings(Array("org.wartremover.warts.Var"))
   override def write(ss: Seq[String]): CsvWriter[Seq[String]] = {
     var first = true
     for(s ← ss) {
