@@ -119,22 +119,22 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="ParseError$.html">
+        <a title="Declares all possible values of type ParseError." href="ParseError$.html">
               <span class="name">ParseError</span>
             </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+      <p class="shortcomment cmt">Declares all possible values of type <a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Declares all possible values of type <a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
     </li><li class="current-entities indented3">
-                        <a class="object" href="" title=""></a>
-                        <a class="class" href="ParseError$$IOError.html" title=""></a>
-                        <a href="ParseError$$IOError.html" title="">
+                        <a class="object" href="" title="Provides convenience methods for ParseError.IOError instance creation."></a>
+                        <a class="class" href="ParseError$$IOError.html" title="Error that occurs while interacting with an IO resource."></a>
+                        <a href="ParseError$$IOError.html" title="Error that occurs while interacting with an IO resource.">
                           IOError
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="class" href="ParseError$$NoSuchElement.html" title=""></a>
-                        <a href="ParseError$$NoSuchElement.html" title="">
+                        <a class="object" href="ParseError$$NoSuchElement$.html" title="Error that occurs when attempting to read from an empty CsvReader."></a>
+                        <a href="ParseError$$NoSuchElement$.html" title="Error that occurs when attempting to read from an empty CsvReader.">
                           NoSuchElement
                         </a>
                       </li>
@@ -162,16 +162,16 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">IOError</span><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">IOError</span><span class="result"> extends <span class="extype" name="kantan.codecs.ErrorCompanion">ErrorCompanion</span>[<a href="ParseError$$IOError.html" class="extype" name="kantan.csv.ParseError.IOError">IOError</a>] with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/Errors.scala" target="_blank">Errors.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides convenience methods for <a href="ParseError$$IOError.html" class="extype" name="kantan.csv.ParseError.IOError">ParseError.IOError</a> instance creation.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/Errors.scala" target="_blank">Errors.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="kantan.codecs.ErrorCompanion">ErrorCompanion</span>[<a href="ParseError$$IOError.html" class="extype" name="kantan.csv.ParseError.IOError">IOError</a>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -197,7 +197,7 @@
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="kantan.csv.ParseError.IOError"><span>IOError</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="kantan.csv.ParseError.IOError"><span>IOError</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="kantan.codecs.ErrorCompanion"><span>ErrorCompanion</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -272,10 +272,10 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="kantan.csv.ParseError.IOError#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="apply(t:Throwable):kantan.csv.ParseError.IOError"></a><a id="apply(Throwable):IOError"></a>
+    </li><li name="kantan.codecs.ErrorCompanion#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="apply(cause:Throwable):T"></a><a id="apply(Throwable):IOError"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/ParseError$$IOError$.html#apply(t:Throwable):kantan.csv.ParseError.IOError" title="Permalink">
+      <a href="../../kantan/csv/ParseError$$IOError$.html#apply(cause:Throwable):T" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -284,14 +284,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="params">(<span name="t">t: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result">: <a href="ParseError$$IOError.html" class="extype" name="kantan.csv.ParseError.IOError">IOError</a></span>
+        <span class="name">apply</span><span class="params">(<span name="cause">cause: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result">: <a href="ParseError$$IOError.html" class="extype" name="kantan.csv.ParseError.IOError">IOError</a></span>
       </span>
       
-      
-    </li><li name="kantan.csv.ParseError.IOError#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="apply(str:String,t:Throwable):kantan.csv.ParseError.IOError"></a><a id="apply(String,Throwable):IOError"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ErrorCompanion</dd></dl></div>
+    </li><li name="kantan.codecs.ErrorCompanion#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="apply(msg:String,cause:Throwable):T"></a><a id="apply(String,Throwable):IOError"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/ParseError$$IOError$.html#apply(str:String,t:Throwable):kantan.csv.ParseError.IOError" title="Permalink">
+      <a href="../../kantan/csv/ParseError$$IOError$.html#apply(msg:String,cause:Throwable):T" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -300,10 +300,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="params">(<span name="str">str: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="t">t: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result">: <a href="ParseError$$IOError.html" class="extype" name="kantan.csv.ParseError.IOError">IOError</a></span>
+        <span class="name">apply</span><span class="params">(<span name="msg">msg: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="cause">cause: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result">: <a href="ParseError$$IOError.html" class="extype" name="kantan.csv.ParseError.IOError">IOError</a></span>
       </span>
       
-      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ErrorCompanion</dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -604,6 +604,8 @@
               <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
             </div><div class="parent" name="java.io.Serializable">
               <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="kantan.codecs.ErrorCompanion">
+              <h3>Inherited from <span class="extype" name="kantan.codecs.ErrorCompanion">ErrorCompanion</span>[<a href="ParseError$$IOError.html" class="extype" name="kantan.csv.ParseError.IOError">IOError</a>]</h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">

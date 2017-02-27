@@ -13,7 +13,7 @@ The only way (that I know of) to force Excel to use the right encoding when open
 * encode it in `UTF-8` or `UTF-16LE` (other unicode encodings might work, but I've seen odd behaviours)
 * add a [BOM](https://en.wikipedia.org/wiki/Byte_order_mark) to the file
 
-Since version 0.1.17, kantan.csv has full support for BOMs, enabled by importing the following package:
+Since version 0.1.18, kantan.csv has full support for BOMs, enabled by importing the following package:
 
 ```scala
 import kantan.codecs.resource.bom._
@@ -28,10 +28,12 @@ Once that's done, all IO operations performed by kantan.csv will be BOM aware:
 For example:
 
 ```scala
+import kantan.csv._
 import kantan.csv.ops._
+import scala.io.Codec
 
 // Let kantan.csv know that data should be written in UTF-8
-implicit val codec = scala.io.Codec.UTF8
+implicit val codec: Codec = Codec.UTF8
 
 // Our input is in katakana, characters that cannot be encoded using ISO-LATIN-1.
 val input = List("ニコラ", "リノド")
@@ -40,7 +42,7 @@ val input = List("ニコラ", "リノド")
 val out = java.io.File.createTempFile("kantan.csv", "csv")
 
 // Writes input using , as a column separator.
-out.writeCsv(input, ',')
+out.writeCsv(input, rfc)
 ```
 
 Since we've imported `kantan.codecs.resource.bom._`, `out` contains the UTF-8 BOM. We can verify that by attempting
@@ -48,13 +50,13 @@ to read it with an incompatible encoding:
 
 ```scala
 // ISO-LATIN-1 cannot be used to read our file, since it does not support katakana.
-implicit val codec = scala.io.Codec.ISO8859
+implicit val codec: Codec = Codec.ISO8859
 ```
 
 When we try to read it, kantan.csv will find the BOM and ignore our instruction to use ISO-LATIN-1:
 
 ```scala
-scala> out.readCsv[List, String](',', false)
+scala> out.readCsv[List, String](rfc)
 res10: List[kantan.csv.ReadResult[String]] = List(Success(ニコラ), Success(リノド))
 ```
 

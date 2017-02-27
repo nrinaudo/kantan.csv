@@ -133,6 +133,12 @@
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
+                        <a class="class" href="CsvRowOps.html" title="Provides useful syntax for working with CSV rows."></a>
+                        <a href="CsvRowOps.html" title="Provides useful syntax for working with CSV rows.">
+                          CsvRowOps
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
                         <a class="class" href="CsvRowsOps.html" title="Provides useful syntax for collections."></a>
                         <a href="CsvRowsOps.html" title="Provides useful syntax for collections.">
                           CsvRowsOps
@@ -157,6 +163,12 @@
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
+                        <a class="trait" href="ToCsvRowOps.html" title=""></a>
+                        <a href="ToCsvRowOps.html" title="">
+                          ToCsvRowOps
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
                         <a class="trait" href="ToCsvRowsOps.html" title=""></a>
                         <a href="ToCsvRowsOps.html" title="">
                           ToCsvRowsOps
@@ -178,6 +190,12 @@
                         <a class="object" href="csvReader$.html" title=""></a>
                         <a href="csvReader$.html" title="">
                           csvReader
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="object" href="csvRow$.html" title=""></a>
+                        <a href="csvRow$.html" title="">
+                          csvRow
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
@@ -220,18 +238,18 @@
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">CsvSinkOps</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyVal">AnyVal</span></span>
+        <span class="name">CsvSinkOps</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides useful syntax for that types that have implicit instances of <a href="../CsvSink.html" class="extype" name="kantan.csv.CsvSink">CsvSink</a> in scope.</p><p>The most common use case is to turn a value into a <a href="../CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a> through <a href="#asCsvWriter[B](sep:Char,header:String*)(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]" class="extmbr" name="kantan.csv.ops.CsvSinkOps#asCsvWriter">asCsvWriter</a>:</p><pre><span class="kw">val</span> f: java.io.File = ???
-f.asCsvWriter[<span class="std">List</span>[<span class="std">Int</span>]](<span class="lit">','</span>, <span class="kw">true</span>)</pre><p>A slightly less common use case is encode an entire collection to CSV through <a href="#writeCsv[B](rows:TraversableOnce[B],sep:Char,header:String*)(implicitevidence$2:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):Unit" class="extmbr" name="kantan.csv.ops.CsvSinkOps#writeCsv">writeCsv</a>:</p><pre><span class="kw">val</span> f: java.io.File = ???
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides useful syntax for that types that have implicit instances of <a href="../CsvSink.html" class="extype" name="kantan.csv.CsvSink">CsvSink</a> in scope.</p><p>The most common use case is to turn a value into a <a href="../CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a>:</p><pre><span class="kw">val</span> f: java.io.File = ???
+f.asCsvWriter[<span class="std">List</span>[<span class="std">Int</span>]](<span class="lit">','</span>, <span class="kw">true</span>)</pre><p>A slightly less common use case is encode an entire collection to CSV:</p><pre><span class="kw">val</span> f: java.io.File = ???
 f.writeCsv[<span class="std">List</span>[<span class="std">Int</span>]](<span class="std">List</span>(<span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>), <span class="std">List</span>(<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>)), <span class="lit">','</span>, <span class="kw">true</span>)</pre></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/ops/CsvSinkOps.scala" target="_blank">CsvSinkOps.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyVal">AnyVal</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -257,7 +275,7 @@ f.writeCsv[<span class="std">List</span>[<span class="std">Int</span>]](<span cl
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="kantan.csv.ops.CsvSinkOps"><span>CsvSinkOps</span></li><li class="in" name="scala.AnyVal"><span>AnyVal</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="kantan.csv.ops.CsvSinkOps"><span>CsvSinkOps</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -278,9 +296,9 @@ f.writeCsv[<span class="std">List</span>[<span class="std">Int</span>]](<span cl
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="kantan.csv.ops.CsvSinkOps#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(a:A):kantan.csv.ops.CsvSinkOps[A]"></a><a id="&lt;init&gt;:CsvSinkOps[A]"></a>
+      <a id="&lt;init&gt;(a:A)(implicitevidence$1:kantan.csv.CsvSink[A]):kantan.csv.ops.CsvSinkOps[A]"></a><a id="&lt;init&gt;:CsvSinkOps[A]"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/ops/CsvSinkOps.html#&lt;init&gt;(a:A):kantan.csv.ops.CsvSinkOps[A]" title="Permalink">
+      <a href="../../../kantan/csv/ops/CsvSinkOps.html#&lt;init&gt;(a:A)(implicitevidence$1:kantan.csv.CsvSink[A]):kantan.csv.ops.CsvSinkOps[A]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -289,7 +307,7 @@ f.writeCsv[<span class="std">List</span>[<span class="std">Int</span>]](<span cl
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">CsvSinkOps</span><span class="params">(<span name="a">a: <span class="extype" name="kantan.csv.ops.CsvSinkOps.A">A</span></span>)</span>
+        <span class="name">CsvSinkOps</span><span class="params">(<span name="a">a: <span class="extype" name="kantan.csv.ops.CsvSinkOps.A">A</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../CsvSink.html" class="extype" name="kantan.csv.CsvSink">CsvSink</a>[<span class="extype" name="kantan.csv.ops.CsvSinkOps.A">A</span>]</span>)</span>
       </span>
       
       
@@ -303,7 +321,7 @@ f.writeCsv[<span class="std">List</span>[<span class="std">Int</span>]](<span cl
         <div class="values members">
               <h3>Value Members</h3>
               <ol>
-                <li name="scala.Any#!=" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+                <li name="scala.AnyRef#!=" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="!=(x$1:Any):Boolean"></a><a id="!=(Any):Boolean"></a>
       <span class="permalink">
       <a href="../../../kantan/csv/ops/CsvSinkOps.html#!=(x$1:Any):Boolean" title="Permalink">
@@ -318,8 +336,8 @@ f.writeCsv[<span class="std">List</span>[<span class="std">Int</span>]](<span cl
         <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="scala.Any###" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef###" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="##():Int"></a>
       <span class="permalink">
       <a href="../../../kantan/csv/ops/CsvSinkOps.html###():Int" title="Permalink">
@@ -334,8 +352,8 @@ f.writeCsv[<span class="std">List</span>[<span class="std">Int</span>]](<span cl
         <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="scala.Any#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a>
       <span class="permalink">
       <a href="../../../kantan/csv/ops/CsvSinkOps.html#==(x$1:Any):Boolean" title="Permalink">
@@ -350,7 +368,7 @@ f.writeCsv[<span class="std">List</span>[<span class="std">Int</span>]](<span cl
         <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="kantan.csv.ops.CsvSinkOps#a" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="a:A"></a>
       <span class="permalink">
@@ -368,9 +386,9 @@ f.writeCsv[<span class="std">List</span>[<span class="std">Int</span>]](<span cl
       
       
     </li><li name="kantan.csv.ops.CsvSinkOps#asCsvWriter" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="asCsvWriter[B](sep:Char,header:String*)(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]"></a><a id="asCsvWriter[B](Char,String*)(RowEncoder[B],CsvSink[A],WriterEngine):CsvWriter[B]"></a>
+      <a id="asCsvWriter[B](conf:kantan.csv.CsvConfiguration)(implicitevidence$3:kantan.csv.RowEncoder[B],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]"></a><a id="asCsvWriter[B](CsvConfiguration)(RowEncoder[B],WriterEngine):CsvWriter[B]"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/ops/CsvSinkOps.html#asCsvWriter[B](sep:Char,header:String*)(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]" title="Permalink">
+      <a href="../../../kantan/csv/ops/CsvSinkOps.html#asCsvWriter[B](conf:kantan.csv.CsvConfiguration)(implicitevidence$3:kantan.csv.RowEncoder[B],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -379,10 +397,10 @@ f.writeCsv[<span class="std">List</span>[<span class="std">Int</span>]](<span cl
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">asCsvWriter</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="sep">sep: <span class="extype" name="scala.Char">Char</span></span>, <span name="header">header: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$RowEncoder.html" class="extype" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="kantan.csv.ops.CsvSinkOps.asCsvWriter.B">B</span>]</span>, <span name="oa">oa: <a href="../CsvSink.html" class="extype" name="kantan.csv.CsvSink">CsvSink</a>[<span class="extype" name="kantan.csv.ops.CsvSinkOps.A">A</span>]</span>, <span name="e">e: <a href="../engine/WriterEngine.html" class="extype" name="kantan.csv.engine.WriterEngine">WriterEngine</a></span>)</span><span class="result">: <a href="../CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a>[<span class="extype" name="kantan.csv.ops.CsvSinkOps.asCsvWriter.B">B</span>]</span>
+        <span class="name">asCsvWriter</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="conf">conf: <a href="../CsvConfiguration.html" class="extype" name="kantan.csv.CsvConfiguration">CsvConfiguration</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$RowEncoder.html" class="extype" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="kantan.csv.ops.CsvSinkOps.asCsvWriter.B">B</span>]</span>, <span name="e">e: <a href="../engine/WriterEngine.html" class="extype" name="kantan.csv.engine.WriterEngine">WriterEngine</a></span>)</span><span class="result">: <a href="../CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a>[<span class="extype" name="kantan.csv.ops.CsvSinkOps.asCsvWriter.B">B</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Shorthand for <a href="../CsvSink.html#writer[A](s:S,sep:Char,header:String*)(implicitevidence$1:kantan.csv.RowEncoder[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[A]" class="extmbr" name="kantan.csv.CsvSink#writer">CsvSink.writer</a>.</p>
+      <p class="shortcomment cmt">Shorthand for <a href="../CsvSink.html#writer[A](s:S,conf:kantan.csv.CsvConfiguration)(implicitevidence$2:kantan.csv.RowEncoder[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[A]" class="extmbr" name="kantan.csv.CsvSink#writer">CsvSink.writer</a>.</p>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -399,10 +417,10 @@ f.writeCsv[<span class="std">List</span>[<span class="std">Int</span>]](<span cl
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="scala.AnyVal#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="getClass():Class[_&lt;:AnyVal]"></a>
+    </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/ops/CsvSinkOps.html#getClass():Class[_&lt;:AnyVal]" title="Permalink">
+      <a href="../../../kantan/csv/ops/CsvSinkOps.html#clone():Object" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -411,10 +429,102 @@ f.writeCsv[<span class="std">List</span>[<span class="std">Int</span>]](<span cl
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Predef.Class">Class</span>[_ &lt;: <span class="extype" name="scala.AnyVal">AnyVal</span>]</span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyVal → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSinkOps.html#eq(x$1:AnyRef):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#equals" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(x$1:Any):Boolean"></a><a id="equals(Any):Boolean"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSinkOps.html#equals(x$1:Any):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="finalize():Unit"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSinkOps.html#finalize():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.lang.Throwable]</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getClass():Class[_]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSinkOps.html#getClass():Class[_]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="hashCode():Int"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSinkOps.html#hashCode():Int" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
@@ -431,7 +541,71 @@ f.writeCsv[<span class="std">List</span>[<span class="std">Int</span>]](<span cl
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="scala.Any#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSinkOps.html#ne(x$1:AnyRef):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notify():Unit"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSinkOps.html#notify():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notifyAll():Unit"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSinkOps.html#notifyAll():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSinkOps.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
       <span class="permalink">
       <a href="../../../kantan/csv/ops/CsvSinkOps.html#toString():String" title="Permalink">
@@ -446,11 +620,77 @@ f.writeCsv[<span class="std">List</span>[<span class="std">Int</span>]](<span cl
         <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="kantan.csv.ops.CsvSinkOps#writeCsv" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="writeCsv[B](rows:TraversableOnce[B],sep:Char,header:String*)(implicitevidence$2:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):Unit"></a><a id="writeCsv[B](TraversableOnce[B],Char,String*)(RowEncoder[B],CsvSink[A],WriterEngine):Unit"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait():Unit"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/ops/CsvSinkOps.html#writeCsv[B](rows:TraversableOnce[B],sep:Char,header:String*)(implicitevidence$2:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):Unit" title="Permalink">
+      <a href="../../../kantan/csv/ops/CsvSinkOps.html#wait():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSinkOps.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long):Unit"></a><a id="wait(Long):Unit"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSinkOps.html#wait(x$1:Long):Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="kantan.csv.ops.CsvSinkOps#writeCsv" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="writeCsv[B](rows:TraversableOnce[B],conf:kantan.csv.CsvConfiguration)(implicitevidence$5:kantan.csv.RowEncoder[B],implicite:kantan.csv.engine.WriterEngine):Unit"></a><a id="writeCsv[B](TraversableOnce[B],CsvConfiguration)(RowEncoder[B],WriterEngine):Unit"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSinkOps.html#writeCsv[B](rows:TraversableOnce[B],conf:kantan.csv.CsvConfiguration)(implicitevidence$5:kantan.csv.RowEncoder[B],implicite:kantan.csv.engine.WriterEngine):Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -459,22 +699,63 @@ f.writeCsv[<span class="std">List</span>[<span class="std">Int</span>]](<span cl
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">writeCsv</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="rows">rows: <span class="extype" name="scala.TraversableOnce">TraversableOnce</span>[<span class="extype" name="kantan.csv.ops.CsvSinkOps.writeCsv.B">B</span>]</span>, <span name="sep">sep: <span class="extype" name="scala.Char">Char</span></span>, <span name="header">header: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$RowEncoder.html" class="extype" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="kantan.csv.ops.CsvSinkOps.writeCsv.B">B</span>]</span>, <span name="oa">oa: <a href="../CsvSink.html" class="extype" name="kantan.csv.CsvSink">CsvSink</a>[<span class="extype" name="kantan.csv.ops.CsvSinkOps.A">A</span>]</span>, <span name="e">e: <a href="../engine/WriterEngine.html" class="extype" name="kantan.csv.engine.WriterEngine">WriterEngine</a></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">writeCsv</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="rows">rows: <span class="extype" name="scala.TraversableOnce">TraversableOnce</span>[<span class="extype" name="kantan.csv.ops.CsvSinkOps.writeCsv.B">B</span>]</span>, <span name="conf">conf: <a href="../CsvConfiguration.html" class="extype" name="kantan.csv.CsvConfiguration">CsvConfiguration</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$RowEncoder.html" class="extype" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="kantan.csv.ops.CsvSinkOps.writeCsv.B">B</span>]</span>, <span name="e">e: <a href="../engine/WriterEngine.html" class="extype" name="kantan.csv.engine.WriterEngine">WriterEngine</a></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      <p class="shortcomment cmt">Shorthand for <a href="../CsvSink.html#write[A](s:S,rows:TraversableOnce[A],sep:Char,header:String*)(implicitevidence$2:kantan.csv.RowEncoder[A],implicite:kantan.csv.engine.WriterEngine):Unit" class="extmbr" name="kantan.csv.CsvSink#write">CsvSink.write</a>.</p>
+      <p class="shortcomment cmt">Shorthand for <a href="../CsvSink.html#write[A](s:S,rows:TraversableOnce[A],conf:kantan.csv.CsvConfiguration)(implicitevidence$4:kantan.csv.RowEncoder[A],implicite:kantan.csv.engine.WriterEngine):Unit" class="extmbr" name="kantan.csv.CsvSink#write">CSvSink.write</a>.</p>
     </li>
               </ol>
             </div>
 
         
 
-        
+        <div class="values members">
+              <h3>Deprecated Value Members</h3>
+              <ol><li name="kantan.csv.ops.CsvSinkOps#asCsvWriter" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asCsvWriter[B](sep:Char,header:String*)(implicitevidence$2:kantan.csv.RowEncoder[B],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]"></a><a id="asCsvWriter[B](Char,String*)(RowEncoder[B],WriterEngine):CsvWriter[B]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSinkOps.html#asCsvWriter[B](sep:Char,header:String*)(implicitevidence$2:kantan.csv.RowEncoder[B],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 0.1.18) use asCsvWriter(CsvConfiguration, String*) instead">asCsvWriter</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="sep">sep: <span class="extype" name="scala.Char">Char</span></span>, <span name="header">header: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$RowEncoder.html" class="extype" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="kantan.csv.ops.CsvSinkOps.asCsvWriter.B">B</span>]</span>, <span name="e">e: <a href="../engine/WriterEngine.html" class="extype" name="kantan.csv.engine.WriterEngine">WriterEngine</a></span>)</span><span class="result">: <a href="../CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a>[<span class="extype" name="kantan.csv.ops.CsvSinkOps.asCsvWriter.B">B</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 0.1.18)</i> use asCsvWriter(CsvConfiguration, String*) instead</p></dd></dl></div>
+    </li><li name="kantan.csv.ops.CsvSinkOps#writeCsv" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="writeCsv[B](rows:TraversableOnce[B],sep:Char,header:String*)(implicitevidence$4:kantan.csv.RowEncoder[B],implicite:kantan.csv.engine.WriterEngine):Unit"></a><a id="writeCsv[B](TraversableOnce[B],Char,String*)(RowEncoder[B],WriterEngine):Unit"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSinkOps.html#writeCsv[B](rows:TraversableOnce[B],sep:Char,header:String*)(implicitevidence$4:kantan.csv.RowEncoder[B],implicite:kantan.csv.engine.WriterEngine):Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 0.1.18) use writeCsv(rows, CsvConfiguration, String*) instead">writeCsv</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="rows">rows: <span class="extype" name="scala.TraversableOnce">TraversableOnce</span>[<span class="extype" name="kantan.csv.ops.CsvSinkOps.writeCsv.B">B</span>]</span>, <span name="sep">sep: <span class="extype" name="scala.Char">Char</span></span>, <span name="header">header: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$RowEncoder.html" class="extype" name="kantan.csv.RowEncoder">RowEncoder</a>[<span class="extype" name="kantan.csv.ops.CsvSinkOps.writeCsv.B">B</span>]</span>, <span name="e">e: <a href="../engine/WriterEngine.html" class="extype" name="kantan.csv.engine.WriterEngine">WriterEngine</a></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 0.1.18)</i> use writeCsv(rows, CsvConfiguration, String*) instead</p></dd></dl></div>
+    </li></ol>
+            </div>
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyVal">
-              <h3>Inherited from <span class="extype" name="scala.AnyVal">AnyVal</span></h3>
+        <div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
             </div>

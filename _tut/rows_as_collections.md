@@ -26,9 +26,10 @@ res0: String =
 In order to turn this into useful types, all we need to do is retrieve a [`CsvReader`] instance:
 
 ```scala
-import kantan.csv.ops._ // Brings in the kantan.csv syntax.
+import kantan.csv._
+import kantan.csv.ops._
 
-val reader = rawData.asCsvReader[List[Float]](',', false)
+val reader = rawData.asCsvReader[List[Float]](rfc)
 ```
 
 The [`asCsvReader`] scaladoc can seem a bit daunting with all its implicit parameters, so let's demystify it.

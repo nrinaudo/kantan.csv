@@ -125,24 +125,6 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
-    </li><li name="kantan.csv.engine.jackson" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="jackson"></a><a id="jackson:jackson"></a>
-      <span class="permalink">
-      <a href="../../../kantan/csv/engine/index.html#jackson" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="jackson/index.html">
-              <span class="name">jackson</span>
-            </a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv.engine">engine</a></dd></dl></div>
     </li><li class="current-entities indented3">
                         <a class="object" href="ReaderEngine$.html" title="Provides instance creation methods and default implementations."></a>
                         <a class="trait" href="ReaderEngine.html" title="Provides kantan.csv with CSV parsing functionality."></a>
@@ -154,6 +136,18 @@
                         <a class="trait" href="" title="Provides factory-like services for CsvWriter."></a>
                         <a href="" title="Provides factory-like services for CsvWriter.">
                           WriterEngine
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="object" href="commons$.html" title="Provides CSV reader and writer engines using Link(https://commons.apache.org/proper/commons-csv/,Text(commons-csv))."></a>
+                        <a href="commons$.html" title="Provides CSV reader and writer engines using Link(https://commons.apache.org/proper/commons-csv/,Text(commons-csv)).">
+                          commons
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="object" href="jackson$.html" title="Provides CSV reader and writer engines using Link(https://github.com/FasterXML/jackson-dataformat-csv,Text(jackson.csv))."></a>
+                        <a href="jackson$.html" title="Provides CSV reader and writer engines using Link(https://github.com/FasterXML/jackson-dataformat-csv,Text(jackson.csv)).">
+                          jackson
                         </a>
                       </li>
               </ul>
@@ -187,7 +181,7 @@
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides factory-like services for <a href="../CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a>.</p><p>Functions that create instances of <a href="../CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a>, either as part of their return types or for internal operations,
 can declare an implicit <a href="../CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a> parameter. If one is imported explicitly (such as the Jackson engine), it will
-be used. Otherwise, the <a href="WriterEngine$.html#internal:kantan.csv.engine.WriterEngine" class="extmbr" name="kantan.csv.engine.WriterEngine#internal">internal</a> one is always in scope.
+be used. Otherwise, the <a href="WriterEngine$.html#internalCsvWriterEngine:kantan.csv.engine.WriterEngine" class="extmbr" name="kantan.csv.engine.WriterEngine#internalCsvWriterEngine">internal</a> one is always in scope.
 </p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/engine/WriterEngine.scala" target="_blank">WriterEngine.scala</a></dd><dt>See also</dt><dd><span class="cmt"><p><a href="ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></p></span></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
@@ -243,9 +237,9 @@ be used. Otherwise, the <a href="WriterEngine$.html#internal:kantan.csv.engine.W
         <div class="values members">
               <h3>Abstract Value Members</h3>
               <ol><li name="kantan.csv.engine.WriterEngine#writerFor" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="writerFor(writer:java.io.Writer,separator:Char):kantan.csv.CsvWriter[Seq[String]]"></a><a id="writerFor(Writer,Char):CsvWriter[Seq[String]]"></a>
+      <a id="writerFor(writer:java.io.Writer,conf:kantan.csv.CsvConfiguration):kantan.csv.CsvWriter[Seq[String]]"></a><a id="writerFor(Writer,CsvConfiguration):CsvWriter[Seq[String]]"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/engine/WriterEngine.html#writerFor(writer:java.io.Writer,separator:Char):kantan.csv.CsvWriter[Seq[String]]" title="Permalink">
+      <a href="../../../kantan/csv/engine/WriterEngine.html#writerFor(writer:java.io.Writer,conf:kantan.csv.CsvConfiguration):kantan.csv.CsvWriter[Seq[String]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -254,11 +248,11 @@ be used. Otherwise, the <a href="WriterEngine$.html#internal:kantan.csv.engine.W
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">writerFor</span><span class="params">(<span name="writer">writer: <span class="extype" name="java.io.Writer">Writer</span></span>, <span name="separator">separator: <span class="extype" name="scala.Char">Char</span></span>)</span><span class="result">: <a href="../CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
+        <span class="name">writerFor</span><span class="params">(<span name="writer">writer: <span class="extype" name="java.io.Writer">Writer</span></span>, <span name="conf">conf: <a href="../CsvConfiguration.html" class="extype" name="kantan.csv.CsvConfiguration">CsvConfiguration</a></span>)</span><span class="result">: <a href="../CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
       <p class="shortcomment cmt">Creates a new instance of <a href="../CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a> that writes encoded data to the specified writer.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new instance of <a href="../CsvWriter.html" class="extype" name="kantan.csv.CsvWriter">CsvWriter</a> that writes encoded data to the specified writer.
-</p></div><dl class="paramcmts block"><dt class="param">writer</dt><dd class="cmt"><p>where to write encoded data.</p></dd><dt class="param">separator</dt><dd class="cmt"><p>column separator.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">writer</dt><dd class="cmt"><p>where to write encoded data.</p></dd><dt class="param">conf</dt><dd class="cmt"><p>column separator.</p></dd></dl></div>
     </li></ol>
             </div>
 

@@ -10,7 +10,7 @@ rarely stores business objects as tuples - encoding case classes is a much more 
 Let's imagine that we have a list of values of type `Person` to encode:
 
 ```scala
-case class Person(id: Int, name: String, age: Int)
+final case class Person(id: Int, name: String, age: Int)
 
 val ps = List(Person(0, "Nicolas", 38), Person(1, "Kazuma", 1), Person(2, "John", 18))
 ```
@@ -20,13 +20,14 @@ cells in the output CSV matches exactly the order of fields in our case class, w
 how to do that:
 
 ```scala
+import kantan.csv._
 import kantan.csv.ops._
 import kantan.csv.generic._
 
 // File in which we'll be writing the CSV data.
 val out = java.io.File.createTempFile("kantan.csv", "csv")
 
-val writer = out.asCsvWriter[Person](',', "Column 1", "Column 2", "Column 3")
+val writer = out.asCsvWriter[Person](rfc.withHeader("Column 1", "Column 2", "Column 3"))
 ```
 
 We're dealing with a list of values, which [`CsvWriter`] as a helper method for which we haven't seen before:
@@ -64,7 +65,7 @@ And to check whether that worked out, let's use another helper function: most Sc
 [`TraversableOnce`] are augmented with an [`asCsv`] method):
 
 ```scala
-scala> ps.asCsv(',')
+scala> ps.asCsv(rfc)
 res6: String =
 "0,38,Nicolas
 1,1,Kazuma

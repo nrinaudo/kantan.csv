@@ -33,14 +33,14 @@ And with that, we can now both encode and decode [`DateTime`]:
 scala> val dates = List(
      |   List(new DateTime(), new DateTime().plusDays(1)),
      |   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
-     | ).asCsv(',')
+     | ).asCsv(rfc)
 dates: String =
-"2017-01-28,2017-01-29
-2017-01-30,2017-01-31
+"2017-02-27,2017-02-28
+2017-03-01,2017-03-02
 "
 
-scala> dates.readCsv[List, List[DateTime]](',', false)
-res1: List[kantan.csv.ReadResult[List[org.joda.time.DateTime]]] = List(Success(List(2017-01-28T00:00:00.000+01:00, 2017-01-29T00:00:00.000+01:00)), Success(List(2017-01-30T00:00:00.000+01:00, 2017-01-31T00:00:00.000+01:00)))
+scala> dates.readCsv[List, List[DateTime]](rfc)
+res1: List[kantan.csv.ReadResult[List[org.joda.time.DateTime]]] = List(Success(List(2017-02-27T00:00:00.000+01:00, 2017-02-28T00:00:00.000+01:00)), Success(List(2017-03-01T00:00:00.000+01:00, 2017-03-02T00:00:00.000+01:00)))
 ```
 
 
@@ -51,7 +51,7 @@ however: all the helper methods we've seen for creating [`RowDecoder`] and [`Row
 [`RowCodec`]. Let's take a concrete example with case classes.
 
 ```scala
-case class Person(id: Int, name: String, age: Int)
+final case class Person(id: Int, name: String, age: Int)
 
 val ps = List(Person(0, "Nicolas", 38), Person(1, "Kazuma", 1), Person(2, "John", 18))
 ```
@@ -65,14 +65,14 @@ implicit val personCodec: RowCodec[Person] = RowCodec.caseCodec(0, 2, 1)(Person.
 And with that one line, we're done:
 
 ```scala
-scala> val csv = ps.asCsv(',')
+scala> val csv = ps.asCsv(rfc)
 csv: String =
 "0,38,Nicolas
 1,1,Kazuma
 2,18,John
 "
 
-scala> csv.readCsv[List, Person](',', false)
+scala> csv.readCsv[List, Person](rfc)
 res3: List[kantan.csv.ReadResult[Person]] = List(Success(Person(0,Nicolas,38)), Success(Person(1,Kazuma,1)), Success(Person(2,John,18)))
 ```
 

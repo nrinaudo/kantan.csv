@@ -125,24 +125,6 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
-    </li><li name="kantan.csv.engine.jackson" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="jackson"></a><a id="jackson:jackson"></a>
-      <span class="permalink">
-      <a href="../../../kantan/csv/engine/index.html#jackson" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="jackson/index.html">
-              <span class="name">jackson</span>
-            </a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv.engine">engine</a></dd></dl></div>
     </li><li class="current-entities indented3">
                         <a class="object" href="" title="Provides instance creation methods and default implementations."></a>
                         <a class="trait" href="ReaderEngine.html" title="Provides kantan.csv with CSV parsing functionality."></a>
@@ -154,6 +136,18 @@
                         <a class="trait" href="WriterEngine.html" title="Provides factory-like services for CsvWriter."></a>
                         <a href="WriterEngine.html" title="Provides factory-like services for CsvWriter.">
                           WriterEngine
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="object" href="commons$.html" title="Provides CSV reader and writer engines using Link(https://commons.apache.org/proper/commons-csv/,Text(commons-csv))."></a>
+                        <a href="commons$.html" title="Provides CSV reader and writer engines using Link(https://commons.apache.org/proper/commons-csv/,Text(commons-csv)).">
+                          commons
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="object" href="jackson$.html" title="Provides CSV reader and writer engines using Link(https://github.com/FasterXML/jackson-dataformat-csv,Text(jackson.csv))."></a>
+                        <a href="jackson$.html" title="Provides CSV reader and writer engines using Link(https://github.com/FasterXML/jackson-dataformat-csv,Text(jackson.csv)).">
+                          jackson
                         </a>
                       </li>
               </ul>
@@ -290,22 +284,6 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="kantan.csv.engine.ReaderEngine#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="apply(f:(java.io.Reader,Char)=&gt;kantan.csv.CsvReader[Seq[String]]):kantan.csv.engine.ReaderEngine"></a><a id="apply((Reader,Char)⇒CsvReader[Seq[String]]):ReaderEngine"></a>
-      <span class="permalink">
-      <a href="../../../kantan/csv/engine/ReaderEngine$.html#apply(f:(java.io.Reader,Char)=&gt;kantan.csv.CsvReader[Seq[String]]):kantan.csv.engine.ReaderEngine" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">apply</span><span class="params">(<span name="f">f: (<span class="extype" name="java.io.Reader">Reader</span>, <span class="extype" name="scala.Char">Char</span>) ⇒ <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>)</span><span class="result">: <a href="ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">Creates a new <a href="ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a> instance.</p>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -398,6 +376,22 @@
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="kantan.csv.engine.ReaderEngine#from" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="from(f:(java.io.Reader,kantan.csv.CsvConfiguration)=&gt;kantan.csv.CsvReader[Seq[String]]):kantan.csv.engine.ReaderEngine"></a><a id="from((Reader,CsvConfiguration)⇒CsvReader[Seq[String]]):ReaderEngine"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/engine/ReaderEngine$.html#from(f:(java.io.Reader,kantan.csv.CsvConfiguration)=&gt;kantan.csv.CsvReader[Seq[String]]):kantan.csv.engine.ReaderEngine" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">from</span><span class="params">(<span name="f">f: (<span class="extype" name="java.io.Reader">Reader</span>, <a href="../CsvConfiguration.html" class="extype" name="kantan.csv.CsvConfiguration">CsvConfiguration</a>) ⇒ <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>)</span><span class="result">: <a href="ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Creates a new <a href="ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a> instance.</p>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -430,10 +424,10 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="kantan.csv.engine.ReaderEngine#internal" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="internal:kantan.csv.engine.ReaderEngine"></a><a id="internal:ReaderEngine"></a>
+    </li><li name="kantan.csv.engine.ReaderEngine#internalCsvReaderEngine" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="internalCsvReaderEngine:kantan.csv.engine.ReaderEngine"></a><a id="internalCsvReaderEngine:ReaderEngine"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/engine/ReaderEngine$.html#internal:kantan.csv.engine.ReaderEngine" title="Permalink">
+      <a href="../../../kantan/csv/engine/ReaderEngine$.html#internalCsvReaderEngine:kantan.csv.engine.ReaderEngine" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -442,7 +436,7 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">internal</span><span class="result">: <a href="ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>
+        <span class="name">internalCsvReaderEngine</span><span class="result">: <a href="ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>
       </span>
       
       <p class="shortcomment cmt">Default reader engine, used whenever a custom one is not explicitly brought in scope.</p>

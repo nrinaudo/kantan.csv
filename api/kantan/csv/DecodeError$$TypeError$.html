@@ -132,7 +132,7 @@
                           OutOfBounds
                         </a>
                       </li><li class="current-entities indented3">
-                        <a class="object" href="" title=""></a>
+                        <a class="object" href="" title="Provides convenience methods for DecodeError.TypeError instance creation."></a>
                         <a class="class" href="DecodeError$$TypeError.html" title="Error that occurs when attempting to decode a CSV cell or row into an incompatible type."></a>
                         <a href="DecodeError$$TypeError.html" title="Error that occurs when attempting to decode a CSV cell or row into an incompatible type.">
                           TypeError
@@ -162,16 +162,16 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">TypeError</span><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">TypeError</span><span class="result"> extends <span class="extype" name="kantan.codecs.ErrorCompanion">ErrorCompanion</span>[<a href="DecodeError$$TypeError.html" class="extype" name="kantan.csv.DecodeError.TypeError">TypeError</a>] with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/Errors.scala" target="_blank">Errors.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides convenience methods for <a href="DecodeError$$TypeError.html" class="extype" name="kantan.csv.DecodeError.TypeError">DecodeError.TypeError</a> instance creation.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/Errors.scala" target="_blank">Errors.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="kantan.codecs.ErrorCompanion">ErrorCompanion</span>[<a href="DecodeError$$TypeError.html" class="extype" name="kantan.csv.DecodeError.TypeError">TypeError</a>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -197,7 +197,7 @@
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="kantan.csv.DecodeError.TypeError"><span>TypeError</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="kantan.csv.DecodeError.TypeError"><span>TypeError</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="kantan.codecs.ErrorCompanion"><span>ErrorCompanion</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -272,10 +272,10 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="kantan.csv.DecodeError.TypeError#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="apply(t:Throwable):kantan.csv.DecodeError.TypeError"></a><a id="apply(Throwable):TypeError"></a>
+    </li><li name="kantan.codecs.ErrorCompanion#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="apply(cause:Throwable):T"></a><a id="apply(Throwable):TypeError"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/DecodeError$$TypeError$.html#apply(t:Throwable):kantan.csv.DecodeError.TypeError" title="Permalink">
+      <a href="../../kantan/csv/DecodeError$$TypeError$.html#apply(cause:Throwable):T" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -284,14 +284,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="params">(<span name="t">t: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result">: <a href="DecodeError$$TypeError.html" class="extype" name="kantan.csv.DecodeError.TypeError">TypeError</a></span>
+        <span class="name">apply</span><span class="params">(<span name="cause">cause: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result">: <a href="DecodeError$$TypeError.html" class="extype" name="kantan.csv.DecodeError.TypeError">TypeError</a></span>
       </span>
       
-      
-    </li><li name="kantan.csv.DecodeError.TypeError#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="apply(str:String,t:Throwable):kantan.csv.DecodeError.TypeError"></a><a id="apply(String,Throwable):TypeError"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ErrorCompanion</dd></dl></div>
+    </li><li name="kantan.codecs.ErrorCompanion#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="apply(msg:String,cause:Throwable):T"></a><a id="apply(String,Throwable):TypeError"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/DecodeError$$TypeError$.html#apply(str:String,t:Throwable):kantan.csv.DecodeError.TypeError" title="Permalink">
+      <a href="../../kantan/csv/DecodeError$$TypeError$.html#apply(msg:String,cause:Throwable):T" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -300,10 +300,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="params">(<span name="str">str: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="t">t: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result">: <a href="DecodeError$$TypeError.html" class="extype" name="kantan.csv.DecodeError.TypeError">TypeError</a></span>
+        <span class="name">apply</span><span class="params">(<span name="msg">msg: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="cause">cause: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result">: <a href="DecodeError$$TypeError.html" class="extype" name="kantan.csv.DecodeError.TypeError">TypeError</a></span>
       </span>
       
-      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ErrorCompanion</dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -604,6 +604,8 @@
               <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
             </div><div class="parent" name="java.io.Serializable">
               <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="kantan.codecs.ErrorCompanion">
+              <h3>Inherited from <span class="extype" name="kantan.codecs.ErrorCompanion">ErrorCompanion</span>[<a href="DecodeError$$TypeError.html" class="extype" name="kantan.csv.DecodeError.TypeError">TypeError</a>]</h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">

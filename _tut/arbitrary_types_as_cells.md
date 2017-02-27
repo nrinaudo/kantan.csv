@@ -16,7 +16,7 @@ implicit instance of [`CellEncoder[A]`][`CellEncoder`] in scope. All sane primit
 
 ```scala
 scala> implicitly[kantan.csv.CellEncoder[Int]]
-res0: kantan.csv.CellEncoder[Int] = kantan.codecs.Codec$$anon$1@69852bbf
+res0: kantan.csv.CellEncoder[Int] = kantan.codecs.Codec$$anon$1@77c9e743
 ```
 
 A more complete list of default instances can be found [here](default_instances.html)
@@ -25,10 +25,13 @@ And so, when [`asCsvWriter`], [`writeCsv`] or [`asCsv`] are asked to turn a coll
 it looks for a corresponding implicit [`CellEncoder`] and relies on it for encoding:
 
 ```scala
+scala> import kantan.csv._
+import kantan.csv._
+
 scala> import kantan.csv.ops._
 import kantan.csv.ops._
 
-scala> List(List(1, 2, 3), List(4, 5, 6)).asCsv(',')
+scala> List(List(1, 2, 3), List(4, 5, 6)).asCsv(rfc)
 res1: String =
 "1,2,3
 4,5,6
@@ -57,10 +60,10 @@ And we can now encode collections of dates:
 scala> List(
      |   List(new DateTime(), new DateTime().plusDays(1)),
      |   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
-     | ).asCsv(',')
+     | ).asCsv(rfc)
 res3: String =
-"2017-01-28,2017-01-29
-2017-01-30,2017-01-31
+"2017-02-27,2017-02-28
+2017-03-01,2017-03-02
 "
 ```
 

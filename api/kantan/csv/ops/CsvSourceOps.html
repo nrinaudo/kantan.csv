@@ -133,6 +133,12 @@
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
+                        <a class="class" href="CsvRowOps.html" title="Provides useful syntax for working with CSV rows."></a>
+                        <a href="CsvRowOps.html" title="Provides useful syntax for working with CSV rows.">
+                          CsvRowOps
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
                         <a class="class" href="CsvRowsOps.html" title="Provides useful syntax for collections."></a>
                         <a href="CsvRowsOps.html" title="Provides useful syntax for collections.">
                           CsvRowsOps
@@ -157,6 +163,12 @@
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
+                        <a class="trait" href="ToCsvRowOps.html" title=""></a>
+                        <a href="ToCsvRowOps.html" title="">
+                          ToCsvRowOps
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
                         <a class="trait" href="ToCsvRowsOps.html" title=""></a>
                         <a href="ToCsvRowsOps.html" title="">
                           ToCsvRowsOps
@@ -178,6 +190,12 @@
                         <a class="object" href="csvReader$.html" title=""></a>
                         <a href="csvReader$.html" title="">
                           csvReader
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="object" href="csvRow$.html" title=""></a>
+                        <a href="csvRow$.html" title="">
+                          csvRow
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
@@ -220,19 +238,21 @@
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">CsvSourceOps</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyVal">AnyVal</span></span>
+        <span class="name">CsvSourceOps</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides useful syntax for types that have implicit instances of <a href="../CsvSource.html" class="extype" name="kantan.csv.CsvSource">CsvSource</a> in scope.</p><p>The most common use case is to turn a value into a <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a> through <a href="#asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]" class="extmbr" name="kantan.csv.ops.CsvSourceOps#asCsvReader">asCsvReader</a>:</p><pre><span class="kw">val</span> f: java.io.File = ???
-f.asCsvReader[<span class="std">List</span>[<span class="std">Int</span>]](<span class="lit">','</span>, <span class="kw">true</span>)</pre><p>A slightly less common use case is to load an entire CSV file in memory through <a href="#readCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[B],C[kantan.csv.ReadResult[B]]]):C[kantan.csv.ReadResult[B]]" class="extmbr" name="kantan.csv.ops.CsvSourceOps#readCsv">readCsv</a>:</p><pre><span class="kw">val</span> f: java.io.File = ???
-f.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span class="std">Int</span>]](<span class="lit">','</span>, <span class="kw">true</span>)</pre><p>Unsafe versions of these methods are also available, even if usually advised against.
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides useful syntax for types that have implicit instances of <a href="../CsvSource.html" class="extype" name="kantan.csv.CsvSource">CsvSource</a> in scope.</p><p>The most common use case is to turn a value into a <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>:</p><pre>scala&gt; <span class="kw">import</span> kantan.csv._
+
+scala&gt; <span class="lit">"1,2,3\n4,5,6"</span>.asCsvReader[<span class="std">List</span>[<span class="std">Int</span>]](rfc).toList
+res0: <span class="std">List</span>[ReadResult[<span class="std">List</span>[<span class="std">Int</span>]]] = <span class="std">List</span>(Success(<span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)), Success(<span class="std">List</span>(<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>)))</pre><p>A slightly less common use case is to load an entire CSV file in memory:</p><pre>scala&gt; <span class="lit">"1,2,3\n4,5,6"</span>.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span class="std">Int</span>]](rfc)
+res1: <span class="std">List</span>[ReadResult[<span class="std">List</span>[<span class="std">Int</span>]]] = <span class="std">List</span>(Success(<span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)), Success(<span class="std">List</span>(<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>)))</pre><p>Unsafe versions of these methods are also available, even if usually advised against.
 </p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/ops/CsvSourceOps.scala" target="_blank">CsvSourceOps.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyVal">AnyVal</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -258,7 +278,7 @@ f.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span cla
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="kantan.csv.ops.CsvSourceOps"><span>CsvSourceOps</span></li><li class="in" name="scala.AnyVal"><span>AnyVal</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="kantan.csv.ops.CsvSourceOps"><span>CsvSourceOps</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -279,9 +299,9 @@ f.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span cla
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="kantan.csv.ops.CsvSourceOps#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(a:A):kantan.csv.ops.CsvSourceOps[A]"></a><a id="&lt;init&gt;:CsvSourceOps[A]"></a>
+      <a id="&lt;init&gt;(a:A)(implicitevidence$1:kantan.csv.CsvSource[A]):kantan.csv.ops.CsvSourceOps[A]"></a><a id="&lt;init&gt;:CsvSourceOps[A]"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/ops/CsvSourceOps.html#&lt;init&gt;(a:A):kantan.csv.ops.CsvSourceOps[A]" title="Permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#&lt;init&gt;(a:A)(implicitevidence$1:kantan.csv.CsvSource[A]):kantan.csv.ops.CsvSourceOps[A]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -290,7 +310,7 @@ f.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span cla
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">CsvSourceOps</span><span class="params">(<span name="a">a: <span class="extype" name="kantan.csv.ops.CsvSourceOps.A">A</span></span>)</span>
+        <span class="name">CsvSourceOps</span><span class="params">(<span name="a">a: <span class="extype" name="kantan.csv.ops.CsvSourceOps.A">A</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../CsvSource.html" class="extype" name="kantan.csv.CsvSource">CsvSource</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.A">A</span>]</span>)</span>
       </span>
       
       
@@ -304,7 +324,7 @@ f.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span cla
         <div class="values members">
               <h3>Value Members</h3>
               <ol>
-                <li name="scala.Any#!=" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+                <li name="scala.AnyRef#!=" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="!=(x$1:Any):Boolean"></a><a id="!=(Any):Boolean"></a>
       <span class="permalink">
       <a href="../../../kantan/csv/ops/CsvSourceOps.html#!=(x$1:Any):Boolean" title="Permalink">
@@ -319,8 +339,8 @@ f.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span cla
         <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="scala.Any###" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef###" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="##():Int"></a>
       <span class="permalink">
       <a href="../../../kantan/csv/ops/CsvSourceOps.html###():Int" title="Permalink">
@@ -335,8 +355,8 @@ f.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span cla
         <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="scala.Any#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a>
       <span class="permalink">
       <a href="../../../kantan/csv/ops/CsvSourceOps.html#==(x$1:Any):Boolean" title="Permalink">
@@ -351,7 +371,7 @@ f.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span cla
         <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="kantan.csv.ops.CsvSourceOps#a" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="a:A"></a>
       <span class="permalink">
@@ -368,10 +388,10 @@ f.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span cla
       </span>
       
       
-    </li><li name="kantan.csv.ops.CsvSourceOps#asCsvReader" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]"></a><a id="asCsvReader[B](Char,Boolean)(RowDecoder[B],CsvSource[A],ReaderEngine):CsvReader[ReadResult[B]]"></a>
+    </li><li name="kantan.csv.ops.CsvSourceOps#asCsvReader" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asCsvReader[B](conf:kantan.csv.CsvConfiguration)(implicitevidence$3:kantan.csv.RowDecoder[B],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]"></a><a id="asCsvReader[B](CsvConfiguration)(RowDecoder[B],ReaderEngine):CsvReader[ReadResult[B]]"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/ops/CsvSourceOps.html#asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]" title="Permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#asCsvReader[B](conf:kantan.csv.CsvConfiguration)(implicitevidence$3:kantan.csv.RowDecoder[B],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -380,10 +400,14 @@ f.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span cla
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">asCsvReader</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="sep">sep: <span class="extype" name="scala.Char">Char</span></span>, <span name="header">header: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.asCsvReader.B">B</span>]</span>, <span name="ia">ia: <a href="../CsvSource.html" class="extype" name="kantan.csv.CsvSource">CsvSource</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.A">A</span>]</span>, <span name="e">e: <a href="../engine/ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>)</span><span class="result">: <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package$$ReadResult.html" class="extype" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.asCsvReader.B">B</span>]]</span>
+        <span class="name">asCsvReader</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="conf">conf: <a href="../CsvConfiguration.html" class="extype" name="kantan.csv.CsvConfiguration">CsvConfiguration</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.asCsvReader.B">B</span>]</span>, <span name="e">e: <a href="../engine/ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>)</span><span class="result">: <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package$$ReadResult.html" class="extype" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.asCsvReader.B">B</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Shorthand for <a href="../CsvSource.html#reader[A](s:S,sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[A]]" class="extmbr" name="kantan.csv.CsvSource#reader">CsvSource.reader</a>.</p>
+      <p class="shortcomment cmt">Opens a <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a> on the underlying resource.</p><div class="fullcomment"><div class="comment cmt"><p>Opens a <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a> on the underlying resource.</p><p>For example:</p><pre>scala&gt; <span class="kw">import</span> kantan.csv._
+
+scala&gt; <span class="lit">"1,2,3\n4,5,6"</span>.asCsvReader[<span class="std">List</span>[<span class="std">Int</span>]](rfc).toList
+res0: <span class="std">List</span>[ReadResult[<span class="std">List</span>[<span class="std">Int</span>]]] = <span class="std">List</span>(Success(<span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)), Success(<span class="std">List</span>(<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>)))</pre><p>This is a convenience method only, and strictly equivalent to:</p><pre>scala&gt; CsvSource[<span class="std">String</span>].reader[<span class="std">List</span>[<span class="std">Int</span>]](<span class="lit">"1,2,3\n4,5,6"</span>, rfc).toList
+res1: <span class="std">List</span>[ReadResult[<span class="std">List</span>[<span class="std">Int</span>]]] = <span class="std">List</span>(Success(<span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)), Success(<span class="std">List</span>(<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>)))</pre></div><dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>type each row will be decoded as.</p></dd><dt class="param">conf</dt><dd class="cmt"><p>CSV parsing behaviour.</p></dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -400,10 +424,10 @@ f.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span cla
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="kantan.csv.ops.CsvSourceOps#asUnsafeCsvReader" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$2:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]"></a><a id="asUnsafeCsvReader[B](Char,Boolean)(RowDecoder[B],CsvSource[A],ReaderEngine):CsvReader[B]"></a>
+    </li><li name="kantan.csv.ops.CsvSourceOps#asUnsafeCsvReader" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asUnsafeCsvReader[B](conf:kantan.csv.CsvConfiguration)(implicitevidence$5:kantan.csv.RowDecoder[B],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]"></a><a id="asUnsafeCsvReader[B](CsvConfiguration)(RowDecoder[B],ReaderEngine):CsvReader[B]"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/ops/CsvSourceOps.html#asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$2:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]" title="Permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#asUnsafeCsvReader[B](conf:kantan.csv.CsvConfiguration)(implicitevidence$5:kantan.csv.RowDecoder[B],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -412,14 +436,18 @@ f.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span cla
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">asUnsafeCsvReader</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="sep">sep: <span class="extype" name="scala.Char">Char</span></span>, <span name="header">header: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.asUnsafeCsvReader.B">B</span>]</span>, <span name="ia">ia: <a href="../CsvSource.html" class="extype" name="kantan.csv.CsvSource">CsvSource</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.A">A</span>]</span>, <span name="e">e: <a href="../engine/ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>)</span><span class="result">: <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.asUnsafeCsvReader.B">B</span>]</span>
+        <span class="name">asUnsafeCsvReader</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="conf">conf: <a href="../CsvConfiguration.html" class="extype" name="kantan.csv.CsvConfiguration">CsvConfiguration</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.asUnsafeCsvReader.B">B</span>]</span>, <span name="e">e: <a href="../engine/ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>)</span><span class="result">: <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.asUnsafeCsvReader.B">B</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Shorthand for <a href="../CsvSource.html#unsafeReader[A](s:S,separator:Char,header:Boolean)(implicitevidence$2:kantan.csv.RowDecoder[A],implicitengine:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[A]" class="extmbr" name="kantan.csv.CsvSource#unsafeReader">CsvSource.unsafeReader</a>.</p>
-    </li><li name="scala.AnyVal#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="getClass():Class[_&lt;:AnyVal]"></a>
+      <p class="shortcomment cmt">Opens an unsafe <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a> on the underlying resource.</p><div class="fullcomment"><div class="comment cmt"><p>Opens an unsafe <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a> on the underlying resource.</p><p>For example:</p><pre>scala&gt; <span class="kw">import</span> kantan.csv._
+
+scala&gt; <span class="lit">"1,2,3\n4,5,6"</span>.asUnsafeCsvReader[<span class="std">List</span>[<span class="std">Int</span>]](rfc).toList
+res0: <span class="std">List</span>[<span class="std">List</span>[<span class="std">Int</span>]] = <span class="std">List</span>(<span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>), <span class="std">List</span>(<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>))</pre><p>This is a convenience method only, and strictly equivalent to:</p><pre>scala&gt; CsvSource[<span class="std">String</span>].unsafeReader[<span class="std">List</span>[<span class="std">Int</span>]](<span class="lit">"1,2,3\n4,5,6"</span>, rfc).toList
+res1: <span class="std">List</span>[<span class="std">List</span>[<span class="std">Int</span>]] = <span class="std">List</span>(<span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>), <span class="std">List</span>(<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>))</pre></div><dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>type each row will be decoded as.</p></dd><dt class="param">conf</dt><dd class="cmt"><p>CSV parsing behaviour.</p></dd></dl></div>
+    </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/ops/CsvSourceOps.html#getClass():Class[_&lt;:AnyVal]" title="Permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#clone():Object" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -428,10 +456,102 @@ f.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span cla
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Predef.Class">Class</span>[_ &lt;: <span class="extype" name="scala.AnyVal">AnyVal</span>]</span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyVal → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#eq(x$1:AnyRef):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#equals" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(x$1:Any):Boolean"></a><a id="equals(Any):Boolean"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#equals(x$1:Any):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="finalize():Unit"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#finalize():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.lang.Throwable]</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getClass():Class[_]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#getClass():Class[_]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="hashCode():Int"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#hashCode():Int" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
@@ -448,10 +568,58 @@ f.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span cla
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="kantan.csv.ops.CsvSourceOps#readCsv" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="readCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[B],C[kantan.csv.ReadResult[B]]]):C[kantan.csv.ReadResult[B]]"></a><a id="readCsv[C[_],B](Char,Boolean)(RowDecoder[B],CsvSource[A],ReaderEngine,CanBuildFrom[Nothing,ReadResult[B],C[ReadResult[B]]]):C[ReadResult[B]]"></a>
+    </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/ops/CsvSourceOps.html#readCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[B],C[kantan.csv.ReadResult[B]]]):C[kantan.csv.ReadResult[B]]" title="Permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#ne(x$1:AnyRef):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notify():Unit"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#notify():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notifyAll():Unit"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#notifyAll():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="kantan.csv.ops.CsvSourceOps#readCsv" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="readCsv[C[_],B](conf:kantan.csv.CsvConfiguration)(implicitevidence$7:kantan.csv.RowDecoder[B],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[B],C[kantan.csv.ReadResult[B]]]):C[kantan.csv.ReadResult[B]]"></a><a id="readCsv[C[_],B](CsvConfiguration)(RowDecoder[B],ReaderEngine,CanBuildFrom[Nothing,ReadResult[B],C[ReadResult[B]]]):C[ReadResult[B]]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#readCsv[C[_],B](conf:kantan.csv.CsvConfiguration)(implicitevidence$7:kantan.csv.RowDecoder[B],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[B],C[kantan.csv.ReadResult[B]]]):C[kantan.csv.ReadResult[B]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -460,11 +628,31 @@ f.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span cla
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">readCsv</span><span class="tparams">[<span name="C">C<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="B">B</span>]</span><span class="params">(<span name="sep">sep: <span class="extype" name="scala.Char">Char</span></span>, <span name="header">header: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.readCsv.B">B</span>]</span>, <span name="ia">ia: <a href="../CsvSource.html" class="extype" name="kantan.csv.CsvSource">CsvSource</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.A">A</span>]</span>, <span name="e">e: <a href="../engine/ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>, <span name="cbf">cbf: <span class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</span>[<span class="extype" name="scala.Nothing">Nothing</span>, <a href="../package$$ReadResult.html" class="extype" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.readCsv.B">B</span>], <span class="extype" name="kantan.csv.ops.CsvSourceOps.readCsv.C">C</span>[<a href="../package$$ReadResult.html" class="extype" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.readCsv.B">B</span>]]]</span>)</span><span class="result">: <span class="extype" name="kantan.csv.ops.CsvSourceOps.readCsv.C">C</span>[<a href="../package$$ReadResult.html" class="extype" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.readCsv.B">B</span>]]</span>
+        <span class="name">readCsv</span><span class="tparams">[<span name="C">C<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="B">B</span>]</span><span class="params">(<span name="conf">conf: <a href="../CsvConfiguration.html" class="extype" name="kantan.csv.CsvConfiguration">CsvConfiguration</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.readCsv.B">B</span>]</span>, <span name="e">e: <a href="../engine/ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>, <span name="cbf">cbf: <span class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</span>[<span class="extype" name="scala.Nothing">Nothing</span>, <a href="../package$$ReadResult.html" class="extype" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.readCsv.B">B</span>], <span class="extype" name="kantan.csv.ops.CsvSourceOps.readCsv.C">C</span>[<a href="../package$$ReadResult.html" class="extype" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.readCsv.B">B</span>]]]</span>)</span><span class="result">: <span class="extype" name="kantan.csv.ops.CsvSourceOps.readCsv.C">C</span>[<a href="../package$$ReadResult.html" class="extype" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.readCsv.B">B</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Shorthand for <a href="../CsvSource.html#read[C[_],A](s:S,sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[A],C[kantan.csv.ReadResult[A]]]):C[kantan.csv.ReadResult[A]]" class="extmbr" name="kantan.csv.CsvSource#read">CsvSource.read</a>.</p>
-    </li><li name="scala.Any#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <p class="shortcomment cmt">Reads the underlying resource as a CSV stream.</p><div class="fullcomment"><div class="comment cmt"><p>Reads the underlying resource as a CSV stream.</p><p>For example:</p><pre>scala&gt; <span class="kw">import</span> kantan.csv._
+
+scala&gt; <span class="lit">"1,2,3\n4,5,6"</span>.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span class="std">Int</span>]](rfc)
+res0: <span class="std">List</span>[ReadResult[<span class="std">List</span>[<span class="std">Int</span>]]] = <span class="std">List</span>(Success(<span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)), Success(<span class="std">List</span>(<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>)))</pre><p>This is a convenience method only, and strictly equivalent to:</p><pre>scala&gt; CsvSource[<span class="std">String</span>].read[<span class="std">List</span>, <span class="std">List</span>[<span class="std">Int</span>]](<span class="lit">"1,2,3\n4,5,6"</span>, rfc)
+res1: <span class="std">List</span>[ReadResult[<span class="std">List</span>[<span class="std">Int</span>]]] = <span class="std">List</span>(Success(<span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)), Success(<span class="std">List</span>(<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>)))</pre></div><dl class="paramcmts block"><dt class="tparam">C</dt><dd class="cmt"><p>type of the collection in which the decoded CSV data will be stored.</p></dd><dt class="tparam">B</dt><dd class="cmt"><p>type each row will be decoded as.</p></dd><dt class="param">conf</dt><dd class="cmt"><p>CSV parsing behaviour.</p></dd></dl></div>
+    </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
       <span class="permalink">
       <a href="../../../kantan/csv/ops/CsvSourceOps.html#toString():String" title="Permalink">
@@ -479,11 +667,11 @@ f.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span cla
         <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="kantan.csv.ops.CsvSourceOps#unsafeReadCsv" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="unsafeReadCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$4:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,B,C[B]]):C[B]"></a><a id="unsafeReadCsv[C[_],B](Char,Boolean)(RowDecoder[B],CsvSource[A],ReaderEngine,CanBuildFrom[Nothing,B,C[B]]):C[B]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="kantan.csv.ops.CsvSourceOps#unsafeReadCsv" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unsafeReadCsv[C[_],B](conf:kantan.csv.CsvConfiguration)(implicitevidence$9:kantan.csv.RowDecoder[B],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,B,C[B]]):C[B]"></a><a id="unsafeReadCsv[C[_],B](CsvConfiguration)(RowDecoder[B],ReaderEngine,CanBuildFrom[Nothing,B,C[B]]):C[B]"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/ops/CsvSourceOps.html#unsafeReadCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$4:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,B,C[B]]):C[B]" title="Permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#unsafeReadCsv[C[_],B](conf:kantan.csv.CsvConfiguration)(implicitevidence$9:kantan.csv.RowDecoder[B],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,B,C[B]]):C[B]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -492,22 +680,171 @@ f.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span cla
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">unsafeReadCsv</span><span class="tparams">[<span name="C">C<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="B">B</span>]</span><span class="params">(<span name="sep">sep: <span class="extype" name="scala.Char">Char</span></span>, <span name="header">header: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.unsafeReadCsv.B">B</span>]</span>, <span name="ia">ia: <a href="../CsvSource.html" class="extype" name="kantan.csv.CsvSource">CsvSource</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.A">A</span>]</span>, <span name="e">e: <a href="../engine/ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>, <span name="cbf">cbf: <span class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</span>[<span class="extype" name="scala.Nothing">Nothing</span>, <span class="extype" name="kantan.csv.ops.CsvSourceOps.unsafeReadCsv.B">B</span>, <span class="extype" name="kantan.csv.ops.CsvSourceOps.unsafeReadCsv.C">C</span>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.unsafeReadCsv.B">B</span>]]</span>)</span><span class="result">: <span class="extype" name="kantan.csv.ops.CsvSourceOps.unsafeReadCsv.C">C</span>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.unsafeReadCsv.B">B</span>]</span>
+        <span class="name">unsafeReadCsv</span><span class="tparams">[<span name="C">C<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="B">B</span>]</span><span class="params">(<span name="conf">conf: <a href="../CsvConfiguration.html" class="extype" name="kantan.csv.CsvConfiguration">CsvConfiguration</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.unsafeReadCsv.B">B</span>]</span>, <span name="e">e: <a href="../engine/ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>, <span name="cbf">cbf: <span class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</span>[<span class="extype" name="scala.Nothing">Nothing</span>, <span class="extype" name="kantan.csv.ops.CsvSourceOps.unsafeReadCsv.B">B</span>, <span class="extype" name="kantan.csv.ops.CsvSourceOps.unsafeReadCsv.C">C</span>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.unsafeReadCsv.B">B</span>]]</span>)</span><span class="result">: <span class="extype" name="kantan.csv.ops.CsvSourceOps.unsafeReadCsv.C">C</span>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.unsafeReadCsv.B">B</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Shorthand for <a href="../CsvSource.html#unsafeRead[C[_],A](s:S,separator:Char,header:Boolean)(implicitevidence$4:kantan.csv.RowDecoder[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,A,C[A]]):C[A]" class="extmbr" name="kantan.csv.CsvSource#unsafeRead">CsvSource.unsafeRead</a>.</p>
+      <p class="shortcomment cmt">Reads the underlying resource as a CSV stream (unsafely).</p><div class="fullcomment"><div class="comment cmt"><p>Reads the underlying resource as a CSV stream (unsafely).</p><p>For example:</p><pre>scala&gt; <span class="kw">import</span> kantan.csv._
+
+scala&gt; <span class="lit">"1,2,3\n4,5,6"</span>.unsafeReadCsv[<span class="std">List</span>, <span class="std">List</span>[<span class="std">Int</span>]](rfc)
+res0: <span class="std">List</span>[<span class="std">List</span>[<span class="std">Int</span>]] = <span class="std">List</span>(<span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>), <span class="std">List</span>(<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>))</pre><p>This is a convenience method only, and strictly equivalent to:</p><pre>scala&gt; CsvSource[<span class="std">String</span>].unsafeRead[<span class="std">List</span>, <span class="std">List</span>[<span class="std">Int</span>]](<span class="lit">"1,2,3\n4,5,6"</span>, rfc)
+res1: <span class="std">List</span>[<span class="std">List</span>[<span class="std">Int</span>]] = <span class="std">List</span>(<span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>), <span class="std">List</span>(<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>))</pre></div><dl class="paramcmts block"><dt class="tparam">C</dt><dd class="cmt"><p>type of the collection in which the decoded CSV data will be stored.</p></dd><dt class="tparam">B</dt><dd class="cmt"><p>type each row will be decoded as.</p></dd><dt class="param">conf</dt><dd class="cmt"><p>CSV parsing behaviour.</p></dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait():Unit"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#wait():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long):Unit"></a><a id="wait(Long):Unit"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#wait(x$1:Long):Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
     </li>
               </ol>
             </div>
 
         
 
-        
+        <div class="values members">
+              <h3>Deprecated Value Members</h3>
+              <ol><li name="kantan.csv.ops.CsvSourceOps#asCsvReader" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$2:kantan.csv.RowDecoder[B],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]"></a><a id="asCsvReader[B](Char,Boolean)(RowDecoder[B],ReaderEngine):CsvReader[ReadResult[B]]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$2:kantan.csv.RowDecoder[B],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 0.1.18) use asCsvReader(CsvConfiguration, Boolean) instead">asCsvReader</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="sep">sep: <span class="extype" name="scala.Char">Char</span></span>, <span name="header">header: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.asCsvReader.B">B</span>]</span>, <span name="e">e: <a href="../engine/ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>)</span><span class="result">: <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package$$ReadResult.html" class="extype" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.asCsvReader.B">B</span>]]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 0.1.18)</i> use asCsvReader(CsvConfiguration, Boolean) instead</p></dd></dl></div>
+    </li><li name="kantan.csv.ops.CsvSourceOps#asUnsafeCsvReader" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$4:kantan.csv.RowDecoder[B],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]"></a><a id="asUnsafeCsvReader[B](Char,Boolean)(RowDecoder[B],ReaderEngine):CsvReader[B]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$4:kantan.csv.RowDecoder[B],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 0.1.18) use asUnsafeCsvReader(CsvConfiguration, Boolean) instead">asUnsafeCsvReader</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="sep">sep: <span class="extype" name="scala.Char">Char</span></span>, <span name="header">header: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.asUnsafeCsvReader.B">B</span>]</span>, <span name="e">e: <a href="../engine/ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>)</span><span class="result">: <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.asUnsafeCsvReader.B">B</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 0.1.18)</i> use asUnsafeCsvReader(CsvConfiguration, Boolean) instead</p></dd></dl></div>
+    </li><li name="kantan.csv.ops.CsvSourceOps#readCsv" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="readCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$6:kantan.csv.RowDecoder[B],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[B],C[kantan.csv.ReadResult[B]]]):C[kantan.csv.ReadResult[B]]"></a><a id="readCsv[C[_],B](Char,Boolean)(RowDecoder[B],ReaderEngine,CanBuildFrom[Nothing,ReadResult[B],C[ReadResult[B]]]):C[ReadResult[B]]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#readCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$6:kantan.csv.RowDecoder[B],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[B],C[kantan.csv.ReadResult[B]]]):C[kantan.csv.ReadResult[B]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 0.1.18) use readCsv(CsvConfiguration, Boolean) instead">readCsv</span><span class="tparams">[<span name="C">C<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="B">B</span>]</span><span class="params">(<span name="sep">sep: <span class="extype" name="scala.Char">Char</span></span>, <span name="header">header: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.readCsv.B">B</span>]</span>, <span name="e">e: <a href="../engine/ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>, <span name="cbf">cbf: <span class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</span>[<span class="extype" name="scala.Nothing">Nothing</span>, <a href="../package$$ReadResult.html" class="extype" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.readCsv.B">B</span>], <span class="extype" name="kantan.csv.ops.CsvSourceOps.readCsv.C">C</span>[<a href="../package$$ReadResult.html" class="extype" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.readCsv.B">B</span>]]]</span>)</span><span class="result">: <span class="extype" name="kantan.csv.ops.CsvSourceOps.readCsv.C">C</span>[<a href="../package$$ReadResult.html" class="extype" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.readCsv.B">B</span>]]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 0.1.18)</i> use readCsv(CsvConfiguration, Boolean) instead</p></dd></dl></div>
+    </li><li name="kantan.csv.ops.CsvSourceOps#unsafeReadCsv" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unsafeReadCsv[C[_],B](sep:Char,header:Boolean)(e:kantan.csv.engine.ReaderEngine,cbf:scala.collection.generic.CanBuildFrom[Nothing,B,C[B]])(implicitevidence$8:kantan.csv.RowDecoder[B]):C[B]"></a><a id="unsafeReadCsv[C[_],B](Char,Boolean)(ReaderEngine,CanBuildFrom[Nothing,B,C[B]])(RowDecoder[B]):C[B]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/ops/CsvSourceOps.html#unsafeReadCsv[C[_],B](sep:Char,header:Boolean)(e:kantan.csv.engine.ReaderEngine,cbf:scala.collection.generic.CanBuildFrom[Nothing,B,C[B]])(implicitevidence$8:kantan.csv.RowDecoder[B]):C[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 0.1.18) use unsafeReadCsv(CsvConfiguration, Boolean) instead">unsafeReadCsv</span><span class="tparams">[<span name="C">C<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="B">B</span>]</span><span class="params">(<span name="sep">sep: <span class="extype" name="scala.Char">Char</span></span>, <span name="header">header: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="params">(<span name="e">e: <a href="../engine/ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>, <span name="cbf">cbf: <span class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</span>[<span class="extype" name="scala.Nothing">Nothing</span>, <span class="extype" name="kantan.csv.ops.CsvSourceOps.unsafeReadCsv.B">B</span>, <span class="extype" name="kantan.csv.ops.CsvSourceOps.unsafeReadCsv.C">C</span>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.unsafeReadCsv.B">B</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.unsafeReadCsv.B">B</span>]</span>)</span><span class="result">: <span class="extype" name="kantan.csv.ops.CsvSourceOps.unsafeReadCsv.C">C</span>[<span class="extype" name="kantan.csv.ops.CsvSourceOps.unsafeReadCsv.B">B</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 0.1.18)</i> use unsafeReadCsv(CsvConfiguration, Boolean) instead</p></dd></dl></div>
+    </li></ol>
+            </div>
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyVal">
-              <h3>Inherited from <span class="extype" name="scala.AnyVal">AnyVal</span></h3>
+        <div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
             </div>

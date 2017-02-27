@@ -231,24 +231,6 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
-    </li><li name="kantan.csv.scalaz" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="scalaz"></a><a id="scalaz:scalaz"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/index.html#scalaz" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="Declares various type class instances for bridging kantan.csv and scalaz." href="../scalaz/index.html">
-              <span class="name">scalaz</span>
-            </a>
-      </span>
-      
-      <p class="shortcomment cmt">Declares various type class instances for bridging <code>kantan.csv</code> and <code>scalaz</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Declares various type class instances for bridging <code>kantan.csv</code> and <code>scalaz</code>.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
     </li>
               </ul>
             </div>
@@ -330,9 +312,9 @@
         <div id="types" class="types members">
               <h3>Type Members</h3>
               <ol><li name="kantan.csv.laws.Cell" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="CellextendsAnyRef"></a><a id="Cell:Cell"></a>
+      <a id="CellextendsProductwithSerializable"></a><a id="Cell:Cell"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/laws/index.html#CellextendsAnyRef" title="Permalink">
+      <a href="../../../kantan/csv/laws/index.html#CellextendsProductwithSerializable" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -343,7 +325,7 @@
       <span class="symbol">
         <a title="" href="Cell.html">
               <span class="name">Cell</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+            </a><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -638,9 +620,9 @@
               <h3>Value Members</h3>
               <ol>
                 <li name="kantan.csv.laws#asCsv" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="asCsv[A](data:List[kantan.csv.laws.package.RowValue[A]],sep:Char,header:String*):String"></a><a id="asCsv[A](List[RowValue[A]],Char,String*):String"></a>
+      <a id="asCsv[A](data:List[kantan.csv.laws.package.RowValue[A]],conf:kantan.csv.CsvConfiguration):String"></a><a id="asCsv[A](List[RowValue[A]],CsvConfiguration):String"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/laws/index.html#asCsv[A](data:List[kantan.csv.laws.package.RowValue[A]],sep:Char,header:String*):String" title="Permalink">
+      <a href="../../../kantan/csv/laws/index.html#asCsv[A](data:List[kantan.csv.laws.package.RowValue[A]],conf:kantan.csv.CsvConfiguration):String" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -649,7 +631,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">asCsv</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="data">data: <span class="extype" name="scala.List">List</span>[<a href="#RowValue[A]=kantan.codecs.laws.CodecValue[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.laws.RowValue">RowValue</a>[<span class="extype" name="kantan.csv.laws.asCsv.A">A</span>]]</span>, <span name="sep">sep: <span class="extype" name="scala.Char">Char</span></span>, <span name="header">header: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+        <span class="name">asCsv</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="data">data: <span class="extype" name="scala.List">List</span>[<a href="#RowValue[A]=kantan.codecs.laws.CodecValue[Seq[String],A,kantan.csv.codecs.type]" class="extmbr" name="kantan.csv.laws.RowValue">RowValue</a>[<span class="extype" name="kantan.csv.laws.asCsv.A">A</span>]]</span>, <span name="conf">conf: <a href="../CsvConfiguration.html" class="extype" name="kantan.csv.CsvConfiguration">CsvConfiguration</a></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
       </span>
       
       
@@ -667,7 +649,7 @@
       <span class="symbol">
         <a title="" href="Cell$.html">
               <span class="name">Cell</span>
-            </a>
+            </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       

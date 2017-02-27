@@ -9,7 +9,7 @@ kantan.csv API - we still support Java 7. There is, however, a dedicated optiona
 adding the following line to your `build.sbt` file:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-java8" % "0.1.16"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-java8" % "0.1.18"
 ```
 
 You then need to import the corresponding package:
@@ -30,6 +30,8 @@ kantan.csv has default, ISO 8601 compliant [`CellDecoder`] and [`CellEncoder`] i
 Let's imagine for example that we want to extract dates from the following string:
 
 ```scala
+import java.time._
+import kantan.csv._
 import kantan.csv.ops._
 
 val input = "1,1978-12-10\n2,2015-01-09"
@@ -38,10 +40,10 @@ val input = "1,1978-12-10\n2,2015-01-09"
 This is directly supported:
 
 ```scala
-scala> val res = input.unsafeReadCsv[List, (Int, java.time.LocalDate)](',', false)
+scala> val res = input.unsafeReadCsv[List, (Int, LocalDate)](rfc)
 res: List[(Int, java.time.LocalDate)] = List((1,1978-12-10), (2,2015-01-09))
 
-scala> res.asCsv(',')
+scala> res.asCsv(rfc)
 res1: String =
 "1,1978-12-10
 2,2015-01-09
@@ -62,26 +64,26 @@ val format = DateTimeFormatter.ofPattern("dd-MM-yyyy")
 We then need to build a decoder for it and stick it in the implicit scope:
 
 ```scala
-implicit val decoder = localDateDecoder(format)
+implicit val decoder: CellDecoder[LocalDate] = localDateDecoder(format)
 ```
 
 And we're done:
 
 ```scala
-scala> val res = input.unsafeReadCsv[List, (Int, java.time.LocalDate)](',', false)
+scala> val res = input.unsafeReadCsv[List, (Int, LocalDate)](rfc)
 res: List[(Int, java.time.LocalDate)] = List((1,1978-12-10), (2,2015-01-09))
 ```
 
 Similarly, this is how you create and encoder:
 
 ```scala
-implicit val encoder = localDateEncoder(format)
+implicit val encoder: CellEncoder[LocalDate] = localDateEncoder(format)
 ```
 
 And you can now easily encode data that contains instances of [`LocalDate`]:
 
 ```scala
-scala> res.asCsv(',')
+scala> res.asCsv(rfc)
 res4: String =
 "1,10-12-1978
 2,09-01-2015
@@ -91,7 +93,7 @@ res4: String =
 Note that if you're going to both encode and decode dates, you can create a [`CellCodec`] in a single call instead:
 
 ```scala
-implicit val codec = localDateCodec(format)
+implicit val codec: CellCodec[LocalDate] = localDateCodec(format)
 ```
 
 [`GroupDecoder`]:{{ site.baseurl }}/api/kantan/regex/package$$GroupDecoder.html

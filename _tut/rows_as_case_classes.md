@@ -33,7 +33,7 @@ air, moon roof, loaded",4799.00
 An obvious representation of each row in this data would be:
 
 ```scala
-case class Car(year: Int, make: String, model: String, desc: Option[String], price: Float)
+final case class Car(year: Int, make: String, model: String, desc: Option[String], price: Float)
 ```
 
 We find ourselves with a particularly easy scenario to deal with: the rows in the CSV data and the fields in the target
@@ -41,10 +41,11 @@ case class have a 1-to-1 correspondence and are declared in the same order. This
 [shapeless](shapeless.html) dependency, there's very little work to do:
 
 ```scala
-import kantan.csv.ops._     // kantan.csv syntax
-import kantan.csv.generic._ // case class decoder derivation
+import kantan.csv._
+import kantan.csv.ops._
+import kantan.csv.generic._
 
-val reader = rawData.asCsvReader[Car](',', true)
+val reader = rawData.asCsvReader[Car](rfc.withHeader)
 ```
 
 Let's make sure this worked by printing all decoded rows:
@@ -62,7 +63,7 @@ As we said before though, this was a particularly advantageous scenario. How wou
 where, say, the `year` and `make` fields have been swapped and the `desc` field doesn't exist?
 
 ```scala
-case class Car2(make: String, year: Int, model: String, price: Float)
+final case class Car2(make: String, year: Int, model: String, price: Float)
 ```
 
 This cannot be derived automatically, and we need to provide an instance of [`RowDecoder[Car2]`][`RowDecoder`]. This is
@@ -80,7 +81,7 @@ that's precisely the `apply` method declared in the companion object.
 Let's verify that this worked as expected:
 
 ```scala
-scala> rawData.asCsvReader[Car2](',', true).foreach(println _)
+scala> rawData.asCsvReader[Car2](rfc.withHeader).foreach(println _)
 Success(Car2(Ford,1997,E350,3000.0))
 Success(Car2(Chevy,1999,Venture "Extended Edition",4900.0))
 Success(Car2(Chevy,1999,Venture "Extended Edition, Very Large",5000.0))

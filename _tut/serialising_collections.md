@@ -11,10 +11,11 @@ This is something that kantan.csv attempts to make as straightforward as possibl
 that needs to be serialised (see [this](case_classes_as_rows) if you're not clear what the following code is for):
 
 ```scala
+import kantan.csv._
 import kantan.csv.ops._
 import kantan.csv.generic._
 
-case class Person(id: Int, name: String, age: Int)
+final case class Person(id: Int, name: String, age: Int)
 
 val ps = List(Person(0, "Nicolas", 38), Person(1, "Kazuma", 1), Person(2, "John", 18))
 ```
@@ -27,7 +28,7 @@ writes them directly as CSV:
 val out = java.io.File.createTempFile("kantan.csv", "csv")
 
 // Writes ps using , as a column separator and with a header row.
-out.writeCsv(ps, ',', "Id", "Name", "Age")
+out.writeCsv(ps, rfc.withHeader("Id", "Name", "Age"))
 ```
 
 [`writeCsv`] takes three value arguments:
@@ -52,7 +53,7 @@ Note that the need for turning a collection into a CSV string is so common that 
 that: [`asCsv`]. For example:
 
 ```scala
-scala> ps.asCsv(',', "Id", "Name", "Age")
+scala> ps.asCsv(rfc.withHeader("Id", "Name", "Age"))
 res7: String =
 "Id,Name,Age
 0,Nicolas,38

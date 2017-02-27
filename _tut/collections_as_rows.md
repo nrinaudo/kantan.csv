@@ -11,12 +11,13 @@ In kantan.csv, all CSV serialisation is done through [`CsvWriter`], which you ca
 version of [`Writer`]. One retrieves an instance of [`CsvWriter`] as follows:
 
 ```scala
+import kantan.csv._
 import kantan.csv.ops._
 
 // File in which we'll be writing the CSV data.
 val out = java.io.File.createTempFile("kantan.csv", "csv")
 
-val writer = out.asCsvWriter[List[Int]](',', "Column 1", "Column 2", "Column 3")
+val writer = out.asCsvWriter[List[Int]](rfc.withHeader("Column 1", "Column 2", "Column 3"))
 ```
 
 Note the type parameter to [`asCsvWriter`]: this is what the returned instance of [`CsvWriter`] will know to encode.

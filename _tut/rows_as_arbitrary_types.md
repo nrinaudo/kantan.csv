@@ -43,10 +43,10 @@ the various helper methods defined in its [companion object]({{ site.baseurl }}/
 our current task, we need to decode a row into 5 values and stick them into `Car`'s constructor: we want [`ordered`].
 
 ```scala
-import kantan.csv.ops._
 import kantan.csv._
+import kantan.csv.ops._
 
-implicit val carDecoder = RowDecoder.ordered { (i: Int, ma: String, mo: String, d: Option[String], p: Float) =>
+implicit val carDecoder: RowDecoder[Car] = RowDecoder.ordered { (i: Int, ma: String, mo: String, d: Option[String], p: Float) =>
   new Car(i, ma, mo, d, p)
 }
 ```
@@ -54,7 +54,7 @@ implicit val carDecoder = RowDecoder.ordered { (i: Int, ma: String, mo: String, 
 And we can now decode our data as usual:
 
 ```scala
-scala> rawData.asCsvReader[Car](',', true).foreach(println _)
+scala> rawData.asCsvReader[Car](rfc.withHeader).foreach(println _)
 Success(Car(1997, Ford, E350, Some(ac, abs, moon), 3000.0))
 Success(Car(1999, Chevy, Venture "Extended Edition", None, 4900.0))
 Success(Car(1999, Chevy, Venture "Extended Edition, Very Large", None, 5000.0))

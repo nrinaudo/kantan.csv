@@ -32,18 +32,19 @@ Our goal here is to parse this resource row by row. In order to do that, we must
 row as a case class. This is exactly what we did in a [previous tutorial](rows_as_case_classes.html):
 
 ```scala
-import kantan.csv.ops._     // kantan.csv syntax
-import kantan.csv.generic._ // case class decoder derivation
+import kantan.csv._
+import kantan.csv.ops._
+import kantan.csv.generic._
 
-case class Car(year: Int, make: String, model: String, desc: Option[String], price: Float)
+final case class Car(year: Int, make: String, model: String, desc: Option[String], price: Float)
 ```
 
 Now that we have everything we need to decode the CSV data, here's how to turn it into something that is essentially
 an iterator with a `close` method:
 
 ```scala
-scala> val iterator = rawData.asCsvReader[Car](',', true)
-iterator: kantan.csv.CsvReader[kantan.csv.ReadResult[Car]] = kantan.codecs.resource.ResourceIterator$$anon$6@472de0a3
+scala> val iterator = rawData.asCsvReader[Car](rfc.withHeader)
+iterator: kantan.csv.CsvReader[kantan.csv.ReadResult[Car]] = kantan.codecs.resource.ResourceIterator$$anon$6@7fe37848
 ```
 
 [`asCsvReader`] is explained in some depths [here](rows_as_collections.html), but we're more interested in what we
@@ -57,7 +58,7 @@ multiple `filter` and `map` operations, and nothing will happen until each row i
 
 ```scala
 scala> val filtered = iterator.filter(_.exists(_.year >= 1997)).map(_.map(_.make))
-filtered: kantan.codecs.resource.ResourceIterator[kantan.codecs.Result[kantan.csv.ReadError,String]] = kantan.codecs.resource.ResourceIterator$$anon$6@3d0c0e81
+filtered: kantan.codecs.resource.ResourceIterator[kantan.codecs.Result[kantan.csv.ReadError,String]] = kantan.codecs.resource.ResourceIterator$$anon$6@979ba6c
 ```
 
 Note that this is a bit cumbersome - our iterator contains [`ReadResult[Car]`][`ReadResult`], which forces us to use
@@ -65,7 +66,7 @@ two levels of filtering / mapping. [`CsvReaderOps`] provides more comfortable al
 
 ```scala
 scala> val filtered = iterator.filterResult(_.year >= 1997).mapResult(_.make)
-filtered: kantan.csv.CsvReader[kantan.csv.ReadResult[String]] = kantan.codecs.resource.ResourceIterator$$anon$6@33ec608a
+filtered: kantan.csv.CsvReader[kantan.csv.ReadResult[String]] = kantan.codecs.resource.ResourceIterator$$anon$6@358b1e6f
 ```
 
 At this point, no data has been parsed yet. We can now, say, take the first element:

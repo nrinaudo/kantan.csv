@@ -39,9 +39,10 @@ kantan.csv has out of the box support for decoding tuples, so you can simply pas
 [`asCsvReader`]:
 
 ```scala
-import kantan.csv.ops._ // Brings in the kantan.csv syntax.
+import kantan.csv._
+import kantan.csv.ops._
 
-val reader = rawData.asCsvReader[Car](',', true)
+val reader = rawData.asCsvReader[Car](rfc.withHeader)
 ```
 
 And now that we have a [`CsvReader`] on the data, we can simply iterate through it:

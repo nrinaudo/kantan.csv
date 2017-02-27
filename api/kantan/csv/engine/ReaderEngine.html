@@ -125,24 +125,6 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
-    </li><li name="kantan.csv.engine.jackson" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="jackson"></a><a id="jackson:jackson"></a>
-      <span class="permalink">
-      <a href="../../../kantan/csv/engine/index.html#jackson" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="jackson/index.html">
-              <span class="name">jackson</span>
-            </a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv.engine">engine</a></dd></dl></div>
     </li><li class="current-entities indented3">
                         <a class="object" href="ReaderEngine$.html" title="Provides instance creation methods and default implementations."></a>
                         <a class="trait" href="" title="Provides kantan.csv with CSV parsing functionality."></a>
@@ -154,6 +136,18 @@
                         <a class="trait" href="WriterEngine.html" title="Provides factory-like services for CsvWriter."></a>
                         <a href="WriterEngine.html" title="Provides factory-like services for CsvWriter.">
                           WriterEngine
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="object" href="commons$.html" title="Provides CSV reader and writer engines using Link(https://commons.apache.org/proper/commons-csv/,Text(commons-csv))."></a>
+                        <a href="commons$.html" title="Provides CSV reader and writer engines using Link(https://commons.apache.org/proper/commons-csv/,Text(commons-csv)).">
+                          commons
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="object" href="jackson$.html" title="Provides CSV reader and writer engines using Link(https://github.com/FasterXML/jackson-dataformat-csv,Text(jackson.csv))."></a>
+                        <a href="jackson$.html" title="Provides CSV reader and writer engines using Link(https://github.com/FasterXML/jackson-dataformat-csv,Text(jackson.csv)).">
+                          jackson
                         </a>
                       </li>
               </ul>
@@ -243,9 +237,9 @@ of a simple import.
         <div class="values members">
               <h3>Abstract Value Members</h3>
               <ol><li name="kantan.csv.engine.ReaderEngine#unsafeReaderFor" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="unsafeReaderFor(reader:java.io.Reader,separator:Char):kantan.csv.CsvReader[Seq[String]]"></a><a id="unsafeReaderFor(Reader,Char):CsvReader[Seq[String]]"></a>
+      <a id="unsafeReaderFor(reader:java.io.Reader,conf:kantan.csv.CsvConfiguration):kantan.csv.CsvReader[Seq[String]]"></a><a id="unsafeReaderFor(Reader,CsvConfiguration):CsvReader[Seq[String]]"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/engine/ReaderEngine.html#unsafeReaderFor(reader:java.io.Reader,separator:Char):kantan.csv.CsvReader[Seq[String]]" title="Permalink">
+      <a href="../../../kantan/csv/engine/ReaderEngine.html#unsafeReaderFor(reader:java.io.Reader,conf:kantan.csv.CsvConfiguration):kantan.csv.CsvReader[Seq[String]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -254,7 +248,7 @@ of a simple import.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">unsafeReaderFor</span><span class="params">(<span name="reader">reader: <span class="extype" name="java.io.Reader">Reader</span></span>, <span name="separator">separator: <span class="extype" name="scala.Char">Char</span></span>)</span><span class="result">: <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
+        <span class="name">unsafeReaderFor</span><span class="params">(<span name="reader">reader: <span class="extype" name="java.io.Reader">Reader</span></span>, <span name="conf">conf: <a href="../CsvConfiguration.html" class="extype" name="kantan.csv.CsvConfiguration">CsvConfiguration</a></span>)</span><span class="result">: <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
       <p class="shortcomment cmt">Turns the specified <code>Reader</code> into a <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>.</p>
@@ -501,9 +495,9 @@ of a simple import.
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
     </li><li name="kantan.csv.engine.ReaderEngine#readerFor" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="readerFor(reader:=&gt;java.io.Reader,separator:Char):kantan.csv.CsvReader[kantan.csv.ReadResult[Seq[String]]]"></a><a id="readerFor(⇒Reader,Char):CsvReader[ReadResult[Seq[String]]]"></a>
+      <a id="readerFor(reader:=&gt;java.io.Reader,conf:kantan.csv.CsvConfiguration):kantan.csv.CsvReader[kantan.csv.ReadResult[Seq[String]]]"></a><a id="readerFor(⇒Reader,CsvConfiguration):CsvReader[ReadResult[Seq[String]]]"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/engine/ReaderEngine.html#readerFor(reader:=&gt;java.io.Reader,separator:Char):kantan.csv.CsvReader[kantan.csv.ReadResult[Seq[String]]]" title="Permalink">
+      <a href="../../../kantan/csv/engine/ReaderEngine.html#readerFor(reader:=&gt;java.io.Reader,conf:kantan.csv.CsvConfiguration):kantan.csv.CsvReader[kantan.csv.ReadResult[Seq[String]]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -512,7 +506,7 @@ of a simple import.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">readerFor</span><span class="params">(<span name="reader">reader: ⇒ <span class="extype" name="java.io.Reader">Reader</span></span>, <span name="separator">separator: <span class="extype" name="scala.Char">Char</span></span>)</span><span class="result">: <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package$$ReadResult.html" class="extype" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]]]</span>
+        <span class="name">readerFor</span><span class="params">(<span name="reader">reader: ⇒ <span class="extype" name="java.io.Reader">Reader</span></span>, <span name="conf">conf: <a href="../CsvConfiguration.html" class="extype" name="kantan.csv.CsvConfiguration">CsvConfiguration</a></span>)</span><span class="result">: <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>[<a href="../package$$ReadResult.html" class="extype" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]]]</span>
       </span>
       
       <p class="shortcomment cmt">Turns the specified <code>Reader</code> into a safe <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a>.</p>

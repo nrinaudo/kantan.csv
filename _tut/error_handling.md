@@ -25,7 +25,7 @@ import kantan.csv._
 import kantan.csv.ops._
 import kantan.csv.generic._
 
-case class Person(id: Int, name: String, flag: Boolean)
+final case class Person(id: Int, name: String, flag: Boolean)
 
 val rawData: java.net.URL = getClass.getResource("/dodgy.csv")
 ```
@@ -36,7 +36,7 @@ The simplest, least desirable error handling mechanism is to ignore the possibil
 to be thrown. This is achieved by using [`asUnsafeCsvReader`]:
 
 ```scala
-scala> scala.util.Try(rawData.asUnsafeCsvReader[Person](',', false).toList)
+scala> scala.util.Try(rawData.asUnsafeCsvReader[Person](rfc).toList)
 res2: scala.util.Try[List[Person]] = Failure(java.lang.IllegalArgumentException: For input string: "28")
 ```
 
@@ -48,7 +48,7 @@ reliability or maintainability are not an issue, for example.
 Another common, if not always viable strategy is to use [`collect`] to simply drop whatever rows failed to decode:
 
 ```scala
-scala> rawData.asCsvReader[Person](',', false).collect { case Success(a) ⇒ a }.toList
+scala> rawData.asCsvReader[Person](rfc).collect { case Success(a) ⇒ a }.toList
 res3: List[Person] = List(Person(1,Nicolas,true), Person(3,John,false))
 ```
 
@@ -66,8 +66,8 @@ When not streaming data, a good option is to fail if a single row fails to decod
 [`sequence`] method:
 
 ```scala
-scala> kantan.codecs.Result.sequence(rawData.readCsv[List, Person](',', false))
-res4: kantan.codecs.Result[kantan.csv.ReadError,List[Person]] = Failure(kantan.csv.DecodeError$TypeError$$anon$1: Not a valid Boolean: '28')
+scala> kantan.codecs.Result.sequence(rawData.readCsv[List, Person](rfc))
+res4: kantan.codecs.Result[kantan.csv.ReadError,List[Person]] = Failure(TypeError: '28' is not a valid Boolean)
 ```
 
 The only real downside to this approach is that it requires loading the entire data in memory.
@@ -80,7 +80,7 @@ Some data types have reasonable default values that can be used instead of error
 This is achieved through [`getOrElse`] (even if this example doesn't make much practical sense):
 
 ```scala
-scala> rawData.asCsvReader[Person](',', false).map(_.getOrElse(Person(0, "ERMAC", true))).toList
+scala> rawData.asCsvReader[Person](rfc).map(_.getOrElse(Person(0, "ERMAC", true))).toList
 res5: List[Person] = List(Person(1,Nicolas,true), Person(0,ERMAC,true), Person(3,John,false))
 ```
 
@@ -90,13 +90,13 @@ Our problem here is that the `flag` field of our `Person` class is not always of
 `Person` as follows:
 
 ```scala
-case class Person(id: Int, name: String, flag: Either[Boolean, Int])
+final case class Person(id: Int, name: String, flag: Either[Boolean, Int])
 ```
 
 We can now load the whole data without an error:
 
 ```scala
-scala> rawData.readCsv[List, Person](',', false)
+scala> rawData.readCsv[List, Person](rfc)
 res6: List[kantan.csv.ReadResult[Person]] = List(Success(Person(1,Nicolas,Left(true))), Success(Person(2,Kazuma,Right(28))), Success(Person(3,John,Left(false))))
 ```
 

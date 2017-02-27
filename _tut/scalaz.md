@@ -10,7 +10,7 @@ bones: it provides decoders for [`Maybe`] and [`\/`] as well as a few useful typ
 The `scalaz` module can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz" % "0.1.16"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz" % "0.1.18"
 ```
 
 You then need to import the corresponding package:
@@ -31,16 +31,17 @@ First, a few imports:
 
 ```scala
 import scalaz._
+import kantan.csv._
 import kantan.csv.ops._
 ```
 
 We can then simply write the following:
 
 ```scala
-scala> "1,2\n4,true".readCsv[List, (Int, Int \/ Boolean)](',', false)
+scala> "1,2\n4,true".readCsv[List, (Int, Int \/ Boolean)](rfc)
 res0: List[kantan.csv.ReadResult[(Int, scalaz.\/[Int,Boolean])]] = List(Success((1,-\/(2))), Success((4,\/-(true))))
 
-scala> "1,2\n4,true".readCsv[List, (Int, Int) \/ (Int, Boolean)](',', false)
+scala> "1,2\n4,true".readCsv[List, (Int, Int) \/ (Int, Boolean)](rfc)
 res1: List[kantan.csv.ReadResult[scalaz.\/[(Int, Int),(Int, Boolean)]]] = List(Success(-\/((1,2))), Success(\/-((4,true))))
 ```
 
@@ -57,7 +58,7 @@ For any type `A` that has:
 You can write, for example:
 
 ```scala
-scala> "1,2\n3,".readCsv[List, (Int, Maybe[Int])](',', false)
+scala> "1,2\n3,".readCsv[List, (Int, Maybe[Int])](rfc)
 res2: List[kantan.csv.ReadResult[(Int, scalaz.Maybe[Int])]] = List(Success((1,Just(2))), Success((3,Empty())))
 ```
 
