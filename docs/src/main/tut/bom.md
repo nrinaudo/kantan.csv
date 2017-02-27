@@ -13,7 +13,7 @@ The only way (that I know of) to force Excel to use the right encoding when open
 * encode it in `UTF-8` or `UTF-16LE` (other unicode encodings might work, but I've seen odd behaviours)
 * add a [BOM](https://en.wikipedia.org/wiki/Byte_order_mark) to the file
 
-Since version 0.1.17, kantan.csv has full support for BOMs, enabled by importing the following package:
+Since version 0.1.18, kantan.csv has full support for BOMs, enabled by importing the following package:
 
 ```tut:silent
 import kantan.codecs.resource.bom._
