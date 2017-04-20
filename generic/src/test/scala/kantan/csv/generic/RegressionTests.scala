@@ -32,6 +32,10 @@ class RegressionTests extends FunSuite {
 
       "1".asCsvReader[Foobar](rfc)
     }
+
+    // Necessary to prevent scalac from complaining about Test being unused. I really need to turn off "unused code"
+    // detection in tests...
+    Test
   }
 }
 

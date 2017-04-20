@@ -46,7 +46,7 @@ trait CellDecoderInstances {
     * }}}
     */
   implicit def fromStringDecoder[A: StringDecoder]: CellDecoder[A] =
-    StringDecoder[A].tag[codecs.type].mapError(e ⇒ TypeError(e.getMessage, e.getCause))
+    StringDecoder[A].tag[codecs.type].leftMap(e ⇒ TypeError(e.getMessage, e.getCause))
 
   /** Provides an instance of `CellDecoder[Option[A]]` for any type `A` that has an instance of [[CellDecoder]].
     *
