@@ -16,6 +16,7 @@
 
 package kantan.csv
 
+import kantan.codecs.laws.discipline.SerializableTests
 import kantan.csv.laws._
 import kantan.csv.laws.discipline.RowCodecTests
 import kantan.csv.laws.discipline.arbitrary._
@@ -28,7 +29,9 @@ import org.typelevel.discipline.scalatest.Discipline
 class TupleTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   [#implicit val arbLegal1: Arbitrary[LegalRow[Tuple1[[#Int#]]]] = arbLegalValueFromEnc[Seq[String], Tuple1[[#Int#]], kantan.csv.codecs.type]
   implicit val arbIllegal1: Arbitrary[IllegalRow[Tuple1[[#Int#]]]] = arbIllegalValueFromDec[Seq[String], Tuple1[[#Int#]], kantan.csv.codecs.type]
-  checkAll("([#Int#])", RowCodecTests[Tuple1[[#Int#]]].codec[List[String], List[Float]])#
+  checkAll("RowCodec[([#Int#])]", RowCodecTests[Tuple1[[#Int#]]].codec[List[String], List[Float]])
+  checkAll("RowDecoder[([#Int#])]", SerializableTests[RowDecoder[Tuple1[[#Int#]]]].serializable)
+  checkAll("RowEncoder[([#Int#])]", SerializableTests[RowEncoder[Tuple1[[#Int#]]]].serializable)#
 
   ]
 }

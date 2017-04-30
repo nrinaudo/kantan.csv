@@ -16,6 +16,7 @@
 
 package kantan.csv
 
+import kantan.codecs.laws.discipline.SerializableTests
 import kantan.csv.laws.discipline._
 import kantan.csv.laws.discipline.arbitrary._
 import org.scalatest.FunSuite
@@ -23,6 +24,12 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class DoubleCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+  checkAll("CellEncoder[Double]", SerializableTests[CellEncoder[Double]].serializable)
+  checkAll("CellDecoder[Double]", SerializableTests[CellDecoder[Double]].serializable)
+
+  checkAll("RowEncoder[Double]", SerializableTests[RowEncoder[Double]].serializable)
+  checkAll("RowDecoder[Double]", SerializableTests[RowDecoder[Double]].serializable)
+
   checkAll("CellCodec[Double]", CellCodecTests[Double].codec[String, Float])
   checkAll("RowCodec[Double]", RowCodecTests[Double].codec[String, Float])
 }

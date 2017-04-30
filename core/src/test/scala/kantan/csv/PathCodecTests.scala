@@ -17,6 +17,7 @@
 package kantan.csv
 
 import java.nio.file.Path
+import kantan.codecs.laws.discipline.SerializableTests
 import kantan.csv.laws.discipline._
 import kantan.csv.laws.discipline.arbitrary._
 import org.scalatest.FunSuite
@@ -24,6 +25,12 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class PathCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+  checkAll("CellEncoder[Path]", SerializableTests[CellEncoder[Path]].serializable)
+  checkAll("CellDecoder[Path]", SerializableTests[CellDecoder[Path]].serializable)
+
+  checkAll("RowEncoder[Path]", SerializableTests[RowEncoder[Path]].serializable)
+  checkAll("RowDecoder[Path]", SerializableTests[RowDecoder[Path]].serializable)
+
   checkAll("CellCodec[Path]", CellCodecTests[Path].bijectiveCodec[String, Float])
   checkAll("RowCodec[Path]", RowCodecTests[Path].bijectiveCodec[String, Float])
 }

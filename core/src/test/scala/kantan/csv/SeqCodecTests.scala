@@ -26,5 +26,8 @@ import org.typelevel.discipline.scalatest.Discipline
 class SeqCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   implicit val arb: Arbitrary[Seq[Int]] = Arbitrary(Gen.nonEmptyContainerOf[Seq, Int](Arbitrary.arbitrary[Int]))
 
+  //checkAll("RowEncoder[Seq[Int]]", SerializableTests[RowEncoder[Seq[Int]]].serializable)
+  //checkAll("RowDecoder[Seq[Int]]", SerializableTests[RowDecoder[Seq[Int]]].serializable)
+
   checkAll("RowCodec[Seq[Int]]", RowCodecTests[Seq[Int]].codec[List[String], List[Float]])
 }

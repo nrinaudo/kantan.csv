@@ -16,6 +16,7 @@
 
 package kantan.csv
 
+import kantan.codecs.laws.discipline.SerializableTests
 import kantan.csv.laws.{IllegalRow, LegalRow}
 import kantan.csv.laws.discipline.RowCodecTests
 import kantan.csv.laws.discipline.arbitrary._
@@ -25,7 +26,7 @@ import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
-class CaseClassTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+object Instances {
   implicit val arbCaseClass1: Arbitrary[CaseClass1]  = Arbitrary(arbitrary[Int].map((CaseClass1.apply _)))
   implicit val caseClass1codec: RowCodec[CaseClass1] = RowCodec.caseCodec(CaseClass1.apply)(CaseClass1.unapply)
   implicit val cogenCaseClass1: Cogen[CaseClass1]    = Cogen.cogenInt.contramap(_.f1)
@@ -41,7 +42,13 @@ class CaseClassTests extends FunSuite with GeneratorDrivenPropertyChecks with Di
   case class CaseClass1([#f1: Int#])#
 
   ]
+}
 
-  [#checkAll("CaseClass1", RowCodecTests[CaseClass1].codec[List[String], List[Float]])#
+class CaseClassTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+  import Instances._
+  [#checkAll("RowCodec[CaseClass1]", RowCodecTests[CaseClass1].codec[List[String], List[Float]])
+  checkAll("RowDecoder[CaseClass1]", SerializableTests[RowDecoder[CaseClass1]].serializable)
+  checkAll("RowEncoder[CaseClass1]", SerializableTests[RowEncoder[CaseClass1]].serializable)
+  #
   ]
 }

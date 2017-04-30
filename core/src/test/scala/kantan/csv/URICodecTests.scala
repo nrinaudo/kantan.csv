@@ -17,6 +17,7 @@
 package kantan.csv
 
 import java.net.URI
+import kantan.codecs.laws.discipline.SerializableTests
 import kantan.csv.laws.discipline._
 import kantan.csv.laws.discipline.arbitrary._
 import org.scalatest.FunSuite
@@ -24,6 +25,12 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class URICodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+  checkAll("CellEncoder[URI]", SerializableTests[CellEncoder[URI]].serializable)
+  checkAll("CellDecoder[URI]", SerializableTests[CellDecoder[URI]].serializable)
+
+  checkAll("RowEncoder[URI]", SerializableTests[RowEncoder[URI]].serializable)
+  checkAll("RowDecoder[URI]", SerializableTests[RowDecoder[URI]].serializable)
+
   checkAll("CellCodec[URI]", CellCodecTests[URI].codec[String, Float])
   checkAll("RowCodec[URI]", RowCodecTests[URI].codec[String, Float])
 }

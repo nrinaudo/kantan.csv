@@ -39,10 +39,7 @@ object RowDecoder extends GeneratedRowDecoders with DecoderCompanion[Seq[String]
     * This is essentially a shorter way of calling `implicitly[RowDecoder[A]]`.
     */
   def apply[A](implicit ev: RowDecoder[A]): RowDecoder[A] = macro imp.summon[RowDecoder[A]]
-}
 
-/** Provides reasonable default [[RowDecoder]] instances for various types. */
-trait RowDecoderInstances {
   /** Provides a [[RowDecoder]] instance that decodes a single cell from each row.
     *
     * {{{
@@ -53,17 +50,20 @@ trait RowDecoderInstances {
   def field[A: CellDecoder](index: Int): RowDecoder[A] = RowDecoder.from { ss ⇒
     ss.lift(index).map(CellDecoder[A].decode).getOrElse(DecodeResult.outOfBounds(index))
   }
+}
 
+/** Provides reasonable default [[RowDecoder]] instances for various types. */
+trait RowDecoderInstances {
   /** Turns a [[CellDecoder]] into a [[RowDecoder]], for rows that contain a single value.
     *
-    * This provides default behaviour for [[field]] by decoding the first cell.
+    * This provides default behaviour for [[scala.annotation.meta.field]] by decoding the first cell.
     *
     * {{{
     * RowDecoder[Int].decode(Seq("123", "456", "789"))
     * res1: DecodeResult[Int] = Success(123)
     * }}}
     */
-  implicit def fromCellDecoder[A: CellDecoder]: RowDecoder[A] = field[A](0)
+  implicit def fromCellDecoder[A: CellDecoder]: RowDecoder[A] = RowDecoder.field[A](0)
 
   /** Provides a [[RowDecoder]] instance for all types that have an `CanBuildFrom`, provided the inner type has a
     * [[CellDecoder]].

@@ -26,5 +26,8 @@ import org.typelevel.discipline.scalatest.Discipline
 class StreamCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   implicit val arb: Arbitrary[Stream[Int]] = Arbitrary(Gen.nonEmptyContainerOf[Stream, Int](Arbitrary.arbitrary[Int]))
 
+  //checkAll("RowEncoder[Stream[Int]]", SerializableTests[RowEncoder[Stream[Int]]].serializable)
+  //checkAll("RowDecoder[Stream[Int]]", SerializableTests[RowDecoder[Stream[Int]]].serializable)
+
   checkAll("RowCodec[Stream[Int]]", RowCodecTests[Stream[Int]].codec[List[String], List[Float]])
 }

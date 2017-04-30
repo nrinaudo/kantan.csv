@@ -16,6 +16,7 @@
 
 package kantan.csv
 
+import kantan.codecs.laws.discipline.SerializableTests
 import kantan.csv.laws.discipline._
 import kantan.csv.laws.discipline.arbitrary._
 import org.scalatest.FunSuite
@@ -23,7 +24,13 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class EitherCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  CellDecoder[Either[Int, Boolean]]
+  checkAll("CellEncoder[Either[Int, Boolean]]", SerializableTests[CellEncoder[Either[Int, Boolean]]].serializable)
+  checkAll("CellDecoder[Either[Int, Boolean]]", SerializableTests[CellDecoder[Either[Int, Boolean]]].serializable)
+
+  checkAll("RowEncoder[Either[(Int, Int, Int), Boolean]]",
+    SerializableTests[RowEncoder[Either[(Int, Int, Int), Boolean]]].serializable)
+  checkAll("RowDecoder[Either[(Int, Int, Int), Boolean]]",
+    SerializableTests[RowDecoder[Either[(Int, Int, Int), Boolean]]].serializable)
 
   checkAll("CellCodec[Either[Int, Boolean]]", CellCodecTests[Either[Int, Boolean]].codec[Byte, Float])
   checkAll("RowCodec[Either[(Int, Int, Int), (Boolean, Float)]]",

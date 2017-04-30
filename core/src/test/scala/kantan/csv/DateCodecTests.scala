@@ -18,6 +18,7 @@ package kantan.csv
 
 import java.text.SimpleDateFormat
 import java.util.{Date, Locale}
+import kantan.codecs.laws.discipline.SerializableTests
 import kantan.csv.laws.discipline._
 import kantan.csv.laws.discipline.arbitrary._
 import org.scalatest.FunSuite
@@ -27,6 +28,12 @@ import org.typelevel.discipline.scalatest.Discipline
 class DateCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   implicit val codec: CellCodec[Date] =
     CellCodec.dateCodec(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.ENGLISH))
+
+  checkAll("CellEncoder[Date]", SerializableTests[CellEncoder[Date]].serializable)
+  checkAll("CellDecoder[Date]", SerializableTests[CellDecoder[Date]].serializable)
+
+  checkAll("RowEncoder[Date]", SerializableTests[RowEncoder[Date]].serializable)
+  checkAll("RowDecoder[Date]", SerializableTests[RowDecoder[Date]].serializable)
 
   checkAll("CellCodec[Date]", CellCodecTests[Date].codec[String, Float])
   checkAll("RowCodec[Date]", RowCodecTests[Date].codec[String, Float])

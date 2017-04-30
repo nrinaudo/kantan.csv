@@ -16,7 +16,9 @@
 
 package kantan.csv.generic
 
+import kantan.codecs.laws.discipline.SerializableTests
 import kantan.codecs.shapeless.laws._
+import kantan.csv.{CellDecoder, CellEncoder}
 import kantan.csv.generic.arbitrary._
 import kantan.csv.laws.discipline.CellCodecTests
 import org.scalatest.FunSuite
@@ -27,4 +29,6 @@ import org.typelevel.discipline.scalatest.Discipline
 @SuppressWarnings(Array("org.wartremover.warts.Null"))
 class DerivedCellCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   checkAll("CellCodec[Or[Int, Boolean]]", CellCodecTests[Int Or Boolean].codec[Byte, String])
+  checkAll("CellDecoder[Or[Int, Boolean]]", SerializableTests[CellDecoder[Int Or Boolean]].serializable)
+  checkAll("CellEncoder[Or[Int, Boolean]]", SerializableTests[CellEncoder[Int Or Boolean]].serializable)
 }

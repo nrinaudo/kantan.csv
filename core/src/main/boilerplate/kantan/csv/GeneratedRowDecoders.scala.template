@@ -42,6 +42,7 @@ trait GeneratedRowDecoders {
       [#f1 ← decode(ss, i1, CellDecoder[A1])#
       ]
     } yield f([#f1#]))#
+
   ]
 
   [#/** Creates a new [[RowDecoder]] from the specified function.
@@ -57,5 +58,6 @@ trait GeneratedRowDecoders {
     */
   def ordered[[#A1: CellDecoder#], R](f: ([#A1#]) ⇒ R): RowDecoder[R] =
       decoder([#0#])(f)#
+
   ]
 }

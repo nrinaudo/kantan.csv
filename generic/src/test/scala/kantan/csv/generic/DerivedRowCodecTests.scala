@@ -16,19 +16,18 @@
 
 package kantan.csv.generic
 
-import arbitrary._
+import kantan.codecs.laws.discipline.SerializableTests
 import kantan.codecs.shapeless.laws._
-import kantan.csv.laws.discipline.RowCodecTests
+import kantan.csv.generic.arbitrary._
 import kantan.csv.laws.LegalRow
 import kantan.csv.laws.discipline.RowCodecTests
+import kantan.csv.{RowDecoder, RowEncoder}
 import org.scalacheck.Arbitrary
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
-// Shapeless' Lazy generates code with Null that we need to ignore.
-@SuppressWarnings(Array("org.wartremover.warts.Null"))
-class DerivedRowCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+object Instances {
   case class Simple(i: Int)
   case class Complex(i: Int, b: Boolean, c: Option[Float])
 
@@ -37,6 +36,14 @@ class DerivedRowCodecTests extends FunSuite with GeneratorDrivenPropertyChecks w
       case Left(Complex(i, b, c)) ⇒ Seq(i.toString, b.toString, c.fold("")(_.toString))
       case Right(Simple(i))       ⇒ Seq(i.toString)
     })
+}
+
+// Shapeless' Lazy generates code with Null that we need to ignore.
+@SuppressWarnings(Array("org.wartremover.warts.Null"))
+class DerivedRowCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+  import Instances._
 
   checkAll("DerivedRowCodec[Or[Complex, Simple]]", RowCodecTests[Or[Complex, Simple]].codec[Byte, Float])
+  checkAll("RowDecoder[Or[Complex, Simple]]", SerializableTests[RowDecoder[Or[Complex, Simple]]].serializable)
+  checkAll("RowEncoder[Or[Complex, Simple]]", SerializableTests[RowEncoder[Or[Complex, Simple]]].serializable)
 }
