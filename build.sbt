@@ -46,9 +46,15 @@ lazy val core = project
   .settings(
     moduleName := "kantan.csv",
     name       := "core"
-)
-  .enablePlugins(PublishedPlugin)
-  .enablePlugins(spray.boilerplate.BoilerplatePlugin)
+  )
+  // TODO: disable when we upgrade to 2.12.3, which appears to fix this issue.
+  // This is necessary because with scala 2.12.x, we use too many nested lambdas for deserialisation to succeed with the
+  // "optimised" behaviour.
+  .settings(scalacOptions ++= (CrossVersion.partialVersion(scalaVersion.value) match {
+    case Some((_, x)) if x == 12 ⇒ Seq("-Ydelambdafy:inline")
+    case _             ⇒ Seq.empty
+   }))
+  .enablePlugins(PublishedPlugin, spray.boilerplate.BoilerplatePlugin)
   .settings(libraryDependencies ++= Seq(
     "com.nrinaudo" %% "kantan.codecs" % Versions.kantanCodecs,
     "org.scalatest" %% "scalatest"    % Versions.scalatest     % "test"
@@ -60,8 +66,7 @@ lazy val laws = project
     moduleName := "kantan.csv-laws",
     name       := "laws"
   )
-  .enablePlugins(PublishedPlugin)
-  .enablePlugins(spray.boilerplate.BoilerplatePlugin)
+  .enablePlugins(PublishedPlugin, spray.boilerplate.BoilerplatePlugin)
   .dependsOn(core)
   .settings(libraryDependencies += "com.nrinaudo" %% "kantan.codecs-laws" % Versions.kantanCodecs)
 
