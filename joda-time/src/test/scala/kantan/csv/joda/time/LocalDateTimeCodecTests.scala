@@ -16,18 +16,21 @@
 
 package kantan.csv.joda.time
 
+import kantan.codecs.laws.discipline.SerializableTests
 import kantan.codecs.strings.joda.time.laws.discipline.arbitrary._
 import kantan.csv._
-import kantan.csv.laws.discipline.CellCodecTests
+import kantan.csv.laws.discipline.{CellCodecTests, CellDecoderTests, CellEncoderTests}
 import org.joda.time.LocalDateTime
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class LocalDateTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  // This is apparently necessary for Scala 2.10
-  implicit val decoder: CellDecoder[LocalDateTime] = defaultLocalDateTimeDecoder.value
-  implicit val encoder: CellEncoder[LocalDateTime] = defaultLocalDateTimeEncoder.value
+  checkAll("CellCodec[LocalLocalDateTime]", CellCodecTests[LocalDateTime].codec[String, Float])
 
-  checkAll("CellCodec[LocalDateTime]", CellCodecTests[LocalDateTime].codec[String, Float])
+  checkAll("CellDecoder[LocalDateTime]", CellDecoderTests[LocalDateTime].decoder[String, Float])
+  checkAll("CellDecoder[LocalDateTime]", SerializableTests[CellDecoder[LocalDateTime]].serializable)
+
+  checkAll("CellEncoder[LocalDateTime]", CellEncoderTests[LocalDateTime].encoder[String, Float])
+  checkAll("CellEncoder[LocalDateTime]", SerializableTests[CellEncoder[LocalDateTime]].serializable)
 }

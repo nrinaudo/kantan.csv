@@ -56,7 +56,7 @@ object RowDecoder extends GeneratedRowDecoders with DecoderCompanion[Seq[String]
 trait RowDecoderInstances {
   /** Turns a [[CellDecoder]] into a [[RowDecoder]], for rows that contain a single value.
     *
-    * This provides default behaviour for [[scala.annotation.meta.field]] by decoding the first cell.
+    * This provides default behaviour for [[RowDecoder.field]] by decoding the first cell.
     *
     * {{{
     * RowDecoder[Int].decode(Seq("123", "456", "789"))

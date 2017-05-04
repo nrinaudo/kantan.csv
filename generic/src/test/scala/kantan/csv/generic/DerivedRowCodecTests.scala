@@ -18,10 +18,10 @@ package kantan.csv.generic
 
 import kantan.codecs.laws.discipline.SerializableTests
 import kantan.codecs.shapeless.laws._
+import kantan.csv.{RowDecoder, RowEncoder}
 import kantan.csv.generic.arbitrary._
 import kantan.csv.laws.LegalRow
 import kantan.csv.laws.discipline.RowCodecTests
-import kantan.csv.{RowDecoder, RowEncoder}
 import org.scalacheck.Arbitrary
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks

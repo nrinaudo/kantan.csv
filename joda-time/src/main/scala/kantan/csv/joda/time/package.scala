@@ -16,9 +16,11 @@
 
 package kantan.csv.joda
 
+import kantan.codecs.export.Exported
 import kantan.codecs.strings.{StringDecoder, StringEncoder}
 import kantan.codecs.strings.joda.time._
 import kantan.csv._
+import org.joda.time.{DateTime, LocalDate, LocalDateTime, LocalTime}
 
 /** Declares [[kantan.csv.CellDecoder]] and [[kantan.csv.CellEncoder]] instances for joda-time types.
   *
@@ -31,4 +33,22 @@ import kantan.csv._
 package object time extends JodaTimeCodecCompanion[String, DecodeError, codecs.type] {
   override def decoderFrom[D](d: StringDecoder[D]): CellDecoder[D] = codecs.fromStringDecoder(d)
   override def encoderFrom[D](e: StringEncoder[D]): CellEncoder[D] = codecs.fromStringEncoder(e)
+
+  implicit val defaultDateTimeCellDecoder: Exported[CellDecoder[DateTime]] =
+    Exported(defaultDateTimeDecoder)
+  implicit val defaultLocalDateTimeCellDecoder: Exported[CellDecoder[LocalDateTime]] =
+    Exported(defaultLocalDateTimeDecoder)
+  implicit val defaultLocalDateCellDecoder: Exported[CellDecoder[LocalDate]] =
+    Exported(defaultLocalDateDecoder)
+  implicit val defaultLocalTimeCellDecoder: Exported[CellDecoder[LocalTime]] =
+    Exported(defaultLocalTimeDecoder)
+
+  implicit val defaultDateTimeCellEncoder: Exported[CellEncoder[DateTime]] =
+    Exported(defaultDateTimeEncoder)
+  implicit val defaultLocalDateTimeCellEncoder: Exported[CellEncoder[LocalDateTime]] =
+    Exported(defaultLocalDateTimeEncoder)
+  implicit val defaultLocalDateCellEncoder: Exported[CellEncoder[LocalDate]] =
+    Exported(defaultLocalDateEncoder)
+  implicit val defaultLocalTimeCellEncoder: Exported[CellEncoder[LocalTime]] =
+    Exported(defaultLocalTimeEncoder)
 }

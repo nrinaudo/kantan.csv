@@ -17,6 +17,7 @@
 package kantan.csv.java8
 
 import java.time.LocalTime
+import kantan.codecs.laws.discipline.SerializableTests
 import kantan.csv._
 import kantan.csv.java8.arbitrary._
 import kantan.csv.laws.discipline.{CellCodecTests, RowCodecTests}
@@ -25,9 +26,11 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class LocalTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  // This is apparently necessary for Scala 2.10
-  implicit val decoder: CellDecoder[LocalTime] = defaultLocalTimeDecoder.value
-  implicit val encoder: CellEncoder[LocalTime] = defaultLocalTimeEncoder.value
+  checkAll("CellEncoder[LocalTime]", SerializableTests[CellEncoder[LocalTime]].serializable)
+  checkAll("CellDecoder[LocalTime]", SerializableTests[CellDecoder[LocalTime]].serializable)
+
+  checkAll("RowEncoder[LocalTime]", SerializableTests[RowEncoder[LocalTime]].serializable)
+  checkAll("RowDecoder[LocalTime]", SerializableTests[RowDecoder[LocalTime]].serializable)
 
   checkAll("CellCodec[LocalTime]", CellCodecTests[LocalTime].codec[String, Float])
   checkAll("RowCodec[LocalTime]", RowCodecTests[LocalTime].codec[String, Float])

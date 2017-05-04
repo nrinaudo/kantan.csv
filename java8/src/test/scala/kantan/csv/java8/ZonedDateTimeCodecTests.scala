@@ -17,6 +17,7 @@
 package kantan.csv.java8
 
 import java.time.ZonedDateTime
+import kantan.codecs.laws.discipline.SerializableTests
 import kantan.csv._
 import kantan.csv.java8.arbitrary._
 import kantan.csv.laws.discipline.{CellCodecTests, RowCodecTests}
@@ -25,9 +26,11 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class ZonedDateTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  // This is apparently necessary for Scala 2.10
-  implicit val decoder: CellDecoder[ZonedDateTime] = defaultZonedDateTimeDecoder.value
-  implicit val encoder: CellEncoder[ZonedDateTime] = defaultZonedDateTimeEncoder.value
+  checkAll("CellEncoder[ZonedDateTime]", SerializableTests[CellEncoder[ZonedDateTime]].serializable)
+  checkAll("CellDecoder[ZonedDateTime]", SerializableTests[CellDecoder[ZonedDateTime]].serializable)
+
+  checkAll("RowEncoder[ZonedDateTime]", SerializableTests[RowEncoder[ZonedDateTime]].serializable)
+  checkAll("RowDecoder[ZonedDateTime]", SerializableTests[RowDecoder[ZonedDateTime]].serializable)
 
   checkAll("CellCodec[ZonedDateTime]", CellCodecTests[ZonedDateTime].codec[String, Float])
   checkAll("RowCodec[ZonedDateTime]", RowCodecTests[ZonedDateTime].codec[String, Float])
