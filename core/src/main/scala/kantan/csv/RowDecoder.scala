@@ -17,7 +17,7 @@
 package kantan.csv
 
 import kantan.codecs.DecoderCompanion
-import scala.collection.generic.CanBuildFrom
+import kantan.codecs.collection.HasBuilder
 
 /** Provides various instance creation and summoning methods.
   *
@@ -65,7 +65,7 @@ trait RowDecoderInstances {
     */
   implicit def fromCellDecoder[A: CellDecoder]: RowDecoder[A] = RowDecoder.field[A](0)
 
-  /** Provides a [[RowDecoder]] instance for all types that have an `CanBuildFrom`, provided the inner type has a
+  /** Provides a [[RowDecoder]] instance for all types that have an `HasBuilder`, provided the inner type has a
     * [[CellDecoder]].
     *
     * `List`, for example:
@@ -74,8 +74,8 @@ trait RowDecoderInstances {
     * res1: DecodeResult[List[Int]] = Success(List(123, 456, 789))
     * }}}
     */
-  implicit def cbfRowDecoder[A: CellDecoder, M[X]](implicit cbf: CanBuildFrom[Nothing, A, M[A]]): RowDecoder[M[A]] =
-    RowDecoder.from(_.foldLeft(DecodeResult(cbf.apply())) { (racc, s) ⇒ for {
+  implicit def hasBuilderRowDecoder[A: CellDecoder, F[_]](implicit hb: HasBuilder[F, A]): RowDecoder[F[A]] =
+    RowDecoder.from(_.foldLeft(DecodeResult(hb.newBuilder)) { (racc, s) ⇒ for {
       acc ← racc
       a   ← CellDecoder[A].decode(s)
     } yield acc += a
