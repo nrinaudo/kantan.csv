@@ -12,7 +12,7 @@ for more common types and patterns.
 The `generic` module can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.1.18"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.1.19"
 ```
 
 If you're using Scala 2.10.x, you should also add the macro paradise plugin to your build:
