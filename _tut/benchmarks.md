@@ -8,12 +8,12 @@ title: "Benchmarks"
 | Library               | Version  |
 |-----------------------|----------|
 | [commons csv]         |     1.4  |
-| [jackson csv]         |   2.8.7  |
+| [jackson csv]         |   2.8.8  |
 | [opencsv]             |     3.9  |
 | [product collections] |   1.4.5  |
 | [scala csv]           |   1.3.4  |
-| kantan.csv            |  0.1.18  |
-| [uniVocity]           |   2.3.1  |
+| kantan.csv            |  0.1.19  |
+| [uniVocity]           |   2.4.1  |
 
 In order to be included in this benchmark, a library must be:
 
@@ -65,15 +65,15 @@ the number, the better the results.
 
 | Library                  | μs/action |
 |--------------------------|-----------|
-| [commons csv]            |     56.71 |
-| [jackson csv]            |     27.67 |
-| kantan.csv (commons csv) |     76.18 |
-| kantan.csv (internal)    |     54.10 |
-| kantan.csv (jackson csv) |     49.09 |
-| [opencsv]                |     65.57 |
-| [product collections]    |     52.83 |
-| [scala csv]              |    149.60 |
-| [uniVocity]              |     29.34 |
+| [commons csv]            |     60.29 |
+| [jackson csv]            |     29.02 |
+| kantan.csv (commons csv) |     77.30 |
+| kantan.csv (internal)    |     56.97 |
+| kantan.csv (jackson csv) |     48.23 |
+| [opencsv]                |     68.26 |
+| [product collections]    |     53.75 |
+| [scala csv]              |    156.60 |
+| [uniVocity]              |     29.37 |
 
 A few things are worth pointing out:
 
@@ -89,15 +89,15 @@ serialized.
 
 | Library                  | μs/action |
 |--------------------------|-----------|
-| [commons csv]            |     27.37 |
-| [jackson csv]            |     23.92 |
-| kantan.csv (commons csv) |     32.89 |
-| kantan.csv (internal)    |     30.25 |
-| kantan.csv (jackson csv) |     27.51 |
-| [opencsv]                |     62.64 |
-| [product collections]    |     68.57 |
-| [scala csv]              |     56.38 |
-| [uniVocity]              |     31.53 |
+| [commons csv]            |     28.42 |
+| [jackson csv]            |     24.57 |
+| kantan.csv (commons csv) |     33.65 |
+| kantan.csv (internal)    |     30.18 |
+| kantan.csv (jackson csv) |     28.51 |
+| [opencsv]                |     62.74 |
+| [product collections]    |     73.95 |
+| [scala csv]              |     55.13 |
+| [uniVocity]              |     33.13 |
 
 [commons csv]:https://commons.apache.org/proper/commons-csv/
 [jackson csv]:https://github.com/FasterXML/jackson-dataformat-csv

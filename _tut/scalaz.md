@@ -10,7 +10,7 @@ bones: it provides decoders for [`Maybe`] and [`\/`] as well as a few useful typ
 The `scalaz` module can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz" % "0.1.18"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz" % "0.1.19"
 ```
 
 You then need to import the corresponding package:
@@ -39,10 +39,10 @@ We can then simply write the following:
 
 ```scala
 scala> "1,2\n4,true".readCsv[List, (Int, Int \/ Boolean)](rfc)
-res0: List[kantan.csv.ReadResult[(Int, scalaz.\/[Int,Boolean])]] = List(Success((1,-\/(2))), Success((4,\/-(true))))
+res0: List[kantan.csv.ReadResult[(Int, Int \/ Boolean)]] = List(Success((1,-\/(2))), Success((4,\/-(true))))
 
 scala> "1,2\n4,true".readCsv[List, (Int, Int) \/ (Int, Boolean)](rfc)
-res1: List[kantan.csv.ReadResult[scalaz.\/[(Int, Int),(Int, Boolean)]]] = List(Success(-\/((1,2))), Success(\/-((4,true))))
+res1: List[kantan.csv.ReadResult[(Int, Int) \/ (Int, Boolean)]] = List(Success(-\/((1,2))), Success(\/-((4,true))))
 ```
 
 

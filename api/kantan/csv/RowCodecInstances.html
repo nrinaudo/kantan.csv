@@ -501,25 +501,6 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="kantan.csv.RowDecoderInstances#cbfRowDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="cbfRowDecoder[A,M[X]](implicitevidence$3:kantan.csv.CellDecoder[A],implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,A,M[A]]):kantan.csv.RowDecoder[M[A]]"></a><a id="cbfRowDecoder[A,M[X]](CellDecoder[A],CanBuildFrom[Nothing,A,M[A]]):RowDecoder[M[A]]"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/RowCodecInstances.html#cbfRowDecoder[A,M[X]](implicitevidence$3:kantan.csv.CellDecoder[A],implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,A,M[A]]):kantan.csv.RowDecoder[M[A]]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">cbfRowDecoder</span><span class="tparams">[<span name="A">A</span>, <span name="M">M<span class="tparams">[<span name="X">X</span>]</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>[<span class="extype" name="kantan.csv.RowDecoderInstances.cbfRowDecoder.A">A</span>]</span>, <span name="cbf">cbf: <span class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</span>[<span class="extype" name="scala.Nothing">Nothing</span>, <span class="extype" name="kantan.csv.RowDecoderInstances.cbfRowDecoder.A">A</span>, <span class="extype" name="kantan.csv.RowDecoderInstances.cbfRowDecoder.M">M</span>[<span class="extype" name="kantan.csv.RowDecoderInstances.cbfRowDecoder.A">A</span>]]</span>)</span><span class="result">: <a href="package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.RowDecoderInstances.cbfRowDecoder.M">M</span>[<span class="extype" name="kantan.csv.RowDecoderInstances.cbfRowDecoder.A">A</span>]]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Provides a <a href="package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a> instance for all types that have an <code>CanBuildFrom</code>, provided the inner type has a
-<a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Provides a <a href="package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a> instance for all types that have an <code>CanBuildFrom</code>, provided the inner type has a
-<a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>.</p><p><code>List</code>, for example:</p><pre>RowDecoder[<span class="std">List</span>[<span class="std">Int</span>]].decode(<span class="std">Seq</span>(<span class="lit">"123"</span>, <span class="lit">"456"</span>, <span class="lit">"789"</span>))
-res1: DecodeResult[<span class="std">List</span>[<span class="std">Int</span>]] = Success(<span class="std">List</span>(<span class="num">123</span>, <span class="num">456</span>, <span class="num">789</span>))</pre></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="RowDecoderInstances.html" class="extype" name="kantan.csv.RowDecoderInstances">RowDecoderInstances</a></dd></dl></div>
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
@@ -574,23 +555,6 @@ res1: DecodeResult[<span class="std">List</span>[<span class="std">Int</span>]] 
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="kantan.csv.RowDecoderInstances#field" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="field[A](index:Int)(implicitevidence$1:kantan.csv.CellDecoder[A]):kantan.csv.RowDecoder[A]"></a><a id="field[A](Int)(CellDecoder[A]):RowDecoder[A]"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/RowCodecInstances.html#field[A](index:Int)(implicitevidence$1:kantan.csv.CellDecoder[A]):kantan.csv.RowDecoder[A]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">field</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="index">index: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>[<span class="extype" name="kantan.csv.RowDecoderInstances.field.A">A</span>]</span>)</span><span class="result">: <a href="package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.RowDecoderInstances.field.A">A</span>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Provides a <a href="package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a> instance that decodes a single cell from each row.</p><div class="fullcomment"><div class="comment cmt"><p>Provides a <a href="package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a> instance that decodes a single cell from each row.</p><pre>RowDecoder.field[<span class="std">Int</span>](<span class="num">1</span>).decode(<span class="std">Seq</span>(<span class="lit">"123"</span>, <span class="lit">"456"</span>, <span class="lit">"789"</span>))
-res1: DecodeResult[<span class="std">Int</span>] = Success(<span class="num">456</span>)</pre></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="RowDecoderInstances.html" class="extype" name="kantan.csv.RowDecoderInstances">RowDecoderInstances</a></dd></dl></div>
     </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <span class="permalink">
@@ -628,7 +592,7 @@ res1: DecodeResult[<span class="std">Int</span>] = Success(<span class="num">456
         <span class="name">fromCellDecoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>[<span class="extype" name="kantan.csv.RowDecoderInstances.fromCellDecoder.A">A</span>]</span>)</span><span class="result">: <a href="package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.RowDecoderInstances.fromCellDecoder.A">A</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Turns a <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a> into a <a href="package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>, for rows that contain a single value.</p><div class="fullcomment"><div class="comment cmt"><p>Turns a <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a> into a <a href="package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>, for rows that contain a single value.</p><p>This provides default behaviour for <a href="RowDecoderInstances.html#field[A](index:Int)(implicitevidence$1:kantan.csv.CellDecoder[A]):kantan.csv.RowDecoder[A]" class="extmbr" name="kantan.csv.RowDecoderInstances#field">field</a> by decoding the first cell.</p><pre>RowDecoder[<span class="std">Int</span>].decode(<span class="std">Seq</span>(<span class="lit">"123"</span>, <span class="lit">"456"</span>, <span class="lit">"789"</span>))
+      <p class="shortcomment cmt">Turns a <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a> into a <a href="package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>, for rows that contain a single value.</p><div class="fullcomment"><div class="comment cmt"><p>Turns a <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a> into a <a href="package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>, for rows that contain a single value.</p><p>This provides default behaviour for <a href="RowDecoder$.html#field[A](index:Int)(implicitevidence$1:kantan.csv.CellDecoder[A]):kantan.csv.RowDecoder[A]" class="extmbr" name="kantan.csv.RowDecoder#field">RowDecoder.field</a> by decoding the first cell.</p><pre>RowDecoder[<span class="std">Int</span>].decode(<span class="std">Seq</span>(<span class="lit">"123"</span>, <span class="lit">"456"</span>, <span class="lit">"789"</span>))
 res1: DecodeResult[<span class="std">Int</span>] = Success(<span class="num">123</span>)</pre></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="RowDecoderInstances.html" class="extype" name="kantan.csv.RowDecoderInstances">RowDecoderInstances</a></dd></dl></div>
     </li><li name="kantan.csv.RowEncoderInstances#fromCellEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="fromCellEncoder[A](implicitevidence$1:kantan.csv.CellEncoder[A]):kantan.csv.RowEncoder[A]"></a><a id="fromCellEncoder[A](CellEncoder[A]):RowEncoder[A]"></a>
@@ -663,6 +627,25 @@ res1: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="kantan.csv.RowDecoderInstances#hasBuilderRowDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="hasBuilderRowDecoder[A,F[_]](implicitevidence$3:kantan.csv.CellDecoder[A],implicithb:kantan.codecs.collection.HasBuilder[F,A]):kantan.csv.RowDecoder[F[A]]"></a><a id="hasBuilderRowDecoder[A,F[_]](CellDecoder[A],HasBuilder[F,A]):RowDecoder[F[A]]"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/RowCodecInstances.html#hasBuilderRowDecoder[A,F[_]](implicitevidence$3:kantan.csv.CellDecoder[A],implicithb:kantan.codecs.collection.HasBuilder[F,A]):kantan.csv.RowDecoder[F[A]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">hasBuilderRowDecoder</span><span class="tparams">[<span name="A">A</span>, <span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>[<span class="extype" name="kantan.csv.RowDecoderInstances.hasBuilderRowDecoder.A">A</span>]</span>, <span name="hb">hb: <span class="extype" name="kantan.codecs.collection.HasBuilder">HasBuilder</span>[<span class="extype" name="kantan.csv.RowDecoderInstances.hasBuilderRowDecoder.F">F</span>, <span class="extype" name="kantan.csv.RowDecoderInstances.hasBuilderRowDecoder.A">A</span>]</span>)</span><span class="result">: <a href="package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.RowDecoderInstances.hasBuilderRowDecoder.F">F</span>[<span class="extype" name="kantan.csv.RowDecoderInstances.hasBuilderRowDecoder.A">A</span>]]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Provides a <a href="package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a> instance for all types that have an <code>HasBuilder</code>, provided the inner type has a
+<a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Provides a <a href="package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a> instance for all types that have an <code>HasBuilder</code>, provided the inner type has a
+<a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>.</p><p><code>List</code>, for example:</p><pre>RowDecoder[<span class="std">List</span>[<span class="std">Int</span>]].decode(<span class="std">Seq</span>(<span class="lit">"123"</span>, <span class="lit">"456"</span>, <span class="lit">"789"</span>))
+res1: DecodeResult[<span class="std">List</span>[<span class="std">Int</span>]] = Success(<span class="std">List</span>(<span class="num">123</span>, <span class="num">456</span>, <span class="num">789</span>))</pre></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="RowDecoderInstances.html" class="extype" name="kantan.csv.RowDecoderInstances">RowDecoderInstances</a></dd></dl></div>
     </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
       <span class="permalink">
