@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Joda-time module"
 section: tutorial
-sort_order: 25
+sort_order: 26
 ---
 [Joda-Time](http://www.joda.org/joda-time/) is a very well thought out date and time library for Java that happens to
 be very popular in Scala - at the very least, it's quite a bit better than the stdlib [`Date`]. kantan.csv provides

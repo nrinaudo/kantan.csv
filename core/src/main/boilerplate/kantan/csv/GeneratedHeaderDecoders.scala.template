@@ -1,0 +1,41 @@
+/*
+ * Copyright 2017 Nicolas Rinaudo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package kantan.csv
+
+trait GeneratedHeaderDecoders {
+  [#/** Creates a new [[HeaderDecoder]] from the specified field list and function.
+   *
+   * For example:
+   * {{{
+   * scala> import kantan.csv.ops._
+   *
+   * scala> case class Foo([#i1: Int#])
+   * scala> implicit val decoder: HeaderDecoder[Foo] = HeaderDecoder.decoder([#"f1"#])(Foo.apply _)
+   *
+   * scala> "[#f1#]\n[#1#]".asCsvReader[Foo](rfc.withHeader).next()
+   * res0: ReadResult[Foo] = Success(Foo([#1#]))
+   * }}}
+   *
+   */
+  def decoder[[#A1: CellDecoder#], R]([#f1: String#])(f: ([#A1#]) ⇒ R): HeaderDecoder[R] = new HeaderDecoder[R] {
+    override def fromHeader(header: Seq[String]) =
+      HeaderDecoder.decoderFromMap(Map([#f1 → 0#]), header).map(mapping ⇒ RowDecoder.decoder([#mapping(0)#])(f))
+    override def noHeader = RowDecoder.ordered(f)
+  }#
+
+  ]
+}

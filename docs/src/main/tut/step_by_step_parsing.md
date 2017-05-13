@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Decoding CSV data one row at a time"
 section: tutorial
-sort_order: 7
+sort_order: 8
 ---
 CSV data is sometimes unreasonably large - I've had to deal with CSV files in the multiple gigabytes - and cannot
 comfortably fit in memory. It's better to treat these cases as an iterator of sorts, which is kantan.csv's default

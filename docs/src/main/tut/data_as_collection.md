@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Decoding CSV data into a collection"
 section: tutorial
-sort_order: 6
+sort_order: 7
 ---
 When memory constraints are not an issue, decoding an entire CSV file into a single collection, such as a [`List`] or
 [`Vector`], can be useful. kantan.csv offers simple primitives for just this purpose.

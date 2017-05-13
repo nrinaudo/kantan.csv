@@ -2,7 +2,7 @@
 layout: tutorial
 title: "What can be parsed as CSV data?"
 section: tutorial
-sort_order: 8
+sort_order: 9
 ---
 Before we can even think about parsing CSV data, we need to have access to it somehow. kantan.csv extends most things
 that "can be turned into CSV" with useful methods, such as the oft-used [`asCsvReader`] method. Among such things are:

@@ -40,7 +40,7 @@ import scala.collection.generic.CanBuildFrom
   */
 final class CsvSourceOps[A: CsvSource](val a: A) {
   @deprecated("use asCsvReader(CsvConfiguration, Boolean) instead", "0.1.18")
-  def asCsvReader[B: RowDecoder](sep: Char, header: Boolean)
+  def asCsvReader[B: HeaderDecoder](sep: Char, header: Boolean)
                                   (implicit e: ReaderEngine): CsvReader[ReadResult[B]] =
     asCsvReader(rfc.withColumnSeparator(sep).withHeader(header))
 
@@ -63,11 +63,11 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
     * @param  conf   CSV parsing behaviour.
     * @tparam B      type each row will be decoded as.
     */
-  def asCsvReader[B: RowDecoder](conf: CsvConfiguration)(implicit e: ReaderEngine): CsvReader[ReadResult[B]] =
+  def asCsvReader[B: HeaderDecoder](conf: CsvConfiguration)(implicit e: ReaderEngine): CsvReader[ReadResult[B]] =
     CsvSource[A].reader[B](a, conf)
 
   @deprecated("use asUnsafeCsvReader(CsvConfiguration, Boolean) instead", "0.1.18")
-  def asUnsafeCsvReader[B: RowDecoder](sep: Char, header: Boolean)
+  def asUnsafeCsvReader[B: HeaderDecoder](sep: Char, header: Boolean)
                                         (implicit e: ReaderEngine): CsvReader[B] =
     asUnsafeCsvReader(rfc.withColumnSeparator(sep).withHeader(header))
 
@@ -90,11 +90,11 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
     * @param  conf   CSV parsing behaviour.
     * @tparam B      type each row will be decoded as.
     */
-  def asUnsafeCsvReader[B: RowDecoder](conf: CsvConfiguration)(implicit e: ReaderEngine): CsvReader[B] =
+  def asUnsafeCsvReader[B: HeaderDecoder](conf: CsvConfiguration)(implicit e: ReaderEngine): CsvReader[B] =
     CsvSource[A].unsafeReader[B](a, conf)
 
   @deprecated("use readCsv(CsvConfiguration, Boolean) instead", "0.1.18")
-  def readCsv[C[_], B: RowDecoder](sep: Char, header: Boolean)
+  def readCsv[C[_], B: HeaderDecoder](sep: Char, header: Boolean)
                                   (implicit e: ReaderEngine,
                                    cbf: CanBuildFrom[Nothing, ReadResult[B], C[ReadResult[B]]]): C[ReadResult[B]] =
     readCsv(rfc.withColumnSeparator(sep).withHeader(header))
@@ -119,15 +119,15 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
     * @tparam B      type each row will be decoded as.
     * @tparam C      type of the collection in which the decoded CSV data will be stored.
     */
-  def readCsv[C[_], B: RowDecoder](conf: CsvConfiguration)
+  def readCsv[C[_], B: HeaderDecoder](conf: CsvConfiguration)
                                   (implicit e: ReaderEngine,
                                    cbf: CanBuildFrom[Nothing, ReadResult[B], C[ReadResult[B]]]): C[ReadResult[B]] =
     CsvSource[A].read[C, B](a, conf)
 
   @deprecated("use unsafeReadCsv(CsvConfiguration, Boolean) instead", "0.1.18")
-  def unsafeReadCsv[C[_], B: RowDecoder](sep: Char, header: Boolean)
+  def unsafeReadCsv[C[_], B: HeaderDecoder](sep: Char, header: Boolean)
                                         (e: ReaderEngine, cbf: CanBuildFrom[Nothing, B, C[B]]): C[B] =
-    unsafeReadCsv(rfc.withColumnSeparator(sep).withHeader(header))(RowDecoder[B], e, cbf)
+    unsafeReadCsv(rfc.withColumnSeparator(sep).withHeader(header))(HeaderDecoder[B], e, cbf)
 
   /** Reads the underlying resource as a CSV stream (unsafely).
     *
@@ -149,7 +149,7 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
     * @tparam B      type each row will be decoded as.
     * @tparam C      type of the collection in which the decoded CSV data will be stored.
     */
-  def unsafeReadCsv[C[_], B: RowDecoder](conf: CsvConfiguration)
+  def unsafeReadCsv[C[_], B: HeaderDecoder](conf: CsvConfiguration)
                                         (implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, B, C[B]]): C[B] =
     CsvSource[A].unsafeRead[C, B](a, conf)
 }

@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Encoding arbitrary types as cells"
 section: tutorial
-sort_order: 11
+sort_order: 12
 ---
 We've seen in a [previous post](collections_as_rows.html) how to encode collections as CSV rows. Exactly *how* that
 happened and how individual elements of the collection were turned into CSV cells was sort of glossed over, though. In
