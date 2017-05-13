@@ -27,7 +27,7 @@ trait GeneratedHeaderDecoders {
    * scala> implicit val decoder: HeaderDecoder[Foo] = HeaderDecoder.decoder([#"f1"#])(Foo.apply _)
    *
    * scala> "[#f1#]\n[#1#]".asCsvReader[Foo](rfc.withHeader).next()
-   * res0: ReadResult[Foo] = Success(Foo([#1#]))
+   * res0: ReadResult[Foo] = Success(Foo([#1#,]))
    * }}}
    *
    */
