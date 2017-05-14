@@ -34,7 +34,7 @@ import kantan.csv.engine.WriterEngine
   * }}}
   */
 final class CsvSinkOps[A: CsvSink](val a: A) {
-  @deprecated("use asCsvWriter(CsvConfiguration, String*) instead", "0.1.18")
+  @deprecated("use asCsvWriter(CsvConfiguration) instead", "0.1.18")
   def asCsvWriter[B: RowEncoder](sep: Char, header: String*)(implicit e: WriterEngine): CsvWriter[B] =
     asCsvWriter(rfc.withColumnSeparator(sep).withHeader(header:_*))
 
@@ -42,7 +42,7 @@ final class CsvSinkOps[A: CsvSink](val a: A) {
   def asCsvWriter[B: RowEncoder](conf: CsvConfiguration)(implicit e: WriterEngine): CsvWriter[B] =
     CsvSink[A].writer(a, conf)
 
-  @deprecated("use writeCsv(rows, CsvConfiguration, String*) instead", "0.1.18")
+  @deprecated("use writeCsv(rows, CsvConfiguration) instead", "0.1.18")
   def writeCsv[B: RowEncoder](rows: TraversableOnce[B], sep: Char, header: String*)(implicit e: WriterEngine): Unit =
     writeCsv(rows, rfc.withColumnSeparator(sep).withHeader(header:_*))
 
