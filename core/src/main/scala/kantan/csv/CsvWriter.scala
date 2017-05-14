@@ -55,7 +55,7 @@ trait CsvWriter[A] extends Closeable { self ⇒
 
 /** Provides useful instance creation methods. */
 object CsvWriter {
-  @deprecated("use apply(writer, CsvConfiguration, String*) instead", "0.1.18")
+  @deprecated("use apply(writer, CsvConfiguration) instead", "0.1.18")
   def apply[A: RowEncoder](writer: Writer, sep: Char, header: String*)
                 (implicit engine: WriterEngine): CsvWriter[A] =
     CsvWriter(writer, rfc.withColumnSeparator(sep).withHeader(header:_*))

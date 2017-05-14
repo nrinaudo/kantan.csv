@@ -31,7 +31,7 @@ trait CsvSink[-S] extends Serializable { self ⇒
   /** Opens a `Writer` on the specified `S`. */
   def open(s: S): Writer
 
-  @deprecated("use writer(S, CsvConfiguration, String*) instead", "0.1.18")
+  @deprecated("use writer(S, CsvConfiguration) instead", "0.1.18")
   def writer[A: RowEncoder](s: S, sep: Char, header: String*)(implicit e: WriterEngine): CsvWriter[A] =
     writer(s, rfc.withColumnSeparator(sep).withHeader(header:_*))
 
@@ -43,7 +43,7 @@ trait CsvSink[-S] extends Serializable { self ⇒
   def writer[A: RowEncoder](s: S, conf: CsvConfiguration)(implicit e: WriterEngine): CsvWriter[A] =
     CsvWriter(open(s), conf)
 
-  @deprecated("use write(S, TraversableOnce[A], CsvConfiguration, String*) instead", "0.1.18")
+  @deprecated("use write(S, TraversableOnce[A], CsvConfiguration) instead", "0.1.18")
   def write[A: RowEncoder](s: S, rows: TraversableOnce[A], sep: Char, header: String*)
                             (implicit e: WriterEngine): Unit =
     write(s, rows, rfc.withColumnSeparator(sep).withHeader(header:_*))
