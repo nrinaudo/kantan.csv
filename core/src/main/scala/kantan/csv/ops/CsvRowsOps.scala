@@ -27,7 +27,7 @@ import kantan.csv.engine.WriterEngine
   * }}}
   */
 final class CsvRowsOps[A: RowEncoder](val as: TraversableOnce[A]) {
-  @deprecated("use asCsv(CsvConfiguration, String*) instead", "0.1.18")
+  @deprecated("use asCsv(CsvConfiguration) instead", "0.1.18")
   def asCsv(sep: Char, header: String*)(implicit e: WriterEngine): String =
     asCsv(rfc.withColumnSeparator(sep).withHeader(header:_*))
 

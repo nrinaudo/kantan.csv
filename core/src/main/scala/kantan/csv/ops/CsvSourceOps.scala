@@ -39,7 +39,7 @@ import scala.collection.generic.CanBuildFrom
   * Unsafe versions of these methods are also available, even if usually advised against.
   */
 final class CsvSourceOps[A: CsvSource](val a: A) {
-  @deprecated("use asCsvReader(CsvConfiguration, Boolean) instead", "0.1.18")
+  @deprecated("use asCsvReader(CsvConfiguration) instead", "0.1.18")
   def asCsvReader[B: HeaderDecoder](sep: Char, header: Boolean)
                                   (implicit e: ReaderEngine): CsvReader[ReadResult[B]] =
     asCsvReader(rfc.withColumnSeparator(sep).withHeader(header))
@@ -66,7 +66,7 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
   def asCsvReader[B: HeaderDecoder](conf: CsvConfiguration)(implicit e: ReaderEngine): CsvReader[ReadResult[B]] =
     CsvSource[A].reader[B](a, conf)
 
-  @deprecated("use asUnsafeCsvReader(CsvConfiguration, Boolean) instead", "0.1.18")
+  @deprecated("use asUnsafeCsvReader(CsvConfiguration) instead", "0.1.18")
   def asUnsafeCsvReader[B: HeaderDecoder](sep: Char, header: Boolean)
                                         (implicit e: ReaderEngine): CsvReader[B] =
     asUnsafeCsvReader(rfc.withColumnSeparator(sep).withHeader(header))
@@ -93,7 +93,7 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
   def asUnsafeCsvReader[B: HeaderDecoder](conf: CsvConfiguration)(implicit e: ReaderEngine): CsvReader[B] =
     CsvSource[A].unsafeReader[B](a, conf)
 
-  @deprecated("use readCsv(CsvConfiguration, Boolean) instead", "0.1.18")
+  @deprecated("use readCsv(CsvConfiguration) instead", "0.1.18")
   def readCsv[C[_], B: HeaderDecoder](sep: Char, header: Boolean)
                                   (implicit e: ReaderEngine,
                                    cbf: CanBuildFrom[Nothing, ReadResult[B], C[ReadResult[B]]]): C[ReadResult[B]] =
@@ -124,7 +124,7 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
                                    cbf: CanBuildFrom[Nothing, ReadResult[B], C[ReadResult[B]]]): C[ReadResult[B]] =
     CsvSource[A].read[C, B](a, conf)
 
-  @deprecated("use unsafeReadCsv(CsvConfiguration, Boolean) instead", "0.1.18")
+  @deprecated("use unsafeReadCsv(CsvConfiguration) instead", "0.1.18")
   def unsafeReadCsv[C[_], B: HeaderDecoder](sep: Char, header: Boolean)
                                         (e: ReaderEngine, cbf: CanBuildFrom[Nothing, B, C[B]]): C[B] =
     unsafeReadCsv(rfc.withColumnSeparator(sep).withHeader(header))(HeaderDecoder[B], e, cbf)
