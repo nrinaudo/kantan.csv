@@ -41,7 +41,7 @@ trait CsvSource[-S] extends Serializable { self ⇒
     */
   def open(s: S): ParseResult[Reader]
 
-  @deprecated("use reader(S, CsvConfiguration, Boolean) instead", "0.1.18")
+  @deprecated("use reader(S, CsvConfiguration) instead", "0.1.18")
   def reader[A: HeaderDecoder](s: S, sep: Char, header: Boolean)(implicit e: ReaderEngine): CsvReader[ReadResult[A]] =
     reader(s, rfc.withColumnSeparator(sep).withHeader(header))
 
@@ -70,7 +70,7 @@ trait CsvSource[-S] extends Serializable { self ⇒
     open(s).map(reader ⇒ CsvReader(reader, conf))
       .valueOr(error ⇒ ResourceIterator(Result.failure(error)))
 
-  @deprecated("use unsafeReader(S, CsvConfiguration, Boolean) instead", "0.1.18")
+  @deprecated("use unsafeReader(S, CsvConfiguration) instead", "0.1.18")
   def unsafeReader[A: HeaderDecoder](s: S, sep: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[A] =
     unsafeReader(s, rfc.withColumnSeparator(sep).withHeader(header))
 
@@ -98,7 +98,7 @@ trait CsvSource[-S] extends Serializable { self ⇒
       case OutOfBounds(index) ⇒ throw new ArrayIndexOutOfBoundsException(index)
     })
 
-  @deprecated("use read(S, CsvConfiguration, Boolean) instead", "0.1.18")
+  @deprecated("use read(S, CsvConfiguration) instead", "0.1.18")
   def read[C[_], A: HeaderDecoder](s: S, sep: Char, header: Boolean)
                                   (implicit e: ReaderEngine,
                                    cbf: CanBuildFrom[Nothing, ReadResult[A], C[ReadResult[A]]]): C[ReadResult[A]] =
@@ -127,7 +127,7 @@ trait CsvSource[-S] extends Serializable { self ⇒
                                    cbf: CanBuildFrom[Nothing, ReadResult[A], C[ReadResult[A]]]): C[ReadResult[A]] =
     reader(s, conf).to[C]
 
-  @deprecated("use unsafeRead(S, CsvConfiguration, Boolean) instead", "0.1.18")
+  @deprecated("use unsafeRead(S, CsvConfiguration) instead", "0.1.18")
   def unsafeRead[C[_], A: HeaderDecoder](s: S, sep: Char, header: Boolean)
                                         (implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, A, C[A]]): C[A] =
     unsafeRead(s, rfc.withColumnSeparator(sep).withHeader(header))
