@@ -29,6 +29,7 @@ import org.typelevel.discipline.scalatest.Discipline
 object Instances {
   implicit val arbCaseClass1: Arbitrary[CaseClass1]  = Arbitrary(arbitrary[Int].map((CaseClass1.apply _)))
   implicit val caseClass1codec: RowCodec[CaseClass1] = RowCodec.caseCodec(CaseClass1.apply)(CaseClass1.unapply)
+  implicit val caseClass1HeaderDecoder: HeaderDecoder[CaseClass1] = HeaderDecoder.decoder("f1")(CaseClass1.apply _)
   implicit val cogenCaseClass1: Cogen[CaseClass1]    = Cogen.cogenInt.contramap(_.f1)
   implicit val arbLegalCaseClass1: Arbitrary[LegalRow[CaseClass1]] = arbLegalValueFromEnc[Seq[String], CaseClass1, kantan.csv.codecs.type]
   implicit val arbIllegalCaseClass1: Arbitrary[IllegalRow[CaseClass1]] = arbIllegalValueFromDec[Seq[String], CaseClass1, kantan.csv.codecs.type]
@@ -36,6 +37,7 @@ object Instances {
 
   [2..#implicit val arbCaseClass1: Arbitrary[CaseClass1]  = Arbitrary(arbitrary[Tuple1[[#Int#]]].map((CaseClass1.apply _).tupled))
   implicit val caseClass1codec: RowCodec[CaseClass1] = RowCodec.caseCodec([#0#])(CaseClass1.apply)(CaseClass1.unapply)
+  implicit val caseClass1HeaderDecoder: HeaderDecoder[CaseClass1] = HeaderDecoder.decoder([#"f1"#])(CaseClass1.apply _)
   implicit val cogenCaseClass1: Cogen[CaseClass1]    = Cogen.cogenList[Int].contramap(f ⇒ List([#f.f1#]))
   implicit val arbLegalCaseClass1: Arbitrary[LegalRow[CaseClass1]] = arbLegalValueFromEnc[Seq[String], CaseClass1, kantan.csv.codecs.type]
   implicit val arbIllegalCaseClass1: Arbitrary[IllegalRow[CaseClass1]] = arbIllegalValueFromDec[Seq[String], CaseClass1, kantan.csv.codecs.type]
@@ -49,6 +51,7 @@ class CaseClassTests extends FunSuite with GeneratorDrivenPropertyChecks with Di
   [#checkAll("RowCodec[CaseClass1]", RowCodecTests[CaseClass1].codec[List[String], List[Float]])
   checkAll("RowDecoder[CaseClass1]", SerializableTests[RowDecoder[CaseClass1]].serializable)
   checkAll("RowEncoder[CaseClass1]", SerializableTests[RowEncoder[CaseClass1]].serializable)
+  checkAll("HeaderDecoder[CaseClass1]", SerializableTests[HeaderDecoder[CaseClass1]].serializable)
   #
   ]
 }
