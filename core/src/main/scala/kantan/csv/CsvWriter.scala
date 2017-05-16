@@ -70,13 +70,13 @@ object CsvWriter {
     * @param conf CSV writing behaviour.
     * @tparam A type of values that the returned instance will know to encode.
     */
-  def apply[A: RowEncoder](writer: Writer, conf: CsvConfiguration)(implicit engine: WriterEngine): CsvWriter[A] = {
-    if(!conf.hasHeader) engine.writerFor(writer, conf).contramap(RowEncoder[A].encode)
-    else {
+  def apply[A: RowEncoder](writer: Writer, conf: CsvConfiguration)(implicit engine: WriterEngine): CsvWriter[A] =
+  conf.header match {
+    case CsvConfiguration.Header.Row(seq) ⇒
       val w = engine.writerFor(writer, conf)
-      w.write(conf.header)
+      w.write(seq)
       w.contramap(RowEncoder[A].encode)
-    }
+    case _  ⇒ engine.writerFor(writer, conf).contramap(RowEncoder[A].encode)
   }
 
   /** Creates a new [[CsvWriter]] instance.

@@ -16,16 +16,24 @@
 
 package kantan.csv
 
-final case class CsvConfiguration(columnSeparator: Char, quote: Char, header: Seq[String]) {
+final case class CsvConfiguration(columnSeparator: Char, quote: Char, header: CsvConfiguration.Header) {
   def withQuote(char: Char): CsvConfiguration = copy(quote = char)
   def withColumnSeparator(char: Char): CsvConfiguration = copy(columnSeparator = char)
 
-  def withHeader(ss: String*): CsvConfiguration = copy(header = ss)
+  /** Use the specified header configuration. */
+  def withHeader(header: CsvConfiguration.Header): CsvConfiguration = copy(header = header)
+  /** Expect a header when reading, use the specified sequence when writing. */
+  def withHeader(ss: String*): CsvConfiguration = withHeader(CsvConfiguration.Header.Always(ss))
+  /** If `flag` is `true`, calls [[withHeader]]. Otherwise, calls [[withoutHeader]]. */
   def withHeader(flag: Boolean): CsvConfiguration = if(flag) withHeader else withoutHeader
-  def withHeader: CsvConfiguration = copy(header = Seq(""))
-  def withoutHeader: CsvConfiguration = copy(header = Seq.empty[String])
-  def hasHeader: Boolean = header.nonEmpty
+  /** Expect a header when reading, do not use one when writing. */
+  def withHeader: CsvConfiguration = withHeader(CsvConfiguration.Header.WhenReading)
+  /** Do not use a header, either when reading or writing. */
+  def withoutHeader: CsvConfiguration = withHeader(CsvConfiguration.Header.None)
+  /** Checks whether this configuration has a header, either for reading or writing. */
+  def hasHeader: Boolean = header != CsvConfiguration.Header.None
 
+  // TODO: remove when we drop support for 2.10
   // Override the default implementation to prevent compilation failures under 2.10.6.
   override def hashCode: Int = {
     import scala.runtime.Statics
@@ -36,8 +44,36 @@ final case class CsvConfiguration(columnSeparator: Char, quote: Char, header: Se
     Statics.finalizeHash(acc, 3)
   }
 
+  // TODO: remove when we drop support for 2.10
   override def equals(obj: Any): Boolean = obj match {
     case CsvConfiguration(cs, q, ss) ⇒ cs == columnSeparator && q == quote && ss == header
     case _                           ⇒ false
+  }
+}
+
+object CsvConfiguration {
+  val rfc: CsvConfiguration = CsvConfiguration(',', '"', Header.None)
+
+  /** Various possible CSV header configurations. */
+  sealed abstract class Header extends Product with Serializable
+  object Header {
+
+    /** Adds convenient pattern matching for "anything with a row". */
+    object Row {
+      def unapply(arg: Header): Option[Seq[String]] = arg match {
+        case WhenWriting(data) ⇒ Some(data)
+        case Always(data)      ⇒ Some(data)
+        case _                 ⇒ scala.None
+      }
+    }
+
+    /** No header defined. */
+    case object None extends Header
+    /** Expect a header when reading. */
+    case object WhenReading extends Header
+    /** Use the specified header when writing. */
+    final case class WhenWriting(data: Seq[String]) extends Header
+    /** Expect a header when reading and use the specified one when writing. */
+    final case class Always(data: Seq[String]) extends Header
   }
 }

@@ -22,7 +22,7 @@ import kantan.codecs.resource.ResourceIterator
 package object csv {
   type CsvReader[A] = ResourceIterator[A]
 
-  val rfc: CsvConfiguration = CsvConfiguration(',', '"', Seq.empty)
+  val rfc: CsvConfiguration = CsvConfiguration.rfc
 
 
   // - Results ---------------------------------------------------------------------------------------------------------

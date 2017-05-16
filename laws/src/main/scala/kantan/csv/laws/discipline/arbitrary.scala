@@ -90,11 +90,16 @@ trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstance
 
   // - CsvConfiguration ------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  implicit val arbCsvHeader: Arbitrary[CsvConfiguration.Header] = Arbitrary(Gen.oneOf(
+    Gen.nonEmptyListOf(Arbitrary.arbitrary[String]).map(CsvConfiguration.Header.Always),
+    Gen.const(CsvConfiguration.Header.None)
+  ))
+
   implicit val arbCsvConfiguration: Arbitrary[CsvConfiguration] = Arbitrary {
     for {
       sep    ← Gen.oneOf(',', ';', '\t')
       quote  ← Gen.oneOf('"', '#')
-      header ← Arbitrary.arbitrary[Seq[String]]
+      header ← Arbitrary.arbitrary[CsvConfiguration.Header]
     } yield CsvConfiguration(sep, quote, header)
   }
 }
