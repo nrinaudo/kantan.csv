@@ -17,6 +17,7 @@
 package kantan.csv.engine
 
 import com.fasterxml.jackson.databind.{MappingIterator, SequenceWriter}
+import com.fasterxml.jackson.dataformat.csv.CsvGenerator
 import java.io.{Reader, Writer}
 import kantan.codecs.resource.ResourceIterator
 import kantan.csv.{CsvConfiguration, CsvWriter}
@@ -25,8 +26,7 @@ import kantan.csv.{CsvConfiguration, CsvWriter}
   *
   * Importing `kantan.csv.engine.jackson._` will replace default engines by the jackson-backed ones. If you need to
   * tweak how jackson.csv behaves, however, you can handcraft engines though [[readerEngineFrom]] and
-  * [[writerEngineFrom]] - all you need is a function that knows how to turn a column separator character in an instance
-  * of `CsvSchema`.
+  * [[writerEngineFrom]].
   */
 object jackson {
   // - Schema ---------------------------------------------------------------------------------------------------------
@@ -34,8 +34,8 @@ object jackson {
   type CsvSchema = com.fasterxml.jackson.dataformat.csv.CsvSchema
   type CsvMapper = com.fasterxml.jackson.dataformat.csv.CsvMapper
 
-  /** Type of functions that create a `CSVSchema` instance from a given column separator. */
-  type CSVSchemaBuilder = CsvConfiguration ⇒ CsvSchema
+  type MappingIteratorBuilder = (Reader, CsvConfiguration) ⇒ MappingIterator[Array[String]]
+  type SequenceWriterBuilder = (Writer, CsvConfiguration) ⇒ SequenceWriter
 
   private val MAPPER: CsvMapper = new CsvMapper()
   MAPPER.enable(com.fasterxml.jackson.dataformat.csv.CsvParser.Feature.WRAP_AS_ARRAY)
@@ -44,48 +44,45 @@ object jackson {
 
   // - Reader engines --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  /** Default `CsvSchema` when parsing. */
-  def defaultParserSchema(conf: CsvConfiguration): CsvSchema =
-    MAPPER.schemaFor(classOf[Array[String]]).withColumnSeparator(conf.columnSeparator).withQuoteChar(conf.quote)
+  val defaultMappingIteratorBuilder: MappingIteratorBuilder = (reader, conf) ⇒ {
+    MAPPER.readerFor(classOf[Array[String]]).`with`(MAPPER.schemaFor(classOf[Array[String]])
+      .withColumnSeparator(conf.columnSeparator).withQuoteChar(conf.quote)).readValues(reader)
+  }
 
-  def parse(reader: Reader, schema: CsvSchema): MappingIterator[Array[String]] =
-    MAPPER.readerFor(classOf[Array[String]]).`with`(schema).readValues(reader)
-
-
-
-  /** Creates a new `ReaderEngine` from the specified [[CSVSchemaBuilder]].
+  /** Creates a new `ReaderEngine` from the specified [[MappingIteratorBuilder]].
     *
     * The purpose of this is to let developers use some of the jackson.csv features that kantan.csv does not expose
     * through its public API.
     */
-  def readerEngineFrom(f: CSVSchemaBuilder): ReaderEngine =
-    ReaderEngine.from { (r, s) ⇒ ResourceIterator.fromIterator(parse(r, f(s))) }
+  def readerEngineFrom(f: MappingIteratorBuilder): ReaderEngine =
+    ReaderEngine.from { (r, s) ⇒ ResourceIterator.fromIterator(f(r, s)) }
 
   /** Default jackson.csv `ReaderEngine`.
     *
     * It's possible to tweak the behaviour of the underlying writer through [[readerEngineFrom]].
     */
-  implicit val jacksonCsvReaderEngine: ReaderEngine = readerEngineFrom(s ⇒ defaultParserSchema(s))
+  implicit val jacksonCsvReaderEngine: ReaderEngine = readerEngineFrom(defaultMappingIteratorBuilder)
 
 
 
   // - Writer engines --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  /** Default `CsvSchema` when writing. */
-  def defaultWriterSchema(conf: CsvConfiguration): CsvSchema =
-    MAPPER.schemaFor(classOf[Array[String]]).withColumnSeparator(conf.columnSeparator)
-        .withQuoteChar(conf.quote).withLineSeparator("\r\n").withoutComments
+  val defaultSequenceWriterBuilder: SequenceWriterBuilder = (writer, conf) ⇒ {
+    val mapper =
+      if(conf.quotePolicy == CsvConfiguration.QuotePolicy.WhenNeeded) MAPPER
+      else MAPPER.copy().enable(CsvGenerator.Feature.ALWAYS_QUOTE_STRINGS)
 
-  def write(writer: Writer, schema: CsvSchema): SequenceWriter = MAPPER.writer.`with`(schema).writeValues(writer)
+    mapper.writer.`with`(mapper.schemaFor(classOf[Array[String]]).withColumnSeparator(conf.columnSeparator)
+            .withQuoteChar(conf.quote).withLineSeparator("\r\n").withoutComments).writeValues(writer)
+  }
 
-
-  /** Creates a new `WriterEngine` from the specified [[CSVSchemaBuilder]].
+  /** Creates a new `WriterEngine` from the specified [[SequenceWriterBuilder]].
     *
     * The purpose of this is to let developers use some of the jackson.csv features that kantan.csv does not expose
     * through its public API.
     */
-  def writerEngineFrom(f: CSVSchemaBuilder): WriterEngine = WriterEngine.from { (w, s) ⇒
-    CsvWriter(write(w, f(s))) { (out, ss) ⇒
+  def writerEngineFrom(f: SequenceWriterBuilder): WriterEngine = WriterEngine.from { (w, s) ⇒
+    CsvWriter(f(w, s)) { (out, ss) ⇒
       out.write(ss.toArray)
       ()
     }(_.close())
@@ -95,5 +92,5 @@ object jackson {
     *
     * It's possible to tweak the behaviour of the underlying writer through [[writerEngineFrom]].
     */
-  implicit val jacksonCsvWriterEngine: WriterEngine = writerEngineFrom(s ⇒ defaultWriterSchema(s))
+  implicit val jacksonCsvWriterEngine: WriterEngine = writerEngineFrom(defaultSequenceWriterBuilder)
 }

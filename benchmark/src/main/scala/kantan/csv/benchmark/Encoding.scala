@@ -89,7 +89,7 @@ object Encoding {
 
   def jackson(data: List[CsvEntry]): String = {
     val out = new StringWriter()
-    val writer = engine.jackson.write(out, engine.jackson.defaultWriterSchema(rfc))
+    val writer = engine.jackson.defaultSequenceWriterBuilder(out, rfc)
     write(data) { a ⇒
       writer.write(a)
       ()

@@ -20,20 +20,15 @@ import kantan.csv._
 import kantan.csv.engine.WriterEngine
 import kantan.csv.ops._
 
-trait WriterEngineLaws {
-  implicit def engine: WriterEngine
+trait WriterEngineLaws extends RfcWriterLaws {
+  def quoteAll(csv: List[List[Int]]): Boolean = {
+    val data = csv.filter(_.nonEmpty)
 
-  def roundTrip(csv: List[List[Cell]], conf: CsvConfiguration): Boolean =
-    csv.asCsv(conf).unsafeReadCsv[List, List[Cell]](conf) == csv
+    data.asCsv(rfc.quoteAll).trim == data.map(_.map(i ⇒ s""""$i"""").mkString(",")).mkString("\r\n")
+  }
 
-  def noTrailingSeparator(csv: List[List[Cell.NonEscaped]]): Boolean =
-    csv.asCsv(rfc).split("\n").forall(!_.endsWith(","))
-
-  // This test is slightly dodgy, but works: we're assuming that the data is properly serialized (this is checked by
-  // roundTrip), an want to make sure that we get the right number of rows. The `trim` bit is to allow for the optional
-  // empty row.
-  def crlfAsRowSeparator(csv: List[List[Cell.NonEscaped]]): Boolean =
-    csv.asCsv(rfc).trim.split("\r\n").length == csv.length
+  def columnSeparator(csv: List[List[Cell]], c: Char): Boolean =
+    roundTripFor(csv, rfc.withColumnSeparator(c))
 }
 
 object WriterEngineLaws {

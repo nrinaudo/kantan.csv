@@ -18,7 +18,6 @@ package kantan.csv.laws.discipline
 
 import kantan.csv.engine.WriterEngine
 import kantan.csv.laws.WriterEngineLaws
-import kantan.csv.laws.discipline.arbitrary._
 import org.scalacheck.Prop._
 import org.typelevel.discipline.Laws
 
@@ -29,6 +28,8 @@ trait WriterEngineTests extends Laws {
     name = "writerEngine",
     parent = None,
     "round-trip"                 → forAll(laws.roundTrip _),
+    "quote all"                  → forAll(laws.quoteAll _),
+    "column separator"           → forAll(laws.columnSeparator _),
     "no trailing cell separator" → forAll(laws.noTrailingSeparator _),
     "crlf row separator"         → forAll(laws.crlfAsRowSeparator _)
   )

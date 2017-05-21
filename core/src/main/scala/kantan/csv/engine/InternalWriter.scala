@@ -44,14 +44,24 @@ private[csv] class InternalWriter(private val out: Writer, val conf: CsvConfigur
         else escapeIndex(index + 1)
       }
 
-    val index = escapeIndex(0)
+    // If we're configured to always quote, do so.
+    if(conf.quotePolicy == CsvConfiguration.QuotePolicy.Always) {
+      out.write(conf.quote.toInt)
+      out.write(str)
+      out.write(conf.quote.toInt)
+    }
 
-    if(index == -1) out.write(str)
+    // Otherwise, only quotes when needed.
     else {
-      out.write(conf.quote.toInt)
-      out.write(str, 0, index)
-      escape(index, index)
-      out.write(conf.quote.toInt)
+      val index = escapeIndex(0)
+
+      if(index == -1) out.write(str)
+      else {
+        out.write(conf.quote.toInt)
+        out.write(str, 0, index)
+        escape(index, index)
+        out.write(conf.quote.toInt)
+      }
     }
   }
 

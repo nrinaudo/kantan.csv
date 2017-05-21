@@ -16,15 +16,31 @@
 
 package kantan.csv
 
-final case class CsvConfiguration(columnSeparator: Char, quote: Char, header: CsvConfiguration.Header) {
+import kantan.csv.CsvConfiguration.{Header, QuotePolicy}
+
+/** Configuration for how to read / write CSV data.
+  *
+  * Note that all engines don't necessarily support all features.
+  */
+final case class CsvConfiguration(columnSeparator: Char, quote: Char, quotePolicy: QuotePolicy, header: Header) {
+  /** Use the specified quote character. */
   def withQuote(char: Char): CsvConfiguration = copy(quote = char)
+
+  /** Quote all cells, whether they need it or not. */
+  def quoteAll: CsvConfiguration = withQuotePolicy(QuotePolicy.Always)
+  /** Quote only cells that need it. */
+  def quoteWhenNeeded: CsvConfiguration = withQuotePolicy(QuotePolicy.WhenNeeded)
+  /** Use the specified quoting policy. */
+  def withQuotePolicy(policy: QuotePolicy): CsvConfiguration = copy(quotePolicy = policy)
+
+  /** Use the specified character for column separator. */
   def withColumnSeparator(char: Char): CsvConfiguration = copy(columnSeparator = char)
 
   /** Use the specified header configuration. */
   def withHeader(header: CsvConfiguration.Header): CsvConfiguration = copy(header = header)
   /** Expect a header when reading, use the specified sequence when writing. */
   def withHeader(ss: String*): CsvConfiguration = withHeader(CsvConfiguration.Header.Always(ss))
-  /** If `flag` is `true`, calls [[withHeader]]. Otherwise, calls [[withoutHeader]]. */
+  /** If `flag` is `true`, expect a header when reading. Otherwise, don't. */
   def withHeader(flag: Boolean): CsvConfiguration = if(flag) withHeader else withoutHeader
   /** Expect a header when reading, do not use one when writing. */
   def withHeader: CsvConfiguration = withHeader(CsvConfiguration.Header.WhenReading)
@@ -40,19 +56,27 @@ final case class CsvConfiguration(columnSeparator: Char, quote: Char, header: Cs
     var acc: Int = -889275714
     acc = Statics.mix(acc, columnSeparator.toInt)
     acc = Statics.mix(acc, quote.toInt)
+    acc = Statics.mix(acc, quotePolicy.hashCode())
     acc = Statics.mix(acc, header.hashCode())
     Statics.finalizeHash(acc, 3)
   }
 
   // TODO: remove when we drop support for 2.10
   override def equals(obj: Any): Boolean = obj match {
-    case CsvConfiguration(cs, q, ss) ⇒ cs == columnSeparator && q == quote && ss == header
-    case _                           ⇒ false
+    case CsvConfiguration(cs, q, p, ss) ⇒ cs == columnSeparator && q == quote && ss == header && p == quotePolicy
+    case _                              ⇒ false
   }
 }
 
 object CsvConfiguration {
-  val rfc: CsvConfiguration = CsvConfiguration(',', '"', Header.None)
+  val rfc: CsvConfiguration = CsvConfiguration(',', '"', QuotePolicy.WhenNeeded, Header.None)
+
+  sealed abstract class QuotePolicy extends Product with Serializable
+  object QuotePolicy {
+    case object Always extends QuotePolicy
+    case object WhenNeeded extends QuotePolicy
+  }
+
 
   /** Various possible CSV header configurations. */
   sealed abstract class Header extends Product with Serializable

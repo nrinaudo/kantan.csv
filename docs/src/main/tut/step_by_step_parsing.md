@@ -52,13 +52,6 @@ multiple `filter` and `map` operations, and nothing will happen until each row i
 val filtered = iterator.filter(_.exists(_.year >= 1997)).map(_.map(_.make))
 ```
 
-Note that this is a bit cumbersome - our iterator contains [`ReadResult[Car]`][`ReadResult`], which forces us to use
-two levels of filtering / mapping. [`CsvReaderOps`] provides more comfortable alternatives:
-
-```tut
-val filtered = iterator.filterResult(_.year >= 1997).mapResult(_.make)
-```
-
 At this point, no data has been parsed yet. We can now, say, take the first element:
 
 ```tut

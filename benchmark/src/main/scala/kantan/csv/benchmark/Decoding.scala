@@ -101,8 +101,7 @@ object Decoding {
 
   @SuppressWarnings(Array("org.wartremover.warts.Null"))
   def jackson(str: String): List[CsvEntry] = {
-    new CsvIterator(engine.jackson.parse(new StringReader(str),
-      engine.jackson.defaultParserSchema(rfc)))(it ⇒
+    new CsvIterator(engine.jackson.defaultMappingIteratorBuilder(new StringReader(str), rfc))(it ⇒
       if(it.hasNext) it.next()
       else null
     ).toList

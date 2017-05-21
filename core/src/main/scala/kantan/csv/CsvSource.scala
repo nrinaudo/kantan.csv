@@ -57,10 +57,6 @@ trait CsvSource[-S] extends Serializable { self ⇒
     * cost of having each row wrapped in a [[ReadResult]] that then need to be unpacked. See
     * [[unsafeReader[A](s:S,conf:kantan\.csv\.CsvConfiguration* unsafeReader]] for an alternative.
     *
-    * Using common combinators such as `map`, `flatMap` and `filter` on a `CsvReader[ReadResult[A]]` can be awkward -
-    * one needs to first map into the reader, then into the result. For this reason, instances of
-    * `CsvReader[ReadResult[A]]` have dedicated syntax that makes it more pleasant through [[ops.CsvReaderOps]].
-    *
     * @param s instance of `S` that will be opened an parsed.
     * @param conf CSV parsing behaviour.
     * @tparam A type to parse each row as. This must have a corresponding implicit [[HeaderDecoder]] instance in scope.

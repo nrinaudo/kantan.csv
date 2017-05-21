@@ -46,13 +46,15 @@ object commons {
 
   /** Creates a default `CSVFormat` instance using the specified column separator. */
   def defaultFormat(conf: CsvConfiguration): CSVFormat = CSVFormat.RFC4180
-    .withDelimiter(conf.columnSeparator).withQuote(conf.quote)
-
+    .withDelimiter(conf.columnSeparator).withQuote(conf.quote).withQuoteMode(conf.quotePolicy match {
+    case CsvConfiguration.QuotePolicy.Always ⇒ QuoteMode.ALL
+    case CsvConfiguration.QuotePolicy.WhenNeeded ⇒ QuoteMode.MINIMAL
+  })
 
 
   // - Reader engines --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  /** Creates a new `ReaderEngine` from the specified [[CSVFormatBuilder]].
+  /** Creates a new `ReaderEngine` from the specified [[kantan.csv.engine.commons.CSVFormatBuilder]].
     *
     * The purpose of this is to let developers use some of the commons-csv features that kantan.csv does not expose
     * through its public API.
@@ -77,7 +79,7 @@ object commons {
     * through its public API.
     */
   def writerEngineFrom(f: CSVFormatBuilder): WriterEngine = WriterEngine.from { (w, s) ⇒
-    CsvWriter(new CSVPrinter(w, f(s).withQuoteMode(QuoteMode.MINIMAL))) { (csv, ss) ⇒
+    CsvWriter(new CSVPrinter(w, f(s))) { (csv, ss) ⇒
       csv.printRecord(ss.asJava)
     }(_.close())
   }
