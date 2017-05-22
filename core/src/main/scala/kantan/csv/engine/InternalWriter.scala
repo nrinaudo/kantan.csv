@@ -40,7 +40,7 @@ private[csv] class InternalWriter(private val out: Writer, val conf: CsvConfigur
       if(index >= str.length) -1
       else {
         val c = str.charAt(index)
-        if(c == conf.quote || c == conf.columnSeparator || c == '\n' || c == '\r') index
+        if(c == conf.quote || c == conf.cellSeparator || c == '\n' || c == '\r') index
         else escapeIndex(index + 1)
       }
 
@@ -70,7 +70,7 @@ private[csv] class InternalWriter(private val out: Writer, val conf: CsvConfigur
     var first = true
     for(s ← ss) {
       if(first) first = false
-      else      out.write(conf.columnSeparator.toInt)
+      else      out.write(conf.cellSeparator.toInt)
       safeWrite(s)
     }
     /*if(!first)*/ out.write("\r\n") // According to the RFC, \n alone is not valid.

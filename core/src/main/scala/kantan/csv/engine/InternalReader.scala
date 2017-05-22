@@ -73,7 +73,7 @@ private[engine] class InternalReader private (val data: Reader, val conf: CsvCon
   @tailrec
   final def cellStart(c: Char): InternalReader.CellStart = c match {
     // Separator: empty cell, but a next one is coming.
-    case conf.columnSeparator ⇒
+    case conf.cellSeparator ⇒
       endCell()
       InternalReader.CSeparator
 
@@ -116,7 +116,7 @@ private[engine] class InternalReader private (val data: Reader, val conf: CsvCon
   final def rawCell: InternalReader.Break =
     if(hasNextChar) nextChar() match {
       // Separator: cell finished.
-      case conf.columnSeparator ⇒
+      case conf.cellSeparator ⇒
         endCell()
         InternalReader.Separator
 
@@ -141,7 +141,7 @@ private[engine] class InternalReader private (val data: Reader, val conf: CsvCon
 
   @tailrec
   final def escapedCellEnd(c: Char): InternalReader.Break = c match {
-    case conf.columnSeparator ⇒
+    case conf.cellSeparator ⇒
       endCell()
       InternalReader.Separator
 

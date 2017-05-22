@@ -29,7 +29,7 @@ import kantan.csv.engine.WriterEngine
 final class CsvRowsOps[A: HeaderEncoder](val as: TraversableOnce[A]) {
   @deprecated("use asCsv(CsvConfiguration) instead", "0.1.18")
   def asCsv(sep: Char, header: String*)(implicit e: WriterEngine): String =
-    asCsv(rfc.withColumnSeparator(sep).withHeader(header:_*))
+    asCsv(rfc.withCellSeparator(sep).withHeader(header:_*))
 
   /** Turns the collection into a CSV string.
     *

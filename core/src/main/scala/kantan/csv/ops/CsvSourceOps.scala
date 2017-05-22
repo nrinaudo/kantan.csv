@@ -42,7 +42,7 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
   @deprecated("use asCsvReader(CsvConfiguration) instead", "0.1.18")
   def asCsvReader[B: HeaderDecoder](sep: Char, header: Boolean)
                                   (implicit e: ReaderEngine): CsvReader[ReadResult[B]] =
-    asCsvReader(rfc.withColumnSeparator(sep).withHeader(header))
+    asCsvReader(rfc.withCellSeparator(sep).withHeader(header))
 
   /** Opens a [[CsvReader]] on the underlying resource.
     *
@@ -69,7 +69,7 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
   @deprecated("use asUnsafeCsvReader(CsvConfiguration) instead", "0.1.18")
   def asUnsafeCsvReader[B: HeaderDecoder](sep: Char, header: Boolean)
                                         (implicit e: ReaderEngine): CsvReader[B] =
-    asUnsafeCsvReader(rfc.withColumnSeparator(sep).withHeader(header))
+    asUnsafeCsvReader(rfc.withCellSeparator(sep).withHeader(header))
 
   /** Opens an unsafe [[CsvReader]] on the underlying resource.
     *
@@ -97,7 +97,7 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
   def readCsv[C[_], B: HeaderDecoder](sep: Char, header: Boolean)
                                   (implicit e: ReaderEngine,
                                    cbf: CanBuildFrom[Nothing, ReadResult[B], C[ReadResult[B]]]): C[ReadResult[B]] =
-    readCsv(rfc.withColumnSeparator(sep).withHeader(header))
+    readCsv(rfc.withCellSeparator(sep).withHeader(header))
 
   /** Reads the underlying resource as a CSV stream.
     *
@@ -127,7 +127,7 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
   @deprecated("use unsafeReadCsv(CsvConfiguration) instead", "0.1.18")
   def unsafeReadCsv[C[_], B: HeaderDecoder](sep: Char, header: Boolean)
                                         (e: ReaderEngine, cbf: CanBuildFrom[Nothing, B, C[B]]): C[B] =
-    unsafeReadCsv(rfc.withColumnSeparator(sep).withHeader(header))(HeaderDecoder[B], e, cbf)
+    unsafeReadCsv(rfc.withCellSeparator(sep).withHeader(header))(HeaderDecoder[B], e, cbf)
 
   /** Reads the underlying resource as a CSV stream (unsafely).
     *

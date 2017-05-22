@@ -58,7 +58,7 @@ object CsvWriter {
   @deprecated("use apply(writer, CsvConfiguration) instead", "0.1.18")
   def apply[A: HeaderEncoder](writer: Writer, sep: Char, header: String*)
                 (implicit engine: WriterEngine): CsvWriter[A] =
-    CsvWriter(writer, rfc.withColumnSeparator(sep).withHeader(header:_*))
+    CsvWriter(writer, rfc.withCellSeparator(sep).withHeader(header:_*))
 
   /** Creates a new [[CsvWriter]] instance that will send encoded data to the specified `Writer`.
     *

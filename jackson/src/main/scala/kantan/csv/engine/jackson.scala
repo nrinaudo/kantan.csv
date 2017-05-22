@@ -46,7 +46,7 @@ object jackson {
   // -------------------------------------------------------------------------------------------------------------------
   val defaultMappingIteratorBuilder: MappingIteratorBuilder = (reader, conf) ⇒ {
     MAPPER.readerFor(classOf[Array[String]]).`with`(MAPPER.schemaFor(classOf[Array[String]])
-      .withColumnSeparator(conf.columnSeparator).withQuoteChar(conf.quote)).readValues(reader)
+      .withColumnSeparator(conf.cellSeparator).withQuoteChar(conf.quote)).readValues(reader)
   }
 
   /** Creates a new `ReaderEngine` from the specified [[MappingIteratorBuilder]].
@@ -72,7 +72,7 @@ object jackson {
       if(conf.quotePolicy == CsvConfiguration.QuotePolicy.WhenNeeded) MAPPER
       else MAPPER.copy().enable(CsvGenerator.Feature.ALWAYS_QUOTE_STRINGS)
 
-    mapper.writer.`with`(mapper.schemaFor(classOf[Array[String]]).withColumnSeparator(conf.columnSeparator)
+    mapper.writer.`with`(mapper.schemaFor(classOf[Array[String]]).withColumnSeparator(conf.cellSeparator)
             .withQuoteChar(conf.quote).withLineSeparator("\r\n").withoutComments).writeValues(writer)
   }
 

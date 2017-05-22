@@ -32,7 +32,7 @@ import kantan.csv.engine.WriterEngine
 final class CsvRowOps[A: RowEncoder](val a: A) {
   @deprecated("use asCsvRow(CsvConfiguration) instead", "0.1.18")
   def asCsvRow(sep: Char)(implicit e: WriterEngine): String =
-    asCsvRow(rfc.withColumnSeparator(sep))
+    asCsvRow(rfc.withCellSeparator(sep))
 
   def asCsvRow(conf: CsvConfiguration)(implicit e: WriterEngine): String =
     Seq(a).asCsv(conf).trim

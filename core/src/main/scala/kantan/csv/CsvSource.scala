@@ -43,7 +43,7 @@ trait CsvSource[-S] extends Serializable { self ⇒
 
   @deprecated("use reader(S, CsvConfiguration) instead", "0.1.18")
   def reader[A: HeaderDecoder](s: S, sep: Char, header: Boolean)(implicit e: ReaderEngine): CsvReader[ReadResult[A]] =
-    reader(s, rfc.withColumnSeparator(sep).withHeader(header))
+    reader(s, rfc.withCellSeparator(sep).withHeader(header))
 
   /** Turns the specified `S` into an iterator on `ReadResult[A]`.
     *
@@ -68,7 +68,7 @@ trait CsvSource[-S] extends Serializable { self ⇒
 
   @deprecated("use unsafeReader(S, CsvConfiguration) instead", "0.1.18")
   def unsafeReader[A: HeaderDecoder](s: S, sep: Char, header: Boolean)(implicit engine: ReaderEngine): CsvReader[A] =
-    unsafeReader(s, rfc.withColumnSeparator(sep).withHeader(header))
+    unsafeReader(s, rfc.withCellSeparator(sep).withHeader(header))
 
   /** Turns the specified `S` into an iterator on `A`.
     *
@@ -98,7 +98,7 @@ trait CsvSource[-S] extends Serializable { self ⇒
   def read[C[_], A: HeaderDecoder](s: S, sep: Char, header: Boolean)
                                   (implicit e: ReaderEngine,
                                    cbf: CanBuildFrom[Nothing, ReadResult[A], C[ReadResult[A]]]): C[ReadResult[A]] =
-    read(s, rfc.withColumnSeparator(sep).withHeader(header))
+    read(s, rfc.withCellSeparator(sep).withHeader(header))
 
   /** Reads the entire CSV data into a collection.
     *
@@ -126,7 +126,7 @@ trait CsvSource[-S] extends Serializable { self ⇒
   @deprecated("use unsafeRead(S, CsvConfiguration) instead", "0.1.18")
   def unsafeRead[C[_], A: HeaderDecoder](s: S, sep: Char, header: Boolean)
                                         (implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, A, C[A]]): C[A] =
-    unsafeRead(s, rfc.withColumnSeparator(sep).withHeader(header))
+    unsafeRead(s, rfc.withCellSeparator(sep).withHeader(header))
 
   /** Reads the entire CSV data into a collection.
     *

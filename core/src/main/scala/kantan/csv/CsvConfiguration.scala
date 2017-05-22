@@ -22,7 +22,7 @@ import kantan.csv.CsvConfiguration.{Header, QuotePolicy}
   *
   * Note that all engines don't necessarily support all features.
   */
-final case class CsvConfiguration(columnSeparator: Char, quote: Char, quotePolicy: QuotePolicy, header: Header) {
+final case class CsvConfiguration(cellSeparator: Char, quote: Char, quotePolicy: QuotePolicy, header: Header) {
   /** Use the specified quote character. */
   def withQuote(char: Char): CsvConfiguration = copy(quote = char)
 
@@ -33,8 +33,8 @@ final case class CsvConfiguration(columnSeparator: Char, quote: Char, quotePolic
   /** Use the specified quoting policy. */
   def withQuotePolicy(policy: QuotePolicy): CsvConfiguration = copy(quotePolicy = policy)
 
-  /** Use the specified character for column separator. */
-  def withColumnSeparator(char: Char): CsvConfiguration = copy(columnSeparator = char)
+  /** Use the specified character for cell separator. */
+  def withCellSeparator(char: Char): CsvConfiguration = copy(cellSeparator = char)
 
   /** Use the specified header configuration. */
   def withHeader(header: CsvConfiguration.Header): CsvConfiguration = copy(header = header)
@@ -54,7 +54,7 @@ final case class CsvConfiguration(columnSeparator: Char, quote: Char, quotePolic
   override def hashCode: Int = {
     import scala.runtime.Statics
     var acc: Int = -889275714
-    acc = Statics.mix(acc, columnSeparator.toInt)
+    acc = Statics.mix(acc, cellSeparator.toInt)
     acc = Statics.mix(acc, quote.toInt)
     acc = Statics.mix(acc, quotePolicy.hashCode())
     acc = Statics.mix(acc, header.hashCode())
@@ -63,7 +63,7 @@ final case class CsvConfiguration(columnSeparator: Char, quote: Char, quotePolic
 
   // TODO: remove when we drop support for 2.10
   override def equals(obj: Any): Boolean = obj match {
-    case CsvConfiguration(cs, q, p, ss) ⇒ cs == columnSeparator && q == quote && ss == header && p == quotePolicy
+    case CsvConfiguration(cs, q, p, ss) ⇒ cs == cellSeparator && q == quote && ss == header && p == quotePolicy
     case _                              ⇒ false
   }
 }

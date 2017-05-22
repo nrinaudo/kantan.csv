@@ -28,7 +28,7 @@ trait WriterEngineLaws extends RfcWriterLaws {
   }
 
   def columnSeparator(csv: List[List[Cell]], c: Char): Boolean =
-    roundTripFor(csv, rfc.withColumnSeparator(c))
+    roundTripFor(csv, rfc.withCellSeparator(c))
 }
 
 object WriterEngineLaws {
