@@ -35,20 +35,20 @@ import kantan.csv.engine.WriterEngine
   */
 final class CsvSinkOps[A: CsvSink](val a: A) {
   @deprecated("use asCsvWriter(CsvConfiguration) instead", "0.1.18")
-  def asCsvWriter[B: RowEncoder](sep: Char, header: String*)(implicit e: WriterEngine): CsvWriter[B] =
+  def asCsvWriter[B: HeaderEncoder](sep: Char, header: String*)(implicit e: WriterEngine): CsvWriter[B] =
     asCsvWriter(rfc.withColumnSeparator(sep).withHeader(header:_*))
 
   /** Shorthand for [[CsvSink.writer[A](s:S,conf:kantan\.csv\.CsvConfiguration* CsvSink.writer]]. */
-  def asCsvWriter[B: RowEncoder](conf: CsvConfiguration)(implicit e: WriterEngine): CsvWriter[B] =
+  def asCsvWriter[B: HeaderEncoder](conf: CsvConfiguration)(implicit e: WriterEngine): CsvWriter[B] =
     CsvSink[A].writer(a, conf)
 
   @deprecated("use writeCsv(rows, CsvConfiguration) instead", "0.1.18")
-  def writeCsv[B: RowEncoder](rows: TraversableOnce[B], sep: Char, header: String*)(implicit e: WriterEngine): Unit =
+  def writeCsv[B: HeaderEncoder](rows: TraversableOnce[B], sep: Char, header: String*)(implicit e: WriterEngine): Unit =
     writeCsv(rows, rfc.withColumnSeparator(sep).withHeader(header:_*))
 
   /** Shorthand for [[CsvSink.write[A](s:S,rows:TraversableOnce[A],conf:kantan\.csv\.CsvConfiguration)* CSvSink.write]].
     */
-  def writeCsv[B: RowEncoder](rows: TraversableOnce[B], conf: CsvConfiguration)(implicit e: WriterEngine): Unit =
+  def writeCsv[B: HeaderEncoder](rows: TraversableOnce[B], conf: CsvConfiguration)(implicit e: WriterEngine): Unit =
     CsvSink[A].write(a, rows, conf)
 }
 

@@ -26,7 +26,7 @@ import kantan.csv.engine.WriterEngine
   * List(List(1, 2, 3), List(4, 5, 6)).asCsv(rfc)
   * }}}
   */
-final class CsvRowsOps[A: RowEncoder](val as: TraversableOnce[A]) {
+final class CsvRowsOps[A: HeaderEncoder](val as: TraversableOnce[A]) {
   @deprecated("use asCsv(CsvConfiguration) instead", "0.1.18")
   def asCsv(sep: Char, header: String*)(implicit e: WriterEngine): String =
     asCsv(rfc.withColumnSeparator(sep).withHeader(header:_*))
@@ -43,7 +43,7 @@ final class CsvRowsOps[A: RowEncoder](val as: TraversableOnce[A]) {
 }
 
 trait ToCsvRowsOps {
-  implicit def toCsvRowsOps[A: RowEncoder](as: TraversableOnce[A]): CsvRowsOps[A] = new CsvRowsOps(as)
+  implicit def toCsvRowsOps[A: HeaderEncoder](as: TraversableOnce[A]): CsvRowsOps[A] = new CsvRowsOps(as)
 }
 
 object csvRows extends ToCsvRowsOps

@@ -56,7 +56,7 @@ trait CsvWriter[A] extends Closeable { self ⇒
 /** Provides useful instance creation methods. */
 object CsvWriter {
   @deprecated("use apply(writer, CsvConfiguration) instead", "0.1.18")
-  def apply[A: RowEncoder](writer: Writer, sep: Char, header: String*)
+  def apply[A: HeaderEncoder](writer: Writer, sep: Char, header: String*)
                 (implicit engine: WriterEngine): CsvWriter[A] =
     CsvWriter(writer, rfc.withColumnSeparator(sep).withHeader(header:_*))
 
@@ -70,13 +70,16 @@ object CsvWriter {
     * @param conf CSV writing behaviour.
     * @tparam A type of values that the returned instance will know to encode.
     */
-  def apply[A: RowEncoder](writer: Writer, conf: CsvConfiguration)(implicit engine: WriterEngine): CsvWriter[A] =
-  conf.header match {
-    case CsvConfiguration.Header.Row(seq) ⇒
-      val w = engine.writerFor(writer, conf)
-      w.write(seq)
-      w.contramap(RowEncoder[A].encode)
-    case _  ⇒ engine.writerFor(writer, conf).contramap(RowEncoder[A].encode)
+  def apply[A: HeaderEncoder](writer: Writer, conf: CsvConfiguration)(implicit engine: WriterEngine): CsvWriter[A] = {
+    val w = engine.writerFor(writer, conf)
+    conf.header match {
+      case CsvConfiguration.Header.Implicit ⇒
+        HeaderEncoder[A].header.foreach(w.write)
+      case CsvConfiguration.Header.Explicit(seq) ⇒
+        w.write(seq)
+      case CsvConfiguration.Header.None ⇒ ()
+    }
+    w.contramap(HeaderEncoder[A].rowEncoder.encode)
   }
 
   /** Creates a new [[CsvWriter]] instance.

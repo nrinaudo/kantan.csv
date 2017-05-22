@@ -39,7 +39,7 @@ final class CsvRowOps[A: RowEncoder](val a: A) {
 }
 
 trait ToCsvRowOps {
-  implicit def toCsvRowOps[A: RowEncoder](a: A): CsvRowOps[A] = new CsvRowOps(a)
+  implicit def toCsvRowOps[A: HeaderEncoder](a: A): CsvRowOps[A] = new CsvRowOps(a)(HeaderEncoder[A].rowEncoder)
 }
 
 object csvRow extends ToCsvRowOps

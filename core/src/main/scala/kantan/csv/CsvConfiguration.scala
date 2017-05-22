@@ -39,11 +39,11 @@ final case class CsvConfiguration(columnSeparator: Char, quote: Char, quotePolic
   /** Use the specified header configuration. */
   def withHeader(header: CsvConfiguration.Header): CsvConfiguration = copy(header = header)
   /** Expect a header when reading, use the specified sequence when writing. */
-  def withHeader(ss: String*): CsvConfiguration = withHeader(CsvConfiguration.Header.Always(ss))
+  def withHeader(ss: String*): CsvConfiguration = withHeader(CsvConfiguration.Header.Explicit(ss))
   /** If `flag` is `true`, expect a header when reading. Otherwise, don't. */
   def withHeader(flag: Boolean): CsvConfiguration = if(flag) withHeader else withoutHeader
   /** Expect a header when reading, do not use one when writing. */
-  def withHeader: CsvConfiguration = withHeader(CsvConfiguration.Header.WhenReading)
+  def withHeader: CsvConfiguration = withHeader(CsvConfiguration.Header.Implicit)
   /** Do not use a header, either when reading or writing. */
   def withoutHeader: CsvConfiguration = withHeader(CsvConfiguration.Header.None)
   /** Checks whether this configuration has a header, either for reading or writing. */
@@ -81,23 +81,22 @@ object CsvConfiguration {
   /** Various possible CSV header configurations. */
   sealed abstract class Header extends Product with Serializable
   object Header {
-
-    /** Adds convenient pattern matching for "anything with a row". */
-    object Row {
-      def unapply(arg: Header): Option[Seq[String]] = arg match {
-        case WhenWriting(data) ⇒ Some(data)
-        case Always(data)      ⇒ Some(data)
-        case _                 ⇒ scala.None
-      }
-    }
-
     /** No header defined. */
     case object None extends Header
-    /** Expect a header when reading. */
-    case object WhenReading extends Header
-    /** Use the specified header when writing. */
-    final case class WhenWriting(data: Seq[String]) extends Header
-    /** Expect a header when reading and use the specified one when writing. */
-    final case class Always(data: Seq[String]) extends Header
+
+    /** Use a header when possible.
+      *
+      * When decoding, the first row will always be treated as a header.
+      *
+      * When encoding, use a header if one is available through [[HeaderEncoder]], but skip it otherwise.
+      */
+    case object Implicit extends Header
+
+    /** Use the specified header.
+      *
+      * This is equivalent to [[Implicit]] when decoding. When encoding, it takes precedence over whatever header
+      * might have been defined through a [[HeaderEncoder]] instance.
+      */
+    final case class Explicit(header: Seq[String]) extends Header
   }
 }
