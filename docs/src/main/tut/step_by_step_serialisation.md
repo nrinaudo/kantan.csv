@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Encoding one row at a time"
 section: tutorial
-sort_order: 17
+sort_order: 16
 ---
 A [previous post](serialising_collections.html) covered how to encode entire collections as CSV. This is not,
 however, always possible or even desirable: if the data to encode is obtained in a lazy way, it's usually better to

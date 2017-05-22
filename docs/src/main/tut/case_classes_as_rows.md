@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Encoding case classes as rows"
 section: tutorial
-sort_order: 14
+sort_order: 13
 ---
 In a [previous post](tuples_as_rows.html), we've seen how to encode tuples as CSV rows. While useful, actual code
 rarely stores business objects as tuples - encoding case classes is a much more common need than encoding tuples.

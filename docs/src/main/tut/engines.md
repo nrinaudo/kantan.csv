@@ -83,7 +83,7 @@ import kantan.csv.engine._
 import kantan.csv._
 
 implicit val readerEngine: ReaderEngine = ReaderEngine.from { (in: Reader, conf: CsvConfiguration) ⇒
-  kantan.codecs.resource.ResourceIterator.fromIterator(EasyCSV.read(in, conf.columnSeparator))
+  kantan.codecs.resource.ResourceIterator.fromIterator(EasyCSV.read(in, conf.cellSeparator))
 }
 ```
 
@@ -95,7 +95,7 @@ through [`CsvWriter.apply`]:
 
 ```tut:silent
 implicit val writerEngine: WriterEngine = WriterEngine.from { (writer: Writer, conf: CsvConfiguration) ⇒
-  CsvWriter(EasyCSV.write(writer, conf.columnSeparator))(_ write _.toArray)(_.close())
+  CsvWriter(EasyCSV.write(writer, conf.cellSeparator))(_ write _.toArray)(_.close())
 }
 ```
 

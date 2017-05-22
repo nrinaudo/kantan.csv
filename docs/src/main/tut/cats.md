@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Cats module"
 section: tutorial
-sort_order: 22
+sort_order: 23
 ---
 Kantan.csv has a [cats](https://github.com/typelevel/cats) module that is, in its current incarnation, fairly bare
 bones: it simply provides a few useful type class instances.
