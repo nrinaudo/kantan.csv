@@ -21,16 +21,9 @@ import java.util.Date
 import kantan.codecs.{Decoder, DecoderCompanion}
 import kantan.codecs.strings.StringDecoder
 import kantan.csv.DecodeError.TypeError
-import scala.language.experimental.macros
 
 /** Provides useful methods for summoning and creating instances of [[CellDecoder]]. */
 object CellDecoder extends DecoderCompanion[String, DecodeError, codecs.type] {
-  /** Summons an instance of [[CellDecoder]] if an implicit one can be found in scope.
-    *
-    * This is essentially a shorter way of calling `implicitly[CellDecoder[A]]`.
-    */
-  def apply[A](implicit ev: CellDecoder[A]): CellDecoder[A] = macro imp.summon[CellDecoder[A]]
-
   def dateDecoder(format: DateFormat): CellDecoder[Date] =
     codecs.fromStringDecoder(StringDecoder.dateDecoder(format))
 }

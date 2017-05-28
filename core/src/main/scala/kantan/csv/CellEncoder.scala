@@ -23,12 +23,6 @@ import kantan.codecs.strings.StringEncoder
 
 /** Provides useful methods for summoning and creating instances of [[CellEncoder]]. */
 object CellEncoder extends EncoderCompanion[String, codecs.type] {
-  /** Summons an instance of [[CellEncoder]] if an implicit one can be found in scope.
-    *
-    * This is essentially a shorter way of calling `implicitly[CellEncoder[A]]`.
-    */
-  def apply[A](implicit ev: CellEncoder[A]): CellEncoder[A] = macro imp.summon[CellEncoder[A]]
-
   def dateEncoder(format: DateFormat): CellEncoder[Date] =
     codecs.fromStringEncoder(StringEncoder.dateEncoder(format))
 }

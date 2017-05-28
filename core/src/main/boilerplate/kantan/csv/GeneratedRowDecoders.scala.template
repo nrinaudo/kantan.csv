@@ -18,12 +18,6 @@ package kantan.csv
 
 /** Provides [[RowDecoder]] instance construction methods. */
 trait GeneratedRowDecoders {
-  private def decode[A](ss: Seq[String], i: Int, da: CellDecoder[A]): DecodeResult[A] =
-    if(ss.isDefinedAt(i))   da.decode(ss(i))
-    // Special case, see https://github.com/nrinaudo/kantan.csv/issues/53
-    else if(i == ss.length) da.decode("")
-    else                    DecodeResult.outOfBounds(i)
-
   [#/** Creates a new [[RowDecoder]] from the specified function.
     *
     * For example:
@@ -39,7 +33,7 @@ trait GeneratedRowDecoders {
     */
   def decoder[[#A1: CellDecoder#], R]([#i1: Int#])(f: ([#A1#]) ⇒ R): RowDecoder[R] =
     RowDecoder.from(ss ⇒ for {
-      [#f1 ← decode(ss, i1, CellDecoder[A1])#
+      [#f1 ← RowDecoder.decodeCell[A1](ss, i1)#
       ]
     } yield f([#f1#]))#
 

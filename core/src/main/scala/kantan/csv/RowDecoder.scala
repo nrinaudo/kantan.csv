@@ -34,11 +34,22 @@ import kantan.codecs.collection.HasBuilder
   * can automatically derive valid instances for a lot of common scenarios.
   */
 object RowDecoder extends GeneratedRowDecoders with DecoderCompanion[Seq[String], DecodeError, codecs.type] {
-  /** Summons an implicit instance of [[RowDecoder]] for the desired type if one can be found.
+  /** Decodes the cell found at the specified index of `ss` into the requested type.
     *
-    * This is essentially a shorter way of calling `implicitly[RowDecoder[A]]`.
+    * For example:
+    * {{{
+    * scala> RowDecoder.decodeCell[Int](List("abc", "123"), 1)
+    * res0: DecodeResult[Int] = Success(123)
+    *
+    * scala> RowDecoder.decodeCell[Int](List("abc", "123"), 0)
+    * res0: DecodeResult[Int] = Failure(TypeError: 'abc' is not a valid Int)
+    * }}}
     */
-  def apply[A](implicit ev: RowDecoder[A]): RowDecoder[A] = macro imp.summon[RowDecoder[A]]
+  def decodeCell[A: CellDecoder](ss: Seq[String], i: Int): DecodeResult[A] =
+    if(ss.isDefinedAt(i))   CellDecoder[A].decode(ss(i))
+    // Special case, see https://github.com/nrinaudo/kantan.csv/issues/53
+    else if(i == ss.length) CellDecoder[A].decode("")
+    else                    DecodeResult.outOfBounds(i)
 
   /** Provides a [[RowDecoder]] instance that decodes a single cell from each row.
     *

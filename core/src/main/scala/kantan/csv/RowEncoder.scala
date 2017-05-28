@@ -33,13 +33,7 @@ import kantan.codecs.EncoderCompanion
   * Note that a lot of types already have implicit instances: tuples, collections... moreover, the `generics` module
   * can automatically derive valid instances for a lot of common scenarios.
   */
-object RowEncoder extends GeneratedRowEncoders with EncoderCompanion[Seq[String], codecs.type] {
-  /** Summons an implicit instance of [[RowEncoder]] for the desired type if one can be found.
-    *
-    * This is essentially a shorter way of calling `implicitly[RowEncoder[A]]`.
-    */
-  def apply[A](implicit ev: RowEncoder[A]): RowEncoder[A] = macro imp.summon[RowEncoder[A]]
-}
+object RowEncoder extends GeneratedRowEncoders with EncoderCompanion[Seq[String], codecs.type]
 
 /** Provides reasonable default [[RowEncoder]] instances for various types. */
 trait RowEncoderInstances {

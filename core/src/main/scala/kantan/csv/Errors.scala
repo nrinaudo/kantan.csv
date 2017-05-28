@@ -16,6 +16,8 @@
 
 package kantan.csv
 
+import kantan.codecs.ExceptionTransformer
+
 /** Parent type for all errors that can occur while dealing with CSV data.
   *
   * [[ReadError]] is split into two main error types:
@@ -29,6 +31,9 @@ sealed abstract class DecodeError(msg: String) extends ReadError(msg)
 
 /** Declares all possible values of type [[DecodeError]]. */
 object DecodeError {
+  implicit val decodeErrorExceptionTransformer: ExceptionTransformer[DecodeError] =
+    TypeError.exceptionTransformer.map(identity)
+
   /** Error that occurs when attempting to access a CSV cell whose index is outside of its row's boundaries.
     *
     * @param index index that caused the issue.

@@ -204,11 +204,7 @@ trait CsvSource[-S] extends Serializable { self ⇒
 object CsvSource {
   /** Summons an implicit instance of `CsvSource[A]` if one can be found.
     *
-    * This is simply a convenience method. The two following calls are equivalent:
-    * {{{
-    *   val str: CsvSource[String] = CsvSource[String]
-    *   val str2: CsvSource[String] = implicitly[CsvSource[String]]
-    * }}}
+    * This is basically a less verbose, slightly faster version of `implicitly`.
     */
   def apply[A](implicit ev: CsvSource[A]): CsvSource[A] = macro imp.summon[CsvSource[A]]
 

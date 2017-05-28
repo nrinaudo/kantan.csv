@@ -20,6 +20,10 @@ import kantan.codecs._
 import kantan.codecs.resource.ResourceIterator
 
 package object csv {
+  /** Iterator on CSV data.
+    *
+    * @documentable
+    */
   type CsvReader[A] = ResourceIterator[A]
 
   val rfc: CsvConfiguration = CsvConfiguration.rfc
