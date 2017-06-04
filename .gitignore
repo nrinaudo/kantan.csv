@@ -16,6 +16,11 @@ project/plugins/project/
 .scala_dependencies
 .worksheet
 
+# Ensime
+.ensime
+.ensime_cache
+
+
 # Intellij
 .idea/
 *.iml
