@@ -1,4 +1,5 @@
 kantanProject in ThisBuild := "csv"
+startYear in ThisBuild     := Some(2015)
 
 
 // - root projects -----------------------------------------------------------------------------------------------------
