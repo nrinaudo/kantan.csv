@@ -19,27 +19,25 @@ package kantan.csv.ops
 import kantan.csv._
 import kantan.csv.engine.WriterEngine
 
-/** Provides useful syntax for working with CSV rows.
+/** Provides syntax for encoding single CSV rows as a string.
   *
   * Writing a single row as a `String` is a surprisingly recurrent feature request. This is how to do it:
   * {{{
   * scala> import kantan.csv.rfc
   *
-  * scala> (1, 2, 3).asCsvRow(rfc)
+  * scala> (1, 2, 3).writeCsvRow(rfc)
   * res0: String = 1,2,3
   * }}}
   */
-final class CsvRowOps[A: RowEncoder](val a: A) {
-  @deprecated("use asCsvRow(CsvConfiguration) instead", "0.1.18")
-  def asCsvRow(sep: Char)(implicit e: WriterEngine): String =
-    asCsvRow(rfc.withCellSeparator(sep))
+final class CsvRowWritingOps[A: RowEncoder](a: A) {
+  @deprecated("use writeCsvRow(CsvConfiguration) instead", "0.1.18")
+  def writeCsvRow(sep: Char)(implicit e: WriterEngine): String =
+    writeCsvRow(rfc.withCellSeparator(sep))
 
-  def asCsvRow(conf: CsvConfiguration)(implicit e: WriterEngine): String =
+  def writeCsvRow(conf: CsvConfiguration)(implicit e: WriterEngine): String =
     Seq(a).asCsv(conf).trim
 }
 
-trait ToCsvRowOps {
-  implicit def toCsvRowOps[A: HeaderEncoder](a: A): CsvRowOps[A] = new CsvRowOps(a)(HeaderEncoder[A].rowEncoder)
+trait ToCsvRowWritingOps {
+  implicit def toCsvRowWritingOps[A: RowEncoder](a: A): CsvRowWritingOps[A] = new CsvRowWritingOps(a)
 }
-
-object csvRow extends ToCsvRowOps

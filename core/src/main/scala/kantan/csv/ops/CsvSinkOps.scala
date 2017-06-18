@@ -19,7 +19,7 @@ package kantan.csv.ops
 import kantan.csv._
 import kantan.csv.engine.WriterEngine
 
-/** Provides useful syntax for that types that have implicit instances of [[CsvSink]] in scope.
+/** Provides useful syntax for types that have implicit instances of [[CsvSink]] in scope.
   *
   * The most common use case is to turn a value into a [[CsvWriter]]:
   * {{{

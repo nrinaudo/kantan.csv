@@ -16,7 +16,13 @@
 
 package kantan.csv
 
-package object ops extends ToCsvSinkOps with
-                           ToCsvSourceOps with
-                           ToCsvRowsOps with
-                           ToCsvRowOps
+package object ops extends
+    ToCsvSinkOps        with
+    ToCsvSourceOps      with
+    ToCsvRowsOps        with
+    ToCsvRowEncoderOps  with
+    ToCsvRowDecoderOps  with
+    ToCsvCellEncoderOps with
+    ToCsvCellDecoderOps with
+    ToCsvRowWritingOps  with
+    ToCsvRowReadingOps
