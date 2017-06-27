@@ -30,8 +30,6 @@ final class CsvRowsOps[A: HeaderEncoder](val as: TraversableOnce[A]) {
     *
     * For example:
     * {{{
-    * scala> import kantan.csv._
-    *
     * scala> List(List(1, 2, 3), List(4, 5, 6)).asCsv(rfc)
     * }}}
     */

@@ -16,7 +16,7 @@
 
 package kantan.csv
 
-import kantan.codecs.ExceptionTransformer
+import kantan.codecs.error._
 
 /** Parent type for all errors that can occur while dealing with CSV data.
   *
@@ -24,15 +24,15 @@ import kantan.codecs.ExceptionTransformer
   *  - [[DecodeError]]: errors that occur while decoding a cell or a row.
   *  - [[ParseError]]: errors that occur while parsing raw data into CSV.
   */
-sealed abstract class ReadError(msg: String) extends kantan.codecs.Error(msg)
+sealed abstract class ReadError(msg: String) extends Error(msg)
 
 /** Parent type for all errors that can occur while decoding CSV data. */
 sealed abstract class DecodeError(msg: String) extends ReadError(msg)
 
 /** Declares all possible values of type [[DecodeError]]. */
 object DecodeError {
-  implicit val decodeErrorExceptionTransformer: ExceptionTransformer[DecodeError] =
-    TypeError.exceptionTransformer.map(identity)
+  implicit val decodeErrorIsError: IsError[DecodeError] =
+    TypeError.isError.map(identity)
 
   /** Error that occurs when attempting to access a CSV cell whose index is outside of its row's boundaries.
     *
@@ -47,7 +47,7 @@ object DecodeError {
   final case class TypeError(message: String) extends DecodeError(message)
 
   /** Provides convenience methods for [[DecodeError.TypeError]] instance creation. */
-  object TypeError extends kantan.codecs.ErrorCompanion("an unspecified type error occurred")(s ⇒ new TypeError(s))
+  object TypeError extends ErrorCompanion("an unspecified type error occurred")(s ⇒ new TypeError(s))
 }
 
 /** Parent type for all errors that can occur while parsing CSV data. */
@@ -65,5 +65,5 @@ object ParseError {
   final case class IOError(message: String) extends ParseError(message)
 
   /** Provides convenience methods for [[ParseError.IOError]] instance creation. */
-  object IOError extends kantan.codecs.ErrorCompanion("an unspecified io error occurred")(s ⇒ new IOError(s))
+  object IOError extends ErrorCompanion("an unspecified io error occurred")(s ⇒ new IOError(s))
 }
