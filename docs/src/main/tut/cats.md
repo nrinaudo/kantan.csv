@@ -10,7 +10,7 @@ bones: it simply provides a few useful type class instances.
 The `cats` module can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-cats" % "0.1.19"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-cats" % "0.2.0"
 ```
 
 You then need to import the corresponding package:
