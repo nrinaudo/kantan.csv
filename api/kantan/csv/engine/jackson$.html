@@ -178,9 +178,8 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides CSV reader and writer engines using <a href="https://github.com/FasterXML/jackson-dataformat-csv" target="_blank">jackson.csv</a>.</p><p>Importing <code>kantan.csv.engine.jackson._</code> will replace default engines by the jackson-backed ones. If you need to
-tweak how jackson.csv behaves, however, you can handcraft engines though <a href="#readerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.ReaderEngine" class="extmbr" name="kantan.csv.engine.jackson#readerEngineFrom">readerEngineFrom</a> and
-<a href="#writerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.WriterEngine" class="extmbr" name="kantan.csv.engine.jackson#writerEngineFrom">writerEngineFrom</a> - all you need is a function that knows how to turn a column separator character in an instance
-of <code>CsvSchema</code>.
+tweak how jackson.csv behaves, however, you can handcraft engines though <a href="#readerEngineFrom(f:kantan.csv.engine.jackson.MappingIteratorBuilder):kantan.csv.engine.ReaderEngine" class="extmbr" name="kantan.csv.engine.jackson#readerEngineFrom">readerEngineFrom</a> and
+<a href="#writerEngineFrom(f:kantan.csv.engine.jackson.SequenceWriterBuilder):kantan.csv.engine.WriterEngine" class="extmbr" name="kantan.csv.engine.jackson#writerEngineFrom">writerEngineFrom</a>.
 </p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/jackson/src/main/scala/kantan/csv/engine/jackson.scala" target="_blank">jackson.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
@@ -233,23 +232,7 @@ of <code>CsvSchema</code>.
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="kantan.csv.engine.jackson.CSVSchemaBuilder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="CSVSchemaBuilder=kantan.csv.CsvConfiguration=&gt;kantan.csv.engine.jackson.CsvSchema"></a><a id="CSVSchemaBuilder:CSVSchemaBuilder"></a>
-      <span class="permalink">
-      <a href="../../../kantan/csv/engine/jackson$.html#CSVSchemaBuilder=kantan.csv.CsvConfiguration=&gt;kantan.csv.engine.jackson.CsvSchema" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">type</span>
-      </span>
-      <span class="symbol">
-        <span class="name">CSVSchemaBuilder</span><span class="result alias"> = (<a href="../CsvConfiguration.html" class="extype" name="kantan.csv.CsvConfiguration">CsvConfiguration</a>) ⇒ <a href="#CsvSchema=com.fasterxml.jackson.dataformat.csv.CsvSchema" class="extmbr" name="kantan.csv.engine.jackson.CsvSchema">CsvSchema</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">Type of functions that create a <code>CSVSchema</code> instance from a given column separator.</p>
-    </li><li name="kantan.csv.engine.jackson.CsvMapper" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+              <ol><li name="kantan.csv.engine.jackson.CsvMapper" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="CsvMapper=com.fasterxml.jackson.dataformat.csv.CsvMapper"></a><a id="CsvMapper:CsvMapper"></a>
       <span class="permalink">
       <a href="../../../kantan/csv/engine/jackson$.html#CsvMapper=com.fasterxml.jackson.dataformat.csv.CsvMapper" title="Permalink">
@@ -281,6 +264,38 @@ of <code>CsvSchema</code>.
       </span>
       
       
+    </li><li name="kantan.csv.engine.jackson.MappingIteratorBuilder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="MappingIteratorBuilder=(java.io.Reader,kantan.csv.CsvConfiguration)=&gt;com.fasterxml.jackson.databind.MappingIterator[Array[String]]"></a><a id="MappingIteratorBuilder:MappingIteratorBuilder"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/engine/jackson$.html#MappingIteratorBuilder=(java.io.Reader,kantan.csv.CsvConfiguration)=&gt;com.fasterxml.jackson.databind.MappingIterator[Array[String]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">MappingIteratorBuilder</span><span class="result alias"> = (<span class="extype" name="java.io.Reader">Reader</span>, <a href="../CsvConfiguration.html" class="extype" name="kantan.csv.CsvConfiguration">CsvConfiguration</a>) ⇒ <span class="extype" name="com.fasterxml.jackson.databind.MappingIterator">MappingIterator</span>[<a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Array" class="extype" target="_top">Array</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
+      </span>
+      
+      
+    </li><li name="kantan.csv.engine.jackson.SequenceWriterBuilder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SequenceWriterBuilder=(java.io.Writer,kantan.csv.CsvConfiguration)=&gt;com.fasterxml.jackson.databind.SequenceWriter"></a><a id="SequenceWriterBuilder:SequenceWriterBuilder"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/engine/jackson$.html#SequenceWriterBuilder=(java.io.Writer,kantan.csv.CsvConfiguration)=&gt;com.fasterxml.jackson.databind.SequenceWriter" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">SequenceWriterBuilder</span><span class="result alias"> = (<span class="extype" name="java.io.Writer">Writer</span>, <a href="../CsvConfiguration.html" class="extype" name="kantan.csv.CsvConfiguration">CsvConfiguration</a>) ⇒ <span class="extype" name="com.fasterxml.jackson.databind.SequenceWriter">SequenceWriter</span></span>
+      </span>
+      
+      
     </li></ol>
             </div>
 
@@ -301,7 +316,7 @@ of <code>CsvSchema</code>.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -317,7 +332,7 @@ of <code>CsvSchema</code>.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -333,7 +348,7 @@ of <code>CsvSchema</code>.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -375,38 +390,38 @@ of <code>CsvSchema</code>.
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="kantan.csv.engine.jackson#defaultParserSchema" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="defaultParserSchema(conf:kantan.csv.CsvConfiguration):kantan.csv.engine.jackson.CsvSchema"></a><a id="defaultParserSchema(CsvConfiguration):CsvSchema"></a>
+    </li><li name="kantan.csv.engine.jackson#defaultMappingIteratorBuilder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="defaultMappingIteratorBuilder:kantan.csv.engine.jackson.MappingIteratorBuilder"></a><a id="defaultMappingIteratorBuilder:MappingIteratorBuilder"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/engine/jackson$.html#defaultParserSchema(conf:kantan.csv.CsvConfiguration):kantan.csv.engine.jackson.CsvSchema" title="Permalink">
+      <a href="../../../kantan/csv/engine/jackson$.html#defaultMappingIteratorBuilder:kantan.csv.engine.jackson.MappingIteratorBuilder" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">def</span>
+        <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">defaultParserSchema</span><span class="params">(<span name="conf">conf: <a href="../CsvConfiguration.html" class="extype" name="kantan.csv.CsvConfiguration">CsvConfiguration</a></span>)</span><span class="result">: <a href="#CsvSchema=com.fasterxml.jackson.dataformat.csv.CsvSchema" class="extmbr" name="kantan.csv.engine.jackson.CsvSchema">CsvSchema</a></span>
+        <span class="name">defaultMappingIteratorBuilder</span><span class="result">: <a href="#MappingIteratorBuilder=(java.io.Reader,kantan.csv.CsvConfiguration)=&gt;com.fasterxml.jackson.databind.MappingIterator[Array[String]]" class="extmbr" name="kantan.csv.engine.jackson.MappingIteratorBuilder">MappingIteratorBuilder</a></span>
       </span>
       
-      <p class="shortcomment cmt">Default <code>CsvSchema</code> when parsing.</p>
-    </li><li name="kantan.csv.engine.jackson#defaultWriterSchema" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="defaultWriterSchema(conf:kantan.csv.CsvConfiguration):kantan.csv.engine.jackson.CsvSchema"></a><a id="defaultWriterSchema(CsvConfiguration):CsvSchema"></a>
+      
+    </li><li name="kantan.csv.engine.jackson#defaultSequenceWriterBuilder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="defaultSequenceWriterBuilder:kantan.csv.engine.jackson.SequenceWriterBuilder"></a><a id="defaultSequenceWriterBuilder:SequenceWriterBuilder"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/engine/jackson$.html#defaultWriterSchema(conf:kantan.csv.CsvConfiguration):kantan.csv.engine.jackson.CsvSchema" title="Permalink">
+      <a href="../../../kantan/csv/engine/jackson$.html#defaultSequenceWriterBuilder:kantan.csv.engine.jackson.SequenceWriterBuilder" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">def</span>
+        <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">defaultWriterSchema</span><span class="params">(<span name="conf">conf: <a href="../CsvConfiguration.html" class="extype" name="kantan.csv.CsvConfiguration">CsvConfiguration</a></span>)</span><span class="result">: <a href="#CsvSchema=com.fasterxml.jackson.dataformat.csv.CsvSchema" class="extmbr" name="kantan.csv.engine.jackson.CsvSchema">CsvSchema</a></span>
+        <span class="name">defaultSequenceWriterBuilder</span><span class="result">: <a href="#SequenceWriterBuilder=(java.io.Writer,kantan.csv.CsvConfiguration)=&gt;com.fasterxml.jackson.databind.SequenceWriter" class="extmbr" name="kantan.csv.engine.jackson.SequenceWriterBuilder">SequenceWriterBuilder</a></span>
       </span>
       
-      <p class="shortcomment cmt">Default <code>CsvSchema</code> when writing.</p>
+      
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -419,7 +434,7 @@ of <code>CsvSchema</code>.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -435,7 +450,7 @@ of <code>CsvSchema</code>.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -451,7 +466,7 @@ of <code>CsvSchema</code>.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -489,7 +504,7 @@ of <code>CsvSchema</code>.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -505,7 +520,7 @@ of <code>CsvSchema</code>.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -524,7 +539,7 @@ of <code>CsvSchema</code>.
         <span class="name">jacksonCsvReaderEngine</span><span class="result">: <a href="ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>
       </span>
       
-      <p class="shortcomment cmt">Default jackson.csv <code>ReaderEngine</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Default jackson.csv <code>ReaderEngine</code>.</p><p>It's possible to tweak the behaviour of the underlying writer through <a href="#readerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.ReaderEngine" class="extmbr" name="kantan.csv.engine.jackson#readerEngineFrom">readerEngineFrom</a>.
+      <p class="shortcomment cmt">Default jackson.csv <code>ReaderEngine</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Default jackson.csv <code>ReaderEngine</code>.</p><p>It's possible to tweak the behaviour of the underlying writer through <a href="#readerEngineFrom(f:kantan.csv.engine.jackson.MappingIteratorBuilder):kantan.csv.engine.ReaderEngine" class="extmbr" name="kantan.csv.engine.jackson#readerEngineFrom">readerEngineFrom</a>.
 </p></div></div>
     </li><li name="kantan.csv.engine.jackson#jacksonCsvWriterEngine" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="jacksonCsvWriterEngine:kantan.csv.engine.WriterEngine"></a><a id="jacksonCsvWriterEngine:WriterEngine"></a>
@@ -541,7 +556,7 @@ of <code>CsvSchema</code>.
         <span class="name">jacksonCsvWriterEngine</span><span class="result">: <a href="WriterEngine.html" class="extype" name="kantan.csv.engine.WriterEngine">WriterEngine</a></span>
       </span>
       
-      <p class="shortcomment cmt">Default jackson.csv <code>WriterEngine</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Default jackson.csv <code>WriterEngine</code>.</p><p>It's possible to tweak the behaviour of the underlying writer through <a href="#writerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.WriterEngine" class="extmbr" name="kantan.csv.engine.jackson#writerEngineFrom">writerEngineFrom</a>.
+      <p class="shortcomment cmt">Default jackson.csv <code>WriterEngine</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Default jackson.csv <code>WriterEngine</code>.</p><p>It's possible to tweak the behaviour of the underlying writer through <a href="#writerEngineFrom(f:kantan.csv.engine.jackson.SequenceWriterBuilder):kantan.csv.engine.WriterEngine" class="extmbr" name="kantan.csv.engine.jackson#writerEngineFrom">writerEngineFrom</a>.
 </p></div></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
@@ -555,7 +570,7 @@ of <code>CsvSchema</code>.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -571,7 +586,7 @@ of <code>CsvSchema</code>.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -587,30 +602,14 @@ of <code>CsvSchema</code>.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="kantan.csv.engine.jackson#parse" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="parse(reader:java.io.Reader,schema:kantan.csv.engine.jackson.CsvSchema):com.fasterxml.jackson.databind.MappingIterator[Array[String]]"></a><a id="parse(Reader,CsvSchema):MappingIterator[Array[String]]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/csv/engine/jackson$.html#parse(reader:java.io.Reader,schema:kantan.csv.engine.jackson.CsvSchema):com.fasterxml.jackson.databind.MappingIterator[Array[String]]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">parse</span><span class="params">(<span name="reader">reader: <span class="extype" name="java.io.Reader">Reader</span></span>, <span name="schema">schema: <a href="#CsvSchema=com.fasterxml.jackson.dataformat.csv.CsvSchema" class="extmbr" name="kantan.csv.engine.jackson.CsvSchema">CsvSchema</a></span>)</span><span class="result">: <span class="extype" name="com.fasterxml.jackson.databind.MappingIterator">MappingIterator</span>[<span class="extype" name="scala.Array">Array</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
-      </span>
-      
-      
     </li><li name="kantan.csv.engine.jackson#readerEngineFrom" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="readerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.ReaderEngine"></a><a id="readerEngineFrom(CSVSchemaBuilder):ReaderEngine"></a>
+      <a id="readerEngineFrom(f:kantan.csv.engine.jackson.MappingIteratorBuilder):kantan.csv.engine.ReaderEngine"></a><a id="readerEngineFrom(MappingIteratorBuilder):ReaderEngine"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/engine/jackson$.html#readerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.ReaderEngine" title="Permalink">
+      <a href="../../../kantan/csv/engine/jackson$.html#readerEngineFrom(f:kantan.csv.engine.jackson.MappingIteratorBuilder):kantan.csv.engine.ReaderEngine" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -619,10 +618,10 @@ of <code>CsvSchema</code>.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">readerEngineFrom</span><span class="params">(<span name="f">f: <a href="#CSVSchemaBuilder=kantan.csv.CsvConfiguration=&gt;kantan.csv.engine.jackson.CsvSchema" class="extmbr" name="kantan.csv.engine.jackson.CSVSchemaBuilder">CSVSchemaBuilder</a></span>)</span><span class="result">: <a href="ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>
+        <span class="name">readerEngineFrom</span><span class="params">(<span name="f">f: <a href="#MappingIteratorBuilder=(java.io.Reader,kantan.csv.CsvConfiguration)=&gt;com.fasterxml.jackson.databind.MappingIterator[Array[String]]" class="extmbr" name="kantan.csv.engine.jackson.MappingIteratorBuilder">MappingIteratorBuilder</a></span>)</span><span class="result">: <a href="ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>
       </span>
       
-      <p class="shortcomment cmt">Creates a new <code>ReaderEngine</code> from the specified <a href="#CSVSchemaBuilder=kantan.csv.CsvConfiguration=&gt;kantan.csv.engine.jackson.CsvSchema" class="extmbr" name="kantan.csv.engine.jackson.CSVSchemaBuilder">CSVSchemaBuilder</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new <code>ReaderEngine</code> from the specified <a href="#CSVSchemaBuilder=kantan.csv.CsvConfiguration=&gt;kantan.csv.engine.jackson.CsvSchema" class="extmbr" name="kantan.csv.engine.jackson.CSVSchemaBuilder">CSVSchemaBuilder</a>.</p><p>The purpose of this is to let developers use some of the jackson.csv features that kantan.csv does not expose
+      <p class="shortcomment cmt">Creates a new <code>ReaderEngine</code> from the specified <a href="#MappingIteratorBuilder=(java.io.Reader,kantan.csv.CsvConfiguration)=&gt;com.fasterxml.jackson.databind.MappingIterator[Array[String]]" class="extmbr" name="kantan.csv.engine.jackson.MappingIteratorBuilder">MappingIteratorBuilder</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new <code>ReaderEngine</code> from the specified <a href="#MappingIteratorBuilder=(java.io.Reader,kantan.csv.CsvConfiguration)=&gt;com.fasterxml.jackson.databind.MappingIterator[Array[String]]" class="extmbr" name="kantan.csv.engine.jackson.MappingIteratorBuilder">MappingIteratorBuilder</a>.</p><p>The purpose of this is to let developers use some of the jackson.csv features that kantan.csv does not expose
 through its public API.
 </p></div></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -669,7 +668,7 @@ through its public API.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -691,7 +690,7 @@ through its public API.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Long" class="extype" target="_top">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -713,7 +712,7 @@ through its public API.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Long" class="extype" target="_top">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -723,26 +722,10 @@ through its public API.
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="kantan.csv.engine.jackson#write" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="write(writer:java.io.Writer,schema:kantan.csv.engine.jackson.CsvSchema):com.fasterxml.jackson.databind.SequenceWriter"></a><a id="write(Writer,CsvSchema):SequenceWriter"></a>
-      <span class="permalink">
-      <a href="../../../kantan/csv/engine/jackson$.html#write(writer:java.io.Writer,schema:kantan.csv.engine.jackson.CsvSchema):com.fasterxml.jackson.databind.SequenceWriter" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">write</span><span class="params">(<span name="writer">writer: <span class="extype" name="java.io.Writer">Writer</span></span>, <span name="schema">schema: <a href="#CsvSchema=com.fasterxml.jackson.dataformat.csv.CsvSchema" class="extmbr" name="kantan.csv.engine.jackson.CsvSchema">CsvSchema</a></span>)</span><span class="result">: <span class="extype" name="com.fasterxml.jackson.databind.SequenceWriter">SequenceWriter</span></span>
-      </span>
-      
-      
     </li><li name="kantan.csv.engine.jackson#writerEngineFrom" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="writerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.WriterEngine"></a><a id="writerEngineFrom(CSVSchemaBuilder):WriterEngine"></a>
+      <a id="writerEngineFrom(f:kantan.csv.engine.jackson.SequenceWriterBuilder):kantan.csv.engine.WriterEngine"></a><a id="writerEngineFrom(SequenceWriterBuilder):WriterEngine"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/engine/jackson$.html#writerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.WriterEngine" title="Permalink">
+      <a href="../../../kantan/csv/engine/jackson$.html#writerEngineFrom(f:kantan.csv.engine.jackson.SequenceWriterBuilder):kantan.csv.engine.WriterEngine" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -751,10 +734,10 @@ through its public API.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">writerEngineFrom</span><span class="params">(<span name="f">f: <a href="#CSVSchemaBuilder=kantan.csv.CsvConfiguration=&gt;kantan.csv.engine.jackson.CsvSchema" class="extmbr" name="kantan.csv.engine.jackson.CSVSchemaBuilder">CSVSchemaBuilder</a></span>)</span><span class="result">: <a href="WriterEngine.html" class="extype" name="kantan.csv.engine.WriterEngine">WriterEngine</a></span>
+        <span class="name">writerEngineFrom</span><span class="params">(<span name="f">f: <a href="#SequenceWriterBuilder=(java.io.Writer,kantan.csv.CsvConfiguration)=&gt;com.fasterxml.jackson.databind.SequenceWriter" class="extmbr" name="kantan.csv.engine.jackson.SequenceWriterBuilder">SequenceWriterBuilder</a></span>)</span><span class="result">: <a href="WriterEngine.html" class="extype" name="kantan.csv.engine.WriterEngine">WriterEngine</a></span>
       </span>
       
-      <p class="shortcomment cmt">Creates a new <code>WriterEngine</code> from the specified <a href="#CSVSchemaBuilder=kantan.csv.CsvConfiguration=&gt;kantan.csv.engine.jackson.CsvSchema" class="extmbr" name="kantan.csv.engine.jackson.CSVSchemaBuilder">CSVSchemaBuilder</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new <code>WriterEngine</code> from the specified <a href="#CSVSchemaBuilder=kantan.csv.CsvConfiguration=&gt;kantan.csv.engine.jackson.CsvSchema" class="extmbr" name="kantan.csv.engine.jackson.CSVSchemaBuilder">CSVSchemaBuilder</a>.</p><p>The purpose of this is to let developers use some of the jackson.csv features that kantan.csv does not expose
+      <p class="shortcomment cmt">Creates a new <code>WriterEngine</code> from the specified <a href="#SequenceWriterBuilder=(java.io.Writer,kantan.csv.CsvConfiguration)=&gt;com.fasterxml.jackson.databind.SequenceWriter" class="extmbr" name="kantan.csv.engine.jackson.SequenceWriterBuilder">SequenceWriterBuilder</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new <code>WriterEngine</code> from the specified <a href="#SequenceWriterBuilder=(java.io.Writer,kantan.csv.CsvConfiguration)=&gt;com.fasterxml.jackson.databind.SequenceWriter" class="extmbr" name="kantan.csv.engine.jackson.SequenceWriterBuilder">SequenceWriterBuilder</a>.</p><p>The purpose of this is to let developers use some of the jackson.csv features that kantan.csv does not expose
 through its public API.
 </p></div></div>
     </li>

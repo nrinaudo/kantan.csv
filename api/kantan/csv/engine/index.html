@@ -298,7 +298,7 @@
             </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <p class="shortcomment cmt">Provides kantan.csv with CSV parsing functionality.</p><div class="fullcomment"><div class="comment cmt"><p>Provides kantan.csv with CSV parsing functionality.</p><p>All methods that will need to create a new instance of <a href="../index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]" class="extmbr" name="kantan.csv.CsvReader">CsvReader</a> expect and rely on an implicit <a href="ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a>
+      <p class="shortcomment cmt">Provides kantan.csv with CSV parsing functionality.</p><div class="fullcomment"><div class="comment cmt"><p>Provides kantan.csv with CSV parsing functionality.</p><p>All methods that will need to create a new instance of <a href="../package$$CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a> expect and rely on an implicit <a href="ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a>
 parameter. This allows third party libraries to plug into kantan.csv and replace the default parser at the cost
 of a simple import.
 </p></div></div>
@@ -343,7 +343,7 @@ be used. Otherwise, the <a href="WriterEngine$.html#internalCsvWriterEngine:kant
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">javaIterator</span><span class="params">(<span name="it">it: <span class="extype" name="java.util.Iterator">Iterator</span>[<span class="extype" name="scala.Array">Array</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>)</span><span class="result">: <span class="extype" name="scala.Iterator">Iterator</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
+        <span class="name">javaIterator</span><span class="params">(<span name="it">it: <span class="extype" name="java.util.Iterator">Iterator</span>[<a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Array" class="extype" target="_top">Array</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>)</span><span class="result">: <span class="extype" name="scala.Iterator">Iterator</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
       <p class="shortcomment cmt">Converts a java iterator of arrays of strings into a scala iterator of sequence of strings.</p><div class="fullcomment"><div class="comment cmt"><p>Converts a java iterator of arrays of strings into a scala iterator of sequence of strings.</p><p>This is useful when writing <a href="ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a> implementations for Java libraries.
@@ -424,9 +424,8 @@ of <code>CSVFormat</code>.
       </span>
       
       <p class="shortcomment cmt">Provides CSV reader and writer engines using <a href="https://github.com/FasterXML/jackson-dataformat-csv" target="_blank">jackson.csv</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Provides CSV reader and writer engines using <a href="https://github.com/FasterXML/jackson-dataformat-csv" target="_blank">jackson.csv</a>.</p><p>Importing <code>kantan.csv.engine.jackson._</code> will replace default engines by the jackson-backed ones. If you need to
-tweak how jackson.csv behaves, however, you can handcraft engines though <a href="jackson$.html#readerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.ReaderEngine" class="extmbr" name="kantan.csv.engine.jackson#readerEngineFrom">readerEngineFrom</a> and
-<a href="jackson$.html#writerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.WriterEngine" class="extmbr" name="kantan.csv.engine.jackson#writerEngineFrom">writerEngineFrom</a> - all you need is a function that knows how to turn a column separator character in an instance
-of <code>CsvSchema</code>.
+tweak how jackson.csv behaves, however, you can handcraft engines though <a href="jackson$.html#readerEngineFrom(f:kantan.csv.engine.jackson.MappingIteratorBuilder):kantan.csv.engine.ReaderEngine" class="extmbr" name="kantan.csv.engine.jackson#readerEngineFrom">readerEngineFrom</a> and
+<a href="jackson$.html#writerEngineFrom(f:kantan.csv.engine.jackson.SequenceWriterBuilder):kantan.csv.engine.WriterEngine" class="extmbr" name="kantan.csv.engine.jackson#writerEngineFrom">writerEngineFrom</a>.
 </p></div></div>
     </li>
               </ol>

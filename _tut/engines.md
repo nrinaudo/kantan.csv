@@ -2,7 +2,7 @@
 layout: tutorial
 title: "External CSV libraries"
 section: tutorial
-sort_order: 20
+sort_order: 21
 ---
 kantan.csv comes with a default implementation of CSV parsing and serialising. This implementation is
 [relatively fast](benchmarks.html) and robust, but might not satisfy all use cases - some of the more outlandish CSV
@@ -16,7 +16,7 @@ hood.
 The [jackson csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.1.19"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.2.0"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -35,7 +35,7 @@ and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson$.html#
 The [commons csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.1.19"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.2.0"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -83,7 +83,7 @@ import kantan.csv.engine._
 import kantan.csv._
 
 implicit val readerEngine: ReaderEngine = ReaderEngine.from { (in: Reader, conf: CsvConfiguration) ⇒
-  kantan.codecs.resource.ResourceIterator.fromIterator(EasyCSV.read(in, conf.columnSeparator))
+  kantan.codecs.resource.ResourceIterator.fromIterator(EasyCSV.read(in, conf.cellSeparator))
 }
 ```
 
@@ -95,7 +95,7 @@ through [`CsvWriter.apply`]:
 
 ```scala
 implicit val writerEngine: WriterEngine = WriterEngine.from { (writer: Writer, conf: CsvConfiguration) ⇒
-  CsvWriter(EasyCSV.write(writer, conf.columnSeparator))(_ write _.toArray)(_.close())
+  CsvWriter(EasyCSV.write(writer, conf.cellSeparator))(_ write _.toArray)(_.close())
 }
 ```
 

@@ -214,9 +214,9 @@
                           CellEncoderInstances
                         </a>
                       </li><li class="current-entities indented2">
-                        <span class="separator"></span>
-                        <a class="class" href="CsvConfiguration.html" title=""></a>
-                        <a href="CsvConfiguration.html" title="">
+                        <a class="object" href="CsvConfiguration$.html" title=""></a>
+                        <a class="class" href="CsvConfiguration.html" title="Configuration for how to read / write CSV data."></a>
+                        <a href="CsvConfiguration.html" title="Configuration for how to read / write CSV data.">
                           CsvConfiguration
                         </a>
                       </li><li class="current-entities indented2">
@@ -257,6 +257,24 @@
                         </a>
                       </li><li class="current-entities indented2">
                         <span class="separator"></span>
+                        <a class="trait" href="GeneratedHeaderCodecs.html" title=""></a>
+                        <a href="GeneratedHeaderCodecs.html" title="">
+                          GeneratedHeaderCodecs
+                        </a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="trait" href="GeneratedHeaderDecoders.html" title=""></a>
+                        <a href="GeneratedHeaderDecoders.html" title="">
+                          GeneratedHeaderDecoders
+                        </a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="trait" href="GeneratedHeaderEncoders.html" title=""></a>
+                        <a href="GeneratedHeaderEncoders.html" title="">
+                          GeneratedHeaderEncoders
+                        </a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
                         <a class="trait" href="GeneratedRowCodecs.html" title="Defines RowDecoder instances for types with various arities."></a>
                         <a href="GeneratedRowCodecs.html" title="Defines RowDecoder instances for types with various arities.">
                           GeneratedRowCodecs
@@ -272,6 +290,24 @@
                         <a class="trait" href="GeneratedRowEncoders.html" title="Provides RowEncoder instance construction methods."></a>
                         <a href="GeneratedRowEncoders.html" title="Provides RowEncoder instance construction methods.">
                           GeneratedRowEncoders
+                        </a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="HeaderCodec$.html" title=""></a>
+                        <a class="trait" href="HeaderCodec.html" title=""></a>
+                        <a href="HeaderCodec.html" title="">
+                          HeaderCodec
+                        </a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="HeaderDecoder$.html" title="Provides instance summoning and creation methods for HeaderDecoder."></a>
+                        <a class="trait" href="HeaderDecoder.html" title="Provides support for using header values rather than row indexes for decoding."></a>
+                        <a href="HeaderDecoder.html" title="Provides support for using header values rather than row indexes for decoding.">
+                          HeaderDecoder
+                        </a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="HeaderEncoder$.html" title=""></a>
+                        <a class="trait" href="HeaderEncoder.html" title=""></a>
+                        <a href="HeaderEncoder.html" title="">
+                          HeaderEncoder
                         </a>
                       </li><li class="current-entities indented2">
                         <a class="object" href="ParseError$.html" title="Declares all possible values of type ParseError."></a>
@@ -439,7 +475,7 @@
       <span class="symbol">
         <a title="Aggregates a CellEncoder and a CellDecoder." href="package$$CellCodec.html">
               <span class="name">CellCodec</span>
-            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <span class="extype" name="kantan.codecs.Codec">Codec</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.csv.CellCodec.A">A</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
+            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Codec" class="extype" target="_top">Codec</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.csv.CellCodec.A">A</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       
       <p class="shortcomment cmt">Aggregates a <a href="package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">CellEncoder</a> and a <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Aggregates a <a href="package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">CellEncoder</a> and a <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>.</p><p>The sole purpose of this type class is to provide a convenient way to create encoders and decoders. It should
@@ -478,7 +514,7 @@ bound or expected as an implicit parameter.
       <span class="symbol">
         <a title="Describes how to decode CSV cells into specific types." href="package$$CellDecoder.html">
               <span class="name">CellDecoder</span>
-            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <span class="extype" name="kantan.codecs.Decoder">Decoder</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.csv.CellDecoder.A">A</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
+            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Decoder" class="extype" target="_top">Decoder</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.csv.CellDecoder.A">A</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       
       <p class="shortcomment cmt">Describes how to decode CSV cells into specific types.</p><div class="fullcomment"><div class="comment cmt"><p>Describes how to decode CSV cells into specific types.</p><p>All types <code>A</code> such that there exists an implicit instance of <code>CellDecoder[A]</code> in scope can be decoded from CSV
@@ -517,7 +553,7 @@ into more complex instances of <a href="package$$RowDecoder.html" class="extype"
       <span class="symbol">
         <a title="Describes how to encode values of a specific type to CSV cells." href="package$$CellEncoder.html">
               <span class="name">CellEncoder</span>
-            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <span class="extype" name="kantan.codecs.Encoder">Encoder</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.csv.CellEncoder.A">A</span>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
+            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Encoder" class="extype" target="_top">Encoder</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.csv.CellEncoder.A">A</span>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       
       <p class="shortcomment cmt">Describes how to encode values of a specific type to CSV cells.</p><div class="fullcomment"><div class="comment cmt"><p>Describes how to encode values of a specific type to CSV cells.</p><p>All types <code>A</code> such that there exists an implicit instance of <code>CellEncoder[A]</code> in scope can be encoded to CSV
@@ -542,7 +578,7 @@ into more complex instances of <a href="package$$RowEncoder.html" class="extype"
       </span>
       
       <p class="shortcomment cmt">All default <a href="package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">CellEncoder</a> instances.</p>
-    </li><li name="kantan.csv.CsvConfiguration" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.csv.CsvConfiguration" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="CsvConfigurationextendsProductwithSerializable"></a><a id="CsvConfiguration:CsvConfiguration"></a>
       <span class="permalink">
       <a href="../../kantan/csv/index.html#CsvConfigurationextendsProductwithSerializable" title="Permalink">
@@ -554,12 +590,13 @@ into more complex instances of <a href="package$$RowEncoder.html" class="extype"
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="CsvConfiguration.html">
+        <a title="Configuration for how to read / write CSV data." href="CsvConfiguration.html">
               <span class="name">CsvConfiguration</span>
-            </a><span class="params">(<span name="columnSeparator">columnSeparator: <span class="extype" name="scala.Char">Char</span></span>, <span name="quote">quote: <span class="extype" name="scala.Char">Char</span></span>, <span name="header">header: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+            </a><span class="params">(<span name="cellSeparator">cellSeparator: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Char" class="extype" target="_top">Char</a></span>, <span name="quote">quote: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Char" class="extype" target="_top">Char</a></span>, <span name="quotePolicy">quotePolicy: <a href="CsvConfiguration$$QuotePolicy.html" class="extype" name="kantan.csv.CsvConfiguration.QuotePolicy">QuotePolicy</a></span>, <span name="header">header: <a href="CsvConfiguration$$Header.html" class="extype" name="kantan.csv.CsvConfiguration.Header">Header</a></span>)</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Configuration for how to read / write CSV data.</p><div class="fullcomment"><div class="comment cmt"><p>Configuration for how to read / write CSV data.</p><p>Note that all engines don't necessarily support all features.
+</p></div></div>
     </li><li name="kantan.csv.CsvReader" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]"></a><a id="CsvReader[A]:CsvReader[A]"></a>
       <span class="permalink">
@@ -572,10 +609,12 @@ into more complex instances of <a href="package$$RowEncoder.html" class="extype"
         <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">CsvReader</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <span class="extype" name="kantan.codecs.resource.ResourceIterator">ResourceIterator</span>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
+        <a title="Iterator on CSV data." href="package$$CsvReader.html">
+              <span class="name">CsvReader</span>
+            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.resource.ResourceIterator" class="extype" target="_top">ResourceIterator</a>[<span class="extype" name="kantan.csv.CsvReader.A">A</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Iterator on CSV data.</p>
     </li><li name="kantan.csv.CsvSink" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="CsvSink[-S]extendsSerializable"></a><a id="CsvSink[-S]:CsvSink[S]"></a>
       <span class="permalink">
@@ -668,7 +707,7 @@ most needs, and others can be swapped if needed through the <a href="engine/Writ
       <span class="symbol">
         <a title="Result of a decode operation, which can be either a success or a failure." href="package$$DecodeResult.html">
               <span class="name">DecodeResult</span>
-            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <span class="extype" name="kantan.codecs.Result">Result</span>[<a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <span class="extype" name="kantan.csv.DecodeResult.A">A</span>]</span>
+            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Result" class="extype" target="_top">Result</a>[<a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <span class="extype" name="kantan.csv.DecodeResult.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Result of a decode operation, which can be either a success or a failure.</p><div class="fullcomment"><div class="comment cmt"><p>Result of a decode operation, which can be either a success or a failure.</p><p>The difference between a <a href="package$$ParseResult.html" class="extype" name="kantan.csv.ParseResult">parse</a> and a <a href="package$$DecodeResult.html" class="extype" name="kantan.csv.DecodeResult">decode</a> result is that the former comes
@@ -688,6 +727,60 @@ useful Scala types.</p><p>Failure cases are all encoded as <a href="DecodeError.
       </span>
       <span class="symbol">
         <span class="name">Failure</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <span class="extype" name="kantan.codecs.Result.Failure">codecs.Result.Failure</span>[<span class="extype" name="kantan.csv.Failure.A">A</span>]</span>
+      </span>
+      
+      
+    </li><li name="kantan.csv.GeneratedHeaderCodecs" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="GeneratedHeaderCodecsextendsAnyRef"></a><a id="GeneratedHeaderCodecs:GeneratedHeaderCodecs"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#GeneratedHeaderCodecsextendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="GeneratedHeaderCodecs.html">
+              <span class="name">GeneratedHeaderCodecs</span>
+            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      
+      
+    </li><li name="kantan.csv.GeneratedHeaderDecoders" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="GeneratedHeaderDecodersextendsAnyRef"></a><a id="GeneratedHeaderDecoders:GeneratedHeaderDecoders"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#GeneratedHeaderDecodersextendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="GeneratedHeaderDecoders.html">
+              <span class="name">GeneratedHeaderDecoders</span>
+            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      
+      
+    </li><li name="kantan.csv.GeneratedHeaderEncoders" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="GeneratedHeaderEncodersextendsAnyRef"></a><a id="GeneratedHeaderEncoders:GeneratedHeaderEncoders"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#GeneratedHeaderEncodersextendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="GeneratedHeaderEncoders.html">
+              <span class="name">GeneratedHeaderEncoders</span>
+            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -748,6 +841,64 @@ useful Scala types.</p><p>Failure cases are all encoded as <a href="DecodeError.
                 <span class="name">@SuppressWarnings</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="kantan.csv.HeaderCodec" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="HeaderCodec[A]extendsHeaderEncoder[A]withHeaderDecoder[A]"></a><a id="HeaderCodec[A]:HeaderCodec[A]"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#HeaderCodec[A]extendsHeaderEncoder[A]withHeaderDecoder[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="HeaderCodec.html">
+              <span class="name">HeaderCodec</span>
+            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="HeaderEncoder.html" class="extype" name="kantan.csv.HeaderEncoder">HeaderEncoder</a>[<span class="extype" name="kantan.csv.HeaderCodec.A">A</span>] with <a href="HeaderDecoder.html" class="extype" name="kantan.csv.HeaderDecoder">HeaderDecoder</a>[<span class="extype" name="kantan.csv.HeaderCodec.A">A</span>]</span>
+      </span>
+      
+      
+    </li><li name="kantan.csv.HeaderDecoder" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="HeaderDecoder[A]extendsSerializable"></a><a id="HeaderDecoder[A]:HeaderDecoder[A]"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#HeaderDecoder[A]extendsSerializable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="Provides support for using header values rather than row indexes for decoding." href="HeaderDecoder.html">
+              <span class="name">HeaderDecoder</span>
+            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Provides support for using header values rather than row indexes for decoding.</p><div class="fullcomment"><div class="comment cmt"><p>Provides support for using header values rather than row indexes for decoding.</p><p>When decoding CSV data, if the <a href="CsvConfiguration.html" class="extype" name="kantan.csv.CsvConfiguration">CsvConfiguration</a> indicates the presence of a header, it will be passed to
+<a href="HeaderDecoder.html#fromHeader(header:Seq[String]):kantan.csv.DecodeResult[kantan.csv.RowDecoder[A]]" class="extmbr" name="kantan.csv.HeaderDecoder#fromHeader">fromHeader</a>, and the resulting <a href="package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a> will be used.</p><p>The default behaviour is always to rely on indexes (that is, any instance of <a href="package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a> that might be
+available), but you can create more useful <a href="HeaderDecoder.html" class="extype" name="kantan.csv.HeaderDecoder">HeaderDecoder</a> instances through the
+<a href="HeaderDecoder$.html" class="extype" name="kantan.csv.HeaderDecoder">companion object</a>.
+</p></div></div>
+    </li><li name="kantan.csv.HeaderEncoder" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="HeaderEncoder[A]extendsSerializable"></a><a id="HeaderEncoder[A]:HeaderEncoder[A]"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#HeaderEncoder[A]extendsSerializable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="HeaderEncoder.html">
+              <span class="name">HeaderEncoder</span>
+            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      
+      
     </li><li name="kantan.csv.ParseError" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="ParseErrorextendsReadError"></a><a id="ParseError:ParseError"></a>
       <span class="permalink">
@@ -780,7 +931,7 @@ useful Scala types.</p><p>Failure cases are all encoded as <a href="DecodeError.
       <span class="symbol">
         <a title="Result of a parsing operation, which can be either a success or a failure." href="package$$ParseResult.html">
               <span class="name">ParseResult</span>
-            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <span class="extype" name="kantan.codecs.Result">Result</span>[<a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>, <span class="extype" name="kantan.csv.ParseResult.A">A</span>]</span>
+            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Result" class="extype" target="_top">Result</a>[<a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>, <span class="extype" name="kantan.csv.ParseResult.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Result of a parsing operation, which can be either a success or a failure.</p><div class="fullcomment"><div class="comment cmt"><p>Result of a parsing operation, which can be either a success or a failure.</p><p>The difference between a <a href="package$$ParseResult.html" class="extype" name="kantan.csv.ParseResult">parse</a> and a <a href="package$$DecodeResult.html" class="extype" name="kantan.csv.DecodeResult">decode</a> result is that the former comes
@@ -801,7 +952,7 @@ useful Scala types.</p><p>Failure cases are all encoded as <a href="ParseError.h
       <span class="symbol">
         <a title="Parent type for all errors that can occur while dealing with CSV data." href="ReadError.html">
               <span class="name">ReadError</span>
-            </a><span class="result"> extends <span class="extype" name="kantan.codecs.Error">Error</span></span>
+            </a><span class="result"> extends <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.error.Error" class="extype" target="_top">Error</a></span>
       </span>
       
       <p class="shortcomment cmt">Parent type for all errors that can occur while dealing with CSV data.</p><div class="fullcomment"><div class="comment cmt"><p>Parent type for all errors that can occur while dealing with CSV data.</p><p><a href="ReadError.html" class="extype" name="kantan.csv.ReadError">ReadError</a> is split into two main error types:</p><ul><li><a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>: errors that occur while decoding a cell or a row.</li><li><a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>: errors that occur while parsing raw data into CSV.
@@ -820,7 +971,7 @@ useful Scala types.</p><p>Failure cases are all encoded as <a href="ParseError.h
       <span class="symbol">
         <a title="Result of a reading operation, which can be either a success or a failure." href="package$$ReadResult.html">
               <span class="name">ReadResult</span>
-            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <span class="extype" name="kantan.codecs.Result">Result</span>[<a href="ReadError.html" class="extype" name="kantan.csv.ReadError">ReadError</a>, <span class="extype" name="kantan.csv.ReadResult.A">A</span>]</span>
+            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Result" class="extype" target="_top">Result</a>[<a href="ReadError.html" class="extype" name="kantan.csv.ReadError">ReadError</a>, <span class="extype" name="kantan.csv.ReadResult.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Result of a reading operation, which can be either a success or a failure.</p><div class="fullcomment"><div class="comment cmt"><p>Result of a reading operation, which can be either a success or a failure.</p><p>Both <a href="package$$ParseResult.html" class="extype" name="kantan.csv.ParseResult">kantan.csv.ParseResult</a> and <a href="package$$DecodeResult.html" class="extype" name="kantan.csv.DecodeResult">DecodeResult</a> are valid values of type <a href="package$$ReadResult.html" class="extype" name="kantan.csv.ReadResult">ReadResult</a>.
@@ -839,7 +990,7 @@ useful Scala types.</p><p>Failure cases are all encoded as <a href="ParseError.h
       <span class="symbol">
         <a title="Aggregates a RowEncoder and a RowDecoder." href="package$$RowCodec.html">
               <span class="name">RowCodec</span>
-            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <span class="extype" name="kantan.codecs.Codec">Codec</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="kantan.csv.RowCodec.A">A</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
+            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Codec" class="extype" target="_top">Codec</a>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="kantan.csv.RowCodec.A">A</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       
       <p class="shortcomment cmt">Aggregates a <a href="package$$RowEncoder.html" class="extype" name="kantan.csv.RowEncoder">RowEncoder</a> and a <a href="package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Aggregates a <a href="package$$RowEncoder.html" class="extype" name="kantan.csv.RowEncoder">RowEncoder</a> and a <a href="package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>.</p><p>The sole purpose of this type class is to provide a convenient way to create encoders and decoders. It should
@@ -878,7 +1029,7 @@ bound or expected as an implicit parameter.
       <span class="symbol">
         <a title="Describes how to decode CSV rows into specific types." href="package$$RowDecoder.html">
               <span class="name">RowDecoder</span>
-            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <span class="extype" name="kantan.codecs.Decoder">Decoder</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="kantan.csv.RowDecoder.A">A</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
+            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Decoder" class="extype" target="_top">Decoder</a>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="kantan.csv.RowDecoder.A">A</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       
       <p class="shortcomment cmt">Describes how to decode CSV rows into specific types.</p><div class="fullcomment"><div class="comment cmt"><p>Describes how to decode CSV rows into specific types.</p><p>See the <a href="RowDecoder$.html" class="extype" name="kantan.csv.RowDecoder">companion object</a> for creation and summoning methods.
@@ -915,7 +1066,7 @@ bound or expected as an implicit parameter.
       <span class="symbol">
         <a title="Describes how to encode values of a specific type to CSV rows." href="package$$RowEncoder.html">
               <span class="name">RowEncoder</span>
-            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <span class="extype" name="kantan.codecs.Encoder">Encoder</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="kantan.csv.RowEncoder.A">A</span>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
+            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.Encoder" class="extype" target="_top">Encoder</a>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="kantan.csv.RowEncoder.A">A</span>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       
       <p class="shortcomment cmt">Describes how to encode values of a specific type to CSV rows.</p><div class="fullcomment"><div class="comment cmt"><p>Describes how to encode values of a specific type to CSV rows.</p><p>See the <a href="RowEncoder$.html" class="extype" name="kantan.csv.RowEncoder">companion object</a> for creation and summoning methods.
@@ -1042,7 +1193,7 @@ bound or expected as an implicit parameter.
       <span class="symbol">
         <a title="Declares helpful methods for CellCodec creation." href="CellCodec$.html">
               <span class="name">CellCodec</span>
-            </a><span class="result"> extends <span class="extype" name="kantan.codecs.CodecCompanion">CodecCompanion</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
+            </a><span class="result"> extends <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.CodecCompanion" class="extype" target="_top">CodecCompanion</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       
       <p class="shortcomment cmt">Declares helpful methods for <a href="package$$CellCodec.html" class="extype" name="kantan.csv.CellCodec">CellCodec</a> creation.</p>
@@ -1060,7 +1211,7 @@ bound or expected as an implicit parameter.
       <span class="symbol">
         <a title="Provides useful methods for summoning and creating instances of CellDecoder." href="CellDecoder$.html">
               <span class="name">CellDecoder</span>
-            </a><span class="result"> extends <span class="extype" name="kantan.codecs.DecoderCompanion">DecoderCompanion</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
+            </a><span class="result"> extends <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.DecoderCompanion" class="extype" target="_top">DecoderCompanion</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       
       <p class="shortcomment cmt">Provides useful methods for summoning and creating instances of <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>.</p>
@@ -1078,10 +1229,28 @@ bound or expected as an implicit parameter.
       <span class="symbol">
         <a title="Provides useful methods for summoning and creating instances of CellEncoder." href="CellEncoder$.html">
               <span class="name">CellEncoder</span>
-            </a><span class="result"> extends <span class="extype" name="kantan.codecs.EncoderCompanion">EncoderCompanion</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
+            </a><span class="result"> extends <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.EncoderCompanion" class="extype" target="_top">EncoderCompanion</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       
       <p class="shortcomment cmt">Provides useful methods for summoning and creating instances of <a href="package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">CellEncoder</a>.</p>
+    </li><li name="kantan.csv.CsvConfiguration" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CsvConfiguration"></a><a id="CsvConfiguration:CsvConfiguration"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#CsvConfiguration" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="CsvConfiguration$.html">
+              <span class="name">CsvConfiguration</span>
+            </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      
+      
     </li><li name="kantan.csv.CsvReader" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="CsvReader"></a><a id="CsvReader:CsvReader"></a>
       <span class="permalink">
@@ -1114,7 +1283,7 @@ bound or expected as an implicit parameter.
       <span class="symbol">
         <a title="Provides default instances as well as instance summoning and creation methods." href="CsvSink$.html">
               <span class="name">CsvSink</span>
-            </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+            </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">Provides default instances as well as instance summoning and creation methods.</p>
@@ -1132,7 +1301,7 @@ bound or expected as an implicit parameter.
       <span class="symbol">
         <a title="Defines convenience methods for creating and retrieving instances of CsvSource." href="CsvSource$.html">
               <span class="name">CsvSource</span>
-            </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+            </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">Defines convenience methods for creating and retrieving instances of <a href="CsvSource.html" class="extype" name="kantan.csv.CsvSource">CsvSource</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines convenience methods for creating and retrieving instances of <a href="CsvSource.html" class="extype" name="kantan.csv.CsvSource">CsvSource</a>.</p><p>Implicit default implementations of standard types are also declared here, always bringing them in scope with a low
@@ -1172,7 +1341,7 @@ your implementation.
       <span class="symbol">
         <a title="Declares all possible values of type DecodeError." href="DecodeError$.html">
               <span class="name">DecodeError</span>
-            </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+            </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">Declares all possible values of type <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>.</p>
@@ -1194,6 +1363,60 @@ your implementation.
       </span>
       
       <p class="shortcomment cmt">Provides convenience methods for creating instances of <a href="package$$DecodeResult.html" class="extype" name="kantan.csv.DecodeResult">DecodeResult</a>.</p>
+    </li><li name="kantan.csv.HeaderCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="HeaderCodec"></a><a id="HeaderCodec:HeaderCodec"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#HeaderCodec" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="HeaderCodec$.html">
+              <span class="name">HeaderCodec</span>
+            </a><span class="result"> extends <a href="GeneratedHeaderCodecs.html" class="extype" name="kantan.csv.GeneratedHeaderCodecs">GeneratedHeaderCodecs</a> with <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      
+      
+    </li><li name="kantan.csv.HeaderDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="HeaderDecoder"></a><a id="HeaderDecoder:HeaderDecoder"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#HeaderDecoder" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="Provides instance summoning and creation methods for HeaderDecoder." href="HeaderDecoder$.html">
+              <span class="name">HeaderDecoder</span>
+            </a><span class="result"> extends <a href="GeneratedHeaderDecoders.html" class="extype" name="kantan.csv.GeneratedHeaderDecoders">GeneratedHeaderDecoders</a> with <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Provides instance summoning and creation methods for <a href="HeaderDecoder.html" class="extype" name="kantan.csv.HeaderDecoder">HeaderDecoder</a>.</p>
+    </li><li name="kantan.csv.HeaderEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="HeaderEncoder"></a><a id="HeaderEncoder:HeaderEncoder"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#HeaderEncoder" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="HeaderEncoder$.html">
+              <span class="name">HeaderEncoder</span>
+            </a><span class="result"> extends <a href="GeneratedHeaderEncoders.html" class="extype" name="kantan.csv.GeneratedHeaderEncoders">GeneratedHeaderEncoders</a> with <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      
+      
     </li><li name="kantan.csv.ParseError" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ParseError"></a><a id="ParseError:ParseError"></a>
       <span class="permalink">
@@ -1208,7 +1431,7 @@ your implementation.
       <span class="symbol">
         <a title="Declares all possible values of type ParseError." href="ParseError$.html">
               <span class="name">ParseError</span>
-            </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+            </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">Declares all possible values of type <a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>.</p>
@@ -1262,7 +1485,7 @@ your implementation.
       <span class="symbol">
         <a title="Provides useful methods for RowCodec instance creation." href="RowCodec$.html">
               <span class="name">RowCodec</span>
-            </a><span class="result"> extends <a href="GeneratedRowCodecs.html" class="extype" name="kantan.csv.GeneratedRowCodecs">GeneratedRowCodecs</a> with <span class="extype" name="kantan.codecs.CodecCompanion">CodecCompanion</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>], <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
+            </a><span class="result"> extends <a href="GeneratedRowCodecs.html" class="extype" name="kantan.csv.GeneratedRowCodecs">GeneratedRowCodecs</a> with <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.CodecCompanion" class="extype" target="_top">CodecCompanion</a>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>], <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       
       <p class="shortcomment cmt">Provides useful methods for <a href="package$$RowCodec.html" class="extype" name="kantan.csv.RowCodec">RowCodec</a> instance creation.</p>
@@ -1280,7 +1503,7 @@ your implementation.
       <span class="symbol">
         <a title="Provides various instance creation and summoning methods." href="RowDecoder$.html">
               <span class="name">RowDecoder</span>
-            </a><span class="result"> extends <a href="GeneratedRowDecoders.html" class="extype" name="kantan.csv.GeneratedRowDecoders">GeneratedRowDecoders</a> with <span class="extype" name="kantan.codecs.DecoderCompanion">DecoderCompanion</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>], <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
+            </a><span class="result"> extends <a href="GeneratedRowDecoders.html" class="extype" name="kantan.csv.GeneratedRowDecoders">GeneratedRowDecoders</a> with <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.DecoderCompanion" class="extype" target="_top">DecoderCompanion</a>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>], <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       
       <p class="shortcomment cmt">Provides various instance creation and summoning methods.</p><div class="fullcomment"><div class="comment cmt"><p>Provides various instance creation and summoning methods.</p><p>The instance creation functions are important to know about, as they make the task of creating new decoders easier
@@ -1304,7 +1527,7 @@ can automatically derive valid instances for a lot of common scenarios.
       <span class="symbol">
         <a title="Provides various instance creation and summoning methods." href="RowEncoder$.html">
               <span class="name">RowEncoder</span>
-            </a><span class="result"> extends <a href="GeneratedRowEncoders.html" class="extype" name="kantan.csv.GeneratedRowEncoders">GeneratedRowEncoders</a> with <span class="extype" name="kantan.codecs.EncoderCompanion">EncoderCompanion</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>], <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
+            </a><span class="result"> extends <a href="GeneratedRowEncoders.html" class="extype" name="kantan.csv.GeneratedRowEncoders">GeneratedRowEncoders</a> with <a href="https://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.EncoderCompanion" class="extype" target="_top">EncoderCompanion</a>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>], <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       
       <p class="shortcomment cmt">Provides various instance creation and summoning methods.</p><div class="fullcomment"><div class="comment cmt"><p>Provides various instance creation and summoning methods.</p><p>The instance creation functions are important to know about, as they make the task of creating new encoders easier

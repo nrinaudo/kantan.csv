@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Generic module"
 section: tutorial
-sort_order: 21
+sort_order: 25
 ---
 While kantan.csv goes out of its way to provide [default instances](default_instances.html) for as many types as it can,
 some are made problematic by my strict rule against runtime reflection. Fortunately, [shapeless](http://shapeless.io)
@@ -12,7 +12,7 @@ for more common types and patterns.
 The `generic` module can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.1.19"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.2.0"
 ```
 
 If you're using Scala 2.10.x, you should also add the macro paradise plugin to your build:

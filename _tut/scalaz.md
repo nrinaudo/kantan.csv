@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Scalaz module"
 section: tutorial
-sort_order: 23
+sort_order: 24
 ---
 Kantan.csv has a [scalaz](https://github.com/scalaz/scalaz) module that is, in its current incarnation, fairly bare
 bones: it provides decoders for [`Maybe`] and [`\/`] as well as a few useful type class instances.
@@ -10,7 +10,7 @@ bones: it provides decoders for [`Maybe`] and [`\/`] as well as a few useful typ
 The `scalaz` module can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz" % "0.1.19"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz" % "0.2.0"
 ```
 
 You then need to import the corresponding package:
