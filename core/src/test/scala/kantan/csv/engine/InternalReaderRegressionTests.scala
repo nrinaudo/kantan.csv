@@ -33,4 +33,9 @@ class InternalReaderRegressionTests extends FunSuite {
     assert("1\r\n\"Once upon\r\na time\"".unsafeReadCsv[List, List[String]](rfc) ==
            List(List("1"), List("Once upon\r\na time")))
   }
+
+
+  test("If the last cell of the last row is a quoted empty string, it should still be read (#88)") {
+    assert("\"\"".unsafeReadCsv[List, List[String]](rfc) == List(List("")))
+  }
 }
