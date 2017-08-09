@@ -22,21 +22,21 @@ import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer
 
 @SuppressWarnings(Array("org.wartremover.warts.MutableDataStructures", "org.wartremover.warts.Var"))
-private[engine] class InternalReader private (val data: Reader, val conf: CsvConfiguration,
-                                              val characters: Array[Char], var length: Int)
-  extends CsvReader[Seq[String]] {
+private[engine] class InternalReader private (val data: Reader,
+                                              val conf: CsvConfiguration,
+                                              val characters: Array[Char],
+                                              var length: Int)
+    extends CsvReader[Seq[String]] {
   private val cell = new StringBuilder
   private val row  = ArrayBuffer[String]()
 
-  private var leftover: Char = _
+  private var leftover: Char       = _
   private var hasLeftover: Boolean = false
 
-  private var mark: Int = 0
+  private var mark: Int  = 0
   private var index: Int = 0
 
-
-  @inline
-  private def dumpCell(): Unit = {
+  @inline private def dumpCell(): Unit = {
     if(index != mark) cell.appendAll(characters, mark, index - mark - 1)
     ()
   }
@@ -44,7 +44,7 @@ private[engine] class InternalReader private (val data: Reader, val conf: CsvCon
   private def endCell(): Unit = {
     if(cell.isEmpty) {
       if(index != mark) row += new String(characters, mark, index - mark - 1)
-      else              row += ""
+      else row              += ""
     }
     else {
       dumpCell()
@@ -66,8 +66,8 @@ private[engine] class InternalReader private (val data: Reader, val conf: CsvCon
     else {
       if(index != mark) cell.appendAll(characters, mark, index - mark)
       length = data.read(characters)
-      mark   = 0
-      index  = 0
+      mark = 0
+      index = 0
       length > 0
     }
 
@@ -84,7 +84,7 @@ private[engine] class InternalReader private (val data: Reader, val conf: CsvCon
       InternalReader.CCR
 
     // LF: empty cell, end of row.
-    case '\n'        ⇒
+    case '\n' ⇒
       endCell()
       InternalReader.CLF
 
@@ -182,9 +182,7 @@ private[engine] class InternalReader private (val data: Reader, val conf: CsvCon
         }
         else escapedCell(true)
       }
-
       else if(prev) escapedCellEnd(c)
-
       else escapedCell(false)
     }
     else {
@@ -197,13 +195,13 @@ private[engine] class InternalReader private (val data: Reader, val conf: CsvCon
     // Cell finished, row not done.
     case InternalReader.Separator ⇒
       if(hasNextChar) nextRow(nextChar())
-        // The next cell is empty AND there is no further data to read.
+      // The next cell is empty AND there is no further data to read.
       else {
         row += ""
         ()
       }
 
-      // Row finished, might have a trailing LF.
+    // Row finished, might have a trailing LF.
     case InternalReader.CR if hasNextChar ⇒
       leftover = nextChar()
 
@@ -212,10 +210,9 @@ private[engine] class InternalReader private (val data: Reader, val conf: CsvCon
         hasLeftover = false
         mark += 1
       }
-
       else hasLeftover = true
 
-      // Row finished, no trailing LF.
+    // Row finished, no trailing LF.
     case _ ⇒
       hasLeftover = false
       ()
@@ -226,9 +223,9 @@ private[engine] class InternalReader private (val data: Reader, val conf: CsvCon
   @SuppressWarnings(Array("org.wartremover.warts.Throw"))
   override def readNext() = {
     row.clear()
-    if(hasLeftover)      nextRow(leftover)
+    if(hasLeftover) nextRow(leftover)
     else if(hasNextChar) nextRow(nextChar())
-    else                 throw new NoSuchElementException
+    else throw new NoSuchElementException
 
     hasNextChar
     row
@@ -239,25 +236,25 @@ private[engine] class InternalReader private (val data: Reader, val conf: CsvCon
 private object InternalReader {
   def apply(data: Reader, conf: CsvConfiguration): InternalReader = {
     val characters = new Array[Char](2048)
-    val length = data.read(characters)
+    val length     = data.read(characters)
 
     new InternalReader(data, conf, characters, length)
   }
 
   // Possible reasons for breaking off a cell or row.
   case object Separator extends Break
-  case object CR extends Break
-  case object LF extends Break
-  case object EOF extends Break
+  case object CR        extends Break
+  case object LF        extends Break
+  case object EOF       extends Break
   sealed trait Break
 
   // Possible outcomes of parsing the beginning of a cell.
   final case class Finished(reason: Break) extends CellStart
   val CSeparator = Finished(Separator)
-  val CCR = Finished(CR)
-  val CLF = Finished(LF)
-  val CEOF = Finished(EOF)
+  val CCR        = Finished(CR)
+  val CLF        = Finished(LF)
+  val CEOF       = Finished(EOF)
   case object Escaped extends CellStart
-  case object Raw extends CellStart
+  case object Raw     extends CellStart
   sealed trait CellStart
 }

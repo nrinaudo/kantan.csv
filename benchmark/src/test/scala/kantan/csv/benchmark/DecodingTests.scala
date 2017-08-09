@@ -46,7 +46,7 @@ class DecodingTests extends FunSuite {
   test("opencsv") {
     assert(decoding.opencsv == rawData)
   }
-  */
+   */
 
   test("product-collections") {
     assert(decoding.productCollections == rawData)

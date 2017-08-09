@@ -12,7 +12,7 @@ kantan.csv is a library for CSV parsing and serialisation written in the
 
 ## Getting started
 
-kantan.csv is currently available for Scala 2.10, 2.11 and 2.12.
+kantan.csv is currently available for Scala 2.11 and 2.12.
 
 The current version is `@VERSION@`, which can be added to your project with one or more of the following line(s)
 in your SBT build file:

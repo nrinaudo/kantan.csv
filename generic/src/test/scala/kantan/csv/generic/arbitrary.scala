@@ -16,6 +16,6 @@
 
 package kantan.csv.generic
 
-
-object arbitrary extends kantan.codecs.shapeless.laws.discipline.ArbitraryInstances
-                         with kantan.csv.laws.discipline.ArbitraryInstances
+object arbitrary
+    extends kantan.codecs.shapeless.laws.discipline.ArbitraryInstances
+    with kantan.csv.laws.discipline.ArbitraryInstances

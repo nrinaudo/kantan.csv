@@ -35,22 +35,22 @@ object commons {
   type QuoteMode = org.apache.commons.csv.QuoteMode
 
   private final case class CsvSeq(rec: CSVRecord) extends IndexedSeq[String] {
-    override def length: Int = rec.size()
+    override def length: Int             = rec.size()
     override def apply(idx: Int): String = rec.get(idx)
   }
-
-
 
   /** Type of functions that create a `CSVFormat` instance from a given column separator. */
   type CSVFormatBuilder = CsvConfiguration ⇒ CSVFormat
 
   /** Creates a default `CSVFormat` instance using the specified column separator. */
-  def defaultFormat(conf: CsvConfiguration): CSVFormat = CSVFormat.RFC4180
-    .withDelimiter(conf.cellSeparator).withQuote(conf.quote).withQuoteMode(conf.quotePolicy match {
-    case CsvConfiguration.QuotePolicy.Always ⇒ QuoteMode.ALL
-    case CsvConfiguration.QuotePolicy.WhenNeeded ⇒ QuoteMode.MINIMAL
-  })
-
+  def defaultFormat(conf: CsvConfiguration): CSVFormat =
+    CSVFormat.RFC4180
+      .withDelimiter(conf.cellSeparator)
+      .withQuote(conf.quote)
+      .withQuoteMode(conf.quotePolicy match {
+        case CsvConfiguration.QuotePolicy.Always     ⇒ QuoteMode.ALL
+        case CsvConfiguration.QuotePolicy.WhenNeeded ⇒ QuoteMode.MINIMAL
+      })
 
   // - Reader engines --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -68,8 +68,6 @@ object commons {
     * It's possible to tweak the behaviour of the underlying writer through [[readerEngineFrom]].
     */
   implicit val commonsCsvReaderEngine: ReaderEngine = readerEngineFrom(defaultFormat)
-
-
 
   // - Writer engines --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

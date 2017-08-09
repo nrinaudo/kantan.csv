@@ -30,17 +30,20 @@ class InternalReaderRegressionTests extends FunSuite {
   }
 
   test("CRLF in escaped") {
-    assert("1\r\n\"Once upon\r\na time\"".unsafeReadCsv[List, List[String]](rfc) ==
-           List(List("1"), List("Once upon\r\na time")))
+    assert(
+      "1\r\n\"Once upon\r\na time\"".unsafeReadCsv[List, List[String]](rfc) ==
+        List(List("1"), List("Once upon\r\na time"))
+    )
   }
-
 
   test("If the last cell of the last row is a quoted empty string, it should still be read (#88)") {
     assert("\"\"".unsafeReadCsv[List, List[String]](rfc) == List(List("")))
   }
 
   test("if the last cell of a row is quoted and followed by a space, it should still be read (#89)") {
-    assert(""" "field1","field2","field3" """.unsafeReadCsv[List, List[String]](rfc) ==
-      List(List("field1", "field2", "field3 ")))
+    assert(
+      """ "field1","field2","field3" """.unsafeReadCsv[List, List[String]](rfc) ==
+        List(List("field1", "field2", "field3 "))
+    )
   }
 }

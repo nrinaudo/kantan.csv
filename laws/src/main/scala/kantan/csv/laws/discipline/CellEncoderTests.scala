@@ -23,5 +23,5 @@ import org.scalacheck.Arbitrary
 
 object CellEncoderTests {
   def apply[A: CellEncoderLaws: Arbitrary](implicit al: Arbitrary[LegalCell[A]]): CellEncoderTests[A] =
-      EncoderTests[String, A, codecs.type]
+    EncoderTests[String, A, codecs.type]
 }

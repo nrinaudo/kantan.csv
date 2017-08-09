@@ -32,10 +32,12 @@ object Instances {
   case class Complex(i: Int, b: Boolean, c: Option[Float])
 
   implicit val arbLegal: Arbitrary[LegalRow[Or[Complex, Simple]]] =
-    arbLegalValue((o: Or[Complex, Simple]) ⇒ o match {
-      case Left(Complex(i, b, c)) ⇒ Seq(i.toString, b.toString, c.fold("")(_.toString))
-      case Right(Simple(i))       ⇒ Seq(i.toString)
-    })
+    arbLegalValue { (o: Or[Complex, Simple]) ⇒
+      o match {
+        case Left(Complex(i, b, c)) ⇒ Seq(i.toString, b.toString, c.fold("")(_.toString))
+        case Right(Simple(i))       ⇒ Seq(i.toString)
+      }
+    }
 }
 
 // Shapeless' Lazy generates code with Null that we need to ignore.

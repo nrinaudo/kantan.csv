@@ -26,6 +26,8 @@ import scalaz.scalacheck.ScalazArbitrary._
 
 class DisjunctionCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   checkAll("Int \\/ Boolean", CellCodecTests[Int \/ Boolean].codec[Byte, Float])
-  checkAll("(Int, Int, Int) \\/ (Boolean, Float)",
-    RowCodecTests[(Int, Int, Int) \/ (Boolean, Float)].codec[Byte, String])
+  checkAll(
+    "(Int, Int, Int) \\/ (Boolean, Float)",
+    RowCodecTests[(Int, Int, Int) \/ (Boolean, Float)].codec[Byte, String]
+  )
 }

@@ -20,6 +20,7 @@ import kantan.codecs._
 import kantan.codecs.resource.ResourceIterator
 
 package object csv {
+
   /** Iterator on CSV data.
     *
     * @documentable
@@ -27,7 +28,6 @@ package object csv {
   type CsvReader[A] = ResourceIterator[A]
 
   val rfc: CsvConfiguration = CsvConfiguration.rfc
-
 
   // - Results ---------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -71,7 +71,6 @@ package object csv {
     * @documentable
     */
   type DecodeResult[A] = Result[DecodeError, A]
-
 
   // - Cell codecs -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -117,8 +116,6 @@ package object csv {
     * @documentable
     */
   type CellCodec[A] = Codec[String, A, DecodeError, codecs.type]
-
-
 
   // - Row codecs ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

@@ -20,10 +20,10 @@ trait HeaderCodec[A] extends HeaderEncoder[A] with HeaderDecoder[A]
 
 object HeaderCodec extends GeneratedHeaderCodecs {
   def from[A](dec: HeaderDecoder[A])(enc: HeaderEncoder[A]): HeaderCodec[A] = new HeaderCodec[A] {
-    override def header = enc.header
+    override def header     = enc.header
     override def rowEncoder = enc.rowEncoder
 
     override def fromHeader(header: Seq[String]) = dec.fromHeader(header)
-    override def noHeader = dec.noHeader
+    override def noHeader                        = dec.noHeader
   }
 }

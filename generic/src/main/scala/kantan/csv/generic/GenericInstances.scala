@@ -24,9 +24,7 @@ trait GenericInstances extends ShapelessInstances {
   // - Coproduct decoders ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit val cnilCellDecoder: CellDecoder[CNil] = cnilDecoder(c ⇒ DecodeError.TypeError(s"Not a legal cell: $c"))
-  implicit val cnilRowDecoder: RowDecoder[CNil] = cnilDecoder(r ⇒ DecodeError.TypeError(s"Not a legal row: $r"))
-
-
+  implicit val cnilRowDecoder: RowDecoder[CNil]   = cnilDecoder(r ⇒ DecodeError.TypeError(s"Not a legal row: $r"))
 
   // - HList decoders --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -34,20 +32,18 @@ trait GenericInstances extends ShapelessInstances {
     RowDecoder[H].map(h ⇒ h :: HNil)
 
   implicit def hlistRowDecoder[H: CellDecoder, T <: HList: RowDecoder]: RowDecoder[H :: T] =
-    RowDecoder.from(row ⇒
-      row.headOption.map(s ⇒
+    RowDecoder.from { row ⇒
+      row.headOption.map { s ⇒
         for {
           h ← CellDecoder[H].decode(s)
           t ← RowDecoder[T].decode(row.drop(1))
         } yield h :: t
-      ).getOrElse(DecodeResult.outOfBounds(0)))
-
+      }.getOrElse(DecodeResult.outOfBounds(0))
+    }
 
   implicit def hlistCellDecoder[H: CellDecoder]: CellDecoder[H :: HNil] = CellDecoder[H].map(h ⇒ h :: HNil)
 
   implicit val hnilRowDecoder: RowDecoder[HNil] = RowDecoder.from(_ ⇒ DecodeResult.success(HNil))
-
-
 
   // - HList encoders --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

@@ -70,10 +70,11 @@ private[csv] class InternalWriter(private val out: Writer, val conf: CsvConfigur
     var first = true
     for(s ← ss) {
       if(first) first = false
-      else      out.write(conf.cellSeparator.toInt)
+      else out.write(conf.cellSeparator.toInt)
       safeWrite(s)
     }
-    /*if(!first)*/ out.write("\r\n") // According to the RFC, \n alone is not valid.
+
+    out.write("\r\n") // According to the RFC, \n alone is not valid.
     this
   }
 

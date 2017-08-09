@@ -16,5 +16,6 @@
 
 package kantan.csv.java8
 
-object arbitrary extends kantan.csv.laws.discipline.ArbitraryInstances with
-                         kantan.codecs.strings.java8.laws.discipline.ArbitraryInstances
+object arbitrary
+    extends kantan.csv.laws.discipline.ArbitraryInstances
+    with kantan.codecs.strings.java8.laws.discipline.ArbitraryInstances

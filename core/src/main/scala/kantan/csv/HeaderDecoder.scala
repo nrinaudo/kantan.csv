@@ -32,6 +32,7 @@ trait HeaderDecoder[A] extends Serializable {
 
 /** Provides instance summoning and creation methods for [[HeaderDecoder]]. */
 object HeaderDecoder extends GeneratedHeaderDecoders {
+
   /** Summons an implicit instance of [[HeaderDecoder]] if one can be found, fails compilation otherwise. */
   def apply[A](implicit ev: HeaderDecoder[A]): HeaderDecoder[A] = macro imp.summon[HeaderDecoder[A]]
 
@@ -39,18 +40,19 @@ object HeaderDecoder extends GeneratedHeaderDecoders {
   private[csv] def decoderFromMap(map: Map[String, Int], header: Seq[String]): DecodeResult[Array[Int]] = {
     val mapping = Array.fill(map.size)(-1)
 
-    header.zipWithIndex.foreach { case (name, i) ⇒
-      map.get(name).foreach { a ⇒ mapping(a) = i }
+    header.zipWithIndex.foreach {
+      case (name, i) ⇒
+        map.get(name).foreach(a ⇒ mapping(a) = i)
     }
 
     val error = mapping.indexWhere(_ < 0)
     if(error < 0) Success(mapping)
-    else          DecodeResult.typeError(s"Missing header for ${header(error)}")
+    else DecodeResult.typeError(s"Missing header for ${header(error)}")
   }
 
   /** When no [[HeaderDecoder]] is available, fallback on whatever instance of [[RowDecoder]] is in scope. */
   implicit def defaultHeaderDecoder[A: RowDecoder]: HeaderDecoder[A] = new HeaderDecoder[A] {
-    override def noHeader = RowDecoder[A]
+    override def noHeader                        = RowDecoder[A]
     override def fromHeader(header: Seq[String]) = Success(RowDecoder[A])
   }
 }

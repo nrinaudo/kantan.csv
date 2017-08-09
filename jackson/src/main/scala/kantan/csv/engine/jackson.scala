@@ -35,18 +35,24 @@ object jackson {
   type CsvMapper = com.fasterxml.jackson.dataformat.csv.CsvMapper
 
   type MappingIteratorBuilder = (Reader, CsvConfiguration) ⇒ MappingIterator[Array[String]]
-  type SequenceWriterBuilder = (Writer, CsvConfiguration) ⇒ SequenceWriter
+  type SequenceWriterBuilder  = (Writer, CsvConfiguration) ⇒ SequenceWriter
 
   private val MAPPER: CsvMapper = new CsvMapper()
   MAPPER.enable(com.fasterxml.jackson.dataformat.csv.CsvParser.Feature.WRAP_AS_ARRAY)
   MAPPER.enable(com.fasterxml.jackson.dataformat.csv.CsvGenerator.Feature.STRICT_CHECK_FOR_QUOTING)
 
-
   // - Reader engines --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   val defaultMappingIteratorBuilder: MappingIteratorBuilder = (reader, conf) ⇒ {
-    MAPPER.readerFor(classOf[Array[String]]).`with`(MAPPER.schemaFor(classOf[Array[String]])
-      .withColumnSeparator(conf.cellSeparator).withQuoteChar(conf.quote)).readValues(reader)
+    MAPPER
+      .readerFor(classOf[Array[String]])
+      .`with`(
+        MAPPER
+          .schemaFor(classOf[Array[String]])
+          .withColumnSeparator(conf.cellSeparator)
+          .withQuoteChar(conf.quote)
+      )
+      .readValues(reader)
   }
 
   /** Creates a new `ReaderEngine` from the specified [[MappingIteratorBuilder]].
@@ -55,15 +61,15 @@ object jackson {
     * through its public API.
     */
   def readerEngineFrom(f: MappingIteratorBuilder): ReaderEngine =
-    ReaderEngine.from { (r, s) ⇒ ResourceIterator.fromIterator(f(r, s)) }
+    ReaderEngine.from { (r, s) ⇒
+      ResourceIterator.fromIterator(f(r, s))
+    }
 
   /** Default jackson.csv `ReaderEngine`.
     *
     * It's possible to tweak the behaviour of the underlying writer through [[readerEngineFrom]].
     */
   implicit val jacksonCsvReaderEngine: ReaderEngine = readerEngineFrom(defaultMappingIteratorBuilder)
-
-
 
   // - Writer engines --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -72,8 +78,16 @@ object jackson {
       if(conf.quotePolicy == CsvConfiguration.QuotePolicy.WhenNeeded) MAPPER
       else MAPPER.copy().enable(CsvGenerator.Feature.ALWAYS_QUOTE_STRINGS)
 
-    mapper.writer.`with`(mapper.schemaFor(classOf[Array[String]]).withColumnSeparator(conf.cellSeparator)
-            .withQuoteChar(conf.quote).withLineSeparator("\r\n").withoutComments).writeValues(writer)
+    mapper.writer
+      .`with`(
+        mapper
+          .schemaFor(classOf[Array[String]])
+          .withColumnSeparator(conf.cellSeparator)
+          .withQuoteChar(conf.quote)
+          .withLineSeparator("\r\n")
+          .withoutComments
+      )
+      .writeValues(writer)
   }
 
   /** Creates a new `WriterEngine` from the specified [[SequenceWriterBuilder]].

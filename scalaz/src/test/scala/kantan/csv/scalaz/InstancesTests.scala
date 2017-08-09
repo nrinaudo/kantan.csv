@@ -21,7 +21,6 @@ import kantan.codecs.scalaz.laws.discipline.scalatest.ScalazSuite
 import kantan.csv._
 import kantan.csv.scalaz.arbitrary._
 
-
 class InstancesTests extends ScalazSuite {
   checkAll("ReadError", equal.laws[ReadError])
   checkAll("DecodeError", equal.laws[DecodeError])

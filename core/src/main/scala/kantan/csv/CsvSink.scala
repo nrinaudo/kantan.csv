@@ -28,12 +28,13 @@ import kantan.csv.engine.WriterEngine
   * See the [[CsvSink companion object]] for default implementations and construction methods.
   */
 trait CsvSink[-S] extends Serializable { self ⇒
+
   /** Opens a `Writer` on the specified `S`. */
   def open(s: S): Writer
 
   @deprecated("use writer(S, CsvConfiguration) instead", "0.1.18")
   def writer[A: HeaderEncoder](s: S, sep: Char, header: String*)(implicit e: WriterEngine): CsvWriter[A] =
-    writer(s, rfc.withCellSeparator(sep).withHeader(header:_*))
+    writer(s, rfc.withCellSeparator(sep).withHeader(header: _*))
 
   /** Opens a [[CsvWriter]] on the specified `S`.
     *
@@ -44,9 +45,10 @@ trait CsvSink[-S] extends Serializable { self ⇒
     CsvWriter(open(s), conf)
 
   @deprecated("use write(S, TraversableOnce[A], CsvConfiguration) instead", "0.1.18")
-  def write[A: HeaderEncoder](s: S, rows: TraversableOnce[A], sep: Char, header: String*)
-                            (implicit e: WriterEngine): Unit =
-    write(s, rows, rfc.withCellSeparator(sep).withHeader(header:_*))
+  def write[A: HeaderEncoder](s: S, rows: TraversableOnce[A], sep: Char, header: String*)(
+    implicit e: WriterEngine
+  ): Unit =
+    write(s, rows, rfc.withCellSeparator(sep).withHeader(header: _*))
 
   /** Writes the specified collections directly in the specifie `S`.
     *
@@ -55,7 +57,7 @@ trait CsvSink[-S] extends Serializable { self ⇒
     * @param conf CSV writing behaviour.
     */
   def write[A: HeaderEncoder](s: S, rows: TraversableOnce[A], conf: CsvConfiguration)(implicit e: WriterEngine): Unit =
-  writer(s, conf).write(rows).close()
+    writer(s, conf).write(rows).close()
 
   /** Turns a `CsvSink[S]` into a `CsvSink[T]`.
     *
@@ -71,6 +73,7 @@ trait CsvSink[-S] extends Serializable { self ⇒
 
 /** Provides default instances as well as instance summoning and creation methods. */
 object CsvSink {
+
   /** Summons an implicit instance of `CsvSink[A]` if one can be found.
     *
     * This is simply a convenience method. The two following calls are equivalent:

@@ -32,21 +32,16 @@ trait RfcReaderLaws {
   private def valsToCsv(csv: List[List[String]], colSep: String, rowSep: String): String =
     csv.map(_.mkString(colSep)).mkString(rowSep)
 
-
-
-
   // - RFC 4180: 2.1 ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def crlfRowSeparator(csv: List[List[Cell]]): Boolean = equals(cellsToCsv(csv, ",", "\r\n"), csv)
   def lfRowSeparator(csv: List[List[Cell]]): Boolean   = equals(cellsToCsv(csv, ",", "\n"), csv)
-
 
   // - RFC 4180: 2.2 ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def crlfEnding(csv: List[List[Cell]]): Boolean  = equals(cellsToCsv(csv, ",", "\r\n") + "\r\n", csv)
   def lfEnding(csv: List[List[Cell]]): Boolean    = equals(cellsToCsv(csv, ",", "\r\n") + "\n", csv)
   def emptyEnding(csv: List[List[Cell]]): Boolean = equals(cellsToCsv(csv, ",", "\r\n"), csv)
-
 
   // - RFC 4180: 2.4 ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -63,7 +58,6 @@ trait RfcReaderLaws {
   def trailingComma(csv: List[List[Cell]]): Boolean =
     equals(cellsToCsv(csv, ",", ",\r\n"), csv.map(_ :+ Cell.Empty))
 
-
   // - RFC 4180: 2.5 ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def unnecessaryDoubleQuotes(csv: List[List[Cell.NonEscaped]]): Boolean =
@@ -75,7 +69,6 @@ trait RfcReaderLaws {
     val corrupt = csv.map(_.map(_.map(_.trim.flatMap(_.toString + "\""))))
     equals(valsToCsv(corrupt.map(_.map(_.value)), ",", "\r\n"), corrupt)
   }
-
 
   // - RFC 4180: 2.6 ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

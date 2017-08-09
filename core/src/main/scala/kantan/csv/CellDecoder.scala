@@ -30,6 +30,7 @@ object CellDecoder extends DecoderCompanion[String, DecodeError, codecs.type] {
 
 /** All default [[CellDecoder]] instances. */
 trait CellDecoderInstances {
+
   /** Turns existing `StringDecoder` instances into [[CellDecoder]] ones.
     *
     * This provides support for most basic Scala types - `Int`, for example:

@@ -55,6 +55,7 @@ sealed abstract class ParseError(msg: String) extends ReadError(msg)
 
 /** Declares all possible values of type [[ParseError]]. */
 object ParseError {
+
   /** Error that occurs when attempting to read from an empty [[CsvReader]]. */
   case object NoSuchElement extends ParseError("trying to read from an empty reader")
 

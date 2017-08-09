@@ -16,9 +16,7 @@
 
 package kantan.csv.engine
 
-import kantan.csv._
 import kantan.csv.laws.discipline.ReaderEngineTests
-import kantan.csv.ops._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline

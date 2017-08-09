@@ -27,12 +27,18 @@ class EitherCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with 
   checkAll("CellEncoder[Either[Int, Boolean]]", SerializableTests[CellEncoder[Either[Int, Boolean]]].serializable)
   checkAll("CellDecoder[Either[Int, Boolean]]", SerializableTests[CellDecoder[Either[Int, Boolean]]].serializable)
 
-  checkAll("RowEncoder[Either[(Int, Int, Int), Boolean]]",
-    SerializableTests[RowEncoder[Either[(Int, Int, Int), Boolean]]].serializable)
-  checkAll("RowDecoder[Either[(Int, Int, Int), Boolean]]",
-    SerializableTests[RowDecoder[Either[(Int, Int, Int), Boolean]]].serializable)
+  checkAll(
+    "RowEncoder[Either[(Int, Int, Int), Boolean]]",
+    SerializableTests[RowEncoder[Either[(Int, Int, Int), Boolean]]].serializable
+  )
+  checkAll(
+    "RowDecoder[Either[(Int, Int, Int), Boolean]]",
+    SerializableTests[RowDecoder[Either[(Int, Int, Int), Boolean]]].serializable
+  )
 
   checkAll("CellCodec[Either[Int, Boolean]]", CellCodecTests[Either[Int, Boolean]].codec[Byte, Float])
-  checkAll("RowCodec[Either[(Int, Int, Int), (Boolean, Float)]]",
-    RowCodecTests[Either[(Int, Int, Int), (Boolean, Float)]].codec[Byte, String])
+  checkAll(
+    "RowCodec[Either[(Int, Int, Int), (Boolean, Float)]]",
+    RowCodecTests[Either[(Int, Int, Int), (Boolean, Float)]].codec[Byte, String]
+  )
 }
