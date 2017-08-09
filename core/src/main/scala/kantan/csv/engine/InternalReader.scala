@@ -156,7 +156,10 @@ private[engine] class InternalReader private (val data: Reader, val conf: CsvCon
 
     case _ if c.isWhitespace ⇒
       if(hasNextChar) escapedCellEnd(nextChar())
-      else            InternalReader.EOF
+      else {
+        endCell()
+        InternalReader.EOF
+      }
 
     case conf.quote ⇒ escapedCell(true)
 
