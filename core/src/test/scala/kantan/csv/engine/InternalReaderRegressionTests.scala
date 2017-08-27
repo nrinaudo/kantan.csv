@@ -18,32 +18,30 @@ package kantan.csv.engine
 
 import kantan.csv.ops._
 import kantan.csv.rfc
-import org.scalatest.FunSuite
+import org.scalatest.{FunSuite, Matchers}
 
-class InternalReaderRegressionTests extends FunSuite {
+class InternalReaderRegressionTests extends FunSuite with Matchers {
   test("cell with whitespace") {
-    assert("abc, ".unsafeReadCsv[List, List[String]](rfc) == List(List("abc", " ")))
-    assert("abc ,def".unsafeReadCsv[List, List[String]](rfc) == List(List("abc ", "def")))
+    "abc, ".unsafeReadCsv[List, List[String]](rfc) should be(List(List("abc", " ")))
+    "abc ,def".unsafeReadCsv[List, List[String]](rfc) should be(List(List("abc ", "def")))
 
-    assert("abc, \n".unsafeReadCsv[List, List[String]](rfc) == List(List("abc", " ")))
-    assert("abc ,def\n".unsafeReadCsv[List, List[String]](rfc) == List(List("abc ", "def")))
+    "abc, \n".unsafeReadCsv[List, List[String]](rfc) should be(List(List("abc", " ")))
+    "abc ,def\n".unsafeReadCsv[List, List[String]](rfc) should be(List(List("abc ", "def")))
   }
 
   test("CRLF in escaped") {
-    assert(
-      "1\r\n\"Once upon\r\na time\"".unsafeReadCsv[List, List[String]](rfc) ==
-        List(List("1"), List("Once upon\r\na time"))
+    "1\r\n\"Once upon\r\na time\"".unsafeReadCsv[List, List[String]](rfc) should be(
+      List(List("1"), List("Once upon\r\na time"))
     )
   }
 
   test("If the last cell of the last row is a quoted empty string, it should still be read (#88)") {
-    assert("\"\"".unsafeReadCsv[List, List[String]](rfc) == List(List("")))
+    "\"\"".unsafeReadCsv[List, List[String]](rfc) should be(List(List("")))
   }
 
   test("if the last cell of a row is quoted and followed by a space, it should still be read (#89)") {
-    assert(
-      """ "field1","field2","field3" """.unsafeReadCsv[List, List[String]](rfc) ==
-        List(List("field1", "field2", "field3 "))
+    """ "field1","field2","field3" """.unsafeReadCsv[List, List[String]](rfc) should be(
+      List(List("field1", "field2", "field3 "))
     )
   }
 }

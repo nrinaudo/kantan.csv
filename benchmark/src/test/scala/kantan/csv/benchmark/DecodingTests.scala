@@ -16,29 +16,29 @@
 
 package kantan.csv.benchmark
 
-import org.scalatest.FunSuite
+import org.scalatest.{FunSuite, Matchers}
 
-class DecodingTests extends FunSuite {
+class DecodingTests extends FunSuite with Matchers {
   val decoding = new Decoding
 
   test("kantan internal") {
-    assert(decoding.kantanInternal == rawData)
+    decoding.kantanInternal should be(rawData)
   }
 
   test("kantan jackson") {
-    assert(decoding.kantanJackson == rawData)
+    decoding.kantanJackson should be(rawData)
   }
 
   test("kantan commons") {
-    assert(decoding.kantanCommons == rawData)
+    decoding.kantanCommons should be(rawData)
   }
 
   test("jackson") {
-    assert(decoding.jackson == rawData)
+    decoding.jackson should be(rawData)
   }
 
   test("commons") {
-    assert(decoding.commons == rawData)
+    decoding.commons should be(rawData)
   }
 
   // TODO: broken: opencsv doesn't play nice with CRLF in quoted cells.
@@ -49,14 +49,14 @@ class DecodingTests extends FunSuite {
    */
 
   test("product-collections") {
-    assert(decoding.productCollections == rawData)
+    decoding.productCollections should be(rawData)
   }
 
   test("univocity") {
-    assert(decoding.univocity == rawData)
+    decoding.univocity should be(rawData)
   }
 
   test("scala-csv") {
-    assert(decoding.scalaCsv == rawData)
+    decoding.scalaCsv should be(rawData)
   }
 }
