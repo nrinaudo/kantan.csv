@@ -20,18 +20,18 @@ import java.io._
 import kantan.csv.laws.discipline.arbitrary._
 import kantan.csv.laws.discipline.arbitrary._
 import kantan.csv.ops._
-import org.scalatest.FunSuite
+import org.scalatest.{FunSuite, Matchers}
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import scala.io.Codec
 
-class CsvSinkTests extends FunSuite with GeneratorDrivenPropertyChecks {
+class CsvSinkTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
   test("CSV data should be correctly written to an output stream (bit by bit)") {
     forAll(csv) { csv ⇒
       val out = new ByteArrayOutputStream()
 
       csv.foldLeft(out.asCsvWriter[List[String]](rfc))(_ write _).close()
 
-      assert(new String(out.toByteArray, Codec.UTF8.charSet) == csv.asCsv(rfc))
+      new String(out.toByteArray, Codec.UTF8.charSet) should be(csv.asCsv(rfc))
     }
   }
 
@@ -41,7 +41,7 @@ class CsvSinkTests extends FunSuite with GeneratorDrivenPropertyChecks {
 
       out.writeCsv(csv, rfc)
 
-      assert(new String(out.toByteArray, Codec.UTF8.charSet) == csv.asCsv(rfc))
+      new String(out.toByteArray, Codec.UTF8.charSet) should be(csv.asCsv(rfc))
     }
   }
 
@@ -51,7 +51,7 @@ class CsvSinkTests extends FunSuite with GeneratorDrivenPropertyChecks {
 
       csv.foldLeft(out.asCsvWriter[List[String]](rfc))(_ write _).close()
 
-      assert(out.toString == csv.asCsv(rfc))
+      out.toString should be(csv.asCsv(rfc))
     }
   }
 
@@ -61,7 +61,7 @@ class CsvSinkTests extends FunSuite with GeneratorDrivenPropertyChecks {
 
       out.writeCsv(csv, rfc)
 
-      assert(out.toString == csv.asCsv(rfc))
+      out.toString should be(csv.asCsv(rfc))
     }
   }
 }

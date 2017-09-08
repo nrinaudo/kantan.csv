@@ -16,9 +16,9 @@
 
 package kantan.csv
 
-import org.scalatest.FunSuite
+import org.scalatest.{FunSuite, Matchers}
 
-class RegressionTests extends FunSuite {
+class RegressionTests extends FunSuite with Matchers {
   // - CellCodec instances for non default types (#36) -----------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   class A
@@ -50,9 +50,8 @@ class RegressionTests extends FunSuite {
   test("Trailing optional cells should decode as expected (#53)") {
     import kantan.csv.ops._
 
-    assert(
-      "1,a,100\n2,b".unsafeReadCsv[List, (Int, String, Option[Int])](rfc) ==
-        List((1, "a", Some(100)), (2, "b", None))
+    "1,a,100\n2,b".unsafeReadCsv[List, (Int, String, Option[Int])](rfc) should be(
+      List((1, "a", Some(100)), (2, "b", None))
     )
   }
 }

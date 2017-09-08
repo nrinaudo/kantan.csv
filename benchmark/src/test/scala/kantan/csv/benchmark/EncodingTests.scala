@@ -18,46 +18,46 @@ package kantan.csv.benchmark
 
 import kantan.csv.ops._
 import kantan.csv.rfc
-import org.scalatest.FunSuite
+import org.scalatest.{FunSuite, Matchers}
 
-class EncodingTests extends FunSuite {
+class EncodingTests extends FunSuite with Matchers {
   val encoding = new Encoding
 
   def decode(str: String): List[CsvEntry] = str.unsafeReadCsv[List, CsvEntry](rfc)
 
   test("kantan internal") {
-    assert(decode(encoding.kantanInternal) == rawData)
+    decode(encoding.kantanInternal) should be(rawData)
   }
 
   test("kantan jackson") {
-    assert(decode(encoding.kantanJackson) == rawData)
+    decode(encoding.kantanJackson) should be(rawData)
   }
 
   test("kantan commons") {
-    assert(decode(encoding.kantanCommons) == rawData)
+    decode(encoding.kantanCommons) should be(rawData)
   }
 
   test("jackson") {
-    assert(decode(encoding.jackson) == rawData)
+    decode(encoding.jackson) should be(rawData)
   }
 
   test("commons") {
-    assert(decode(encoding.commons) == rawData)
+    decode(encoding.commons) should be(rawData)
   }
 
   test("opencsv") {
-    assert(decode(encoding.opencsv) == rawData)
+    decode(encoding.opencsv) should be(rawData)
   }
 
   test("product-collections") {
-    assert(decode(encoding.productCollections) == rawData)
+    decode(encoding.productCollections) should be(rawData)
   }
 
   test("univocity") {
-    assert(decode(encoding.univocity) == rawData)
+    decode(encoding.univocity) should be(rawData)
   }
 
   test("scala-csv") {
-    assert(decode(encoding.scalaCsv) == rawData)
+    decode(encoding.scalaCsv) should be(rawData)
   }
 }

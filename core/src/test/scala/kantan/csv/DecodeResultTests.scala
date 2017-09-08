@@ -16,33 +16,34 @@
 
 package kantan.csv
 
+import kantan.codecs.scalatest.ResultValues
 import kantan.csv.laws.discipline.arbitrary._
-import org.scalatest.FunSuite
+import org.scalatest.{FunSuite, Matchers}
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
 @SuppressWarnings(Array("org.wartremover.warts.Throw"))
-class DecodeResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
+class DecodeResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers with ResultValues {
   test("DecodeResult.success should return a success") {
     forAll { i: Int ⇒
-      assert(DecodeResult.success(i) == Success(i))
+      DecodeResult.success(i).success.value should be(i)
     }
   }
 
   test("DecodeResult.apply should return a success on 'good' values") {
     forAll { i: Int ⇒
-      assert(DecodeResult(i) == Success(i))
+      DecodeResult(i).success.value should be(i)
     }
   }
 
   test("DecodeResult.apply should return a failure on 'bad' values") {
     forAll { e: Exception ⇒
-      assert(DecodeResult(throw e) == Failure(DecodeError.TypeError(e)))
+      DecodeResult(throw e).failure.value should be(DecodeError.TypeError(e))
     }
   }
 
   test("DecodeResult.outOfBounds should return a failure ") {
     forAll { i: Int ⇒
-      assert(DecodeResult.outOfBounds(i) == Failure(DecodeError.OutOfBounds(i)))
+      DecodeResult.outOfBounds(i).failure.value should be(DecodeError.OutOfBounds(i))
     }
   }
 }

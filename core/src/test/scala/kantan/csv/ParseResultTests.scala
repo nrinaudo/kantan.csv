@@ -16,27 +16,28 @@
 
 package kantan.csv
 
-import org.scalatest.FunSuite
+import kantan.codecs.scalatest.ResultValues
+import org.scalatest.{FunSuite, Matchers}
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
 // Shapeless' Lazy macros generate code that contain null.
 @SuppressWarnings(Array("org.wartremover.warts.Throw"))
-class ParseResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
+class ParseResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers with ResultValues {
   test("ParseResult.success should return a success") {
     forAll { i: Int ⇒
-      assert(ParseResult.success(i) == Success(i))
+      ParseResult.success(i).success.value should be(i)
     }
   }
 
   test("ParseResult.apply should return a success on 'good' values") {
     forAll { i: Int ⇒
-      assert(ParseResult(i) == Success(i))
+      ParseResult(i).success.value should be(i)
     }
   }
 
   test("ParseResult.apply should return a failure on 'bad' values") {
     forAll { e: Exception ⇒
-      assert(ParseResult(throw e) == Failure(ParseError.IOError(e)))
+      ParseResult(throw e).failure.value should be(ParseError.IOError(e))
     }
   }
 }
