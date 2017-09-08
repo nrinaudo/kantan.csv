@@ -28,6 +28,7 @@ import kantan.csv._
   * of a simple import.
   */
 trait ReaderEngine {
+
   /** Turns the specified `Reader` into a [[CsvReader]]. */
   def unsafeReaderFor(reader: Reader, conf: CsvConfiguration): CsvReader[Seq[String]]
 
@@ -41,6 +42,7 @@ trait ReaderEngine {
 
 /** Provides instance creation methods and default implementations. */
 object ReaderEngine {
+
   /** Creates a new [[ReaderEngine]] instance. */
   def from(f: (Reader, CsvConfiguration) ⇒ CsvReader[Seq[String]]): ReaderEngine = new ReaderEngine {
     override def unsafeReaderFor(reader: Reader, conf: CsvConfiguration): CsvReader[Seq[String]] = f(reader, conf)

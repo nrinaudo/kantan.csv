@@ -23,10 +23,11 @@ import imp.imp
 /** Declares various type class instances for bridging `kantan.csv` and `cats`. */
 package object cats extends kantan.codecs.cats.CatsInstances {
   implicit def foldableRowEncoder[F[_]: Foldable, A: CellEncoder]: RowEncoder[F[A]] =
-    RowEncoder.from(as ⇒ imp[Foldable[F]]
-      .foldLeft(as, Seq.newBuilder[String])((acc, a) ⇒ acc += CellEncoder[A].encode(a)).result())
-
-
+    RowEncoder.from { as ⇒
+      imp[Foldable[F]]
+        .foldLeft(as, Seq.newBuilder[String])((acc, a) ⇒ acc += CellEncoder[A].encode(a))
+        .result()
+    }
 
   // - CSV input / output ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -40,10 +41,9 @@ package object cats extends kantan.codecs.cats.CatsInstances {
     override def contramap[A, B](r: CsvSink[A])(f: B ⇒ A): CsvSink[B] = r.contramap(f)
   }
 
-
   // - ReadError -------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit val readErrorEq: Eq[ReadError] = Eq.fromUniversalEquals[ReadError]
+  implicit val readErrorEq: Eq[ReadError]     = Eq.fromUniversalEquals[ReadError]
   implicit val decodeErrorEq: Eq[DecodeError] = Eq.fromUniversalEquals[DecodeError]
-  implicit val parseErrorEq: Eq[ParseError] = Eq.fromUniversalEquals[ParseError]
+  implicit val parseErrorEq: Eq[ParseError]   = Eq.fromUniversalEquals[ParseError]
 }

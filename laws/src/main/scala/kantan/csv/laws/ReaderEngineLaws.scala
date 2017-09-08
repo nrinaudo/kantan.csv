@@ -28,14 +28,14 @@ trait ReaderEngineLaws extends RfcReaderLaws with SpectrumReaderLaws with KnownF
   def nextOnEmpty(csv: List[List[Cell]]): Boolean = {
     val data = asReader(csv)
 
-    csv.indices.foreach { _ ⇒ data.next() }
+    csv.indices.foreach(_ ⇒ data.next())
     throws(classOf[java.util.NoSuchElementException])(data.next())
   }
 
   def nextOnEmptyTake(csv: List[List[Cell]], i: Int): Boolean = {
     val data = asReader(csv).take(i)
 
-    csv.take(i).indices.foreach { _ ⇒ data.next() }
+    csv.take(i).indices.foreach(_ ⇒ data.next())
     throws(classOf[java.util.NoSuchElementException])(data.next())
   }
 
@@ -77,7 +77,7 @@ trait ReaderEngineLaws extends RfcReaderLaws with SpectrumReaderLaws with KnownF
 
   def hasDefiniteSize(csv: List[List[Cell]]): Boolean = {
     def loop[A](data: kantan.csv.CsvReader[A]): Boolean =
-      if(data.hasNext) !data.hasDefiniteSize && {data.next(); loop(data)}
+      if(data.hasNext) !data.hasDefiniteSize && { data.next(); loop(data) }
       else data.hasDefiniteSize
 
     loop(asReader(csv))
@@ -85,7 +85,7 @@ trait ReaderEngineLaws extends RfcReaderLaws with SpectrumReaderLaws with KnownF
 
   def isEmpty(csv: List[List[Cell]]): Boolean = {
     def loop[A](data: kantan.csv.CsvReader[A]): Boolean =
-      if(data.hasNext) !data.isEmpty && {data.next(); loop(data)}
+      if(data.hasNext) !data.isEmpty && { data.next(); loop(data) }
       else data.isEmpty
 
     loop(asReader(csv))

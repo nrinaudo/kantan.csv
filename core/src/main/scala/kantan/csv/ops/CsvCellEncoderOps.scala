@@ -24,6 +24,7 @@ import kantan.csv._
   * `CellDecoder[A]` in scope.
   */
 final class CsvCellEncoderOps[A: CellEncoder](val a: A) {
+
   /** Encodes a value as a CSV cell.
     *
     * For example:

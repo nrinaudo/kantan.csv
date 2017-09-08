@@ -1,4 +1,5 @@
 language: scala
+dist: trusty
 sudo: false
 cache:
   directories:
@@ -9,14 +10,13 @@ before_cache:
   - find $HOME/.ivy2 -name "ivydata-*.properties" -delete
   - find $HOME/.sbt -name "*.lock" -delete
 scala:
-  - 2.10.6
   - 2.11.11
 jdk:
   - oraclejdk7
   - oraclejdk8
 matrix:
   include:
-  - scala: 2.12.2
+  - scala: 2.12.3
     jdk: oraclejdk8
 script:
   - sbt ++$TRAVIS_SCALA_VERSION validate

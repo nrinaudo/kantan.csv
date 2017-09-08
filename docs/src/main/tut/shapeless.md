@@ -15,12 +15,6 @@ The `generic` module can be used by adding the following dependency to your `bui
 libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.2.1"
 ```
 
-If you're using Scala 2.10.x, you should also add the macro paradise plugin to your build:
-
-```scala
-libraryDependencies += compilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
-```
-
 Let's first declare the imports we'll need in the rest of this tutorial:
 
 ```tut:silent

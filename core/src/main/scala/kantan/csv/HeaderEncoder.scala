@@ -25,7 +25,7 @@ object HeaderEncoder extends GeneratedHeaderEncoders {
   def apply[A](implicit ev: HeaderEncoder[A]): HeaderEncoder[A] = macro imp.summon[HeaderEncoder[A]]
 
   implicit def defaultHeaderEncoder[A: RowEncoder]: HeaderEncoder[A] = new HeaderEncoder[A] {
-    override val header = None
+    override val header     = None
     override val rowEncoder = RowEncoder[A]
   }
 }

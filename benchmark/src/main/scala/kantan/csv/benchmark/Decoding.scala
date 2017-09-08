@@ -55,13 +55,12 @@ class Decoding {
   def scalaCsv: List[CsvEntry] = Decoding.scalaCsv(strData)
 }
 
-
 object Decoding {
   // - Helpers ---------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   @SuppressWarnings(Array("org.wartremover.warts.Var"))
   class CsvIterator[A](iterator: A)(f: A ⇒ Array[String]) extends Iterator[CsvEntry] {
-    private var n = f(iterator)
+    private var n                 = f(iterator)
     override def hasNext: Boolean = n != null
     override def next(): CsvEntry = {
       val temp = n
@@ -72,7 +71,6 @@ object Decoding {
 
   def toTuple(row: Array[String]): CsvEntry = (row(0).toInt, row(1), row(2).toBoolean, row(3).toFloat)
 
-
   // - Benchmarks ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def kantan(str: String)(implicit e: ReaderEngine): List[CsvEntry] =
@@ -81,7 +79,8 @@ object Decoding {
   // Note: we must call trim on the input since product-collections does not accept the last row ending with a line
   // break. I believe that to be a bug.
   def productCollections(str: String): List[CsvEntry] =
-    com.github.marklister.collections.io.CsvParser[Int, String, Boolean, Float]
+    com.github.marklister.collections.io
+      .CsvParser[Int, String, Boolean, Float]
       .iterator(new StringReader(str.trim))
       .toList
 
@@ -100,12 +99,11 @@ object Decoding {
   }
 
   @SuppressWarnings(Array("org.wartremover.warts.Null"))
-  def jackson(str: String): List[CsvEntry] = {
-    new CsvIterator(engine.jackson.defaultMappingIteratorBuilder(new StringReader(str), rfc))(it ⇒
+  def jackson(str: String): List[CsvEntry] =
+    new CsvIterator(engine.jackson.defaultMappingIteratorBuilder(new StringReader(str), rfc))({ it ⇒
       if(it.hasNext) it.next()
       else null
-    ).toList
-  }
+    }).toList
 
   val univocitySettings: CsvParserSettings = {
     val settings = new com.univocity.parsers.csv.CsvParserSettings

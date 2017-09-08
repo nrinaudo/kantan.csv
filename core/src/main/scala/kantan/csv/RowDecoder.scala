@@ -34,6 +34,7 @@ import kantan.codecs.collection.HasBuilder
   * can automatically derive valid instances for a lot of common scenarios.
   */
 object RowDecoder extends GeneratedRowDecoders with DecoderCompanion[Seq[String], DecodeError, codecs.type] {
+
   /** Decodes the cell found at the specified index of `ss` into the requested type.
     *
     * For example:
@@ -46,10 +47,10 @@ object RowDecoder extends GeneratedRowDecoders with DecoderCompanion[Seq[String]
     * }}}
     */
   def decodeCell[A: CellDecoder](ss: Seq[String], i: Int): DecodeResult[A] =
-    if(ss.isDefinedAt(i))   CellDecoder[A].decode(ss(i))
+    if(ss.isDefinedAt(i)) CellDecoder[A].decode(ss(i))
     // Special case, see https://github.com/nrinaudo/kantan.csv/issues/53
     else if(i == ss.length) CellDecoder[A].decode("")
-    else                    DecodeResult.outOfBounds(i)
+    else DecodeResult.outOfBounds(i)
 
   /** Provides a [[RowDecoder]] instance that decodes a single cell from each row.
     *
@@ -65,6 +66,7 @@ object RowDecoder extends GeneratedRowDecoders with DecoderCompanion[Seq[String]
 
 /** Provides reasonable default [[RowDecoder]] instances for various types. */
 trait RowDecoderInstances {
+
   /** Turns a [[CellDecoder]] into a [[RowDecoder]], for rows that contain a single value.
     *
     * This provides default behaviour for [[RowDecoder.field]] by decoding the first cell.
@@ -86,9 +88,10 @@ trait RowDecoderInstances {
     * }}}
     */
   implicit def hasBuilderRowDecoder[A: CellDecoder, F[_]](implicit hb: HasBuilder[F, A]): RowDecoder[F[A]] =
-    RowDecoder.from(_.foldLeft(DecodeResult(hb.newBuilder)) { (racc, s) ⇒ for {
-      acc ← racc
-      a   ← CellDecoder[A].decode(s)
-    } yield acc += a
+    RowDecoder.from(_.foldLeft(DecodeResult(hb.newBuilder)) { (racc, s) ⇒
+      for {
+        acc ← racc
+        a   ← CellDecoder[A].decode(s)
+      } yield acc += a
     }.map(_.result()))
 }

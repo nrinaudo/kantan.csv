@@ -37,6 +37,7 @@ object RowEncoder extends GeneratedRowEncoders with EncoderCompanion[Seq[String]
 
 /** Provides reasonable default [[RowEncoder]] instances for various types. */
 trait RowEncoderInstances {
+
   /** Turns a [[CellEncoder]] into a [[RowEncoder]], for rows that contain a single value.
     *
     * {{{
@@ -56,5 +57,5 @@ trait RowEncoderInstances {
     * }}}
     */
   implicit def traversable[A: CellEncoder, M[X] <: TraversableOnce[X]]: RowEncoder[M[A]] =
-    RowEncoder .from(_.foldLeft(Seq.newBuilder[String])((acc, a) ⇒ acc += CellEncoder[A].encode(a)).result())
+    RowEncoder.from(_.foldLeft(Seq.newBuilder[String])((acc, a) ⇒ acc += CellEncoder[A].encode(a)).result())
 }

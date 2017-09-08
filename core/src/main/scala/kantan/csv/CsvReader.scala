@@ -24,21 +24,20 @@ import kantan.csv.engine.ReaderEngine
 /** Provides instance creation and summoning methods. */
 object CsvReader {
   @deprecated("use apply(Reader, CsvConfiguration) instead", "0.1.18")
-  def apply[A: HeaderDecoder](reader: Reader, sep: Char, header: Boolean)
-                          (implicit e: ReaderEngine): CsvReader[ReadResult[A]] =
+  def apply[A: HeaderDecoder](reader: Reader, sep: Char, header: Boolean)(
+    implicit e: ReaderEngine
+  ): CsvReader[ReadResult[A]] =
     CsvReader(reader, rfc.withCellSeparator(sep).withHeader(header))
 
   /** Opens a [[CsvReader]] on the specified `Reader`. */
-  def apply[A: HeaderDecoder](reader: Reader, conf: CsvConfiguration)
-              (implicit e: ReaderEngine): CsvReader[ReadResult[A]] = {
+  def apply[A: HeaderDecoder](reader: Reader,
+                              conf: CsvConfiguration)(implicit e: ReaderEngine): CsvReader[ReadResult[A]] = {
     val data: CsvReader[ReadResult[Seq[String]]] = e.readerFor(reader, conf)
 
     val decoder =
       if(conf.hasHeader && data.hasNext) data.next.flatMap(header ⇒ HeaderDecoder[A].fromHeader(header.map(_.trim)))
-      else                               Success(HeaderDecoder[A].noHeader)
+      else Success(HeaderDecoder[A].noHeader)
 
     decoder.map(d ⇒ data.map(_.flatMap(d.decode))).valueOr(error ⇒ ResourceIterator(Result.failure(error)))
-
-
   }
 }

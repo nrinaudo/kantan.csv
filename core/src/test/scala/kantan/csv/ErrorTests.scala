@@ -16,9 +16,9 @@
 
 package kantan.csv
 
-import kantan.csv.laws.discipline.arbitrary._
 import kantan.csv.DecodeError.TypeError
 import kantan.csv.ParseError.IOError
+import kantan.csv.laws.discipline.arbitrary._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
@@ -42,7 +42,7 @@ class ErrorTests extends FunSuite with GeneratorDrivenPropertyChecks {
     forAll { (e1: IOError, e2: ReadError) ⇒
       assert((e1 == e2) == ((e1, e2) match {
         case (IOError(t1), IOError(t2)) ⇒ t1 == t2
-        case _                            ⇒ false
+        case _                          ⇒ false
       }))
     }
   }

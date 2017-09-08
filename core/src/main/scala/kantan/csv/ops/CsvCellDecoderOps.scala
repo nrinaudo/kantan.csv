@@ -25,6 +25,7 @@ import kantan.csv._
   *  - [[unsafeDecodeCsv]]
   */
 final class CsvCellDecoderOps(val s: String) {
+
   /** Decodes a CSV cell as a value of type `A`.
     *
     *  For example:

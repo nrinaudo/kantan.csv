@@ -1,8 +1,6 @@
 kantanProject in ThisBuild := "csv"
 startYear in ThisBuild     := Some(2015)
 
-
-
 // - root projects -----------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 lazy val root = Project(id = "kantan-csv", base = file("."))
@@ -10,7 +8,7 @@ lazy val root = Project(id = "kantan-csv", base = file("."))
   .enablePlugins(UnpublishedPlugin)
   .settings(
     initialCommands in console :=
-    """
+      """
       |import kantan.csv._
       |import kantan.csv.ops._
       |import kantan.csv.generic._
@@ -23,8 +21,9 @@ lazy val root = Project(id = "kantan-csv", base = file("."))
 
 lazy val docs = project
   .enablePlugins(DocumentationPlugin)
-  .settings(unidocProjectFilter in (ScalaUnidoc, unidoc) :=
-    inAnyProject -- inProjectsIf(!java8Supported)(java8) -- inProjects(benchmark)
+  .settings(
+    unidocProjectFilter in (ScalaUnidoc, unidoc) :=
+      inAnyProject -- inProjectsIf(!java8Supported)(java8) -- inProjects(benchmark)
   )
   .dependsOn(core, laws, cats, scalaz, generic, jackson, commons, jodaTime)
   .dependsOnIf(java8Supported)(java8)
@@ -32,15 +31,15 @@ lazy val docs = project
 lazy val benchmark = project
   .enablePlugins(UnpublishedPlugin, JmhPlugin)
   .dependsOn(core, jackson, commons)
-  .settings(libraryDependencies ++= Seq(
-    "com.github.marklister" %% "product-collections" % Versions.productCollection,
-    "com.opencsv"           %  "opencsv"             % Versions.opencsv,
-    "com.univocity"         %  "univocity-parsers"   % Versions.univocity,
-    "com.github.tototoshi"  %% "scala-csv"           % Versions.scalaCsv,
-    "org.scalatest"         %% "scalatest"           % Versions.scalatest % "test"
-  ))
-
-
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.github.marklister" %% "product-collections" % Versions.productCollection,
+      "com.opencsv"           % "opencsv"              % Versions.opencsv,
+      "com.univocity"         % "univocity-parsers"    % Versions.univocity,
+      "com.github.tototoshi"  %% "scala-csv"           % Versions.scalaCsv,
+      "org.scalatest"         %% "scalatest"           % Versions.scalatest % "test"
+    )
+  )
 
 // - core projects -----------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -54,13 +53,15 @@ lazy val core = project
   // "optimised" behaviour.
   .settings(scalacOptions ++= (CrossVersion.partialVersion(scalaVersion.value) match {
     case Some((_, x)) if x == 12 ⇒ Seq("-Ydelambdafy:inline")
-    case _             ⇒ Seq.empty
-   }))
+    case _                       ⇒ Seq.empty
+  }))
   .enablePlugins(PublishedPlugin, spray.boilerplate.BoilerplatePlugin)
-  .settings(libraryDependencies ++= Seq(
-    "com.nrinaudo" %% "kantan.codecs" % Versions.kantanCodecs,
-    "org.scalatest" %% "scalatest"    % Versions.scalatest     % "test"
-  ))
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.nrinaudo"  %% "kantan.codecs" % Versions.kantanCodecs,
+      "org.scalatest" %% "scalatest"     % Versions.scalatest % "test"
+    )
+  )
   .laws("laws")
 
 lazy val laws = project
@@ -72,8 +73,6 @@ lazy val laws = project
   .dependsOn(core)
   .settings(libraryDependencies += "com.nrinaudo" %% "kantan.codecs-laws" % Versions.kantanCodecs)
 
-
-
 // - external engines projects -----------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 lazy val jackson = project
@@ -83,10 +82,12 @@ lazy val jackson = project
   )
   .enablePlugins(PublishedPlugin)
   .dependsOn(core, laws % "test")
-  .settings(libraryDependencies ++= Seq(
-    "com.fasterxml.jackson.dataformat" %  "jackson-dataformat-csv" % Versions.jacksonCsv,
-    "org.scalatest"                    %% "scalatest"              % Versions.scalatest % "test"
-  ))
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.fasterxml.jackson.dataformat" % "jackson-dataformat-csv" % Versions.jacksonCsv,
+      "org.scalatest"                    %% "scalatest"             % Versions.scalatest % "test"
+    )
+  )
 
 lazy val commons = project
   .settings(
@@ -95,12 +96,12 @@ lazy val commons = project
   )
   .enablePlugins(PublishedPlugin)
   .dependsOn(core, laws % "test")
-  .settings(libraryDependencies ++= Seq(
-    "org.apache.commons" %  "commons-csv" % Versions.commonsCsv,
-    "org.scalatest"      %% "scalatest"   % Versions.scalatest % "test"
-  ))
-
-
+  .settings(
+    libraryDependencies ++= Seq(
+      "org.apache.commons" % "commons-csv" % Versions.commonsCsv,
+      "org.scalatest"      %% "scalatest"  % Versions.scalatest % "test"
+    )
+  )
 
 // - shapeless projects ------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -111,13 +112,13 @@ lazy val generic = project
   )
   .enablePlugins(PublishedPlugin)
   .dependsOn(core, laws % "test")
-  .settings(libraryDependencies ++= Seq(
-    "com.nrinaudo"  %% "kantan.codecs-shapeless"      % Versions.kantanCodecs,
-    "org.scalatest" %% "scalatest"                    % Versions.scalatest    % "test",
-    "com.nrinaudo"  %% "kantan.codecs-shapeless-laws" % Versions.kantanCodecs % "test"
-  ))
-
-
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.nrinaudo"  %% "kantan.codecs-shapeless"      % Versions.kantanCodecs,
+      "org.scalatest" %% "scalatest"                    % Versions.scalatest % "test",
+      "com.nrinaudo"  %% "kantan.codecs-shapeless-laws" % Versions.kantanCodecs % "test"
+    )
+  )
 
 // - scalaz projects ---------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -128,13 +129,13 @@ lazy val scalaz = project
   )
   .enablePlugins(PublishedPlugin)
   .dependsOn(core, laws % "test")
-  .settings(libraryDependencies ++= Seq(
-    "com.nrinaudo"  %% "kantan.codecs-scalaz"         % Versions.kantanCodecs,
-    "org.scalatest" %% "scalatest"                    % Versions.scalatest    % "test",
-    "com.nrinaudo"  %% "kantan.codecs-scalaz-laws"    % Versions.kantanCodecs % "test"
-  ))
-
-
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.nrinaudo"  %% "kantan.codecs-scalaz"      % Versions.kantanCodecs,
+      "org.scalatest" %% "scalatest"                 % Versions.scalatest % "test",
+      "com.nrinaudo"  %% "kantan.codecs-scalaz-laws" % Versions.kantanCodecs % "test"
+    )
+  )
 
 // - cats projects -----------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -145,13 +146,13 @@ lazy val cats = project
   )
   .enablePlugins(PublishedPlugin)
   .dependsOn(core, laws % "test")
-  .settings(libraryDependencies ++= Seq(
-    "com.nrinaudo"  %% "kantan.codecs-cats"           % Versions.kantanCodecs,
-    "org.scalatest" %% "scalatest"                    % Versions.scalatest    % "test",
-    "com.nrinaudo"  %% "kantan.codecs-cats-laws"      % Versions.kantanCodecs % "test"
-  ))
-
-
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.nrinaudo"  %% "kantan.codecs-cats"      % Versions.kantanCodecs,
+      "org.scalatest" %% "scalatest"               % Versions.scalatest % "test",
+      "com.nrinaudo"  %% "kantan.codecs-cats-laws" % Versions.kantanCodecs % "test"
+    )
+  )
 
 // - joda-time projects ------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -162,31 +163,35 @@ lazy val jodaTime = Project(id = "joda-time", base = file("joda-time"))
   )
   .enablePlugins(PublishedPlugin)
   .dependsOn(core, laws % "test")
-  .settings(libraryDependencies ++= Seq(
-    "com.nrinaudo"  %% "kantan.codecs-joda-time"      % Versions.kantanCodecs,
-    "org.scalatest" %% "scalatest"                    % Versions.scalatest    % "test",
-    "com.nrinaudo"  %% "kantan.codecs-joda-time-laws" % Versions.kantanCodecs % "test"
-  ))
-
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.nrinaudo"  %% "kantan.codecs-joda-time"      % Versions.kantanCodecs,
+      "org.scalatest" %% "scalatest"                    % Versions.scalatest % "test",
+      "com.nrinaudo"  %% "kantan.codecs-joda-time-laws" % Versions.kantanCodecs % "test"
+    )
+  )
 
 // - java8 projects ----------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 lazy val java8 = project
   .settings(
-    moduleName    := "kantan.csv-java8",
-    name          := "java8"
+    moduleName := "kantan.csv-java8",
+    name       := "java8"
   )
   .enablePlugins(PublishedPlugin)
   .dependsOn(core, laws % "test")
-  .settings(libraryDependencies ++= Seq(
-    "com.nrinaudo"  %% "kantan.codecs-java8"      % Versions.kantanCodecs,
-    "com.nrinaudo"  %% "kantan.codecs-java8-laws" % Versions.kantanCodecs % "test",
-    "org.scalatest" %% "scalatest"                % Versions.scalatest    % "test"
-  ))
-
-
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.nrinaudo"  %% "kantan.codecs-java8"      % Versions.kantanCodecs,
+      "com.nrinaudo"  %% "kantan.codecs-java8-laws" % Versions.kantanCodecs % "test",
+      "org.scalatest" %% "scalatest"                % Versions.scalatest % "test"
+    )
+  )
 
 // - Command alisases --------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-addCommandAlias("runBench",    "benchmark/jmh:run -i 10 -wi 10 -f 2 -t 1 -rf csv -rff benchmarks.csv")
-addCommandAlias("runProfiler", "benchmark/jmh:run -i 10 -wi 5 -f 1 -t 1 -o profiler.txt -prof stack:detailLine=true;lines=5;period=1 kantan.csv.benchmark.*kantan.*")
+addCommandAlias("runBench", "benchmark/jmh:run -i 10 -wi 10 -f 2 -t 1 -rf csv -rff benchmarks.csv")
+addCommandAlias(
+  "runProfiler",
+  "benchmark/jmh:run -i 10 -wi 5 -f 1 -t 1 -o profiler.txt -prof stack:detailLine=true;lines=5;period=1 kantan.csv.benchmark.*kantan.*"
+)

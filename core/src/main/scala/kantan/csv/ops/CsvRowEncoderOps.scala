@@ -24,6 +24,7 @@ import kantan.csv._
   * `RowEncoder[A]` in scope.
   */
 final class CsvRowEncoderOps[A: RowEncoder](val a: A) {
+
   /** Encodes a value as a CSV row.
     *
     * For example:

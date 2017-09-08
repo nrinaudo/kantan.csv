@@ -32,6 +32,7 @@ import scala.collection.generic.CanBuildFrom
   * See the [[CsvSource$ companion object]] for default implementations and construction methods.
   */
 trait CsvSource[-S] extends Serializable { self ⇒
+
   /** Turns the specified `S` into a `Reader`.
     *
     * Implementations of this method *must* be safe: all non-fatal exceptions should be caught and wrapped in an
@@ -61,9 +62,9 @@ trait CsvSource[-S] extends Serializable { self ⇒
     * @param conf CSV parsing behaviour.
     * @tparam A type to parse each row as. This must have a corresponding implicit [[HeaderDecoder]] instance in scope.
     */
-  def reader[A: HeaderDecoder](s: S, conf: CsvConfiguration)(implicit e: ReaderEngine)
-  : CsvReader[ReadResult[A]] =
-    open(s).map(reader ⇒ CsvReader(reader, conf))
+  def reader[A: HeaderDecoder](s: S, conf: CsvConfiguration)(implicit e: ReaderEngine): CsvReader[ReadResult[A]] =
+    open(s)
+      .map(reader ⇒ CsvReader(reader, conf))
       .valueOr(error ⇒ ResourceIterator(Result.failure(error)))
 
   @deprecated("use unsafeReader(S, CsvConfiguration) instead", "0.1.18")
@@ -88,16 +89,17 @@ trait CsvSource[-S] extends Serializable { self ⇒
   @SuppressWarnings(Array("org.wartremover.warts.Throw"))
   def unsafeReader[A: HeaderDecoder](s: S, conf: CsvConfiguration)(implicit engine: ReaderEngine): CsvReader[A] =
     reader[A](s, conf).map(_.valueOr {
-      case e@TypeError(msg)   ⇒ throw Option(e.getCause).getOrElse(new IllegalArgumentException(msg))
+      case e @ TypeError(msg) ⇒ throw Option(e.getCause).getOrElse(new IllegalArgumentException(msg))
       case NoSuchElement      ⇒ throw new NoSuchElementException
-      case e@IOError(msg)     ⇒ throw Option(e.getCause).getOrElse(new IOException(msg))
+      case e @ IOError(msg)   ⇒ throw Option(e.getCause).getOrElse(new IOException(msg))
       case OutOfBounds(index) ⇒ throw new ArrayIndexOutOfBoundsException(index)
     })
 
   @deprecated("use read(S, CsvConfiguration) instead", "0.1.18")
-  def read[C[_], A: HeaderDecoder](s: S, sep: Char, header: Boolean)
-                                  (implicit e: ReaderEngine,
-                                   cbf: CanBuildFrom[Nothing, ReadResult[A], C[ReadResult[A]]]): C[ReadResult[A]] =
+  def read[C[_], A: HeaderDecoder](s: S, sep: Char, header: Boolean)(
+    implicit e: ReaderEngine,
+    cbf: CanBuildFrom[Nothing, ReadResult[A], C[ReadResult[A]]]
+  ): C[ReadResult[A]] =
     read(s, rfc.withCellSeparator(sep).withHeader(header))
 
   /** Reads the entire CSV data into a collection.
@@ -118,14 +120,15 @@ trait CsvSource[-S] extends Serializable { self ⇒
     * @tparam C collection type in which to parse the specified `S`.
     * @tparam A type in which to parse each row.
     */
-  def read[C[_], A: HeaderDecoder](s: S, conf: CsvConfiguration)
-                                  (implicit e: ReaderEngine,
-                                   cbf: CanBuildFrom[Nothing, ReadResult[A], C[ReadResult[A]]]): C[ReadResult[A]] =
+  def read[C[_], A: HeaderDecoder](
+    s: S,
+    conf: CsvConfiguration
+  )(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, ReadResult[A], C[ReadResult[A]]]): C[ReadResult[A]] =
     reader(s, conf).to[C]
 
   @deprecated("use unsafeRead(S, CsvConfiguration) instead", "0.1.18")
-  def unsafeRead[C[_], A: HeaderDecoder](s: S, sep: Char, header: Boolean)
-                                        (implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, A, C[A]]): C[A] =
+  def unsafeRead[C[_], A: HeaderDecoder](s: S, sep: Char, header: Boolean)(implicit e: ReaderEngine,
+                                                                           cbf: CanBuildFrom[Nothing, A, C[A]]): C[A] =
     unsafeRead(s, rfc.withCellSeparator(sep).withHeader(header))
 
   /** Reads the entire CSV data into a collection.
@@ -144,10 +147,9 @@ trait CsvSource[-S] extends Serializable { self ⇒
     * @tparam C collection type in which to parse the specified `S`.
     * @tparam A type in which to parse each row.
     */
-  def unsafeRead[C[_], A: HeaderDecoder](s: S, conf: CsvConfiguration)
-                                        (implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, A, C[A]]): C[A] =
+  def unsafeRead[C[_], A: HeaderDecoder](s: S, conf: CsvConfiguration)(implicit e: ReaderEngine,
+                                                                       cbf: CanBuildFrom[Nothing, A, C[A]]): C[A] =
     unsafeReader(s, conf).to[C]
-
 
   /** Turns an instance of `CsvSource[S]` into one of `CsvSource[T]`.
     *
@@ -202,6 +204,7 @@ trait CsvSource[-S] extends Serializable { self ⇒
   * your implementation.
   */
 object CsvSource {
+
   /** Summons an implicit instance of `CsvSource[A]` if one can be found.
     *
     * This is basically a less verbose, slightly faster version of `implicitly`.

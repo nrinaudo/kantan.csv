@@ -20,7 +20,6 @@ project/plugins/project/
 .ensime
 .ensime_cache
 
-
 # Intellij
 .idea/
 *.iml
@@ -28,3 +27,7 @@ project/plugins/project/
 
 # Mac
 .DS_Store
+
+# Auto-generated files
+.scalafmt.conf
+scalastyle-config.xml

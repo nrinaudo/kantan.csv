@@ -38,4 +38,3 @@ class RegressionTests extends FunSuite {
     Test
   }
 }
-

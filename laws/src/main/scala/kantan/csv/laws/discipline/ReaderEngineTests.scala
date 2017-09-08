@@ -25,9 +25,9 @@ trait ReaderEngineTests extends RfcReaderTests with SpectrumReaderTests with Kno
   def laws: ReaderEngineLaws
 
   def readerEngine: RuleSet = new RuleSet {
-    def name: String = "readerEngine"
+    def name: String                  = "readerEngine"
     def bases: Seq[(String, RuleSet)] = Nil
-    def parents: Seq[RuleSet] = Seq(rfc4180, csvSpectrum, knownFormats)
+    def parents: Seq[RuleSet]         = Seq(rfc4180, csvSpectrum, knownFormats)
     def props: Seq[(String, Prop)] = Seq(
       "drop"                 → forAll(laws.drop _),
       "dropWhile"            → forAll(laws.dropWhile _),

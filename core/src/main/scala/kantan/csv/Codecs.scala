@@ -18,4 +18,3 @@ package kantan.csv
 
 /** Defines default instances for [[CellEncoder]], [[CellDecoder]], [[RowEncoder]] and [[RowDecoder]]. */
 object codecs extends CellCodecInstances with RowCodecInstances with TupleInstances
-

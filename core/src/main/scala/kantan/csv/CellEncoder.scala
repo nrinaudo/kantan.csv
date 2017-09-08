@@ -29,6 +29,7 @@ object CellEncoder extends EncoderCompanion[String, codecs.type] {
 
 /** All default [[CellEncoder]] instances. */
 trait CellEncoderInstances {
+
   /** Turns existing `StringEncoder` instances into [[CellEncoder]] ones.
     *
     * This provides support for most basic Scala types - `Int`, for example:

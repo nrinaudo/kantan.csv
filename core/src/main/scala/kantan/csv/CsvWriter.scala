@@ -27,6 +27,7 @@ import kantan.csv.engine._
   * @tparam A type of values that will be encoded as CSV.
   */
 trait CsvWriter[A] extends Closeable { self ⇒
+
   /** Encodes and writes a single `A`. */
   def write(a: A): CsvWriter[A]
 
@@ -56,9 +57,8 @@ trait CsvWriter[A] extends Closeable { self ⇒
 /** Provides useful instance creation methods. */
 object CsvWriter {
   @deprecated("use apply(writer, CsvConfiguration) instead", "0.1.18")
-  def apply[A: HeaderEncoder](writer: Writer, sep: Char, header: String*)
-                (implicit engine: WriterEngine): CsvWriter[A] =
-    CsvWriter(writer, rfc.withCellSeparator(sep).withHeader(header:_*))
+  def apply[A: HeaderEncoder](writer: Writer, sep: Char, header: String*)(implicit engine: WriterEngine): CsvWriter[A] =
+    CsvWriter(writer, rfc.withCellSeparator(sep).withHeader(header: _*))
 
   /** Creates a new [[CsvWriter]] instance that will send encoded data to the specified `Writer`.
     *

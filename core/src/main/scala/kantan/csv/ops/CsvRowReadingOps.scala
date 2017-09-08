@@ -21,6 +21,7 @@ import kantan.csv.engine.ReaderEngine
 
 /** Provides syntax for decoding a string as a CSV row. */
 final class CsvRowReadingOps[A: CsvSource](a: A) {
+
   /** Parses a string as a single CSV row.
     *
     * For example:
@@ -37,7 +38,7 @@ final class CsvRowReadingOps[A: CsvSource](a: A) {
     reader.next.flatMap { res ⇒
       // Slight abuse of `no such element` to mean that we're not working with a single row.
       if(reader.hasNext) ParseResult.noSuchElement
-      else               ReadResult.success(res)
+      else ReadResult.success(res)
     }
   }
 
