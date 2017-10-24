@@ -13,11 +13,12 @@ lazy val root = Project(id = "kantan-csv", base = file("."))
       |import kantan.csv.ops._
       |import kantan.csv.generic._
       |import kantan.csv.joda.time._
+      |import kantan.csv.refined._
     """.stripMargin
   )
-  .aggregate(core, cats, scalaz, laws, docs, generic, benchmark, jackson, commons, jodaTime)
+  .aggregate(core, cats, scalaz, laws, docs, generic, benchmark, jackson, commons, jodaTime, refined)
   .aggregateIf(java8Supported)(java8)
-  .dependsOn(core, generic, jodaTime)
+  .dependsOn(core, generic, jodaTime, refined)
 
 lazy val docs = project
   .enablePlugins(DocumentationPlugin)
@@ -25,7 +26,7 @@ lazy val docs = project
     unidocProjectFilter in (ScalaUnidoc, unidoc) :=
       inAnyProject -- inProjectsIf(!java8Supported)(java8) -- inProjects(benchmark)
   )
-  .dependsOn(core, laws, cats, scalaz, generic, jackson, commons, jodaTime)
+  .dependsOn(core, laws, cats, scalaz, generic, jackson, commons, jodaTime, refined)
   .dependsOnIf(java8Supported)(java8)
 
 lazy val benchmark = project
@@ -185,6 +186,23 @@ lazy val java8 = project
       "com.nrinaudo" %% "kantan.codecs-java8"      % Versions.kantanCodecs,
       "com.nrinaudo" %% "kantan.codecs-java8-laws" % Versions.kantanCodecs % "test",
       "com.nrinaudo" %% "kantan.codecs-scalatest"  % Versions.kantanCodecs % "test"
+    )
+  )
+
+// - refined project ---------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+lazy val refined = project
+  .settings(
+    moduleName := "kantan.xpath-refined",
+    name       := "refined"
+  )
+  .enablePlugins(PublishedPlugin)
+  .dependsOn(core, laws % "test")
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.nrinaudo" %% "kantan.codecs-refined"      % Versions.kantanCodecs,
+      "com.nrinaudo" %% "kantan.codecs-refined-laws" % Versions.kantanCodecs % "test",
+      "com.nrinaudo" %% "kantan.codecs-scalatest"    % Versions.kantanCodecs % "test"
     )
   )
 
