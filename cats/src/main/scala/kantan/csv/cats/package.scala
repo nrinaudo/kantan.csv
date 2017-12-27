@@ -17,7 +17,6 @@
 package kantan.csv
 
 import _root_.cats._
-import _root_.cats.functor.Contravariant
 import imp.imp
 
 /** Declares various type class instances for bridging `kantan.csv` and `cats`. */
