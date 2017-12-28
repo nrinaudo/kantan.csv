@@ -11,13 +11,10 @@ before_cache:
   - find $HOME/.sbt -name "*.lock" -delete
 scala:
   - 2.11.12
+  - 2.12.4
 jdk:
-  - oraclejdk7
   - oraclejdk8
-matrix:
-  include:
-  - scala: 2.12.4
-    jdk: oraclejdk8
+  - openjdk8
 script:
   - sbt ++$TRAVIS_SCALA_VERSION validate
 before_install:
