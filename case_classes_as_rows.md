@@ -40,15 +40,6 @@ And, through the magic of automatic type class instance derivation, everything w
 
 ```scala
 scala> scala.io.Source.fromFile(out).mkString
-<console>:10: warning: Unused import
-       import kantan.csv._
-                         ^
-<console>:13: warning: Unused import
-       import kantan.csv.ops._
-                             ^
-<console>:16: warning: Unused import
-       import kantan.csv.generic._
-                                 ^
 res5: String =
 "Column 1,Column 2,Column 3
 0,Nicolas,38
@@ -75,12 +66,6 @@ And to check whether that worked out, let's use another helper function: most Sc
 
 ```scala
 scala> ps.asCsv(rfc)
-<console>:11: warning: Unused import
-       import kantan.csv._
-                         ^
-<console>:17: warning: Unused import
-       import kantan.csv.generic._
-                                 ^
 res6: String =
 "0,38,Nicolas
 1,1,Kazuma

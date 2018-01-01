@@ -41,15 +41,6 @@ Now that we have serialised our data, let's make sure it comes out the way we ex
 
 ```scala
 scala> scala.io.Source.fromFile(out).mkString
-<console>:10: warning: Unused import
-       import kantan.csv._
-                         ^
-<console>:13: warning: Unused import
-       import kantan.csv.ops._
-                             ^
-<console>:16: warning: Unused import
-       import kantan.csv.generic._
-                                 ^
 res6: String =
 "Id,Name,Age
 0,Nicolas,38

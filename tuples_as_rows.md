@@ -45,12 +45,6 @@ Let's make sure that we got the expected output:
 
 ```scala
 scala> scala.io.Source.fromFile(out).mkString
-<console>:10: warning: Unused import
-       import kantan.csv._
-                         ^
-<console>:13: warning: Unused import
-       import kantan.csv.ops._
-                             ^
 res6: String =
 "Column 1,Column 2,Column 3
 0,1.0,false

@@ -16,7 +16,7 @@ implicit instance of [`CellEncoder[A]`][`CellEncoder`] in scope. All sane primit
 
 ```scala
 scala> implicitly[kantan.csv.CellEncoder[Int]]
-res0: kantan.csv.CellEncoder[Int] = kantan.codecs.Codec$$anon$1@565c5a44
+res0: kantan.csv.CellEncoder[Int] = kantan.codecs.Codec$$anon$1@914a182
 ```
 
 A more complete list of default instances can be found [here](default_instances.html)
@@ -26,18 +26,9 @@ it looks for a corresponding implicit [`CellEncoder`] and relies on it for encod
 
 ```scala
 scala> import kantan.csv._
-<console>:12: warning: Unused import
-       import kantan.csv._
-                         ^
 import kantan.csv._
 
 scala> import kantan.csv.ops._
-<console>:10: warning: Unused import
-       import kantan.csv._
-                         ^
-<console>:15: warning: Unused import
-       import kantan.csv.ops._
-                             ^
 import kantan.csv.ops._
 
 scala> List(List(1, 2, 3), List(4, 5, 6)).asCsv(rfc)
@@ -70,15 +61,9 @@ scala> List(
      |   List(new DateTime(), new DateTime().plusDays(1)),
      |   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
      | ).asCsv(rfc)
-<console>:10: warning: Unused import
-       import kantan.csv._
-                         ^
-<console>:19: warning: Unused import
-       import org.joda.time.format.ISODateTimeFormat
-                                   ^
 res3: String =
-"2017-12-29,2017-12-30
-2017-12-31,2018-01-01
+"2018-01-01,2018-01-02
+2018-01-03,2018-01-04
 "
 ```
 

@@ -49,12 +49,6 @@ And now that we have a [`CsvReader`] on the data, we can simply iterate through 
 
 ```scala
 scala> reader.foreach(println _)
-<console>:10: warning: Unused import
-       import kantan.csv._
-                         ^
-<console>:13: warning: Unused import
-       import kantan.csv.ops._
-                             ^
 Success((1997,Ford,E350,Some(ac, abs, moon),3000.0))
 Success((1999,Chevy,Venture "Extended Edition",None,4900.0))
 Success((1999,Chevy,Venture "Extended Edition, Very Large",None,5000.0))

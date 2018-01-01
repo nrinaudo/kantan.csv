@@ -44,9 +44,6 @@ scala> val res = input.unsafeReadCsv[List, (Int, LocalDate)](rfc)
 res: List[(Int, org.joda.time.LocalDate)] = List((1,1978-12-10), (2,2015-01-09))
 
 scala> res.asCsv(rfc)
-<console>:19: warning: Unused import
-       import org.joda.time._
-                            ^
 res1: String =
 "1,1978-12-10
 2,2015-01-09
@@ -74,12 +71,6 @@ And we're done:
 
 ```scala
 scala> val res = input.unsafeReadCsv[List, (Int, LocalDate)](rfc)
-<console>:10: warning: Unused import
-       import kantan.csv.joda.time._
-                                   ^
-<console>:22: warning: Unused import
-       import org.joda.time.format._
-                                   ^
 res: List[(Int, org.joda.time.LocalDate)] = List((1,1978-12-10), (2,2015-01-09))
 ```
 
@@ -93,18 +84,6 @@ And you can now easily encode data that contains instances of [`LocalDate`]:
 
 ```scala
 scala> res.asCsv(rfc)
-<console>:10: warning: Unused import
-       import kantan.csv.joda.time._
-                                   ^
-<console>:19: warning: Unused import
-       import org.joda.time._
-                            ^
-<console>:22: warning: Unused import
-       import org.joda.time.format._
-                                   ^
-<console>:24: warning: Unused import
-       import decoder
-                                                                            ^
 res4: String =
 "1,10-12-1978
 2,09-01-2015

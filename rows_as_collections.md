@@ -47,12 +47,6 @@ Now that we have our [`CsvReader`] instance, we can consume it - by, say, printi
 
 ```scala
 scala> reader.foreach(println _)
-<console>:10: warning: Unused import
-       import kantan.csv._
-                         ^
-<console>:13: warning: Unused import
-       import kantan.csv.ops._
-                             ^
 Success(List(85.5, 54.0, 74.7, 34.2))
 Success(List(63.0, 75.6, 46.8, 80.1))
 Success(List(85.5, 39.6, 2.7, 38.7))

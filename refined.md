@@ -34,20 +34,8 @@ We can then simply write the following:
 
 ```scala
 scala> "1,2".readCsv[List, List[PositiveInt]](rfc)
-<console>:12: warning: Unused import
-       import eu.timepit.refined.api.Refined
-                                     ^
-<console>:13: warning: Unused import
-       import eu.timepit.refined.numeric.Positive
-                                         ^
 res1: List[kantan.csv.ReadResult[List[PositiveInt]]] = List(Success(List(1, 2)))
 
 scala> "1,-2".readCsv[List, List[PositiveInt]](rfc)
-<console>:12: warning: Unused import
-       import eu.timepit.refined.api.Refined
-                                     ^
-<console>:13: warning: Unused import
-       import eu.timepit.refined.numeric.Positive
-                                         ^
 res2: List[kantan.csv.ReadResult[List[PositiveInt]]] = List(Failure(TypeError: Not acceptable: 'Predicate failed: (-2 > 0).'))
 ```

@@ -91,9 +91,6 @@ This lets you write:
 
 ```scala
 scala> List(Car(1999, "Ford", "E350", 3000F, Some("ac, abs, moon"))).asCsv(rfc.withHeader)
-<console>:17: warning: Unused import
-       import carDecoder
-                                                   ^
 res2: String =
 "Year,Make,Model,Price,Description
 1999,Ford,E350,3000.0,"ac, abs, moon"

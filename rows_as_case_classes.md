@@ -52,15 +52,6 @@ Let's make sure this worked by printing all decoded rows:
 
 ```scala
 scala> reader.foreach(println _)
-<console>:10: warning: Unused import
-       import kantan.csv._
-                         ^
-<console>:13: warning: Unused import
-       import kantan.csv.ops._
-                             ^
-<console>:16: warning: Unused import
-       import kantan.csv.generic._
-                                 ^
 Success(Car(1997,Ford,E350,Some(ac, abs, moon),3000.0))
 Success(Car(1999,Chevy,Venture "Extended Edition",None,4900.0))
 Success(Car(1999,Chevy,Venture "Extended Edition, Very Large",None,5000.0))
@@ -91,12 +82,6 @@ Let's verify that this worked as expected:
 
 ```scala
 scala> rawData.asCsvReader[Car2](rfc.withHeader).foreach(println _)
-<console>:11: warning: Unused import
-       import kantan.csv._
-                         ^
-<console>:17: warning: Unused import
-       import kantan.csv.generic._
-                                 ^
 Success(Car2(Ford,1997,E350,3000.0))
 Success(Car2(Chevy,1999,Venture "Extended Edition",4900.0))
 Success(Car2(Chevy,1999,Venture "Extended Edition, Very Large",5000.0))

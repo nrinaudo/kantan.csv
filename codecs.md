@@ -34,19 +34,13 @@ scala> val dates = List(
      |   List(new DateTime(), new DateTime().plusDays(1)),
      |   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
      | ).asCsv(rfc)
-<console>:16: warning: Unused import
-       import org.joda.time.format.ISODateTimeFormat
-                                   ^
 dates: String =
-"2017-12-29,2017-12-30
-2017-12-31,2018-01-01
+"2018-01-01,2018-01-02
+2018-01-03,2018-01-04
 "
 
 scala> dates.readCsv[List, List[DateTime]](rfc)
-<console>:16: warning: Unused import
-       import org.joda.time.format.ISODateTimeFormat
-                                   ^
-res1: List[kantan.csv.ReadResult[List[org.joda.time.DateTime]]] = List(Success(List(2017-12-29T00:00:00.000+01:00, 2017-12-30T00:00:00.000+01:00)), Success(List(2017-12-31T00:00:00.000+01:00, 2018-01-01T00:00:00.000+01:00)))
+res1: List[kantan.csv.ReadResult[List[org.joda.time.DateTime]]] = List(Success(List(2018-01-01T00:00:00.000+01:00, 2018-01-02T00:00:00.000+01:00)), Success(List(2018-01-03T00:00:00.000+01:00, 2018-01-04T00:00:00.000+01:00)))
 ```
 
 
@@ -72,15 +66,6 @@ And with that one line, we're done:
 
 ```scala
 scala> val csv = ps.asCsv(rfc)
-<console>:15: warning: Unused import
-       import org.joda.time.DateTime
-                            ^
-<console>:16: warning: Unused import
-       import org.joda.time.format.ISODateTimeFormat
-                                   ^
-<console>:17: warning: Unused import
-       import jodaDateTime
-                                                   ^
 csv: String =
 "0,38,Nicolas
 1,1,Kazuma
@@ -88,15 +73,6 @@ csv: String =
 "
 
 scala> csv.readCsv[List, Person](rfc)
-<console>:15: warning: Unused import
-       import org.joda.time.DateTime
-                            ^
-<console>:16: warning: Unused import
-       import org.joda.time.format.ISODateTimeFormat
-                                   ^
-<console>:17: warning: Unused import
-       import jodaDateTime
-                                                   ^
 res3: List[kantan.csv.ReadResult[Person]] = List(Success(Person(0,Nicolas,38)), Success(Person(1,Kazuma,1)), Success(Person(2,John,18)))
 ```
 

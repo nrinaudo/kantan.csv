@@ -16,7 +16,7 @@ in scope - `Int`, for example:
 
 ```scala
 scala> implicitly[kantan.csv.CellDecoder[Int]]
-res0: kantan.csv.CellDecoder[Int] = kantan.codecs.Codec$$anon$1@734a7cac
+res0: kantan.csv.CellDecoder[Int] = kantan.codecs.Codec$$anon$1@4adf6f8f
 ```
 
 A more complete list of default instances can be found [here](default_instances.html).
@@ -26,18 +26,9 @@ corresponding implicit [`CellDecoder[A]`][`CellDecoder`] and rely on it for deco
 
 ```scala
 scala> import kantan.csv._
-<console>:12: warning: Unused import
-       import kantan.csv._
-                         ^
 import kantan.csv._
 
 scala> import kantan.csv.ops._
-<console>:10: warning: Unused import
-       import kantan.csv._
-                         ^
-<console>:15: warning: Unused import
-       import kantan.csv.ops._
-                             ^
 import kantan.csv.ops._
 
 scala> "1,2,3\n4,5,6".readCsv[List, List[Int]](rfc)
@@ -64,12 +55,6 @@ And we can now decode CSV data composed of dates:
 
 ```scala
 scala> "2009-01-06,2009-01-07\n2009-01-08,2009-01-09".asCsvReader[List[DateTime]](rfc).foreach(println _)
-<console>:10: warning: Unused import
-       import kantan.csv._
-                         ^
-<console>:19: warning: Unused import
-       import org.joda.time.format.ISODateTimeFormat
-                                   ^
 Success(List(2009-01-06T00:00:00.000+01:00, 2009-01-07T00:00:00.000+01:00))
 Success(List(2009-01-08T00:00:00.000+01:00, 2009-01-09T00:00:00.000+01:00))
 ```

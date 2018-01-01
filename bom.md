@@ -57,12 +57,6 @@ When we try to read it, kantan.csv will find the BOM and ignore our instruction 
 
 ```scala
 scala> out.readCsv[List, String](rfc)
-<console>:18: warning: Unused import
-       import scala.io.Codec
-                       ^
-<console>:19: warning: Unused import
-       import codec
-                                                           ^
 res10: List[kantan.csv.ReadResult[String]] = List(Success(ニコラ), Success(リノド))
 ```
 
