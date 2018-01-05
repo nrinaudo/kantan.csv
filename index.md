@@ -41,7 +41,7 @@ libraryDependencies += "com.nrinaudo" %% "kantan.csv-refined" % "0.3.1"
 ```
 
 Additionally, while kantan.csv comes with a default parser / serializer (that has
-[pretty good]({{ site.baseurl }}/tut/benchmarks.html) performances), some people might prefer to use older, more
+[pretty good]({{ site.baseurl }}/benchmarks.html) performances), some people might prefer to use older, more
 reputable implementations. The following engines are currently supported:
 
 ```scala
