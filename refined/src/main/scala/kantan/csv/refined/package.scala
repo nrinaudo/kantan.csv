@@ -16,6 +16,6 @@
 
 package kantan.csv
 
-import kantan.codecs.refined.RefinedInstances
+import kantan.codecs.refined.{DecoderInstances, EncoderInstances}
 
-package object refined extends RefinedInstances
+package object refined extends DecoderInstances with EncoderInstances
