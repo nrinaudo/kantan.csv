@@ -16,9 +16,9 @@ lazy val root = Project(id = "kantan-csv", base = file("."))
       |import kantan.csv.refined._
     """.stripMargin
   )
-  .aggregate(core, cats, scalaz, laws, docs, generic, benchmark, jackson, commons, jodaTime, refined)
+  .aggregate(core, cats, scalaz, laws, docs, generic, benchmark, jackson, commons, jodaTime, refined, enumeratum)
   .aggregateIf(java8Supported)(java8)
-  .dependsOn(core, generic, jodaTime, refined)
+  .dependsOn(core, generic, jodaTime, refined, enumeratum)
 
 lazy val docs = project
   .enablePlugins(DocumentationPlugin)
@@ -26,7 +26,7 @@ lazy val docs = project
     unidocProjectFilter in (ScalaUnidoc, unidoc) :=
       inAnyProject -- inProjectsIf(!java8Supported)(java8) -- inProjects(benchmark)
   )
-  .dependsOn(core, laws, cats, scalaz, generic, jackson, commons, jodaTime, refined)
+  .dependsOn(core, laws, cats, scalaz, generic, jackson, commons, jodaTime, refined, enumeratum)
   .dependsOnIf(java8Supported)(java8)
 
 lazy val benchmark = project
@@ -203,6 +203,23 @@ lazy val refined = project
       "com.nrinaudo" %% "kantan.codecs-refined"      % Versions.kantanCodecs,
       "com.nrinaudo" %% "kantan.codecs-refined-laws" % Versions.kantanCodecs % "test",
       "com.nrinaudo" %% "kantan.codecs-scalatest"    % Versions.kantanCodecs % "test"
+    )
+  )
+
+// - enumeratum project ---------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+lazy val enumeratum = project
+  .settings(
+    moduleName := "kantan.csv-enumeratum",
+    name       := "enumeratum"
+  )
+  .enablePlugins(PublishedPlugin)
+  .dependsOn(core, laws % "test")
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.nrinaudo" %% "kantan.codecs-enumeratum"      % Versions.kantanCodecs,
+      "com.nrinaudo" %% "kantan.codecs-enumeratum-laws" % Versions.kantanCodecs % "test",
+      "com.nrinaudo" %% "kantan.codecs-scalatest"       % Versions.kantanCodecs % "test"
     )
   )
 
