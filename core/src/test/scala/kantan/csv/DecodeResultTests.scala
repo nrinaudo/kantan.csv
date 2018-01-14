@@ -17,7 +17,7 @@
 package kantan.csv
 
 import kantan.codecs.scalatest.ResultValues
-import kantan.csv.laws.discipline.arbitrary._
+import laws.discipline.arbitrary._
 import org.scalatest.{FunSuite, Matchers}
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 

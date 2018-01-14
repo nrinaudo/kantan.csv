@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package kantan.csv.refined
+package kantan.csv
+package refined
 
 object arbitrary
     extends kantan.csv.laws.discipline.ArbitraryInstances with kantan.codecs.refined.laws.discipline.ArbitraryInstances

@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package kantan.csv.benchmark
+package kantan.csv
+package benchmark
 
 import org.scalatest.{FunSuite, Matchers}
 

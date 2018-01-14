@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package kantan.csv.scalaz
+package kantan.csv
+package scalaz
 
+import _root_.scalaz.\/
+import _root_.scalaz.scalacheck.ScalazArbitrary._
 import arbitrary._
-import kantan.csv.laws.discipline.{CellCodecTests, RowCodecTests}
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
-import scalaz.\/
-import scalaz.scalacheck.ScalazArbitrary._
+import laws.discipline._
 
-class DisjunctionCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class DisjunctionCodecTests extends DisciplineSuite {
+
   checkAll("Int \\/ Boolean", CellCodecTests[Int \/ Boolean].codec[Byte, Float])
   checkAll(
     "(Int, Int, Int) \\/ (Boolean, Float)",
     RowCodecTests[(Int, Int, Int) \/ (Boolean, Float)].codec[Byte, String]
   )
+
 }

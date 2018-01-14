@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.csv.benchmark
+package kantan.csv
+package benchmark
 
 import com.univocity.parsers.csv.CsvParserSettings
+import engine.ReaderEngine
 import java.io.StringReader
 import java.util.concurrent.TimeUnit
-import kantan.csv._
-import kantan.csv.engine.ReaderEngine
 import org.openjdk.jmh.annotations._
 
 @State(Scope.Thread)

@@ -16,9 +16,9 @@
 
 package kantan.csv
 
-import kantan.csv.DecodeError.TypeError
-import kantan.csv.ParseError.IOError
-import kantan.csv.laws.discipline.arbitrary._
+import DecodeError.TypeError
+import ParseError.IOError
+import laws.discipline.arbitrary._
 import org.scalatest.{FunSuite, Matchers}
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 

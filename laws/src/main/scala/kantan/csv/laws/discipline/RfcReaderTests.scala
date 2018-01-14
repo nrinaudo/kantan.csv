@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.csv.laws.discipline
+package kantan.csv
+package laws
+package discipline
 
-import kantan.csv.laws.RfcReaderLaws
 import org.scalacheck.Prop._
 import org.typelevel.discipline.Laws
 

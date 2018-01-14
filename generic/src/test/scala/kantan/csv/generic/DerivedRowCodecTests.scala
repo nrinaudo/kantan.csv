@@ -14,18 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.csv.generic
+package kantan.csv
+package generic
 
-import kantan.codecs.laws.discipline.SerializableTests
+import arbitrary._
 import kantan.codecs.shapeless.laws._
-import kantan.csv.{RowDecoder, RowEncoder}
-import kantan.csv.generic.arbitrary._
-import kantan.csv.laws.LegalRow
-import kantan.csv.laws.discipline.RowCodecTests
+import laws.LegalRow
+import laws.discipline._
 import org.scalacheck.Arbitrary
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
 
 object Instances {
   case class Simple(i: Int)
@@ -42,7 +38,7 @@ object Instances {
 
 // Shapeless' Lazy generates code with Null that we need to ignore.
 @SuppressWarnings(Array("org.wartremover.warts.Null"))
-class DerivedRowCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class DerivedRowCodecTests extends DisciplineSuite {
   import Instances._
 
   checkAll("DerivedRowCodec[Or[Complex, Simple]]", RowCodecTests[Or[Complex, Simple]].codec[Byte, Float])

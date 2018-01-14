@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.csv.ops
+package kantan.csv
+package ops
 
-import kantan.csv._
-import kantan.csv.engine.ReaderEngine
+import engine.ReaderEngine
 
 /** Provides syntax for decoding a string as a CSV row. */
 final class CsvRowReadingOps[A: CsvSource](a: A) {

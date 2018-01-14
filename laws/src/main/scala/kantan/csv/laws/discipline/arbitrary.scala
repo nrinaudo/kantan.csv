@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.csv.laws.discipline
+package kantan.csv
+package laws
+package discipline
 
+import DecodeError._, ParseError._
 import imp.imp
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
-import kantan.csv._, DecodeError._, ParseError._
-import kantan.csv.laws._
 import org.scalacheck._, Arbitrary.{arbitrary ⇒ arb}
 import org.scalacheck.rng.Seed
 

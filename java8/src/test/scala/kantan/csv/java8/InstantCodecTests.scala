@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-package kantan.csv.java8
+package kantan.csv
+package java8
 
+import arbitrary._
 import java.time.Instant
-import kantan.codecs.laws.discipline.SerializableTests
-import kantan.csv.{CellDecoder, CellEncoder, RowDecoder, RowEncoder}
-import kantan.csv.java8.arbitrary._
-import kantan.csv.laws.discipline.{CellCodecTests, RowCodecTests}
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._
 
-class InstantCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class InstantCodecTests extends DisciplineSuite {
+
   checkAll("CellEncoder[Instant]", SerializableTests[CellEncoder[Instant]].serializable)
   checkAll("CellDecoder[Instant]", SerializableTests[CellDecoder[Instant]].serializable)
 
@@ -34,4 +31,5 @@ class InstantCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with
 
   checkAll("CellCodec[Instant]", CellCodecTests[Instant].codec[String, Float])
   checkAll("RowCodec[Instant]", RowCodecTests[Instant].codec[String, Float])
+
 }

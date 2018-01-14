@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-package kantan.csv.cats
+package kantan.csv
+package cats
 
 import _root_.cats.instances.list._
 import arbitrary._
-import kantan.csv.RowEncoder
-import kantan.csv.laws.discipline.RowEncoderTests
+import laws.discipline._
 import org.scalacheck.{Arbitrary, Gen}
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
 
-class FoldableEncoderTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class FoldableEncoderTests extends DisciplineSuite {
+
   implicit val arb: Arbitrary[List[Int]]      = Arbitrary(Gen.nonEmptyListOf(Arbitrary.arbitrary[Int]))
   implicit val encoder: RowEncoder[List[Int]] = foldableRowEncoder[List, Int]
 
   checkAll("Foldable[Int]", RowEncoderTests[List[Int]].encoder[List[Byte], List[Float]])
+
 }

@@ -14,18 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.csv.joda.time
+package kantan.csv
+package joda.time
 
-import kantan.codecs.laws.discipline.SerializableTests
-import kantan.codecs.strings.joda.time.laws.discipline.arbitrary._
-import kantan.csv._
-import kantan.csv.laws.discipline.{CellCodecTests, CellDecoderTests, CellEncoderTests}
+import arbitrary._
+import laws.discipline._
 import org.joda.time.LocalDateTime
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
 
-class LocalDateTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class LocalDateTimeCodecTests extends DisciplineSuite {
   checkAll("CellCodec[LocalLocalDateTime]", CellCodecTests[LocalDateTime].codec[String, Float])
 
   checkAll("CellDecoder[LocalDateTime]", CellDecoderTests[LocalDateTime].decoder[String, Float])

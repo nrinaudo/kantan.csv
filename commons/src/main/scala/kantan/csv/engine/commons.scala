@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.csv.engine
+package kantan.csv
+package engine
 
 import kantan.codecs.resource.ResourceIterator
-import kantan.csv.{CsvConfiguration, CsvWriter}
-import org.apache.commons.csv.{CSVFormat, CSVPrinter, CSVRecord, QuoteMode}
+import org.apache.commons.csv.{CSVFormat, CSVPrinter, QuoteMode}
 import scala.collection.JavaConverters._
 
 /** Provides CSV reader and writer engines using [[https://commons.apache.org/proper/commons-csv/ commons-csv]].
@@ -28,16 +28,11 @@ import scala.collection.JavaConverters._
   * [[writerEngineFrom]] - all you need is a function that knows how to turn a column separator character in an instance
   * of `CSVFormat`.
   */
-object commons {
+package object commons {
   // - Formats ---------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   type CSVFormat = org.apache.commons.csv.CSVFormat
   type QuoteMode = org.apache.commons.csv.QuoteMode
-
-  private final case class CsvSeq(rec: CSVRecord) extends IndexedSeq[String] {
-    override def length: Int             = rec.size()
-    override def apply(idx: Int): String = rec.get(idx)
-  }
 
   /** Type of functions that create a `CSVFormat` instance from a given column separator. */
   type CSVFormatBuilder = CsvConfiguration ⇒ CSVFormat

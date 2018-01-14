@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package kantan.csv.scalaz
+package kantan.csv
+package scalaz
 
+import _root_.scalaz.std.list._
 import arbitrary._
-import kantan.codecs.scalaz.laws.discipline.scalatest.ScalazSuite
-import kantan.csv.RowEncoder
-import kantan.csv.laws.discipline.RowEncoderTests
+import kantan.codecs.scalaz.laws.discipline._
+import laws.discipline.RowEncoderTests
 import org.scalacheck.{Arbitrary, Gen}
-import scalaz.std.list._
 
-class FoldableEncoderTests extends ScalazSuite {
+class FoldableEncoderTests extends ScalazDisciplineSuite {
   implicit val arb: Arbitrary[List[Int]]      = Arbitrary(Gen.nonEmptyListOf(Arbitrary.arbitrary[Int]))
   implicit val encoder: RowEncoder[List[Int]] = foldableRowEncoder[List, Int]
 

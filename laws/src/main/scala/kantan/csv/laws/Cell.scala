@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.csv.laws
+package kantan.csv
+package laws
 
 import imp.imp
-import kantan.csv.{CellDecoder, CellEncoder, DecodeResult}
 import org.scalacheck.{Arbitrary, Cogen, Gen}
 
 sealed trait Cell extends Product with Serializable {

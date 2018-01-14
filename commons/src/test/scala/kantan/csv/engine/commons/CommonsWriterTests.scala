@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.csv.engine
+package kantan.csv
+package engine
+package commons
 
-import kantan.csv.engine.commons._
-import kantan.csv.laws.discipline.WriterEngineTests
+import laws.discipline.WriterEngineTests
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline

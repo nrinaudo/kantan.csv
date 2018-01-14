@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.csv.benchmark
+package kantan.csv
+package benchmark
 
+import engine.WriterEngine
 import java.io.StringWriter
 import java.util.concurrent.TimeUnit
-import kantan.csv._
-import kantan.csv.engine.WriterEngine
-import kantan.csv.ops._
+import ops._
 import org.apache.commons.csv.CSVFormat
 import org.openjdk.jmh.annotations._
 

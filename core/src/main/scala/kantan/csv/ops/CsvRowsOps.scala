@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.csv.ops
+package kantan.csv
+package ops
 
+import engine.WriterEngine
 import java.io.StringWriter
-import kantan.csv._
-import kantan.csv.engine.WriterEngine
 
 /** Provides syntax for turning collections into CSV strings. */
 final class CsvRowsOps[A: HeaderEncoder](val as: TraversableOnce[A]) {

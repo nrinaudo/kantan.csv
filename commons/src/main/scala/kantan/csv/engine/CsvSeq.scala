@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.csv.engine
+package kantan.csv
+package engine
+package commons
 
-import kantan.csv.engine.commons._
-import kantan.csv.laws.discipline.ReaderEngineTests
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import org.apache.commons.csv.CSVRecord
 
-class CommonsReaderTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("CommonsReader", ReaderEngineTests(commonsCsvReaderEngine).readerEngine)
+final case class CsvSeq(rec: CSVRecord) extends IndexedSeq[String] {
+  override def length: Int             = rec.size()
+  override def apply(idx: Int): String = rec.get(idx)
 }

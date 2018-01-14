@@ -17,7 +17,7 @@
 package kantan.csv
 
 import kantan.codecs.laws.{CodecLaws, CodecValue, DecoderLaws, EncoderLaws}
-import kantan.csv.ops._
+import ops._
 
 package object laws {
   type CellDecoderLaws[A] = DecoderLaws[String, A, DecodeError, codecs.type]

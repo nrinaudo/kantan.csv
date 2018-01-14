@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.csv.laws.discipline
+package kantan.csv
+package laws
+package discipline
 
-import kantan.csv._
 import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.{arbitrary ⇒ arb}
 
