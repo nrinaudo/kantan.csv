@@ -16,19 +16,16 @@
 
 package kantan.csv
 
-import kantan.codecs.laws.discipline.SerializableTests
-import kantan.csv.laws.discipline.RowCodecTests
-import kantan.csv.laws.discipline.arbitrary._
+import laws.discipline._, arbitrary._
 import org.scalacheck.{Arbitrary, Gen}
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
 
-class VectorCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class VectorCodecTests extends DisciplineSuite {
+
   implicit val arb: Arbitrary[Vector[Int]] = Arbitrary(Gen.nonEmptyContainerOf[Vector, Int](Arbitrary.arbitrary[Int]))
 
   checkAll("RowEncoder[Vector[Int]]", SerializableTests[RowEncoder[Vector[Int]]].serializable)
   checkAll("RowDecoder[Vector[Int]]", SerializableTests[RowDecoder[Vector[Int]]].serializable)
 
   checkAll("RowCodec[Vector[Int]]", RowCodecTests[Vector[Int]].codec[List[String], List[Float]])
+
 }

@@ -17,14 +17,10 @@
 package kantan.csv
 
 import java.net.URL
-import kantan.codecs.laws.discipline.SerializableTests
-import kantan.csv.laws.discipline._
-import kantan.csv.laws.discipline.arbitrary._
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._, arbitrary._
 
-class URLCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class URLCodecTests extends DisciplineSuite {
+
   checkAll("CellEncoder[URL]", SerializableTests[CellEncoder[URL]].serializable)
   checkAll("CellDecoder[URL]", SerializableTests[CellDecoder[URL]].serializable)
 
@@ -33,4 +29,5 @@ class URLCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Dis
 
   checkAll("CellCodec[URL]", CellCodecTests[URL].codec[String, Float])
   checkAll("RowCodec[URL]", RowCodecTests[URL].codec[String, Float])
+
 }

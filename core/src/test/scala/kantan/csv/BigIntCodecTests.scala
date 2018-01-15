@@ -16,14 +16,10 @@
 
 package kantan.csv
 
-import kantan.codecs.laws.discipline.SerializableTests
-import kantan.csv.laws.discipline._
-import kantan.csv.laws.discipline.arbitrary._
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._, arbitrary._
 
-class BigIntCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class BigIntCodecTests extends DisciplineSuite {
+
   checkAll("CellEncoder[BigInt]", SerializableTests[CellEncoder[BigInt]].serializable)
   checkAll("CellDecoder[BigInt]", SerializableTests[CellDecoder[BigInt]].serializable)
 
@@ -32,4 +28,5 @@ class BigIntCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with 
 
   checkAll("CellCodec[BigInt]", CellCodecTests[BigInt].codec[String, Float])
   checkAll("RowCodec[BigInt]", RowCodecTests[BigInt].codec[String, Float])
+
 }

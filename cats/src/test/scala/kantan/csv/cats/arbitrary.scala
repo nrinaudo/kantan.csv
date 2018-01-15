@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package kantan.csv.cats
+package kantan.csv
+package cats
 
 /** All arbitrary instances. */
 object arbitrary

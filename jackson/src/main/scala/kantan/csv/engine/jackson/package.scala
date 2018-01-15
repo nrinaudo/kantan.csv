@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.csv.engine
+package kantan.csv
+package engine
 
 import com.fasterxml.jackson.databind.{MappingIterator, SequenceWriter}
 import com.fasterxml.jackson.dataformat.csv.CsvGenerator
 import java.io.{Reader, Writer}
 import kantan.codecs.resource.ResourceIterator
-import kantan.csv.{CsvConfiguration, CsvWriter}
 
 /** Provides CSV reader and writer engines using [[https://github.com/FasterXML/jackson-dataformat-csv jackson.csv]].
   *
@@ -28,7 +28,7 @@ import kantan.csv.{CsvConfiguration, CsvWriter}
   * tweak how jackson.csv behaves, however, you can handcraft engines though [[readerEngineFrom]] and
   * [[writerEngineFrom]].
   */
-object jackson {
+package object jackson {
   // - Schema ---------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   type CsvSchema = com.fasterxml.jackson.dataformat.csv.CsvSchema

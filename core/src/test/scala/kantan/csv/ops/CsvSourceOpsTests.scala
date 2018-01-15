@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.csv.ops
+package kantan.csv
+package ops
 
 import kantan.codecs.Result
 import kantan.codecs.laws.CodecValue
-import kantan.csv._
-import kantan.csv.laws._
-import kantan.csv.laws.discipline.arbitrary._
+import laws._
+import laws.discipline.arbitrary._
 import org.scalatest.{FunSuite, Matchers}
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import scala.util.Try

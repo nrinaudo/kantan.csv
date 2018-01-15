@@ -14,18 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.csv.java8
+package kantan.csv
+package java8
 
+import arbitrary._
 import java.time.ZonedDateTime
-import kantan.codecs.laws.discipline.SerializableTests
-import kantan.csv._
-import kantan.csv.java8.arbitrary._
-import kantan.csv.laws.discipline.{CellCodecTests, RowCodecTests}
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._
 
-class ZonedDateTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class ZonedDateTimeCodecTests extends DisciplineSuite {
   checkAll("CellEncoder[ZonedDateTime]", SerializableTests[CellEncoder[ZonedDateTime]].serializable)
   checkAll("CellDecoder[ZonedDateTime]", SerializableTests[CellDecoder[ZonedDateTime]].serializable)
 

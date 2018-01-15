@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.csv.engine
+package kantan.csv
+package engine
 
-import kantan.csv.ops._
-import kantan.csv.rfc
+import ops._
 import org.scalatest.{FunSuite, Matchers}
 
 class InternalReaderRegressionTests extends FunSuite with Matchers {

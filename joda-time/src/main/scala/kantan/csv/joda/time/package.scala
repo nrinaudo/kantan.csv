@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.csv.joda
+package kantan.csv
+package joda
 
 import kantan.codecs.export.Exported
 import kantan.codecs.strings.{StringDecoder, StringEncoder}
 import kantan.codecs.strings.joda.time._
-import kantan.csv._
 import org.joda.time.{DateTime, LocalDate, LocalDateTime, LocalTime}
 
 /** Declares [[kantan.csv.CellDecoder]] and [[kantan.csv.CellEncoder]] instances for joda-time types.

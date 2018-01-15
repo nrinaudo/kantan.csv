@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.csv.enumeratum
+package kantan.csv
+package enumeratum
 
 import arbitrary._
 import kantan.codecs.enumeratum.laws.discipline.Enumerated
-import kantan.codecs.laws.discipline.SerializableTests
-import kantan.csv.{CellDecoder, CellEncoder, RowDecoder, RowEncoder}
-import kantan.csv.laws.discipline.{CellCodecTests, RowCodecTests}
-import org.scalatest.FunSuite
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._
 
-class EnumCodecTests extends FunSuite with Discipline {
+class EnumCodecTests extends DisciplineSuite {
 
   checkAll("CellEncoder[Enumerated]", SerializableTests[CellEncoder[Enumerated]].serializable)
   checkAll("CellDecoder[Enumerated]", SerializableTests[CellDecoder[Enumerated]].serializable)

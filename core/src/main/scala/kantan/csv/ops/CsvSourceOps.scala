@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.csv.ops
+package kantan.csv
+package ops
 
-import kantan.csv._
-import kantan.csv.engine.ReaderEngine
+import engine.ReaderEngine
 import scala.collection.generic.CanBuildFrom
 
 /** Provides useful syntax for types that have implicit instances of [[CsvSource]] in scope.

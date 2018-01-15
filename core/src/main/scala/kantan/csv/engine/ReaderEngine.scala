@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.csv.engine
+package kantan.csv
+package engine
 
 import java.io.Reader
 import kantan.codecs.Result
 import kantan.codecs.resource.ResourceIterator
-import kantan.csv._
 
 /** Provides kantan.csv with CSV parsing functionality.
   *

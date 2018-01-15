@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package kantan.csv.scalaz
+package kantan.csv
+package scalaz
 
-import _root_.scalaz.scalacheck.ScalazProperties.equal
-import kantan.codecs.scalaz.laws.discipline.scalatest.ScalazSuite
-import kantan.csv._
-import kantan.csv.scalaz.arbitrary._
+import _root_.scalaz.scalacheck.ScalazProperties.{equal ⇒ equ}
+import kantan.codecs.scalaz.laws.discipline._
+import scalaz.arbitrary._
 
-class InstancesTests extends ScalazSuite {
-  checkAll("ReadError", equal.laws[ReadError])
-  checkAll("DecodeError", equal.laws[DecodeError])
-  checkAll("ParseError", equal.laws[ParseError])
+class InstancesTests extends ScalazDisciplineSuite {
+  checkAll("ReadError", equ.laws[ReadError])
+  checkAll("DecodeError", equ.laws[DecodeError])
+  checkAll("ParseError", equ.laws[ParseError])
 }

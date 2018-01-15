@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package kantan.csv.ops
-
-import kantan.csv._
+package kantan.csv
+package ops
 
 /** Provides syntax for encoding values as CSV cells.
   *

@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-package kantan.csv.refined
+package kantan.csv
+package refined
 
+import arbitrary._
 import eu.timepit.refined.api.Refined
 import eu.timepit.refined.numeric.Positive
-import kantan.codecs.laws.discipline.SerializableTests
-import kantan.csv.{CellDecoder, CellEncoder, RowDecoder, RowEncoder}
-import kantan.csv.laws.discipline.{CellCodecTests, RowCodecTests}
-import kantan.csv.refined.arbitrary._
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._
 
-class RefinedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class RefinedCodecTests extends DisciplineSuite {
   checkAll("CellEncoder[Int Refined Positive]", SerializableTests[CellEncoder[Int Refined Positive]].serializable)
   checkAll("CellDecoder[Int Refined Positive]", SerializableTests[CellDecoder[Int Refined Positive]].serializable)
 

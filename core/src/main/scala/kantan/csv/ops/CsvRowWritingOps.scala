@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.csv.ops
+package kantan.csv
+package ops
 
-import kantan.csv._
-import kantan.csv.engine.WriterEngine
+import engine.WriterEngine
 
 /** Provides syntax for encoding single CSV rows as a string.
   *

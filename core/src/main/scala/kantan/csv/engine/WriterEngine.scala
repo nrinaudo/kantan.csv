@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.csv.engine
+package kantan.csv
+package engine
 
 import java.io.Writer
-import kantan.csv.{CsvConfiguration, CsvWriter}
 
 /** Provides factory-like services for [[CsvWriter]].
   *

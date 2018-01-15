@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.csv.laws.discipline
+package kantan.csv
+package laws
+package discipline
 
-import kantan.codecs.laws.discipline.CodecTests
-import kantan.csv._
-import kantan.csv.laws._
-import kantan.csv.laws.discipline.arbitrary._
+import arbitrary._
 import org.scalacheck.{Arbitrary, Cogen}
 
 object RowCodecTests {

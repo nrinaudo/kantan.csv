@@ -17,14 +17,10 @@
 package kantan.csv
 
 import java.util.UUID
-import kantan.codecs.laws.discipline.SerializableTests
-import kantan.csv.laws.discipline._
-import kantan.csv.laws.discipline.arbitrary._
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._, arbitrary._
 
-class UUIDCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class UUIDCodecTests extends DisciplineSuite {
+
   checkAll("CellEncoder[UUID]", SerializableTests[CellEncoder[UUID]].serializable)
   checkAll("CellDecoder[UUID]", SerializableTests[CellDecoder[UUID]].serializable)
 
@@ -33,4 +29,5 @@ class UUIDCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Di
 
   checkAll("CellCodec[UUID]", CellCodecTests[UUID].codec[String, Float])
   checkAll("RowCodec[UUID]", RowCodecTests[UUID].codec[String, Float])
+
 }

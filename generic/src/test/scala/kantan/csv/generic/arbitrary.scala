@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package kantan.csv.generic
+package kantan.csv
+package generic
 
 object arbitrary
     extends kantan.codecs.shapeless.laws.discipline.ArbitraryInstances

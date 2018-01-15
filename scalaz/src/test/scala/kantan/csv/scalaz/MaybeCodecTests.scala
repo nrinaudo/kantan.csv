@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package kantan.csv.scalaz
+package kantan.csv
+package scalaz
 
+import _root_.scalaz.Maybe
+import _root_.scalaz.scalacheck.ScalazArbitrary._
 import arbitrary._
-import kantan.csv.laws.discipline.{CellCodecTests, RowCodecTests}
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
-import scalaz.Maybe
-import scalaz.scalacheck.ScalazArbitrary._
+import laws.discipline._
 
-class MaybeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class MaybeCodecTests extends DisciplineSuite {
   checkAll("Maybe[Int]", CellCodecTests[Maybe[Int]].codec[String, Float])
   checkAll("Maybe[(Int, Int)]", RowCodecTests[Maybe[(Int, Int)]].codec[String, Float])
 }

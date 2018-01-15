@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.csv.laws
+package kantan.csv
+package laws
 
-import kantan.csv._
-import kantan.csv.engine.WriterEngine
-import kantan.csv.ops._
+import engine.WriterEngine
+import ops._
 
 trait RfcWriterLaws {
   implicit def engine: WriterEngine

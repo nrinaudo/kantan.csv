@@ -14,21 +14,19 @@
  * limitations under the License.
  */
 
-package kantan.csv.generic
+package kantan.csv
+package generic
 
-import kantan.codecs.laws.discipline.SerializableTests
+import arbitrary._
 import kantan.codecs.shapeless.laws._
-import kantan.csv.{CellDecoder, CellEncoder}
-import kantan.csv.generic.arbitrary._
-import kantan.csv.laws.discipline.CellCodecTests
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._
 
 // Shapeless' Lazy generates code with Null that we need to ignore.
 @SuppressWarnings(Array("org.wartremover.warts.Null"))
-class DerivedCellCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class DerivedCellCodecTests extends DisciplineSuite {
+
   checkAll("CellCodec[Or[Int, Boolean]]", CellCodecTests[Int Or Boolean].codec[Byte, String])
   checkAll("CellDecoder[Or[Int, Boolean]]", SerializableTests[CellDecoder[Int Or Boolean]].serializable)
   checkAll("CellEncoder[Or[Int, Boolean]]", SerializableTests[CellEncoder[Int Or Boolean]].serializable)
+
 }

@@ -15,24 +15,11 @@
  */
 
 package kantan.csv
-package laws
+package engine
+package commons
 
-import engine.WriterEngine
-import ops._
+import laws.discipline._
 
-trait WriterEngineLaws extends RfcWriterLaws {
-  def quoteAll(csv: List[List[Int]]): Boolean = {
-    val data = csv.filter(_.nonEmpty)
-
-    data.asCsv(rfc.quoteAll).trim == data.map(_.map(i ⇒ s""""$i"""").mkString(",")).mkString("\r\n")
-  }
-
-  def columnSeparator(csv: List[List[Cell]], c: Char): Boolean =
-    roundTripFor(csv, rfc.withCellSeparator(c))
-}
-
-object WriterEngineLaws {
-  def apply(e: WriterEngine): WriterEngineLaws = new WriterEngineLaws {
-    override implicit val engine: WriterEngine = e
-  }
+class CommonsReaderTests extends DisciplineSuite {
+  checkAll("CommonsReader", ReaderEngineTests(commonsCsvReaderEngine).readerEngine)
 }

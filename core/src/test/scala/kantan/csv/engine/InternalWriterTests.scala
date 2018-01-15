@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.csv.engine
+package kantan.csv
+package engine
 
-import kantan.csv.laws.discipline.WriterEngineTests
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._
 
-class InternalWriterTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class InternalWriterTests extends DisciplineSuite {
   checkAll("InternalWriter", WriterEngineTests(WriterEngine.internalCsvWriterEngine).writerEngine)
 }

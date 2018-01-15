@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-package kantan.csv.java8
+package kantan.csv
+package java8
 
+import arbitrary._
 import java.time.LocalDate
-import kantan.codecs.laws.discipline.SerializableTests
-import kantan.csv._
-import kantan.csv.java8.arbitrary._
-import kantan.csv.laws.discipline.{CellCodecTests, RowCodecTests}
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._
 
-class LocalDateCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class LocalDateCodecTests extends DisciplineSuite {
+
   checkAll("CellEncoder[LocalDate]", SerializableTests[CellEncoder[LocalDate]].serializable)
   checkAll("CellDecoder[LocalDate]", SerializableTests[CellDecoder[LocalDate]].serializable)
 
@@ -34,4 +31,5 @@ class LocalDateCodecTests extends FunSuite with GeneratorDrivenPropertyChecks wi
 
   checkAll("CellCodec[LocalDate]", CellCodecTests[LocalDate].codec[String, Float])
   checkAll("RowCodec[LocalDate]", RowCodecTests[LocalDate].codec[String, Float])
+
 }

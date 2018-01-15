@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package kantan.csv.enumeratum
+package kantan.csv
+package enumeratum
 
 import kantan.codecs.enumeratum.values.{DecoderInstances, EncoderInstances}
 

@@ -17,14 +17,11 @@
 package kantan.csv
 package enumeratum.values
 
-import kantan.codecs.enumeratum.laws.discipline._
-import kantan.codecs.laws.discipline.SerializableTests
-import kantan.csv.enumeratum.arbitrary._
-import kantan.csv.laws.discipline.{CellCodecTests, RowCodecTests}
-import org.scalatest.FunSuite
-import org.typelevel.discipline.scalatest.Discipline
+import enumeratum.arbitrary._
+import kantan.codecs.enumeratum.laws.discipline.EnumeratedByte
+import laws.discipline._
 
-class ByteEnumCodecTests extends FunSuite with Discipline {
+class ByteEnumCodecTests extends DisciplineSuite {
 
   checkAll("CellEncoder[EnumeratedByte]", SerializableTests[CellEncoder[EnumeratedByte]].serializable)
   checkAll("CellDecoder[EnumeratedByte]", SerializableTests[CellDecoder[EnumeratedByte]].serializable)
