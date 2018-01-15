@@ -21,10 +21,6 @@ import kantan.codecs.shapeless.ShapelessInstances
 import shapeless.{HNil, _}
 
 trait GenericInstances extends ShapelessInstances {
-  // - Coproduct decoders ----------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  implicit val cnilCellDecoder: CellDecoder[CNil] = cnilDecoder(c ⇒ DecodeError.TypeError(s"Not a legal cell: $c"))
-  implicit val cnilRowDecoder: RowDecoder[CNil]   = cnilDecoder(r ⇒ DecodeError.TypeError(s"Not a legal row: $r"))
 
   // - HList decoders --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
