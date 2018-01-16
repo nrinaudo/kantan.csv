@@ -23,7 +23,7 @@ trait GeneratedRowCodecs {
 
   /** Creates a new [[RowCodec]] instance from the specified encoding and decoding functions.
    *
-   * For example:
+   * @example
    * {{{
    * scala> case class Ints(i1: Int)
    *
@@ -41,7 +41,7 @@ trait GeneratedRowCodecs {
 
   [2..#/** Creates a new [[RowCodec]] instance from the specified encoding and decoding functions.
     *
-    * For example:
+    * @example
     * {{{
     * scala> case class Ints([#i1: Int#])
     *
@@ -66,7 +66,7 @@ trait GeneratedRowCodecs {
 
   /** Creates a new [[RowCodec]] instance from the specified encoding and decoding functions.
     *
-    * For example:
+    * @example
     * {{{
     * scala> case class Ints(i1: Int)
     *
@@ -87,7 +87,7 @@ trait GeneratedRowCodecs {
 
   [2..#/** Creates a new [[RowCodec]] instance from the specified encoding and decoding functions.
     *
-    * For example:
+    * @example
     * {{{
     * scala> case class Ints([#i1: Int#])
     *
@@ -113,7 +113,7 @@ trait GeneratedRowCodecs {
     * This is meant for case classes and is unsafe for any other type: a case class' `unapply` method never returns
     * `Some`, which allows `caseCodec` to call `get` on the return value.
     *
-    * For example
+    * @example
     * {{{
     * scala> case class Ints(i1: Int)
     *
@@ -134,7 +134,7 @@ trait GeneratedRowCodecs {
     * This is meant for case classes and is unsafe for any other type: a case class' `unapply` method never returns
     * `Some`, which allows `caseCodec` to call `get` on the return value.
     *
-    * For example
+    * @example
     * {{{
     * scala> case class Ints([#i1: Int#])
     *
@@ -156,7 +156,7 @@ trait GeneratedRowCodecs {
     * This is meant for case classes and is unsafe for any other type: a case class' `unapply` method never returns
     * `Some`, which allows `caseCodec` to call `get` on the return value.
     *
-    * For example
+    * @example
     * {{{
     * scala> case class Ints(i1: Int)
     *
@@ -177,7 +177,7 @@ trait GeneratedRowCodecs {
     * This is meant for case classes and is unsafe for any other type: a case class' `unapply` method never returns
     * `Some`, which allows `caseCodec` to call `get` on the return value.
     *
-    * For example
+    * @example
     * {{{
     * scala> case class Ints([#i1: Int#])
     *

@@ -24,6 +24,7 @@ object DecodeResult extends ResultCompanion.WithDefault[DecodeError] {
 
   /** Creates a new [[DecodeResult]] failure wrapping a [[DecodeError.OutOfBounds]] error.
     *
+    * @example
     * {{{
     * scala> DecodeResult.outOfBounds(1)
     * res0: DecodeResult[Nothing] = Failure(OutOfBounds: 1 is not a valid index)
@@ -33,6 +34,7 @@ object DecodeResult extends ResultCompanion.WithDefault[DecodeError] {
 
   /** Creates a new [[DecodeResult]] failure wrapping a [[DecodeError.TypeError]] error.
     *
+    * @example
     * {{{
     * scala> DecodeResult.typeError("not a valid int")
     * res0: DecodeResult[Nothing] = Failure(TypeError: not a valid int)
@@ -42,6 +44,7 @@ object DecodeResult extends ResultCompanion.WithDefault[DecodeError] {
 
   /** Creates a new [[DecodeResult]] failure wrapping a [[DecodeError.TypeError]] error.
     *
+    * @example
     * {{{
     * scala> DecodeResult.typeError(new Exception("not a valid int"))
     * res0: DecodeResult[Nothing] = Failure(TypeError: not a valid int)

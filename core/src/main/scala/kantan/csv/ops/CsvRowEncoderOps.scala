@@ -26,7 +26,7 @@ final class CsvRowEncoderOps[A: RowEncoder](val a: A) {
 
   /** Encodes a value as a CSV row.
     *
-    * For example:
+    * @example
     * {{{
     * scala> List(1, 2, 3).asCsvRow
     * res0: Seq[String] = List(1, 2, 3)

@@ -24,7 +24,7 @@ final class CsvRowReadingOps[A: CsvSource](a: A) {
 
   /** Parses a string as a single CSV row.
     *
-    * For example:
+    * @example
     * {{{
     * scala> import kantan.csv._
     *
@@ -44,7 +44,7 @@ final class CsvRowReadingOps[A: CsvSource](a: A) {
 
   /** Parses a string as a single CSV row.
     *
-    * For example:
+    * @example
     * {{{
     * scala> import kantan.csv._
     *

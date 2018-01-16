@@ -45,18 +45,20 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
 
   /** Opens a [[CsvReader]] on the underlying resource.
     *
-    * For example:
+    * This is a convenience method only, and strictly equivalent to:
+    * {{{
+    * scala> import kantan.csv._
+    *
+    * scala> CsvSource[String].reader[List[Int]]("1,2,3\n4,5,6", rfc).toList
+    * res1: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
+    * }}}
+    *
+    * @example
     * {{{
     * scala> import kantan.csv._
     *
     * scala> "1,2,3\n4,5,6".asCsvReader[List[Int]](rfc).toList
     * res0: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
-    * }}}
-    *
-    * This is a convenience method only, and strictly equivalent to:
-    * {{{
-    * scala> CsvSource[String].reader[List[Int]]("1,2,3\n4,5,6", rfc).toList
-    * res1: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
     * }}}
     *
     * @param  conf   CSV parsing behaviour.
@@ -71,18 +73,20 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
 
   /** Opens an unsafe [[CsvReader]] on the underlying resource.
     *
-    * For example:
+    * This is a convenience method only, and strictly equivalent to:
+    * {{{
+    * scala> import kantan.csv._
+    *
+    * scala> CsvSource[String].unsafeReader[List[Int]]("1,2,3\n4,5,6", rfc).toList
+    * res1: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
+    * }}}
+    *
+    * @example
     * {{{
     * scala> import kantan.csv._
     *
     * scala> "1,2,3\n4,5,6".asUnsafeCsvReader[List[Int]](rfc).toList
     * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
-    * }}}
-    *
-    * This is a convenience method only, and strictly equivalent to:
-    * {{{
-    * scala> CsvSource[String].unsafeReader[List[Int]]("1,2,3\n4,5,6", rfc).toList
-    * res1: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
     * }}}
     *
     * @param  conf   CSV parsing behaviour.
@@ -100,18 +104,20 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
 
   /** Reads the underlying resource as a CSV stream.
     *
-    * For example:
+    * This is a convenience method only, and strictly equivalent to:
+    * {{{
+    * scala> import kantan.csv._
+    *
+    * scala> CsvSource[String].read[List, List[Int]]("1,2,3\n4,5,6", rfc)
+    * res1: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
+    * }}}
+    *
+    * @example
     * {{{
     * scala> import kantan.csv._
     *
     * scala> "1,2,3\n4,5,6".readCsv[List, List[Int]](rfc)
     * res0: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
-    * }}}
-    *
-    * This is a convenience method only, and strictly equivalent to:
-    * {{{
-    * scala> CsvSource[String].read[List, List[Int]]("1,2,3\n4,5,6", rfc)
-    * res1: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
     * }}}
     *
     * @param  conf   CSV parsing behaviour.
@@ -130,18 +136,20 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
 
   /** Reads the underlying resource as a CSV stream (unsafely).
     *
-    * For example:
+    * This is a convenience method only, and strictly equivalent to:
+    * {{{
+    * scala> import kantan.csv._
+    *
+    * scala> CsvSource[String].unsafeRead[List, List[Int]]("1,2,3\n4,5,6", rfc)
+    * res1: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
+    * }}}
+    *
+    * @example
     * {{{
     * scala> import kantan.csv._
     *
     * scala> "1,2,3\n4,5,6".unsafeReadCsv[List, List[Int]](rfc)
     * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
-    * }}}
-    *
-    * This is a convenience method only, and strictly equivalent to:
-    * {{{
-    * scala> CsvSource[String].unsafeRead[List, List[Int]]("1,2,3\n4,5,6", rfc)
-    * res1: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
     * }}}
     *
     * @param  conf   CSV parsing behaviour.

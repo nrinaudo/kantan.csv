@@ -33,10 +33,12 @@ trait CellDecoderInstances {
 
   /** Turns existing `StringDecoder` instances into [[CellDecoder]] ones.
     *
-    * This provides support for most basic Scala types - `Int`, for example:
+    * This provides support for most basic Scala types.
+    *
+    * @example
     * {{{
-    * CellDecoder[Int].decode("123")
-    * res1: DecodeResult[Option[Int]] = Success(Some(123))
+    * scala> CellDecoder[Int].decode("123")
+    * res1: DecodeResult[Int] = Success(123)
     * }}}
     */
   implicit def fromStringDecoder[A: StringDecoder]: CellDecoder[A] =
@@ -44,16 +46,15 @@ trait CellDecoderInstances {
 
   /** Provides an instance of `CellDecoder[Option[A]]` for any type `A` that has an instance of [[CellDecoder]].
     *
-    * Non-empty strings are decoded as `Some`:
+    * @example
     * {{{
+    * // Non-empty value
     * scala> CellDecoder[Option[Int]].decode("123")
     * res1: DecodeResult[Option[Int]] = Success(Some(123))
-    * }}}
     *
-    * Empty strings are decoded as None:
-    * {{{
+    * // Empty value
     * scala> CellDecoder[Option[Int]].decode("")
-    * res1: DecodeResult[Option[Int]] = Success(None)
+    * res2: DecodeResult[Option[Int]] = Success(None)
     * }}}
     */
   implicit def cellDecoderOpt[A: CellDecoder]: CellDecoder[Option[A]] = Decoder.optionalDecoder
@@ -61,14 +62,13 @@ trait CellDecoderInstances {
   /** Provides an instance of `CellDecoder[Either[A, B]]` for any type `A` and `B` that have instances of
     * [[CellDecoder]].
     *
-    * Strings that can be decoded as the first type are returned as `Left`:
+    * @example
     * {{{
+    * // Left value
     * scala> CellDecoder[Either[Int, Boolean]].decode("123")
     * res1: DecodeResult[Either[Int, Boolean]] = Success(Left(123))
-    * }}}
     *
-    * Strings that cannot be decoded as the first type, but can as the second, are returned as `Right`:
-    * {{{
+    * // Right value
     * scala> CellDecoder[Either[Int, Boolean]].decode("true")
     * res2: DecodeResult[Either[Int, Boolean]] = Success(Right(true))
     * }}}

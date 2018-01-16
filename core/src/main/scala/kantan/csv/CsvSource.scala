@@ -48,15 +48,15 @@ trait CsvSource[-S] extends Serializable { self ⇒
 
   /** Turns the specified `S` into an iterator on `ReadResult[A]`.
     *
-    * For example:
+    * This method is "safe", in that it does not throw exceptions when errors are encountered. This comes with the small
+    * cost of having each row wrapped in a [[ReadResult]] that then need to be unpacked. See
+    * [[unsafeReader[A](s:S,conf:kantan\.csv\.CsvConfiguration* unsafeReader]] for an alternative.
+    *
+    * @example
     * {{{
     * scala> CsvSource[String].reader[List[Int]]("1,2,3\n4,5,6", rfc).toList
     * res0: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
     * }}}
-    *
-    * This method is "safe", in that it does not throw exceptions when errors are encountered. This comes with the small
-    * cost of having each row wrapped in a [[ReadResult]] that then need to be unpacked. See
-    * [[unsafeReader[A](s:S,conf:kantan\.csv\.CsvConfiguration* unsafeReader]] for an alternative.
     *
     * @param s instance of `S` that will be opened an parsed.
     * @param conf CSV parsing behaviour.
@@ -73,14 +73,14 @@ trait CsvSource[-S] extends Serializable { self ⇒
 
   /** Turns the specified `S` into an iterator on `A`.
     *
-    * For example:
+    * This is the "unsafe" version of [[reader[A](s:S,conf:kantan\.csv\.CsvConfiguration* reader]]: it will throw as
+    * soon as an error is encountered.
+    *
+    * @example
     * {{{
     * scala> CsvSource[String].unsafeReader[List[Int]]("1,2,3\n4,5,6", rfc).toList
     * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
     * }}}
-    *
-    * This is the "unsafe" version of [[reader[A](s:S,conf:kantan\.csv\.CsvConfiguration* reader]]: it will throw as
-    * soon as an error is encountered.
     *
     * @param s instance of `S` that will be opened an parsed.
     * @param conf CSV parsing behaviour.
@@ -104,16 +104,16 @@ trait CsvSource[-S] extends Serializable { self ⇒
 
   /** Reads the entire CSV data into a collection.
     *
-    * For example:
-    * {{{
-    * scala> CsvSource[String].read[List, List[Int]]("1,2,3\n4,5,6", rfc)
-    * res0: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
-    * }}}
-    *
     * This method is "safe", in that it does not throw exceptions when errors are encountered. This comes with the small
     * cost of having each row wrapped in a [[ReadResult]] that then need to be unpacked. See
     * [[unsafeRead[C[_],A](s:S,conf:kantan\.csv\.CsvConfiguration*  unsafeRead]] for an
     * alternative.
+    *
+    * @example
+    * {{{
+    * scala> CsvSource[String].read[List, List[Int]]("1,2,3\n4,5,6", rfc)
+    * res0: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
+    * }}}
     *
     * @param s instance of `S` that will be opened an parsed.
     * @param conf CSV parsing behaviour.
@@ -133,14 +133,14 @@ trait CsvSource[-S] extends Serializable { self ⇒
 
   /** Reads the entire CSV data into a collection.
     *
-    * For example:
+    * This is the "unsafe" version of [[read[C[_],A](s:S,conf:kantan\.csv\.CsvConfiguration* read]]: it will throw as
+    * soon as an error is encountered.
+    *
+    * @example
     * {{{
     * scala> CsvSource[String].unsafeRead[List, List[Int]]("1,2,3\n4,5,6", rfc)
     * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
     * }}}
-    *
-    * This is the "unsafe" version of [[read[C[_],A](s:S,conf:kantan\.csv\.CsvConfiguration* read]]: it will throw as
-    * soon as an error is encountered.
     *
     * @param s instance of `S` that will be opened an parsed.
     * @param conf CSV parsing behaviour.
@@ -155,7 +155,10 @@ trait CsvSource[-S] extends Serializable { self ⇒
     *
     * This allows developers to adapt existing instances of [[CsvSource]] rather than write new ones from scratch.
     *
-    * For example:
+    * Note that this method assumes that the transformation from `T` to `S` is safe. If it fail, one should use
+    * [[contramapResult]] instead.
+    *
+    * @example
     * {{{
     * scala> case class StringWrapper(value: String)
     *
@@ -165,9 +168,6 @@ trait CsvSource[-S] extends Serializable { self ⇒
     * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
     * }}}
     *
-    * Note that this method assumes that the transformation from `T` to `S` is safe. If it fail, one should use
-    * [[contramapResult]] instead.
-    *
     * @see [[contramapResult]]
     */
   def contramap[T](f: T ⇒ S): CsvSource[T] = CsvSource.from(f andThen self.open)
@@ -176,7 +176,7 @@ trait CsvSource[-S] extends Serializable { self ⇒
     *
     * This allows developers to adapt existing instances of [[CsvSource]] rather than write new ones from scratch.
     *
-    * For example:
+    * @example
     * {{{
     * scala> case class StringWrapper(value: String)
     *
@@ -214,7 +214,9 @@ object CsvSource {
   /** Turns the specified function into a [[CsvSource]].
     *
     * Note that it's usually better to compose an existing instance through [[CsvSource.contramap]] or
-    * [[CsvSource.contramapResult]] rather than create one from scratch. For example:
+    * [[CsvSource.contramapResult]] rather than create one from scratch.
+    *
+    * @example
     * {{{
     *   val urlInput: CsvSource[URL] = CsvSource[InputStream].contramap((url: URL) ⇒ url.openStream())
     * }}}

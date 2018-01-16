@@ -22,6 +22,7 @@ import engine.WriterEngine
 /** Provides syntax for encoding single CSV rows as a string.
   *
   * Writing a single row as a `String` is a surprisingly recurrent feature request. This is how to do it:
+  *
   * {{{
   * scala> import kantan.csv.rfc
   *
