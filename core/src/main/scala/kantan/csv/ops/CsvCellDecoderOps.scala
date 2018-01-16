@@ -27,7 +27,7 @@ final class CsvCellDecoderOps(val s: String) {
 
   /** Decodes a CSV cell as a value of type `A`.
     *
-    *  For example:
+    * @example
     * {{{
     * scala> "1".decodeCsv[Option[Int]]
     * res0: kantan.csv.DecodeResult[Option[Int]] = Success(Some(1))
@@ -38,7 +38,7 @@ final class CsvCellDecoderOps(val s: String) {
 
   /** Decodes a CSV cell as a value of type `A`.
     *
-    *  For example:
+    * @example
     * {{{
     * scala> "1".unsafeDecodeCsv[Option[Int]]
     * res0: Option[Int] = Some(1)

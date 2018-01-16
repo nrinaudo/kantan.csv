@@ -32,7 +32,9 @@ trait CellEncoderInstances {
 
   /** Turns existing `StringEncoder` instances into [[CellEncoder]] ones.
     *
-    * This provides support for most basic Scala types - `Int`, for example:
+    * This provides support for most basic Scala types.
+    *
+    * @example
     * {{{
     * CellEncoder[Int].encode(123)
     * res1: String = 123
@@ -42,14 +44,13 @@ trait CellEncoderInstances {
 
   /** Provides an instance of `CellEncoder[Option[A]]` for any type `A` that has an instance of [[CellEncoder]].
     *
-    * `Some` are encoded like the value they contain:
+    * @example
     * {{{
+    * Some encoding
     * scala> CellEncoder[Option[Int]].encode(Some(123))
     * res1: String = 123
-    * }}}
     *
-    * `Non` are encoded as the empty string:
-    * {{{
+    * // None encoding
     * scala> CellEncoder[Option[Int]].encode(None)
     * res2: String = ""
     * }}}
@@ -59,14 +60,13 @@ trait CellEncoderInstances {
   /** Provides an instance of `CellEncoder[Either[A, B]]` for any type `A` and `B` that have instances of
     * [[CellEncoder]].
     *
-    * `Left` are encoded as the value they contain:
+    * @example
     * {{{
+    * // Left encoding
     * scala> CellEncoder[Either[Int, Boolean]].encode(Left(123))
     * res1: String = 123
-    * }}}
     *
-    * So are `Right`:
-    * {{{
+    * // Right encoding
     * scala> CellEncoder[Either[Int, Boolean]].encode(Right(true))
     * res2: String = true
     * }}}

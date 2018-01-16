@@ -37,7 +37,7 @@ object RowDecoder extends GeneratedRowDecoders with DecoderCompanion[Seq[String]
 
   /** Decodes the cell found at the specified index of `ss` into the requested type.
     *
-    * For example:
+    * @example
     * {{{
     * scala> RowDecoder.decodeCell[Int](List("abc", "123"), 1)
     * res0: DecodeResult[Int] = Success(123)
@@ -54,6 +54,7 @@ object RowDecoder extends GeneratedRowDecoders with DecoderCompanion[Seq[String]
 
   /** Provides a [[RowDecoder]] instance that decodes a single cell from each row.
     *
+    * @example
     * {{{
     * RowDecoder.field[Int](1).decode(Seq("123", "456", "789"))
     * res1: DecodeResult[Int] = Success(456)
@@ -71,6 +72,7 @@ trait RowDecoderInstances {
     *
     * This provides default behaviour for [[RowDecoder.field]] by decoding the first cell.
     *
+    * @example
     * {{{
     * RowDecoder[Int].decode(Seq("123", "456", "789"))
     * res1: DecodeResult[Int] = Success(123)
@@ -81,7 +83,7 @@ trait RowDecoderInstances {
   /** Provides a [[RowDecoder]] instance for all types that have an `HasBuilder`, provided the inner type has a
     * [[CellDecoder]].
     *
-    * `List`, for example:
+    * @example
     * {{{
     * RowDecoder[List[Int]].decode(Seq("123", "456", "789"))
     * res1: DecodeResult[List[Int]] = Success(List(123, 456, 789))

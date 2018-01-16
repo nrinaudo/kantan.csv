@@ -62,6 +62,7 @@ trait CsvSink[-S] extends Serializable { self ⇒
   /** Turns a `CsvSink[S]` into a `CsvSink[T]`.
     *
     * This allows developers to adapt existing instances of [[CsvSink]] rather than write one from scratch.
+    *
     * One could, for example, write `CsvSource[File]` by basing it on `CsvSource[OutputStream]`:
     * {{{
     *   def fileOutput(implicit c: scala.io.Codec): CsvSink[File] =

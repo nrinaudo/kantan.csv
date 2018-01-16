@@ -19,7 +19,7 @@ package kantan.csv
 trait GeneratedHeaderDecoders {
   [#/** Creates a new [[HeaderDecoder]] from the specified field list and function.
    *
-   * For example:
+   * @example
    * {{{
    * scala> import kantan.csv.ops._
    *

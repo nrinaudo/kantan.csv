@@ -20,6 +20,7 @@ package kantan.csv
 trait TupleInstances {
   [#/** Provides an instance of [[RowDecoder]] for `Tuple1`, provided all internal types have an instance of [[CellDecoder]].
     *
+    * @example
     * {{{
     * scala> RowDecoder[Tuple1[[#Int#]]].decode(Seq([#"1"#]))
     * res0: DecodeResult[Tuple1[[#Int#]]] = Success(([#1#,]))
@@ -32,6 +33,7 @@ trait TupleInstances {
 
   /** Provides an instance of [[RowEncoder]] for `Tuple1`, provided all internal types have an instance of [[CellEncoder]].
     *
+    * @example
     * {{{
     * scala> RowEncoder[Tuple1[Int]].encode(Tuple1(1))
     * res0: Seq[String] = List(1)
@@ -42,6 +44,7 @@ trait TupleInstances {
 
   [2..#/** Provides an instance of [[RowEncoder]] for `Tuple1`, provided all internal types have an instance of [[CellEncoder]].
     *
+    * @example
     * {{{
     * scala> RowEncoder[Tuple1[[#Int#]]].encode(([#1#]))
     * res0: Seq[String] = WrappedArray([#1#])

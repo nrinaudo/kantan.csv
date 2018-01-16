@@ -27,7 +27,7 @@ final class CsvRowDecoderOps(val ss: Seq[String]) {
 
   /** Decodes a CSV row as a value of type `A`.
     *
-    * For example:
+    * @example
     * {{{
     * scala> Seq("1", "2", "3").decodeCsv[(Int, Int, Int)]
     * res0: kantan.csv.DecodeResult[(Int, Int, Int)] = Success((1,2,3))
@@ -38,7 +38,7 @@ final class CsvRowDecoderOps(val ss: Seq[String]) {
 
   /** Decodes a CSV row as a value of type `A`.
     *
-    * For example:
+    * @example
     * {{{
     * scala> Seq("1", "2", "3").unsafeDecodeCsv[(Int, Int, Int)]
     * res0: (Int, Int, Int) = (1,2,3)

@@ -20,7 +20,7 @@ package kantan.csv
 trait GeneratedRowDecoders {
   [#/** Creates a new [[RowDecoder]] from the specified function.
     *
-    * For example:
+    * @example
     * {{{
     * scala> case class Ints([#i1: Int#])
     *
@@ -41,7 +41,9 @@ trait GeneratedRowDecoders {
 
   [#/** Creates a new [[RowDecoder]] from the specified function.
     *
-    * Cells are mapped to arguments of `f` in the order they are found. For example:
+    * Cells are mapped to arguments of `f` in the order they are found.
+    *
+    * @example
     * {{{
     * scala> case class Ints([#i1: Int#])
     *
