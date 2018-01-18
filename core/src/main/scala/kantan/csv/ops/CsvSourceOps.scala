@@ -27,13 +27,13 @@ import scala.collection.generic.CanBuildFrom
   * scala> import kantan.csv._
   *
   * scala> "1,2,3\n4,5,6".asCsvReader[List[Int]](rfc).toList
-  * res0: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
+  * res0: List[ReadResult[List[Int]]] = List(Right(List(1, 2, 3)), Right(List(4, 5, 6)))
   * }}}
   *
   * A slightly less common use case is to load an entire CSV file in memory:
   * {{{
   * scala> "1,2,3\n4,5,6".readCsv[List, List[Int]](rfc)
-  * res1: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
+  * res1: List[ReadResult[List[Int]]] = List(Right(List(1, 2, 3)), Right(List(4, 5, 6)))
   * }}}
   *
   * Unsafe versions of these methods are also available, even if usually advised against.
@@ -50,7 +50,7 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
     * scala> import kantan.csv._
     *
     * scala> CsvSource[String].reader[List[Int]]("1,2,3\n4,5,6", rfc).toList
-    * res1: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
+    * res1: List[ReadResult[List[Int]]] = List(Right(List(1, 2, 3)), Right(List(4, 5, 6)))
     * }}}
     *
     * @example
@@ -58,7 +58,7 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
     * scala> import kantan.csv._
     *
     * scala> "1,2,3\n4,5,6".asCsvReader[List[Int]](rfc).toList
-    * res0: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
+    * res0: List[ReadResult[List[Int]]] = List(Right(List(1, 2, 3)), Right(List(4, 5, 6)))
     * }}}
     *
     * @param  conf   CSV parsing behaviour.
@@ -109,7 +109,7 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
     * scala> import kantan.csv._
     *
     * scala> CsvSource[String].read[List, List[Int]]("1,2,3\n4,5,6", rfc)
-    * res1: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
+    * res1: List[ReadResult[List[Int]]] = List(Right(List(1, 2, 3)), Right(List(4, 5, 6)))
     * }}}
     *
     * @example
@@ -117,7 +117,7 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
     * scala> import kantan.csv._
     *
     * scala> "1,2,3\n4,5,6".readCsv[List, List[Int]](rfc)
-    * res0: List[ReadResult[List[Int]]] = List(Success(List(1, 2, 3)), Success(List(4, 5, 6)))
+    * res0: List[ReadResult[List[Int]]] = List(Right(List(1, 2, 3)), Right(List(4, 5, 6)))
     * }}}
     *
     * @param  conf   CSV parsing behaviour.

@@ -31,22 +31,16 @@ package object csv {
 
   // - Results ---------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  type Success[A] = Result.Success[A]
-  val Success: Result.Success.type = Result.Success
 
-  type Failure[A] = Result.Failure[A]
-  val Failure: Result.Failure.type = Result.Failure
-
-  /** Result of a reading operation, which can be either a success or a failure.
+  /** Result of a reading operation.
     *
     * Both [[kantan.csv.ParseResult]] and [[DecodeResult]] are valid values of type [[ReadResult]].
     *
-    * @see kantan.codecs.Result
     * @documentable
     */
-  type ReadResult[A] = Result[ReadError, A]
+  type ReadResult[A] = Either[ReadError, A]
 
-  /** Result of a parsing operation, which can be either a success or a failure.
+  /** Result of a parsing operation.
     *
     * The difference between a [[ParseResult parse]] and a [[DecodeResult decode]] result is that the former comes
     * from reading raw data and trying to interpret it as CSV, while the later comes from turning CSV data into
@@ -54,12 +48,11 @@ package object csv {
     *
     * Failure cases are all encoded as [[ParseError]].
     *
-    * @see kantan.codecs.Result
     * @documentable
     */
-  type ParseResult[A] = Result[ParseError, A]
+  type ParseResult[A] = Either[ParseError, A]
 
-  /** Result of a decode operation, which can be either a success or a failure.
+  /** Result of a decode operation.
     *
     * The difference between a [[ParseResult parse]] and a [[DecodeResult decode]] result is that the former comes
     * from reading raw data and trying to interpret it as CSV, while the later comes from turning CSV data into
@@ -67,10 +60,9 @@ package object csv {
     *
     * Failure cases are all encoded as [[DecodeError]].
     *
-    * @see kantan.codecs.Result
     * @documentable
     */
-  type DecodeResult[A] = Result[DecodeError, A]
+  type DecodeResult[A] = Either[DecodeError, A]
 
   // - Cell codecs -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

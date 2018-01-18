@@ -18,7 +18,6 @@ package kantan.csv
 package engine
 
 import java.io.Reader
-import kantan.codecs.Result
 import kantan.codecs.resource.ResourceIterator
 
 /** Provides kantan.csv with CSV parsing functionality.
@@ -34,9 +33,11 @@ trait ReaderEngine {
 
   /** Turns the specified `Reader` into a safe [[CsvReader]]. */
   def readerFor(reader: ⇒ Reader, conf: CsvConfiguration): CsvReader[ReadResult[Seq[String]]] =
-    ParseResult(unsafeReaderFor(reader, conf))
+    ParseResult(unsafeReaderFor(reader, conf)).right
       .map(_.safe(ParseError.NoSuchElement: ParseError)(e ⇒ ParseError.IOError(e)))
-      .valueOr(e ⇒ ResourceIterator(Result.failure(e)))
+      .left
+      .map(e ⇒ ResourceIterator(ReadResult.failure(e)))
+      .merge
       .withClose(() ⇒ reader.close())
 }
 

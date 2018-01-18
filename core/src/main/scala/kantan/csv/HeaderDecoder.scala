@@ -46,13 +46,13 @@ object HeaderDecoder extends GeneratedHeaderDecoders {
     }
 
     val error = mapping.indexWhere(_ < 0)
-    if(error < 0) Success(mapping)
+    if(error < 0) Right(mapping)
     else DecodeResult.typeError(s"Missing header for ${header(error)}")
   }
 
   /** When no [[HeaderDecoder]] is available, fallback on whatever instance of [[RowDecoder]] is in scope. */
   implicit def defaultHeaderDecoder[A: RowDecoder]: HeaderDecoder[A] = new HeaderDecoder[A] {
     override def noHeader                        = RowDecoder[A]
-    override def fromHeader(header: Seq[String]) = Success(RowDecoder[A])
+    override def fromHeader(header: Seq[String]) = Right(RowDecoder[A])
   }
 }

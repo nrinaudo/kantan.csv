@@ -17,7 +17,6 @@
 package kantan.csv
 package ops
 
-import kantan.codecs.Result
 import kantan.codecs.laws.CodecValue
 import laws._
 import laws.discipline.arbitrary._
@@ -28,13 +27,13 @@ import scala.util.Try
 class CsvSourceOpsTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
   type TestCase = (Int, Float, String, Boolean)
 
-  def compare[F, A](csv: List[Result[F, A]], data: List[RowValue[A]]): Unit = {
+  def compare[F, A](csv: List[Either[F, A]], data: List[RowValue[A]]): Unit = {
     csv.length should be(data.length)
 
     csv.zip(data).foreach {
-      case (Success(is), CodecValue.LegalValue(_, cs)) ⇒ is should be(cs)
-      case (Failure(_), CodecValue.IllegalValue(_))    ⇒
-      case (a, b)                                      ⇒ fail(s"$a is not compatible with $b")
+      case (Right(is), CodecValue.LegalValue(_, cs)) ⇒ is should be(cs)
+      case (Left(_), CodecValue.IllegalValue(_))     ⇒
+      case (a, b)                                    ⇒ fail(s"$a is not compatible with $b")
     }
   }
 
