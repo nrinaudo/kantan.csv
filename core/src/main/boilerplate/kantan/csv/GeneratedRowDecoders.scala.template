@@ -25,7 +25,7 @@ trait GeneratedRowDecoders {
     * scala> case class Ints([#i1: Int#])
     *
     * scala> RowDecoder.decoder([#0#])(Ints.apply _).decode(Seq([#"1"#]))
-    * res0: DecodeResult[Ints] = Success(Ints([#1#,]))
+    * res0: DecodeResult[Ints] = Right(Ints([#1#,]))
     * }}}
     * @param f encoding function.
     [#* @param i1 index of the cell that should be passed as parameter number 1 of `f`#
@@ -33,7 +33,7 @@ trait GeneratedRowDecoders {
     */
   def decoder[[#A1: CellDecoder#], R]([#i1: Int#])(f: ([#A1#]) ⇒ R): RowDecoder[R] =
     RowDecoder.from(ss ⇒ for {
-      [#f1 ← RowDecoder.decodeCell[A1](ss, i1)#
+      [#f1 ← RowDecoder.decodeCell[A1](ss, i1).right#
       ]
     } yield f([#f1#]))#
 
@@ -48,7 +48,7 @@ trait GeneratedRowDecoders {
     * scala> case class Ints([#i1: Int#])
     *
     * scala> RowDecoder.ordered(Ints.apply _).decode(Seq([#"1"#]))
-    * res0: DecodeResult[Ints] = Success(Ints([#1#,]))
+    * res0: DecodeResult[Ints] = Right(Ints([#1#,]))
     * }}}
     *
     */

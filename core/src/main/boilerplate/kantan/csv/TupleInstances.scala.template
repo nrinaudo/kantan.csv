@@ -23,7 +23,7 @@ trait TupleInstances {
     * @example
     * {{{
     * scala> RowDecoder[Tuple1[[#Int#]]].decode(Seq([#"1"#]))
-    * res0: DecodeResult[Tuple1[[#Int#]]] = Success(([#1#,]))
+    * res0: DecodeResult[Tuple1[[#Int#]]] = Right(([#1#,]))
     * }}}
     */
    implicit def tupleRowDecoder1[[#A1: CellDecoder#]]: RowDecoder[Tuple1[[#A1#]]] =

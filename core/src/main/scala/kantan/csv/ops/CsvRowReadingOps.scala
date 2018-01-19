@@ -29,13 +29,13 @@ final class CsvRowReadingOps[A: CsvSource](a: A) {
     * scala> import kantan.csv._
     *
     * scala> "1,2,3".readCsvRow[(Int, Int, Int)](rfc)
-    * res0: ReadResult[(Int, Int, Int)] = Success((1,2,3))
+    * res0: ReadResult[(Int, Int, Int)] = Right((1,2,3))
     * }}}
     */
   def readCsvRow[B: RowDecoder](conf: CsvConfiguration)(implicit e: ReaderEngine): ReadResult[B] = {
     val reader = a.asCsvReader[B](conf)
 
-    reader.next.flatMap { res ⇒
+    reader.next.right.flatMap { res ⇒
       // Slight abuse of `no such element` to mean that we're not working with a single row.
       if(reader.hasNext) ParseResult.noSuchElement
       else ReadResult.success(res)
@@ -55,8 +55,9 @@ final class CsvRowReadingOps[A: CsvSource](a: A) {
     * Note that this method is unsafe and will throw an exception if the string value is not a valid `A`. Prefer
     * [[readCsvRow]] whenever possible.
     */
+  @SuppressWarnings(Array("org.wartremover.warts.EitherProjectionPartial"))
   def unsafeReadCsvRow[B: RowDecoder](conf: CsvConfiguration)(implicit e: ReaderEngine): B =
-    readCsvRow[B](conf).get
+    readCsvRow[B](conf).right.get
 }
 
 trait ToCsvRowReadingOps {

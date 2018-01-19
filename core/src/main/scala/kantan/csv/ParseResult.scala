@@ -27,7 +27,7 @@ object ParseResult extends ResultCompanion.WithDefault[ParseError] {
     * @example
     * {{{
     * scala> ParseResult.io(new java.io.IOException("some sort of io error"))
-    * res0: ParseResult[Nothing] = Failure(IOError: some sort of io error)
+    * res0: ParseResult[Nothing] = Left(IOError: some sort of io error)
     * }}}
     */
   def io(e: Throwable): ParseResult[Nothing] = failure(ParseError.IOError(e))
@@ -37,7 +37,7 @@ object ParseResult extends ResultCompanion.WithDefault[ParseError] {
     * @example
     * {{{
     * scala> ParseResult.noSuchElement
-    * res0: ParseResult[Nothing] = Failure(NoSuchElement: trying to read from an empty reader)
+    * res0: ParseResult[Nothing] = Left(NoSuchElement: trying to read from an empty reader)
     * }}}
     */
   def noSuchElement: ParseResult[Nothing] = failure(ParseError.NoSuchElement)

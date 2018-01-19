@@ -40,10 +40,10 @@ object RowDecoder extends GeneratedRowDecoders with DecoderCompanion[Seq[String]
     * @example
     * {{{
     * scala> RowDecoder.decodeCell[Int](List("abc", "123"), 1)
-    * res0: DecodeResult[Int] = Success(123)
+    * res0: DecodeResult[Int] = Right(123)
     *
     * scala> RowDecoder.decodeCell[Int](List("abc", "123"), 0)
-    * res0: DecodeResult[Int] = Failure(TypeError: 'abc' is not a valid Int)
+    * res0: DecodeResult[Int] = Left(TypeError: 'abc' is not a valid Int)
     * }}}
     */
   def decodeCell[A: CellDecoder](ss: Seq[String], i: Int): DecodeResult[A] =
@@ -57,7 +57,7 @@ object RowDecoder extends GeneratedRowDecoders with DecoderCompanion[Seq[String]
     * @example
     * {{{
     * RowDecoder.field[Int](1).decode(Seq("123", "456", "789"))
-    * res1: DecodeResult[Int] = Success(456)
+    * res1: DecodeResult[Int] = Right(456)
     * }}}
     */
   def field[A: CellDecoder](index: Int): RowDecoder[A] = RowDecoder.from { ss ⇒
@@ -75,7 +75,7 @@ trait RowDecoderInstances {
     * @example
     * {{{
     * RowDecoder[Int].decode(Seq("123", "456", "789"))
-    * res1: DecodeResult[Int] = Success(123)
+    * res1: DecodeResult[Int] = Right(123)
     * }}}
     */
   implicit def fromCellDecoder[A: CellDecoder]: RowDecoder[A] = RowDecoder.field[A](0)
@@ -86,14 +86,14 @@ trait RowDecoderInstances {
     * @example
     * {{{
     * RowDecoder[List[Int]].decode(Seq("123", "456", "789"))
-    * res1: DecodeResult[List[Int]] = Success(List(123, 456, 789))
+    * res1: DecodeResult[List[Int]] = Right(List(123, 456, 789))
     * }}}
     */
   implicit def hasBuilderRowDecoder[A: CellDecoder, F[_]](implicit hb: HasBuilder[F, A]): RowDecoder[F[A]] =
     RowDecoder.from(_.foldLeft(DecodeResult(hb.newBuilder)) { (racc, s) ⇒
       for {
-        acc ← racc
-        a   ← CellDecoder[A].decode(s)
+        acc ← racc.right
+        a   ← CellDecoder[A].decode(s).right
       } yield acc += a
-    }.map(_.result()))
+    }.right.map(_.result()))
 }

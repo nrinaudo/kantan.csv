@@ -38,7 +38,7 @@ trait CellDecoderInstances {
     * @example
     * {{{
     * scala> CellDecoder[Int].decode("123")
-    * res1: DecodeResult[Int] = Success(123)
+    * res1: DecodeResult[Int] = Right(123)
     * }}}
     */
   implicit def fromStringDecoder[A: StringDecoder]: CellDecoder[A] =
@@ -50,11 +50,11 @@ trait CellDecoderInstances {
     * {{{
     * // Non-empty value
     * scala> CellDecoder[Option[Int]].decode("123")
-    * res1: DecodeResult[Option[Int]] = Success(Some(123))
+    * res1: DecodeResult[Option[Int]] = Right(Some(123))
     *
     * // Empty value
     * scala> CellDecoder[Option[Int]].decode("")
-    * res2: DecodeResult[Option[Int]] = Success(None)
+    * res2: DecodeResult[Option[Int]] = Right(None)
     * }}}
     */
   implicit def cellDecoderOpt[A: CellDecoder]: CellDecoder[Option[A]] = Decoder.optionalDecoder
@@ -66,11 +66,11 @@ trait CellDecoderInstances {
     * {{{
     * // Left value
     * scala> CellDecoder[Either[Int, Boolean]].decode("123")
-    * res1: DecodeResult[Either[Int, Boolean]] = Success(Left(123))
+    * res1: DecodeResult[Either[Int, Boolean]] = Right(Left(123))
     *
     * // Right value
     * scala> CellDecoder[Either[Int, Boolean]].decode("true")
-    * res2: DecodeResult[Either[Int, Boolean]] = Success(Right(true))
+    * res2: DecodeResult[Either[Int, Boolean]] = Right(Right(true))
     * }}}
     */
   implicit def cellDecoderEither[A: CellDecoder, B: CellDecoder]: CellDecoder[Either[A, B]] = Decoder.eitherDecoder

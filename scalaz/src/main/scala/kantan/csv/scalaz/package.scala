@@ -16,23 +16,16 @@
 
 package kantan.csv
 
-import _root_.scalaz._, Maybe._, Scalaz._
+import _root_.scalaz._
 import imp.imp
 
 /** Declares various type class instances for bridging `kantan.csv` and `scalaz`. */
 package object scalaz extends kantan.codecs.scalaz.ScalazInstances {
   implicit def eitherRowDecoder[A: RowDecoder, B: RowDecoder]: RowDecoder[A \/ B] =
-    RowDecoder.from { row ⇒
-      RowDecoder[A]
-        .decode(row)
-        .map(_.left[B])
-        .orElse(RowDecoder[B].decode(row).map(_.right[A]))
-    }
+    RowDecoder[Either[A, B]].map(\/.fromEither)
 
-  implicit def maybeRowDecoder[A: RowDecoder]: RowDecoder[Maybe[A]] = RowDecoder.from { row ⇒
-    if(row.isEmpty) DecodeResult.success(empty)
-    else RowDecoder[A].decode(row).map(just)
-  }
+  implicit def maybeRowDecoder[A: RowDecoder]: RowDecoder[Maybe[A]] =
+    RowDecoder[Option[A]].map(Maybe.fromOption)
 
   implicit def eitherRowEncoder[A: RowEncoder, B: RowEncoder]: RowEncoder[A \/ B] =
     RowEncoder.from(_.fold(RowEncoder[A].encode, RowEncoder[B].encode))

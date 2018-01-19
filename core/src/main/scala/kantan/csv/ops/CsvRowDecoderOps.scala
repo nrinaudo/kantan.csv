@@ -30,7 +30,7 @@ final class CsvRowDecoderOps(val ss: Seq[String]) {
     * @example
     * {{{
     * scala> Seq("1", "2", "3").decodeCsv[(Int, Int, Int)]
-    * res0: kantan.csv.DecodeResult[(Int, Int, Int)] = Success((1,2,3))
+    * res0: kantan.csv.DecodeResult[(Int, Int, Int)] = Right((1,2,3))
     * }}}
     */
   def decodeCsv[A: RowDecoder]: DecodeResult[A] =

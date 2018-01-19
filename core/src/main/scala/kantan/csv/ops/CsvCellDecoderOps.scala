@@ -30,7 +30,7 @@ final class CsvCellDecoderOps(val s: String) {
     * @example
     * {{{
     * scala> "1".decodeCsv[Option[Int]]
-    * res0: kantan.csv.DecodeResult[Option[Int]] = Success(Some(1))
+    * res0: kantan.csv.DecodeResult[Option[Int]] = Right(Some(1))
     * }}}
     */
   def decodeCsv[A: CellDecoder]: DecodeResult[A] =

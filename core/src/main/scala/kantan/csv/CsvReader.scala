@@ -17,7 +17,6 @@
 package kantan.csv
 
 import java.io.Reader
-import kantan.codecs.Result
 import kantan.codecs.resource.ResourceIterator
 import kantan.csv.engine.ReaderEngine
 
@@ -35,9 +34,14 @@ object CsvReader {
     val data: CsvReader[ReadResult[Seq[String]]] = e.readerFor(reader, conf)
 
     val decoder =
-      if(conf.hasHeader && data.hasNext) data.next.flatMap(header ⇒ HeaderDecoder[A].fromHeader(header.map(_.trim)))
-      else Success(HeaderDecoder[A].noHeader)
+      if(conf.hasHeader && data.hasNext)
+        data.next.right.flatMap(header ⇒ HeaderDecoder[A].fromHeader(header.map(_.trim)))
+      else Right(HeaderDecoder[A].noHeader)
 
-    decoder.map(d ⇒ data.map(_.flatMap(d.decode))).valueOr(error ⇒ ResourceIterator(Result.failure(error)))
+    decoder.right
+      .map(d ⇒ data.map(_.right.flatMap(d.decode)))
+      .left
+      .map(error ⇒ ResourceIterator(ReadResult.failure(error)))
+      .merge
   }
 }

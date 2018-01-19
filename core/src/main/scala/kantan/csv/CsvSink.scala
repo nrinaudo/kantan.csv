@@ -95,6 +95,7 @@ object CsvSink {
   }
 
   // TODO: unsafe, unacceptable, what was I thinking.
+  @SuppressWarnings(Array("org.wartremover.warts.EitherProjectionPartial"))
   implicit def fromResource[A: WriterResource]: CsvSink[A] =
-    CsvSink.from(a ⇒ WriterResource[A].open(a).get)
+    CsvSink.from(a ⇒ WriterResource[A].open(a).right.get)
 }
