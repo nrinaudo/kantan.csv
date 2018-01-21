@@ -24,7 +24,10 @@ import org.scalacheck.{Arbitrary, Gen}
 
 class FoldableEncoderTests extends DisciplineSuite {
 
-  implicit val arb: Arbitrary[List[Int]]      = Arbitrary(Gen.nonEmptyListOf(Arbitrary.arbitrary[Int]))
+  implicit val arb: Arbitrary[List[Int]] = Arbitrary(Gen.nonEmptyListOf(Arbitrary.arbitrary[Int]))
+
+  // We need this to prevent the standard List RowDecoder from being used. Happy to change this as soon as someone
+  // shows me a Foldable type that doesn't already have a RowDecoder instance.
   implicit val encoder: RowEncoder[List[Int]] = foldableRowEncoder[List, Int]
 
   checkAll("Foldable[Int]", RowEncoderTests[List[Int]].encoder[List[Byte], List[Float]])
