@@ -38,6 +38,9 @@ libraryDependencies += "com.nrinaudo" %% "kantan.csv-joda-time" % "@VERSION@"
 
 // Provides instances for refined types.
 libraryDependencies += "com.nrinaudo" %% "kantan.csv-refined" % "@VERSION@"
+
+// Provides instances for enumeratum types.
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-enumeratum" % "@VERSION@"
 ```
 
 Additionally, while kantan.csv comes with a default parser / serializer (that has
