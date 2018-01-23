@@ -17,7 +17,6 @@
 package kantan.csv
 package laws
 
-import imp.imp
 import org.scalacheck.{Arbitrary, Cogen, Gen}
 
 sealed trait Cell extends Product with Serializable {
@@ -73,7 +72,7 @@ object Cell {
   implicit val arbNonEscaped: Arbitrary[NonEscaped] = Arbitrary(nonEscaped)
   implicit val arbCell: Arbitrary[Cell]             = Arbitrary(cell)
 
-  implicit val cogenCell: Cogen[Cell] = imp[Cogen[String]].contramap(_.value)
+  implicit val cogenCell: Cogen[Cell] = Cogen[String].contramap(_.value)
 
   // - CSV row generators ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

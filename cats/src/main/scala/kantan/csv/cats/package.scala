@@ -18,9 +18,25 @@ package kantan.csv
 
 import _root_.cats._
 import imp.imp
+import kantan.codecs.cats._
 
 /** Declares various type class instances for bridging `kantan.csv` and `cats`. */
-package object cats extends kantan.codecs.cats.CatsInstances {
+package object cats extends CommonInstances with DecoderInstances with EncoderInstances {
+
+  // - Eq instances ----------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+
+  implicit val csvOutOfBoundsEq: Eq[DecodeError.OutOfBounds]         = Eq.fromUniversalEquals
+  implicit val csvTypeErrorEq: Eq[DecodeError.TypeError]             = Eq.fromUniversalEquals
+  implicit val csvDecodeErrorEq: Eq[DecodeError]                     = Eq.fromUniversalEquals
+  implicit val csvNoSuchElementEq: Eq[ParseError.NoSuchElement.type] = Eq.fromUniversalEquals
+  implicit val csvIoErrorEq: Eq[ParseError.IOError]                  = Eq.fromUniversalEquals
+  implicit val csvParseErrorEq: Eq[ParseError]                       = Eq.fromUniversalEquals
+  implicit val csvReadErrorEq: Eq[ReadError]                         = Eq.fromUniversalEquals
+
+  // - Misc. instances --------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+
   implicit def foldableRowEncoder[F[_]: Foldable, A: CellEncoder]: RowEncoder[F[A]] =
     RowEncoder.from { as ⇒
       imp[Foldable[F]]
@@ -28,21 +44,4 @@ package object cats extends kantan.codecs.cats.CatsInstances {
         .result()
     }
 
-  // - CSV input / output ----------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  /** `Contravariant` instance for `CsvSource`. */
-  implicit val csvSource: Contravariant[CsvSource] = new Contravariant[CsvSource] {
-    override def contramap[A, B](r: CsvSource[A])(f: B ⇒ A): CsvSource[B] = r.contramap(f)
-  }
-
-  /** `Contravariant` instance for `CsvSink`. */
-  implicit val csvSink: Contravariant[CsvSink] = new Contravariant[CsvSink] {
-    override def contramap[A, B](r: CsvSink[A])(f: B ⇒ A): CsvSink[B] = r.contramap(f)
-  }
-
-  // - ReadError -------------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  implicit val readErrorEq: Eq[ReadError]     = Eq.fromUniversalEquals[ReadError]
-  implicit val decodeErrorEq: Eq[DecodeError] = Eq.fromUniversalEquals[DecodeError]
-  implicit val parseErrorEq: Eq[ParseError]   = Eq.fromUniversalEquals[ParseError]
 }
