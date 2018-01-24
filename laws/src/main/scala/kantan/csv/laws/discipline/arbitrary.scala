@@ -91,18 +91,4 @@ trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstance
     }
   }
 
-  // - Encoders and decoders -------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  implicit def arbCellDecoder[A: Arbitrary]: Arbitrary[CellDecoder[A]] =
-    Arbitrary(arb[String ⇒ DecodeResult[A]].map(CellDecoder.from))
-
-  implicit def arbCellEncoder[A: Arbitrary: Cogen]: Arbitrary[CellEncoder[A]] =
-    Arbitrary(arb[A ⇒ String].map(CellEncoder.from))
-
-  implicit def arbRowDecoder[A: Arbitrary]: Arbitrary[RowDecoder[A]] =
-    Arbitrary(arb[Seq[String] ⇒ DecodeResult[A]].map(RowDecoder.from))
-
-  implicit def arbRowEncoder[A: Arbitrary: Cogen]: Arbitrary[RowEncoder[A]] =
-    Arbitrary(arb[A ⇒ Seq[String]].map(RowEncoder.from))
-
 }
