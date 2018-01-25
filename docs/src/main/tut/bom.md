@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Working with BOMs (and MS Excel)"
 section: tutorial
-sort_order: 30
+sort_order: 31
 ---
 Excel is unfortunately both the most commonly used software to view CSV data, and the worst software there is to view
 CSV data. The main issue has to do with encoding - Excel will use the local system's default encoding, which changes

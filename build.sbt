@@ -16,9 +16,9 @@ lazy val root = Project(id = "kantan-csv", base = file("."))
       |import kantan.csv.refined._
     """.stripMargin
   )
-  .aggregate(core, cats, scalaz, laws, docs, generic, benchmark, jackson, commons, jodaTime, refined, enumeratum)
+  .aggregate(core, cats, scalaz, laws, libra, docs, generic, benchmark, jackson, commons, jodaTime, refined, enumeratum)
   .aggregateIf(java8Supported)(java8)
-  .dependsOn(core, generic, jodaTime, refined, enumeratum)
+  .dependsOn(core, generic, jodaTime, libra, refined, enumeratum)
 
 lazy val docs = project
   .enablePlugins(DocumentationPlugin)
@@ -26,7 +26,7 @@ lazy val docs = project
     unidocProjectFilter in (ScalaUnidoc, unidoc) :=
       inAnyProject -- inProjectsIf(!java8Supported)(java8) -- inProjects(benchmark)
   )
-  .dependsOn(core, laws, cats, scalaz, generic, jackson, commons, jodaTime, refined, enumeratum)
+  .dependsOn(core, laws, libra, cats, scalaz, generic, jackson, commons, jodaTime, refined, enumeratum)
   .dependsOnIf(java8Supported)(java8)
 
 lazy val benchmark = project
@@ -220,6 +220,23 @@ lazy val enumeratum = project
       "com.nrinaudo"  %% "kantan.codecs-enumeratum"      % Versions.kantanCodecs,
       "com.nrinaudo"  %% "kantan.codecs-enumeratum-laws" % Versions.kantanCodecs % "test",
       "org.scalatest" %% "scalatest"                     % Versions.scalatest % "test"
+    )
+  )
+
+// - libra project -----------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+lazy val libra = project
+  .settings(
+    moduleName := "kantan.csv-libra",
+    name       := "libra"
+  )
+  .enablePlugins(PublishedPlugin)
+  .dependsOn(core, laws % "test")
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.nrinaudo"  %% "kantan.codecs-libra"      % Versions.kantanCodecs,
+      "com.nrinaudo"  %% "kantan.codecs-libra-laws" % Versions.kantanCodecs % "test",
+      "org.scalatest" %% "scalatest"                % Versions.scalatest % "test"
     )
   )
 
