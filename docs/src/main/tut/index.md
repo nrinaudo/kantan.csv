@@ -41,6 +41,9 @@ libraryDependencies += "com.nrinaudo" %% "kantan.csv-refined" % "@VERSION@"
 
 // Provides instances for enumeratum types.
 libraryDependencies += "com.nrinaudo" %% "kantan.csv-enumeratum" % "@VERSION@"
+
+// Provides instances for libra types.
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-libra" % "@VERSION@"
 ```
 
 Additionally, while kantan.csv comes with a default parser / serializer (that has
