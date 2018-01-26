@@ -18,17 +18,21 @@ package kantan.csv
 
 import _root_.scalaz._
 import imp.imp
+import kantan.codecs.scalaz._
 
 /** Declares various type class instances for bridging `kantan.csv` and `scalaz`. */
-package object scalaz extends kantan.codecs.scalaz.ScalazInstances {
-  implicit def eitherRowDecoder[A: RowDecoder, B: RowDecoder]: RowDecoder[A \/ B] =
-    RowDecoder[Either[A, B]].map(\/.fromEither)
+package object scalaz extends DecoderInstances with EncoderInstances with CommonInstances {
 
-  implicit def maybeRowDecoder[A: RowDecoder]: RowDecoder[Maybe[A]] =
-    RowDecoder[Option[A]].map(Maybe.fromOption)
+  // - Eq instances ----------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
-  implicit def eitherRowEncoder[A: RowEncoder, B: RowEncoder]: RowEncoder[A \/ B] =
-    RowEncoder.from(_.fold(RowEncoder[A].encode, RowEncoder[B].encode))
+  implicit val csvOutOfBoundsEqual: Equal[DecodeError.OutOfBounds]         = Equal.equalA
+  implicit val csvTypeErrorEqual: Equal[DecodeError.TypeError]             = Equal.equalA
+  implicit val csvDecodeErrorEqual: Equal[DecodeError]                     = Equal.equalA
+  implicit val csvNoSuchElementEqual: Equal[ParseError.NoSuchElement.type] = Equal.equalA
+  implicit val csvIoErrorEqual: Equal[ParseError.IOError]                  = Equal.equalA
+  implicit val csvParseErrorEqual: Equal[ParseError]                       = Equal.equalA
+  implicit val csvReadErrorEqual: Equal[ReadError]                         = Equal.equalA
 
   implicit def foldableRowEncoder[F[_]: Foldable, A: CellEncoder]: RowEncoder[F[A]] =
     RowEncoder.from { as ⇒
@@ -37,25 +41,4 @@ package object scalaz extends kantan.codecs.scalaz.ScalazInstances {
         .result()
     }
 
-  implicit def maybeRowEncoder[A: RowEncoder]: RowEncoder[Maybe[A]] = new RowEncoder[Maybe[A]] {
-    override def encode(a: Maybe[A]): Seq[String] = a.map(RowEncoder[A].encode).getOrElse(Seq.empty)
-  }
-
-  // - CSV input / output ----------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  /** `Contravariant` instance for `CsvSource`. */
-  implicit val csvSource: Contravariant[CsvSource] = new Contravariant[CsvSource] {
-    override def contramap[A, B](r: CsvSource[A])(f: B ⇒ A): CsvSource[B] = r.contramap(f)
-  }
-
-  /** `Contravariant` instance for `CsvSink`. */
-  implicit val csvSink: Contravariant[CsvSink] = new Contravariant[CsvSink] {
-    override def contramap[A, B](r: CsvSink[A])(f: B ⇒ A): CsvSink[B] = r.contramap(f)
-  }
-
-  // - ReadError -------------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  implicit val readErrorEqual: Equal[ReadError]     = Equal.equalA[ReadError]
-  implicit val decodeErrorEqual: Equal[DecodeError] = Equal.equalA[DecodeError]
-  implicit val parseErrorEqual: Equal[ParseError]   = Equal.equalA[ParseError]
 }

@@ -17,12 +17,4 @@
 package kantan.csv
 package scalaz
 
-import _root_.scalaz.scalacheck.ScalazProperties.{equal ⇒ equ}
-import kantan.codecs.scalaz.laws.discipline._
-import scalaz.arbitrary._
-
-class InstancesTests extends ScalazDisciplineSuite {
-  checkAll("ReadError", equ.laws[ReadError])
-  checkAll("DecodeError", equ.laws[DecodeError])
-  checkAll("ParseError", equ.laws[ParseError])
-}
+object equality extends kantan.codecs.scalaz.laws.discipline.EqualInstances
