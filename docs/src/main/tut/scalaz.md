@@ -63,17 +63,21 @@ You can write, for example:
 
 The following instance for cats type classes are provided:
 
-* [`Functor`] for all decoders ([`CellDecoder`] and [`RowDecoder`]).
+* [`MonadError`] and [`Plus`] for all decoders ([`CellDecoder`] and [`RowDecoder`]).
 * [`Contravariant`] for all encoders ([`CellEncoder`] and [`RowEncoder`]).
+* [`Show`] and [`Equal`] for all error types ([`ReadError`] and all its descendants).
+* [`RowEncoder`] for any type that has a [`Foldable`].
 
-[`Functor`]:https://oss.sonatype.org/service/local/repositories/releases/archive/org/scalaz/scalaz_2.11/7.2.3/scalaz_2.11-7.2.3-javadoc.jar/!/index.html#scalaz.Functor
-[`\/`]:https://oss.sonatype.org/service/local/repositories/releases/archive/org/scalaz/scalaz_2.11/7.2.3/scalaz_2.11-7.2.3-javadoc.jar/!/index.html#scalaz.$bslash$div
-[`Maybe`]:https://oss.sonatype.org/service/local/repositories/releases/archive/org/scalaz/scalaz_2.11/7.2.3/scalaz_2.11-7.2.3-javadoc.jar/!/index.html#scalaz.Maybe
+[`MonadError`]:https://static.javadoc.io/org.scalaz/scalaz_2.12/7.2.18/scalaz/MonadError.html
+[`Plus`]:https://static.javadoc.io/org.scalaz/scalaz_2.12/7.2.18/scalaz/Plus.html
+[`Show`]:https://static.javadoc.io/org.scalaz/scalaz_2.12/7.2.18/scalaz/Show.html
+[`Equal`]:https://static.javadoc.io/org.scalaz/scalaz_2.12/7.2.18/scalaz/Equal.html
+[`Foldable`]:https://static.javadoc.io/org.scalaz/scalaz_2.12/7.2.18/scalaz/Foldable.html
+[`\/`]:https://static.javadoc.io/org.scalaz/scalaz_2.12/7.2.18/scalaz/$bslash$div.html
+[`Maybe`]:https://static.javadoc.io/org.scalaz/scalaz_2.12/7.2.18/scalaz/Maybe.html
 [`CellEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$CellEncoder.html
 [`CellDecoder`]:{{ site.baseurl }}/api/kantan/csv/CellDecoder$.html
 [`RowDecoder`]:{{ site.baseurl }}/api/kantan/csv/RowDecoder$.html
 [`RowEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$RowEncoder.html
-[`ReadResult`]:{{ site.baseurl }}/api/kantan/csv/ReadResult$.html
-[`ParseResult`]:{{ site.baseurl }}/api/kantan/csv/ParseResult$.html
-[`DecodeResult`]:{{ site.baseurl }}/api/#kantan.csv.package$$DecodeResult
-[`Contravariant`]:https://oss.sonatype.org/service/local/repositories/releases/archive/org/scalaz/scalaz_2.11/7.2.3/scalaz_2.11-7.2.3-javadoc.jar/!/index.html#scalaz.Contravariant
+[`ReadError`]:{{ site.baseurl }}/api/kantan/csv/ReadError.html
+[`Contravariant`]:https://static.javadoc.io/org.scalaz/scalaz_2.12/7.2.18/scalaz/Contravariant.html

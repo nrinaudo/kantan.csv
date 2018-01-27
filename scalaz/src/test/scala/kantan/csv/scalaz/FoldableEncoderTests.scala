@@ -21,11 +21,9 @@ import _root_.scalaz.std.list._
 import arbitrary._
 import kantan.codecs.scalaz.laws.discipline._
 import laws.discipline.RowEncoderTests
-import org.scalacheck.{Arbitrary, Gen}
 
 class FoldableEncoderTests extends ScalazDisciplineSuite {
-  implicit val arb: Arbitrary[List[Int]]      = Arbitrary(Gen.nonEmptyListOf(Arbitrary.arbitrary[Int]))
-  implicit val encoder: RowEncoder[List[Int]] = foldableRowEncoder[List, Int]
 
   checkAll("Foldable[Int]", RowEncoderTests[List[Int]].encoder[List[Byte], List[Float]])
+
 }
