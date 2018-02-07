@@ -15,8 +15,14 @@ scala:
 jdk:
   - oraclejdk8
   - openjdk8
+env:
+  - SCALAJS=true
+  - SCALAJS=false
 script:
-  - sbt ++$TRAVIS_SCALA_VERSION validate
+  - if [[ "$SCALAJS" == true ]];
+    then sbt ++$TRAVIS_SCALA_VERSION validateJS;
+    else sbt ++$TRAVIS_SCALA_VERSION validateJVM;
+    fi
 before_install:
   - pip install --user codecov
 after_success:
