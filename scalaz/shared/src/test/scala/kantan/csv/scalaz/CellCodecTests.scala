@@ -22,18 +22,10 @@ import _root_.scalaz.scalacheck.ScalazProperties._
 import arbitrary._, equality._
 import kantan.codecs.scalaz.laws.discipline.ScalazDisciplineSuite
 
-class CodecTests extends ScalazDisciplineSuite {
-
-  // scalaz doesn't provide an Eq[Seq] instance, mostly because Seq isn't a very meaningfull type.
-  implicit def seqEq[A: Equal]: Equal[Seq[A]] = Equal[List[A]].contramap(_.toList)
+class CellCodecTests extends ScalazDisciplineSuite {
 
   checkAll("CellDecoder", monadError.laws[CellDecoder, DecodeError])
-  checkAll("RowDecoder", monadError.laws[RowDecoder, DecodeError])
-
   checkAll("CellDecoder", plus.laws[CellDecoder])
-  checkAll("RowDecoder", plus.laws[RowDecoder])
-
   checkAll("CellEncoder", contravariant.laws[CellEncoder])
-  checkAll("RowEncoder", contravariant.laws[RowEncoder])
 
 }
