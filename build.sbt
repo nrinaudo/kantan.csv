@@ -80,13 +80,6 @@ lazy val benchmark = project
 // ---------------------------------------------------------------------------------------------------------------------
 lazy val core = kantanCrossProject("core")
   .settings(moduleName := "kantan.csv")
-  // TODO: disable when we upgrade to 2.12.3, which appears to fix this issue.
-  // This is necessary because with scala 2.12.x, we use too many nested lambdas for deserialisation to succeed with the
-  // "optimised" behaviour.
-  .settings(scalacOptions ++= (CrossVersion.partialVersion(scalaVersion.value) match {
-    case Some((_, x)) if x == 12 ⇒ Seq("-Ydelambdafy:inline")
-    case _                       ⇒ Seq.empty
-  }))
   .enablePlugins(PublishedPlugin, BoilerplatePlugin)
   .settings(
     libraryDependencies ++= Seq(
