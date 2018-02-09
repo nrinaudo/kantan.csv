@@ -5,6 +5,7 @@ cache:
   directories:
     - $HOME/.ivy2/cache
     - $HOME/.sbt/boot/
+    - $HOME/.cache/coursier
 before_cache:
   # Tricks to avoid unnecessary cache updates
   - find $HOME/.ivy2 -name "ivydata-*.properties" -delete
@@ -15,8 +16,14 @@ scala:
 jdk:
   - oraclejdk8
   - openjdk8
+env:
+  - SCALAJS=true
+  - SCALAJS=false
 script:
-  - sbt ++$TRAVIS_SCALA_VERSION validate
+  - if [[ "$SCALAJS" == true ]];
+    then sbt ++$TRAVIS_SCALA_VERSION validateJS;
+    else sbt ++$TRAVIS_SCALA_VERSION validateJVM;
+    fi
 before_install:
   - pip install --user codecov
 after_success:
