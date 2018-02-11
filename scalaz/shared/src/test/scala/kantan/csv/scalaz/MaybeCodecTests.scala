@@ -18,7 +18,6 @@ package kantan.csv
 package scalaz
 
 import _root_.scalaz.Maybe
-import _root_.scalaz.scalacheck.ScalazArbitrary._
 import arbitrary._
 import laws.discipline._
 
