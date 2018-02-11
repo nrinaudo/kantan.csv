@@ -19,8 +19,7 @@ package kantan.csv
 import kantan.codecs.ResultCompanion
 
 /** Provides convenience methods for creating instances of [[DecodeResult]]. */
-object DecodeResult extends ResultCompanion.WithDefault[DecodeError] {
-  override protected def fromThrowable(t: Throwable) = DecodeError.TypeError(t)
+object DecodeResult extends ResultCompanion.WithError[DecodeError] {
 
   /** Creates a new [[DecodeResult]] failure wrapping a [[DecodeError.OutOfBounds]] error.
     *
@@ -51,4 +50,5 @@ object DecodeResult extends ResultCompanion.WithDefault[DecodeError] {
     * }}}
     */
   def typeError(e: Exception): DecodeResult[Nothing] = failure(DecodeError.TypeError(e))
+
 }
