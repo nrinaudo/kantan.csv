@@ -44,6 +44,7 @@ lazy val root = Project(id = "kantan-csv", base = file("."))
 
 lazy val docs = project
   .enablePlugins(DocumentationPlugin)
+  .settings(name := "docs")
   .settings(
     unidocProjectFilter in (ScalaUnidoc, unidoc) :=
       inAnyProject -- inProjectsIf(!java8Supported)(java8) -- inProjects(benchmark) -- inProjects(jsModules: _*)
