@@ -24,31 +24,28 @@ import org.joda.time.{DateTime, LocalDate, LocalDateTime, LocalTime}
 
 /** Declares [[kantan.csv.CellDecoder]] and [[kantan.csv.CellEncoder]] instances for joda-time types.
   *
-  * These instances are only available if an implicit `org.joda.time.format.DateTimeFormat` is in scope.
-  *
-  * Note that this is a convenience - the exact same effect can be achieved by importing
-  * `kantan.codec.strings.joda.time._`. The sole purpose of this is to keep things simple for users that don't want or
-  * need to learn about kantan.csv's internals.
+  * Note that the type for default codecs might come as a surprise: the wrapping `Exported` is used to lower their
+  * priority. This is necessary because the standard use case will be to `import kantan.csv.joda.time._`, which
+  * brings both the instance creation and default instances in scope. Without this type trickery, custom instances
+  * and default ones would always clash.
   */
 package object time extends JodaTimeCodecCompanion[String, DecodeError, codecs.type] {
+
   override def decoderFrom[D](d: StringDecoder[D]): CellDecoder[D] = codecs.fromStringDecoder(d)
   override def encoderFrom[D](e: StringEncoder[D]): CellEncoder[D] = codecs.fromStringEncoder(e)
 
-  implicit val defaultDateTimeCellDecoder: Exported[CellDecoder[DateTime]] =
-    Exported(defaultDateTimeDecoder)
-  implicit val defaultLocalDateTimeCellDecoder: Exported[CellDecoder[LocalDateTime]] =
-    Exported(defaultLocalDateTimeDecoder)
-  implicit val defaultLocalDateCellDecoder: Exported[CellDecoder[LocalDate]] =
-    Exported(defaultLocalDateDecoder)
-  implicit val defaultLocalTimeCellDecoder: Exported[CellDecoder[LocalTime]] =
-    Exported(defaultLocalTimeDecoder)
+  implicit val defaultDateTimeCellDecoder: Exported[CellDecoder[DateTime]] = Exported(defaultDateTimeDecoder)
+  implicit val defaultLocalDateTimeCellDecoder: Exported[CellDecoder[LocalDateTime]] = Exported(
+    defaultLocalDateTimeDecoder
+  )
+  implicit val defaultLocalTimeCellDecoder: Exported[CellDecoder[LocalTime]] = Exported(defaultLocalTimeDecoder)
+  implicit val defaultLocalDateCellDecoder: Exported[CellDecoder[LocalDate]] = Exported(defaultLocalDateDecoder)
 
-  implicit val defaultDateTimeCellEncoder: Exported[CellEncoder[DateTime]] =
-    Exported(defaultDateTimeEncoder)
-  implicit val defaultLocalDateTimeCellEncoder: Exported[CellEncoder[LocalDateTime]] =
-    Exported(defaultLocalDateTimeEncoder)
-  implicit val defaultLocalDateCellEncoder: Exported[CellEncoder[LocalDate]] =
-    Exported(defaultLocalDateEncoder)
-  implicit val defaultLocalTimeCellEncoder: Exported[CellEncoder[LocalTime]] =
-    Exported(defaultLocalTimeEncoder)
+  implicit val defaultDateTimeCellEncoder: Exported[CellEncoder[DateTime]] = Exported(defaultDateTimeEncoder)
+  implicit val defaultLocalDateTimeCellEncoder: Exported[CellEncoder[LocalDateTime]] = Exported(
+    defaultLocalDateTimeEncoder
+  )
+  implicit val defaultLocalTimeCellEncoder: Exported[CellEncoder[LocalTime]] = Exported(defaultLocalTimeEncoder)
+  implicit val defaultLocalDateCellEncoder: Exported[CellEncoder[LocalDate]] = Exported(defaultLocalDateEncoder)
+
 }
