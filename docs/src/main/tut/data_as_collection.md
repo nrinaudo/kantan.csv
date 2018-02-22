@@ -60,7 +60,7 @@ If you want to learn more about:
 
 [`List`]:http://www.scala-lang.org/api/current/scala/collection/immutable/List.html
 [`Set`]:http://www.scala-lang.org/api/current/scala/collection/Set.html
-[`Map`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Map
+[`Map`]:http://www.scala-lang.org/api/current/scala/collection/immutable/Map.html
 [`Vector`]:http://www.scala-lang.org/api/current/scala/collection/immutable/Vector.html
 [`readCsv`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#readCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[B],C[kantan.csv.ReadResult[B]]]):C[kantan.csv.ReadResult[B]]
 [`unsafeReadCsv`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#unsafeReadCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$4:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,B,C[B]]):C[B]

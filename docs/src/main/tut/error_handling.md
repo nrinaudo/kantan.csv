@@ -92,9 +92,9 @@ This strategy is not always possible, but is good to keep in mind for these case
 [`List`]:http://www.scala-lang.org/api/current/scala/collection/immutable/List.html
 [`asUnsafeCsvReader`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$2:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]
 [`ReadResult`]:{{ site.baseurl }}/api/kantan/csv/ReadResult$.html
-[`collect`]:http://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.ResourceIterator@collect[B](f:PartialFunction[A,B]):kantan.codecs.ResourceIterator[B]
-[`filter`]:http://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.ResourceIterator@filter(p:A=>Boolean):kantan.codecs.ResourceIterator[A]
-[`map`]:http://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.ResourceIterator@map[B](f:A=>B):kantan.codecs.ResourceIterator[B]
+[`collect`]:http://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/resource/ResourceIterator.html#collect[B](f:PartialFunction[A,B]):kantan.codecs.resource.ResourceIterator[B]
+[`filter`]:http://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/resource/ResourceIterator.html#filter(p:A=%3EBoolean):kantan.codecs.resource.ResourceIterator[A]
+[`map`]:http://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/resource/ResourceIterator.html#map[B](f:A=%3EB):kantan.codecs.resource.ResourceIterator[B]
 [`Either`]:http://www.scala-lang.org/api/current/scala/util/Either.html
 [`Option`]:http://www.scala-lang.org/api/current/scala/Option.html
 [`sequence`]:{{ site.baseurl }}/api/kantan/csv/ReadResult$.html#sequence[S,M[X]%3C:TraversableOnce[X]](rs:M[Either[F,S]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[Either[F,S]],S,M[S]]):Either[F,M[S]]
