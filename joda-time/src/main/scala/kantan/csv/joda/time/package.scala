@@ -19,7 +19,7 @@ package joda
 
 import kantan.codecs.export.Exported
 import kantan.codecs.strings.{StringDecoder, StringEncoder}
-import kantan.codecs.strings.joda.time._
+import kantan.codecs.strings.joda.time.{JodaTimeCodecCompanion, ToFormatLiteral}
 import org.joda.time.{DateTime, LocalDate, LocalDateTime, LocalTime}
 
 /** Declares [[kantan.csv.CellDecoder]] and [[kantan.csv.CellEncoder]] instances for joda-time types.
@@ -29,7 +29,7 @@ import org.joda.time.{DateTime, LocalDate, LocalDateTime, LocalTime}
   * brings both the instance creation and default instances in scope. Without this type trickery, custom instances
   * and default ones would always clash.
   */
-package object time extends JodaTimeCodecCompanion[String, DecodeError, codecs.type] {
+package object time extends JodaTimeCodecCompanion[String, DecodeError, codecs.type] with ToFormatLiteral {
 
   override def decoderFrom[D](d: StringDecoder[D]): CellDecoder[D] = codecs.fromStringDecoder(d)
   override def encoderFrom[D](e: StringEncoder[D]): CellEncoder[D] = codecs.fromStringEncoder(e)

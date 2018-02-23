@@ -86,6 +86,19 @@ Note that if you're going to both encode and decode dates, you can create a [`Ce
 implicit val codec: CellCodec[LocalDate] = localDateCodec(format)
 ```
 
+Note that while you can pass a [`DateTimeFormatter`] directly, the preferred way of dealing with pattern strings is to
+use the literal syntax provided by kantan.csv:
+
+```tut:silent
+localDateDecoder(fmt"dd-MM-yyyy")
+```
+
+The advantage is that this is checked at compile time - invalid pattern strings will cause a compilation error:
+
+```tut:fail
+localDateDecoder(fmt"FOOBAR")
+```
+
 [`GroupDecoder`]:{{ site.baseurl }}/api/kantan/regex/package$$GroupDecoder.html
 [`Instant`]:https://docs.oracle.com/javase/8/docs/api/java/time/Instant.html
 [`LocalDateTime`]:https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html
@@ -93,3 +106,4 @@ implicit val codec: CellCodec[LocalDate] = localDateCodec(format)
 [`ZonedDateTime`]:https://docs.oracle.com/javase/8/docs/api/java/time/ZonedDateTime.html
 [`LocalDate`]:https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html
 [`LocalTime`]:https://docs.oracle.com/javase/8/docs/api/java/time/LocalTime.html
+[`DateTimeFormatter`]:http://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormatter.html
