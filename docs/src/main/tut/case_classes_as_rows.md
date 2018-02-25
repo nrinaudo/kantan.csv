@@ -17,7 +17,15 @@ val ps = List(Person(0, "Nicolas", 38), Person(1, "Kazuma", 1), Person(2, "John"
 
 If we find ourselves in the easy case - that is, we don't mind a [shapeless] dependency *and* the expected order of
 cells in the output CSV matches exactly the order of fields in our case class, we can just let the compiler work out
-how to do that:
+how to do that.
+
+You'll first need to add a dependency to the [generic](shapeless.html) module in your `build.sbt`:
+
+```scala
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "@VERSION@"
+```
+
+Then, with the appropriate imports:
 
 ```tut:silent
 import kantan.csv._
