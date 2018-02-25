@@ -31,7 +31,15 @@ final case class Car(year: Int, make: String, model: String, desc: Option[String
 
 We find ourselves with a particularly easy scenario to deal with: the rows in the CSV data and the fields in the target
 case class have a 1-to-1 correspondence and are declared in the same order. This means that, if you don't mind a
-[shapeless](shapeless.html) dependency, there's very little work to do:
+[shapeless](shapeless.html) dependency, there's very little work to do.
+
+You'll first need to add a dependency to the [generic](shapeless.html) module in your `build.sbt`:
+
+```scala
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "@VERSION@"
+```
+
+Then, with the appropriate imports:
 
 ```tut:silent
 import kantan.csv._
