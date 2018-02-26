@@ -9,7 +9,7 @@ kantan.csv API - we still support Java 7. There is, however, a dedicated optiona
 adding the following line to your `build.sbt` file:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-java8" % "0.3.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-java8" % "0.4.0"
 ```
 
 You then need to import the corresponding package:
@@ -96,6 +96,22 @@ Note that if you're going to both encode and decode dates, you can create a [`Ce
 implicit val codec: CellCodec[LocalDate] = localDateCodec(format)
 ```
 
+Note that while you can pass a [`DateTimeFormatter`] directly, the preferred way of dealing with pattern strings is to
+use the literal syntax provided by kantan.csv:
+
+```scala
+localDateDecoder(fmt"dd-MM-yyyy")
+```
+
+The advantage is that this is checked at compile time - invalid pattern strings will cause a compilation error:
+
+```scala
+scala> localDateDecoder(fmt"FOOBAR")
+<console>:29: error: Invalid pattern: 'FOOBAR'
+       localDateDecoder(fmt"FOOBAR")
+                            ^
+```
+
 [`GroupDecoder`]:{{ site.baseurl }}/api/kantan/regex/package$$GroupDecoder.html
 [`Instant`]:https://docs.oracle.com/javase/8/docs/api/java/time/Instant.html
 [`LocalDateTime`]:https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html
@@ -103,3 +119,4 @@ implicit val codec: CellCodec[LocalDate] = localDateCodec(format)
 [`ZonedDateTime`]:https://docs.oracle.com/javase/8/docs/api/java/time/ZonedDateTime.html
 [`LocalDate`]:https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html
 [`LocalTime`]:https://docs.oracle.com/javase/8/docs/api/java/time/LocalTime.html
+[`DateTimeFormatter`]:http://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormatter.html

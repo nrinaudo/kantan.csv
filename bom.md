@@ -2,7 +2,7 @@
 layout: tutorial
 title: "Working with BOMs (and MS Excel)"
 section: tutorial
-sort_order: 29
+sort_order: 31
 ---
 Excel is unfortunately both the most commonly used software to view CSV data, and the worst software there is to view
 CSV data. The main issue has to do with encoding - Excel will use the local system's default encoding, which changes
@@ -57,7 +57,7 @@ When we try to read it, kantan.csv will find the BOM and ignore our instruction 
 
 ```scala
 scala> out.readCsv[List, String](rfc)
-res10: List[kantan.csv.ReadResult[String]] = List(Success(ニコラ), Success(リノド))
+res10: List[kantan.csv.ReadResult[String]] = List(Right(ニコラ), Right(リノド))
 ```
 
 Note that these behaviours are disabled by default: BOMs are advised against, and looking for them (and interpreting them

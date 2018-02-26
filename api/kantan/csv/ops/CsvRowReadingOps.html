@@ -245,7 +245,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides syntax for decoding a string as a CSV row.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/ops/CsvRowReadingOps.scala" target="_blank">CsvRowReadingOps.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides syntax for decoding a string as a CSV row.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/shared/src/main/scala/kantan/csv/ops/CsvRowReadingOps.scala" target="_blank">CsvRowReadingOps.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -586,10 +586,13 @@
         <span class="name">readCsvRow</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="conf">conf: <a href="../CsvConfiguration.html" class="extype" name="kantan.csv.CsvConfiguration">CsvConfiguration</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.ops.CsvRowReadingOps.readCsvRow.B">B</span>]</span>, <span name="e">e: <a href="../engine/ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>)</span><span class="result">: <a href="../package$$ReadResult.html" class="extype" name="kantan.csv.ReadResult">ReadResult</a>[<span class="extype" name="kantan.csv.ops.CsvRowReadingOps.readCsvRow.B">B</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Parses a string as a single CSV row.</p><div class="fullcomment"><div class="comment cmt"><p>Parses a string as a single CSV row.</p><p>For example:</p><pre>scala&gt; <span class="kw">import</span> kantan.csv._
+      <p class="shortcomment cmt">Parses a string as a single CSV row.</p><div class="fullcomment"><div class="comment cmt"><p>Parses a string as a single CSV row.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> kantan.csv._
 
 scala&gt; <span class="lit">"1,2,3"</span>.readCsvRow[(<span class="std">Int</span>, <span class="std">Int</span>, <span class="std">Int</span>)](rfc)
-res0: ReadResult[(<span class="std">Int</span>, <span class="std">Int</span>, <span class="std">Int</span>)] = Success((<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>))</pre></div></div>
+res0: ReadResult[(<span class="std">Int</span>, <span class="std">Int</span>, <span class="std">Int</span>)] = Right((<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>))</pre></li></ol>
+            </div></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
@@ -637,12 +640,17 @@ res0: ReadResult[(<span class="std">Int</span>, <span class="std">Int</span>, <s
         <span class="name">unsafeReadCsvRow</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="conf">conf: <a href="../CsvConfiguration.html" class="extype" name="kantan.csv.CsvConfiguration">CsvConfiguration</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="kantan.csv.ops.CsvRowReadingOps.unsafeReadCsvRow.B">B</span>]</span>, <span name="e">e: <a href="../engine/ReaderEngine.html" class="extype" name="kantan.csv.engine.ReaderEngine">ReaderEngine</a></span>)</span><span class="result">: <span class="extype" name="kantan.csv.ops.CsvRowReadingOps.unsafeReadCsvRow.B">B</span></span>
       </span>
       
-      <p class="shortcomment cmt">Parses a string as a single CSV row.</p><div class="fullcomment"><div class="comment cmt"><p>Parses a string as a single CSV row.</p><p>For example:</p><pre>scala&gt; <span class="kw">import</span> kantan.csv._
+      <p class="shortcomment cmt">Parses a string as a single CSV row.</p><div class="fullcomment"><div class="comment cmt"><p>Parses a string as a single CSV row.
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@SuppressWarnings</span><span class="args">()</span>
+              
+        </dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> kantan.csv._
 
 scala&gt; <span class="lit">"1,2,3"</span>.unsafeReadCsvRow[(<span class="std">Int</span>, <span class="std">Int</span>, <span class="std">Int</span>)](rfc)
 res0: (<span class="std">Int</span>, <span class="std">Int</span>, <span class="std">Int</span>) = (<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>)</pre><p>Note that this method is unsafe and will throw an exception if the string value is not a valid <code>A</code>. Prefer
-<a href="#readCsvRow[B](conf:kantan.csv.CsvConfiguration)(implicitevidence$2:kantan.csv.RowDecoder[B],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.ReadResult[B]" class="extmbr" name="kantan.csv.ops.CsvRowReadingOps#readCsvRow">readCsvRow</a> whenever possible.
-</p></div></div>
+<a href="#readCsvRow[B](conf:kantan.csv.CsvConfiguration)(implicitevidence$2:kantan.csv.RowDecoder[B],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.ReadResult[B]" class="extmbr" name="kantan.csv.ops.CsvRowReadingOps#readCsvRow">readCsvRow</a> whenever possible.</p></li></ol>
+            </div></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <span class="permalink">

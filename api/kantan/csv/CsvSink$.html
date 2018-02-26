@@ -133,6 +133,42 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.java8" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="java8"></a><a id="java8:java8"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#java8" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="Declares kantan.csv.CellDecoder and kantan.csv.CellEncoder instances for java8 date and time types." href="java8/index.html"><span class="name">java8</span></a>
+      </span>
+      
+      <p class="shortcomment cmt">Declares <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">kantan.csv.CellDecoder</a> and <a href="package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">kantan.csv.CellEncoder</a> instances for java8 date and time types.</p><div class="fullcomment"><div class="comment cmt"><p>Declares <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">kantan.csv.CellDecoder</a> and <a href="package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">kantan.csv.CellEncoder</a> instances for java8 date and time types.</p><p>Note that the type for default codecs might come as a surprise: the wrapping <code>Exported</code> is used to lower their
+priority. This is necessary because the standard use case will be to <code>import kantan.csv.java8._</code>, which
+brings both the instance creation and default instances in scope. Without this type trickery, custom instances
+and default ones would always clash.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.joda" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="joda"></a><a id="joda:joda"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#joda" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="joda/index.html"><span class="name">joda</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
     </li><li name="kantan.csv.laws" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="laws"></a><a id="laws:laws"></a>
       <span class="permalink">
@@ -263,6 +299,18 @@
                         <a href="ParseResult$.html" title="Provides convenience methods for creating instances of ParseResult.">ParseResult</a>
                       </li><li class="current-entities indented2">
                         <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellCodecInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellCodecInstances.html" title="">PlatformSpecificCellCodecInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellDecoderInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellDecoderInstances.html" title="">PlatformSpecificCellDecoderInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellEncoderInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellEncoderInstances.html" title="">PlatformSpecificCellEncoderInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
                         <a class="class" href="ReadError.html" title="Parent type for all errors that can occur while dealing with CSV data."></a>
                         <a href="ReadError.html" title="Parent type for all errors that can occur while dealing with CSV data.">ReadError</a>
                       </li><li class="current-entities indented2">
@@ -331,7 +379,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides default instances as well as instance summoning and creation methods.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/CsvSink.scala" target="_blank">CsvSink.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides default instances as well as instance summoning and creation methods.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/shared/src/main/scala/kantan/csv/CsvSink.scala" target="_blank">CsvSink.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -565,7 +613,7 @@
       <p class="shortcomment cmt">Turns the specified function into a <a href="CsvSink.html" class="extype" name="kantan.csv.CsvSink">CsvSink</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns the specified function into a <a href="CsvSink.html" class="extype" name="kantan.csv.CsvSink">CsvSink</a>.</p><p>Note that it's usually better to compose an existing instance through <a href="CsvSink.html#contramap[T](f:T=&gt;S):kantan.csv.CsvSink[T]" class="extmbr" name="kantan.csv.CsvSink#contramap">CsvSink.contramap</a> rather than create
 one from scratch.
 </p></div></div>
-    </li><li name="kantan.csv.CsvSink#fromResource" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.csv.CsvSink#fromResource" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="fromResource[A](implicitevidence$5:kantan.codecs.resource.WriterResource[A]):kantan.csv.CsvSink[A]"></a><a id="fromResource[A](WriterResource[A]):CsvSink[A]"></a>
       <span class="permalink">
       <a href="../../kantan/csv/CsvSink$.html#fromResource[A](implicitevidence$5:kantan.codecs.resource.WriterResource[A]):kantan.csv.CsvSink[A]" title="Permalink">
@@ -580,7 +628,10 @@ one from scratch.
         <span class="name">fromResource</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="kantan.codecs.resource.WriterResource">WriterResource</span>[<span class="extype" name="kantan.csv.CsvSink.fromResource.A">A</span>]</span>)</span><span class="result">: <a href="CsvSink.html" class="extype" name="kantan.csv.CsvSink">CsvSink</a>[<span class="extype" name="kantan.csv.CsvSink.fromResource.A">A</span>]</span>
       </span>
       
-      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@SuppressWarnings</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">

@@ -133,6 +133,42 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.java8" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="java8"></a><a id="java8:java8"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#java8" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="Declares kantan.csv.CellDecoder and kantan.csv.CellEncoder instances for java8 date and time types." href="java8/index.html"><span class="name">java8</span></a>
+      </span>
+      
+      <p class="shortcomment cmt">Declares <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">kantan.csv.CellDecoder</a> and <a href="package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">kantan.csv.CellEncoder</a> instances for java8 date and time types.</p><div class="fullcomment"><div class="comment cmt"><p>Declares <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">kantan.csv.CellDecoder</a> and <a href="package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">kantan.csv.CellEncoder</a> instances for java8 date and time types.</p><p>Note that the type for default codecs might come as a surprise: the wrapping <code>Exported</code> is used to lower their
+priority. This is necessary because the standard use case will be to <code>import kantan.csv.java8._</code>, which
+brings both the instance creation and default instances in scope. Without this type trickery, custom instances
+and default ones would always clash.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.joda" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="joda"></a><a id="joda:joda"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#joda" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="joda/index.html"><span class="name">joda</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
     </li><li name="kantan.csv.laws" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="laws"></a><a id="laws:laws"></a>
       <span class="permalink">
@@ -263,6 +299,18 @@
                         <a href="ParseResult$.html" title="Provides convenience methods for creating instances of ParseResult.">ParseResult</a>
                       </li><li class="current-entities indented2">
                         <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellCodecInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellCodecInstances.html" title="">PlatformSpecificCellCodecInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellDecoderInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellDecoderInstances.html" title="">PlatformSpecificCellDecoderInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellEncoderInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellEncoderInstances.html" title="">PlatformSpecificCellEncoderInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
                         <a class="class" href="ReadError.html" title="Parent type for all errors that can occur while dealing with CSV data."></a>
                         <a href="ReadError.html" title="Parent type for all errors that can occur while dealing with CSV data.">ReadError</a>
                       </li><li class="current-entities indented2">
@@ -329,7 +377,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>All default <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a> instances.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/CellDecoder.scala" target="_blank">CellDecoder.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>All default <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a> instances.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/shared/src/main/scala/kantan/csv/CellDecoder.scala" target="_blank">CellDecoder.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -472,9 +520,16 @@
       
       <p class="shortcomment cmt">Provides an instance of <code>CellDecoder[Either[A, B]]</code> for any type <code>A</code> and <code>B</code> that have instances of
 <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Provides an instance of <code>CellDecoder[Either[A, B]]</code> for any type <code>A</code> and <code>B</code> that have instances of
-<a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>.</p><p>Strings that can be decoded as the first type are returned as <code>Left</code>:</p><pre>scala&gt; CellDecoder[Either[<span class="std">Int</span>, <span class="std">Boolean</span>]].decode(<span class="lit">"123"</span>)
-res1: DecodeResult[Either[<span class="std">Int</span>, <span class="std">Boolean</span>]] = Success(Left(<span class="num">123</span>))</pre><p>Strings that cannot be decoded as the first type, but can as the second, are returned as <code>Right</code>:</p><pre>scala&gt; CellDecoder[Either[<span class="std">Int</span>, <span class="std">Boolean</span>]].decode(<span class="lit">"true"</span>)
-res2: DecodeResult[Either[<span class="std">Int</span>, <span class="std">Boolean</span>]] = Success(Right(<span class="kw">true</span>))</pre></div></div>
+<a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre><span class="cmt">// Left value</span>
+scala&gt; CellDecoder[Either[<span class="std">Int</span>, <span class="std">Boolean</span>]].decode(<span class="lit">"123"</span>)
+res1: DecodeResult[Either[<span class="std">Int</span>, <span class="std">Boolean</span>]] = Right(Left(<span class="num">123</span>))
+
+<span class="cmt">// Right value</span>
+scala&gt; CellDecoder[Either[<span class="std">Int</span>, <span class="std">Boolean</span>]].decode(<span class="lit">"true"</span>)
+res2: DecodeResult[Either[<span class="std">Int</span>, <span class="std">Boolean</span>]] = Right(Right(<span class="kw">true</span>))</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.csv.CellDecoderInstances#cellDecoderOpt" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="cellDecoderOpt[A](implicitevidence$2:kantan.csv.CellDecoder[A]):kantan.csv.CellDecoder[Option[A]]"></a><a id="cellDecoderOpt[A](CellDecoder[A]):CellDecoder[Option[A]]"></a>
       <span class="permalink">
@@ -490,9 +545,16 @@ res2: DecodeResult[Either[<span class="std">Int</span>, <span class="std">Boolea
         <span class="name">cellDecoderOpt</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>[<span class="extype" name="kantan.csv.CellDecoderInstances.cellDecoderOpt.A">A</span>]</span>)</span><span class="result">: <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="kantan.csv.CellDecoderInstances.cellDecoderOpt.A">A</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Provides an instance of <code>CellDecoder[Option[A]]</code> for any type <code>A</code> that has an instance of <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Provides an instance of <code>CellDecoder[Option[A]]</code> for any type <code>A</code> that has an instance of <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>.</p><p>Non-empty strings are decoded as <code>Some</code>:</p><pre>scala&gt; CellDecoder[<span class="std">Option</span>[<span class="std">Int</span>]].decode(<span class="lit">"123"</span>)
-res1: DecodeResult[<span class="std">Option</span>[<span class="std">Int</span>]] = Success(<span class="std">Some</span>(<span class="num">123</span>))</pre><p>Empty strings are decoded as None:</p><pre>scala&gt; CellDecoder[<span class="std">Option</span>[<span class="std">Int</span>]].decode(<span class="lit">""</span>)
-res1: DecodeResult[<span class="std">Option</span>[<span class="std">Int</span>]] = Success(<span class="std">None</span>)</pre></div></div>
+      <p class="shortcomment cmt">Provides an instance of <code>CellDecoder[Option[A]]</code> for any type <code>A</code> that has an instance of <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Provides an instance of <code>CellDecoder[Option[A]]</code> for any type <code>A</code> that has an instance of <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre><span class="cmt">// Non-empty value</span>
+scala&gt; CellDecoder[<span class="std">Option</span>[<span class="std">Int</span>]].decode(<span class="lit">"123"</span>)
+res1: DecodeResult[<span class="std">Option</span>[<span class="std">Int</span>]] = Right(<span class="std">Some</span>(<span class="num">123</span>))
+
+<span class="cmt">// Empty value</span>
+scala&gt; CellDecoder[<span class="std">Option</span>[<span class="std">Int</span>]].decode(<span class="lit">""</span>)
+res2: DecodeResult[<span class="std">Option</span>[<span class="std">Int</span>]] = Right(<span class="std">None</span>)</pre></li></ol>
+            </div></dl></div>
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
@@ -583,11 +645,14 @@ res1: DecodeResult[<span class="std">Option</span>[<span class="std">Int</span>]
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">fromStringDecoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="kantan.codecs.strings.StringDecoder">StringDecoder</span>[<span class="extype" name="kantan.csv.CellDecoderInstances.fromStringDecoder.A">A</span>]</span>)</span><span class="result">: <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>[<span class="extype" name="kantan.csv.CellDecoderInstances.fromStringDecoder.A">A</span>]</span>
+        <span class="name">fromStringDecoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../codecs/strings/index.html#StringDecoder[A]=kantan.codecs.Decoder[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringDecoder">StringDecoder</a>[<span class="extype" name="kantan.csv.CellDecoderInstances.fromStringDecoder.A">A</span>]</span>)</span><span class="result">: <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>[<span class="extype" name="kantan.csv.CellDecoderInstances.fromStringDecoder.A">A</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Turns existing <code>StringDecoder</code> instances into <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a> ones.</p><div class="fullcomment"><div class="comment cmt"><p>Turns existing <code>StringDecoder</code> instances into <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a> ones.</p><p>This provides support for most basic Scala types - <code>Int</code>, for example:</p><pre>CellDecoder[<span class="std">Int</span>].decode(<span class="lit">"123"</span>)
-res1: DecodeResult[<span class="std">Option</span>[<span class="std">Int</span>]] = Success(<span class="std">Some</span>(<span class="num">123</span>))</pre></div></div>
+      <p class="shortcomment cmt">Turns existing <code>StringDecoder</code> instances into <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a> ones.</p><div class="fullcomment"><div class="comment cmt"><p>Turns existing <code>StringDecoder</code> instances into <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a> ones.</p><p>This provides support for most basic Scala types.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; CellDecoder[<span class="std">Int</span>].decode(<span class="lit">"123"</span>)
+res1: DecodeResult[<span class="std">Int</span>] = Right(<span class="num">123</span>)</pre></li></ol>
+            </div></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">

@@ -117,6 +117,26 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.engine.commons" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="commons"></a><a id="commons:commons"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/engine/index.html#commons" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="Provides CSV reader and writer engines using commons-csv." href="commons/index.html"><span class="name">commons</span></a>
+      </span>
+      
+      <p class="shortcomment cmt">Provides CSV reader and writer engines using <a href="https://commons.apache.org/proper/commons-csv/" target="_blank">commons-csv</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Provides CSV reader and writer engines using <a href="https://commons.apache.org/proper/commons-csv/" target="_blank">commons-csv</a>.</p><p>Importing <code>kantan.csv.engine.commons._</code> will replace default engines by the commons-backed ones. If you need to
+tweak how commons-csv behaves, however, you can handcraft engines though <a href="commons/index.html#readerEngineFrom(f:kantan.csv.engine.commons.package.CSVFormatBuilder):kantan.csv.engine.ReaderEngine" class="extmbr" name="kantan.csv.engine.commons#readerEngineFrom">readerEngineFrom</a> and
+<a href="commons/index.html#writerEngineFrom(f:kantan.csv.engine.commons.package.CSVFormatBuilder):kantan.csv.engine.WriterEngine" class="extmbr" name="kantan.csv.engine.commons#writerEngineFrom">writerEngineFrom</a> - all you need is a function that knows how to turn a column separator character in an instance
+of <code>CSVFormat</code>.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv.engine">engine</a></dd></dl></div>
     </li><li class="current-entities indented3">
                         <a class="object" href="ReaderEngine$.html" title="Provides instance creation methods and default implementations."></a>
                         <a class="trait" href="ReaderEngine.html" title="Provides kantan.csv with CSV parsing functionality."></a>
@@ -125,14 +145,6 @@
                         <a class="object" href="" title="Provides creation methods and default implementations."></a>
                         <a class="trait" href="WriterEngine.html" title="Provides factory-like services for CsvWriter."></a>
                         <a href="WriterEngine.html" title="Provides factory-like services for CsvWriter.">WriterEngine</a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="object" href="commons$.html" title="Provides CSV reader and writer engines using commons-csv."></a>
-                        <a href="commons$.html" title="Provides CSV reader and writer engines using commons-csv.">commons</a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="object" href="jackson$.html" title="Provides CSV reader and writer engines using jackson.csv."></a>
-                        <a href="jackson$.html" title="Provides CSV reader and writer engines using jackson.csv.">jackson</a>
                       </li>
               </ul>
             </div>
@@ -163,7 +175,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides creation methods and default implementations.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/engine/WriterEngine.scala" target="_blank">WriterEngine.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides creation methods and default implementations.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/shared/src/main/scala/kantan/csv/engine/WriterEngine.scala" target="_blank">WriterEngine.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>

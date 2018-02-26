@@ -133,6 +133,42 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.java8" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="java8"></a><a id="java8:java8"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#java8" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="Declares kantan.csv.CellDecoder and kantan.csv.CellEncoder instances for java8 date and time types." href="java8/index.html"><span class="name">java8</span></a>
+      </span>
+      
+      <p class="shortcomment cmt">Declares <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">kantan.csv.CellDecoder</a> and <a href="package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">kantan.csv.CellEncoder</a> instances for java8 date and time types.</p><div class="fullcomment"><div class="comment cmt"><p>Declares <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">kantan.csv.CellDecoder</a> and <a href="package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">kantan.csv.CellEncoder</a> instances for java8 date and time types.</p><p>Note that the type for default codecs might come as a surprise: the wrapping <code>Exported</code> is used to lower their
+priority. This is necessary because the standard use case will be to <code>import kantan.csv.java8._</code>, which
+brings both the instance creation and default instances in scope. Without this type trickery, custom instances
+and default ones would always clash.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.joda" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="joda"></a><a id="joda:joda"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#joda" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="joda/index.html"><span class="name">joda</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
     </li><li name="kantan.csv.laws" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="laws"></a><a id="laws:laws"></a>
       <span class="permalink">
@@ -263,6 +299,18 @@
                         <a href="ParseResult$.html" title="Provides convenience methods for creating instances of ParseResult.">ParseResult</a>
                       </li><li class="current-entities indented2">
                         <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellCodecInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellCodecInstances.html" title="">PlatformSpecificCellCodecInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellDecoderInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellDecoderInstances.html" title="">PlatformSpecificCellDecoderInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellEncoderInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellEncoderInstances.html" title="">PlatformSpecificCellEncoderInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
                         <a class="class" href="ReadError.html" title="Parent type for all errors that can occur while dealing with CSV data."></a>
                         <a href="ReadError.html" title="Parent type for all errors that can occur while dealing with CSV data.">ReadError</a>
                       </li><li class="current-entities indented2">
@@ -332,7 +380,7 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Iterator on CSV data.
-</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/shared/src/main/scala/kantan/csv/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -785,9 +833,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ResourceIterator</dd></dl></div>
     </li><li name="kantan.codecs.resource.ResourceIterator#emap" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="emap[E,S,B](f:S=&gt;kantan.codecs.Result[E,B])(implicitev:A&lt;:&lt;kantan.codecs.Result[E,S]):kantan.codecs.resource.ResourceIterator[kantan.codecs.Result[E,B]]"></a><a id="emap[E,S,B]((S)⇒Result[E,B])(&lt;:&lt;[A,Result[E,S]]):ResourceIterator[Result[E,B]]"></a>
+      <a id="emap[E,S,B](f:S=&gt;Either[E,B])(implicitev:A&lt;:&lt;Either[E,S]):kantan.codecs.resource.ResourceIterator[Either[E,B]]"></a><a id="emap[E,S,B]((S)⇒Either[E,B])(&lt;:&lt;[A,Either[E,S]]):ResourceIterator[Either[E,B]]"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/package$$CsvReader.html#emap[E,S,B](f:S=&gt;kantan.codecs.Result[E,B])(implicitev:A&lt;:&lt;kantan.codecs.Result[E,S]):kantan.codecs.resource.ResourceIterator[kantan.codecs.Result[E,B]]" title="Permalink">
+      <a href="../../kantan/csv/package$$CsvReader.html#emap[E,S,B](f:S=&gt;Either[E,B])(implicitev:A&lt;:&lt;Either[E,S]):kantan.codecs.resource.ResourceIterator[Either[E,B]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -796,7 +844,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">emap</span><span class="tparams">[<span name="E">E</span>, <span name="S">S</span>, <span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.ResourceIterator.emap.S">S</span>) ⇒ <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.emap.E">E</span>, <span class="extype" name="kantan.codecs.resource.ResourceIterator.emap.B">B</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.A">A</span>, <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.emap.E">E</span>, <span class="extype" name="kantan.codecs.resource.ResourceIterator.emap.S">S</span>]]</span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/resource/ResourceIterator.html#kantan.codecs.resource.ResourceIterator" class="extype" name="kantan.codecs.resource.ResourceIterator">ResourceIterator</a>[<span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.emap.E">E</span>, <span class="extype" name="kantan.codecs.resource.ResourceIterator.emap.B">B</span>]]</span>
+        <span class="name">emap</span><span class="tparams">[<span name="E">E</span>, <span name="S">S</span>, <span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.ResourceIterator.emap.S">S</span>) ⇒ <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.emap.E">E</span>, <span class="extype" name="kantan.codecs.resource.ResourceIterator.emap.B">B</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.A">A</span>, <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.emap.E">E</span>, <span class="extype" name="kantan.codecs.resource.ResourceIterator.emap.S">S</span>]]</span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/resource/ResourceIterator.html#kantan.codecs.resource.ResourceIterator" class="extype" name="kantan.codecs.resource.ResourceIterator">ResourceIterator</a>[<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.emap.E">E</span>, <span class="extype" name="kantan.codecs.resource.ResourceIterator.emap.B">B</span>]]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ResourceIterator</dd></dl></div>
@@ -865,9 +913,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ResourceIterator</dd></dl></div>
     </li><li name="kantan.codecs.resource.ResourceIterator#filterResult" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="filterResult[E,S](p:S=&gt;Boolean)(implicitev:A&lt;:&lt;kantan.codecs.Result[E,S]):kantan.codecs.resource.ResourceIterator[A]"></a><a id="filterResult[E,S]((S)⇒Boolean)(&lt;:&lt;[A,Result[E,S]]):ResourceIterator[A]"></a>
+      <a id="filterResult[E,S](p:S=&gt;Boolean)(implicitev:A&lt;:&lt;Either[E,S]):kantan.codecs.resource.ResourceIterator[A]"></a><a id="filterResult[E,S]((S)⇒Boolean)(&lt;:&lt;[A,Either[E,S]]):ResourceIterator[A]"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/package$$CsvReader.html#filterResult[E,S](p:S=&gt;Boolean)(implicitev:A&lt;:&lt;kantan.codecs.Result[E,S]):kantan.codecs.resource.ResourceIterator[A]" title="Permalink">
+      <a href="../../kantan/csv/package$$CsvReader.html#filterResult[E,S](p:S=&gt;Boolean)(implicitev:A&lt;:&lt;Either[E,S]):kantan.codecs.resource.ResourceIterator[A]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -876,7 +924,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">filterResult</span><span class="tparams">[<span name="E">E</span>, <span name="S">S</span>]</span><span class="params">(<span name="p">p: (<span class="extype" name="kantan.codecs.resource.ResourceIterator.filterResult.S">S</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.A">A</span>, <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.filterResult.E">E</span>, <span class="extype" name="kantan.codecs.resource.ResourceIterator.filterResult.S">S</span>]]</span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/resource/ResourceIterator.html#kantan.codecs.resource.ResourceIterator" class="extype" name="kantan.codecs.resource.ResourceIterator">ResourceIterator</a>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.A">A</span>]</span>
+        <span class="name">filterResult</span><span class="tparams">[<span name="E">E</span>, <span name="S">S</span>]</span><span class="params">(<span name="p">p: (<span class="extype" name="kantan.codecs.resource.ResourceIterator.filterResult.S">S</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.A">A</span>, <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.filterResult.E">E</span>, <span class="extype" name="kantan.codecs.resource.ResourceIterator.filterResult.S">S</span>]]</span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/resource/ResourceIterator.html#kantan.codecs.resource.ResourceIterator" class="extype" name="kantan.codecs.resource.ResourceIterator">ResourceIterator</a>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.A">A</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ResourceIterator</dd></dl></div>
@@ -1149,9 +1197,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ResourceIterator</dd></dl></div>
     </li><li name="kantan.codecs.resource.ResourceIterator#mapResult" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="mapResult[E,S,B](f:S=&gt;B)(implicitev:A&lt;:&lt;kantan.codecs.Result[E,S]):kantan.codecs.resource.ResourceIterator[kantan.codecs.Result[E,B]]"></a><a id="mapResult[E,S,B]((S)⇒B)(&lt;:&lt;[A,Result[E,S]]):ResourceIterator[Result[E,B]]"></a>
+      <a id="mapResult[E,S,B](f:S=&gt;B)(implicitev:A&lt;:&lt;Either[E,S]):kantan.codecs.resource.ResourceIterator[Either[E,B]]"></a><a id="mapResult[E,S,B]((S)⇒B)(&lt;:&lt;[A,Either[E,S]]):ResourceIterator[Either[E,B]]"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/package$$CsvReader.html#mapResult[E,S,B](f:S=&gt;B)(implicitev:A&lt;:&lt;kantan.codecs.Result[E,S]):kantan.codecs.resource.ResourceIterator[kantan.codecs.Result[E,B]]" title="Permalink">
+      <a href="../../kantan/csv/package$$CsvReader.html#mapResult[E,S,B](f:S=&gt;B)(implicitev:A&lt;:&lt;Either[E,S]):kantan.codecs.resource.ResourceIterator[Either[E,B]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1160,7 +1208,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">mapResult</span><span class="tparams">[<span name="E">E</span>, <span name="S">S</span>, <span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.ResourceIterator.mapResult.S">S</span>) ⇒ <span class="extype" name="kantan.codecs.resource.ResourceIterator.mapResult.B">B</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.A">A</span>, <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.mapResult.E">E</span>, <span class="extype" name="kantan.codecs.resource.ResourceIterator.mapResult.S">S</span>]]</span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/resource/ResourceIterator.html#kantan.codecs.resource.ResourceIterator" class="extype" name="kantan.codecs.resource.ResourceIterator">ResourceIterator</a>[<span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.mapResult.E">E</span>, <span class="extype" name="kantan.codecs.resource.ResourceIterator.mapResult.B">B</span>]]</span>
+        <span class="name">mapResult</span><span class="tparams">[<span name="E">E</span>, <span name="S">S</span>, <span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.ResourceIterator.mapResult.S">S</span>) ⇒ <span class="extype" name="kantan.codecs.resource.ResourceIterator.mapResult.B">B</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.A">A</span>, <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.mapResult.E">E</span>, <span class="extype" name="kantan.codecs.resource.ResourceIterator.mapResult.S">S</span>]]</span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/resource/ResourceIterator.html#kantan.codecs.resource.ResourceIterator" class="extype" name="kantan.codecs.resource.ResourceIterator">ResourceIterator</a>[<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.mapResult.E">E</span>, <span class="extype" name="kantan.codecs.resource.ResourceIterator.mapResult.B">B</span>]]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ResourceIterator</dd></dl></div>
@@ -1491,9 +1539,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[this] </dd><dt>Definition Classes</dt><dd>TraversableOnce</dd></dl></div>
     </li><li name="kantan.codecs.resource.ResourceIterator#safe" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="safe[F](empty:=&gt;F)(f:Throwable=&gt;F):kantan.codecs.resource.ResourceIterator[kantan.codecs.Result[F,A]]"></a><a id="safe[F](⇒F)((Throwable)⇒F):ResourceIterator[Result[F,A]]"></a>
+      <a id="safe[F](empty:=&gt;F)(f:Throwable=&gt;F):kantan.codecs.resource.ResourceIterator[Either[F,A]]"></a><a id="safe[F](⇒F)((Throwable)⇒F):ResourceIterator[Either[F,A]]"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/package$$CsvReader.html#safe[F](empty:=&gt;F)(f:Throwable=&gt;F):kantan.codecs.resource.ResourceIterator[kantan.codecs.Result[F,A]]" title="Permalink">
+      <a href="../../kantan/csv/package$$CsvReader.html#safe[F](empty:=&gt;F)(f:Throwable=&gt;F):kantan.codecs.resource.ResourceIterator[Either[F,A]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1502,7 +1550,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">safe</span><span class="tparams">[<span name="F">F</span>]</span><span class="params">(<span name="empty">empty: ⇒ <span class="extype" name="kantan.codecs.resource.ResourceIterator.safe.F">F</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Throwable">Throwable</span>) ⇒ <span class="extype" name="kantan.codecs.resource.ResourceIterator.safe.F">F</span></span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/resource/ResourceIterator.html#kantan.codecs.resource.ResourceIterator" class="extype" name="kantan.codecs.resource.ResourceIterator">ResourceIterator</a>[<span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.safe.F">F</span>, <span class="extype" name="kantan.codecs.resource.ResourceIterator.A">A</span>]]</span>
+        <span class="name">safe</span><span class="tparams">[<span name="F">F</span>]</span><span class="params">(<span name="empty">empty: ⇒ <span class="extype" name="kantan.codecs.resource.ResourceIterator.safe.F">F</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Throwable">Throwable</span>) ⇒ <span class="extype" name="kantan.codecs.resource.ResourceIterator.safe.F">F</span></span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/resource/ResourceIterator.html#kantan.codecs.resource.ResourceIterator" class="extype" name="kantan.codecs.resource.ResourceIterator">ResourceIterator</a>[<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.safe.F">F</span>, <span class="extype" name="kantan.codecs.resource.ResourceIterator.A">A</span>]]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ResourceIterator</dd></dl></div>
@@ -1951,9 +1999,9 @@
         <div class="values members">
               <h3>Deprecated Value Members</h3>
               <ol><li name="kantan.codecs.resource.ResourceIterator#flatMapResult" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="flatMapResult[E,S,B](f:S=&gt;kantan.codecs.Result[E,B])(implicitev:A&lt;:&lt;kantan.codecs.Result[E,S]):kantan.codecs.resource.ResourceIterator[kantan.codecs.Result[E,B]]"></a><a id="flatMapResult[E,S,B]((S)⇒Result[E,B])(&lt;:&lt;[A,Result[E,S]]):ResourceIterator[Result[E,B]]"></a>
+      <a id="flatMapResult[E,S,B](f:S=&gt;Either[E,B])(implicitev:A&lt;:&lt;Either[E,S]):kantan.codecs.resource.ResourceIterator[Either[E,B]]"></a><a id="flatMapResult[E,S,B]((S)⇒Either[E,B])(&lt;:&lt;[A,Either[E,S]]):ResourceIterator[Either[E,B]]"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/package$$CsvReader.html#flatMapResult[E,S,B](f:S=&gt;kantan.codecs.Result[E,B])(implicitev:A&lt;:&lt;kantan.codecs.Result[E,S]):kantan.codecs.resource.ResourceIterator[kantan.codecs.Result[E,B]]" title="Permalink">
+      <a href="../../kantan/csv/package$$CsvReader.html#flatMapResult[E,S,B](f:S=&gt;Either[E,B])(implicitev:A&lt;:&lt;Either[E,S]):kantan.codecs.resource.ResourceIterator[Either[E,B]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1962,7 +2010,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 0.2.2) Use emap instead">flatMapResult</span><span class="tparams">[<span name="E">E</span>, <span name="S">S</span>, <span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.ResourceIterator.flatMapResult.S">S</span>) ⇒ <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.flatMapResult.E">E</span>, <span class="extype" name="kantan.codecs.resource.ResourceIterator.flatMapResult.B">B</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.A">A</span>, <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.flatMapResult.E">E</span>, <span class="extype" name="kantan.codecs.resource.ResourceIterator.flatMapResult.S">S</span>]]</span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/resource/ResourceIterator.html#kantan.codecs.resource.ResourceIterator" class="extype" name="kantan.codecs.resource.ResourceIterator">ResourceIterator</a>[<span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.flatMapResult.E">E</span>, <span class="extype" name="kantan.codecs.resource.ResourceIterator.flatMapResult.B">B</span>]]</span>
+        <span class="name deprecated" title="Deprecated: (Since version 0.2.2) Use emap instead">flatMapResult</span><span class="tparams">[<span name="E">E</span>, <span name="S">S</span>, <span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.ResourceIterator.flatMapResult.S">S</span>) ⇒ <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.flatMapResult.E">E</span>, <span class="extype" name="kantan.codecs.resource.ResourceIterator.flatMapResult.B">B</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.A">A</span>, <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.flatMapResult.E">E</span>, <span class="extype" name="kantan.codecs.resource.ResourceIterator.flatMapResult.S">S</span>]]</span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/resource/ResourceIterator.html#kantan.codecs.resource.ResourceIterator" class="extype" name="kantan.codecs.resource.ResourceIterator">ResourceIterator</a>[<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.flatMapResult.E">E</span>, <span class="extype" name="kantan.codecs.resource.ResourceIterator.flatMapResult.B">B</span>]]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ResourceIterator</dd><dt>Annotations</dt><dd>

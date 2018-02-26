@@ -133,6 +133,42 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.java8" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="java8"></a><a id="java8:java8"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#java8" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="Declares kantan.csv.CellDecoder and kantan.csv.CellEncoder instances for java8 date and time types." href="java8/index.html"><span class="name">java8</span></a>
+      </span>
+      
+      <p class="shortcomment cmt">Declares <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">kantan.csv.CellDecoder</a> and <a href="package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">kantan.csv.CellEncoder</a> instances for java8 date and time types.</p><div class="fullcomment"><div class="comment cmt"><p>Declares <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">kantan.csv.CellDecoder</a> and <a href="package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">kantan.csv.CellEncoder</a> instances for java8 date and time types.</p><p>Note that the type for default codecs might come as a surprise: the wrapping <code>Exported</code> is used to lower their
+priority. This is necessary because the standard use case will be to <code>import kantan.csv.java8._</code>, which
+brings both the instance creation and default instances in scope. Without this type trickery, custom instances
+and default ones would always clash.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.joda" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="joda"></a><a id="joda:joda"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#joda" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="joda/index.html"><span class="name">joda</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
     </li><li name="kantan.csv.laws" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="laws"></a><a id="laws:laws"></a>
       <span class="permalink">
@@ -263,6 +299,18 @@
                         <a href="ParseResult$.html" title="Provides convenience methods for creating instances of ParseResult.">ParseResult</a>
                       </li><li class="current-entities indented2">
                         <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellCodecInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellCodecInstances.html" title="">PlatformSpecificCellCodecInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellDecoderInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellDecoderInstances.html" title="">PlatformSpecificCellDecoderInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellEncoderInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellEncoderInstances.html" title="">PlatformSpecificCellEncoderInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
                         <a class="class" href="ReadError.html" title="Parent type for all errors that can occur while dealing with CSV data."></a>
                         <a href="ReadError.html" title="Parent type for all errors that can occur while dealing with CSV data.">ReadError</a>
                       </li><li class="current-entities indented2">
@@ -324,16 +372,16 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">CellCodec</span><span class="result"> extends <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/CodecCompanion.html#kantan.codecs.CodecCompanion" class="extype" name="kantan.codecs.CodecCompanion">CodecCompanion</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
+        <span class="name">CellCodec</span><span class="result"> extends <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/CodecCompanion.html#kantan.codecs.CodecCompanion" class="extype" name="kantan.codecs.CodecCompanion">CodecCompanion</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type] with <a href="PlatformSpecificCellCodecInstances.html" class="extype" name="kantan.csv.PlatformSpecificCellCodecInstances">PlatformSpecificCellCodecInstances</a></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Declares helpful methods for <a href="package$$CellCodec.html" class="extype" name="kantan.csv.CellCodec">CellCodec</a> creation.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/CellCodec.scala" target="_blank">CellCodec.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Declares helpful methods for <a href="package$$CellCodec.html" class="extype" name="kantan.csv.CellCodec">CellCodec</a> creation.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/shared/src/main/scala/kantan/csv/CellCodec.scala" target="_blank">CellCodec.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/CodecCompanion.html#kantan.codecs.CodecCompanion" class="extype" name="kantan.codecs.CodecCompanion">CodecCompanion</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="PlatformSpecificCellCodecInstances.html" class="extype" name="kantan.csv.PlatformSpecificCellCodecInstances">PlatformSpecificCellCodecInstances</a>, <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/CodecCompanion.html#kantan.codecs.CodecCompanion" class="extype" name="kantan.codecs.CodecCompanion">CodecCompanion</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -359,7 +407,7 @@
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="kantan.csv.CellCodec"><span>CellCodec</span></li><li class="in" name="kantan.codecs.CodecCompanion"><span>CodecCompanion</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="kantan.csv.CellCodec"><span>CellCodec</span></li><li class="in" name="kantan.csv.PlatformSpecificCellCodecInstances"><span>PlatformSpecificCellCodecInstances</span></li><li class="in" name="kantan.codecs.CodecCompanion"><span>CodecCompanion</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -474,7 +522,7 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="kantan.csv.CellCodec#dateCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.csv.PlatformSpecificCellCodecInstances#dateCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="dateCodec(format:java.text.DateFormat):kantan.csv.CellCodec[java.util.Date]"></a><a id="dateCodec(DateFormat):CellCodec[Date]"></a>
       <span class="permalink">
       <a href="../../kantan/csv/CellCodec$.html#dateCodec(format:java.text.DateFormat):kantan.csv.CellCodec[java.util.Date]" title="Permalink">
@@ -489,7 +537,7 @@
         <span class="name">dateCodec</span><span class="params">(<span name="format">format: <span class="extype" name="java.text.DateFormat">DateFormat</span></span>)</span><span class="result">: <a href="package$$CellCodec.html" class="extype" name="kantan.csv.CellCodec">CellCodec</a>[<span class="extype" name="java.util.Date">Date</span>]</span>
       </span>
       
-      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PlatformSpecificCellCodecInstances.html" class="extype" name="kantan.csv.PlatformSpecificCellCodecInstances">PlatformSpecificCellCodecInstances</a></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -564,9 +612,9 @@
               
         </dd></dl></div>
     </li><li name="kantan.codecs.CodecCompanion#from" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="from[D](f:E=&gt;kantan.codecs.Result[F,D])(g:D=&gt;E):kantan.codecs.Codec[E,D,F,T]"></a><a id="from[D]((String)⇒Result[DecodeError,D])((D)⇒String):Codec[String,D,DecodeError,codecs.type]"></a>
+      <a id="from[D](f:E=&gt;Either[F,D])(g:D=&gt;E):kantan.codecs.Codec[E,D,F,T]"></a><a id="from[D]((String)⇒Either[DecodeError,D])((D)⇒String):Codec[String,D,DecodeError,codecs.type]"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/CellCodec$.html#from[D](f:E=&gt;kantan.codecs.Result[F,D])(g:D=&gt;E):kantan.codecs.Codec[E,D,F,T]" title="Permalink">
+      <a href="../../kantan/csv/CellCodec$.html#from[D](f:E=&gt;Either[F,D])(g:D=&gt;E):kantan.codecs.Codec[E,D,F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -575,7 +623,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">from</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Predef.String">String</span>) ⇒ <span class="extype" name="kantan.codecs.Result">Result</span>[<a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <span class="extype" name="kantan.codecs.CodecCompanion.from.D">D</span>]</span>)</span><span class="params">(<span name="g">g: (<span class="extype" name="kantan.codecs.CodecCompanion.from.D">D</span>) ⇒ <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/Codec.html#kantan.codecs.Codec" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.CodecCompanion.from.D">D</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
+        <span class="name">from</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Predef.String">String</span>) ⇒ <span class="extype" name="scala.Either">Either</span>[<a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <span class="extype" name="kantan.codecs.CodecCompanion.from.D">D</span>]</span>)</span><span class="params">(<span name="g">g: (<span class="extype" name="kantan.codecs.CodecCompanion.from.D">D</span>) ⇒ <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/Codec.html#kantan.codecs.Codec" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.CodecCompanion.from.D">D</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>CodecCompanion</dd><dt>Annotations</dt><dd>
@@ -800,7 +848,9 @@
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="kantan.codecs.CodecCompanion">
+        <div class="parent" name="kantan.csv.PlatformSpecificCellCodecInstances">
+              <h3>Inherited from <a href="PlatformSpecificCellCodecInstances.html" class="extype" name="kantan.csv.PlatformSpecificCellCodecInstances">PlatformSpecificCellCodecInstances</a></h3>
+            </div><div class="parent" name="kantan.codecs.CodecCompanion">
               <h3>Inherited from <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/CodecCompanion.html#kantan.codecs.CodecCompanion" class="extype" name="kantan.codecs.CodecCompanion">CodecCompanion</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>

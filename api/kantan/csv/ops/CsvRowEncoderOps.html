@@ -247,7 +247,7 @@
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides syntax for encoding values as CSV rows.</p><p>Importing <code>kantan.csv.ops._</code> will add <a href="#asCsvRow:Seq[String]" class="extmbr" name="kantan.csv.ops.CsvRowEncoderOps#asCsvRow">asCsvRow</a> to any type <code>A</code> such that there exists an implicit
 <code>RowEncoder[A]</code> in scope.
-</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/ops/CsvRowEncoderOps.scala" target="_blank">CsvRowEncoderOps.scala</a></dd></dl><div class="toggleContainer block">
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/shared/src/main/scala/kantan/csv/ops/CsvRowEncoderOps.scala" target="_blank">CsvRowEncoderOps.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -402,8 +402,11 @@
         <span class="name">asCsvRow</span><span class="result">: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Encodes a value as a CSV row.</p><div class="fullcomment"><div class="comment cmt"><p>Encodes a value as a CSV row.</p><p>For example:</p><pre>scala&gt; <span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>).asCsvRow
-res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)</pre></div></div>
+      <p class="shortcomment cmt">Encodes a value as a CSV row.</p><div class="fullcomment"><div class="comment cmt"><p>Encodes a value as a CSV row.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>).asCsvRow
+res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)</pre></li></ol>
+            </div></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">

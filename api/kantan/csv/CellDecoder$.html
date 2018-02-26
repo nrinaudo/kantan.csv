@@ -133,6 +133,42 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.java8" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="java8"></a><a id="java8:java8"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#java8" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="Declares kantan.csv.CellDecoder and kantan.csv.CellEncoder instances for java8 date and time types." href="java8/index.html"><span class="name">java8</span></a>
+      </span>
+      
+      <p class="shortcomment cmt">Declares <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">kantan.csv.CellDecoder</a> and <a href="package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">kantan.csv.CellEncoder</a> instances for java8 date and time types.</p><div class="fullcomment"><div class="comment cmt"><p>Declares <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">kantan.csv.CellDecoder</a> and <a href="package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">kantan.csv.CellEncoder</a> instances for java8 date and time types.</p><p>Note that the type for default codecs might come as a surprise: the wrapping <code>Exported</code> is used to lower their
+priority. This is necessary because the standard use case will be to <code>import kantan.csv.java8._</code>, which
+brings both the instance creation and default instances in scope. Without this type trickery, custom instances
+and default ones would always clash.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.joda" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="joda"></a><a id="joda:joda"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#joda" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="joda/index.html"><span class="name">joda</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
     </li><li name="kantan.csv.laws" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="laws"></a><a id="laws:laws"></a>
       <span class="permalink">
@@ -263,6 +299,18 @@
                         <a href="ParseResult$.html" title="Provides convenience methods for creating instances of ParseResult.">ParseResult</a>
                       </li><li class="current-entities indented2">
                         <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellCodecInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellCodecInstances.html" title="">PlatformSpecificCellCodecInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellDecoderInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellDecoderInstances.html" title="">PlatformSpecificCellDecoderInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellEncoderInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellEncoderInstances.html" title="">PlatformSpecificCellEncoderInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
                         <a class="class" href="ReadError.html" title="Parent type for all errors that can occur while dealing with CSV data."></a>
                         <a href="ReadError.html" title="Parent type for all errors that can occur while dealing with CSV data.">ReadError</a>
                       </li><li class="current-entities indented2">
@@ -324,16 +372,16 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">CellDecoder</span><span class="result"> extends <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/DecoderCompanion.html#kantan.codecs.DecoderCompanion" class="extype" name="kantan.codecs.DecoderCompanion">DecoderCompanion</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
+        <span class="name">CellDecoder</span><span class="result"> extends <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/DecoderCompanion.html#kantan.codecs.DecoderCompanion" class="extype" name="kantan.codecs.DecoderCompanion">DecoderCompanion</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type] with <a href="PlatformSpecificCellDecoderInstances.html" class="extype" name="kantan.csv.PlatformSpecificCellDecoderInstances">PlatformSpecificCellDecoderInstances</a></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides useful methods for summoning and creating instances of <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/CellDecoder.scala" target="_blank">CellDecoder.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides useful methods for summoning and creating instances of <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/shared/src/main/scala/kantan/csv/CellDecoder.scala" target="_blank">CellDecoder.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/DecoderCompanion.html#kantan.codecs.DecoderCompanion" class="extype" name="kantan.codecs.DecoderCompanion">DecoderCompanion</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type], <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="PlatformSpecificCellDecoderInstances.html" class="extype" name="kantan.csv.PlatformSpecificCellDecoderInstances">PlatformSpecificCellDecoderInstances</a>, <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/DecoderCompanion.html#kantan.codecs.DecoderCompanion" class="extype" name="kantan.codecs.DecoderCompanion">DecoderCompanion</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type], <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -359,7 +407,7 @@
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="kantan.csv.CellDecoder"><span>CellDecoder</span></li><li class="in" name="kantan.codecs.DecoderCompanion"><span>DecoderCompanion</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="kantan.csv.CellDecoder"><span>CellDecoder</span></li><li class="in" name="kantan.csv.PlatformSpecificCellDecoderInstances"><span>PlatformSpecificCellDecoderInstances</span></li><li class="in" name="kantan.codecs.DecoderCompanion"><span>DecoderCompanion</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -490,7 +538,7 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="kantan.csv.CellDecoder#dateDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.csv.PlatformSpecificCellDecoderInstances#dateDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="dateDecoder(format:java.text.DateFormat):kantan.csv.CellDecoder[java.util.Date]"></a><a id="dateDecoder(DateFormat):CellDecoder[Date]"></a>
       <span class="permalink">
       <a href="../../kantan/csv/CellDecoder$.html#dateDecoder(format:java.text.DateFormat):kantan.csv.CellDecoder[java.util.Date]" title="Permalink">
@@ -505,7 +553,7 @@
         <span class="name">dateDecoder</span><span class="params">(<span name="format">format: <span class="extype" name="java.text.DateFormat">DateFormat</span></span>)</span><span class="result">: <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>[<span class="extype" name="java.util.Date">Date</span>]</span>
       </span>
       
-      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PlatformSpecificCellDecoderInstances.html" class="extype" name="kantan.csv.PlatformSpecificCellDecoderInstances">PlatformSpecificCellDecoderInstances</a></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -561,9 +609,9 @@
               
         </dd></dl></div>
     </li><li name="kantan.codecs.DecoderCompanion#from" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="from[D](f:E=&gt;kantan.codecs.Result[F,D]):kantan.codecs.Decoder[E,D,F,T]"></a><a id="from[D]((String)⇒Result[DecodeError,D]):Decoder[String,D,DecodeError,codecs.type]"></a>
+      <a id="from[D](f:E=&gt;Either[F,D]):kantan.codecs.Decoder[E,D,F,T]"></a><a id="from[D]((String)⇒Either[DecodeError,D]):Decoder[String,D,DecodeError,codecs.type]"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/CellDecoder$.html#from[D](f:E=&gt;kantan.codecs.Result[F,D]):kantan.codecs.Decoder[E,D,F,T]" title="Permalink">
+      <a href="../../kantan/csv/CellDecoder$.html#from[D](f:E=&gt;Either[F,D]):kantan.codecs.Decoder[E,D,F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -572,7 +620,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">from</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Predef.String">String</span>) ⇒ <span class="extype" name="kantan.codecs.Result">Result</span>[<a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <span class="extype" name="kantan.codecs.DecoderCompanion.from.D">D</span>]</span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/Decoder.html#kantan.codecs.Decoder" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.from.D">D</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
+        <span class="name">from</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Predef.String">String</span>) ⇒ <span class="extype" name="scala.Either">Either</span>[<a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <span class="extype" name="kantan.codecs.DecoderCompanion.from.D">D</span>]</span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/Decoder.html#kantan.codecs.Decoder" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.from.D">D</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>DecoderCompanion</dd><dt>Annotations</dt><dd>
@@ -580,9 +628,9 @@
               
         </dd></dl></div>
     </li><li name="kantan.codecs.DecoderCompanion#fromPartial" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="fromPartial[D](f:PartialFunction[E,kantan.codecs.Result[F,D]])(implicitt:kantan.codecs.error.IsError[F]):kantan.codecs.Decoder[E,D,F,T]"></a><a id="fromPartial[D](PartialFunction[String,Result[DecodeError,D]])(IsError[DecodeError]):Decoder[String,D,DecodeError,codecs.type]"></a>
+      <a id="fromPartial[D](f:PartialFunction[E,Either[F,D]])(implicitt:kantan.codecs.error.IsError[F]):kantan.codecs.Decoder[E,D,F,T]"></a><a id="fromPartial[D](PartialFunction[String,Either[DecodeError,D]])(IsError[DecodeError]):Decoder[String,D,DecodeError,codecs.type]"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/CellDecoder$.html#fromPartial[D](f:PartialFunction[E,kantan.codecs.Result[F,D]])(implicitt:kantan.codecs.error.IsError[F]):kantan.codecs.Decoder[E,D,F,T]" title="Permalink">
+      <a href="../../kantan/csv/CellDecoder$.html#fromPartial[D](f:PartialFunction[E,Either[F,D]])(implicitt:kantan.codecs.error.IsError[F]):kantan.codecs.Decoder[E,D,F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -591,7 +639,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">fromPartial</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="f">f: <a href="http://www.scala-lang.org/api/2.12.4/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.Result">Result</span>[<a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <span class="extype" name="kantan.codecs.DecoderCompanion.fromPartial.D">D</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="t">t: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/error/IsError.html#kantan.codecs.error.IsError" class="extype" name="kantan.codecs.error.IsError">IsError</a>[<a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>]</span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/Decoder.html#kantan.codecs.Decoder" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.fromPartial.D">D</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
+        <span class="name">fromPartial</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="f">f: <a href="http://www.scala-lang.org/api/2.12.4/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Either">Either</span>[<a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <span class="extype" name="kantan.codecs.DecoderCompanion.fromPartial.D">D</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="t">t: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/error/IsError.html#kantan.codecs.error.IsError" class="extype" name="kantan.codecs.error.IsError">IsError</a>[<a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>]</span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/Decoder.html#kantan.codecs.Decoder" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.fromPartial.D">D</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>DecoderCompanion</dd></dl></div>
@@ -851,7 +899,9 @@
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="kantan.codecs.DecoderCompanion">
+        <div class="parent" name="kantan.csv.PlatformSpecificCellDecoderInstances">
+              <h3>Inherited from <a href="PlatformSpecificCellDecoderInstances.html" class="extype" name="kantan.csv.PlatformSpecificCellDecoderInstances">PlatformSpecificCellDecoderInstances</a></h3>
+            </div><div class="parent" name="kantan.codecs.DecoderCompanion">
               <h3>Inherited from <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/DecoderCompanion.html#kantan.codecs.DecoderCompanion" class="extype" name="kantan.codecs.DecoderCompanion">DecoderCompanion</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="DecodeError.html" class="extype" name="kantan.csv.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.csv.codecs">codecs</a>.type]</h3>
             </div><div class="parent" name="scala.Serializable">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>

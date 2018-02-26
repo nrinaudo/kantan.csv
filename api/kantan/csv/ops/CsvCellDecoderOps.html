@@ -246,7 +246,7 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides syntax for decoding CSV cells as values.</p><p>Importing <code>kantan.csv.ops._</code> will add the following methods to <code>String</code>:</p><ul><li><a href="#decodeCsv[A](implicitevidence$1:kantan.csv.CellDecoder[A]):kantan.csv.DecodeResult[A]" class="extmbr" name="kantan.csv.ops.CsvCellDecoderOps#decodeCsv">decodeCsv</a></li><li><a href="#unsafeDecodeCsv[A](implicitevidence$2:kantan.csv.CellDecoder[A]):A" class="extmbr" name="kantan.csv.ops.CsvCellDecoderOps#unsafeDecodeCsv">unsafeDecodeCsv</a>
-</li></ul></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/ops/CsvCellDecoderOps.scala" target="_blank">CsvCellDecoderOps.scala</a></dd></dl><div class="toggleContainer block">
+</li></ul></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/shared/src/main/scala/kantan/csv/ops/CsvCellDecoderOps.scala" target="_blank">CsvCellDecoderOps.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -425,8 +425,11 @@
         <span class="name">decodeCsv</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>[<span class="extype" name="kantan.csv.ops.CsvCellDecoderOps.decodeCsv.A">A</span>]</span>)</span><span class="result">: <a href="../package$$DecodeResult.html" class="extype" name="kantan.csv.DecodeResult">DecodeResult</a>[<span class="extype" name="kantan.csv.ops.CsvCellDecoderOps.decodeCsv.A">A</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Decodes a CSV cell as a value of type <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Decodes a CSV cell as a value of type <code>A</code>.</p><p> For example:</p><pre>scala&gt; <span class="lit">"1"</span>.decodeCsv[<span class="std">Option</span>[<span class="std">Int</span>]]
-res0: kantan.csv.DecodeResult[<span class="std">Option</span>[<span class="std">Int</span>]] = Success(<span class="std">Some</span>(<span class="num">1</span>))</pre></div></div>
+      <p class="shortcomment cmt">Decodes a CSV cell as a value of type <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Decodes a CSV cell as a value of type <code>A</code>.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="lit">"1"</span>.decodeCsv[<span class="std">Option</span>[<span class="std">Int</span>]]
+res0: kantan.csv.DecodeResult[<span class="std">Option</span>[<span class="std">Int</span>]] = Right(<span class="std">Some</span>(<span class="num">1</span>))</pre></li></ol>
+            </div></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -652,10 +655,12 @@ res0: kantan.csv.DecodeResult[<span class="std">Option</span>[<span class="std">
         <span class="name">unsafeDecodeCsv</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>[<span class="extype" name="kantan.csv.ops.CsvCellDecoderOps.unsafeDecodeCsv.A">A</span>]</span>)</span><span class="result">: <span class="extype" name="kantan.csv.ops.CsvCellDecoderOps.unsafeDecodeCsv.A">A</span></span>
       </span>
       
-      <p class="shortcomment cmt">Decodes a CSV cell as a value of type <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Decodes a CSV cell as a value of type <code>A</code>.</p><p> For example:</p><pre>scala&gt; <span class="lit">"1"</span>.unsafeDecodeCsv[<span class="std">Option</span>[<span class="std">Int</span>]]
+      <p class="shortcomment cmt">Decodes a CSV cell as a value of type <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Decodes a CSV cell as a value of type <code>A</code>.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="lit">"1"</span>.unsafeDecodeCsv[<span class="std">Option</span>[<span class="std">Int</span>]]
 res0: <span class="std">Option</span>[<span class="std">Int</span>] = <span class="std">Some</span>(<span class="num">1</span>)</pre><p>Note that this method is unsafe and will throw an exception if the cell's value is not a valid <code>A</code>. Prefer
-<a href="#decodeCsv[A](implicitevidence$1:kantan.csv.CellDecoder[A]):kantan.csv.DecodeResult[A]" class="extmbr" name="kantan.csv.ops.CsvCellDecoderOps#decodeCsv">decodeCsv</a> whenever possible.
-</p></div></div>
+<a href="#decodeCsv[A](implicitevidence$1:kantan.csv.CellDecoder[A]):kantan.csv.DecodeResult[A]" class="extmbr" name="kantan.csv.ops.CsvCellDecoderOps#decodeCsv">decodeCsv</a> whenever possible.</p></li></ol>
+            </div></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <span class="permalink">

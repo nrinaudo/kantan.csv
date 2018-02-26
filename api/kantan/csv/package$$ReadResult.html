@@ -133,6 +133,42 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.java8" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="java8"></a><a id="java8:java8"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#java8" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="Declares kantan.csv.CellDecoder and kantan.csv.CellEncoder instances for java8 date and time types." href="java8/index.html"><span class="name">java8</span></a>
+      </span>
+      
+      <p class="shortcomment cmt">Declares <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">kantan.csv.CellDecoder</a> and <a href="package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">kantan.csv.CellEncoder</a> instances for java8 date and time types.</p><div class="fullcomment"><div class="comment cmt"><p>Declares <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">kantan.csv.CellDecoder</a> and <a href="package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">kantan.csv.CellEncoder</a> instances for java8 date and time types.</p><p>Note that the type for default codecs might come as a surprise: the wrapping <code>Exported</code> is used to lower their
+priority. This is necessary because the standard use case will be to <code>import kantan.csv.java8._</code>, which
+brings both the instance creation and default instances in scope. Without this type trickery, custom instances
+and default ones would always clash.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.joda" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="joda"></a><a id="joda:joda"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#joda" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="joda/index.html"><span class="name">joda</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
     </li><li name="kantan.csv.laws" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="laws"></a><a id="laws:laws"></a>
       <span class="permalink">
@@ -263,6 +299,18 @@
                         <a href="ParseResult$.html" title="Provides convenience methods for creating instances of ParseResult.">ParseResult</a>
                       </li><li class="current-entities indented2">
                         <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellCodecInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellCodecInstances.html" title="">PlatformSpecificCellCodecInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellDecoderInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellDecoderInstances.html" title="">PlatformSpecificCellDecoderInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellEncoderInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellEncoderInstances.html" title="">PlatformSpecificCellEncoderInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
                         <a class="class" href="ReadError.html" title="Parent type for all errors that can occur while dealing with CSV data."></a>
                         <a href="ReadError.html" title="Parent type for all errors that can occur while dealing with CSV data.">ReadError</a>
                       </li><li class="current-entities indented2">
@@ -326,13 +374,13 @@
         <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">ReadResult</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <span class="extype" name="kantan.codecs.Result">Result</span>[<a href="ReadError.html" class="extype" name="kantan.csv.ReadError">ReadError</a>, <span class="extype" name="kantan.csv.ReadResult.A">A</span>]</span>
+        <span class="name">ReadResult</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <span class="extype" name="scala.util.Either">Either</span>[<a href="ReadError.html" class="extype" name="kantan.csv.ReadError">ReadError</a>, <span class="extype" name="kantan.csv.ReadResult.A">A</span>]</span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Result of a reading operation, which can be either a success or a failure.</p><p>Both <a href="package$$ParseResult.html" class="extype" name="kantan.csv.ParseResult">kantan.csv.ParseResult</a> and <a href="package$$DecodeResult.html" class="extype" name="kantan.csv.DecodeResult">DecodeResult</a> are valid values of type <a href="" class="extype" name="kantan.csv.ReadResult">ReadResult</a>.
-</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/package.scala" target="_blank">package.scala</a></dd><dt>See also</dt><dd><span class="cmt"><p>kantan.codecs.Result</p></span></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Result of a reading operation.</p><p>Both <a href="package$$ParseResult.html" class="extype" name="kantan.csv.ParseResult">kantan.csv.ParseResult</a> and <a href="package$$DecodeResult.html" class="extype" name="kantan.csv.DecodeResult">DecodeResult</a> are valid values of type <a href="" class="extype" name="kantan.csv.ReadResult">ReadResult</a>.
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/shared/src/main/scala/kantan/csv/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -402,10 +450,10 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Equals</dd></dl></div>
-    </li><li name="kantan.codecs.Result#ensure" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="ensure[FF&gt;:F](fail:=&gt;FF)(f:S=&gt;Boolean):kantan.codecs.Result[FF,S]"></a><a id="ensure[FF&gt;:F](⇒FF)((S)⇒Boolean):Result[FF,S]"></a>
+    </li><li name="scala.util.Either#isLeft" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="isLeft:Boolean"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#ensure[FF&gt;:F](fail:=&gt;FF)(f:S=&gt;Boolean):kantan.codecs.Result[FF,S]" title="Permalink">
+      <a href="../../kantan/csv/package$$ReadResult.html#isLeft:Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -414,14 +462,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ensure</span><span class="tparams">[<span name="FF">FF &gt;: <span class="extype" name="kantan.codecs.Result.F">F</span></span>]</span><span class="params">(<span name="fail">fail: ⇒ <span class="extype" name="kantan.codecs.Result.ensure.FF">FF</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.Result.S">S</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.Result.ensure.FF">FF</span>, <span class="extype" name="kantan.codecs.Result.S">S</span>]</span>
+        <span class="name">isLeft</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
-    </li><li name="kantan.codecs.Result#exists" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="exists(f:S=&gt;Boolean):Boolean"></a><a id="exists((S)⇒Boolean):Boolean"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Either</dd></dl></div>
+    </li><li name="scala.util.Either#isRight" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="isRight:Boolean"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#exists(f:S=&gt;Boolean):Boolean" title="Permalink">
+      <a href="../../kantan/csv/package$$ReadResult.html#isRight:Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -430,186 +478,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">exists</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.Result.S">S</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">isRight</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
-    </li><li name="kantan.codecs.Result#flatMap" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="flatMap[FF&gt;:F,SS](f:S=&gt;kantan.codecs.Result[FF,SS]):kantan.codecs.Result[FF,SS]"></a><a id="flatMap[FF&gt;:F,SS]((S)⇒Result[FF,SS]):Result[FF,SS]"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#flatMap[FF&gt;:F,SS](f:S=&gt;kantan.codecs.Result[FF,SS]):kantan.codecs.Result[FF,SS]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">flatMap</span><span class="tparams">[<span name="FF">FF &gt;: <span class="extype" name="kantan.codecs.Result.F">F</span></span>, <span name="SS">SS</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.Result.S">S</span>) ⇒ <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.Result.flatMap.FF">FF</span>, <span class="extype" name="kantan.codecs.Result.flatMap.SS">SS</span>]</span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.Result.flatMap.FF">FF</span>, <span class="extype" name="kantan.codecs.Result.flatMap.SS">SS</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
-    </li><li name="kantan.codecs.Result#fold" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="fold[A](ff:F=&gt;A,fs:S=&gt;A):A"></a><a id="fold[A]((F)⇒A,(S)⇒A):A"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#fold[A](ff:F=&gt;A,fs:S=&gt;A):A" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">fold</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="ff">ff: (<span class="extype" name="kantan.codecs.Result.F">F</span>) ⇒ <span class="extype" name="kantan.codecs.Result.fold.A">A</span></span>, <span name="fs">fs: (<span class="extype" name="kantan.codecs.Result.S">S</span>) ⇒ <span class="extype" name="kantan.codecs.Result.fold.A">A</span></span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result.fold.A">A</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
-    </li><li name="kantan.codecs.Result#forall" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="forall(f:S=&gt;Boolean):Boolean"></a><a id="forall((S)⇒Boolean):Boolean"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#forall(f:S=&gt;Boolean):Boolean" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">forall</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.Result.S">S</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
-    </li><li name="kantan.codecs.Result#foreach" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="foreach(f:S=&gt;Unit):Unit"></a><a id="foreach((S)⇒Unit):Unit"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#foreach(f:S=&gt;Unit):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">foreach</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.Result.S">S</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
-    </li><li name="kantan.codecs.Result#get" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="get:S"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#get:S" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">get</span><span class="result">: <span class="extype" name="kantan.codecs.Result.S">S</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
-    </li><li name="kantan.codecs.Result#getOrElse" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="getOrElse[SS&gt;:S](default:=&gt;SS):SS"></a><a id="getOrElse[SS&gt;:S](⇒SS):SS"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#getOrElse[SS&gt;:S](default:=&gt;SS):SS" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">getOrElse</span><span class="tparams">[<span name="SS">SS &gt;: <span class="extype" name="kantan.codecs.Result.S">S</span></span>]</span><span class="params">(<span name="default">default: ⇒ <span class="extype" name="kantan.codecs.Result.getOrElse.SS">SS</span></span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result.getOrElse.SS">SS</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
-    </li><li name="kantan.codecs.Result#isSuccess" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="isSuccess:Boolean"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#isSuccess:Boolean" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">isSuccess</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
-    </li><li name="kantan.codecs.Result#leftFlatMap" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="leftFlatMap[FF,SS&gt;:S](f:F=&gt;kantan.codecs.Result[FF,SS]):kantan.codecs.Result[FF,SS]"></a><a id="leftFlatMap[FF,SS&gt;:S]((F)⇒Result[FF,SS]):Result[FF,SS]"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#leftFlatMap[FF,SS&gt;:S](f:F=&gt;kantan.codecs.Result[FF,SS]):kantan.codecs.Result[FF,SS]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">leftFlatMap</span><span class="tparams">[<span name="FF">FF</span>, <span name="SS">SS &gt;: <span class="extype" name="kantan.codecs.Result.S">S</span></span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.Result.F">F</span>) ⇒ <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.Result.leftFlatMap.FF">FF</span>, <span class="extype" name="kantan.codecs.Result.leftFlatMap.SS">SS</span>]</span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.Result.leftFlatMap.FF">FF</span>, <span class="extype" name="kantan.codecs.Result.leftFlatMap.SS">SS</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
-    </li><li name="kantan.codecs.Result#leftMap" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="leftMap[FF](f:F=&gt;FF):kantan.codecs.Result[FF,S]"></a><a id="leftMap[FF]((F)⇒FF):Result[FF,S]"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#leftMap[FF](f:F=&gt;FF):kantan.codecs.Result[FF,S]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">leftMap</span><span class="tparams">[<span name="FF">FF</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.Result.F">F</span>) ⇒ <span class="extype" name="kantan.codecs.Result.leftMap.FF">FF</span></span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.Result.leftMap.FF">FF</span>, <span class="extype" name="kantan.codecs.Result.S">S</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
-    </li><li name="kantan.codecs.Result#map" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="map[SS](f:S=&gt;SS):kantan.codecs.Result[F,SS]"></a><a id="map[SS]((S)⇒SS):Result[F,SS]"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#map[SS](f:S=&gt;SS):kantan.codecs.Result[F,SS]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">map</span><span class="tparams">[<span name="SS">SS</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.Result.S">S</span>) ⇒ <span class="extype" name="kantan.codecs.Result.map.SS">SS</span></span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.Result.F">F</span>, <span class="extype" name="kantan.codecs.Result.map.SS">SS</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
-    </li><li name="kantan.codecs.Result#orElse" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="orElse[FF&gt;:F,SS&gt;:S](default:=&gt;kantan.codecs.Result[FF,SS]):kantan.codecs.Result[FF,SS]"></a><a id="orElse[FF&gt;:F,SS&gt;:S](⇒Result[FF,SS]):Result[FF,SS]"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#orElse[FF&gt;:F,SS&gt;:S](default:=&gt;kantan.codecs.Result[FF,SS]):kantan.codecs.Result[FF,SS]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">orElse</span><span class="tparams">[<span name="FF">FF &gt;: <span class="extype" name="kantan.codecs.Result.F">F</span></span>, <span name="SS">SS &gt;: <span class="extype" name="kantan.codecs.Result.S">S</span></span>]</span><span class="params">(<span name="default">default: ⇒ <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.Result.orElse.FF">FF</span>, <span class="extype" name="kantan.codecs.Result.orElse.SS">SS</span>]</span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.Result.orElse.FF">FF</span>, <span class="extype" name="kantan.codecs.Result.orElse.SS">SS</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Either</dd></dl></div>
     </li><li name="scala.Product#productArity" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="productArity:Int"></a>
       <span class="permalink">
@@ -642,102 +514,6 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Product</dd></dl></div>
-    </li><li name="kantan.codecs.Result#recover" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="recover[SS&gt;:S](pf:PartialFunction[F,SS]):kantan.codecs.Result[F,SS]"></a><a id="recover[SS&gt;:S](PartialFunction[F,SS]):Result[F,SS]"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#recover[SS&gt;:S](pf:PartialFunction[F,SS]):kantan.codecs.Result[F,SS]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">recover</span><span class="tparams">[<span name="SS">SS &gt;: <span class="extype" name="kantan.codecs.Result.S">S</span></span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.4/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="kantan.codecs.Result.F">F</span>, <span class="extype" name="kantan.codecs.Result.recover.SS">SS</span>]</span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.Result.F">F</span>, <span class="extype" name="kantan.codecs.Result.recover.SS">SS</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
-    </li><li name="kantan.codecs.Result#recoverWith" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="recoverWith[SS&gt;:S,FF&gt;:F](pf:PartialFunction[F,kantan.codecs.Result[FF,SS]]):kantan.codecs.Result[FF,SS]"></a><a id="recoverWith[SS&gt;:S,FF&gt;:F](PartialFunction[F,Result[FF,SS]]):Result[FF,SS]"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#recoverWith[SS&gt;:S,FF&gt;:F](pf:PartialFunction[F,kantan.codecs.Result[FF,SS]]):kantan.codecs.Result[FF,SS]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">recoverWith</span><span class="tparams">[<span name="SS">SS &gt;: <span class="extype" name="kantan.codecs.Result.S">S</span></span>, <span name="FF">FF &gt;: <span class="extype" name="kantan.codecs.Result.F">F</span></span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.4/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="kantan.codecs.Result.F">F</span>, <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.Result.recoverWith.FF">FF</span>, <span class="extype" name="kantan.codecs.Result.recoverWith.SS">SS</span>]]</span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.Result.recoverWith.FF">FF</span>, <span class="extype" name="kantan.codecs.Result.recoverWith.SS">SS</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
-    </li><li name="kantan.codecs.Result#toEither" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="toEither:Either[F,S]"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#toEither:Either[F,S]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">toEither</span><span class="result">: <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.Result.F">F</span>, <span class="extype" name="kantan.codecs.Result.S">S</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
-    </li><li name="kantan.codecs.Result#toList" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="toList:List[S]"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#toList:List[S]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">toList</span><span class="result">: <span class="extype" name="scala.List">List</span>[<span class="extype" name="kantan.codecs.Result.S">S</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
-    </li><li name="kantan.codecs.Result#toOption" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="toOption:Option[S]"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#toOption:Option[S]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">toOption</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="kantan.codecs.Result.S">S</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
-    </li><li name="kantan.codecs.Result#valueOr" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="valueOr[SS&gt;:S](f:F=&gt;SS):SS"></a><a id="valueOr[SS&gt;:S]((F)⇒SS):SS"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#valueOr[SS&gt;:S](f:F=&gt;SS):SS" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">valueOr</span><span class="tparams">[<span name="SS">SS &gt;: <span class="extype" name="kantan.codecs.Result.S">S</span></span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.Result.F">F</span>) ⇒ <span class="extype" name="kantan.codecs.Result.valueOr.SS">SS</span></span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result.valueOr.SS">SS</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
     </li></ol>
             </div>
 
@@ -808,38 +584,6 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="kantan.codecs.Result#biFlatMap" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="biFlatMap[FF&gt;:F,SS&gt;:S](f:FF=&gt;kantan.codecs.Result[FF,SS],g:SS=&gt;kantan.codecs.Result[FF,SS]):kantan.codecs.Result[FF,SS]"></a><a id="biFlatMap[FF&gt;:F,SS&gt;:S]((FF)⇒Result[FF,SS],(SS)⇒Result[FF,SS]):Result[FF,SS]"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#biFlatMap[FF&gt;:F,SS&gt;:S](f:FF=&gt;kantan.codecs.Result[FF,SS],g:SS=&gt;kantan.codecs.Result[FF,SS]):kantan.codecs.Result[FF,SS]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">biFlatMap</span><span class="tparams">[<span name="FF">FF &gt;: <span class="extype" name="kantan.codecs.Result.F">F</span></span>, <span name="SS">SS &gt;: <span class="extype" name="kantan.codecs.Result.S">S</span></span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.Result.biFlatMap.FF">FF</span>) ⇒ <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.Result.biFlatMap.FF">FF</span>, <span class="extype" name="kantan.codecs.Result.biFlatMap.SS">SS</span>]</span>, <span name="g">g: (<span class="extype" name="kantan.codecs.Result.biFlatMap.SS">SS</span>) ⇒ <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.Result.biFlatMap.FF">FF</span>, <span class="extype" name="kantan.codecs.Result.biFlatMap.SS">SS</span>]</span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.Result.biFlatMap.FF">FF</span>, <span class="extype" name="kantan.codecs.Result.biFlatMap.SS">SS</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
-    </li><li name="kantan.codecs.Result#bimap" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="bimap[FF,SS](f:F=&gt;FF,s:S=&gt;SS):kantan.codecs.Result[FF,SS]"></a><a id="bimap[FF,SS]((F)⇒FF,(S)⇒SS):Result[FF,SS]"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#bimap[FF,SS](f:F=&gt;FF,s:S=&gt;SS):kantan.codecs.Result[FF,SS]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">bimap</span><span class="tparams">[<span name="FF">FF</span>, <span name="SS">SS</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.Result.F">F</span>) ⇒ <span class="extype" name="kantan.codecs.Result.bimap.FF">FF</span></span>, <span name="s">s: (<span class="extype" name="kantan.codecs.Result.S">S</span>) ⇒ <span class="extype" name="kantan.codecs.Result.bimap.SS">SS</span></span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result">Result</span>[<span class="extype" name="kantan.codecs.Result.bimap.FF">FF</span>, <span class="extype" name="kantan.codecs.Result.bimap.SS">SS</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
@@ -864,6 +608,22 @@
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="scala.util.Either#contains" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="contains[B1&gt;:B](elem:B1):Boolean"></a><a id="contains[B1&gt;:B](B1):Boolean"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/package$$ReadResult.html#contains[B1&gt;:B](elem:B1):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">contains</span><span class="tparams">[<span name="B1">B1 &gt;: <span class="extype" name="scala.util.Either.B">B</span></span>]</span><span class="params">(<span name="elem">elem: <span class="extype" name="scala.util.Either.contains.B1">B1</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Either</dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -896,6 +656,38 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.util.Either#exists" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="exists(p:B=&gt;Boolean):Boolean"></a><a id="exists((B)⇒Boolean):Boolean"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/package$$ReadResult.html#exists(p:B=&gt;Boolean):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">exists</span><span class="params">(<span name="p">p: (<span class="extype" name="scala.util.Either.B">B</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Either</dd></dl></div>
+    </li><li name="scala.util.Either#filterOrElse" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="filterOrElse[A1&gt;:A](p:B=&gt;Boolean,zero:=&gt;A1):scala.util.Either[A1,B]"></a><a id="filterOrElse[A1&gt;:A]((B)⇒Boolean,⇒A1):Either[A1,B]"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/package$$ReadResult.html#filterOrElse[A1&gt;:A](p:B=&gt;Boolean,zero:=&gt;A1):scala.util.Either[A1,B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">filterOrElse</span><span class="tparams">[<span name="A1">A1 &gt;: <span class="extype" name="scala.util.Either.A">A</span></span>]</span><span class="params">(<span name="p">p: (<span class="extype" name="scala.util.Either.B">B</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>, <span name="zero">zero: ⇒ <span class="extype" name="scala.util.Either.filterOrElse.A1">A1</span></span>)</span><span class="result">: <span class="extype" name="scala.util.Either">Either</span>[<span class="extype" name="scala.util.Either.filterOrElse.A1">A1</span>, <span class="extype" name="scala.util.Either.B">B</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Either</dd></dl></div>
     </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <span class="permalink">
@@ -918,10 +710,10 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="kantan.codecs.Result#foldLeft" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="foldLeft[A](acc:A)(f:(A,S)=&gt;A):A"></a><a id="foldLeft[A](A)((A,S)⇒A):A"></a>
+    </li><li name="scala.util.Either#flatMap" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="flatMap[A1&gt;:A,B1](f:B=&gt;scala.util.Either[A1,B1]):scala.util.Either[A1,B1]"></a><a id="flatMap[A1&gt;:A,B1]((B)⇒Either[A1,B1]):Either[A1,B1]"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#foldLeft[A](acc:A)(f:(A,S)=&gt;A):A" title="Permalink">
+      <a href="../../kantan/csv/package$$ReadResult.html#flatMap[A1&gt;:A,B1](f:B=&gt;scala.util.Either[A1,B1]):scala.util.Either[A1,B1]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -930,14 +722,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">foldLeft</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="acc">acc: <span class="extype" name="kantan.codecs.Result.foldLeft.A">A</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.Result.foldLeft.A">A</span>, <span class="extype" name="kantan.codecs.Result.S">S</span>) ⇒ <span class="extype" name="kantan.codecs.Result.foldLeft.A">A</span></span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result.foldLeft.A">A</span></span>
+        <span class="name">flatMap</span><span class="tparams">[<span name="A1">A1 &gt;: <span class="extype" name="scala.util.Either.A">A</span></span>, <span name="B1">B1</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.util.Either.B">B</span>) ⇒ <span class="extype" name="scala.util.Either">Either</span>[<span class="extype" name="scala.util.Either.flatMap.A1">A1</span>, <span class="extype" name="scala.util.Either.flatMap.B1">B1</span>]</span>)</span><span class="result">: <span class="extype" name="scala.util.Either">Either</span>[<span class="extype" name="scala.util.Either.flatMap.A1">A1</span>, <span class="extype" name="scala.util.Either.flatMap.B1">B1</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
-    </li><li name="kantan.codecs.Result#foldRight" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="foldRight[A](acc:A)(f:(S,A)=&gt;A):A"></a><a id="foldRight[A](A)((S,A)⇒A):A"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Either</dd></dl></div>
+    </li><li name="scala.util.Either#fold" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="fold[C](fa:A=&gt;C,fb:B=&gt;C):C"></a><a id="fold[C]((A)⇒C,(B)⇒C):C"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#foldRight[A](acc:A)(f:(S,A)=&gt;A):A" title="Permalink">
+      <a href="../../kantan/csv/package$$ReadResult.html#fold[C](fa:A=&gt;C,fb:B=&gt;C):C" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -946,10 +738,42 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">foldRight</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="acc">acc: <span class="extype" name="kantan.codecs.Result.foldRight.A">A</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.Result.S">S</span>, <span class="extype" name="kantan.codecs.Result.foldRight.A">A</span>) ⇒ <span class="extype" name="kantan.codecs.Result.foldRight.A">A</span></span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result.foldRight.A">A</span></span>
+        <span class="name">fold</span><span class="tparams">[<span name="C">C</span>]</span><span class="params">(<span name="fa">fa: (<span class="extype" name="scala.util.Either.A">A</span>) ⇒ <span class="extype" name="scala.util.Either.fold.C">C</span></span>, <span name="fb">fb: (<span class="extype" name="scala.util.Either.B">B</span>) ⇒ <span class="extype" name="scala.util.Either.fold.C">C</span></span>)</span><span class="result">: <span class="extype" name="scala.util.Either.fold.C">C</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Either</dd></dl></div>
+    </li><li name="scala.util.Either#forall" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="forall(f:B=&gt;Boolean):Boolean"></a><a id="forall((B)⇒Boolean):Boolean"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/package$$ReadResult.html#forall(f:B=&gt;Boolean):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">forall</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.util.Either.B">B</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Either</dd></dl></div>
+    </li><li name="scala.util.Either#foreach" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="foreach[U](f:B=&gt;U):Unit"></a><a id="foreach[U]((B)⇒U):Unit"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/package$$ReadResult.html#foreach[U](f:B=&gt;U):Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">foreach</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.util.Either.B">B</span>) ⇒ <span class="extype" name="scala.util.Either.foreach.U">U</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Either</dd></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -969,6 +793,22 @@
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="scala.util.Either#getOrElse" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getOrElse[B1&gt;:B](or:=&gt;B1):B1"></a><a id="getOrElse[B1&gt;:B](⇒B1):B1"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/package$$ReadResult.html#getOrElse[B1&gt;:B](or:=&gt;B1):B1" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getOrElse</span><span class="tparams">[<span name="B1">B1 &gt;: <span class="extype" name="scala.util.Either.B">B</span></span>]</span><span class="params">(<span name="or">or: ⇒ <span class="extype" name="scala.util.Either.getOrElse.B1">B1</span></span>)</span><span class="result">: <span class="extype" name="scala.util.Either.getOrElse.B1">B1</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Either</dd></dl></div>
     </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
       <span class="permalink">
@@ -988,22 +828,6 @@
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="kantan.codecs.Result#isFailure" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="isFailure:Boolean"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/package$$ReadResult.html#isFailure:Boolean" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">isFailure</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Result</dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
@@ -1020,6 +844,70 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="scala.util.Either#joinLeft" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="joinLeft[A1&gt;:A,B1&gt;:B,C](implicitev:A1&lt;:&lt;scala.util.Either[C,B1]):scala.util.Either[C,B1]"></a><a id="joinLeft[A1&gt;:A,B1&gt;:B,C](&lt;:&lt;[A1,Either[C,B1]]):Either[C,B1]"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/package$$ReadResult.html#joinLeft[A1&gt;:A,B1&gt;:B,C](implicitev:A1&lt;:&lt;scala.util.Either[C,B1]):scala.util.Either[C,B1]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">joinLeft</span><span class="tparams">[<span name="A1">A1 &gt;: <span class="extype" name="scala.util.Either.A">A</span></span>, <span name="B1">B1 &gt;: <span class="extype" name="scala.util.Either.B">B</span></span>, <span name="C">C</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="scala.util.Either.joinLeft.A1">A1</span>, <span class="extype" name="scala.util.Either">Either</span>[<span class="extype" name="scala.util.Either.joinLeft.C">C</span>, <span class="extype" name="scala.util.Either.joinLeft.B1">B1</span>]]</span>)</span><span class="result">: <span class="extype" name="scala.util.Either">Either</span>[<span class="extype" name="scala.util.Either.joinLeft.C">C</span>, <span class="extype" name="scala.util.Either.joinLeft.B1">B1</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Either</dd></dl></div>
+    </li><li name="scala.util.Either#joinRight" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="joinRight[A1&gt;:A,B1&gt;:B,C](implicitev:B1&lt;:&lt;scala.util.Either[A1,C]):scala.util.Either[A1,C]"></a><a id="joinRight[A1&gt;:A,B1&gt;:B,C](&lt;:&lt;[B1,Either[A1,C]]):Either[A1,C]"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/package$$ReadResult.html#joinRight[A1&gt;:A,B1&gt;:B,C](implicitev:B1&lt;:&lt;scala.util.Either[A1,C]):scala.util.Either[A1,C]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">joinRight</span><span class="tparams">[<span name="A1">A1 &gt;: <span class="extype" name="scala.util.Either.A">A</span></span>, <span name="B1">B1 &gt;: <span class="extype" name="scala.util.Either.B">B</span></span>, <span name="C">C</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="scala.util.Either.joinRight.B1">B1</span>, <span class="extype" name="scala.util.Either">Either</span>[<span class="extype" name="scala.util.Either.joinRight.A1">A1</span>, <span class="extype" name="scala.util.Either.joinRight.C">C</span>]]</span>)</span><span class="result">: <span class="extype" name="scala.util.Either">Either</span>[<span class="extype" name="scala.util.Either.joinRight.A1">A1</span>, <span class="extype" name="scala.util.Either.joinRight.C">C</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Either</dd></dl></div>
+    </li><li name="scala.util.Either#left" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="left:scala.util.Either.LeftProjection[A,B]"></a><a id="left:LeftProjection[A,B]"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/package$$ReadResult.html#left:scala.util.Either.LeftProjection[A,B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">left</span><span class="result">: <span class="extype" name="scala.util.Either.LeftProjection">LeftProjection</span>[<span class="extype" name="scala.util.Either.A">A</span>, <span class="extype" name="scala.util.Either.B">B</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Either</dd></dl></div>
+    </li><li name="scala.util.Either#map" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="map[B1](f:B=&gt;B1):scala.util.Either[A,B1]"></a><a id="map[B1]((B)⇒B1):Either[A,B1]"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/package$$ReadResult.html#map[B1](f:B=&gt;B1):scala.util.Either[A,B1]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">map</span><span class="tparams">[<span name="B1">B1</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.util.Either.B">B</span>) ⇒ <span class="extype" name="scala.util.Either.map.B1">B1</span></span>)</span><span class="result">: <span class="extype" name="scala.util.Either">Either</span>[<span class="extype" name="scala.util.Either.A">A</span>, <span class="extype" name="scala.util.Either.map.B1">B1</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Either</dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -1106,6 +994,38 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Product</dd></dl></div>
+    </li><li name="scala.util.Either#right" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="right:scala.util.Either.RightProjection[A,B]"></a><a id="right:RightProjection[A,B]"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/package$$ReadResult.html#right:scala.util.Either.RightProjection[A,B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">right</span><span class="result">: <span class="extype" name="scala.util.Either.RightProjection">RightProjection</span>[<span class="extype" name="scala.util.Either.A">A</span>, <span class="extype" name="scala.util.Either.B">B</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Either</dd></dl></div>
+    </li><li name="scala.util.Either#swap" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="swap:scala.util.Either[B,A]"></a><a id="swap:Either[B,A]"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/package$$ReadResult.html#swap:scala.util.Either[B,A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">swap</span><span class="result">: <span class="extype" name="scala.util.Either">Either</span>[<span class="extype" name="scala.util.Either.B">B</span>, <span class="extype" name="scala.util.Either.A">A</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Either</dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
@@ -1122,6 +1042,38 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.util.Either#toOption" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toOption:Option[B]"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/package$$ReadResult.html#toOption:Option[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toOption</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.util.Either.B">B</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Either</dd></dl></div>
+    </li><li name="scala.util.Either#toSeq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toSeq:scala.collection.immutable.Seq[B]"></a><a id="toSeq:Seq[B]"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/package$$ReadResult.html#toSeq:scala.collection.immutable.Seq[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toSeq</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/Seq.html#scala.collection.immutable.Seq" class="extype" name="scala.collection.immutable.Seq">Seq</a>[<span class="extype" name="scala.util.Either.B">B</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Either</dd></dl></div>
     </li><li name="scala.AnyRef#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
       <span class="permalink">
@@ -1138,6 +1090,22 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.util.Either#toTry" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toTry(implicitev:A&lt;:&lt;Throwable):scala.util.Try[B]"></a><a id="toTry(&lt;:&lt;[A,Throwable]):Try[B]"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/package$$ReadResult.html#toTry(implicitev:A&lt;:&lt;Throwable):scala.util.Try[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toTry</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="scala.util.Either.A">A</span>, <span class="extype" name="scala.Throwable">Throwable</span>]</span>)</span><span class="result">: <span class="extype" name="scala.util.Try">Try</span>[<span class="extype" name="scala.util.Either.B">B</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Either</dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <span class="permalink">

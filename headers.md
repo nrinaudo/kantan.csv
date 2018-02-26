@@ -71,10 +71,10 @@ desired result:
 
 ```scala
 scala> rawData.asCsvReader[Car](rfc.withHeader).foreach(println _)
-Success(Car(1997,Ford,E350,3000.0,Some(ac, abs, moon)))
-Success(Car(1999,Chevy,Venture "Extended Edition",4900.0,None))
-Success(Car(1999,Chevy,Venture "Extended Edition, Very Large",5000.0,None))
-Success(Car(1996,Jeep,Grand Cherokee,4799.0,Some(MUST SELL!
+Right(Car(1997,Ford,E350,3000.0,Some(ac, abs, moon)))
+Right(Car(1999,Chevy,Venture "Extended Edition",4900.0,None))
+Right(Car(1999,Chevy,Venture "Extended Edition, Very Large",5000.0,None))
+Right(Car(1996,Jeep,Grand Cherokee,4799.0,Some(MUST SELL!
 air, moon roof, loaded)))
 ```
 

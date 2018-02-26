@@ -133,6 +133,42 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.java8" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="java8"></a><a id="java8:java8"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#java8" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="Declares kantan.csv.CellDecoder and kantan.csv.CellEncoder instances for java8 date and time types." href="java8/index.html"><span class="name">java8</span></a>
+      </span>
+      
+      <p class="shortcomment cmt">Declares <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">kantan.csv.CellDecoder</a> and <a href="package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">kantan.csv.CellEncoder</a> instances for java8 date and time types.</p><div class="fullcomment"><div class="comment cmt"><p>Declares <a href="package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">kantan.csv.CellDecoder</a> and <a href="package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">kantan.csv.CellEncoder</a> instances for java8 date and time types.</p><p>Note that the type for default codecs might come as a surprise: the wrapping <code>Exported</code> is used to lower their
+priority. This is necessary because the standard use case will be to <code>import kantan.csv.java8._</code>, which
+brings both the instance creation and default instances in scope. Without this type trickery, custom instances
+and default ones would always clash.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.joda" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="joda"></a><a id="joda:joda"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#joda" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="joda/index.html"><span class="name">joda</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
     </li><li name="kantan.csv.laws" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="laws"></a><a id="laws:laws"></a>
       <span class="permalink">
@@ -263,6 +299,18 @@
                         <a href="" title="Provides convenience methods for creating instances of ParseResult.">ParseResult</a>
                       </li><li class="current-entities indented2">
                         <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellCodecInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellCodecInstances.html" title="">PlatformSpecificCellCodecInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellDecoderInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellDecoderInstances.html" title="">PlatformSpecificCellDecoderInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCellEncoderInstances.html" title=""></a>
+                        <a href="PlatformSpecificCellEncoderInstances.html" title="">PlatformSpecificCellEncoderInstances</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
                         <a class="class" href="ReadError.html" title="Parent type for all errors that can occur while dealing with CSV data."></a>
                         <a href="ReadError.html" title="Parent type for all errors that can occur while dealing with CSV data.">ReadError</a>
                       </li><li class="current-entities indented2">
@@ -329,7 +377,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides convenience methods for creating instances of <a href="package$$ParseResult.html" class="extype" name="kantan.csv.ParseResult">ParseResult</a>.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/ParseResult.scala" target="_blank">ParseResult.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides convenience methods for creating instances of <a href="package$$ParseResult.html" class="extype" name="kantan.csv.ParseResult">ParseResult</a>.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/shared/src/main/scala/kantan/csv/ParseResult.scala" target="_blank">ParseResult.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -435,9 +483,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="kantan.codecs.ResultCompanion.WithDefault#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="apply[S](s:=&gt;S):kantan.codecs.Result[F,S]"></a><a id="apply[S](⇒S):Result[ParseError,S]"></a>
+      <a id="apply[S](s:=&gt;S):Either[F,S]"></a><a id="apply[S](⇒S):Either[ParseError,S]"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/ParseResult$.html#apply[S](s:=&gt;S):kantan.codecs.Result[F,S]" title="Permalink">
+      <a href="../../kantan/csv/ParseResult$.html#apply[S](s:=&gt;S):Either[F,S]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -446,7 +494,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="s">s: ⇒ <span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.apply.S">S</span></span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result">Result</span>[<a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>, <span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.apply.S">S</span>]</span>
+        <span class="name">apply</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="s">s: ⇒ <span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.apply.S">S</span></span>)</span><span class="result">: <span class="extype" name="scala.Either">Either</span>[<a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>, <span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.apply.S">S</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>WithDefault</dd><dt>Annotations</dt><dd>
@@ -526,9 +574,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="kantan.codecs.ResultCompanion.Simple#failure" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="failure(f:F):kantan.codecs.Result[F,Nothing]"></a><a id="failure(ParseError):Result[ParseError,Nothing]"></a>
+      <a id="failure(f:F):Either[F,Nothing]"></a><a id="failure(ParseError):Either[ParseError,Nothing]"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/ParseResult$.html#failure(f:F):kantan.codecs.Result[F,Nothing]" title="Permalink">
+      <a href="../../kantan/csv/ParseResult$.html#failure(f:F):Either[F,Nothing]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -537,7 +585,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">failure</span><span class="params">(<span name="f">f: <a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a></span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result">Result</span>[<a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>, <span class="extype" name="scala.Nothing">Nothing</span>]</span>
+        <span class="name">failure</span><span class="params">(<span name="f">f: <a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a></span>)</span><span class="result">: <span class="extype" name="scala.Either">Either</span>[<a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>, <span class="extype" name="scala.Nothing">Nothing</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Simple</dd><dt>Annotations</dt><dd>
@@ -566,44 +614,6 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="kantan.codecs.ResultCompanion.Simple#fromEither" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="fromEither[S](e:Either[F,S]):kantan.codecs.Result[F,S]"></a><a id="fromEither[S](Either[ParseError,S]):Result[ParseError,S]"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/ParseResult$.html#fromEither[S](e:Either[F,S]):kantan.codecs.Result[F,S]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">fromEither</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="e">e: <span class="extype" name="scala.Either">Either</span>[<a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.fromEither.S">S</span>]</span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result">Result</span>[<a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.fromEither.S">S</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Simple</dd><dt>Annotations</dt><dd>
-                <span class="name">@inline</span><span class="args">()</span>
-              
-        </dd></dl></div>
-    </li><li name="kantan.codecs.ResultCompanion.Simple#fromOption" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="fromOption[S](o:Option[S],f:=&gt;F):kantan.codecs.Result[F,S]"></a><a id="fromOption[S](Option[S],⇒ParseError):Result[ParseError,S]"></a>
-      <span class="permalink">
-      <a href="../../kantan/csv/ParseResult$.html#fromOption[S](o:Option[S],f:=&gt;F):kantan.codecs.Result[F,S]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">fromOption</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="o">o: <a href="http://www.scala-lang.org/api/2.12.4/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="kantan.codecs.ResultCompanion.Simple.fromOption.S">S</span>]</span>, <span name="f">f: ⇒ <a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a></span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result">Result</span>[<a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.fromOption.S">S</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Simple</dd><dt>Annotations</dt><dd>
-                <span class="name">@inline</span><span class="args">()</span>
-              
-        </dd></dl></div>
     </li><li name="kantan.csv.ParseResult#fromThrowable" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="fromThrowable(t:Throwable):kantan.csv.ParseError"></a><a id="fromThrowable(Throwable):ParseError"></a>
       <span class="permalink">
@@ -621,9 +631,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="" class="extype" name="kantan.csv.ParseResult">ParseResult</a> → WithDefault</dd></dl></div>
     </li><li name="kantan.codecs.ResultCompanion.WithDefault#fromTry" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="fromTry[S](t:scala.util.Try[S]):kantan.codecs.Result[F,S]"></a><a id="fromTry[S](Try[S]):Result[ParseError,S]"></a>
+      <a id="fromTry[S](t:scala.util.Try[S]):Either[F,S]"></a><a id="fromTry[S](Try[S]):Either[ParseError,S]"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/ParseResult$.html#fromTry[S](t:scala.util.Try[S]):kantan.codecs.Result[F,S]" title="Permalink">
+      <a href="../../kantan/csv/ParseResult$.html#fromTry[S](t:scala.util.Try[S]):Either[F,S]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -632,7 +642,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">fromTry</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="t">t: <span class="extype" name="scala.util.Try">Try</span>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.fromTry.S">S</span>]</span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result">Result</span>[<a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>, <span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.fromTry.S">S</span>]</span>
+        <span class="name">fromTry</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="t">t: <span class="extype" name="scala.util.Try">Try</span>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.fromTry.S">S</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Either">Either</span>[<a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>, <span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.fromTry.S">S</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>WithDefault</dd><dt>Annotations</dt><dd>
@@ -692,8 +702,11 @@
         <span class="name">io</span><span class="params">(<span name="e">e: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result">: <a href="package$$ParseResult.html" class="extype" name="kantan.csv.ParseResult">ParseResult</a>[<span class="extype" name="scala.Nothing">Nothing</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Creates a new <a href="package$$ParseResult.html" class="extype" name="kantan.csv.ParseResult">ParseResult</a> failure wrapping a <a href="ParseError$$IOError.html" class="extype" name="kantan.csv.ParseError.IOError">ParseError.IOError</a> error.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new <a href="package$$ParseResult.html" class="extype" name="kantan.csv.ParseResult">ParseResult</a> failure wrapping a <a href="ParseError$$IOError.html" class="extype" name="kantan.csv.ParseError.IOError">ParseError.IOError</a> error.</p><pre>scala&gt; ParseResult.io(<span class="kw">new</span> java.io.IOException(<span class="lit">"some sort of io error"</span>))
-res0: ParseResult[<span class="std">Nothing</span>] = Failure(IOError: some sort of io error)</pre></div></div>
+      <p class="shortcomment cmt">Creates a new <a href="package$$ParseResult.html" class="extype" name="kantan.csv.ParseResult">ParseResult</a> failure wrapping a <a href="ParseError$$IOError.html" class="extype" name="kantan.csv.ParseError.IOError">ParseError.IOError</a> error.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new <a href="package$$ParseResult.html" class="extype" name="kantan.csv.ParseResult">ParseResult</a> failure wrapping a <a href="ParseError$$IOError.html" class="extype" name="kantan.csv.ParseError.IOError">ParseError.IOError</a> error.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; ParseResult.io(<span class="kw">new</span> java.io.IOException(<span class="lit">"some sort of io error"</span>))
+res0: ParseResult[<span class="std">Nothing</span>] = Left(IOError: some sort of io error)</pre></li></ol>
+            </div></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
@@ -741,8 +754,11 @@ res0: ParseResult[<span class="std">Nothing</span>] = Failure(IOError: some sort
         <span class="name">noSuchElement</span><span class="result">: <a href="package$$ParseResult.html" class="extype" name="kantan.csv.ParseResult">ParseResult</a>[<span class="extype" name="scala.Nothing">Nothing</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Creates a new <a href="package$$ParseResult.html" class="extype" name="kantan.csv.ParseResult">ParseResult</a> failure wrapping a <a href="ParseError$$NoSuchElement$.html" class="extype" name="kantan.csv.ParseError.NoSuchElement">ParseError.NoSuchElement</a> error.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new <a href="package$$ParseResult.html" class="extype" name="kantan.csv.ParseResult">ParseResult</a> failure wrapping a <a href="ParseError$$NoSuchElement$.html" class="extype" name="kantan.csv.ParseError.NoSuchElement">ParseError.NoSuchElement</a> error.</p><pre>scala&gt; ParseResult.noSuchElement
-res0: ParseResult[<span class="std">Nothing</span>] = Failure(NoSuchElement: trying to read from an empty reader)</pre></div></div>
+      <p class="shortcomment cmt">Creates a new <a href="package$$ParseResult.html" class="extype" name="kantan.csv.ParseResult">ParseResult</a> failure wrapping a <a href="ParseError$$NoSuchElement$.html" class="extype" name="kantan.csv.ParseError.NoSuchElement">ParseError.NoSuchElement</a> error.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new <a href="package$$ParseResult.html" class="extype" name="kantan.csv.ParseResult">ParseResult</a> failure wrapping a <a href="ParseError$$NoSuchElement$.html" class="extype" name="kantan.csv.ParseError.NoSuchElement">ParseError.NoSuchElement</a> error.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; ParseResult.noSuchElement
+res0: ParseResult[<span class="std">Nothing</span>] = Left(NoSuchElement: trying to read from an empty reader)</pre></li></ol>
+            </div></dl></div>
     </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notify():Unit"></a>
       <span class="permalink">
@@ -782,9 +798,9 @@ res0: ParseResult[<span class="std">Nothing</span>] = Failure(NoSuchElement: try
               
         </dd></dl></div>
     </li><li name="kantan.codecs.ResultCompanion.Simple#sequence" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="sequence[S,M[X]&lt;:TraversableOnce[X]](rs:M[kantan.codecs.Result[F,S]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[kantan.codecs.Result[F,S]],S,M[S]]):kantan.codecs.Result[F,M[S]]"></a><a id="sequence[S,M[X]&lt;:TraversableOnce[X]](M[Result[ParseError,S]])(CanBuildFrom[M[Result[ParseError,S]],S,M[S]]):Result[ParseError,M[S]]"></a>
+      <a id="sequence[S,M[X]&lt;:TraversableOnce[X]](rs:M[Either[F,S]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[Either[F,S]],S,M[S]]):Either[F,M[S]]"></a><a id="sequence[S,M[X]&lt;:TraversableOnce[X]](M[Either[ParseError,S]])(CanBuildFrom[M[Either[ParseError,S]],S,M[S]]):Either[ParseError,M[S]]"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/ParseResult$.html#sequence[S,M[X]&lt;:TraversableOnce[X]](rs:M[kantan.codecs.Result[F,S]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[kantan.codecs.Result[F,S]],S,M[S]]):kantan.codecs.Result[F,M[S]]" title="Permalink">
+      <a href="../../kantan/csv/ParseResult$.html#sequence[S,M[X]&lt;:TraversableOnce[X]](rs:M[Either[F,S]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[Either[F,S]],S,M[S]]):Either[F,M[S]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -793,7 +809,7 @@ res0: ParseResult[<span class="std">Nothing</span>] = Failure(NoSuchElement: try
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">sequence</span><span class="tparams">[<span name="S">S</span>, <span name="M">M<span class="tparams">[<span name="X">X</span>]</span> &lt;: <span class="extype" name="scala.TraversableOnce">TraversableOnce</span>[<span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.M.X">X</span>]</span>]</span><span class="params">(<span name="rs">rs: <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.M">M</span>[<span class="extype" name="kantan.codecs.Result">Result</span>[<a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.S">S</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="cbf">cbf: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/generic/CanBuildFrom.html#scala.collection.generic.CanBuildFrom" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.M">M</span>[<span class="extype" name="kantan.codecs.Result">Result</span>[<a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.S">S</span>]], <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.S">S</span>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.M">M</span>[<span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.S">S</span>]]</span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result">Result</span>[<a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.M">M</span>[<span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.S">S</span>]]</span>
+        <span class="name">sequence</span><span class="tparams">[<span name="S">S</span>, <span name="M">M<span class="tparams">[<span name="X">X</span>]</span> &lt;: <span class="extype" name="scala.TraversableOnce">TraversableOnce</span>[<span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.M.X">X</span>]</span>]</span><span class="params">(<span name="rs">rs: <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.M">M</span>[<span class="extype" name="scala.Either">Either</span>[<a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.S">S</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="cbf">cbf: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/generic/CanBuildFrom.html#scala.collection.generic.CanBuildFrom" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.M">M</span>[<span class="extype" name="scala.Either">Either</span>[<a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.S">S</span>]], <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.S">S</span>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.M">M</span>[<span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.S">S</span>]]</span>)</span><span class="result">: <span class="extype" name="scala.Either">Either</span>[<a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.M">M</span>[<span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.S">S</span>]]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Simple</dd><dt>Annotations</dt><dd>
@@ -801,9 +817,9 @@ res0: ParseResult[<span class="std">Nothing</span>] = Failure(NoSuchElement: try
               
         </dd></dl></div>
     </li><li name="kantan.codecs.ResultCompanion.Simple#success" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="success[S](s:S):kantan.codecs.Result[F,S]"></a><a id="success[S](S):Result[ParseError,S]"></a>
+      <a id="success[S](s:S):Either[F,S]"></a><a id="success[S](S):Either[ParseError,S]"></a>
       <span class="permalink">
-      <a href="../../kantan/csv/ParseResult$.html#success[S](s:S):kantan.codecs.Result[F,S]" title="Permalink">
+      <a href="../../kantan/csv/ParseResult$.html#success[S](s:S):Either[F,S]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -812,7 +828,7 @@ res0: ParseResult[<span class="std">Nothing</span>] = Failure(NoSuchElement: try
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">success</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="s">s: <span class="extype" name="kantan.codecs.ResultCompanion.Simple.success.S">S</span></span>)</span><span class="result">: <span class="extype" name="kantan.codecs.Result">Result</span>[<a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.success.S">S</span>]</span>
+        <span class="name">success</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="s">s: <span class="extype" name="kantan.codecs.ResultCompanion.Simple.success.S">S</span></span>)</span><span class="result">: <span class="extype" name="scala.Either">Either</span>[<a href="ParseError.html" class="extype" name="kantan.csv.ParseError">ParseError</a>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.success.S">S</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Simple</dd><dt>Annotations</dt><dd>

@@ -133,6 +133,42 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.java8" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="java8"></a><a id="java8:java8"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#java8" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="Declares kantan.csv.CellDecoder and kantan.csv.CellEncoder instances for java8 date and time types." href="../java8/index.html"><span class="name">java8</span></a>
+      </span>
+      
+      <p class="shortcomment cmt">Declares <a href="../package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">kantan.csv.CellDecoder</a> and <a href="../package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">kantan.csv.CellEncoder</a> instances for java8 date and time types.</p><div class="fullcomment"><div class="comment cmt"><p>Declares <a href="../package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">kantan.csv.CellDecoder</a> and <a href="../package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">kantan.csv.CellEncoder</a> instances for java8 date and time types.</p><p>Note that the type for default codecs might come as a surprise: the wrapping <code>Exported</code> is used to lower their
+priority. This is necessary because the standard use case will be to <code>import kantan.csv.java8._</code>, which
+brings both the instance creation and default instances in scope. Without this type trickery, custom instances
+and default ones would always clash.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.joda" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="joda"></a><a id="joda:joda"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#joda" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../joda/index.html"><span class="name">joda</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
     </li><li name="kantan.csv.laws" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="laws"></a><a id="laws:laws"></a>
       <span class="permalink">
@@ -293,7 +329,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/ops/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/shared/src/main/scala/kantan/csv/ops/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -502,8 +538,8 @@ f.writeCsv[<span class="std">List</span>[<span class="std">Int</span>]](<span cl
       <p class="shortcomment cmt">Provides useful syntax for types that have implicit instances of <a href="../CsvSource.html" class="extype" name="kantan.csv.CsvSource">CsvSource</a> in scope.</p><div class="fullcomment"><div class="comment cmt"><p>Provides useful syntax for types that have implicit instances of <a href="../CsvSource.html" class="extype" name="kantan.csv.CsvSource">CsvSource</a> in scope.</p><p>The most common use case is to turn a value into a <a href="../package$$CsvReader.html" class="extype" name="kantan.csv.CsvReader">CsvReader</a>:</p><pre>scala&gt; <span class="kw">import</span> kantan.csv._
 
 scala&gt; <span class="lit">"1,2,3\n4,5,6"</span>.asCsvReader[<span class="std">List</span>[<span class="std">Int</span>]](rfc).toList
-res0: <span class="std">List</span>[ReadResult[<span class="std">List</span>[<span class="std">Int</span>]]] = <span class="std">List</span>(Success(<span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)), Success(<span class="std">List</span>(<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>)))</pre><p>A slightly less common use case is to load an entire CSV file in memory:</p><pre>scala&gt; <span class="lit">"1,2,3\n4,5,6"</span>.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span class="std">Int</span>]](rfc)
-res1: <span class="std">List</span>[ReadResult[<span class="std">List</span>[<span class="std">Int</span>]]] = <span class="std">List</span>(Success(<span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)), Success(<span class="std">List</span>(<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>)))</pre><p>Unsafe versions of these methods are also available, even if usually advised against.
+res0: <span class="std">List</span>[ReadResult[<span class="std">List</span>[<span class="std">Int</span>]]] = <span class="std">List</span>(Right(<span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)), Right(<span class="std">List</span>(<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>)))</pre><p>A slightly less common use case is to load an entire CSV file in memory:</p><pre>scala&gt; <span class="lit">"1,2,3\n4,5,6"</span>.readCsv[<span class="std">List</span>, <span class="std">List</span>[<span class="std">Int</span>]](rfc)
+res1: <span class="std">List</span>[ReadResult[<span class="std">List</span>[<span class="std">Int</span>]]] = <span class="std">List</span>(Right(<span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)), Right(<span class="std">List</span>(<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>)))</pre><p>Unsafe versions of these methods are also available, even if usually advised against.
 </p></div></div>
     </li><li name="kantan.csv.ops.ToCsvCellDecoderOps" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="ToCsvCellDecoderOpsextendsAnyRef"></a><a id="ToCsvCellDecoderOps:ToCsvCellDecoderOps"></a>

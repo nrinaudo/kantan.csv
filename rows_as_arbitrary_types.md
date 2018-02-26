@@ -55,10 +55,10 @@ And we can now decode our data as usual:
 
 ```scala
 scala> rawData.asCsvReader[Car](rfc.withHeader).foreach(println _)
-Success(Car(1997, Ford, E350, Some(ac, abs, moon), 3000.0))
-Success(Car(1999, Chevy, Venture "Extended Edition", None, 4900.0))
-Success(Car(1999, Chevy, Venture "Extended Edition, Very Large", None, 5000.0))
-Success(Car(1996, Jeep, Grand Cherokee, Some(MUST SELL!
+Right(Car(1997, Ford, E350, Some(ac, abs, moon), 3000.0))
+Right(Car(1999, Chevy, Venture "Extended Edition", None, 4900.0))
+Right(Car(1999, Chevy, Venture "Extended Edition, Very Large", None, 5000.0))
+Right(Car(1996, Jeep, Grand Cherokee, Some(MUST SELL!
 air, moon roof, loaded), 4799.0))
 ```
 

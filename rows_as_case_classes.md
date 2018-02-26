@@ -38,7 +38,15 @@ final case class Car(year: Int, make: String, model: String, desc: Option[String
 
 We find ourselves with a particularly easy scenario to deal with: the rows in the CSV data and the fields in the target
 case class have a 1-to-1 correspondence and are declared in the same order. This means that, if you don't mind a
-[shapeless](shapeless.html) dependency, there's very little work to do:
+[shapeless](shapeless.html) dependency, there's very little work to do.
+
+You'll first need to add a dependency to the [generic](shapeless.html) module in your `build.sbt`:
+
+```scala
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.4.0"
+```
+
+Then, with the appropriate imports:
 
 ```scala
 import kantan.csv._
@@ -52,10 +60,10 @@ Let's make sure this worked by printing all decoded rows:
 
 ```scala
 scala> reader.foreach(println _)
-Success(Car(1997,Ford,E350,Some(ac, abs, moon),3000.0))
-Success(Car(1999,Chevy,Venture "Extended Edition",None,4900.0))
-Success(Car(1999,Chevy,Venture "Extended Edition, Very Large",None,5000.0))
-Success(Car(1996,Jeep,Grand Cherokee,Some(MUST SELL!
+Right(Car(1997,Ford,E350,Some(ac, abs, moon),3000.0))
+Right(Car(1999,Chevy,Venture "Extended Edition",None,4900.0))
+Right(Car(1999,Chevy,Venture "Extended Edition, Very Large",None,5000.0))
+Right(Car(1996,Jeep,Grand Cherokee,Some(MUST SELL!
 air, moon roof, loaded),4799.0))
 ```
 
@@ -82,10 +90,10 @@ Let's verify that this worked as expected:
 
 ```scala
 scala> rawData.asCsvReader[Car2](rfc.withHeader).foreach(println _)
-Success(Car2(Ford,1997,E350,3000.0))
-Success(Car2(Chevy,1999,Venture "Extended Edition",4900.0))
-Success(Car2(Chevy,1999,Venture "Extended Edition, Very Large",5000.0))
-Success(Car2(Jeep,1996,Grand Cherokee,4799.0))
+Right(Car2(Ford,1997,E350,3000.0))
+Right(Car2(Chevy,1999,Venture "Extended Edition",4900.0))
+Right(Car2(Chevy,1999,Venture "Extended Edition, Very Large",5000.0))
+Right(Car2(Jeep,1996,Grand Cherokee,4799.0))
 ```
 
 ## What to read next

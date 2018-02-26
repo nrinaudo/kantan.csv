@@ -10,7 +10,7 @@ bones: it provides decoders for [`Maybe`] and [`\/`] as well as a few useful typ
 The `scalaz` module can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz" % "0.3.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz" % "0.4.0"
 ```
 
 You then need to import the corresponding package:
@@ -39,10 +39,10 @@ We can then simply write the following:
 
 ```scala
 scala> "1,2\n4,true".readCsv[List, (Int, Int \/ Boolean)](rfc)
-res0: List[kantan.csv.ReadResult[(Int, Int \/ Boolean)]] = List(Success((1,-\/(2))), Success((4,\/-(true))))
+res0: List[kantan.csv.ReadResult[(Int, Int \/ Boolean)]] = List(Right((1,-\/(2))), Right((4,\/-(true))))
 
 scala> "1,2\n4,true".readCsv[List, (Int, Int) \/ (Int, Boolean)](rfc)
-res1: List[kantan.csv.ReadResult[(Int, Int) \/ (Int, Boolean)]] = List(Success(-\/((1,2))), Success(\/-((4,true))))
+res1: List[kantan.csv.ReadResult[(Int, Int) \/ (Int, Boolean)]] = List(Right(-\/((1,2))), Right(\/-((4,true))))
 ```
 
 
@@ -59,36 +59,28 @@ You can write, for example:
 
 ```scala
 scala> "1,2\n3,".readCsv[List, (Int, Maybe[Int])](rfc)
-res2: List[kantan.csv.ReadResult[(Int, scalaz.Maybe[Int])]] = List(Success((1,Just(2))), Success((3,Empty())))
+res2: List[kantan.csv.ReadResult[(Int, scalaz.Maybe[Int])]] = List(Right((1,Just(2))), Right((3,Empty())))
 ```
 
 ## Scalaz instances
 
 The following instance for cats type classes are provided:
 
-* [`Functor`] for all decoders ([`CellDecoder`] and [`RowDecoder`]).
+* [`MonadError`] and [`Plus`] for all decoders ([`CellDecoder`] and [`RowDecoder`]).
 * [`Contravariant`] for all encoders ([`CellEncoder`] and [`RowEncoder`]).
-* [`Order`] for all result types ([`ReadResult`], [`ParseResult`] and [`DecodeResult`]).
-* [`Show`] for all result types.
-* [`Monoid`] for all result types.
-* [`Traverse`] for all result types.
-* [`Monad`] for all result types.
-* [`BiFunctor`] for all result types.
+* [`Show`] and [`Equal`] for all error types ([`ReadError`] and all its descendants).
+* [`RowEncoder`] for any type that has a [`Foldable`].
 
-[`Functor`]:https://oss.sonatype.org/service/local/repositories/releases/archive/org/scalaz/scalaz_2.11/7.2.3/scalaz_2.11-7.2.3-javadoc.jar/!/index.html#scalaz.Functor
-[`BiFunctor`]:https://oss.sonatype.org/service/local/repositories/releases/archive/org/scalaz/scalaz_2.11/7.2.3/scalaz_2.11-7.2.3-javadoc.jar/!/index.html#scalaz.Bifunctor
-[`Order`]:https://oss.sonatype.org/service/local/repositories/releases/archive/org/scalaz/scalaz_2.11/7.2.3/scalaz_2.11-7.2.3-javadoc.jar/!/index.html#scalaz.Order
-[`Show`]:https://oss.sonatype.org/service/local/repositories/releases/archive/org/scalaz/scalaz_2.11/7.2.3/scalaz_2.11-7.2.3-javadoc.jar/!/index.html#scalaz.Show
-[`Traverse`]:https://oss.sonatype.org/service/local/repositories/releases/archive/org/scalaz/scalaz_2.11/7.2.3/scalaz_2.11-7.2.3-javadoc.jar/!/index.html#scalaz.Show
-[`Monad`]:https://oss.sonatype.org/service/local/repositories/releases/archive/org/scalaz/scalaz_2.11/7.2.3/scalaz_2.11-7.2.3-javadoc.jar/!/index.html#scalaz.Monad
-[`Monoid`]:https://oss.sonatype.org/service/local/repositories/releases/archive/org/scalaz/scalaz_2.11/7.2.3/scalaz_2.11-7.2.3-javadoc.jar/!/index.html#scalaz.Monoid
-[`\/`]:https://oss.sonatype.org/service/local/repositories/releases/archive/org/scalaz/scalaz_2.11/7.2.3/scalaz_2.11-7.2.3-javadoc.jar/!/index.html#scalaz.$bslash$div
-[`Maybe`]:https://oss.sonatype.org/service/local/repositories/releases/archive/org/scalaz/scalaz_2.11/7.2.3/scalaz_2.11-7.2.3-javadoc.jar/!/index.html#scalaz.Maybe
+[`MonadError`]:https://static.javadoc.io/org.scalaz/scalaz_2.12/7.2.18/scalaz/MonadError.html
+[`Plus`]:https://static.javadoc.io/org.scalaz/scalaz_2.12/7.2.18/scalaz/Plus.html
+[`Show`]:https://static.javadoc.io/org.scalaz/scalaz_2.12/7.2.18/scalaz/Show.html
+[`Equal`]:https://static.javadoc.io/org.scalaz/scalaz_2.12/7.2.18/scalaz/Equal.html
+[`Foldable`]:https://static.javadoc.io/org.scalaz/scalaz_2.12/7.2.18/scalaz/Foldable.html
+[`\/`]:https://static.javadoc.io/org.scalaz/scalaz_2.12/7.2.18/scalaz/$bslash$div.html
+[`Maybe`]:https://static.javadoc.io/org.scalaz/scalaz_2.12/7.2.18/scalaz/Maybe.html
 [`CellEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$CellEncoder.html
 [`CellDecoder`]:{{ site.baseurl }}/api/kantan/csv/CellDecoder$.html
 [`RowDecoder`]:{{ site.baseurl }}/api/kantan/csv/RowDecoder$.html
 [`RowEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$RowEncoder.html
-[`ReadResult`]:{{ site.baseurl }}/api/kantan/csv/ReadResult$.html
-[`ParseResult`]:{{ site.baseurl }}/api/kantan/csv/ParseResult$.html
-[`DecodeResult`]:{{ site.baseurl }}/api/#kantan.csv.package$$DecodeResult
-[`Contravariant`]:https://oss.sonatype.org/service/local/repositories/releases/archive/org/scalaz/scalaz_2.11/7.2.3/scalaz_2.11-7.2.3-javadoc.jar/!/index.html#scalaz.Contravariant
+[`ReadError`]:{{ site.baseurl }}/api/kantan/csv/ReadError.html
+[`Contravariant`]:https://static.javadoc.io/org.scalaz/scalaz_2.12/7.2.18/scalaz/Contravariant.html

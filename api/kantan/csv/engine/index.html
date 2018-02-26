@@ -117,6 +117,26 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.engine.commons" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="commons"></a><a id="commons:commons"></a>
+      <span class="permalink">
+      <a href="../../../kantan/csv/engine/index.html#commons" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="Provides CSV reader and writer engines using commons-csv." href="commons/index.html"><span class="name">commons</span></a>
+      </span>
+      
+      <p class="shortcomment cmt">Provides CSV reader and writer engines using <a href="https://commons.apache.org/proper/commons-csv/" target="_blank">commons-csv</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Provides CSV reader and writer engines using <a href="https://commons.apache.org/proper/commons-csv/" target="_blank">commons-csv</a>.</p><p>Importing <code>kantan.csv.engine.commons._</code> will replace default engines by the commons-backed ones. If you need to
+tweak how commons-csv behaves, however, you can handcraft engines though <a href="commons/index.html#readerEngineFrom(f:kantan.csv.engine.commons.package.CSVFormatBuilder):kantan.csv.engine.ReaderEngine" class="extmbr" name="kantan.csv.engine.commons#readerEngineFrom">readerEngineFrom</a> and
+<a href="commons/index.html#writerEngineFrom(f:kantan.csv.engine.commons.package.CSVFormatBuilder):kantan.csv.engine.WriterEngine" class="extmbr" name="kantan.csv.engine.commons#writerEngineFrom">writerEngineFrom</a> - all you need is a function that knows how to turn a column separator character in an instance
+of <code>CSVFormat</code>.
+</p></div></div>
     </li><li class="current-entities indented3">
                         <a class="object" href="ReaderEngine$.html" title="Provides instance creation methods and default implementations."></a>
                         <a class="trait" href="ReaderEngine.html" title="Provides kantan.csv with CSV parsing functionality."></a>
@@ -125,14 +145,6 @@
                         <a class="object" href="WriterEngine$.html" title="Provides creation methods and default implementations."></a>
                         <a class="trait" href="WriterEngine.html" title="Provides factory-like services for CsvWriter."></a>
                         <a href="WriterEngine.html" title="Provides factory-like services for CsvWriter.">WriterEngine</a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="object" href="commons$.html" title="Provides CSV reader and writer engines using commons-csv."></a>
-                        <a href="commons$.html" title="Provides CSV reader and writer engines using commons-csv.">commons</a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="object" href="jackson$.html" title="Provides CSV reader and writer engines using jackson.csv."></a>
-                        <a href="jackson$.html" title="Provides CSV reader and writer engines using jackson.csv.">jackson</a>
                       </li><li name="kantan.csv.generic" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="generic"></a><a id="generic:generic"></a>
       <span class="permalink">
@@ -146,6 +158,42 @@
       </span>
       <span class="symbol">
         <a title="" href="../generic/index.html"><span class="name">generic</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.java8" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="java8"></a><a id="java8:java8"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#java8" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="Declares kantan.csv.CellDecoder and kantan.csv.CellEncoder instances for java8 date and time types." href="../java8/index.html"><span class="name">java8</span></a>
+      </span>
+      
+      <p class="shortcomment cmt">Declares <a href="../package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">kantan.csv.CellDecoder</a> and <a href="../package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">kantan.csv.CellEncoder</a> instances for java8 date and time types.</p><div class="fullcomment"><div class="comment cmt"><p>Declares <a href="../package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">kantan.csv.CellDecoder</a> and <a href="../package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">kantan.csv.CellEncoder</a> instances for java8 date and time types.</p><p>Note that the type for default codecs might come as a surprise: the wrapping <code>Exported</code> is used to lower their
+priority. This is necessary because the standard use case will be to <code>import kantan.csv.java8._</code>, which
+brings both the instance creation and default instances in scope. Without this type trickery, custom instances
+and default ones would always clash.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.joda" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="joda"></a><a id="joda:joda"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#joda" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../joda/index.html"><span class="name">joda</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
@@ -209,7 +257,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/src/main/scala/kantan/csv/engine/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/core/shared/src/main/scala/kantan/csv/engine/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -356,45 +404,6 @@ be used. Otherwise, the <a href="WriterEngine$.html#internalCsvWriterEngine:kant
       </span>
       
       <p class="shortcomment cmt">Provides creation methods and default implementations.</p>
-    </li><li name="kantan.csv.engine.commons" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="commons"></a><a id="commons:commons"></a>
-      <span class="permalink">
-      <a href="../../../kantan/csv/engine/index.html#commons" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a title="Provides CSV reader and writer engines using commons-csv." href="commons$.html"><span class="name">commons</span></a>
-      </span>
-      
-      <p class="shortcomment cmt">Provides CSV reader and writer engines using <a href="https://commons.apache.org/proper/commons-csv/" target="_blank">commons-csv</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Provides CSV reader and writer engines using <a href="https://commons.apache.org/proper/commons-csv/" target="_blank">commons-csv</a>.</p><p>Importing <code>kantan.csv.engine.commons._</code> will replace default engines by the commons-backed ones. If you need to
-tweak how commons-csv behaves, however, you can handcraft engines though <a href="commons$.html#readerEngineFrom(f:kantan.csv.engine.commons.CSVFormatBuilder):kantan.csv.engine.ReaderEngine" class="extmbr" name="kantan.csv.engine.commons#readerEngineFrom">readerEngineFrom</a> and
-<a href="commons$.html#writerEngineFrom(f:kantan.csv.engine.commons.CSVFormatBuilder):kantan.csv.engine.WriterEngine" class="extmbr" name="kantan.csv.engine.commons#writerEngineFrom">writerEngineFrom</a> - all you need is a function that knows how to turn a column separator character in an instance
-of <code>CSVFormat</code>.
-</p></div></div>
-    </li><li name="kantan.csv.engine.jackson" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="jackson"></a><a id="jackson:jackson"></a>
-      <span class="permalink">
-      <a href="../../../kantan/csv/engine/index.html#jackson" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a title="Provides CSV reader and writer engines using jackson.csv." href="jackson$.html"><span class="name">jackson</span></a>
-      </span>
-      
-      <p class="shortcomment cmt">Provides CSV reader and writer engines using <a href="https://github.com/FasterXML/jackson-dataformat-csv" target="_blank">jackson.csv</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Provides CSV reader and writer engines using <a href="https://github.com/FasterXML/jackson-dataformat-csv" target="_blank">jackson.csv</a>.</p><p>Importing <code>kantan.csv.engine.jackson._</code> will replace default engines by the jackson-backed ones. If you need to
-tweak how jackson.csv behaves, however, you can handcraft engines though <a href="jackson$.html#readerEngineFrom(f:kantan.csv.engine.jackson.MappingIteratorBuilder):kantan.csv.engine.ReaderEngine" class="extmbr" name="kantan.csv.engine.jackson#readerEngineFrom">readerEngineFrom</a> and
-<a href="jackson$.html#writerEngineFrom(f:kantan.csv.engine.jackson.SequenceWriterBuilder):kantan.csv.engine.WriterEngine" class="extmbr" name="kantan.csv.engine.jackson#writerEngineFrom">writerEngineFrom</a>.
-</p></div></div>
     </li>
               </ol>
             </div>

@@ -16,7 +16,7 @@ hood.
 The [jackson csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.3.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.4.0"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -35,7 +35,7 @@ and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson$.html#
 The [commons csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.3.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.4.0"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -104,9 +104,9 @@ implicit val writerEngine: WriterEngine = WriterEngine.from { (writer: Writer, c
 [opencsv]:http://opencsv.sourceforge.net
 [`ReaderEngine`]:{{ site.baseurl }}/api/kantan/csv/engine/ReaderEngine.html
 [`WriterEngine`]:{{ site.baseurl }}/api/kantan/csv/engine/WriterEngine.html
-[`CsvReader`]:{{ site.baseurl }}/api/kantan/csv/index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]
+[`CsvReader`]:{{ site.baseurl }}/api/kantan/csv/package$$CsvReader.html
 [`ReaderEngine.from`]:{{ site.baseurl }}/api/kantan/csv/engine/ReaderEngine$.html#from(f:(java.io.Reader,Char)=>kantan.csv.CsvReader[Seq[String]]):kantan.csv.engine.ReaderEngine
 [`CsvReader.fromResource`]:{{ site.baseurl }}/api/#kantan.csv.CsvReader$@fromResource[I,R](in:I)(open:I=>Iterator[R])(release:I=>Unit):kantan.csv.CsvReader[kantan.csv.ParseResult[R]]
 [`WriterEngine.from`]:{{ site.baseurl }}/api/kantan/csv/engine/WriterEngine$.html#from(f:(java.io.Writer,Char)=>kantan.csv.CsvWriter[Seq[String]]):kantan.csv.engine.WriterEngine
 [`CsvWriter.apply`]:{{ site.baseurl }}/api/kantan/csv/CsvWriter$.html#apply[A](out:A)(w:(A,Seq[String])=>Unit)(r:A=>Unit):kantan.csv.CsvWriter[Seq[String]]
-[`ResourceIterator.fromIterator`]:http://nrinaudo.github.io/kantan.codecs/api/index.html#kantan.codecs.ResourceIterator$@fromIterator[A](as:Iterator[A]):kantan.codecs.ResourceIterator[A]
+[`ResourceIterator.fromIterator`]:http://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/resource/ResourceIterator$.html#fromIterator[A](as:Iterator[A]):kantan.codecs.resource.ResourceIterator[A]

@@ -47,9 +47,9 @@ Now that we have our [`CsvReader`] instance, we can consume it - by, say, printi
 
 ```scala
 scala> reader.foreach(println _)
-Success(List(85.5, 54.0, 74.7, 34.2))
-Success(List(63.0, 75.6, 46.8, 80.1))
-Success(List(85.5, 39.6, 2.7, 38.7))
+Right(List(85.5, 54.0, 74.7, 34.2))
+Right(List(63.0, 75.6, 46.8, 80.1))
+Right(List(85.5, 39.6, 2.7, 38.7))
 ```
 
 Note that each result is wrapped in an instance of [`ReadResult`]. This allows decoding to be entirely safe - no
@@ -70,8 +70,7 @@ If you want to learn more about:
 * [how we were able to turn a `URL` into CSV data](csv_sources.html)
 
 [`List`]:http://www.scala-lang.org/api/current/scala/collection/immutable/List.html
-[syntax]:{{ site.baseurl }}/api/kantan/csv/ops/index.html
-[`CsvReader`]:{{ site.baseurl }}/api/kantan/csv/index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]
+[`CsvReader`]:{{ site.baseurl }}/api/kantan/csv/package$$CsvReader.html
 [`CellDecoder`]:{{ site.baseurl }}/api/kantan/csv/CellDecoder$.html
 [`ReadResult`]:{{ site.baseurl }}/api/kantan/csv/ReadResult$.html
 [`asCsvReader`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]

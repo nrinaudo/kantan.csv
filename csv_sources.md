@@ -36,7 +36,7 @@ implicit val stringInput: CsvSource[String] = CsvSource.from(s ⇒ ParseResult(n
 ## Adapting existing instances
 Most of the time though, it's easier to turn the type you wish to provide an instance for into a type that *already*
 has an instance. This is achieved either through [`contramap`] (if the transformation is safe and cannot fail) or
-[`contramapResult`] (if, as with most IO-related things, it can fail). For example:
+[``] (if, as with most IO-related things, it can fail). For example:
 
 ```scala
 implicit val stringInput: CsvSource[String] = CsvSource[Reader].contramap(s ⇒ new StringReader(s))
@@ -51,5 +51,5 @@ implicit val stringInput: CsvSource[String] = CsvSource[Reader].contramap(s ⇒ 
 [`File`]:https://docs.oracle.com/javase/7/docs/api/java/io/File.html
 [`Reader`]:https://docs.oracle.com/javase/7/docs/api/java/io/Reader.html
 [`contramap`]:{{ site.baseurl }}/api/kantan/csv/CsvSource.html#contramap[T](f:T=>S):kantan.csv.CsvSource[T]
-[`contramapResult`]:{{ site.baseurl }}/api/kantan/csv/CsvSource.html#contramapResult[SS<:S,T](f:T=>kantan.csv.ParseResult[SS]):kantan.csv.CsvSource[T]
+[`econtramap`]:{{ site.baseurl }}/api/kantan/csv/CsvSource.html#econtramap[SS<:S,T](f:T=>kantan.csv.ParseResult[SS]):kantan.csv.CsvSource[T]
 [`String`]:https://docs.oracle.com/javase/7/docs/api/java/lang/String.html

@@ -44,7 +44,7 @@ Now that we have everything we need to decode the CSV data, here's how to turn i
 ```scala
 scala> rawData.readCsv[List, Car](rfc.withHeader)
 res2: List[kantan.csv.ReadResult[Car]] =
-List(Success(Car(1997,Ford,E350,Some(ac, abs, moon),3000.0)), Success(Car(1999,Chevy,Venture "Extended Edition",None,4900.0)), Success(Car(1999,Chevy,Venture "Extended Edition, Very Large",None,5000.0)), Success(Car(1996,Jeep,Grand Cherokee,Some(MUST SELL!
+List(Right(Car(1997,Ford,E350,Some(ac, abs, moon),3000.0)), Right(Car(1999,Chevy,Venture "Extended Edition",None,4900.0)), Right(Car(1999,Chevy,Venture "Extended Edition, Very Large",None,5000.0)), Right(Car(1996,Jeep,Grand Cherokee,Some(MUST SELL!
 air, moon roof, loaded),4799.0)))
 ```
 
@@ -70,7 +70,7 @@ If you want to learn more about:
 
 [`List`]:http://www.scala-lang.org/api/current/scala/collection/immutable/List.html
 [`Set`]:http://www.scala-lang.org/api/current/scala/collection/Set.html
-[`Map`]:http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Map
+[`Map`]:http://www.scala-lang.org/api/current/scala/collection/immutable/Map.html
 [`Vector`]:http://www.scala-lang.org/api/current/scala/collection/immutable/Vector.html
 [`readCsv`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#readCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[B],C[kantan.csv.ReadResult[B]]]):C[kantan.csv.ReadResult[B]]
 [`unsafeReadCsv`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#unsafeReadCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$4:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,B,C[B]]):C[B]

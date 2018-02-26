@@ -44,7 +44,7 @@ an iterator with a `close` method:
 
 ```scala
 scala> val iterator = rawData.asCsvReader[Car](rfc.withHeader)
-iterator: kantan.csv.CsvReader[kantan.csv.ReadResult[Car]] = kantan.codecs.resource.ResourceIterator$$anon$6@2fbf8846
+iterator: kantan.csv.CsvReader[kantan.csv.ReadResult[Car]] = kantan.codecs.resource.ResourceIterator$$anon$6@15752985
 ```
 
 [`asCsvReader`] is explained in some depths [here](rows_as_collections.html), but we're more interested in what we
@@ -57,15 +57,15 @@ Other than that, it looks a lot like any other standard collection. And being an
 multiple `filter` and `map` operations, and nothing will happen until each row is explicitly requested. For example:
 
 ```scala
-scala> val filtered = iterator.filter(_.exists(_.year >= 1997)).map(_.map(_.make))
-filtered: kantan.codecs.resource.ResourceIterator[kantan.codecs.Result[kantan.csv.ReadError,String]] = kantan.codecs.resource.ResourceIterator$$anon$6@4829564d
+scala> val filtered = iterator.filter(_.right.exists(_.year >= 1997)).map(_.right.map(_.make))
+filtered: kantan.codecs.resource.ResourceIterator[scala.util.Either[kantan.csv.ReadError,String]] = kantan.codecs.resource.ResourceIterator$$anon$6@70610353
 ```
 
 At this point, no data has been parsed yet. We can now, say, take the first element:
 
 ```scala
 scala> filtered.next
-res2: kantan.codecs.Result[kantan.csv.ReadError,String] = Success(Ford)
+res2: scala.util.Either[kantan.csv.ReadError,String] = Right(Ford)
 ```
 
 And this will only read as much as it needs to decode that first row. You could iterate over huge CSV files this way
@@ -79,7 +79,7 @@ If you want to learn more about:
 
 
 [`asCsvReader`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
-[`CsvReader`]:{{ site.baseurl }}/api/kantan/csv/index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]
+[`CsvReader`]:{{ site.baseurl }}/api/kantan/csv/package$$CsvReader.html
 [`CsvReaderOps`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvReaderOps.html
 [`Set`]:http://www.scala-lang.org/api/current/scala/collection/Set.html
 [`ReadResult`]:{{ site.baseurl }}/api/kantan/csv/ReadResult$.html

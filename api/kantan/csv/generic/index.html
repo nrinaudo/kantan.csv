@@ -137,7 +137,43 @@
                         <span class="separator"></span>
                         <a class="trait" href="GenericInstances.html" title=""></a>
                         <a href="GenericInstances.html" title="">GenericInstances</a>
-                      </li><li name="kantan.csv.laws" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+                      </li><li name="kantan.csv.java8" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="java8"></a><a id="java8:java8"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#java8" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="Declares kantan.csv.CellDecoder and kantan.csv.CellEncoder instances for java8 date and time types." href="../java8/index.html"><span class="name">java8</span></a>
+      </span>
+      
+      <p class="shortcomment cmt">Declares <a href="../package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">kantan.csv.CellDecoder</a> and <a href="../package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">kantan.csv.CellEncoder</a> instances for java8 date and time types.</p><div class="fullcomment"><div class="comment cmt"><p>Declares <a href="../package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">kantan.csv.CellDecoder</a> and <a href="../package$$CellEncoder.html" class="extype" name="kantan.csv.CellEncoder">kantan.csv.CellEncoder</a> instances for java8 date and time types.</p><p>Note that the type for default codecs might come as a surprise: the wrapping <code>Exported</code> is used to lower their
+priority. This is necessary because the standard use case will be to <code>import kantan.csv.java8._</code>, which
+brings both the instance creation and default instances in scope. Without this type trickery, custom instances
+and default ones would always clash.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.joda" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="joda"></a><a id="joda:joda"></a>
+      <span class="permalink">
+      <a href="../../kantan/csv/index.html#joda" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../joda/index.html"><span class="name">joda</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.csv">csv</a></dd></dl></div>
+    </li><li name="kantan.csv.laws" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="laws"></a><a id="laws:laws"></a>
       <span class="permalink">
       <a href="../../kantan/csv/index.html#laws" title="Permalink">
@@ -197,7 +233,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/generic/src/main/scala/kantan/csv/generic/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.csv/tree/master/generic/shared/src/main/scala/kantan/csv/generic/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -337,35 +373,19 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ShapelessInstances</dd></dl></div>
-    </li><li name="kantan.csv.generic.GenericInstances#cnilCellDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="cnilCellDecoder:kantan.csv.CellDecoder[shapeless.CNil]"></a><a id="cnilCellDecoder:CellDecoder[CNil]"></a>
+    </li><li name="kantan.codecs.shapeless.ShapelessInstances#cnilDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="cnilDecoder[E,F,T](implicitevidence$1:kantan.codecs.error.IsError[F]):kantan.codecs.Decoder[E,shapeless.CNil,F,T]"></a><a id="cnilDecoder[E,F,T](IsError[F]):Decoder[E,CNil,F,T]"></a>
       <span class="permalink">
-      <a href="../../../kantan/csv/generic/index.html#cnilCellDecoder:kantan.csv.CellDecoder[shapeless.CNil]" title="Permalink">
+      <a href="../../../kantan/csv/generic/index.html#cnilDecoder[E,F,T](implicitevidence$1:kantan.codecs.error.IsError[F]):kantan.codecs.Decoder[E,shapeless.CNil,F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">cnilCellDecoder</span><span class="result">: <a href="../package$$CellDecoder.html" class="extype" name="kantan.csv.CellDecoder">CellDecoder</a>[<span class="extype" name="shapeless.CNil">CNil</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="GenericInstances.html" class="extype" name="kantan.csv.generic.GenericInstances">GenericInstances</a></dd></dl></div>
-    </li><li name="kantan.codecs.shapeless.ShapelessInstances#cnilDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="cnilDecoder[E,F,T](f:E=&gt;F):kantan.codecs.Decoder[E,shapeless.CNil,F,T]"></a><a id="cnilDecoder[E,F,T]((E)⇒F):Decoder[E,CNil,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/csv/generic/index.html#cnilDecoder[E,F,T](f:E=&gt;F):kantan.codecs.Decoder[E,shapeless.CNil,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">cnilDecoder</span><span class="tparams">[<span name="E">E</span>, <span name="F">F</span>, <span name="T">T</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.E">E</span>) ⇒ <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.F">F</span></span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/Decoder.html#kantan.codecs.Decoder" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.E">E</span>, <span class="extype" name="shapeless.CNil">CNil</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.F">F</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.T">T</span>]</span>
+        <span class="name">cnilDecoder</span><span class="tparams">[<span name="E">E</span>, <span name="F">F</span>, <span name="T">T</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/error/IsError.html#kantan.codecs.error.IsError" class="extype" name="kantan.codecs.error.IsError">IsError</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.F">F</span>]</span>)</span><span class="result">: <a href="https://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/Decoder.html#kantan.codecs.Decoder" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.E">E</span>, <span class="extype" name="shapeless.CNil">CNil</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.F">F</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.T">T</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ShapelessInstances</dd></dl></div>
@@ -388,22 +408,6 @@
                 <span class="name">@SuppressWarnings</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="kantan.csv.generic.GenericInstances#cnilRowDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="cnilRowDecoder:kantan.csv.RowDecoder[shapeless.CNil]"></a><a id="cnilRowDecoder:RowDecoder[CNil]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/csv/generic/index.html#cnilRowDecoder:kantan.csv.RowDecoder[shapeless.CNil]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">cnilRowDecoder</span><span class="result">: <a href="../package$$RowDecoder.html" class="extype" name="kantan.csv.RowDecoder">RowDecoder</a>[<span class="extype" name="shapeless.CNil">CNil</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="GenericInstances.html" class="extype" name="kantan.csv.generic.GenericInstances">GenericInstances</a></dd></dl></div>
     </li><li name="kantan.codecs.shapeless.ShapelessInstances#coproductDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="coproductDecoder[E,H,D&lt;:shapeless.Coproduct,F,T](implicitdh:kantan.codecs.Decoder[E,H,F,T],implicitdt:kantan.codecs.Decoder[E,D,F,T]):kantan.codecs.Decoder[E,H:+:D,F,T]"></a><a id="coproductDecoder[E,H,D&lt;:Coproduct,F,T](Decoder[E,H,F,T],Decoder[E,D,F,T]):Decoder[E,:+:[H,D],F,T]"></a>
       <span class="permalink">

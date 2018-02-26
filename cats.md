@@ -10,7 +10,7 @@ bones: it simply provides a few useful type class instances.
 The `cats` module can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-cats" % "0.3.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-cats" % "0.4.0"
 ```
 
 You then need to import the corresponding package:
@@ -23,27 +23,19 @@ import kantan.csv.cats._
 
 The following instance for cats type classes are provided:
 
-* [`Functor`] for all decoders ([`CellDecoder`] and [`RowDecoder`]).
+* [`MonadError`] and [`SemigroupK`] for all decoders ([`CellDecoder`] and [`RowDecoder`]).
 * [`Contravariant`] for all encoders ([`CellEncoder`] and [`RowEncoder`]).
-* [`Order`] for all result types ([`ReadResult`], [`ParseResult`] and [`DecodeResult`]).
-* [`Show`] for all result types.
-* [`Monoid`] for all result types.
-* [`Traverse`] for all result types.
-* [`Monad`] for all result types.
-* [`BiFunctor`] for all result types.
+* [`Show`] and [`Eq`] for all error types ([`ReadError`] and all its descendants).
+* [`RowEncoder`] for any type that has a [`Foldable`].
 
-[`Functor`]:http://typelevel.org/cats/api/cats/Functor.html
-[`Contravariant`]:http://typelevel.org/cats/api/cats/functor/Contravariant.html
-[`BiFunctor`]:http://typelevel.org/cats/api/cats/functor/Bifunctor.html
-[`Order`]:http://typelevel.org/cats/api/cats/kernel/Order.html
-[`Show`]:http://typelevel.org/cats/api/cats/Show.html
-[`Traverse`]:http://typelevel.org/cats/api/cats/Traverse.html
-[`Monad`]:http://typelevel.org/cats/api/cats/Monad.html
-[`Monoid`]:http://typelevel.org/cats/api/cats/kernel/Monoid.html
+[`MonadError`]:https://typelevel.org/cats/api/cats/MonadError.html
+[`SemigroupK`]:https://typelevel.org/cats/api/cats/SemigroupK.html
+[`SemigroupK`]:https://typelevel.org/cats/api/cats/Foldable.html
+[`Show`]:https://typelevel.org/cats/api/cats/Show.html
+[`Eq`]:https://typelevel.org/cats/api/cats/kernel/Eq.html
+[`Contravariant`]:http://typelevel.org/cats/api/cats/Contravariant.html
 [`CellEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$CellEncoder.html
 [`CellDecoder`]:{{ site.baseurl }}/api/kantan/csv/CellDecoder$.html
 [`RowDecoder`]:{{ site.baseurl }}/api/kantan/csv/package$$RowDecoder.html
 [`RowEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$RowEncoder.html
-[`ReadResult`]:{{ site.baseurl }}/api/kantan/csv/ReadResult$.html
-[`ParseResult`]:{{ site.baseurl }}/api/kantan/csv/ParseResult$.html
-[`DecodeResult`]:{{ site.baseurl }}/api/kantan/csv/DecodeResult$.html
+[`ReadError`]:{{ site.baseurl }}/api/kantan/csv/ReadError.html

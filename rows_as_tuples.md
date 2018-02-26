@@ -49,10 +49,10 @@ And now that we have a [`CsvReader`] on the data, we can simply iterate through 
 
 ```scala
 scala> reader.foreach(println _)
-Success((1997,Ford,E350,Some(ac, abs, moon),3000.0))
-Success((1999,Chevy,Venture "Extended Edition",None,4900.0))
-Success((1999,Chevy,Venture "Extended Edition, Very Large",None,5000.0))
-Success((1996,Jeep,Grand Cherokee,Some(MUST SELL!
+Right((1997,Ford,E350,Some(ac, abs, moon),3000.0))
+Right((1999,Chevy,Venture "Extended Edition",None,4900.0))
+Right((1999,Chevy,Venture "Extended Edition, Very Large",None,5000.0))
+Right((1996,Jeep,Grand Cherokee,Some(MUST SELL!
 air, moon roof, loaded),4799.0))
 ```
 
@@ -66,4 +66,4 @@ If you want to learn more about:
 
 
 [`asCsvReader`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#asCsvReader[B](sep:Char,header:Boolean)(implicitevidence$1:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[kantan.csv.ReadResult[B]]
-[`CsvReader`]:{{ site.baseurl }}/api/kantan/csv/index.html#CsvReader[A]=kantan.codecs.resource.ResourceIterator[A]
+[`CsvReader`]:{{ site.baseurl }}/api/kantan/csv/package$$CsvReader.html
