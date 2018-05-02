@@ -23,7 +23,6 @@ Let's first set our types up:
 
 ```tut:silent
 import libra._
-import libra.si._
 import kantan.csv._
 import kantan.csv.ops._
 
