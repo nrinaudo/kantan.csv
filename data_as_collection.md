@@ -43,7 +43,7 @@ Now that we have everything we need to decode the CSV data, here's how to turn i
 
 ```scala
 scala> rawData.readCsv[List, Car](rfc.withHeader)
-res2: List[kantan.csv.ReadResult[Car]] =
+res1: List[kantan.csv.ReadResult[Car]] =
 List(Right(Car(1997,Ford,E350,Some(ac, abs, moon),3000.0)), Right(Car(1999,Chevy,Venture "Extended Edition",None,4900.0)), Right(Car(1999,Chevy,Venture "Extended Edition, Very Large",None,5000.0)), Right(Car(1996,Jeep,Grand Cherokee,Some(MUST SELL!
 air, moon roof, loaded),4799.0)))
 ```

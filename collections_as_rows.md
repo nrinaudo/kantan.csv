@@ -46,7 +46,7 @@ Let's make sure that we got the expected output:
 
 ```scala
 scala> scala.io.Source.fromFile(out).mkString
-res9: String =
+res6: String =
 "Column 1,Column 2,Column 3
 0,1,2
 3,4,5

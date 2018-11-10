@@ -22,7 +22,7 @@ how to do that.
 You'll first need to add a dependency to the [generic](shapeless.html) module in your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.4.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.5.0"
 ```
 
 Then, with the appropriate imports:
@@ -48,7 +48,7 @@ And, through the magic of automatic type class instance derivation, everything w
 
 ```scala
 scala> scala.io.Source.fromFile(out).mkString
-res5: String =
+res2: String =
 "Column 1,Column 2,Column 3
 0,Nicolas,38
 1,Kazuma,1
@@ -74,7 +74,7 @@ And to check whether that worked out, let's use another helper function: most Sc
 
 ```scala
 scala> ps.asCsv(rfc)
-res6: String =
+res3: String =
 "0,38,Nicolas
 1,1,Kazuma
 2,18,John

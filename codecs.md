@@ -35,12 +35,12 @@ scala> val dates = List(
      |   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
      | ).asCsv(rfc)
 dates: String =
-"2018-02-26,2018-02-27
-2018-02-28,2018-03-01
+"2018-11-10,2018-11-11
+2018-11-12,2018-11-13
 "
 
 scala> dates.readCsv[List, List[DateTime]](rfc)
-res1: List[kantan.csv.ReadResult[List[org.joda.time.DateTime]]] = List(Right(List(2018-02-26T00:00:00.000+01:00, 2018-02-27T00:00:00.000+01:00)), Right(List(2018-02-28T00:00:00.000+01:00, 2018-03-01T00:00:00.000+01:00)))
+res0: List[kantan.csv.ReadResult[List[org.joda.time.DateTime]]] = List(Right(List(2018-11-10T00:00:00.000+01:00, 2018-11-11T00:00:00.000+01:00)), Right(List(2018-11-12T00:00:00.000+01:00, 2018-11-13T00:00:00.000+01:00)))
 ```
 
 
@@ -73,7 +73,7 @@ csv: String =
 "
 
 scala> csv.readCsv[List, Person](rfc)
-res3: List[kantan.csv.ReadResult[Person]] = List(Right(Person(0,Nicolas,38)), Right(Person(1,Kazuma,1)), Right(Person(2,John,18)))
+res1: List[kantan.csv.ReadResult[Person]] = List(Right(Person(0,Nicolas,38)), Right(Person(1,Kazuma,1)), Right(Person(2,John,18)))
 ```
 
 [`DateTime`]:http://www.joda.org/joda-time/apidocs/org/joda/time/DateTime.html

@@ -8,7 +8,7 @@ kantan.csv comes with a [libra](https://github.com/to-ithaca/libra) module that 
 by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-libra" % "0.4.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-libra" % "0.5.0"
 ```
 
 You then need to import the corresponding package:
@@ -23,7 +23,6 @@ Let's first set our types up:
 
 ```scala
 import libra._
-import libra.si._
 import kantan.csv._
 import kantan.csv.ops._
 
@@ -35,5 +34,5 @@ We can then simply write the following:
 
 ```scala
 scala> "1,2".readCsv[List, (Distance, Duration)](rfc)
-res1: List[kantan.csv.ReadResult[(Distance, Duration)]] = List(Right((Quantity(1),Quantity(2))))
+res0: List[kantan.csv.ReadResult[(Distance, Duration)]] = List(Right((Quantity(1),Quantity(2))))
 ```

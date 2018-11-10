@@ -11,7 +11,7 @@ support for it through a dedicated module.
 The `joda-time` module can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-joda-time" % "0.4.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-joda-time" % "0.5.0"
 ```
 
 You then need to import the corresponding package:
@@ -44,7 +44,7 @@ scala> val res = input.unsafeReadCsv[List, (Int, LocalDate)](rfc)
 res: List[(Int, org.joda.time.LocalDate)] = List((1,1978-12-10), (2,2015-01-09))
 
 scala> res.asCsv(rfc)
-res1: String =
+res0: String =
 "1,1978-12-10
 2,2015-01-09
 "
@@ -84,7 +84,7 @@ And you can now easily encode data that contains instances of [`LocalDate`]:
 
 ```scala
 scala> res.asCsv(rfc)
-res4: String =
+res1: String =
 "1,10-12-1978
 2,09-01-2015
 "

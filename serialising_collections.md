@@ -41,7 +41,7 @@ Now that we have serialised our data, let's make sure it comes out the way we ex
 
 ```scala
 scala> scala.io.Source.fromFile(out).mkString
-res6: String =
+res3: String =
 "Id,Name,Age
 0,Nicolas,38
 1,Kazuma,1
@@ -54,7 +54,7 @@ that: [`asCsv`]. For example:
 
 ```scala
 scala> ps.asCsv(rfc.withHeader("Id", "Name", "Age"))
-res7: String =
+res4: String =
 "Id,Name,Age
 0,Nicolas,38
 1,Kazuma,1

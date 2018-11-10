@@ -43,7 +43,7 @@ case class have a 1-to-1 correspondence and are declared in the same order. This
 You'll first need to add a dependency to the [generic](shapeless.html) module in your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.4.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.5.0"
 ```
 
 Then, with the appropriate imports:

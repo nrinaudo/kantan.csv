@@ -57,7 +57,7 @@ When we try to read it, kantan.csv will find the BOM and ignore our instruction 
 
 ```scala
 scala> out.readCsv[List, String](rfc)
-res10: List[kantan.csv.ReadResult[String]] = List(Right(ニコラ), Right(リノド))
+res6: List[kantan.csv.ReadResult[String]] = List(Right(ニコラ), Right(リノド))
 ```
 
 Note that these behaviours are disabled by default: BOMs are advised against, and looking for them (and interpreting them

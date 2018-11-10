@@ -37,7 +37,7 @@ to be thrown. This is achieved by using [`asUnsafeCsvReader`]:
 
 ```scala
 scala> scala.util.Try(rawData.asUnsafeCsvReader[Person](rfc).toList)
-res2: scala.util.Try[List[Person]] = Failure(java.lang.IllegalArgumentException: For input string: "28")
+res0: scala.util.Try[List[Person]] = Failure(DecodeError: For input string: "28")
 ```
 
 Note that this is hardly ever an acceptable solution. In idiomatic Scala, we pretend that exceptions don't exist and
@@ -49,7 +49,7 @@ Another common, if not always viable strategy is to use [`collect`] to simply dr
 
 ```scala
 scala> rawData.asCsvReader[Person](rfc).collect { case Right(a) ⇒ a }.toList
-res3: List[Person] = List(Person(1,Nicolas,true), Person(3,John,false))
+res1: List[Person] = List(Person(1,Nicolas,true), Person(3,John,false))
 ```
 
 [`collect`] is a bit like a [`filter`] and a [`map`] rolled into one, and allows us to:
@@ -67,7 +67,7 @@ When not streaming data, a good option is to fail if a single row fails to decod
 
 ```scala
 scala> ReadResult.sequence(rawData.readCsv[List, Person](rfc))
-res4: Either[kantan.csv.ReadError,List[Person]] = Left(TypeError: '28' is not a valid Boolean)
+res2: Either[kantan.csv.ReadError,List[Person]] = Left(TypeError: '28' is not a valid Boolean)
 ```
 
 The only real downside to this approach is that it requires loading the entire data in memory.
@@ -85,7 +85,7 @@ We can now load the whole data without an error:
 
 ```scala
 scala> rawData.readCsv[List, Person](rfc)
-res5: List[kantan.csv.ReadResult[Person]] = List(Right(Person(1,Nicolas,Left(true))), Right(Person(2,Kazuma,Right(28))), Right(Person(3,John,Left(false))))
+res3: List[kantan.csv.ReadResult[Person]] = List(Right(Person(1,Nicolas,Left(true))), Right(Person(2,Kazuma,Right(28))), Right(Person(3,John,Left(false))))
 ```
 
 Following the same general idea, one could use [`Option`] for fields that are not always set.

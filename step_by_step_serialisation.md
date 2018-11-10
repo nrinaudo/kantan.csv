@@ -52,7 +52,7 @@ Let's make sure that we get the expected output:
 
 ```scala
 scala> scala.io.Source.fromFile(out).mkString
-res4: String =
+res2: String =
 "Id,Name,Age
 0,Nicolas,38
 1,Kazuma,1

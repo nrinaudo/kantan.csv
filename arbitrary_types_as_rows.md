@@ -35,7 +35,7 @@ Let's make sure this worked out as expected:
 
 ```scala
 scala> ps.asCsv(rfc)
-res2: String =
+res0: String =
 "0,38,Nicolas
 1,1,Kazuma
 2,18,John
