@@ -12,10 +12,13 @@ lazy val jsModules: Seq[ProjectReference] = Seq(
 )
 
 lazy val jvmModules: Seq[ProjectReference] = Seq(
+  benchmark,
   catsJVM,
+  commons,
   coreJVM,
   enumeratumJVM,
   genericJVM,
+  jackson,
   jodaTime,
   lawsJVM,
   libra,
