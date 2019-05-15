@@ -23,5 +23,5 @@ object RowCodec extends GeneratedRowCodecs with CodecCompanion[Seq[String], Deco
 
 /** All default [[RowCodec]] instances. */
 trait RowCodecInstances extends RowEncoderInstances with RowDecoderInstances {
-  implicit val stringSeqRowCodec: RowCodec[Seq[String]] = RowCodec.from(ss ⇒ DecodeResult(ss))(identity)
+  implicit val stringSeqRowCodec: RowCodec[Seq[String]] = RowCodec.from(ss => DecodeResult(ss))(identity)
 }

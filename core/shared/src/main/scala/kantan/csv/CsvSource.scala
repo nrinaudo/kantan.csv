@@ -30,7 +30,7 @@ import scala.collection.generic.CanBuildFrom
   *
   * See the [[CsvSource$ companion object]] for default implementations and construction methods.
   */
-trait CsvSource[-S] extends Serializable { self ⇒
+trait CsvSource[-S] extends Serializable { self =>
 
   /** Turns the specified `S` into a `Reader`.
     *
@@ -63,9 +63,9 @@ trait CsvSource[-S] extends Serializable { self ⇒
     */
   def reader[A: HeaderDecoder](s: S, conf: CsvConfiguration)(implicit e: ReaderEngine): CsvReader[ReadResult[A]] =
     open(s).right
-      .map(reader ⇒ CsvReader(reader, conf))
+      .map(reader => CsvReader(reader, conf))
       .left
-      .map(error ⇒ ResourceIterator(ReadResult.failure(error)))
+      .map(error => ResourceIterator(ReadResult.failure(error)))
       .merge
 
   @deprecated("use unsafeReader(S, CsvConfiguration) instead", "0.1.18")
@@ -90,10 +90,10 @@ trait CsvSource[-S] extends Serializable { self ⇒
   @SuppressWarnings(Array("org.wartremover.warts.Throw"))
   def unsafeReader[A: HeaderDecoder](s: S, conf: CsvConfiguration)(implicit engine: ReaderEngine): CsvReader[A] =
     reader[A](s, conf).map(_.left.map {
-      case e @ TypeError(msg) ⇒ throw Option(e.getCause).getOrElse(new IllegalArgumentException(msg))
-      case NoSuchElement      ⇒ throw new NoSuchElementException
-      case e @ IOError(msg)   ⇒ throw Option(e.getCause).getOrElse(new IOException(msg))
-      case OutOfBounds(index) ⇒ throw new ArrayIndexOutOfBoundsException(index)
+      case e @ TypeError(msg) => throw Option(e.getCause).getOrElse(new IllegalArgumentException(msg))
+      case NoSuchElement      => throw new NoSuchElementException
+      case e @ IOError(msg)   => throw Option(e.getCause).getOrElse(new IOException(msg))
+      case OutOfBounds(index) => throw new ArrayIndexOutOfBoundsException(index)
     }.merge)
 
   @deprecated("use read(S, CsvConfiguration) instead", "0.1.18")
@@ -128,8 +128,10 @@ trait CsvSource[-S] extends Serializable { self ⇒
     reader(s, conf).to[C]
 
   @deprecated("use unsafeRead(S, CsvConfiguration) instead", "0.1.18")
-  def unsafeRead[C[_], A: HeaderDecoder](s: S, sep: Char, header: Boolean)(implicit e: ReaderEngine,
-                                                                           cbf: CanBuildFrom[Nothing, A, C[A]]): C[A] =
+  def unsafeRead[C[_], A: HeaderDecoder](s: S, sep: Char, header: Boolean)(
+    implicit e: ReaderEngine,
+    cbf: CanBuildFrom[Nothing, A, C[A]]
+  ): C[A] =
     unsafeRead(s, rfc.withCellSeparator(sep).withHeader(header))
 
   /** Reads the entire CSV data into a collection.
@@ -148,8 +150,10 @@ trait CsvSource[-S] extends Serializable { self ⇒
     * @tparam C collection type in which to parse the specified `S`.
     * @tparam A type in which to parse each row.
     */
-  def unsafeRead[C[_], A: HeaderDecoder](s: S, conf: CsvConfiguration)(implicit e: ReaderEngine,
-                                                                       cbf: CanBuildFrom[Nothing, A, C[A]]): C[A] =
+  def unsafeRead[C[_], A: HeaderDecoder](
+    s: S,
+    conf: CsvConfiguration
+  )(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, A, C[A]]): C[A] =
     unsafeReader(s, conf).to[C]
 
   /** Turns an instance of `CsvSource[S]` into one of `CsvSource[T]`.
@@ -171,7 +175,7 @@ trait CsvSource[-S] extends Serializable { self ⇒
     *
     * @see [[econtramap]]
     */
-  def contramap[T](f: T ⇒ S): CsvSource[T] = CsvSource.from(f andThen self.open)
+  def contramap[T](f: T => S): CsvSource[T] = CsvSource.from(f andThen self.open)
 
   /** Turns an instance of `CsvSource[S]` into one of `CsvSource[T]`.
     *
@@ -192,11 +196,11 @@ trait CsvSource[-S] extends Serializable { self ⇒
     *
     * @see [[contramap]]
     */
-  def econtramap[SS <: S, T](f: T ⇒ ParseResult[SS]): CsvSource[T] =
-    CsvSource.from(t ⇒ f(t).right.flatMap(self.open))
+  def econtramap[SS <: S, T](f: T => ParseResult[SS]): CsvSource[T] =
+    CsvSource.from(t => f(t).right.flatMap(self.open))
 
   @deprecated("Use econtramap instead", "0.3.2")
-  def contramapResult[SS <: S, T](f: T ⇒ ParseResult[SS]): CsvSource[T] = econtramap(f)
+  def contramapResult[SS <: S, T](f: T => ParseResult[SS]): CsvSource[T] = econtramap(f)
 }
 
 /** Defines convenience methods for creating and retrieving instances of [[CsvSource]].
@@ -229,10 +233,10 @@ object CsvSource {
     * @see [[CsvSource.contramap]]
     * @see [[CsvSource.econtramap]]
     */
-  def from[A](f: A ⇒ ParseResult[Reader]): CsvSource[A] = new CsvSource[A] {
+  def from[A](f: A => ParseResult[Reader]): CsvSource[A] = new CsvSource[A] {
     override def open(a: A): ParseResult[Reader] = f(a)
   }
 
   implicit def fromResource[A: ReaderResource]: CsvSource[A] =
-    CsvSource.from(a ⇒ ReaderResource[A].open(a).left.map(e ⇒ ParseError.IOError(e.getMessage, e.getCause)))
+    CsvSource.from(a => ReaderResource[A].open(a).left.map(e => ParseError.IOError(e.getMessage, e.getCause)))
 }

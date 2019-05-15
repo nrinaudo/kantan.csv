@@ -41,8 +41,8 @@ object HeaderDecoder extends GeneratedHeaderDecoders {
     val mapping = Array.fill(map.size)(-1)
 
     header.zipWithIndex.foreach {
-      case (name, i) ⇒
-        map.get(name).foreach(a ⇒ mapping(a) = i)
+      case (name, i) =>
+        map.get(name).foreach(a => mapping(a) = i)
     }
 
     val error = mapping.indexWhere(_ < 0)

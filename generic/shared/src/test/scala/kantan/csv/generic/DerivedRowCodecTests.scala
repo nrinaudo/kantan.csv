@@ -28,10 +28,10 @@ object Instances {
   case class Complex(i: Int, b: Boolean, c: Option[Float])
 
   implicit val arbLegal: Arbitrary[LegalRow[Or[Complex, Simple]]] =
-    arbLegalValue { (o: Or[Complex, Simple]) ⇒
+    arbLegalValue { (o: Or[Complex, Simple]) =>
       o match {
-        case Left(Complex(i, b, c)) ⇒ Seq(i.toString, b.toString, c.fold("")(_.toString))
-        case Right(Simple(i))       ⇒ Seq(i.toString)
+        case Left(Complex(i, b, c)) => Seq(i.toString, b.toString, c.fold("")(_.toString))
+        case Right(Simple(i))       => Seq(i.toString)
       }
     }
 }

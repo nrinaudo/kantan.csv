@@ -57,8 +57,8 @@ class Encoding {
 }
 
 object Encoding {
-  def write[A](data: List[CsvEntry])(f: Array[String] ⇒ Unit): Unit =
-    data.foreach(entry ⇒ f(Array(entry._1.toString, entry._2.toString, entry._3.toString, entry._4.toString)))
+  def write[A](data: List[CsvEntry])(f: Array[String] => Unit): Unit =
+    data.foreach(entry => f(Array(entry._1.toString, entry._2.toString, entry._3.toString, entry._4.toString)))
 
   def kantan(data: List[CsvEntry])(implicit engine: WriterEngine): String = data.asCsv(rfc)
 
@@ -70,7 +70,7 @@ object Encoding {
   }
 
   def opencsv(data: List[CsvEntry]): String = {
-    import com.opencsv.{CSVWriter ⇒ OCSVWriter}
+    import com.opencsv.{CSVWriter => OCSVWriter}
     val out = new StringWriter()
     val writer = new OCSVWriter(
       out,
@@ -79,7 +79,7 @@ object Encoding {
       OCSVWriter.DEFAULT_ESCAPE_CHARACTER,
       OCSVWriter.DEFAULT_LINE_END
     )
-    write(data)(a ⇒ writer.writeNext(a))
+    write(data)(a => writer.writeNext(a))
     writer.close()
     out.close()
     out.toString
@@ -88,7 +88,7 @@ object Encoding {
   def commons(data: List[CsvEntry]): String = {
     val out    = new StringWriter()
     val writer = new org.apache.commons.csv.CSVPrinter(out, CSVFormat.RFC4180)
-    write(data)(a ⇒ writer.printRecords(a))
+    write(data)(a => writer.printRecords(a))
     writer.close()
     out.close()
     out.toString
@@ -97,7 +97,7 @@ object Encoding {
   def jackson(data: List[CsvEntry]): String = {
     val out    = new StringWriter()
     val writer = engine.jackson.defaultSequenceWriterBuilder(out, rfc)
-    write(data) { a ⇒
+    write(data) { a =>
       writer.write(a)
       ()
     }
@@ -111,7 +111,7 @@ object Encoding {
 
     val out    = new StringWriter()
     val writer = new CsvWriter(out, new CsvWriterSettings())
-    write(data)(a ⇒ writer.writeRow(a: _*))
+    write(data)(a => writer.writeRow(a: _*))
     writer.close()
     out.close()
     out.toString
@@ -122,7 +122,7 @@ object Encoding {
 
     val out    = new StringWriter()
     val writer = CSVWriter.open(out)
-    data.foreach { row ⇒
+    data.foreach { row =>
       writer.writeRow(List(row._1.toString, row._2.toString, row._3.toString, row._4.toString))
     }
     writer.close()

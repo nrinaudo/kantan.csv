@@ -47,7 +47,7 @@ object DecodeError {
   final case class TypeError(message: String) extends DecodeError(message)
 
   /** Provides convenience methods for [[DecodeError.TypeError]] instance creation. */
-  object TypeError extends ErrorCompanion("an unspecified type error occurred")(s ⇒ new TypeError(s))
+  object TypeError extends ErrorCompanion("an unspecified type error occurred")(s => new TypeError(s))
 }
 
 /** Parent type for all errors that can occur while parsing CSV data. */
@@ -66,5 +66,5 @@ object ParseError {
   final case class IOError(message: String) extends ParseError(message)
 
   /** Provides convenience methods for [[ParseError.IOError]] instance creation. */
-  object IOError extends ErrorCompanion("an unspecified io error occurred")(s ⇒ new IOError(s))
+  object IOError extends ErrorCompanion("an unspecified io error occurred")(s => new IOError(s))
 }

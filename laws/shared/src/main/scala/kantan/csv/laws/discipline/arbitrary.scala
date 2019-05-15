@@ -20,7 +20,7 @@ package discipline
 
 import imp.imp
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
-import org.scalacheck._, Arbitrary.{arbitrary ⇒ arb}
+import org.scalacheck._, Arbitrary.{arbitrary => arb}
 import org.scalacheck.rng.Seed
 
 object arbitrary extends ArbitraryInstances
@@ -53,40 +53,40 @@ trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstance
   implicit val arbReadError: Arbitrary[ReadError]                         = Arbitrary(Gen.oneOf(genDecodeError, genParseError))
 
   implicit val cogenCsvIOError: Cogen[ParseError.IOError]                  = Cogen[String].contramap(_.message)
-  implicit val cogenCsvNoSuchElement: Cogen[ParseError.NoSuchElement.type] = Cogen[Unit].contramap(_ ⇒ ())
-  implicit val cogenCsvParseError: Cogen[ParseError] = Cogen { (seed: Seed, err: ParseError) ⇒
+  implicit val cogenCsvNoSuchElement: Cogen[ParseError.NoSuchElement.type] = Cogen[Unit].contramap(_ => ())
+  implicit val cogenCsvParseError: Cogen[ParseError] = Cogen { (seed: Seed, err: ParseError) =>
     err match {
-      case error: ParseError.NoSuchElement.type ⇒ cogenCsvNoSuchElement.perturb(seed, error)
-      case error: ParseError.IOError            ⇒ cogenCsvIOError.perturb(seed, error)
+      case error: ParseError.NoSuchElement.type => cogenCsvNoSuchElement.perturb(seed, error)
+      case error: ParseError.IOError            => cogenCsvIOError.perturb(seed, error)
     }
   }
 
   implicit val cogenCsvOutOfBounds: Cogen[DecodeError.OutOfBounds] = Cogen[Int].contramap(_.index)
   implicit val cogenCsvTypeError: Cogen[DecodeError.TypeError]     = Cogen[String].contramap(_.message)
-  implicit val cogenCsvDecodeError: Cogen[DecodeError] = Cogen { (seed: Seed, err: DecodeError) ⇒
+  implicit val cogenCsvDecodeError: Cogen[DecodeError] = Cogen { (seed: Seed, err: DecodeError) =>
     err match {
-      case error: DecodeError.OutOfBounds ⇒ cogenCsvOutOfBounds.perturb(seed, error)
-      case error: DecodeError.TypeError   ⇒ cogenCsvTypeError.perturb(seed, error)
+      case error: DecodeError.OutOfBounds => cogenCsvOutOfBounds.perturb(seed, error)
+      case error: DecodeError.TypeError   => cogenCsvTypeError.perturb(seed, error)
     }
   }
 
-  implicit val cogenCsvReadError: Cogen[ReadError] = Cogen { (seed: Seed, err: ReadError) ⇒
+  implicit val cogenCsvReadError: Cogen[ReadError] = Cogen { (seed: Seed, err: ReadError) =>
     err match {
-      case error: DecodeError ⇒ cogenCsvDecodeError.perturb(seed, error)
-      case error: ParseError  ⇒ cogenCsvParseError.perturb(seed, error)
+      case error: DecodeError => cogenCsvDecodeError.perturb(seed, error)
+      case error: ParseError  => cogenCsvParseError.perturb(seed, error)
     }
   }
 
   // - Codec values ----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def arbLegalRow[A](implicit arb: Arbitrary[LegalCell[A]]): Arbitrary[LegalRow[A]] = Arbitrary {
-    arb.arbitrary.map { c ⇒
+    arb.arbitrary.map { c =>
       LegalValue(Seq(c.encoded), c.decoded)
     }
   }
 
   implicit def arbIllegalRow[A](implicit arb: Arbitrary[IllegalCell[A]]): Arbitrary[IllegalRow[A]] = Arbitrary {
-    arb.arbitrary.map { c ⇒
+    arb.arbitrary.map { c =>
       IllegalValue(Seq(c.encoded))
     }
   }

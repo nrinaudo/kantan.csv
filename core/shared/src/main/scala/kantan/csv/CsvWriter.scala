@@ -26,14 +26,14 @@ import kantan.csv.engine._
   *
   * @tparam A type of values that will be encoded as CSV.
   */
-trait CsvWriter[A] extends Closeable { self ⇒
+trait CsvWriter[A] extends Closeable { self =>
 
   /** Encodes and writes a single `A`. */
   def write(a: A): CsvWriter[A]
 
   /** Encodes and writes a collection of `A`s. */
   def write(as: TraversableOnce[A]): CsvWriter[A] = {
-    for(a ← as) write(a)
+    for(a <- as) write(a)
     this
   }
 
@@ -45,7 +45,7 @@ trait CsvWriter[A] extends Closeable { self ⇒
   override def close(): Unit
 
   /** Turns a `CsvWriter[A]` into a `CsvWriter[B]`. */
-  def contramap[B](f: B ⇒ A): CsvWriter[B] = new CsvWriter[B] {
+  def contramap[B](f: B => A): CsvWriter[B] = new CsvWriter[B] {
     override def write(b: B): CsvWriter[B] = {
       self.write(f(b))
       this
@@ -73,11 +73,11 @@ object CsvWriter {
   def apply[A: HeaderEncoder](writer: Writer, conf: CsvConfiguration)(implicit engine: WriterEngine): CsvWriter[A] = {
     val w = engine.writerFor(writer, conf)
     conf.header match {
-      case CsvConfiguration.Header.Implicit ⇒
+      case CsvConfiguration.Header.Implicit =>
         HeaderEncoder[A].header.foreach(w.write)
-      case CsvConfiguration.Header.Explicit(seq) ⇒
+      case CsvConfiguration.Header.Explicit(seq) =>
         w.write(seq)
-      case CsvConfiguration.Header.None ⇒ ()
+      case CsvConfiguration.Header.None => ()
     }
     w.contramap(HeaderEncoder[A].rowEncoder.encode)
   }
@@ -90,7 +90,7 @@ object CsvWriter {
     * @param w writes a CSV row using `out`.
     * @param r releases `out` once we're done writing.
     */
-  def apply[A](out: A)(w: (A, Seq[String]) ⇒ Unit)(r: A ⇒ Unit): CsvWriter[Seq[String]] = new CsvWriter[Seq[String]] {
+  def apply[A](out: A)(w: (A, Seq[String]) => Unit)(r: A => Unit): CsvWriter[Seq[String]] = new CsvWriter[Seq[String]] {
     override def write(a: Seq[String]): CsvWriter[Seq[String]] = {
       w(out, a)
       this

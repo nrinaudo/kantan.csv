@@ -60,7 +60,7 @@ object RowDecoder extends GeneratedRowDecoders with DecoderCompanion[Seq[String]
     * res1: DecodeResult[Int] = Right(456)
     * }}}
     */
-  def field[A: CellDecoder](index: Int): RowDecoder[A] = RowDecoder.from { ss ⇒
+  def field[A: CellDecoder](index: Int): RowDecoder[A] = RowDecoder.from { ss =>
     ss.lift(index).map(CellDecoder[A].decode).getOrElse(DecodeResult.outOfBounds(index))
   }
 }
@@ -90,10 +90,10 @@ trait RowDecoderInstances {
     * }}}
     */
   implicit def hasBuilderRowDecoder[A: CellDecoder, F[_]](implicit hb: HasBuilder[F, A]): RowDecoder[F[A]] =
-    RowDecoder.from(_.foldLeft(DecodeResult(hb.newBuilder)) { (racc, s) ⇒
+    RowDecoder.from(_.foldLeft(DecodeResult(hb.newBuilder)) { (racc, s) =>
       for {
-        acc ← racc.right
-        a   ← CellDecoder[A].decode(s).right
+        acc <- racc.right
+        a   <- CellDecoder[A].decode(s).right
       } yield acc += a
     }.right.map(_.result()))
 }

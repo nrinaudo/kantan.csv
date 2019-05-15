@@ -17,7 +17,7 @@
 package kantan.csv
 package enumeratum.values
 
-import kantan.codecs.enumeratum.laws.discipline.{SerializableTests ⇒ _, _}
+import kantan.codecs.enumeratum.laws.discipline.{SerializableTests => _, _}
 import laws.discipline._
 
 class SerialisationTests extends DisciplineSuite {

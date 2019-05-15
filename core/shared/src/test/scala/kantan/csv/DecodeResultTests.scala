@@ -24,25 +24,25 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 @SuppressWarnings(Array("org.wartremover.warts.Throw"))
 class DecodeResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
   test("DecodeResult.success should return a Right") {
-    forAll { i: Int ⇒
+    forAll { i: Int =>
       DecodeResult.success(i).right.value should be(i)
     }
   }
 
   test("DecodeResult.apply should return a Right on 'good' values") {
-    forAll { i: Int ⇒
+    forAll { i: Int =>
       DecodeResult(i).right.value should be(i)
     }
   }
 
   test("DecodeResult.apply should return a Left on 'bad' values") {
-    forAll { e: Exception ⇒
+    forAll { e: Exception =>
       DecodeResult(throw e).left.value should be(DecodeError.TypeError(e))
     }
   }
 
   test("DecodeResult.outOfBounds should return a Left") {
-    forAll { i: Int ⇒
+    forAll { i: Int =>
       DecodeResult.outOfBounds(i).left.value should be(DecodeError.OutOfBounds(i))
     }
   }

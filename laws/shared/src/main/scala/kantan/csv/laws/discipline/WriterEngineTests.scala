@@ -28,11 +28,11 @@ trait WriterEngineTests extends Laws {
   def writerEngine: RuleSet = new DefaultRuleSet(
     name = "writerEngine",
     parent = None,
-    "round-trip"                 → forAll(laws.roundTrip _),
-    "quote all"                  → forAll(laws.quoteAll _),
-    "column separator"           → forAll(laws.columnSeparator _),
-    "no trailing cell separator" → forAll(laws.noTrailingSeparator _),
-    "crlf row separator"         → forAll(laws.crlfAsRowSeparator _)
+    "round-trip"                 -> forAll(laws.roundTrip _),
+    "quote all"                  -> forAll(laws.quoteAll _),
+    "column separator"           -> forAll(laws.columnSeparator _),
+    "no trailing cell separator" -> forAll(laws.noTrailingSeparator _),
+    "crlf row separator"         -> forAll(laws.crlfAsRowSeparator _)
   )
 }
 

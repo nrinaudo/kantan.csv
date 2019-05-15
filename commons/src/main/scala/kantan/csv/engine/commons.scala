@@ -35,7 +35,7 @@ package object commons {
   type QuoteMode = org.apache.commons.csv.QuoteMode
 
   /** Type of functions that create a `CSVFormat` instance from a given column separator. */
-  type CSVFormatBuilder = CsvConfiguration ⇒ CSVFormat
+  type CSVFormatBuilder = CsvConfiguration => CSVFormat
 
   /** Creates a default `CSVFormat` instance using the specified column separator. */
   def defaultFormat(conf: CsvConfiguration): CSVFormat =
@@ -43,8 +43,8 @@ package object commons {
       .withDelimiter(conf.cellSeparator)
       .withQuote(conf.quote)
       .withQuoteMode(conf.quotePolicy match {
-        case CsvConfiguration.QuotePolicy.Always     ⇒ QuoteMode.ALL
-        case CsvConfiguration.QuotePolicy.WhenNeeded ⇒ QuoteMode.MINIMAL
+        case CsvConfiguration.QuotePolicy.Always     => QuoteMode.ALL
+        case CsvConfiguration.QuotePolicy.WhenNeeded => QuoteMode.MINIMAL
       })
 
   // - Reader engines --------------------------------------------------------------------------------------------------
@@ -54,7 +54,7 @@ package object commons {
     * The purpose of this is to let developers use some of the commons-csv features that kantan.csv does not expose
     * through its public API.
     */
-  def readerEngineFrom(f: CSVFormatBuilder): ReaderEngine = ReaderEngine.from { (r, s) ⇒
+  def readerEngineFrom(f: CSVFormatBuilder): ReaderEngine = ReaderEngine.from { (r, s) =>
     ResourceIterator.fromIterator(f(s).parse(r).iterator.asScala.map(CsvSeq.apply))
   }
 
@@ -71,8 +71,8 @@ package object commons {
     * The purpose of this is to let developers use some of the commons-csv features that kantan.csv does not expose
     * through its public API.
     */
-  def writerEngineFrom(f: CSVFormatBuilder): WriterEngine = WriterEngine.from { (w, s) ⇒
-    CsvWriter(new CSVPrinter(w, f(s))) { (csv, ss) ⇒
+  def writerEngineFrom(f: CSVFormatBuilder): WriterEngine = WriterEngine.from { (w, s) =>
+    CsvWriter(new CSVPrinter(w, f(s))) { (csv, ss) =>
       csv.printRecord(ss.asJava)
     }(_.close())
   }

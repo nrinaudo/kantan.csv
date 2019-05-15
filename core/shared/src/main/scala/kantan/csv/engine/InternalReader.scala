@@ -22,11 +22,12 @@ import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer
 
 @SuppressWarnings(Array("org.wartremover.warts.MutableDataStructures", "org.wartremover.warts.Var"))
-private[engine] class InternalReader private (val data: Reader,
-                                              val conf: CsvConfiguration,
-                                              val characters: Array[Char],
-                                              var length: Int)
-    extends CsvReader[Seq[String]] {
+private[engine] class InternalReader private (
+  val data: Reader,
+  val conf: CsvConfiguration,
+  val characters: Array[Char],
+  var length: Int
+) extends CsvReader[Seq[String]] {
   private val cell = new StringBuilder
   private val row  = ArrayBuffer[String]()
 
@@ -74,27 +75,27 @@ private[engine] class InternalReader private (val data: Reader,
   @tailrec
   final def cellStart(c: Char): InternalReader.CellStart = c match {
     // Separator: empty cell, but a next one is coming.
-    case conf.cellSeparator ⇒
+    case conf.cellSeparator =>
       endCell()
       InternalReader.CSeparator
 
     // CR: empty cell, end of row.
-    case '\r' ⇒
+    case '\r' =>
       endCell()
       InternalReader.CCR
 
     // LF: empty cell, end of row.
-    case '\n' ⇒
+    case '\n' =>
       endCell()
       InternalReader.CLF
 
     // ": start of escaped cell.
-    case conf.quote ⇒
+    case conf.quote =>
       mark = index
       InternalReader.Escaped
 
     // whitespace: unsure, either whitespace before an escaped cell or part of a raw cell.
-    case _ if c.isWhitespace ⇒
+    case _ if c.isWhitespace =>
       if(hasNextChar) cellStart(nextChar())
       else {
         endCell()
@@ -102,37 +103,37 @@ private[engine] class InternalReader private (val data: Reader,
       }
 
     // Anything else: raw cell.
-    case _ ⇒
+    case _ =>
       InternalReader.Raw
   }
 
   @inline
   final def nextCell(c: Char): InternalReader.Break = cellStart(c) match {
-    case InternalReader.Raw         ⇒ rawCell
-    case InternalReader.Escaped     ⇒ escapedCell(false)
-    case InternalReader.Finished(r) ⇒ r
+    case InternalReader.Raw         => rawCell
+    case InternalReader.Escaped     => escapedCell(false)
+    case InternalReader.Finished(r) => r
   }
 
   @tailrec
   final def rawCell: InternalReader.Break =
     if(hasNextChar) nextChar() match {
       // Separator: cell finished.
-      case conf.cellSeparator ⇒
+      case conf.cellSeparator =>
         endCell()
         InternalReader.Separator
 
       // CR: cell finished, we need to check for a trailing \n
-      case '\r' ⇒
+      case '\r' =>
         endCell()
         InternalReader.CR
 
       // LF: cell finished.
-      case '\n' ⇒
+      case '\n' =>
         endCell()
         InternalReader.LF
 
       // Anything else: part of the cell.
-      case _ ⇒ rawCell
+      case _ => rawCell
     }
     // EOF: cell finished.
     else {
@@ -142,28 +143,28 @@ private[engine] class InternalReader private (val data: Reader,
 
   @tailrec
   final def escapedCellEnd(c: Char): InternalReader.Break = c match {
-    case conf.cellSeparator ⇒
+    case conf.cellSeparator =>
       endCell()
       InternalReader.Separator
 
-    case '\r' ⇒
+    case '\r' =>
       endCell()
       InternalReader.CR
 
-    case '\n' ⇒
+    case '\n' =>
       endCell()
       InternalReader.LF
 
-    case _ if c.isWhitespace ⇒
+    case _ if c.isWhitespace =>
       if(hasNextChar) escapedCellEnd(nextChar())
       else {
         endCell()
         InternalReader.EOF
       }
 
-    case conf.quote ⇒ escapedCell(true)
+    case conf.quote => escapedCell(true)
 
-    case _ ⇒
+    case _ =>
       cell.append(conf.quote)
       escapedCell(false)
   }
@@ -193,7 +194,7 @@ private[engine] class InternalReader private (val data: Reader,
   @tailrec
   final def nextRow(c: Char): Unit = nextCell(c) match {
     // Cell finished, row not done.
-    case InternalReader.Separator ⇒
+    case InternalReader.Separator =>
       if(hasNextChar) nextRow(nextChar())
       // The next cell is empty AND there is no further data to read.
       else {
@@ -202,7 +203,7 @@ private[engine] class InternalReader private (val data: Reader,
       }
 
     // Row finished, might have a trailing LF.
-    case InternalReader.CR if hasNextChar ⇒
+    case InternalReader.CR if hasNextChar =>
       leftover = nextChar()
 
       // The leftover char is a LF: skip it.
@@ -213,7 +214,7 @@ private[engine] class InternalReader private (val data: Reader,
       else hasLeftover = true
 
     // Row finished, no trailing LF.
-    case _ ⇒
+    case _ =>
       hasLeftover = false
       ()
   }

@@ -34,8 +34,8 @@ package object jackson {
   type CsvSchema = com.fasterxml.jackson.dataformat.csv.CsvSchema
   type CsvMapper = com.fasterxml.jackson.dataformat.csv.CsvMapper
 
-  type MappingIteratorBuilder = (Reader, CsvConfiguration) ⇒ MappingIterator[Array[String]]
-  type SequenceWriterBuilder  = (Writer, CsvConfiguration) ⇒ SequenceWriter
+  type MappingIteratorBuilder = (Reader, CsvConfiguration) => MappingIterator[Array[String]]
+  type SequenceWriterBuilder  = (Writer, CsvConfiguration) => SequenceWriter
 
   private val MAPPER: CsvMapper = new CsvMapper()
   MAPPER.enable(com.fasterxml.jackson.dataformat.csv.CsvParser.Feature.WRAP_AS_ARRAY)
@@ -43,7 +43,7 @@ package object jackson {
 
   // - Reader engines --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  val defaultMappingIteratorBuilder: MappingIteratorBuilder = (reader, conf) ⇒ {
+  val defaultMappingIteratorBuilder: MappingIteratorBuilder = (reader, conf) => {
     MAPPER
       .readerFor(classOf[Array[String]])
       .`with`(
@@ -61,7 +61,7 @@ package object jackson {
     * through its public API.
     */
   def readerEngineFrom(f: MappingIteratorBuilder): ReaderEngine =
-    ReaderEngine.from { (r, s) ⇒
+    ReaderEngine.from { (r, s) =>
       ResourceIterator.fromIterator(f(r, s))
     }
 
@@ -73,7 +73,7 @@ package object jackson {
 
   // - Writer engines --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  val defaultSequenceWriterBuilder: SequenceWriterBuilder = (writer, conf) ⇒ {
+  val defaultSequenceWriterBuilder: SequenceWriterBuilder = (writer, conf) => {
     val mapper =
       if(conf.quotePolicy == CsvConfiguration.QuotePolicy.WhenNeeded) MAPPER
       else MAPPER.copy().enable(CsvGenerator.Feature.ALWAYS_QUOTE_STRINGS)
@@ -95,8 +95,8 @@ package object jackson {
     * The purpose of this is to let developers use some of the jackson.csv features that kantan.csv does not expose
     * through its public API.
     */
-  def writerEngineFrom(f: SequenceWriterBuilder): WriterEngine = WriterEngine.from { (w, s) ⇒
-    CsvWriter(f(w, s)) { (out, ss) ⇒
+  def writerEngineFrom(f: SequenceWriterBuilder): WriterEngine = WriterEngine.from { (w, s) =>
+    CsvWriter(f(w, s)) { (out, ss) =>
       out.write(ss.toArray)
       ()
     }(_.close())
