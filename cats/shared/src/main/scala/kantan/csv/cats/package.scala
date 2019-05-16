@@ -38,9 +38,9 @@ package object cats extends CommonInstances with DecoderInstances with EncoderIn
   // -------------------------------------------------------------------------------------------------------------------
 
   implicit def foldableRowEncoder[F[_]: Foldable, A: CellEncoder]: RowEncoder[F[A]] =
-    RowEncoder.from { as ⇒
+    RowEncoder.from { as =>
       imp[Foldable[F]]
-        .foldLeft(as, Seq.newBuilder[String])((acc, a) ⇒ acc += CellEncoder[A].encode(a))
+        .foldLeft(as, Seq.newBuilder[String])((acc, a) => acc += CellEncoder[A].encode(a))
         .result()
     }
 

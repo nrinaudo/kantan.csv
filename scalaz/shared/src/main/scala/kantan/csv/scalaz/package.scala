@@ -35,9 +35,9 @@ package object scalaz extends DecoderInstances with EncoderInstances with Common
   implicit val csvReadErrorEqual: Equal[ReadError]                         = Equal.equalA
 
   implicit def foldableRowEncoder[F[_]: Foldable, A: CellEncoder]: RowEncoder[F[A]] =
-    RowEncoder.from { as ⇒
+    RowEncoder.from { as =>
       imp[Foldable[F]]
-        .foldLeft(as, Seq.newBuilder[String])((acc, a) ⇒ acc += CellEncoder[A].encode(a))
+        .foldLeft(as, Seq.newBuilder[String])((acc, a) => acc += CellEncoder[A].encode(a))
         .result()
     }
 

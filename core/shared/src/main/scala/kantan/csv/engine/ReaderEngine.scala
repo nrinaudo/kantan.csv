@@ -32,20 +32,20 @@ trait ReaderEngine {
   def unsafeReaderFor(reader: Reader, conf: CsvConfiguration): CsvReader[Seq[String]]
 
   /** Turns the specified `Reader` into a safe [[CsvReader]]. */
-  def readerFor(reader: ⇒ Reader, conf: CsvConfiguration): CsvReader[ReadResult[Seq[String]]] =
+  def readerFor(reader: => Reader, conf: CsvConfiguration): CsvReader[ReadResult[Seq[String]]] =
     ParseResult(unsafeReaderFor(reader, conf)).right
-      .map(_.safe(ParseError.NoSuchElement: ParseError)(e ⇒ ParseError.IOError(e)))
+      .map(_.safe(ParseError.NoSuchElement: ParseError)(e => ParseError.IOError(e)))
       .left
-      .map(e ⇒ ResourceIterator(ReadResult.failure(e)))
+      .map(e => ResourceIterator(ReadResult.failure(e)))
       .merge
-      .withClose(() ⇒ reader.close())
+      .withClose(() => reader.close())
 }
 
 /** Provides instance creation methods and default implementations. */
 object ReaderEngine {
 
   /** Creates a new [[ReaderEngine]] instance. */
-  def from(f: (Reader, CsvConfiguration) ⇒ CsvReader[Seq[String]]): ReaderEngine = new ReaderEngine {
+  def from(f: (Reader, CsvConfiguration) => CsvReader[Seq[String]]): ReaderEngine = new ReaderEngine {
     override def unsafeReaderFor(reader: Reader, conf: CsvConfiguration): CsvReader[Seq[String]] = f(reader, conf)
   }
 

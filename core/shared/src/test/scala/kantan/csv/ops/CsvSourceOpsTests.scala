@@ -31,14 +31,14 @@ class CsvSourceOpsTests extends FunSuite with GeneratorDrivenPropertyChecks with
     csv.length should be(data.length)
 
     csv.zip(data).foreach {
-      case (Right(is), CodecValue.LegalValue(_, cs)) ⇒ is should be(cs)
-      case (Left(_), CodecValue.IllegalValue(_))     ⇒
-      case (a, b)                                    ⇒ fail(s"$a is not compatible with $b")
+      case (Right(is), CodecValue.LegalValue(_, cs)) => is should be(cs)
+      case (Left(_), CodecValue.IllegalValue(_))     =>
+      case (a, b)                                    => fail(s"$a is not compatible with $b")
     }
   }
 
   test("CsvSource instances should have a working asCsvReader method") {
-    forAll { data: List[RowValue[TestCase]] ⇒
+    forAll { data: List[RowValue[TestCase]] =>
       compare(
         asCsv(data, rfc)
           .asCsvReader[TestCase](rfc)
@@ -49,7 +49,7 @@ class CsvSourceOpsTests extends FunSuite with GeneratorDrivenPropertyChecks with
   }
 
   test("CsvSource instances should have a working readCsv method") {
-    forAll { data: List[RowValue[TestCase]] ⇒
+    forAll { data: List[RowValue[TestCase]] =>
       compare(
         asCsv(data, rfc)
           .readCsv[List, TestCase](rfc),
@@ -58,23 +58,23 @@ class CsvSourceOpsTests extends FunSuite with GeneratorDrivenPropertyChecks with
     }
   }
 
-  def compareUnsafe[A](csv: ⇒ List[A], data: List[RowValue[A]]): Unit = {
+  def compareUnsafe[A](csv: => List[A], data: List[RowValue[A]]): Unit = {
     def cmp(csv: List[A], data: List[RowValue[A]]): Unit = (csv, data) match {
-      case (Nil, Nil)                                                 ⇒ ()
-      case (h1 :: t1, CodecValue.LegalValue(_, h2) :: t2) if h1 == h2 ⇒ cmp(t1, t2)
-      case (a, b)                                                     ⇒ fail(s"$a is not compatible with $b")
+      case (Nil, Nil)                                                 => ()
+      case (h1 :: t1, CodecValue.LegalValue(_, h2) :: t2) if h1 == h2 => cmp(t1, t2)
+      case (a, b)                                                     => fail(s"$a is not compatible with $b")
     }
 
     Try(csv) match {
-      case scala.util.Success(is) ⇒ cmp(is, data)
-      case _ ⇒
+      case scala.util.Success(is) => cmp(is, data)
+      case _ =>
         data.filter(_.isIllegal) should not be ('empty)
         ()
     }
   }
 
   test("CsvSource instances should have a working asUnsafeCsvReader method") {
-    forAll { data: List[RowValue[TestCase]] ⇒
+    forAll { data: List[RowValue[TestCase]] =>
       compareUnsafe(
         asCsv(data, rfc)
           .asUnsafeCsvReader[TestCase](rfc)
@@ -85,7 +85,7 @@ class CsvSourceOpsTests extends FunSuite with GeneratorDrivenPropertyChecks with
   }
 
   test("CsvSource instances should have a working unsafeReadCsv method") {
-    forAll { data: List[RowValue[TestCase]] ⇒
+    forAll { data: List[RowValue[TestCase]] =>
       compareUnsafe(
         asCsv(data, rfc)
           .unsafeReadCsv[List, TestCase](rfc),

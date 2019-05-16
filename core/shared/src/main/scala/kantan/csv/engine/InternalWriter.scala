@@ -68,7 +68,7 @@ private[csv] class InternalWriter(private val out: Writer, val conf: CsvConfigur
   @SuppressWarnings(Array("org.wartremover.warts.Var"))
   override def write(ss: Seq[String]): CsvWriter[Seq[String]] = {
     var first = true
-    for(s ← ss) {
+    for(s <- ss) {
       if(first) first = false
       else out.write(conf.cellSeparator.toInt)
       safeWrite(s)

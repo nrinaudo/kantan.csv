@@ -27,7 +27,7 @@ import kantan.csv.engine.WriterEngine
   *
   * See the [[CsvSink companion object]] for default implementations and construction methods.
   */
-trait CsvSink[-S] extends Serializable { self ⇒
+trait CsvSink[-S] extends Serializable { self =>
 
   /** Opens a `Writer` on the specified `S`. */
   def open(s: S): Writer
@@ -69,7 +69,7 @@ trait CsvSink[-S] extends Serializable { self ⇒
     *     CsvSink[OutputStream].contramap(f ⇒ new FileOutputStream(f, c.charSet))
     * }}}
     */
-  def contramap[T](f: T ⇒ S): CsvSink[T] = CsvSink.from(f andThen self.open)
+  def contramap[T](f: T => S): CsvSink[T] = CsvSink.from(f andThen self.open)
 }
 
 /** Provides default instances as well as instance summoning and creation methods. */
@@ -90,12 +90,12 @@ object CsvSink {
     * Note that it's usually better to compose an existing instance through [[CsvSink.contramap]] rather than create
     * one from scratch.
     */
-  def from[A](f: A ⇒ Writer): CsvSink[A] = new CsvSink[A] {
+  def from[A](f: A => Writer): CsvSink[A] = new CsvSink[A] {
     override def open(s: A): Writer = f(s)
   }
 
   // TODO: unsafe, unacceptable, what was I thinking.
   @SuppressWarnings(Array("org.wartremover.warts.EitherProjectionPartial"))
   implicit def fromResource[A: WriterResource]: CsvSink[A] =
-    CsvSink.from(a ⇒ WriterResource[A].open(a).right.get)
+    CsvSink.from(a => WriterResource[A].open(a).right.get)
 }

@@ -59,7 +59,7 @@ object Decoding {
   // - Helpers ---------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   @SuppressWarnings(Array("org.wartremover.warts.Var"))
-  class CsvIterator[A](iterator: A)(f: A ⇒ Array[String]) extends Iterator[CsvEntry] {
+  class CsvIterator[A](iterator: A)(f: A => Array[String]) extends Iterator[CsvEntry] {
     private var n                 = f(iterator)
     override def hasNext: Boolean = n != null
     override def next(): CsvEntry = {
@@ -100,7 +100,7 @@ object Decoding {
 
   @SuppressWarnings(Array("org.wartremover.warts.Null"))
   def jackson(str: String): List[CsvEntry] =
-    new CsvIterator(engine.jackson.defaultMappingIteratorBuilder(new StringReader(str), rfc))({ it ⇒
+    new CsvIterator(engine.jackson.defaultMappingIteratorBuilder(new StringReader(str), rfc))({ it =>
       if(it.hasNext) it.next()
       else null
     }).toList
@@ -122,6 +122,6 @@ object Decoding {
 
   def scalaCsv(str: String): List[CsvEntry] = {
     import com.github.tototoshi.csv._
-    CSVReader.open(new StringReader(str)).iterator.map(r ⇒ (r(0).toInt, r(1), r(2).toBoolean, r(3).toFloat)).toList
+    CSVReader.open(new StringReader(str)).iterator.map(r => (r(0).toInt, r(1), r(2).toBoolean, r(3).toFloat)).toList
   }
 }

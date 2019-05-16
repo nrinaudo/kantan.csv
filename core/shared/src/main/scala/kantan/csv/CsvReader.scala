@@ -29,19 +29,20 @@ object CsvReader {
     CsvReader(reader, rfc.withCellSeparator(sep).withHeader(header))
 
   /** Opens a [[CsvReader]] on the specified `Reader`. */
-  def apply[A: HeaderDecoder](reader: Reader,
-                              conf: CsvConfiguration)(implicit e: ReaderEngine): CsvReader[ReadResult[A]] = {
+  def apply[A: HeaderDecoder](reader: Reader, conf: CsvConfiguration)(
+    implicit e: ReaderEngine
+  ): CsvReader[ReadResult[A]] = {
     val data: CsvReader[ReadResult[Seq[String]]] = e.readerFor(reader, conf)
 
     val decoder =
       if(conf.hasHeader && data.hasNext)
-        data.next.right.flatMap(header ⇒ HeaderDecoder[A].fromHeader(header.map(_.trim)))
+        data.next.right.flatMap(header => HeaderDecoder[A].fromHeader(header.map(_.trim)))
       else Right(HeaderDecoder[A].noHeader)
 
     decoder.right
-      .map(d ⇒ data.map(_.right.flatMap(d.decode)))
+      .map(d => data.map(_.right.flatMap(d.decode)))
       .left
-      .map(error ⇒ ResourceIterator(ReadResult.failure(error)))
+      .map(error => ResourceIterator(ReadResult.failure(error)))
       .merge
   }
 }

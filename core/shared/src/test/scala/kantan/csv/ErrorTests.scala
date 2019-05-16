@@ -24,31 +24,31 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
 class ErrorTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
   test("TypeErrors should be equal if the underlying errors are the same") {
-    forAll { (e1: TypeError, e2: ReadError) ⇒
+    forAll { (e1: TypeError, e2: ReadError) =>
       (e1, e2) match {
-        case (TypeError(t1), TypeError(t2)) ⇒ (e1 == e2) should be(t1 == t2)
-        case _                              ⇒ e1 should not be (e2)
+        case (TypeError(t1), TypeError(t2)) => (e1 == e2) should be(t1 == t2)
+        case _                              => e1 should not be (e2)
       }
     }
   }
 
   test("TypeErrors should have identical hashCodes if the underlying errors have identical hashCodes") {
-    forAll { (e1: TypeError, e2: TypeError) ⇒
+    forAll { (e1: TypeError, e2: TypeError) =>
       (e1.hashCode() == e2.hashCode()) should be(e1.message.hashCode == e2.message.hashCode)
     }
   }
 
   test("IOErrors should be equal if the underlying errors are the same") {
-    forAll { (e1: IOError, e2: ReadError) ⇒
+    forAll { (e1: IOError, e2: ReadError) =>
       (e1, e2) match {
-        case (IOError(t1), IOError(t2)) ⇒ (e1 == e2) should be(t1 == t2)
-        case _                          ⇒ e1 should not be (e2)
+        case (IOError(t1), IOError(t2)) => (e1 == e2) should be(t1 == t2)
+        case _                          => e1 should not be (e2)
       }
     }
   }
 
   test("IOErrors should have identical hashCodes if the underlying errors have identical hashCodes") {
-    forAll { (e1: IOError, e2: IOError) ⇒
+    forAll { (e1: IOError, e2: IOError) =>
       (e1.hashCode() == e2.hashCode()) should be(e1.message.hashCode == e2.message.hashCode)
     }
   }

@@ -24,19 +24,19 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 @SuppressWarnings(Array("org.wartremover.warts.Throw"))
 class ParseResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
   test("ParseResult.success should return a Right") {
-    forAll { i: Int ⇒
+    forAll { i: Int =>
       ParseResult.success(i).right.value should be(i)
     }
   }
 
   test("ParseResult.apply should return a Right on 'good' values") {
-    forAll { i: Int ⇒
+    forAll { i: Int =>
       ParseResult(i).right.value should be(i)
     }
   }
 
   test("ParseResult.apply should return a Left on 'bad' values") {
-    forAll { e: Exception ⇒
+    forAll { e: Exception =>
       ParseResult(throw e).left.value should be(ParseError.IOError(e))
     }
   }

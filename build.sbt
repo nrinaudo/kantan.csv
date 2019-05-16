@@ -139,7 +139,7 @@ lazy val generic = kantanCrossProject("generic")
     libraryDependencies ++= Seq(
       "com.nrinaudo"  %%% "kantan.codecs-shapeless"      % Versions.kantanCodecs,
       "com.nrinaudo"  %%% "kantan.codecs-shapeless-laws" % Versions.kantanCodecs % "test",
-      "org.scalatest" %%% "scalatest"                    % Versions.scalatest % "test",
+      "org.scalatest" %%% "scalatest"                    % Versions.scalatest % "test"
     )
   )
 
@@ -156,7 +156,7 @@ lazy val scalaz = kantanCrossProject("scalaz")
     libraryDependencies ++= Seq(
       "com.nrinaudo"  %%% "kantan.codecs-scalaz"      % Versions.kantanCodecs,
       "com.nrinaudo"  %%% "kantan.codecs-scalaz-laws" % Versions.kantanCodecs % "test",
-      "org.scalatest" %%% "scalatest"                 % Versions.scalatest % "test",
+      "org.scalatest" %%% "scalatest"                 % Versions.scalatest % "test"
     )
   )
 
@@ -193,7 +193,7 @@ lazy val jodaTime = Project(id = "joda-time", base = file("joda-time"))
     libraryDependencies ++= Seq(
       "com.nrinaudo"  %% "kantan.codecs-joda-time"      % Versions.kantanCodecs,
       "com.nrinaudo"  %% "kantan.codecs-joda-time-laws" % Versions.kantanCodecs % "test",
-      "org.scalatest" %% "scalatest"                    % Versions.scalatest % "test",
+      "org.scalatest" %% "scalatest"                    % Versions.scalatest % "test"
     )
   )
 

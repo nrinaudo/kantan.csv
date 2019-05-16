@@ -46,7 +46,7 @@ trait RowEncoderInstances {
     * }}}
     */
   implicit def fromCellEncoder[A: CellEncoder]: RowEncoder[A] =
-    RowEncoder.from(a ⇒ Seq(CellEncoder[A].encode(a)))
+    RowEncoder.from(a => Seq(CellEncoder[A].encode(a)))
 
   /** Provides a [[RowEncoder]] instance for all traversable collections.
     *
@@ -57,5 +57,5 @@ trait RowEncoderInstances {
     * }}}
     */
   implicit def traversable[A: CellEncoder, M[X] <: TraversableOnce[X]]: RowEncoder[M[A]] =
-    RowEncoder.from(_.foldLeft(Seq.newBuilder[String])((acc, a) ⇒ acc += CellEncoder[A].encode(a)).result())
+    RowEncoder.from(_.foldLeft(Seq.newBuilder[String])((acc, a) => acc += CellEncoder[A].encode(a)).result())
 }
