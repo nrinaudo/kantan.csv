@@ -36,19 +36,18 @@ object HeaderDecoder extends GeneratedHeaderDecoders {
   /** Summons an implicit instance of [[HeaderDecoder]] if one can be found, fails compilation otherwise. */
   def apply[A](implicit ev: HeaderDecoder[A]): HeaderDecoder[A] = macro imp.summon[HeaderDecoder[A]]
 
-  // Horrible code that relies on mutability and assumes that `map` contains the right values, indexed from 0 to length.
-  private[csv] def decoderFromMap(map: Map[String, Int], header: Seq[String]): DecodeResult[Array[Int]] = {
-    val mapping = Array.fill(map.size)(-1)
+  private[csv] def determineRowMappings(requiredHeader: Seq[String], csvHeader: Seq[String]): DecodeResult[Seq[Int]] =
+    requiredHeader.foldLeft((List.empty[String], List.empty[Int])) {
+      case ((missing, found), header) =>
+        val index = csvHeader.indexOf(header)
 
-    header.zipWithIndex.foreach {
-      case (name, i) =>
-        map.get(name).foreach(a => mapping(a) = i)
+        if(index < 0) (header :: missing, found)
+        else (missing, index :: found)
+    } match {
+      case (missing, _) if missing.nonEmpty =>
+        DecodeResult.typeError(s"Missing header(s): ${missing.reverse.mkString(", ")}")
+      case (_, mapping) => DecodeResult.success(mapping.reverse)
     }
-
-    val error = mapping.indexWhere(_ < 0)
-    if(error < 0) Right(mapping)
-    else DecodeResult.typeError(s"Missing header for ${header(error)}")
-  }
 
   /** When no [[HeaderDecoder]] is available, fallback on whatever instance of [[RowDecoder]] is in scope. */
   implicit def defaultHeaderDecoder[A: RowDecoder]: HeaderDecoder[A] = new HeaderDecoder[A] {
