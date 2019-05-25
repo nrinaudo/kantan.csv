@@ -54,4 +54,11 @@ class RegressionTests extends FunSuite with Matchers {
       List((1, "a", Some(100)), (2, "b", None))
     )
   }
+
+  test("Decoding to Seq shouldn't leak out mutability") {
+    import kantan.csv.ops._
+
+    // See #181, this used to yield Seq(Seq(3), Seq(3), Seq(3))
+    "1\n2\n3\n".unsafeReadCsv[Seq, Seq[String]](rfc) should be(Seq(Seq("1"), Seq("2"), Seq("3")))
+  }
 }
