@@ -41,9 +41,9 @@ object HeaderDecoder extends GeneratedHeaderDecoders {
       val index                = csvHeader.indexOf(header)
       val indexOrMissingHeader = Either.cond(index >= 0, index, header)
       (acc, indexOrMissingHeader) match {
-        case (Left(missingHeaders), Left(missingHeader)) => Left(missingHeaders :+ missingHeader)
+        case (Left(missingHeaders), Left(missingHeader)) => Left(missingHeader +: missingHeaders)
         case (Left(missingHeaders), Right(_))            => Left(missingHeaders)
-        case (Right(mappings), Right(mapping))           => Right(mappings :+ mapping)
+        case (Right(mappings), Right(mapping))           => Right(mapping +: mappings)
         case (Right(_), Left(missingHeader))             => Left(Seq(missingHeader))
       }
     }
@@ -51,6 +51,7 @@ object HeaderDecoder extends GeneratedHeaderDecoders {
     val result = requiredHeader.foldLeft[Either[Seq[String], Seq[Int]]](Right(Seq()))(accumulateResults)
 
     result
+      .right
       .map(_.reverse)
       .left
       .map(missingHeaders => DecodeError.TypeError(s"Missing header(s): ${missingHeaders.reverse.mkString(", ")}"))
