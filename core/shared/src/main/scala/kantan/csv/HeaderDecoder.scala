@@ -50,8 +50,7 @@ object HeaderDecoder extends GeneratedHeaderDecoders {
 
     val result = requiredHeader.foldLeft[Either[Seq[String], Seq[Int]]](Right(Seq()))(accumulateResults)
 
-    result
-      .right
+    result.right
       .map(_.reverse)
       .left
       .map(missingHeaders => DecodeError.TypeError(s"Missing header(s): ${missingHeaders.reverse.mkString(", ")}"))
