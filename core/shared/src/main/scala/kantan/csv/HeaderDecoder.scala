@@ -36,25 +36,18 @@ object HeaderDecoder extends GeneratedHeaderDecoders {
   /** Summons an implicit instance of [[HeaderDecoder]] if one can be found, fails compilation otherwise. */
   def apply[A](implicit ev: HeaderDecoder[A]): HeaderDecoder[A] = macro imp.summon[HeaderDecoder[A]]
 
-  private[csv] def determineRowMappings(requiredHeader: Seq[String], csvHeader: Seq[String]): DecodeResult[Seq[Int]] = {
-    def accumulateResults(acc: Either[Seq[String], Seq[Int]], header: String): Either[Seq[String], Seq[Int]] = {
-      val index                = csvHeader.indexOf(header)
-      val indexOrMissingHeader = Either.cond(index >= 0, index, header)
-      (acc, indexOrMissingHeader) match {
-        case (Left(missingHeaders), Left(missingHeader)) => Left(missingHeader +: missingHeaders)
-        case (Left(missingHeaders), Right(_))            => Left(missingHeaders)
-        case (Right(mappings), Right(mapping))           => Right(mapping +: mappings)
-        case (Right(_), Left(missingHeader))             => Left(Seq(missingHeader))
-      }
+  private[csv] def determineRowMappings(requiredHeader: Seq[String], csvHeader: Seq[String]): DecodeResult[Seq[Int]] =
+    requiredHeader.foldLeft((List.empty[String], List.empty[Int])) {
+      case ((missing, found), header) =>
+        val index = csvHeader.indexOf(header)
+
+        if(index < 0) (header :: missing, found)
+        else (missing, index :: found)
+    } match {
+      case (missing, _) if missing.nonEmpty =>
+        DecodeResult.typeError(s"Missing header(s): ${missing.reverse.mkString(", ")}")
+      case (_, mapping) => DecodeResult.success(mapping.reverse)
     }
-
-    val result = requiredHeader.foldLeft[Either[Seq[String], Seq[Int]]](Right(Seq()))(accumulateResults)
-
-    result.right
-      .map(_.reverse)
-      .left
-      .map(missingHeaders => DecodeError.TypeError(s"Missing header(s): ${missingHeaders.reverse.mkString(", ")}"))
-  }
 
   /** When no [[HeaderDecoder]] is available, fallback on whatever instance of [[RowDecoder]] is in scope. */
   implicit def defaultHeaderDecoder[A: RowDecoder]: HeaderDecoder[A] = new HeaderDecoder[A] {
