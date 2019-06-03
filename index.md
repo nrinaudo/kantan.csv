@@ -14,36 +14,36 @@ kantan.csv is a library for CSV parsing and serialisation written in the
 
 kantan.csv is currently available for Scala 2.11 and 2.12.
 
-The current version is `0.5.0`, which can be added to your project with one or more of the following line(s)
+The current version is `0.5.1`, which can be added to your project with one or more of the following line(s)
 in your SBT build file:
 
 ```scala
 // Core library, included automatically if any other module is imported.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv" % "0.5.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv" % "0.5.1"
 
 // Java 8 date and time instances.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-java8" % "0.5.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-java8" % "0.5.1"
 
 // Provides scalaz type class instances for kantan.csv, and vice versa.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz" % "0.5.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz" % "0.5.1"
 
 // Provides cats type class instances for kantan.csv, and vice versa.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-cats" % "0.5.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-cats" % "0.5.1"
 
 // Automatic type class instances derivation.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.5.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.5.1"
 
 // Provides instances for joda time types.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-joda-time" % "0.5.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-joda-time" % "0.5.1"
 
 // Provides instances for refined types.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-refined" % "0.5.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-refined" % "0.5.1"
 
 // Provides instances for enumeratum types.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-enumeratum" % "0.5.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-enumeratum" % "0.5.1"
 
 // Provides instances for libra types.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-libra" % "0.5.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-libra" % "0.5.1"
 ```
 
 Additionally, while kantan.csv comes with a default parser / serializer (that has
@@ -52,13 +52,13 @@ reputable implementations. The following engines are currently supported:
 
 ```scala
 // opencsv engine.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-opencsv" % "0.5.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-opencsv" % "0.5.1"
 
 // commons-csv engine.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.5.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.5.1"
 
 // jackson-csv engine.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.5.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.5.1"
 ```
 
 

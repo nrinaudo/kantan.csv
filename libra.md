@@ -8,7 +8,7 @@ kantan.csv comes with a [libra](https://github.com/to-ithaca/libra) module that 
 by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-libra" % "0.5.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-libra" % "0.5.1"
 ```
 
 You then need to import the corresponding package:
