@@ -36,7 +36,7 @@ implicit val stringInput: CsvSource[String] = CsvSource.from(s ⇒ ParseResult(n
 ## Adapting existing instances
 Most of the time though, it's easier to turn the type you wish to provide an instance for into a type that *already*
 has an instance. This is achieved either through [`contramap`] (if the transformation is safe and cannot fail) or
-[``] (if, as with most IO-related things, it can fail). For example:
+[`econtramap`] (if, as with most IO-related things, it can fail). For example:
 
 ```tut:silent
 implicit val stringInput: CsvSource[String] = CsvSource[Reader].contramap(s ⇒ new StringReader(s))
