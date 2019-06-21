@@ -17,33 +17,33 @@
 package kantan.csv
 
 import laws.discipline.arbitrary._
-import org.scalatest.{FunSuite, Matchers}
-import org.scalatest.EitherValues._
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
 @SuppressWarnings(Array("org.wartremover.warts.Throw"))
-class DecodeResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
+class DecodeResultTests extends AnyFunSuite with ScalaCheckPropertyChecks with Matchers {
   test("DecodeResult.success should return a Right") {
     forAll { i: Int =>
-      DecodeResult.success(i).right.value should be(i)
+      DecodeResult.success(i) should be(Right(i))
     }
   }
 
   test("DecodeResult.apply should return a Right on 'good' values") {
     forAll { i: Int =>
-      DecodeResult(i).right.value should be(i)
+      DecodeResult(i) should be(Right(i))
     }
   }
 
   test("DecodeResult.apply should return a Left on 'bad' values") {
     forAll { e: Exception =>
-      DecodeResult(throw e).left.value should be(DecodeError.TypeError(e))
+      DecodeResult(throw e) should be(Left(DecodeError.TypeError(e)))
     }
   }
 
   test("DecodeResult.outOfBounds should return a Left") {
     forAll { i: Int =>
-      DecodeResult.outOfBounds(i).left.value should be(DecodeError.OutOfBounds(i))
+      DecodeResult.outOfBounds(i) should be(Left(DecodeError.OutOfBounds(i)))
     }
   }
 }

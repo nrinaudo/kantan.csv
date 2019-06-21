@@ -22,7 +22,8 @@ import _root_.cats.data.EitherT
 import _root_.cats.instances.all._
 import _root_.cats.laws.discipline.{ContravariantTests, MonadErrorTests, SemigroupKTests}
 import _root_.cats.laws.discipline.SemigroupalTests.Isomorphisms
-import laws.discipline._, arbitrary._, equality._
+import cats.equality._
+import laws.discipline._, arbitrary._
 
 class CellCodecTests extends DisciplineSuite {
 

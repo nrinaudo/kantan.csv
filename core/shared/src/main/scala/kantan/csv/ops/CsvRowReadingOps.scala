@@ -35,7 +35,7 @@ final class CsvRowReadingOps[A: CsvSource](a: A) {
   def readCsvRow[B: RowDecoder](conf: CsvConfiguration)(implicit e: ReaderEngine): ReadResult[B] = {
     val reader = a.asCsvReader[B](conf)
 
-    reader.next.right.flatMap { res =>
+    reader.next.flatMap { res =>
       // Slight abuse of `no such element` to mean that we're not working with a single row.
       if(reader.hasNext) ParseResult.noSuchElement
       else ReadResult.success(res)
@@ -55,9 +55,12 @@ final class CsvRowReadingOps[A: CsvSource](a: A) {
     * Note that this method is unsafe and will throw an exception if the string value is not a valid `A`. Prefer
     * [[readCsvRow]] whenever possible.
     */
-  @SuppressWarnings(Array("org.wartremover.warts.EitherProjectionPartial"))
+  @SuppressWarnings(Array("org.wartremover.warts.StringPlusAny"))
   def unsafeReadCsvRow[B: RowDecoder](conf: CsvConfiguration)(implicit e: ReaderEngine): B =
-    readCsvRow[B](conf).right.get
+    readCsvRow[B](conf).fold(
+      error => sys.error(s"Failed to decode value $a: $error"),
+      w => w
+    )
 }
 
 trait ToCsvRowReadingOps {

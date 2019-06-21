@@ -17,11 +17,11 @@
 package kantan.csv
 
 import java.io._
+import kantan.codecs.collection._
 import kantan.codecs.resource.{ReaderResource, ResourceIterator}
 import kantan.csv.DecodeError.{OutOfBounds, TypeError}
 import kantan.csv.ParseError.{IOError, NoSuchElement}
 import kantan.csv.engine.ReaderEngine
-import scala.collection.generic.CanBuildFrom
 
 /** Turns instances of `S` into valid sources of CSV data.
   *
@@ -62,7 +62,7 @@ trait CsvSource[-S] extends Serializable { self =>
     * @tparam A type to parse each row as. This must have a corresponding implicit [[HeaderDecoder]] instance in scope.
     */
   def reader[A: HeaderDecoder](s: S, conf: CsvConfiguration)(implicit e: ReaderEngine): CsvReader[ReadResult[A]] =
-    open(s).right
+    open(s)
       .map(reader => CsvReader(reader, conf))
       .left
       .map(error => ResourceIterator(ReadResult.failure(error)))
@@ -99,7 +99,7 @@ trait CsvSource[-S] extends Serializable { self =>
   @deprecated("use read(S, CsvConfiguration) instead", "0.1.18")
   def read[C[_], A: HeaderDecoder](s: S, sep: Char, header: Boolean)(
     implicit e: ReaderEngine,
-    cbf: CanBuildFrom[Nothing, ReadResult[A], C[ReadResult[A]]]
+    factory: Factory[ReadResult[A], C[ReadResult[A]]]
   ): C[ReadResult[A]] =
     read(s, rfc.withCellSeparator(sep).withHeader(header))
 
@@ -124,13 +124,13 @@ trait CsvSource[-S] extends Serializable { self =>
   def read[C[_], A: HeaderDecoder](
     s: S,
     conf: CsvConfiguration
-  )(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, ReadResult[A], C[ReadResult[A]]]): C[ReadResult[A]] =
-    reader(s, conf).to[C]
+  )(implicit e: ReaderEngine, factory: Factory[ReadResult[A], C[ReadResult[A]]]): C[ReadResult[A]] =
+    reader(s, conf).to(factory)
 
   @deprecated("use unsafeRead(S, CsvConfiguration) instead", "0.1.18")
   def unsafeRead[C[_], A: HeaderDecoder](s: S, sep: Char, header: Boolean)(
     implicit e: ReaderEngine,
-    cbf: CanBuildFrom[Nothing, A, C[A]]
+    factory: Factory[A, C[A]]
   ): C[A] =
     unsafeRead(s, rfc.withCellSeparator(sep).withHeader(header))
 
@@ -153,8 +153,8 @@ trait CsvSource[-S] extends Serializable { self =>
   def unsafeRead[C[_], A: HeaderDecoder](
     s: S,
     conf: CsvConfiguration
-  )(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, A, C[A]]): C[A] =
-    unsafeReader(s, conf).to[C]
+  )(implicit e: ReaderEngine, factory: Factory[A, C[A]]): C[A] =
+    unsafeReader(s, conf).to(factory)
 
   /** Turns an instance of `CsvSource[S]` into one of `CsvSource[T]`.
     *
@@ -185,7 +185,7 @@ trait CsvSource[-S] extends Serializable { self =>
     * {{{
     * scala> case class StringWrapper(value: String)
     *
-    * scala> implicit val source: CsvSource[StringWrapper] = CsvSource[String].econtramap(s ⇒ ParseResult(s.value))
+    * scala> implicit val source: CsvSource[StringWrapper] = CsvSource[String].econtramap(s => ParseResult(s.value))
     *
     * scala> CsvSource[StringWrapper].unsafeRead[List, List[Int]](StringWrapper("1,2,3\n4,5,6"), rfc)
     * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
@@ -197,7 +197,7 @@ trait CsvSource[-S] extends Serializable { self =>
     * @see [[contramap]]
     */
   def econtramap[SS <: S, T](f: T => ParseResult[SS]): CsvSource[T] =
-    CsvSource.from(t => f(t).right.flatMap(self.open))
+    CsvSource.from(t => f(t).flatMap(self.open))
 
   @deprecated("Use econtramap instead", "0.3.2")
   def contramapResult[SS <: S, T](f: T => ParseResult[SS]): CsvSource[T] = econtramap(f)

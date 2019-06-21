@@ -31,8 +31,8 @@ trait GenericInstances extends ShapelessInstances {
     RowDecoder.from { row =>
       row.headOption.map { s =>
         for {
-          h <- CellDecoder[H].decode(s).right
-          t <- RowDecoder[T].decode(row.drop(1)).right
+          h <- CellDecoder[H].decode(s)
+          t <- RowDecoder[T].decode(row.drop(1))
         } yield h :: t
       }.getOrElse(DecodeResult.outOfBounds(0))
     }

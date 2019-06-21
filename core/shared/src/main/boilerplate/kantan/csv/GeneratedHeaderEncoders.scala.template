@@ -18,7 +18,7 @@ package kantan.csv
 
 trait GeneratedHeaderEncoders {
   [#
-  def encoder[[#A1: CellEncoder#], O]([#f1: String#])(f: O ⇒ ([#A1#])): HeaderEncoder[O] = new HeaderEncoder[O] {
+  def encoder[[#A1: CellEncoder#], O]([#f1: String#])(f: O => ([#A1#])): HeaderEncoder[O] = new HeaderEncoder[O] {
     override def rowEncoder = RowEncoder.ordered(f)
     override val header = Some(Seq([#f1#]))
   }#
@@ -26,7 +26,7 @@ trait GeneratedHeaderEncoders {
   ]
 
   [#
-  def caseEncoder[[#A1: CellEncoder#], O]([#f1: String#])(f: O ⇒ Option[([#A1#])]): HeaderEncoder[O] = new HeaderEncoder[O] {
+  def caseEncoder[[#A1: CellEncoder#], O]([#f1: String#])(f: O => Option[([#A1#])]): HeaderEncoder[O] = new HeaderEncoder[O] {
     override def rowEncoder = RowEncoder.caseOrdered(f)
     override val header = Some(Seq([#f1#]))
   }#

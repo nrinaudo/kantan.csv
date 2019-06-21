@@ -17,9 +17,9 @@
 package kantan.csv
 package generic
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class RegressionTests extends FunSuite {
+class RegressionTests extends AnyFunSuite {
   test("Implicit resolution should not be impacted by the presence of default arguments (#65)") {
     case class Foobar(i: Int)
 

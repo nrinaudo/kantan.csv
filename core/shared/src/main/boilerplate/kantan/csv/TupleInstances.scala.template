@@ -40,17 +40,17 @@ trait TupleInstances {
     * }}}
     */
   implicit def tupleRowEncoder1[A1: CellEncoder]: RowEncoder[Tuple1[A1]] =
-    RowEncoder.ordered((t: Tuple1[A1]) ⇒ t._1)
+    RowEncoder.ordered((t: Tuple1[A1]) => t._1)
 
   [2..#/** Provides an instance of [[RowEncoder]] for `Tuple1`, provided all internal types have an instance of [[CellEncoder]].
     *
     * @example
     * {{{
     * scala> RowEncoder[Tuple1[[#Int#]]].encode(([#1#]))
-    * res0: Seq[String] = WrappedArray([#1#])
+    * res0: Seq[String] = Vector([#1#])
     * }}}
     */implicit def tupleRowEncoder1[[#A1: CellEncoder#]]: RowEncoder[Tuple1[[#A1#]]] =
-    RowEncoder.ordered((t: Tuple1[[#A1#]]) ⇒ t)#
+    RowEncoder.ordered((t: Tuple1[[#A1#]]) => t)#
 
   ]
 }

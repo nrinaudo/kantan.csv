@@ -19,7 +19,7 @@ package engine
 
 import kantan.codecs.resource.ResourceIterator
 import org.apache.commons.csv.{CSVFormat, CSVPrinter, QuoteMode}
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 /** Provides CSV reader and writer engines using [[https://commons.apache.org/proper/commons-csv/ commons-csv]].
   *

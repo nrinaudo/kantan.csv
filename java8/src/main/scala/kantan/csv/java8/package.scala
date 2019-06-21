@@ -18,7 +18,7 @@ package kantan.csv
 
 import java.time._
 import kantan.codecs.export.Exported
-import kantan.codecs.strings._
+import kantan.codecs.strings.{StringDecoder, StringEncoder}
 import kantan.codecs.strings.java8.{TimeCodecCompanion, ToFormatLiteral}
 
 /** Declares [[kantan.csv.CellDecoder]] and [[kantan.csv.CellEncoder]] instances for java8 date and time types.

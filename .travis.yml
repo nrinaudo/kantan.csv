@@ -11,8 +11,8 @@ before_cache:
   - find $HOME/.ivy2 -name "ivydata-*.properties" -delete
   - find $HOME/.sbt -name "*.lock" -delete
 scala:
-  - 2.11.12
   - 2.12.8
+  - 2.13.1
 jdk:
   - oraclejdk8
   - openjdk8

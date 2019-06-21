@@ -16,9 +16,11 @@ project/plugins/project/
 .scala_dependencies
 .worksheet
 
-# Ensime
+# Misc. analysis tools
 .ensime
 .ensime_cache
+.bloop
+.metals
 
 # Intellij
 .idea/

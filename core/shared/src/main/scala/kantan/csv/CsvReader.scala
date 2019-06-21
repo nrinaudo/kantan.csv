@@ -36,11 +36,11 @@ object CsvReader {
 
     val decoder =
       if(conf.hasHeader && data.hasNext)
-        data.next.right.flatMap(header => HeaderDecoder[A].fromHeader(header.map(_.trim)))
+        data.next.flatMap(header => HeaderDecoder[A].fromHeader(header.map(_.trim)))
       else Right(HeaderDecoder[A].noHeader)
 
-    decoder.right
-      .map(d => data.map(_.right.flatMap(d.decode)))
+    decoder
+      .map(d => data.map(_.flatMap(d.decode)))
       .left
       .map(error => ResourceIterator(ReadResult.failure(error)))
       .merge

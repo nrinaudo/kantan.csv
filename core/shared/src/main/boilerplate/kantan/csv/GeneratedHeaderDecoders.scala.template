@@ -31,9 +31,9 @@ trait GeneratedHeaderDecoders {
    * }}}
    *
    */
-  def decoder[[#A1: CellDecoder#], R]([#f1: String#])(f: ([#A1#]) ⇒ R): HeaderDecoder[R] = new HeaderDecoder[R] {
+  def decoder[[#A1: CellDecoder#], R]([#f1: String#])(f: ([#A1#]) => R): HeaderDecoder[R] = new HeaderDecoder[R] {
     override def fromHeader(header: Seq[String]): DecodeResult[RowDecoder[R]] =
-      HeaderDecoder.determineRowMappings(Seq([#f1#]), header).right.map(mapping ⇒ RowDecoder.decoder([#mapping(0)#])(f))
+      HeaderDecoder.determineRowMappings(Seq([#f1#]), header).map(mapping => RowDecoder.decoder([#mapping(0)#])(f))
     override def noHeader = RowDecoder.ordered(f)
   }#
 

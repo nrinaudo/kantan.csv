@@ -27,7 +27,7 @@ import kantan.csv.engine.WriterEngine
   *
   * See the [[CsvSink companion object]] for default implementations and construction methods.
   */
-trait CsvSink[-S] extends Serializable { self =>
+trait CsvSink[-S] extends VersionSpecificCsvSink[S] with Serializable { self =>
 
   /** Opens a `Writer` on the specified `S`. */
   def open(s: S): Writer
@@ -43,21 +43,6 @@ trait CsvSink[-S] extends Serializable { self =>
     */
   def writer[A: HeaderEncoder](s: S, conf: CsvConfiguration)(implicit e: WriterEngine): CsvWriter[A] =
     CsvWriter(open(s), conf)
-
-  @deprecated("use write(S, TraversableOnce[A], CsvConfiguration) instead", "0.1.18")
-  def write[A: HeaderEncoder](s: S, rows: TraversableOnce[A], sep: Char, header: String*)(
-    implicit e: WriterEngine
-  ): Unit =
-    write(s, rows, rfc.withCellSeparator(sep).withHeader(header: _*))
-
-  /** Writes the specified collections directly in the specifie `S`.
-    *
-    * @param s where to write the CSV data.
-    * @param rows CSV data to encode and serialise.
-    * @param conf CSV writing behaviour.
-    */
-  def write[A: HeaderEncoder](s: S, rows: TraversableOnce[A], conf: CsvConfiguration)(implicit e: WriterEngine): Unit =
-    writer(s, conf).write(rows).close()
 
   /** Turns a `CsvSink[S]` into a `CsvSink[T]`.
     *
@@ -95,7 +80,15 @@ object CsvSink {
   }
 
   // TODO: unsafe, unacceptable, what was I thinking.
-  @SuppressWarnings(Array("org.wartremover.warts.EitherProjectionPartial"))
+  @SuppressWarnings(Array("org.wartremover.warts.StringPlusAny"))
   implicit def fromResource[A: WriterResource]: CsvSink[A] =
-    CsvSink.from(a => WriterResource[A].open(a).right.get)
+    CsvSink.from(
+      a =>
+        WriterResource[A]
+          .open(a)
+          .fold(
+            error => sys.error(s"Failed to open resource $a: $error"),
+            w => w
+          )
+    )
 }

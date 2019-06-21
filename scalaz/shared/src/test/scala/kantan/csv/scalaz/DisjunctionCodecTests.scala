@@ -23,6 +23,14 @@ import laws.discipline._
 
 class DisjunctionCodecTests extends DisciplineSuite {
 
+  import org.scalacheck.Arbitrary
+  import kantan.csv.laws._
+
+  // These 2 implicits are not found in 2.13. I'm not sure why - it *might* have to do with the change in import
+  // statements behaviour?
+  implicit val ai: Arbitrary[IllegalRow[(Int, Int, Int) \/ (Boolean, Float)]] = arbIllegalValueFromDec
+  implicit val al: Arbitrary[LegalRow[(Int, Int, Int) \/ (Boolean, Float)]]   = arbLegalValueFromEnc
+
   checkAll("Int \\/ Boolean", CellCodecTests[Int \/ Boolean].codec[Byte, Float])
   checkAll(
     "(Int, Int, Int) \\/ (Boolean, Float)",

@@ -33,7 +33,7 @@ import engine.WriterEngine
   *   f.writeCsv[List[Int]](List(List(1, 2, 3), List(4, 5, 6)), ',', true)
   * }}}
   */
-final class CsvSinkOps[A: CsvSink](val a: A) {
+final class CsvSinkOps[A: CsvSink](val a: A) extends VersionSpecificCsvSinkOps[A] {
   @deprecated("use asCsvWriter(CsvConfiguration) instead", "0.1.18")
   def asCsvWriter[B: HeaderEncoder](sep: Char, header: String*)(implicit e: WriterEngine): CsvWriter[B] =
     asCsvWriter(rfc.withCellSeparator(sep).withHeader(header: _*))
@@ -41,15 +41,6 @@ final class CsvSinkOps[A: CsvSink](val a: A) {
   /** Shorthand for [[CsvSink.writer[A](s:S,conf:kantan\.csv\.CsvConfiguration* CsvSink.writer]]. */
   def asCsvWriter[B: HeaderEncoder](conf: CsvConfiguration)(implicit e: WriterEngine): CsvWriter[B] =
     CsvSink[A].writer(a, conf)
-
-  @deprecated("use writeCsv(rows, CsvConfiguration) instead", "0.1.18")
-  def writeCsv[B: HeaderEncoder](rows: TraversableOnce[B], sep: Char, header: String*)(implicit e: WriterEngine): Unit =
-    writeCsv(rows, rfc.withCellSeparator(sep).withHeader(header: _*))
-
-  /** Shorthand for [[CsvSink.write[A](s:S,rows:TraversableOnce[A],conf:kantan\.csv\.CsvConfiguration)* CSvSink.write]].
-    */
-  def writeCsv[B: HeaderEncoder](rows: TraversableOnce[B], conf: CsvConfiguration)(implicit e: WriterEngine): Unit =
-    CsvSink[A].write(a, rows, conf)
 }
 
 trait ToCsvSinkOps {

@@ -38,9 +38,6 @@ class Encoding {
   def kantanCommons: String = Encoding.kantan(rawData)(kantan.csv.engine.commons.commonsCsvWriterEngine)
 
   @Benchmark
-  def productCollections: String = Encoding.productCollections(rawData)
-
-  @Benchmark
   def opencsv: String = Encoding.opencsv(rawData)
 
   @Benchmark
@@ -62,22 +59,15 @@ object Encoding {
 
   def kantan(data: List[CsvEntry])(implicit engine: WriterEngine): String = data.asCsv(rfc)
 
-  def productCollections(data: List[CsvEntry]): String = {
-    val out = new StringWriter()
-    com.github.marklister.collections.io.Utils.CsvOutput(data).writeCsv(out, ",")
-    out.close()
-    out.toString
-  }
-
   def opencsv(data: List[CsvEntry]): String = {
-    import com.opencsv.{CSVWriter => OCSVWriter}
+    import com.opencsv.{CSVWriter => OCSVWriter, ICSVWriter}
     val out = new StringWriter()
     val writer = new OCSVWriter(
       out,
       ',',
-      OCSVWriter.DEFAULT_QUOTE_CHARACTER,
-      OCSVWriter.DEFAULT_ESCAPE_CHARACTER,
-      OCSVWriter.DEFAULT_LINE_END
+      ICSVWriter.DEFAULT_QUOTE_CHARACTER,
+      ICSVWriter.DEFAULT_ESCAPE_CHARACTER,
+      ICSVWriter.DEFAULT_LINE_END
     )
     write(data)(a => writer.writeNext(a))
     writer.close()

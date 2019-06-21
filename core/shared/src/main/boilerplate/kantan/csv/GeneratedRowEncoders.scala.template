@@ -25,15 +25,15 @@ trait GeneratedRowEncoders {
     * {{{
     * scala> case class Ints(i1: Int)
     *
-    * scala> RowEncoder.encoder((is: Ints) ⇒ (is.i1)).encode(Ints(1))
+    * scala> RowEncoder.encoder((is: Ints) => (is.i1)).encode(Ints(1))
     * res0: Seq[String] = List(1)
     * }}}
     *
     * @param f encoding function.
     * @param i1 index of the cell that should be passed as parameter number 1 of `f`#
     */
-  def encoder[C, A1: CellEncoder](f: C ⇒ A1): RowEncoder[C] =
-    RowEncoder.from(c ⇒ List(CellEncoder[A1].encode(f(c))))
+  def encoder[C, A1: CellEncoder](f: C => A1): RowEncoder[C] =
+    RowEncoder.from(c => List(CellEncoder[A1].encode(f(c))))
 
   [2..#/** Creates a new [[RowEncoder]] from the specified function.
     *
@@ -41,22 +41,22 @@ trait GeneratedRowEncoders {
     * {{{
     * scala> case class Ints([#i1: Int#])
     *
-    * scala> RowEncoder.encoder([#0#])((is: Ints) ⇒ ([#is.i1#])).encode(Ints([#1#]))
-    * res0: Seq[String] = WrappedArray([#1#])
+    * scala> RowEncoder.encoder([#0#])((is: Ints) => ([#is.i1#])).encode(Ints([#1#]))
+    * res0: Seq[String] = Vector([#1#])
     * }}}
     *
     * @param f encoding function.
     [#* @param i1 index of the cell that should be passed as parameter number 1 of `f`#
     ]
     */
-  def encoder[C, [#A1: CellEncoder#]]([#i1: Int#])(f: C ⇒ Tuple1[[#A1#]]): RowEncoder[C] =
-    RowEncoder.from { c ⇒
+  def encoder[C, [#A1: CellEncoder#]]([#i1: Int#])(f: C => Tuple1[[#A1#]]): RowEncoder[C] =
+    RowEncoder.from { c =>
       val e = f(c)
       val dest = new Array[String](1)
 
       [#dest(i1) = CellEncoder[A1].encode(e._1)#
       ]
-      dest.toSeq
+      dest.toVector
     }#
   ]
 
@@ -66,12 +66,12 @@ trait GeneratedRowEncoders {
     * {{{
     * scala> case class Ints(i1: Int)
     *
-    * scala> RowEncoder.ordered((is: Ints) ⇒ (is.i1)).encode(Ints(1))
+    * scala> RowEncoder.ordered((is: Ints) => (is.i1)).encode(Ints(1))
     * res0: Seq[String] = List(1)
     * }}}
     *
     */
-  def ordered[C, A1: CellEncoder](f: C ⇒ A1): RowEncoder[C] =
+  def ordered[C, A1: CellEncoder](f: C => A1): RowEncoder[C] =
     encoder(f)
 
   [2..#/** Creates a new [[RowEncoder]] from the specified function.
@@ -80,19 +80,16 @@ trait GeneratedRowEncoders {
     * {{{
     * scala> case class Ints([#i1: Int#])
     *
-    * scala> RowEncoder.ordered((is: Ints) ⇒ ([#is.i1#])).encode(Ints([#1#]))
-    * res0: Seq[String] = WrappedArray([#1#])
+    * scala> RowEncoder.ordered((is: Ints) => ([#is.i1#])).encode(Ints([#1#]))
+    * res0: Seq[String] = Vector([#1#])
     * }}}
     *
     */
-  def ordered[C, [#A1: CellEncoder#]](f: C ⇒ Tuple1[[#A1#]]): RowEncoder[C] =
-    RowEncoder.from { c ⇒
+  def ordered[C, [#A1: CellEncoder#]](f: C => Tuple1[[#A1#]]): RowEncoder[C] =
+    RowEncoder.from { c =>
       val e = f(c)
-      val dest = new Array[String](1)
 
-      [#dest(0) = CellEncoder[A1].encode(e._1)#
-      ]
-      dest.toSeq
+      Vector([#CellEncoder[A1].encode(e._1)# ,])
     }#
   ]
 
@@ -111,7 +108,7 @@ trait GeneratedRowEncoders {
     *
     * @param f encoding method, intended to be a case class' `unapply` method.
     * @param i1 index of the cell that should be passed as parameter number 1 of `f`#
-    */  def caseEncoder[C, A1: CellEncoder](f: C ⇒ Option[A1]): RowEncoder[C] =
+    */  def caseEncoder[C, A1: CellEncoder](f: C => Option[A1]): RowEncoder[C] =
     encoder(f andThen (_.get))
 
   [2..#/** Creates a new [[RowEncoder]] from the specified `unapply` method of a case class' companion object.
@@ -124,14 +121,14 @@ trait GeneratedRowEncoders {
     * scala> case class Ints([#i1: Int#])
     *
     * scala> RowEncoder.caseEncoder([#0#])(Ints.unapply _).encode(Ints([#1#]))
-    * res0: Seq[String] = WrappedArray([#1#])
+    * res0: Seq[String] = Vector([#1#])
     * }}}
     *
     * @param f encoding method, intended to be a case class' `unapply` method.
     [#* @param i1 index of the cell that should be passed as parameter number 1 of `f`#
     ]
     */
-    def caseEncoder[C, [#A1: CellEncoder#]]([#i1: Int#])(f: C ⇒ Option[Tuple1[[#A1#]]]): RowEncoder[C] =
+    def caseEncoder[C, [#A1: CellEncoder#]]([#i1: Int#])(f: C => Option[Tuple1[[#A1#]]]): RowEncoder[C] =
       encoder([#i1#])(f andThen (_.get))#
   ]
 
@@ -150,7 +147,7 @@ trait GeneratedRowEncoders {
     *
     * Consider using the `generics` kantan.csv module instead: it can automatically derive instances for this use case.
     */
-  def caseOrdered[C, A1: CellEncoder](f: C ⇒ Option[A1]): RowEncoder[C] =
+  def caseOrdered[C, A1: CellEncoder](f: C => Option[A1]): RowEncoder[C] =
     encoder(f andThen (_.get))
 
   [2..#/** Creates a new [[RowEncoder]] from the specified `unapply` method of a case class' companion object.
@@ -163,12 +160,12 @@ trait GeneratedRowEncoders {
     * scala> case class Ints([#i1: Int#])
     *
     * scala> RowEncoder.caseOrdered(Ints.unapply _).encode(Ints([#1#]))
-    * res0: Seq[String] = WrappedArray([#1#])
+    * res0: Seq[String] = Vector([#1#])
     * }}}
     *
     * Consider using the `generics` kantan.csv module instead: it can automatically derive instances for this use case.
     */
-    def caseOrdered[C, [#A1: CellEncoder#]](f: C ⇒ Option[Tuple1[[#A1#]]]): RowEncoder[C] =
+    def caseOrdered[C, [#A1: CellEncoder#]](f: C => Option[Tuple1[[#A1#]]]): RowEncoder[C] =
       ordered(f andThen (_.get))#
   ]
 }

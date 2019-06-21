@@ -19,10 +19,11 @@ package kantan.csv
 import DecodeError.TypeError
 import ParseError.IOError
 import laws.discipline.arbitrary._
-import org.scalatest.{FunSuite, Matchers}
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
-class ErrorTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
+class ErrorTests extends AnyFunSuite with ScalaCheckPropertyChecks with Matchers {
   test("TypeErrors should be equal if the underlying errors are the same") {
     forAll { (e1: TypeError, e2: ReadError) =>
       (e1, e2) match {

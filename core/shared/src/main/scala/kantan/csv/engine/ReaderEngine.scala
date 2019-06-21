@@ -33,7 +33,7 @@ trait ReaderEngine {
 
   /** Turns the specified `Reader` into a safe [[CsvReader]]. */
   def readerFor(reader: => Reader, conf: CsvConfiguration): CsvReader[ReadResult[Seq[String]]] =
-    ParseResult(unsafeReaderFor(reader, conf)).right
+    ParseResult(unsafeReaderFor(reader, conf))
       .map(_.safe(ParseError.NoSuchElement: ParseError)(e => ParseError.IOError(e)))
       .left
       .map(e => ResourceIterator(ReadResult.failure(e)))

@@ -27,7 +27,7 @@ trait GeneratedRowCodecs {
    * {{{
    * scala> case class Ints(i1: Int)
    *
-   * scala> val codec = RowCodec.codec(Ints.apply _)((is: Ints) ⇒ (is.i1))
+   * scala> val codec = RowCodec.codec(Ints.apply _)((is: Ints) => (is.i1))
    *
    * scala> codec.encode(Ints(1))
    * res0: Seq[String] = List(1)
@@ -36,7 +36,7 @@ trait GeneratedRowCodecs {
    * res1: DecodeResult[Ints] = Right(Ints(1))
    * }}}
    */
-  def codec[C, A1: CellEncoder: CellDecoder](f: A1 ⇒ C)(g: C ⇒ A1): RowCodec[C] =
+  def codec[C, A1: CellEncoder: CellDecoder](f: A1 => C)(g: C => A1): RowCodec[C] =
     combine(RowDecoder.decoder(0)(f))(RowEncoder.encoder(g))
 
   [2..#/** Creates a new [[RowCodec]] instance from the specified encoding and decoding functions.
@@ -45,10 +45,10 @@ trait GeneratedRowCodecs {
     * {{{
     * scala> case class Ints([#i1: Int#])
     *
-    * scala> val codec = RowCodec.codec([#0#])(Ints.apply _)((is: Ints) ⇒ ([#is.i1#]))
+    * scala> val codec = RowCodec.codec([#0#])(Ints.apply _)((is: Ints) => ([#is.i1#]))
     *
     * scala> codec.encode(Ints([#1#]))
-    * res0: Seq[String] = WrappedArray([#1#])
+    * res0: Seq[String] = Vector([#1#])
     *
     * scala> codec.decode(Seq([#"1"#]))
     * res1: DecodeResult[Ints] = Right(Ints([#1#,]))
@@ -60,7 +60,7 @@ trait GeneratedRowCodecs {
     *           the value returned by `g`#
     ]
     */
-  def codec[C, [#A1: CellEncoder: CellDecoder#]]([#i1: Int#])(f: ([#A1#]) ⇒ C)(g: C ⇒ ([#A1#])): RowCodec[C] =
+  def codec[C, [#A1: CellEncoder: CellDecoder#]]([#i1: Int#])(f: ([#A1#]) => C)(g: C => ([#A1#])): RowCodec[C] =
     combine(RowDecoder.decoder([#i1#])(f))(RowEncoder.encoder([#i1#])(g))#
   ]
 
@@ -70,7 +70,7 @@ trait GeneratedRowCodecs {
     * {{{
     * scala> case class Ints(i1: Int)
     *
-    * scala> val codec = RowCodec.ordered(Ints.apply _)((is: Ints) ⇒ (is.i1))
+    * scala> val codec = RowCodec.ordered(Ints.apply _)((is: Ints) => (is.i1))
     *
     * scala> codec.encode(Ints(1))
     * res0: Seq[String] = List(1)
@@ -82,7 +82,7 @@ trait GeneratedRowCodecs {
     * @param f encoding function.
     * @param g decoding function.
     */
-  def ordered[C, A1: CellEncoder: CellDecoder](f: A1 ⇒ C)(g: C ⇒ A1): RowCodec[C] =
+  def ordered[C, A1: CellEncoder: CellDecoder](f: A1 => C)(g: C => A1): RowCodec[C] =
     combine(RowDecoder.decoder(0)(f))(RowEncoder.encoder(g))
 
   [2..#/** Creates a new [[RowCodec]] instance from the specified encoding and decoding functions.
@@ -91,10 +91,10 @@ trait GeneratedRowCodecs {
     * {{{
     * scala> case class Ints([#i1: Int#])
     *
-    * scala> val codec = RowCodec.ordered(Ints.apply _)((is: Ints) ⇒ ([#is.i1#]))
+    * scala> val codec = RowCodec.ordered(Ints.apply _)((is: Ints) => ([#is.i1#]))
     *
     * scala> codec.encode(Ints([#1#]))
-    * res0: Seq[String] = WrappedArray([#1#])
+    * res0: Seq[String] = Vector([#1#])
     *
     * scala> codec.decode(Seq([#"1"#]))
     * res1: DecodeResult[Ints] = Right(Ints([#1#,]))
@@ -104,7 +104,7 @@ trait GeneratedRowCodecs {
     * @param g decoding function.
     ]
     */
-  def ordered[C, [#A1: CellEncoder: CellDecoder#]](f: ([#A1#]) ⇒ C)(g: C ⇒ ([#A1#])): RowCodec[C] =
+  def ordered[C, [#A1: CellEncoder: CellDecoder#]](f: ([#A1#]) => C)(g: C => ([#A1#])): RowCodec[C] =
     combine(RowDecoder.ordered(f))(RowEncoder.ordered(g))#
   ]
 
@@ -126,7 +126,7 @@ trait GeneratedRowCodecs {
     * res1: DecodeResult[Ints] = Right(Ints(1))
     * }}}
     */
-  def caseCodec[C, A1: CellEncoder : CellDecoder](f: A1 ⇒ C)(g: C ⇒ Option[A1]): RowCodec[C] =
+  def caseCodec[C, A1: CellEncoder : CellDecoder](f: A1 => C)(g: C => Option[A1]): RowCodec[C] =
     combine(RowDecoder.decoder(0)(f))(RowEncoder.caseEncoder(g))
 
   [2..#/** Creates a new [[RowCodec]] instance for the specified encoding and decoding functions.
@@ -141,13 +141,13 @@ trait GeneratedRowCodecs {
     * scala> val codec = RowCodec.caseCodec([#0#])(Ints.apply _)(Ints.unapply _)
     *
     * scala> codec.encode(Ints([#1#]))
-    * res0: Seq[String] = WrappedArray([#1#])
+    * res0: Seq[String] = Vector([#1#])
     *
     * scala> codec.decode(Seq([#"1"#]))
     * res1: DecodeResult[Ints] = Right(Ints([#1#,]))
     * }}}
     */
-  def caseCodec[C, [#A1: CellEncoder : CellDecoder#]]([#i1: Int#])(f: ([#A1#]) ⇒ C)(g: C ⇒ Option[Tuple1[[#A1#]]]): RowCodec[C] =
+  def caseCodec[C, [#A1: CellEncoder : CellDecoder#]]([#i1: Int#])(f: ([#A1#]) => C)(g: C => Option[Tuple1[[#A1#]]]): RowCodec[C] =
     combine(RowDecoder.decoder([#i1#])(f))(RowEncoder.caseEncoder([#i1#])(g))#
   ]
 
@@ -169,7 +169,7 @@ trait GeneratedRowCodecs {
     * res1: DecodeResult[Ints] = Right(Ints(1))
     * }}}
     */
-  def caseOrdered[C, A1: CellEncoder : CellDecoder](f: A1 ⇒ C)(g: C ⇒ Option[A1]): RowCodec[C] =
+  def caseOrdered[C, A1: CellEncoder : CellDecoder](f: A1 => C)(g: C => Option[A1]): RowCodec[C] =
     combine(RowDecoder.ordered(f))(RowEncoder.caseOrdered(g))
 
   [2..#/** Creates a new [[RowCodec]] instance for the specified encoding and decoding functions.
@@ -184,13 +184,13 @@ trait GeneratedRowCodecs {
     * scala> val codec = RowCodec.caseOrdered(Ints.apply _)(Ints.unapply _)
     *
     * scala> codec.encode(Ints([#1#]))
-    * res0: Seq[String] = WrappedArray([#1#])
+    * res0: Seq[String] = Vector([#1#])
     *
     * scala> codec.decode(Seq([#"1"#]))
     * res1: DecodeResult[Ints] = Right(Ints([#1#,]))
     * }}}
     */
-  def caseOrdered[C, [#A1: CellEncoder : CellDecoder#]](f: ([#A1#]) ⇒ C)(g: C ⇒ Option[Tuple1[[#A1#]]]): RowCodec[C] =
+  def caseOrdered[C, [#A1: CellEncoder : CellDecoder#]](f: ([#A1#]) => C)(g: C => Option[Tuple1[[#A1#]]]): RowCodec[C] =
     combine(RowDecoder.ordered(f))(RowEncoder.caseOrdered(g))#
   ]
 }

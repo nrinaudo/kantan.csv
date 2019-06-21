@@ -19,11 +19,12 @@ package kantan.csv
 import java.io._
 import laws.discipline.arbitrary._
 import ops._
-import org.scalatest.{FunSuite, Matchers}
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import scala.io.Codec
 
-class CsvSinkTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
+class CsvSinkTests extends AnyFunSuite with ScalaCheckPropertyChecks with Matchers {
   test("CSV data should be correctly written to an output stream (bit by bit)") {
     forAll(csv) { csv =>
       val out = new ByteArrayOutputStream()

@@ -229,7 +229,7 @@ private[engine] class InternalReader private (
     else throw new NoSuchElementException
 
     hasNextChar
-    row
+    row.toSeq
   }
   override def release() = data.close()
 }

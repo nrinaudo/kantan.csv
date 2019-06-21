@@ -38,7 +38,7 @@ object DecodeError {
     *
     * @param index index that caused the issue.
     */
-  final case class OutOfBounds(index: Int) extends DecodeError(s"$index is not a valid index")
+  final case class OutOfBounds(index: Int) extends DecodeError(s"${index.toString} is not a valid index")
 
   /** Error that occurs when attempting to decode a CSV cell or row into an incompatible type.
     *
