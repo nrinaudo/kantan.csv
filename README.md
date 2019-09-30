@@ -10,7 +10,7 @@ as a simple iterator.
 
 As much as possible, kantan.csv attempts to present a purely functional and safe interface to users. I've not hesitated
 to violate these principles *internally* however, when it afforded better performances. This approach appears to be
-[somewhat successful](https://nrinaudo.github.io/kantan.csv/tut/benchmarks.html).
+[somewhat successful](https://nrinaudo.github.io/kantan.csv/benchmarks.html).
 
 Documentation and tutorials are available on the [companion site](https://nrinaudo.github.io/kantan.csv/), but for those
 looking for a few quick examples:
