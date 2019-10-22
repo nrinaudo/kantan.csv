@@ -19,10 +19,10 @@ package engine
 package commons
 
 import laws.discipline.WriterEngineTests
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
-class CommonsWriterTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class CommonsWriterTests extends AnyFunSuite with ScalaCheckPropertyChecks with Discipline {
   checkAll("CommonsWriter", WriterEngineTests(commonsCsvWriterEngine).writerEngine)
 }

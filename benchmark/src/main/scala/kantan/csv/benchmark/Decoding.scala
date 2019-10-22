@@ -37,9 +37,6 @@ class Decoding {
   def kantanCommons: List[CsvEntry] = Decoding.kantan(strData)(kantan.csv.engine.commons.commonsCsvReaderEngine)
 
   @Benchmark
-  def productCollections: List[CsvEntry] = Decoding.productCollections(strData)
-
-  @Benchmark
   def opencsv: List[CsvEntry] = Decoding.opencsv(strData)
 
   @Benchmark
@@ -75,14 +72,6 @@ object Decoding {
   // -------------------------------------------------------------------------------------------------------------------
   def kantan(str: String)(implicit e: ReaderEngine): List[CsvEntry] =
     CsvSource[String].unsafeReader[CsvEntry](str, rfc).toList
-
-  // Note: we must call trim on the input since product-collections does not accept the last row ending with a line
-  // break. I believe that to be a bug.
-  def productCollections(str: String): List[CsvEntry] =
-    com.github.marklister.collections.io
-      .CsvParser[Int, String, Boolean, Float]
-      .iterator(new StringReader(str.trim))
-      .toList
 
   def opencsv(str: String): List[CsvEntry] =
     new CsvIterator(new com.opencsv.CSVReader(new StringReader(str)))(_.readNext()).toList

@@ -18,7 +18,7 @@ package kantan.csv
 package ops
 
 import engine.ReaderEngine
-import scala.collection.generic.CanBuildFrom
+import kantan.codecs.collection._
 
 /** Provides useful syntax for types that have implicit instances of [[CsvSource]] in scope.
   *
@@ -99,7 +99,7 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
   def readCsv[C[_], B: HeaderDecoder](
     sep: Char,
     header: Boolean
-  )(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, ReadResult[B], C[ReadResult[B]]]): C[ReadResult[B]] =
+  )(implicit e: ReaderEngine, factory: Factory[ReadResult[B], C[ReadResult[B]]]): C[ReadResult[B]] =
     readCsv(rfc.withCellSeparator(sep).withHeader(header))
 
   /** Reads the underlying resource as a CSV stream.
@@ -126,15 +126,15 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
     */
   def readCsv[C[_], B: HeaderDecoder](
     conf: CsvConfiguration
-  )(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, ReadResult[B], C[ReadResult[B]]]): C[ReadResult[B]] =
+  )(implicit e: ReaderEngine, factory: Factory[ReadResult[B], C[ReadResult[B]]]): C[ReadResult[B]] =
     CsvSource[A].read[C, B](a, conf)
 
   @deprecated("use unsafeReadCsv(CsvConfiguration) instead", "0.1.18")
   def unsafeReadCsv[C[_], B: HeaderDecoder](
     sep: Char,
     header: Boolean
-  )(e: ReaderEngine, cbf: CanBuildFrom[Nothing, B, C[B]]): C[B] =
-    unsafeReadCsv(rfc.withCellSeparator(sep).withHeader(header))(HeaderDecoder[B], e, cbf)
+  )(e: ReaderEngine, factory: Factory[B, C[B]]): C[B] =
+    unsafeReadCsv(rfc.withCellSeparator(sep).withHeader(header))(HeaderDecoder[B], e, factory)
 
   /** Reads the underlying resource as a CSV stream (unsafely).
     *
@@ -160,7 +160,7 @@ final class CsvSourceOps[A: CsvSource](val a: A) {
     */
   def unsafeReadCsv[C[_], B: HeaderDecoder](
     conf: CsvConfiguration
-  )(implicit e: ReaderEngine, cbf: CanBuildFrom[Nothing, B, C[B]]): C[B] =
+  )(implicit e: ReaderEngine, factory: Factory[B, C[B]]): C[B] =
     CsvSource[A].unsafeRead[C, B](a, conf)
 }
 

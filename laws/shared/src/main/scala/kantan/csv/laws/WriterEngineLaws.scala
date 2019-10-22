@@ -24,7 +24,7 @@ trait WriterEngineLaws extends RfcWriterLaws {
   def quoteAll(csv: List[List[Int]]): Boolean = {
     val data = csv.filter(_.nonEmpty)
 
-    data.asCsv(rfc.quoteAll).trim == data.map(_.map(i => s""""$i"""").mkString(",")).mkString("\r\n")
+    data.asCsv(rfc.quoteAll).trim == data.map(_.map(i => s""""${i.toString}"""").mkString(",")).mkString("\r\n")
   }
 
   def columnSeparator(csv: List[List[Cell]], c: Char): Boolean =

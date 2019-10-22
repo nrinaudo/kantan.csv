@@ -31,9 +31,9 @@ trait GeneratedRowDecoders {
     [#* @param i1 index of the cell that should be passed as parameter number 1 of `f`#
     ]
     */
-  def decoder[[#A1: CellDecoder#], R]([#i1: Int#])(f: ([#A1#]) ⇒ R): RowDecoder[R] =
-    RowDecoder.from(ss ⇒ for {
-      [#f1 ← RowDecoder.decodeCell[A1](ss, i1).right#
+  def decoder[[#A1: CellDecoder#], R]([#i1: Int#])(f: ([#A1#]) => R): RowDecoder[R] =
+    RowDecoder.from(ss => for {
+      [#f1 <- RowDecoder.decodeCell[A1](ss, i1)#
       ]
     } yield f([#f1#]))#
 
@@ -52,7 +52,7 @@ trait GeneratedRowDecoders {
     * }}}
     *
     */
-  def ordered[[#A1: CellDecoder#], R](f: ([#A1#]) ⇒ R): RowDecoder[R] =
+  def ordered[[#A1: CellDecoder#], R](f: ([#A1#]) => R): RowDecoder[R] =
       decoder([#0#])(f)#
 
   ]

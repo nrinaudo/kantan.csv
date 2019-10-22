@@ -21,7 +21,8 @@ package discipline
 import engine.ReaderEngine
 import org.scalacheck.Prop, Prop._
 
-trait ReaderEngineTests extends RfcReaderTests with SpectrumReaderTests with KnownFormatsReaderTests {
+trait ReaderEngineTests
+    extends RfcReaderTests with SpectrumReaderTests with KnownFormatsReaderTests with VersionSpecificReaderEngineTests {
   def laws: ReaderEngineLaws
 
   def readerEngine: RuleSet = new RuleSet {
@@ -38,15 +39,10 @@ trait ReaderEngineTests extends RfcReaderTests with SpectrumReaderTests with Kno
       "find"                 -> forAll(laws.find _),
       "exists"               -> forAll(laws.exists _),
       "filter"               -> forAll(laws.filter _),
-      "withFilter"           -> forAll(laws.withFilter _),
-      "toStream"             -> forAll(laws.toStream _),
       "next on empty"        -> forAll(laws.nextOnEmpty _),
       "next on empty (take)" -> forAll(laws.nextOnEmptyTake _),
-      "toTraversable"        -> forAll(laws.toTraversable _),
-      "toIterator"           -> forAll(laws.toIterator _),
       "hasDefiniteSize"      -> forAll(laws.hasDefiniteSize _),
-      "isEmpty"              -> forAll(laws.toTraversable _),
-      "copyToArray"          -> forAll(laws.copyToArray _),
+      "isEmpty"              -> forAll(laws.isEmpty _),
       "isTraversableAgain"   -> forAll(laws.isTraversableAgain _)
     )
   }

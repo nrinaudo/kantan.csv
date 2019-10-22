@@ -19,10 +19,10 @@ package engine
 package jackson
 
 import laws.discipline.ReaderEngineTests
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
-class JacksonReaderTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class JacksonReaderTests extends AnyFunSuite with ScalaCheckPropertyChecks with Discipline {
   checkAll("JacksonReader", ReaderEngineTests(jacksonCsvReaderEngine).readerEngine)
 }

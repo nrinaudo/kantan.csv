@@ -20,11 +20,12 @@ package ops
 import kantan.codecs.laws.CodecValue
 import laws._
 import laws.discipline.arbitrary._
-import org.scalatest.{FunSuite, Matchers}
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import scala.util.Try
 
-class CsvSourceOpsTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
+class CsvSourceOpsTests extends AnyFunSuite with ScalaCheckPropertyChecks with Matchers {
   type TestCase = (Int, Float, String, Boolean)
 
   def compare[F, A](csv: List[Either[F, A]], data: List[RowValue[A]]): Unit = {
@@ -68,7 +69,7 @@ class CsvSourceOpsTests extends FunSuite with GeneratorDrivenPropertyChecks with
     Try(csv) match {
       case scala.util.Success(is) => cmp(is, data)
       case _ =>
-        data.filter(_.isIllegal) should not be ('empty)
+        data.filter(_.isIllegal).nonEmpty should be(true)
         ()
     }
   }

@@ -18,14 +18,14 @@ package kantan.csv
 
 trait GeneratedHeaderCodecs {
   [#
-  def codec[[#A1: CellEncoder: CellDecoder#], C]([#f1: String#])(f: ([#A1#]) ⇒ C)(g: C ⇒ ([#A1#])): HeaderCodec[C] =
+  def codec[[#A1: CellEncoder: CellDecoder#], C]([#f1: String#])(f: ([#A1#]) => C)(g: C => ([#A1#])): HeaderCodec[C] =
     HeaderCodec.from(HeaderDecoder.decoder([#f1#])(f))(HeaderEncoder.encoder([#f1#])(g))
   #
 
   ]
 
   [#
-  def caseCodec[[#A1: CellEncoder: CellDecoder#], C]([#f1: String#])(f: ([#A1#]) ⇒ C)(g: C ⇒ Option[([#A1#])]): HeaderCodec[C] =
+  def caseCodec[[#A1: CellEncoder: CellDecoder#], C]([#f1: String#])(f: ([#A1#]) => C)(g: C => Option[([#A1#])]): HeaderCodec[C] =
     HeaderCodec.from(HeaderDecoder.decoder([#f1#])(f))(HeaderEncoder.caseEncoder([#f1#])(g))
   #
 

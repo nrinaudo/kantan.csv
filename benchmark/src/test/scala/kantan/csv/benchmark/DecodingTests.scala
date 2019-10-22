@@ -17,9 +17,10 @@
 package kantan.csv
 package benchmark
 
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
-class DecodingTests extends FunSuite with Matchers {
+class DecodingTests extends AnyFunSuite with Matchers {
   val decoding = new Decoding
 
   test("kantan internal") {
@@ -48,10 +49,6 @@ class DecodingTests extends FunSuite with Matchers {
     assert(decoding.opencsv == rawData)
   }
    */
-
-  test("product-collections") {
-    decoding.productCollections should be(rawData)
-  }
 
   test("univocity") {
     decoding.univocity should be(rawData)

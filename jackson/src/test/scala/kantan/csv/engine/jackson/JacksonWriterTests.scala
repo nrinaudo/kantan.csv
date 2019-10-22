@@ -18,10 +18,10 @@ package kantan.csv.engine
 
 import kantan.csv.engine.jackson._
 import kantan.csv.laws.discipline.WriterEngineTests
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
-class JacksonWriterTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class JacksonWriterTests extends AnyFunSuite with ScalaCheckPropertyChecks with Discipline {
   checkAll("JacksonWriter", WriterEngineTests(jacksonCsvWriterEngine).writerEngine)
 }

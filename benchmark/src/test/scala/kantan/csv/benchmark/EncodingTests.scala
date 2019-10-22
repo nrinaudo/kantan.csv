@@ -18,9 +18,10 @@ package kantan.csv
 package benchmark
 
 import ops._
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
-class EncodingTests extends FunSuite with Matchers {
+class EncodingTests extends AnyFunSuite with Matchers {
   val encoding = new Encoding
 
   def decode(str: String): List[CsvEntry] = str.unsafeReadCsv[List, CsvEntry](rfc)
@@ -47,10 +48,6 @@ class EncodingTests extends FunSuite with Matchers {
 
   test("opencsv") {
     decode(encoding.opencsv) should be(rawData)
-  }
-
-  test("product-collections") {
-    decode(encoding.productCollections) should be(rawData)
   }
 
   test("univocity") {

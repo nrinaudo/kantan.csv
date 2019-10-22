@@ -16,9 +16,10 @@
 
 package kantan.csv
 
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
-class RegressionTests extends FunSuite with Matchers {
+class RegressionTests extends AnyFunSuite with Matchers {
   // - CellCodec instances for non default types (#36) -----------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   class A
