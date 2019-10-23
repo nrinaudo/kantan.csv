@@ -23,7 +23,7 @@ how to do that.
 You'll first need to add a dependency to the [generic](shapeless.html) module in your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.6.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.6.1-SNAPSHOT"
 ```
 
 Then, with the appropriate imports:

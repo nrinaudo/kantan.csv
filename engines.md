@@ -17,7 +17,7 @@ hood.
 The [jackson csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.6.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.6.1-SNAPSHOT"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -36,7 +36,7 @@ and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson$.html#
 The [commons csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.6.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.6.1-SNAPSHOT"
 ```
 
 You then need to bring the right implicits in scope through:
