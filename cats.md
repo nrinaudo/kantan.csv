@@ -1,16 +1,17 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Cats module"
-section: tutorial
+section: scala mdocorial
 sort_order: 23
 ---
+
 Kantan.csv has a [cats](https://github.com/typelevel/cats) module that is, in its current incarnation, fairly bare
 bones: it simply provides a few useful type class instances.
 
 The `cats` module can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-cats" % "0.5.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-cats" % "0.6.0"
 ```
 
 You then need to import the corresponding package:
@@ -34,6 +35,7 @@ The following instance for cats type classes are provided:
 [`Show`]:https://typelevel.org/cats/api/cats/Show.html
 [`Eq`]:https://typelevel.org/cats/api/cats/kernel/Eq.html
 [`Contravariant`]:http://typelevel.org/cats/api/cats/Contravariant.html
+
 [`CellEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$CellEncoder.html
 [`CellDecoder`]:{{ site.baseurl }}/api/kantan/csv/CellDecoder$.html
 [`RowDecoder`]:{{ site.baseurl }}/api/kantan/csv/package$$RowDecoder.html

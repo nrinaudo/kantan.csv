@@ -1,9 +1,10 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Generic module"
-section: tutorial
+section: scala mdocorial
 sort_order: 25
 ---
+
 While kantan.csv goes out of its way to provide [default instances](default_instances.html) for as many types as it can,
 some are made problematic by my strict rule against runtime reflection. Fortunately, [shapeless](http://shapeless.io)
 provides _compile time_ reflection, which makes it possible for the `generic` module to automatically derive instances
@@ -12,10 +13,10 @@ for more common types and patterns.
 The `generic` module can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.5.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.6.0"
 ```
 
-Let's first declare the imports we'll need in the rest of this tutorial:
+Let's first declare the imports we'll need in the rest of this scala mdocorial:
 
 ```scala
 import kantan.csv._
@@ -41,14 +42,16 @@ final case class Wrapper[A](a: A)
 We can directly encode from and decode to instances of `Wrapper`:
 
 ```scala
-scala> val decoded = "1, 2, 3\n4, 5, 6".unsafeReadCsv[List, List[Wrapper[Int]]](rfc)
-decoded: List[List[Wrapper[Int]]] = List(List(Wrapper(1), Wrapper(2), Wrapper(3)), List(Wrapper(4), Wrapper(5), Wrapper(6)))
+val decoded1 = "1, 2, 3\n4, 5, 6".unsafeReadCsv[List, List[Wrapper[Int]]](rfc)
+// decoded1: List[List[Wrapper[Int]]] = List(
+//   List(Wrapper(1), Wrapper(2), Wrapper(3)),
+//   List(Wrapper(4), Wrapper(5), Wrapper(6))
+// )
 
-scala> decoded.asCsv(rfc)
-res0: String =
-"1,2,3
-4,5,6
-"
+decoded1.asCsv(rfc)
+// res0: String = """1,2,3
+// 4,5,6
+// """
 ```
 
 ### Sum types
@@ -66,14 +69,16 @@ final case class Right[B](value: B) extends Or[Nothing, B]
 `Right`. This allows us to write:
 
 ```scala
-scala> val decoded = "1,true\nfalse,2".unsafeReadCsv[List, List[Int Or Boolean]](rfc)
-decoded: List[List[Or[Int,Boolean]]] = List(List(Left(1), Right(true)), List(Right(false), Left(2)))
+val decoded2 = "1,true\nfalse,2".unsafeReadCsv[List, List[Int Or Boolean]](rfc)
+// decoded2: List[List[Or[Int, Boolean]]] = List(
+//   List(Left(1), Right(true)),
+//   List(Right(false), Left(2))
+// )
 
-scala> decoded.asCsv(rfc)
-res1: String =
-"1,true
-false,2
-"
+decoded2.asCsv(rfc)
+// res1: String = """1,true
+// false,2
+// """
 ```
 
 ## Rows
@@ -92,14 +97,16 @@ final case class CustomTuple2[A, B](a: A, b: B)
 We can encode from and decode to that type for free:
 
 ```scala
-scala> val decoded = "1,\n2,false".unsafeReadCsv[List, CustomTuple2[Int, Option[Boolean]]](rfc)
-decoded: List[CustomTuple2[Int,Option[Boolean]]] = List(CustomTuple2(1,None), CustomTuple2(2,Some(false)))
+val decoded3 = "1,\n2,false".unsafeReadCsv[List, CustomTuple2[Int, Option[Boolean]]](rfc)
+// decoded3: List[CustomTuple2[Int, Option[Boolean]]] = List(
+//   CustomTuple2(1, None),
+//   CustomTuple2(2, Some(false))
+// )
 
-scala> decoded.asCsv(rfc)
-res2: String =
-"1,
-2,false
-"
+decoded3.asCsv(rfc)
+// res2: String = """1,
+// 2,false
+// """
 ```
 
 It is *very* important to realise that while this is a pretty nice feature, it's also a very limited one. The only
@@ -117,8 +124,11 @@ In the following example:
 * `CustomTuple2[String, Option[Boolean]]` has both, since it's a case class where all fields also do.
 
 ```scala
-scala> "1,true\nfoobar,".unsafeReadCsv[List, (Int, Boolean) Or CustomTuple2[String, Option[Boolean]]](rfc)
-res3: List[Or[(Int, Boolean),CustomTuple2[String,Option[Boolean]]]] = List(Left((1,true)), Right(CustomTuple2(foobar,None)))
+"1,true\nfoobar,".unsafeReadCsv[List, (Int, Boolean) Or CustomTuple2[String, Option[Boolean]]](rfc)
+// res3: List[Or[(Int, Boolean), CustomTuple2[String, Option[Boolean]]]] = List(
+//   Left((1, true)),
+//   Right(CustomTuple2("foobar", None))
+// )
 ```
 
 [`RowDecoder`]:{{ site.baseurl }}/api/kantan/csv/RowDecoder$.html

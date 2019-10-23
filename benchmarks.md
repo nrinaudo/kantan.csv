@@ -5,15 +5,15 @@ title: "Benchmarks"
 
 ## Benchmarked libraries
 
-| Library               | Version  |
-|-----------------------|----------|
-| [commons csv]         |     1.4  |
-| [jackson csv]         |   2.8.9  |
-| [opencsv]             |     3.10 |
-| [product collections] |   1.4.5  |
-| [scala csv]           |   1.3.4  |
-| kantan.csv            |   0.2.0  |
-| [uniVocity]           |   2.4.1  |
+|        Library        | Version |
+|-----------------------|---------|
+| [commons csv]         | 1.4     |
+| [jackson csv]         | 2.8.9   |
+| [opencsv]             | 3.10    |
+| [product collections] | 1.4.5   |
+| [scala csv]           | 1.3.4   |
+| kantan.csv            | 0.2.0   |
+| [uniVocity]           | 2.4.1   |
 
 In order to be included in this benchmark, a library must be:
 
@@ -26,16 +26,19 @@ The first two are purely subjective, but I have actual
 condition, and have disqualified some libraries that I could not get to pass them.
 
 ### opencsv
+
 [opencsv] is an exception to these rules: it does not actually pass the RFC compliance tests. The misbehaviour is so
 minor (quoted CRLFs are transformed in LFs) that I chose to disregard it, however.
 
 ### PureCSV
+
 One library that I wish I could have included is [PureCSV](https://github.com/melrief/PureCSV), if only because
 there should be more pure Scala libraries in there. It failed my tests so utterly however that I had to disqualify it -
 although the results were so bad that I believe they might be my fault rather than the library's. I'll probably give it
 another go for a later benchmark and try to see if I can work around the issues.
 
 ### uniVocity
+
 uniVocity was almost disqualified from the benchmarks because initial performances were atrocious.
 
 I've been in touch with someone from their team though, and he helped me identify what default settings I needed
@@ -48,6 +51,7 @@ in its optimised-for use case. That is to say, the fact that it's not a clear wi
 invalidate [their own results](https://github.com/uniVocity/csv-parsers-comparison).
 
 ## Benchmark tool
+
 All benchmarks were executed through [jmh](http://openjdk.java.net/projects/code-tools/jmh/), a fairly powerful tool
 that helps mitigate various factors that can make results unreliable - unpredictable JIT optimisation, lazy JVM
 initialisations, ...
@@ -57,23 +61,24 @@ alphabetically. Given that [jackson csv] is always executed second and still get
 that's not much of an issue.
 
 ## Reading
+
 Reading is benchmarked by repeatedly parsing a known, simple, RFC-compliant
 [input](https://github.com/nrinaudo/kantan.csv/blob/master/benchmark/src/main/scala/kantan/csv/benchmark/package.scala).
 
 Results are expressed in μs/action, where and action is a complete read of the sample input. This means that the lower
 the number, the better the results.
 
-| Library                  | μs/action |
+|         Library          | μs/action |
 |--------------------------|-----------|
-| [commons csv]            |     58.01 |
-| [jackson csv]            |     27.88 |
-| kantan.csv (commons csv) |     76.93 |
-| kantan.csv (internal)    |     54.65 |
-| kantan.csv (jackson csv) |     47.51 |
-| [opencsv]                |     72.54 |
-| [product collections]    |     53.42 |
-| [scala csv]              |    153.37 |
-| [uniVocity]              |     28.23 |
+| [commons csv]            | 58.01     |
+| [jackson csv]            | 27.88     |
+| kantan.csv (commons csv) | 76.93     |
+| kantan.csv (internal)    | 54.65     |
+| kantan.csv (jackson csv) | 47.51     |
+| [opencsv]                | 72.54     |
+| [product collections]    | 53.42     |
+| [scala csv]              | 153.37    |
+| [uniVocity]              | 28.23     |
 
 A few things are worth pointing out:
 
@@ -84,20 +89,21 @@ A few things are worth pointing out:
 
 
 ## Writing
+
 Writing is benchmarked in a symmetric fashion to reading: the same data is used, but instead of being parsed, it's being
 serialized.
 
-| Library                  | μs/action |
+|         Library          | μs/action |
 |--------------------------|-----------|
-| [commons csv]            |     27.84 |
-| [jackson csv]            |     24.08 |
-| kantan.csv (commons csv) |     33.02 |
-| kantan.csv (internal)    |     30.06 |
-| kantan.csv (jackson csv) |     27.94 |
-| [opencsv]                |     58.47 |
-| [product collections]    |     73.09 |
-| [scala csv]              |     55.10 |
-| [uniVocity]              |     32.63 |
+| [commons csv]            | 27.84     |
+| [jackson csv]            | 24.08     |
+| kantan.csv (commons csv) | 33.02     |
+| kantan.csv (internal)    | 30.06     |
+| kantan.csv (jackson csv) | 27.94     |
+| [opencsv]                | 58.47     |
+| [product collections]    | 73.09     |
+| [scala csv]              | 55.10     |
+| [uniVocity]              | 32.63     |
 
 [commons csv]:https://commons.apache.org/proper/commons-csv/
 [jackson csv]:https://github.com/FasterXML/jackson-dataformat-csv
@@ -105,3 +111,4 @@ serialized.
 [scala csv]:https://github.com/tototoshi/scala-csv
 [uniVocity]:https://github.com/uniVocity/uniVocity-parsers
 [product collections]:https://github.com/marklister/product-collections
+

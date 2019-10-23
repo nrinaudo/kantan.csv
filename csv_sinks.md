@@ -1,10 +1,11 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "What can CSV data be written to?"
-section: tutorial
+section: scala mdocorial
 sort_order: 17
 ---
-All the encoding tutorials, such as [this](serialising_collections.html) one, matter-of-factly call the
+
+All the encoding scala mdocorials, such as [this](serialising_collections.html) one, matter-of-factly call the
 [`asCsvWriter`] method of [`File`], when [`File`] does not in fact have such a method. This works thanks to the
 [`CsvSink`] type class.
 
@@ -15,7 +16,7 @@ useful one is [`File`].
 
 ## Implementation from scratch
 
-Reduced to its simplest expression, a [`CsvSink`] is essentially a `A ⇒ Writer` - that is, a function that takes an
+Reduced to its simplest expression, a [`CsvSink`] is essentially a `A => Writer` - that is, a function that takes an
 `A` and turns it into a [`Writer`] (note that this currently does not leave room for errors and implementations are
 forced to throw. This is something that will be fixed in later releases).
 
@@ -28,7 +29,7 @@ import java.io._
 import scala.io._
 
 implicit def fileOutput(implicit c: Codec): CsvSink[File] =
-  CsvSink.from(f ⇒ new OutputStreamWriter(new FileOutputStream(f), c.charSet))
+  CsvSink.from(f => new OutputStreamWriter(new FileOutputStream(f), c.charSet))
 ```
 
 ## Adapting existing instances
@@ -38,8 +39,11 @@ an instance - in our example, [`File`] can easily be turned into an [`OutputStre
 a [`CsvSink`] instance. This is achieved through [`contramap`]:
 
 ```scala
-implicit def fileOutput(implicit c: Codec): CsvSink[File] =
-  CsvSink[OutputStream].contramap(f ⇒ new FileOutputStream(f))
+import kantan.csv._
+import java.io._
+
+implicit val fileOutput: CsvSink[File] =
+  CsvSink[OutputStream].contramap(f => new FileOutputStream(f))
 ```
 
 

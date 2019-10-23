@@ -1,14 +1,15 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Libra module"
-section: tutorial
+section: scala mdocorial
 sort_order: 30
 ---
+
 kantan.csv comes with a [libra](https://github.com/to-ithaca/libra) module that can be used
 by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-libra" % "0.5.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-libra" % "0.6.0"
 ```
 
 You then need to import the corresponding package:
@@ -33,6 +34,9 @@ type Duration = QuantityOf[Int, Time, Second]
 We can then simply write the following:
 
 ```scala
-scala> "1,2".readCsv[List, (Distance, Duration)](rfc)
-res0: List[kantan.csv.ReadResult[(Distance, Duration)]] = List(Right((Quantity(1),Quantity(2))))
+"1,2".readCsv[List, (Distance, Duration)](rfc)
+// res0: List[ReadResult[(Distance, Duration)]] = List(
+//   Right((Quantity(1), Quantity(2)))
+// )
 ```
+

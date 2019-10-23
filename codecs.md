@@ -1,9 +1,10 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Encoders, decoders and codecs"
-section: tutorial
+section: scala mdocorial
 sort_order: 18
 ---
+
 We've seen how kantan.csv uses encoders and decoders as a convenient way to support new types. This didn't account for
 a fairly common scenario, however: types for which one wishes to declare both an encoder and a decoder. It's certainly
 possible to write both, but it's a bit cumbersome. kantan.csv offers an alternative: codecs, which are simply an
@@ -23,24 +24,26 @@ import org.joda.time.format.ISODateTimeFormat
 
 implicit val jodaDateTime: CellCodec[DateTime] = {
   val format = ISODateTimeFormat.date()
-  CellCodec.from(s ⇒ DecodeResult(format.parseDateTime(s)))(d ⇒ format.print(d))
+  CellCodec.from(s => DecodeResult(format.parseDateTime(s)))(d => format.print(d))
 }
 ```
 
 And with that, we can now both encode and decode [`DateTime`]:
 
 ```scala
-scala> val dates = List(
-     |   List(new DateTime(), new DateTime().plusDays(1)),
-     |   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
-     | ).asCsv(rfc)
-dates: String =
-"2019-06-03,2019-06-04
-2019-06-05,2019-06-06
-"
+val dates = List(
+  List(new DateTime(), new DateTime().plusDays(1)),
+  List(new DateTime().plusDays(2), new DateTime().plusDays(3))
+).asCsv(rfc)
+// dates: String = """2019-10-23,2019-10-24
+// 2019-10-25,2019-10-26
+// """
 
-scala> dates.readCsv[List, List[DateTime]](rfc)
-res0: List[kantan.csv.ReadResult[List[org.joda.time.DateTime]]] = List(Right(List(2019-06-03T00:00:00.000+02:00, 2019-06-04T00:00:00.000+02:00)), Right(List(2019-06-05T00:00:00.000+02:00, 2019-06-06T00:00:00.000+02:00)))
+dates.readCsv[List, List[DateTime]](rfc)
+// res0: List[ReadResult[List[DateTime]]] = List(
+//   Right(List(2019-10-23T00:00:00.000+02:00, 2019-10-24T00:00:00.000+02:00)),
+//   Right(List(2019-10-25T00:00:00.000+02:00, 2019-10-26T00:00:00.000+02:00))
+// )
 ```
 
 
@@ -65,18 +68,22 @@ implicit val personCodec: RowCodec[Person] = RowCodec.caseCodec(0, 2, 1)(Person.
 And with that one line, we're done:
 
 ```scala
-scala> val csv = ps.asCsv(rfc)
-csv: String =
-"0,38,Nicolas
-1,1,Kazuma
-2,18,John
-"
+val csv = ps.asCsv(rfc)
+// csv: String = """0,38,Nicolas
+// 1,1,Kazuma
+// 2,18,John
+// """
 
-scala> csv.readCsv[List, Person](rfc)
-res1: List[kantan.csv.ReadResult[Person]] = List(Right(Person(0,Nicolas,38)), Right(Person(1,Kazuma,1)), Right(Person(2,John,18)))
+csv.readCsv[List, Person](rfc)
+// res1: List[ReadResult[Person]] = List(
+//   Right(Person(0, "Nicolas", 38)),
+//   Right(Person(1, "Kazuma", 1)),
+//   Right(Person(2, "John", 18))
+// )
 ```
 
 [`DateTime`]:http://www.joda.org/joda-time/apidocs/org/joda/time/DateTime.html
+
 [`CellCodec`]:{{ site.baseurl }}/api/kantan/csv/package$$CellCodec.html
 [`RowCodec`]:{{ site.baseurl }}/api/kantan/csv/package$$RowCodec.html
 [`RowDecoder`]:{{ site.baseurl }}/api/kantan/csv/package$$RowDecoder.html

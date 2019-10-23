@@ -1,9 +1,10 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Encoding tuples as rows"
-section: tutorial
+section: scala mdocorial
 sort_order: 12
 ---
+
 In a [previous post](collections_as_rows.html), we've seen how to encode collections as CSV rows. This is useful when
 dealing with homogeneous data, but not so much when not all cells in a given row are of the same time. One way of
 dealing with such situation is tuples.
@@ -44,15 +45,15 @@ helps, though, especially the explicit call to [`close`] at the end.
 Let's make sure that we got the expected output:
 
 ```scala
-scala> scala.io.Source.fromFile(out).mkString
-res4: String =
-"Column 1,Column 2,Column 3
-0,1.0,false
-3,4.0,true
-"
+scala.io.Source.fromFile(out).mkString
+// res3: String = """Column 1,Column 2,Column 3
+// 0,1.0,false
+// 3,4.0,true
+// """
 ```
 
 ## What to read next
+
 If you want to learn more about:
 
 * [encoding case classes as rows](case_classes_as_rows.html)

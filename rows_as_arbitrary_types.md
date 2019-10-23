@@ -1,10 +1,11 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Decoding rows as arbitrary types"
-section: tutorial
+section: scala mdocorial
 sort_order: 5
 ---
-Other tutorials covered decoding rows as [collections](rows_as_collections.html), [tuples](rows_as_tuples.html)
+
+Other scala mdocorials covered decoding rows as [collections](rows_as_collections.html), [tuples](rows_as_tuples.html)
 and [case classes](rows_as_case_classes.html). While those are the most common scenarios, it is sometimes necessary
 to decode rows into types that are none of these.
 
@@ -17,14 +18,13 @@ val rawData: java.net.URL = getClass.getResource("/wikipedia.csv")
 This is what this data looks like:
 
 ```scala
-scala> scala.io.Source.fromURL(rawData).mkString
-res0: String =
-Year,Make,Model,Description,Price
-1997,Ford,E350,"ac, abs, moon",3000.00
-1999,Chevy,"Venture ""Extended Edition""","",4900.00
-1999,Chevy,"Venture ""Extended Edition, Very Large""",,5000.00
-1996,Jeep,Grand Cherokee,"MUST SELL!
-air, moon roof, loaded",4799.00
+scala.io.Source.fromURL(rawData).mkString
+// res0: String = """Year,Make,Model,Description,Price
+// 1997,Ford,E350,"ac, abs, moon",3000.00
+// 1999,Chevy,"Venture ""Extended Edition""","",4900.00
+// 1999,Chevy,"Venture ""Extended Edition, Very Large""",,5000.00
+// 1996,Jeep,Grand Cherokee,"MUST SELL!
+// air, moon roof, loaded",4799.00"""
 ```
 
 Now, let's imagine we have a class that is not a case class into which we'd like to decode each row:
@@ -54,12 +54,12 @@ implicit val carDecoder: RowDecoder[Car] = RowDecoder.ordered { (i: Int, ma: Str
 And we can now decode our data as usual:
 
 ```scala
-scala> rawData.asCsvReader[Car](rfc.withHeader).foreach(println _)
-Right(Car(1997, Ford, E350, Some(ac, abs, moon), 3000.0))
-Right(Car(1999, Chevy, Venture "Extended Edition", None, 4900.0))
-Right(Car(1999, Chevy, Venture "Extended Edition, Very Large", None, 5000.0))
-Right(Car(1996, Jeep, Grand Cherokee, Some(MUST SELL!
-air, moon roof, loaded), 4799.0))
+rawData.asCsvReader[Car](rfc.withHeader).foreach(println _)
+// Right(Car(1997, Ford, E350, Some(ac, abs, moon), 3000.0))
+// Right(Car(1999, Chevy, Venture "Extended Edition", None, 4900.0))
+// Right(Car(1999, Chevy, Venture "Extended Edition, Very Large", None, 5000.0))
+// Right(Car(1996, Jeep, Grand Cherokee, Some(MUST SELL!
+// air, moon roof, loaded), 4799.0))
 ```
 
 The main reason this is the preferred solution is that it allows us never to have to think about individual cells in a

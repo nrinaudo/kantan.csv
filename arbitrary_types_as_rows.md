@@ -1,14 +1,15 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Encoding arbitrary types as rows"
-section: tutorial
+section: scala mdocorial
 sort_order: 14
 ---
-Other tutorials covered encoding [collections](collections_as_rows.html), [tuples](tuples_as_rows.html)
+
+Other scala mdocorials covered encoding [collections](collections_as_rows.html), [tuples](tuples_as_rows.html)
 and [case classes](case_classes_as_rows.html) as CSV rows. While those are the most common scenarios, it is sometimes
 necessary to encode types that are none of these.
 
-Let's write such a type for the purpose of this tutorial:
+Let's write such a type for the purpose of this scala mdocorial:
 
 ```scala
 class Person(val id: Int, val name: String, val age: Int)
@@ -25,7 +26,7 @@ In our case, we want [`encoder`]:
 import kantan.csv._
 import kantan.csv.ops._
 
-implicit val personEncoder: RowEncoder[Person] = RowEncoder.encoder(0, 2, 1)((p: Person) ⇒ (p.id, p.name, p.age))
+implicit val personEncoder: RowEncoder[Person] = RowEncoder.encoder(0, 2, 1)((p: Person) => (p.id, p.name, p.age))
 ```
 
 kantan.csv will work out how to encode each individual field thanks to the [`CellEncoder`] mechanism describe in a
@@ -34,12 +35,11 @@ kantan.csv will work out how to encode each individual field thanks to the [`Cel
 Let's make sure this worked out as expected:
 
 ```scala
-scala> ps.asCsv(rfc)
-res0: String =
-"0,38,Nicolas
-1,1,Kazuma
-2,18,John
-"
+ps.asCsv(rfc)
+// res0: String = """0,38,Nicolas
+// 1,1,Kazuma
+// 2,18,John
+// """
 ```
 
 ## What to read next

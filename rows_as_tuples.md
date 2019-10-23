@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Decoding rows as tuples"
-section: tutorial
+section: scala mdocorial
 sort_order: 3
 ---
 
-In a [previous tutorial](rows_as_collections.html), we saw how to deal with CSV data composed of rows of homogeneous
+In a [previous scala mdocorial](rows_as_collections.html), we saw how to deal with CSV data composed of rows of homogeneous
 types. While a common enough scenario, you'll also find yourself having to deal with heterogeneous data types fairly
 often.
 
@@ -19,14 +19,13 @@ val rawData: java.net.URL = getClass.getResource("/wikipedia.csv")
 This is what this data looks like:
 
 ```scala
-scala> scala.io.Source.fromURL(rawData).mkString
-res0: String =
-Year,Make,Model,Description,Price
-1997,Ford,E350,"ac, abs, moon",3000.00
-1999,Chevy,"Venture ""Extended Edition""","",4900.00
-1999,Chevy,"Venture ""Extended Edition, Very Large""",,5000.00
-1996,Jeep,Grand Cherokee,"MUST SELL!
-air, moon roof, loaded",4799.00
+scala.io.Source.fromURL(rawData).mkString
+// res0: String = """Year,Make,Model,Description,Price
+// 1997,Ford,E350,"ac, abs, moon",3000.00
+// 1999,Chevy,"Venture ""Extended Edition""","",4900.00
+// 1999,Chevy,"Venture ""Extended Edition, Very Large""",,5000.00
+// 1996,Jeep,Grand Cherokee,"MUST SELL!
+// air, moon roof, loaded",4799.00"""
 ```
 
 One way of representing each row could be as a tuple. Let's declare it as a type alias, for brevity's sake:
@@ -48,15 +47,16 @@ val reader = rawData.asCsvReader[Car](rfc.withHeader)
 And now that we have a [`CsvReader`] on the data, we can simply iterate through it:
 
 ```scala
-scala> reader.foreach(println _)
-Right((1997,Ford,E350,Some(ac, abs, moon),3000.0))
-Right((1999,Chevy,Venture "Extended Edition",None,4900.0))
-Right((1999,Chevy,Venture "Extended Edition, Very Large",None,5000.0))
-Right((1996,Jeep,Grand Cherokee,Some(MUST SELL!
-air, moon roof, loaded),4799.0))
+reader.foreach(println _)
+// Right((1997,Ford,E350,Some(ac, abs, moon),3000.0))
+// Right((1999,Chevy,Venture "Extended Edition",None,4900.0))
+// Right((1999,Chevy,Venture "Extended Edition, Very Large",None,5000.0))
+// Right((1996,Jeep,Grand Cherokee,Some(MUST SELL!
+// air, moon roof, loaded),4799.0))
 ```
 
 ## What to read next
+
 If you want to learn more about:
 
 * [decoding rows as case classes](rows_as_case_classes.html)

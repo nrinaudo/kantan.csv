@@ -1,9 +1,10 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Decoding rows as collections"
-section: tutorial
+section: scala mdocorial
 sort_order: 1
 ---
+
 A simple but very common type of CSV data is rows of numerical values. This is something that kantan.csv tries to make
 as as easy as possible to deal with.
 
@@ -16,11 +17,10 @@ val rawData: java.net.URL = getClass.getResource("/nums.csv")
 This is what we're trying to parse:
 
 ```scala
-scala> scala.io.Source.fromURL(rawData).mkString
-res0: String =
-85.5, 54.0, 74.7, 34.2
-63.0, 75.6, 46.8, 80.1
-85.5, 39.6, 2.7, 38.7
+scala.io.Source.fromURL(rawData).mkString
+// res0: String = """85.5, 54.0, 74.7, 34.2
+// 63.0, 75.6, 46.8, 80.1
+// 85.5, 39.6, 2.7, 38.7"""
 ```
 
 In order to turn this into useful types, all we need to do is retrieve a [`CsvReader`] instance:
@@ -46,10 +46,10 @@ This is important for CSV data that contains a header row.
 Now that we have our [`CsvReader`] instance, we can consume it - by, say, printing each row:
 
 ```scala
-scala> reader.foreach(println _)
-Right(List(85.5, 54.0, 74.7, 34.2))
-Right(List(63.0, 75.6, 46.8, 80.1))
-Right(List(85.5, 39.6, 2.7, 38.7))
+reader.foreach(println _)
+// Right(List(85.5, 54.0, 74.7, 34.2))
+// Right(List(63.0, 75.6, 46.8, 80.1))
+// Right(List(85.5, 39.6, 2.7, 38.7))
 ```
 
 Note that each result is wrapped in an instance of [`ReadResult`]. This allows decoding to be entirely safe - no
@@ -62,6 +62,7 @@ necessary: [`CsvReader`] will automatically close any underlying resource when i
 error occurs.
 
 ## What to read next
+
 If you want to learn more about:
 
 * [decoding rows as tuples](rows_as_tuples.html)
@@ -70,6 +71,7 @@ If you want to learn more about:
 * [how we were able to turn a `URL` into CSV data](csv_sources.html)
 
 [`List`]:http://www.scala-lang.org/api/current/scala/collection/immutable/List.html
+
 [`CsvReader`]:{{ site.baseurl }}/api/kantan/csv/package$$CsvReader.html
 [`CellDecoder`]:{{ site.baseurl }}/api/kantan/csv/CellDecoder$.html
 [`ReadResult`]:{{ site.baseurl }}/api/kantan/csv/ReadResult$.html

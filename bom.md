@@ -1,9 +1,10 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Working with BOMs (and MS Excel)"
-section: tutorial
+section: scala mdocorial
 sort_order: 31
 ---
+
 Excel is unfortunately both the most commonly used software to view CSV data, and the worst software there is to view
 CSV data. The main issue has to do with encoding - Excel will use the local system's default encoding, which changes
 from one installation to another
@@ -49,15 +50,18 @@ Since we've imported `kantan.codecs.resource.bom._`, `out` contains the UTF-8 BO
 to read it with an incompatible encoding:
 
 ```scala
-// ISO-LATIN-1 cannot be used to read our file, since it does not support katakana.
-implicit val codec: Codec = Codec.ISO8859
-```
+def readIso() = {
+  // ISO-LATIN-1 cannot be used to read our file, since it does not support katakana.
+  implicit val codec: Codec = Codec.ISO8859
 
-When we try to read it, kantan.csv will find the BOM and ignore our instruction to use ISO-LATIN-1:
+  out.readCsv[List, String](rfc)
+}
 
-```scala
-scala> out.readCsv[List, String](rfc)
-res6: List[kantan.csv.ReadResult[String]] = List(Right(ニコラ), Right(リノド))
+readIso()
+// res1: List[ReadResult[String]] = List(
+//   Right("\u30cb\u30b3\u30e9"),
+//   Right("\u30ea\u30ce\u30c9")
+// )
 ```
 
 Note that these behaviours are disabled by default: BOMs are advised against, and looking for them (and interpreting them

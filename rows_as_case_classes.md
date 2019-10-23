@@ -1,12 +1,13 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Decoding rows as case classes"
-section: tutorial
+section: scala mdocorial
 sort_order: 4
 ---
 
 ## Overview
-In a [previous tutorial](rows_as_tuples), we saw how to decode CSV rows into tuples. This is useful, but we sometimes
+
+In a [previous scala mdocorial](rows_as_tuples), we saw how to decode CSV rows into tuples. This is useful, but we sometimes
 want a more specific type - a `Point` instead of an `(Int, Int)`, say. Case classes lend themselves well to such
 scenarios, and kantan.csv has various mechanisms to support them.
 
@@ -20,14 +21,13 @@ val rawData: java.net.URL = getClass.getResource("/wikipedia.csv")
 This is what this data looks like:
 
 ```scala
-scala> scala.io.Source.fromURL(rawData).mkString
-res0: String =
-Year,Make,Model,Description,Price
-1997,Ford,E350,"ac, abs, moon",3000.00
-1999,Chevy,"Venture ""Extended Edition""","",4900.00
-1999,Chevy,"Venture ""Extended Edition, Very Large""",,5000.00
-1996,Jeep,Grand Cherokee,"MUST SELL!
-air, moon roof, loaded",4799.00
+scala.io.Source.fromURL(rawData).mkString
+// res0: String = """Year,Make,Model,Description,Price
+// 1997,Ford,E350,"ac, abs, moon",3000.00
+// 1999,Chevy,"Venture ""Extended Edition""","",4900.00
+// 1999,Chevy,"Venture ""Extended Edition, Very Large""",,5000.00
+// 1996,Jeep,Grand Cherokee,"MUST SELL!
+// air, moon roof, loaded",4799.00"""
 ```
 
 An obvious representation of each row in this data would be:
@@ -43,7 +43,7 @@ case class have a 1-to-1 correspondence and are declared in the same order. This
 You'll first need to add a dependency to the [generic](shapeless.html) module in your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.5.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.6.0"
 ```
 
 Then, with the appropriate imports:
@@ -59,12 +59,12 @@ val reader = rawData.asCsvReader[Car](rfc.withHeader)
 Let's make sure this worked by printing all decoded rows:
 
 ```scala
-scala> reader.foreach(println _)
-Right(Car(1997,Ford,E350,Some(ac, abs, moon),3000.0))
-Right(Car(1999,Chevy,Venture "Extended Edition",None,4900.0))
-Right(Car(1999,Chevy,Venture "Extended Edition, Very Large",None,5000.0))
-Right(Car(1996,Jeep,Grand Cherokee,Some(MUST SELL!
-air, moon roof, loaded),4799.0))
+reader.foreach(println _)
+// Right(Car(1997,Ford,E350,Some(ac, abs, moon),3000.0))
+// Right(Car(1999,Chevy,Venture "Extended Edition",None,4900.0))
+// Right(Car(1999,Chevy,Venture "Extended Edition, Very Large",None,5000.0))
+// Right(Car(1996,Jeep,Grand Cherokee,Some(MUST SELL!
+// air, moon roof, loaded),4799.0))
 ```
 
 As we said before though, this was a particularly advantageous scenario. How would we deal with a `Car` case class
@@ -89,11 +89,11 @@ that's precisely the `apply` method declared in the companion object.
 Let's verify that this worked as expected:
 
 ```scala
-scala> rawData.asCsvReader[Car2](rfc.withHeader).foreach(println _)
-Right(Car2(Ford,1997,E350,3000.0))
-Right(Car2(Chevy,1999,Venture "Extended Edition",4900.0))
-Right(Car2(Chevy,1999,Venture "Extended Edition, Very Large",5000.0))
-Right(Car2(Jeep,1996,Grand Cherokee,4799.0))
+rawData.asCsvReader[Car2](rfc.withHeader).foreach(println _)
+// Right(Car2(Ford,1997,E350,3000.0))
+// Right(Car2(Chevy,1999,Venture "Extended Edition",4900.0))
+// Right(Car2(Chevy,1999,Venture "Extended Edition, Very Large",5000.0))
+// Right(Car2(Jeep,1996,Grand Cherokee,4799.0))
 ```
 
 ## What to read next

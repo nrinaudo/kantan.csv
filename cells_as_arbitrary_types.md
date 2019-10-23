@@ -1,11 +1,12 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Decoding cells as arbitrary types"
-section: tutorial
+section: scala mdocorial
 sort_order: 2
 ---
+
 We've seen in a [previous post](rows_as_collections.html) how to decode CSV rows as collections. Exactly *how* that
-happened and how individual cells were turned into useful types was sort of glossed over, though. In this tutorial,
+happened and how individual cells were turned into useful types was sort of glossed over, though. In this scala mdocorial,
 we'll take a deeper look at the underlying mechanism.
 
 ## General mechanism
@@ -15,8 +16,8 @@ implicit instance of [`CellDecoder[A]`][`CellDecoder`] in scope. All sane primit
 in scope - `Int`, for example:
 
 ```scala
-scala> implicitly[kantan.csv.CellDecoder[Int]]
-res0: kantan.csv.CellDecoder[Int] = kantan.codecs.Codec$$anon$1@321428a4
+implicitly[kantan.csv.CellDecoder[Int]]
+// res0: kantan.csv.package.CellDecoder[Int] = kantan.codecs.Codec$$anon$1@7005fa6d
 ```
 
 A more complete list of default instances can be found [here](default_instances.html).
@@ -25,14 +26,14 @@ And so, when [`asCsvReader`] or [`readCsv`] are asked to turn a row into a [`Lis
 corresponding implicit [`CellDecoder[A]`][`CellDecoder`] and rely on it for decoding:
 
 ```scala
-scala> import kantan.csv._
 import kantan.csv._
-
-scala> import kantan.csv.ops._
 import kantan.csv.ops._
 
-scala> "1,2,3\n4,5,6".readCsv[List, List[Int]](rfc)
-res1: List[kantan.csv.ReadResult[List[Int]]] = List(Right(List(1, 2, 3)), Right(List(4, 5, 6)))
+"1,2,3\n4,5,6".readCsv[List, List[Int]](rfc)
+// res1: List[ReadResult[List[Int]]] = List(
+//   Right(List(1, 2, 3)),
+//   Right(List(4, 5, 6))
+// )
 ```
 
 ## Adding support to new types
@@ -47,19 +48,20 @@ import org.joda.time.format.ISODateTimeFormat
 
 implicit val jodaDateTime: CellDecoder[DateTime] = {
   val format = ISODateTimeFormat.date()
-  CellDecoder.from(s ⇒ DecodeResult(format.parseDateTime(s)))
+  CellDecoder.from(s => DecodeResult(format.parseDateTime(s)))
 }
 ```
 
 And we can now decode CSV data composed of dates:
 
 ```scala
-scala> "2009-01-06,2009-01-07\n2009-01-08,2009-01-09".asCsvReader[List[DateTime]](rfc).foreach(println _)
-Right(List(2009-01-06T00:00:00.000+01:00, 2009-01-07T00:00:00.000+01:00))
-Right(List(2009-01-08T00:00:00.000+01:00, 2009-01-09T00:00:00.000+01:00))
+"2009-01-06,2009-01-07\n2009-01-08,2009-01-09".asCsvReader[List[DateTime]](rfc).foreach(println _)
+// Right(List(2009-01-06T00:00:00.000+01:00, 2009-01-07T00:00:00.000+01:00))
+// Right(List(2009-01-08T00:00:00.000+01:00, 2009-01-09T00:00:00.000+01:00))
 ```
 
 ## What to read next
+
 If you want to learn more about:
 
 * [encoding arbitrary types](arbitrary_types_as_cells.html)

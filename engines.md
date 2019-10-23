@@ -1,9 +1,10 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "External CSV libraries"
-section: tutorial
+section: scala mdocorial
 sort_order: 21
 ---
+
 kantan.csv comes with a default implementation of CSV parsing and serialising. This implementation is
 [relatively fast](benchmarks.html) and robust, but might not satisfy all use cases - some of the more outlandish CSV
 mutations are not implemented (yet), for instance. For these cases, it's possible to use other CSV libraries under the
@@ -16,7 +17,7 @@ hood.
 The [jackson csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.5.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.6.0"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -35,7 +36,7 @@ and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson$.html#
 The [commons csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.5.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.6.0"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -51,7 +52,7 @@ and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/commons$.html#
 
 ## Supporting a new library
 
-For the purpose of this tutorial, let's make up an hypothetical CSV library, EasyCSV, that provides the following:
+For the purpose of this scala mdocorial, let's make up an hypothetical CSV library, EasyCSV, that provides the following:
 
 ```scala
 import java.io._
@@ -75,14 +76,14 @@ to create an instance of [`CsvReader`] rely on an implicit instance of [`ReaderE
 
 Creating a new instance of [`ReaderEngine`] is meant to be fairly straightforward: there's a helper
 [`ReaderEngine.from`] method that takes care of this. It still means we need to be able to write a
-`(Reader, Char) ⇒ CsvReader[Seq[String]]`, but the most common scenario is already covered: if you can write a
-`(Reader, Char) ⇒ Iterator[Seq[String]]`, you can simply use [`ResourceIterator.fromIterator`]:
+`(Reader, Char) => CsvReader[Seq[String]]`, but the most common scenario is already covered: if you can write a
+`(Reader, Char) => Iterator[Seq[String]]`, you can simply use [`ResourceIterator.fromIterator`]:
 
 ```scala
 import kantan.csv.engine._
 import kantan.csv._
 
-implicit val readerEngine: ReaderEngine = ReaderEngine.from { (in: Reader, conf: CsvConfiguration) ⇒
+implicit val readerEngine: ReaderEngine = ReaderEngine.from { (in: Reader, conf: CsvConfiguration) =>
   kantan.codecs.resource.ResourceIterator.fromIterator(EasyCSV.read(in, conf.cellSeparator))
 }
 ```
@@ -94,7 +95,7 @@ Serialising is very similar to parsing, except that instead of providing a [`Rea
 through [`CsvWriter.apply`]:
 
 ```scala
-implicit val writerEngine: WriterEngine = WriterEngine.from { (writer: Writer, conf: CsvConfiguration) ⇒
+implicit val writerEngine: WriterEngine = WriterEngine.from { (writer: Writer, conf: CsvConfiguration) =>
   CsvWriter(EasyCSV.write(writer, conf.cellSeparator))(_ write _.toArray)(_.close())
 }
 ```
@@ -102,6 +103,7 @@ implicit val writerEngine: WriterEngine = WriterEngine.from { (writer: Writer, c
 [commons csv]:https://commons.apache.org/proper/commons-csv/
 [jackson csv]:https://github.com/FasterXML/jackson-dataformat-csv
 [opencsv]:http://opencsv.sourceforge.net
+
 [`ReaderEngine`]:{{ site.baseurl }}/api/kantan/csv/engine/ReaderEngine.html
 [`WriterEngine`]:{{ site.baseurl }}/api/kantan/csv/engine/WriterEngine.html
 [`CsvReader`]:{{ site.baseurl }}/api/kantan/csv/package$$CsvReader.html

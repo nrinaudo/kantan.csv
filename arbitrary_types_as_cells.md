@@ -1,22 +1,23 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Encoding arbitrary types as cells"
-section: tutorial
+section: scala mdocorial
 sort_order: 11
 ---
+
 We've seen in a [previous post](collections_as_rows.html) how to encode collections as CSV rows. Exactly *how* that
 happened and how individual elements of the collection were turned into CSV cells was sort of glossed over, though. In
-this tutorial, we'll take a deeper look at the underlying mechanism.
+this scala mdocorial, we'll take a deeper look at the underlying mechanism.
 
 ## General mechanism
 
 Cell encoding is type class based: kantan.csv knows how to turn a type `A` into a CSV cell, provided that there is an
 implicit instance of [`CellEncoder[A]`][`CellEncoder`] in scope. All sane primitive types have default implementations
- - `Int`, for example:
+- `Int`, for example:
 
 ```scala
-scala> implicitly[kantan.csv.CellEncoder[Int]]
-res0: kantan.csv.CellEncoder[Int] = kantan.codecs.Codec$$anon$1@4845f80f
+implicitly[kantan.csv.CellEncoder[Int]]
+// res0: kantan.csv.package.CellEncoder[Int] = kantan.codecs.Codec$$anon$1@2620bcdd
 ```
 
 A more complete list of default instances can be found [here](default_instances.html)
@@ -25,17 +26,13 @@ And so, when [`asCsvWriter`], [`writeCsv`] or [`asCsv`] are asked to turn a coll
 it looks for a corresponding implicit [`CellEncoder`] and relies on it for encoding:
 
 ```scala
-scala> import kantan.csv._
 import kantan.csv._
-
-scala> import kantan.csv.ops._
 import kantan.csv.ops._
 
-scala> List(List(1, 2, 3), List(4, 5, 6)).asCsv(rfc)
-res1: String =
-"1,2,3
-4,5,6
-"
+List(List(1, 2, 3), List(4, 5, 6)).asCsv(rfc)
+// res1: String = """1,2,3
+// 4,5,6
+// """
 ```
 
 ## Adding support to new types
@@ -57,17 +54,17 @@ implicit val jodaDateTime: CellEncoder[DateTime] = {
 And we can now encode collections of dates:
 
 ```scala
-scala> List(
-     |   List(new DateTime(), new DateTime().plusDays(1)),
-     |   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
-     | ).asCsv(rfc)
-res2: String =
-"2019-06-03,2019-06-04
-2019-06-05,2019-06-06
-"
+List(
+  List(new DateTime(), new DateTime().plusDays(1)),
+  List(new DateTime().plusDays(2), new DateTime().plusDays(3))
+).asCsv(rfc)
+// res2: String = """2019-10-23,2019-10-24
+// 2019-10-25,2019-10-26
+// """
 ```
 
 ## What to read next
+
 If you want to learn more about:
 
 * [decoding arbitrary types](cells_as_arbitrary_types.html)

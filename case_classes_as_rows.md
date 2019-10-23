@@ -1,9 +1,10 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Encoding case classes as rows"
-section: tutorial
+section: scala mdocorial
 sort_order: 13
 ---
+
 In a [previous post](tuples_as_rows.html), we've seen how to encode tuples as CSV rows. While useful, actual code
 rarely stores business objects as tuples - encoding case classes is a much more common need than encoding tuples.
 
@@ -22,7 +23,7 @@ how to do that.
 You'll first need to add a dependency to the [generic](shapeless.html) module in your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.5.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.6.0"
 ```
 
 Then, with the appropriate imports:
@@ -47,13 +48,12 @@ writer.write(ps).close()
 And, through the magic of automatic type class instance derivation, everything worked out as expected:
 
 ```scala
-scala> scala.io.Source.fromFile(out).mkString
-res2: String =
-"Column 1,Column 2,Column 3
-0,Nicolas,38
-1,Kazuma,1
-2,John,18
-"
+scala.io.Source.fromFile(out).mkString
+// res1: String = """Column 1,Column 2,Column 3
+// 0,Nicolas,38
+// 1,Kazuma,1
+// 2,John,18
+// """
 ```
 
 This was the easy case though. A more complicated one is if we need to, say, encode fields in a different order than
@@ -65,20 +65,7 @@ we're looking for the [`caseEncoder`] method of object [`RowEncoder`], which sim
 fields to their index in the CSV row and the case class' `unapply` method:
 
 ```scala
-import kantan.csv._
-implicit val personEncoder: RowEncoder[Person] = RowEncoder.caseEncoder(0, 2, 1)(Person.unapply)
-```
-
-And to check whether that worked out, let's use another helper function: most Scala collections (all subtypes of
-[`TraversableOnce`] are augmented with an [`asCsv`] method):
-
-```scala
-scala> ps.asCsv(rfc)
-res3: String =
-"0,38,Nicolas
-1,1,Kazuma
-2,18,John
-"
+val personEncoder: RowEncoder[Person] = RowEncoder.caseEncoder(0, 2, 1)(Person.unapply)
 ```
 
 ## What to read next
@@ -90,6 +77,7 @@ If you want to learn more about:
 * [how we were able to turn a `File` into a `CsvWriter`](csv_sinks.html)
 
 [shapeless]:https://github.com/milessabin/shapeless
+
 [`CsvWriter`]:{{ site.baseurl }}/api/kantan/csv/CsvWriter.html
 [`RowEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$RowEncoder.html
 [`caseEncoder`]:{{ site.baseurl }}/api/kantan/csv/GeneratedRowEncoders.html#caseEncoder[C,A1,A2,A3,A4](i1:Int,i2:Int,i3:Int,i4:Int)(f:C=>Option[(A1,A2,A3,A4)])(implicitevidence$513:kantan.csv.CellEncoder[A1],implicitevidence$514:kantan.csv.CellEncoder[A2],implicitevidence$515:kantan.csv.CellEncoder[A3],implicitevidence$516:kantan.csv.CellEncoder[A4]):kantan.csv.RowEncoder[C]

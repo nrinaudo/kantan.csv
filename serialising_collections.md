@@ -1,9 +1,10 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Encoding entire collections"
-section: tutorial
+section: scala mdocorial
 sort_order: 15
 ---
+
 While kantan.csv was written with large amount of data in mind - or at least, more data than a standard laptop can
 comfortably fit in memory - it's still fairly common to have a collection that needs to be written down as CSV.
 
@@ -40,26 +41,24 @@ out.writeCsv(ps, rfc.withHeader("Id", "Name", "Age"))
 Now that we have serialised our data, let's make sure it comes out the way we expected:
 
 ```scala
-scala> scala.io.Source.fromFile(out).mkString
-res3: String =
-"Id,Name,Age
-0,Nicolas,38
-1,Kazuma,1
-2,John,18
-"
+scala.io.Source.fromFile(out).mkString
+// res1: String = """Id,Name,Age
+// 0,Nicolas,38
+// 1,Kazuma,1
+// 2,John,18
+// """
 ```
 
 Note that the need for turning a collection into a CSV string is so common that kantan.csv has a special helper for
 that: [`asCsv`]. For example:
 
 ```scala
-scala> ps.asCsv(rfc.withHeader("Id", "Name", "Age"))
-res4: String =
-"Id,Name,Age
-0,Nicolas,38
-1,Kazuma,1
-2,John,18
-"
+ps.asCsv(rfc.withHeader("Id", "Name", "Age"))
+// res2: String = """Id,Name,Age
+// 0,Nicolas,38
+// 1,Kazuma,1
+// 2,John,18
+// """
 ```
 
 ## What to read next

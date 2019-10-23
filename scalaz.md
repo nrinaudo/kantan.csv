@@ -1,16 +1,17 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Scalaz module"
-section: tutorial
+section: scala mdocorial
 sort_order: 24
 ---
+
 Kantan.csv has a [scalaz](https://github.com/scalaz/scalaz) module that is, in its current incarnation, fairly bare
 bones: it provides decoders for [`Maybe`] and [`\/`] as well as a few useful type class instances.
 
 The `scalaz` module can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz" % "0.5.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-scalaz" % "0.6.0"
 ```
 
 You then need to import the corresponding package:
@@ -38,11 +39,17 @@ import kantan.csv.ops._
 We can then simply write the following:
 
 ```scala
-scala> "1,2\n4,true".readCsv[List, (Int, Int \/ Boolean)](rfc)
-res0: List[kantan.csv.ReadResult[(Int, Int \/ Boolean)]] = List(Right((1,-\/(2))), Right((4,\/-(true))))
+"1,2\n4,true".readCsv[List, (Int, Int \/ Boolean)](rfc)
+// res0: List[ReadResult[(Int, Int \/ Boolean)]] = List(
+//   Right((1, -\/(2))),
+//   Right((4, \/-(true)))
+// )
 
-scala> "1,2\n4,true".readCsv[List, (Int, Int) \/ (Int, Boolean)](rfc)
-res1: List[kantan.csv.ReadResult[(Int, Int) \/ (Int, Boolean)]] = List(Right(-\/((1,2))), Right(\/-((4,true))))
+"1,2\n4,true".readCsv[List, (Int, Int) \/ (Int, Boolean)](rfc)
+// res1: List[ReadResult[(Int, Int) \/ (Int, Boolean)]] = List(
+//   Right(-\/((1, 2))),
+//   Right(\/-((4, true)))
+// )
 ```
 
 
@@ -50,16 +57,19 @@ res1: List[kantan.csv.ReadResult[(Int, Int) \/ (Int, Boolean)]] = List(Right(-\/
 
 For any type `A` that has:
 
- * a [`CellDecoder`], there exists a `CellDecoder[Maybe[A]]`
- * a [`RowDecoder`], there exists a `RowDecoder[Maybe[A]]`
- * a [`CellEncoder`], there exists a `CellEncoder[Maybe[A]]`
- * a [`RowEncoder`], there exists a `RowEncoder[Maybe[A]]`
+* a [`CellDecoder`], there exists a `CellDecoder[Maybe[A]]`
+* a [`RowDecoder`], there exists a `RowDecoder[Maybe[A]]`
+* a [`CellEncoder`], there exists a `CellEncoder[Maybe[A]]`
+* a [`RowEncoder`], there exists a `RowEncoder[Maybe[A]]`
 
 You can write, for example:
 
 ```scala
-scala> "1,2\n3,".readCsv[List, (Int, Maybe[Int])](rfc)
-res2: List[kantan.csv.ReadResult[(Int, scalaz.Maybe[Int])]] = List(Right((1,Just(2))), Right((3,Empty())))
+"1,2\n3,".readCsv[List, (Int, Maybe[Int])](rfc)
+// res2: List[ReadResult[(Int, Maybe[Int])]] = List(
+//   Right((1, Just(2))),
+//   Right((3, Empty()))
+// )
 ```
 
 ## Scalaz instances
@@ -78,6 +88,7 @@ The following instance for cats type classes are provided:
 [`Foldable`]:https://static.javadoc.io/org.scalaz/scalaz_2.12/7.2.18/scalaz/Foldable.html
 [`\/`]:https://static.javadoc.io/org.scalaz/scalaz_2.12/7.2.18/scalaz/$bslash$div.html
 [`Maybe`]:https://static.javadoc.io/org.scalaz/scalaz_2.12/7.2.18/scalaz/Maybe.html
+
 [`CellEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$CellEncoder.html
 [`CellDecoder`]:{{ site.baseurl }}/api/kantan/csv/CellDecoder$.html
 [`RowDecoder`]:{{ site.baseurl }}/api/kantan/csv/RowDecoder$.html

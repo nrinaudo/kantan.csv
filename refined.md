@@ -1,14 +1,15 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Refined module"
-section: tutorial
+section: scala mdocorial
 sort_order: 28
 ---
+
 kantan.csv comes with a [refined](https://github.com/fthomas/refined) module that can be used
 by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-refined" % "0.5.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-refined" % "0.6.0"
 ```
 
 You then need to import the corresponding package:
@@ -33,9 +34,12 @@ type PositiveInt = Int Refined Positive
 We can then simply write the following:
 
 ```scala
-scala> "1,2".readCsv[List, List[PositiveInt]](rfc)
-res0: List[kantan.csv.ReadResult[List[PositiveInt]]] = List(Right(List(1, 2)))
+"1,2".readCsv[List, List[PositiveInt]](rfc)
+// res0: List[ReadResult[List[PositiveInt]]] = List(Right(List(1, 2)))
 
-scala> "1,-2".readCsv[List, List[PositiveInt]](rfc)
-res1: List[kantan.csv.ReadResult[List[PositiveInt]]] = List(Left(TypeError: Not acceptable: 'Predicate failed: (-2 > 0).'))
+"1,-2".readCsv[List, List[PositiveInt]](rfc)
+// res1: List[ReadResult[List[PositiveInt]]] = List(
+//   Left(TypeError("Not acceptable: 'Predicate failed: (-2 > 0).'"))
+// )
 ```
+

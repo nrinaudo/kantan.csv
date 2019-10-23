@@ -1,10 +1,11 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Error handling"
-section: tutorial
+section: scala mdocorial
 sort_order: 9
 ---
-There are many ways of dealing with parse errors in kantan.csv. This tutorial shows the most common strategies, but
+
+There are many ways of dealing with parse errors in kantan.csv. This scala mdocorial shows the most common strategies, but
 it essentially boils down to knowing how [`Either`] (the underlying type of [`ReadResult`]) works.
 
 All the examples here are going to be using the following data:
@@ -36,8 +37,10 @@ The simplest, least desirable error handling mechanism is to ignore the possibil
 to be thrown. This is achieved by using [`asUnsafeCsvReader`]:
 
 ```scala
-scala> scala.util.Try(rawData.asUnsafeCsvReader[Person](rfc).toList)
-res0: scala.util.Try[List[Person]] = Failure(DecodeError: For input string: "28")
+scala.util.Try(rawData.asUnsafeCsvReader[Person](rfc).toList)
+// res0: util.Try[List[Person]] = Failure(
+//   DecodeError("For input string: \"28\"")
+// )
 ```
 
 Note that this is hardly ever an acceptable solution. In idiomatic Scala, we pretend that exceptions don't exist and
@@ -45,11 +48,15 @@ rely on encoding errors in return types. Still, unsafe readers can be useful - w
 reliability or maintainability are not an issue, for example.
 
 ## Drop errors
+
 Another common, if not always viable strategy is to use [`collect`] to simply drop whatever rows failed to decode:
 
 ```scala
-scala> rawData.asCsvReader[Person](rfc).collect { case Right(a) ⇒ a }.toList
-res1: List[Person] = List(Person(1,Nicolas,true), Person(3,John,false))
+rawData.asCsvReader[Person](rfc).collect { case Right(a) => a }.toList
+// res1: List[Person] = List(
+//   Person(1, "Nicolas", true),
+//   Person(3, "John", false)
+// )
 ```
 
 [`collect`] is a bit like a [`filter`] and a [`map`] rolled into one, and allows us to:
@@ -61,31 +68,39 @@ This is achieved in an entirely safe way, validated at compile time.
 
 
 ## Fail if at least one row fails to decode
+
 When not streaming data, a good option is to fail if a single row fails to decode - turn a
 [`List[ReadResult[A]]`][`List`] into a [`ReadResult[List[A]]`][`ReadResult`]. This is done through [`ReadResult`]'s
 [`sequence`] method:
 
 ```scala
-scala> ReadResult.sequence(rawData.readCsv[List, Person](rfc))
-res2: Either[kantan.csv.ReadError,List[Person]] = Left(TypeError: '28' is not a valid Boolean)
+ReadResult.sequence(rawData.readCsv[List, Person](rfc))
+// res2: Either[ReadError, List[Person]] = Left(
+//   TypeError("'28' is not a valid Boolean")
+// )
 ```
 
 The only real downside to this approach is that it requires loading the entire data in memory.
 
 ## Use more flexible types to prevent errors
+
 Our problem here is that the `flag` field of our `Person` class is not always of the same type - some rows have it as a
 `boolean`, others as an `Int`. This is something that the [`Either`] type is well suited for, so we could rewrite
 `Person` as follows:
 
 ```scala
-final case class Person(id: Int, name: String, flag: Either[Boolean, Int])
+final case class SafePerson(id: Int, name: String, flag: Either[Boolean, Int])
 ```
 
 We can now load the whole data without an error:
 
 ```scala
-scala> rawData.readCsv[List, Person](rfc)
-res3: List[kantan.csv.ReadResult[Person]] = List(Right(Person(1,Nicolas,Left(true))), Right(Person(2,Kazuma,Right(28))), Right(Person(3,John,Left(false))))
+rawData.readCsv[List, SafePerson](rfc)
+// res3: List[ReadResult[SafePerson]] = List(
+//   Right(SafePerson(1, "Nicolas", Left(true))),
+//   Right(SafePerson(2, "Kazuma", Right(28))),
+//   Right(SafePerson(3, "John", Left(false)))
+// )
 ```
 
 Following the same general idea, one could use [`Option`] for fields that are not always set.
@@ -94,6 +109,7 @@ This strategy is not always possible, but is good to keep in mind for these case
 
 
 [`List`]:http://www.scala-lang.org/api/current/scala/collection/immutable/List.html
+
 [`asUnsafeCsvReader`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$2:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]
 [`ReadResult`]:{{ site.baseurl }}/api/kantan/csv/ReadResult$.html
 [`collect`]:http://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/resource/ResourceIterator.html#collect[B](f:PartialFunction[A,B]):kantan.codecs.resource.ResourceIterator[B]

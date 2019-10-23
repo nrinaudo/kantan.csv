@@ -1,12 +1,14 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Default instances"
-section: tutorial
+section: scala mdocorial
 sort_order: 20
 ---
+
 ## Cells
 
 ### Basic types
+
 The following types have [`CellCodec`] instances available out of the box:
 
 * [`BigDecimal`]

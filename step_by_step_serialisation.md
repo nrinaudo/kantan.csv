@@ -1,9 +1,10 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Encoding one row at a time"
-section: tutorial
+section: scala mdocorial
 sort_order: 16
 ---
+
 A [previous post](serialising_collections.html) covered how to encode entire collections as CSV. This is not,
 however, always possible or even desirable: if the data to encode is obtained in a lazy way, it's usually better to
 encoded it as it comes.
@@ -51,16 +52,16 @@ Future versions will fix that, but for the time being, you need to handle errors
 Let's make sure that we get the expected output:
 
 ```scala
-scala> scala.io.Source.fromFile(out).mkString
-res2: String =
-"Id,Name,Age
-0,Nicolas,38
-1,Kazuma,1
-2,John,18
-"
+scala.io.Source.fromFile(out).mkString
+// res1: String = """Id,Name,Age
+// 0,Nicolas,38
+// 1,Kazuma,1
+// 2,John,18
+// """
 ```
 
 ## What to read next
+
 If you want to learn more about:
 
 * [how we were able to turn a `File` into a `CsvWriter`](csv_sinks.html)

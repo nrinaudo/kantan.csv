@@ -1,9 +1,10 @@
 ---
-layout: tutorial
+layout: scala mdocorial
 title: "Using header values instead of indexes"
-section: tutorial
+section: scala mdocorial
 sort_order: 19
 ---
+
 kantan.csv mostly works from column indexes: when you need to refer to a specific CSV cell, you do so through its
 index in a row. The reason behind this behaviour is that headers are entirely optional and cannot be relied on to always
 be present.
@@ -24,14 +25,13 @@ val rawData: java.net.URL = getClass.getResource("/wikipedia.csv")
 This is what this data looks like:
 
 ```scala
-scala> scala.io.Source.fromURL(rawData).mkString
-res0: String =
-Year,Make,Model,Description,Price
-1997,Ford,E350,"ac, abs, moon",3000.00
-1999,Chevy,"Venture ""Extended Edition""","",4900.00
-1999,Chevy,"Venture ""Extended Edition, Very Large""",,5000.00
-1996,Jeep,Grand Cherokee,"MUST SELL!
-air, moon roof, loaded",4799.00
+scala.io.Source.fromURL(rawData).mkString
+// res0: String = """Year,Make,Model,Description,Price
+// 1997,Ford,E350,"ac, abs, moon",3000.00
+// 1999,Chevy,"Venture ""Extended Edition""","",4900.00
+// 1999,Chevy,"Venture ""Extended Edition, Very Large""",,5000.00
+// 1996,Jeep,Grand Cherokee,"MUST SELL!
+// air, moon roof, loaded",4799.00"""
 ```
 
 An obvious representation of each row in this data would be:
@@ -70,12 +70,12 @@ Through the magic of type classes, kantan.csv works out what types are expected 
 desired result:
 
 ```scala
-scala> rawData.asCsvReader[Car](rfc.withHeader).foreach(println _)
-Right(Car(1997,Ford,E350,3000.0,Some(ac, abs, moon)))
-Right(Car(1999,Chevy,Venture "Extended Edition",4900.0,None))
-Right(Car(1999,Chevy,Venture "Extended Edition, Very Large",5000.0,None))
-Right(Car(1996,Jeep,Grand Cherokee,4799.0,Some(MUST SELL!
-air, moon roof, loaded)))
+rawData.asCsvReader[Car](rfc.withHeader).foreach(println _)
+// Right(Car(1997,Ford,E350,3000.0,Some(ac, abs, moon)))
+// Right(Car(1999,Chevy,Venture "Extended Edition",4900.0,None))
+// Right(Car(1999,Chevy,Venture "Extended Edition, Very Large",5000.0,None))
+// Right(Car(1996,Jeep,Grand Cherokee,4799.0,Some(MUST SELL!
+// air, moon roof, loaded)))
 ```
 
 ## Creating an encoder
@@ -90,11 +90,10 @@ implicit val carEncoder: HeaderEncoder[Car] = HeaderEncoder.caseEncoder("Year", 
 This lets you write:
 
 ```scala
-scala> List(Car(1999, "Ford", "E350", 3000F, Some("ac, abs, moon"))).asCsv(rfc.withHeader)
-res2: String =
-"Year,Make,Model,Price,Description
-1999,Ford,E350,3000.0,"ac, abs, moon"
-"
+List(Car(1999, "Ford", "E350", 3000F, Some("ac, abs, moon"))).asCsv(rfc.withHeader)
+// res2: String = """Year,Make,Model,Price,Description
+// 1999,Ford,E350,3000.0,"ac, abs, moon"
+// """
 ```
 
 ## Creating a codec
@@ -102,7 +101,7 @@ res2: String =
 In case you need both a [`HeaderDecoder`] and a [`HeaderEncoder`], you can also create a [`HeaderCodec`]:
 
 ```scala
-implicit val carCodec: HeaderCodec[Car] = HeaderCodec.caseCodec("Year", "Make", "Model", "Price", "Description")(Car.apply _)(Car.unapply _)
+val carCodec: HeaderCodec[Car] = HeaderCodec.caseCodec("Year", "Make", "Model", "Price", "Description")(Car.apply _)(Car.unapply _)
 ```
 
 [`HeaderDecoder`]:{{ site.baseurl }}/api/kantan/csv/HeaderDecoder.html
