@@ -39,7 +39,7 @@ package object jackson {
 
   private val MAPPER: CsvMapper = new CsvMapper()
   MAPPER.enable(com.fasterxml.jackson.dataformat.csv.CsvParser.Feature.WRAP_AS_ARRAY)
-  MAPPER.enable(com.fasterxml.jackson.dataformat.csv.CsvGenerator.Feature.STRICT_CHECK_FOR_QUOTING)
+  MAPPER.disable(com.fasterxml.jackson.dataformat.csv.CsvGenerator.Feature.STRICT_CHECK_FOR_QUOTING)
 
   // - Reader engines --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

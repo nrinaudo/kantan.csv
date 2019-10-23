@@ -16,11 +16,23 @@
 
 package kantan.csv.engine.jackson
 
+import kantan.csv._
+import kantan.csv.laws._
 import kantan.csv.laws.discipline.WriterEngineTests
+import kantan.csv.ops._
 import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
-class JacksonWriterTests extends AnyFunSuite with ScalaCheckPropertyChecks with Discipline {
+class JacksonWriterTests extends AnyFunSuite with ScalaCheckPropertyChecks with Discipline with Matchers {
   checkAll("JacksonWriter", WriterEngineTests(jacksonCsvWriterEngine).writerEngine)
+
+  test("Trailing cells composed of a single \\n are properly encoded and decoded") {
+    val csv: List[List[Cell]] = List(List(Cell.NonEscaped("a"), Cell.Escaped("\n")))
+
+    val decoded = csv.asCsv(rfc).unsafeReadCsv[List, List[Cell]](rfc)
+
+    csv should be(decoded)
+  }
 }
