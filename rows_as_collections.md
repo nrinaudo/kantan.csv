@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Decoding rows as collections"
-section: scala mdocorial
+section: tutorial
 sort_order: 1
 ---
 

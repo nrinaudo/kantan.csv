@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "External CSV libraries"
-section: scala mdocorial
+section: tutorial
 sort_order: 21
 ---
 
@@ -52,7 +52,7 @@ and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/commons$.html#
 
 ## Supporting a new library
 
-For the purpose of this scala mdocorial, let's make up an hypothetical CSV library, EasyCSV, that provides the following:
+For the purpose of this tutorial, let's make up an hypothetical CSV library, EasyCSV, that provides the following:
 
 ```scala
 import java.io._

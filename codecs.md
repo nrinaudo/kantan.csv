@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Encoders, decoders and codecs"
-section: scala mdocorial
+section: tutorial
 sort_order: 18
 ---
 
@@ -35,14 +35,14 @@ val dates = List(
   List(new DateTime(), new DateTime().plusDays(1)),
   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
 ).asCsv(rfc)
-// dates: String = """2019-10-23,2019-10-24
-// 2019-10-25,2019-10-26
+// dates: String = """2019-10-24,2019-10-25
+// 2019-10-26,2019-10-27
 // """
 
 dates.readCsv[List, List[DateTime]](rfc)
 // res0: List[ReadResult[List[DateTime]]] = List(
-//   Right(List(2019-10-23T00:00:00.000+02:00, 2019-10-24T00:00:00.000+02:00)),
-//   Right(List(2019-10-25T00:00:00.000+02:00, 2019-10-26T00:00:00.000+02:00))
+//   Right(List(2019-10-24T00:00:00.000+02:00, 2019-10-25T00:00:00.000+02:00)),
+//   Right(List(2019-10-26T00:00:00.000+02:00, 2019-10-27T00:00:00.000+02:00))
 // )
 ```
 

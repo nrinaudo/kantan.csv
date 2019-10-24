@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Enumeratum module"
-section: scala mdocorial
+section: tutorial
 sort_order: 29
 ---
 

@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Using header values instead of indexes"
-section: scala mdocorial
+section: tutorial
 sort_order: 19
 ---
 

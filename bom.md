@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Working with BOMs (and MS Excel)"
-section: scala mdocorial
+section: tutorial
 sort_order: 31
 ---
 

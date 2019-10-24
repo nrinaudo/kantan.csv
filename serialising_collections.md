@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Encoding entire collections"
-section: scala mdocorial
+section: tutorial
 sort_order: 15
 ---
 

@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Java 8 dates and times"
-section: scala mdocorial
+section: tutorial
 sort_order: 27
 ---
 

@@ -1,15 +1,15 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Encoding arbitrary types as rows"
-section: scala mdocorial
+section: tutorial
 sort_order: 14
 ---
 
-Other scala mdocorials covered encoding [collections](collections_as_rows.html), [tuples](tuples_as_rows.html)
+Other tutorials covered encoding [collections](collections_as_rows.html), [tuples](tuples_as_rows.html)
 and [case classes](case_classes_as_rows.html) as CSV rows. While those are the most common scenarios, it is sometimes
 necessary to encode types that are none of these.
 
-Let's write such a type for the purpose of this scala mdocorial:
+Let's write such a type for the purpose of this tutorial:
 
 ```scala
 class Person(val id: Int, val name: String, val age: Int)

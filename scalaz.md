@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Scalaz module"
-section: scala mdocorial
+section: tutorial
 sort_order: 24
 ---
 

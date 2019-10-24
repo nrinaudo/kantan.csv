@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Decoding CSV data one row at a time"
-section: scala mdocorial
+section: tutorial
 sort_order: 7
 ---
 
@@ -29,7 +29,7 @@ scala.io.Source.fromURL(rawData).mkString
 ```
 
 Our goal here is to parse this resource row by row. In order to do that, we must be able to decode each
-row as a case class. This is exactly what we did in a [previous scala mdocorial](rows_as_case_classes.html):
+row as a case class. This is exactly what we did in a [previous tutorial](rows_as_case_classes.html):
 
 ```scala
 import kantan.csv._
@@ -44,7 +44,7 @@ an iterator with a `close` method:
 
 ```scala
 val iterator = rawData.asCsvReader[Car](rfc.withHeader)
-// iterator: CsvReader[ReadResult[Car]] = kantan.codecs.resource.ResourceIterator$$anon$3@6bfdbe6d
+// iterator: CsvReader[ReadResult[Car]] = kantan.codecs.resource.ResourceIterator$$anon$3@6e5a6f0
 ```
 
 [`asCsvReader`] is explained in some depths [here](rows_as_collections.html), but we're more interested in what we
@@ -58,7 +58,7 @@ multiple `filter` and `map` operations, and nothing will happen until each row i
 
 ```scala
 val filtered = iterator.filter(_.exists(_.year >= 1997)).map(_.map(_.make))
-// filtered: kantan.codecs.resource.ResourceIterator[Either[ReadError, String]] = kantan.codecs.resource.ResourceIterator$$anon$3@493308a1
+// filtered: kantan.codecs.resource.ResourceIterator[Either[ReadError, String]] = kantan.codecs.resource.ResourceIterator$$anon$3@11fe9b1f
 ```
 
 At this point, no data has been parsed yet. We can now, say, take the first element:

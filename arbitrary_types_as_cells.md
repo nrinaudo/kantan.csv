@@ -1,13 +1,13 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Encoding arbitrary types as cells"
-section: scala mdocorial
+section: tutorial
 sort_order: 11
 ---
 
 We've seen in a [previous post](collections_as_rows.html) how to encode collections as CSV rows. Exactly *how* that
 happened and how individual elements of the collection were turned into CSV cells was sort of glossed over, though. In
-this scala mdocorial, we'll take a deeper look at the underlying mechanism.
+this tutorial, we'll take a deeper look at the underlying mechanism.
 
 ## General mechanism
 
@@ -17,7 +17,7 @@ implicit instance of [`CellEncoder[A]`][`CellEncoder`] in scope. All sane primit
 
 ```scala
 implicitly[kantan.csv.CellEncoder[Int]]
-// res0: kantan.csv.package.CellEncoder[Int] = kantan.codecs.Codec$$anon$1@1d81e4d4
+// res0: kantan.csv.package.CellEncoder[Int] = kantan.codecs.Codec$$anon$1@1b753d3f
 ```
 
 A more complete list of default instances can be found [here](default_instances.html)
@@ -58,8 +58,8 @@ List(
   List(new DateTime(), new DateTime().plusDays(1)),
   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
 ).asCsv(rfc)
-// res2: String = """2019-10-23,2019-10-24
-// 2019-10-25,2019-10-26
+// res2: String = """2019-10-24,2019-10-25
+// 2019-10-26,2019-10-27
 // """
 ```
 

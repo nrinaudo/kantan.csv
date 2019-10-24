@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Encoding case classes as rows"
-section: scala mdocorial
+section: tutorial
 sort_order: 13
 ---
 

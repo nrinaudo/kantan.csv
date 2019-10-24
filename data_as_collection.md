@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Decoding CSV data into a collection"
-section: scala mdocorial
+section: tutorial
 sort_order: 6
 ---
 
@@ -29,7 +29,7 @@ scala.io.Source.fromURL(rawData).mkString
 ```
 
 Our goal here is to load this entire resource as a [`List`]. In order to do that, we must be able to decode each
-row as a case class. This is exactly what we did in a [previous scala mdocorial](rows_as_case_classes.html):
+row as a case class. This is exactly what we did in a [previous tutorial](rows_as_case_classes.html):
 
 ```scala
 import kantan.csv._

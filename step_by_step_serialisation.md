@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Encoding one row at a time"
-section: scala mdocorial
+section: tutorial
 sort_order: 16
 ---
 
