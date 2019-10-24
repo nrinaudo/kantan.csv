@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Encoding tuples as rows"
-section: scala mdocorial
+section: tutorial
 sort_order: 12
 ---
 In a [previous post](collections_as_rows.html), we've seen how to encode collections as CSV rows. This is useful when

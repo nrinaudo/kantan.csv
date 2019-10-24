@@ -1,12 +1,12 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Decoding rows as case classes"
-section: scala mdocorial
+section: tutorial
 sort_order: 4
 ---
 
 ## Overview
-In a [previous scala mdocorial](rows_as_tuples), we saw how to decode CSV rows into tuples. This is useful, but we sometimes
+In a [previous tutorial](rows_as_tuples), we saw how to decode CSV rows into tuples. This is useful, but we sometimes
 want a more specific type - a `Point` instead of an `(Int, Int)`, say. Case classes lend themselves well to such
 scenarios, and kantan.csv has various mechanisms to support them.
 

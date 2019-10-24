@@ -1,10 +1,10 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Error handling"
-section: scala mdocorial
+section: tutorial
 sort_order: 9
 ---
-There are many ways of dealing with parse errors in kantan.csv. This scala mdocorial shows the most common strategies, but
+There are many ways of dealing with parse errors in kantan.csv. This tutorial shows the most common strategies, but
 it essentially boils down to knowing how [`Either`] (the underlying type of [`ReadResult`]) works.
 
 All the examples here are going to be using the following data:

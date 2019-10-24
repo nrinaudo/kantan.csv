@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Generic module"
-section: scala mdocorial
+section: tutorial
 sort_order: 25
 ---
 While kantan.csv goes out of its way to provide [default instances](default_instances.html) for as many types as it can,
@@ -15,7 +15,7 @@ The `generic` module can be used by adding the following dependency to your `bui
 libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "@VERSION@"
 ```
 
-Let's first declare the imports we'll need in the rest of this scala mdocorial:
+Let's first declare the imports we'll need in the rest of this tutorial:
 
 ```scala mdoc:silent
 import kantan.csv._

@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Libra module"
-section: scala mdocorial
+section: tutorial
 sort_order: 30
 ---
 kantan.csv comes with a [libra](https://github.com/to-ithaca/libra) module that can be used

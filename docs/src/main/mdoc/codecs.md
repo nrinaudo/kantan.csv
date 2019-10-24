@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Encoders, decoders and codecs"
-section: scala mdocorial
+section: tutorial
 sort_order: 18
 ---
 We've seen how kantan.csv uses encoders and decoders as a convenient way to support new types. This didn't account for

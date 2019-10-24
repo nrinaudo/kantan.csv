@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Refined module"
-section: scala mdocorial
+section: tutorial
 sort_order: 28
 ---
 kantan.csv comes with a [refined](https://github.com/fthomas/refined) module that can be used
