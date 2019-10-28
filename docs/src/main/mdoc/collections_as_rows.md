@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Encoding collections as rows"
-section: scala mdocorial
+section: tutorial
 sort_order: 10
 ---
 CSV is often used to store rows of homogeneous data - each cell could be an `Int`, for instance. We'll see in this post

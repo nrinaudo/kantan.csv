@@ -1,11 +1,11 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Decoding rows as tuples"
-section: scala mdocorial
+section: tutorial
 sort_order: 3
 ---
 
-In a [previous scala mdocorial](rows_as_collections.html), we saw how to deal with CSV data composed of rows of homogeneous
+In a [previous tutorial](rows_as_collections.html), we saw how to deal with CSV data composed of rows of homogeneous
 types. While a common enough scenario, you'll also find yourself having to deal with heterogeneous data types fairly
 often.
 

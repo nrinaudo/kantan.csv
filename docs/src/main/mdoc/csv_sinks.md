@@ -1,10 +1,10 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "What can CSV data be written to?"
-section: scala mdocorial
+section: tutorial
 sort_order: 17
 ---
-All the encoding scala mdocorials, such as [this](serialising_collections.html) one, matter-of-factly call the
+All the encoding tutorials, such as [this](serialising_collections.html) one, matter-of-factly call the
 [`asCsvWriter`] method of [`File`], when [`File`] does not in fact have such a method. This works thanks to the
 [`CsvSink`] type class.
 

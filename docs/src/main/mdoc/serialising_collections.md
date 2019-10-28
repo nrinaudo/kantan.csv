@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Encoding entire collections"
-section: scala mdocorial
+section: tutorial
 sort_order: 15
 ---
 While kantan.csv was written with large amount of data in mind - or at least, more data than a standard laptop can

@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Encoding case classes as rows"
-section: scala mdocorial
+section: tutorial
 sort_order: 13
 ---
 In a [previous post](tuples_as_rows.html), we've seen how to encode tuples as CSV rows. While useful, actual code

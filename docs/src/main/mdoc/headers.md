@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Using header values instead of indexes"
-section: scala mdocorial
+section: tutorial
 sort_order: 19
 ---
 kantan.csv mostly works from column indexes: when you need to refer to a specific CSV cell, you do so through its

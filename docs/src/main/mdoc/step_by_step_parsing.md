@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Decoding CSV data one row at a time"
-section: scala mdocorial
+section: tutorial
 sort_order: 7
 ---
 CSV data is sometimes unreasonably large - I've had to deal with CSV files in the multiple gigabytes - and cannot
@@ -22,7 +22,7 @@ scala.io.Source.fromURL(rawData).mkString
 ```
 
 Our goal here is to parse this resource row by row. In order to do that, we must be able to decode each
-row as a case class. This is exactly what we did in a [previous scala mdocorial](rows_as_case_classes.html):
+row as a case class. This is exactly what we did in a [previous tutorial](rows_as_case_classes.html):
 
 ```scala mdoc:silent
 import kantan.csv._

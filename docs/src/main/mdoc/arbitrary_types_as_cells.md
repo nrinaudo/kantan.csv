@@ -1,12 +1,12 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Encoding arbitrary types as cells"
-section: scala mdocorial
+section: tutorial
 sort_order: 11
 ---
 We've seen in a [previous post](collections_as_rows.html) how to encode collections as CSV rows. Exactly *how* that
 happened and how individual elements of the collection were turned into CSV cells was sort of glossed over, though. In
-this scala mdocorial, we'll take a deeper look at the underlying mechanism.
+this tutorial, we'll take a deeper look at the underlying mechanism.
 
 ## General mechanism
 

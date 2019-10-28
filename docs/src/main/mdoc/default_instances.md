@@ -1,7 +1,7 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Default instances"
-section: scala mdocorial
+section: tutorial
 sort_order: 20
 ---
 ## Cells

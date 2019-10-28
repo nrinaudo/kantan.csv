@@ -1,11 +1,11 @@
 ---
-layout: scala mdocorial
+layout: tutorial
 title: "Decoding cells as arbitrary types"
-section: scala mdocorial
+section: tutorial
 sort_order: 2
 ---
 We've seen in a [previous post](rows_as_collections.html) how to decode CSV rows as collections. Exactly *how* that
-happened and how individual cells were turned into useful types was sort of glossed over, though. In this scala mdocorial,
+happened and how individual cells were turned into useful types was sort of glossed over, though. In this tutorial,
 we'll take a deeper look at the underlying mechanism.
 
 ## General mechanism
