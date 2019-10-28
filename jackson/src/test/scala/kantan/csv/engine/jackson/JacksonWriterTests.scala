@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package kantan.csv.engine
+package kantan.csv.engine.jackson
 
-import kantan.csv.engine.jackson._
 import kantan.csv.laws.discipline.WriterEngineTests
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
