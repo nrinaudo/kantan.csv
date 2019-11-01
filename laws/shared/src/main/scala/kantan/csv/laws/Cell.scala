@@ -17,7 +17,7 @@
 package kantan.csv
 package laws
 
-import org.scalacheck.{Arbitrary, Cogen, Gen}
+import org.scalacheck.{Arbitrary, Cogen, Gen, Shrink}
 
 sealed trait Cell extends Product with Serializable {
   def value: String
@@ -43,9 +43,12 @@ object Cell {
   implicit val cellDecoder: CellDecoder[Cell]                      = CellDecoder.from(s => DecodeResult(Cell(s)))
   implicit val nonEscapedCellEncoder: CellEncoder[Cell.NonEscaped] = CellEncoder.from(_.value)
 
+  private def containsEscapable(value: String): Boolean =
+    value.exists(c => c == '"' || c == ',' || c == '\n' || c == '\r')
+
   def apply(value: String): Cell =
     if(value == "") Empty
-    else if(value.exists(c => c == '"' || c == ',' || c == '\n' || c == '\r')) Escaped(value)
+    else if(containsEscapable(value)) Escaped(value)
     else NonEscaped(value)
 
   // - CSV character generators ----------------------------------------------------------------------------------------
@@ -74,6 +77,12 @@ object Cell {
 
   implicit val cogenCell: Cogen[Cell] = Cogen[String].contramap(_.value)
 
+  implicit val cellShrink: Shrink[Cell] = Shrink {
+    case Empty         => Shrink.shrinkAny.shrink(Empty)
+    case Escaped(s)    => Shrink.shrinkString.shrink(s).filter(containsEscapable).map(Escaped)
+    case NonEscaped(s) => Shrink.shrinkString.shrink(s).filter(_.nonEmpty).map(NonEscaped)
+  }
+
   // - CSV row generators ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def rowOf[C <: Cell](gen: Gen[C]): Gen[List[C]] = Gen.nonEmptyListOf(gen)
@@ -86,6 +95,16 @@ object Cell {
   implicit val arbEscapedRow: Arbitrary[List[Escaped]]       = Arbitrary(rowOf(escaped))
   implicit val arbNonEscapedRow: Arbitrary[List[NonEscaped]] = Arbitrary(rowOf(nonEscaped))
   implicit val arbRow: Arbitrary[List[Cell]]                 = Arbitrary(row)
+
+  implicit val rowShrink: Shrink[List[Cell]] = Shrink {
+    case Nil =>
+      Shrink.shrinkAny.shrink(Nil)
+    case (head :: Nil) =>
+      cellShrink.shrink(head).map(_ :: Nil)
+    case (head :: tail) =>
+      Shrink.shrinkContainer[List, Cell].shrink(tail).map(t => head :: t) ++
+        cellShrink.shrink(head).map(_ :: tail)
+  }
 
   // - CSV generators --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
