@@ -1,11 +1,26 @@
+@import '../fonts/fira/fira.css';
+
 .highlight pre code {
   white-space: pre;       // forces <code> to respect <pre> formatting
 }
 
-.highlight pre, pre, .highlight .hll { background-color: #f8f8f8; padding: 6px 10px; border-radius: 5pt; }
+.highlight pre, pre, .highlight .hll { background-color: #f8f8f8; padding: 6px 10px }
 
 code {
-    font-family:'Bitstream Vera Sans Mono','Courier', monospace;
+    font-family: "Fira Mono";
+}
+
+p a code {
+    color: #268bd2;
+}
+
+p code, li code {
+    font-size:     0.9em;
+    border:        1px solid #eee8d5;
+    padding:       2px 5px 2px 5px;
+    border-radius: 5px;
+    color:         #586e75;
+    background:    #fdf6e3;
 }
 
 .highlight .c { color: #586E75 } /* Comment */

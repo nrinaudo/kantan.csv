@@ -25,7 +25,7 @@ import kantan.csv._
 import kantan.csv.ops._
 import kantan.csv.generic._
 
-final case class Person(id: Int, name: String, flag: Boolean)
+case class Person(id: Int, name: String, flag: Boolean)
 
 val rawData: java.net.URL = getClass.getResource("/dodgy.csv")
 ```
@@ -75,7 +75,7 @@ Our problem here is that the `flag` field of our `Person` class is not always of
 `Person` as follows:
 
 ```scala mdoc:silent
-final case class SafePerson(id: Int, name: String, flag: Either[Boolean, Int])
+case class SafePerson(id: Int, name: String, flag: Either[Boolean, Int])
 ```
 
 We can now load the whole data without an error:
