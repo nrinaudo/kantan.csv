@@ -26,8 +26,8 @@ import kantan.csv.engine.jackson._
 ```
 
 You can tweak the behaviour of the underlying parsers and serialisers by creating them through
-[`readerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson$.html#readerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.ReaderEngine)
-and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson$.html#writerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.WriterEngine).
+[`readerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson/index.html#readerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.ReaderEngine)
+and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson/index.html#writerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.WriterEngine).
 
 
 ### Apache Commons CSV
@@ -45,8 +45,8 @@ import kantan.csv.engine.commons._
 ```
 
 You can tweak the behaviour of the underlying parsers and serialisers by creating them through
-[`readerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/commons$.html#readerEngineFrom(f:kantan.csv.engine.commons.CSVFormatBuilder):kantan.csv.engine.ReaderEngine)
-and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/commons$.html#writerEngineFrom(f:kantan.csv.engine.commons.CSVFormatBuilder):kantan.csv.engine.WriterEngine).
+[`readerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/commons/index.html#readerEngineFrom(f:kantan.csv.engine.commons.package.CSVFormatBuilder):kantan.csv.engine.ReaderEngine)
+and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/commons/index.html#writerEngineFrom(f:kantan.csv.engine.commons.package.CSVFormatBuilder):kantan.csv.engine.WriterEngine).
 
 
 ## Supporting a new library
