@@ -33,9 +33,6 @@ libraryDependencies += "com.nrinaudo" %% "kantan.csv-cats" % "@VERSION@"
 // Automatic type class instances derivation.
 libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "@VERSION@"
 
-// Provides instances for joda time types.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-joda-time" % "@VERSION@"
-
 // Provides instances for refined types.
 libraryDependencies += "com.nrinaudo" %% "kantan.csv-refined" % "@VERSION@"
 
