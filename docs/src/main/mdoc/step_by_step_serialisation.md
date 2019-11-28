@@ -19,7 +19,7 @@ import kantan.csv._
 import kantan.csv.ops._
 import kantan.csv.generic._
 
-final case class Person(id: Int, name: String, age: Int)
+case class Person(id: Int, name: String, age: Int)
 ```
 
 Obtaining an instance of [`CsvWriter`] is achieved by calling the [`asCsvWriter`] method that enriches any type that

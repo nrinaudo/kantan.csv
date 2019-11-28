@@ -30,7 +30,7 @@ scala.io.Source.fromURL(rawData).mkString
 An obvious representation of each row in this data would be:
 
 ```scala mdoc:silent
-final case class Car(year: Int, make: String, model: String, price: Float, desc: Option[String])
+case class Car(year: Int, make: String, model: String, price: Float, desc: Option[String])
 ```
 
 Note how we've made sure to swap `desc` and `price`, to make sure that they were not in the same order as in the CSV

@@ -29,7 +29,7 @@ import kantan.csv._
 import kantan.csv.ops._
 import kantan.csv.generic._
 
-final case class Car(year: Int, make: String, model: String, desc: Option[String], price: Float)
+case class Car(year: Int, make: String, model: String, desc: Option[String], price: Float)
 ```
 
 Now that we have everything we need to decode the CSV data, here's how to turn it into something that is essentially

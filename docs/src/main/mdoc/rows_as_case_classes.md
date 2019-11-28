@@ -26,7 +26,7 @@ scala.io.Source.fromURL(rawData).mkString
 An obvious representation of each row in this data would be:
 
 ```scala mdoc:silent
-final case class Car(year: Int, make: String, model: String, desc: Option[String], price: Float)
+case class Car(year: Int, make: String, model: String, desc: Option[String], price: Float)
 ```
 
 We find ourselves with a particularly easy scenario to deal with: the rows in the CSV data and the fields in the target
@@ -59,7 +59,7 @@ As we said before though, this was a particularly advantageous scenario. How wou
 where, say, the `year` and `make` fields have been swapped and the `desc` field doesn't exist?
 
 ```scala mdoc:silent
-final case class Car2(make: String, year: Int, model: String, price: Float)
+case class Car2(make: String, year: Int, model: String, price: Float)
 ```
 
 This cannot be derived automatically, and we need to provide an instance of [`RowDecoder[Car2]`][`RowDecoder`]. This is

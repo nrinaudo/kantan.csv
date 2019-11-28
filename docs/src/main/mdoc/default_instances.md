@@ -41,8 +41,6 @@ provides easy ways of creating [`CellEncoder`], [`CellDecoder`] and [`CellCodec`
 * [`CellEncoder.dateEncoder`]({{ site.baseurl }}/api/kantan/csv/CellEncoder$.html#dateEncoder(format:java.text.DateFormat):kantan.csv.CellEncoder[java.util.Date])
 * [`CellDecoder.dateDecoder`]({{ site.baseurl }}/api/kantan/csv/CellDecoder$.html#dateDecoder(format:java.text.DateFormat):kantan.csv.CellDecoder[java.util.Date])
 
-Note that kantan.csv has a [joda-time](joda_time.html) module, a very well thought out alternative to [`Date`].
-
 ### `Either`
 
 For any two types `A` and `B` that each have a [`CellEncoder`], there exists a
