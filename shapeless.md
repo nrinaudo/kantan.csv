@@ -4,7 +4,6 @@ title: "Generic module"
 section: tutorial
 sort_order: 25
 ---
-
 While kantan.csv goes out of its way to provide [default instances](default_instances.html) for as many types as it can,
 some are made problematic by my strict rule against runtime reflection. Fortunately, [shapeless](http://shapeless.io)
 provides _compile time_ reflection, which makes it possible for the `generic` module to automatically derive instances
@@ -13,7 +12,7 @@ for more common types and patterns.
 The `generic` module can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.6.1-SNAPSHOT"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.6.0"
 ```
 
 Let's first declare the imports we'll need in the rest of this tutorial:
@@ -36,7 +35,7 @@ also does.
 Let's declare a (fairly useless) case class (we'll be making a more useful one in the next section):
 
 ```scala
-final case class Wrapper[A](a: A)
+case class Wrapper[A](a: A)
 ```
 
 We can directly encode from and decode to instances of `Wrapper`:
@@ -61,8 +60,8 @@ We can also get free [`CellDecoder`] and [`CellEncoder`] instances for sum types
 
 ```scala
 sealed abstract class Or[+A, +B]
-final case class Left[A](value: A) extends Or[A, Nothing]
-final case class Right[B](value: B) extends Or[Nothing, B]
+case class Left[A](value: A) extends Or[A, Nothing]
+case class Right[B](value: B) extends Or[Nothing, B]
 ```
 
 `Left` is a unary case class and will have a [`CellDecoder`] if its type parameter has one, and the same goes for
@@ -91,7 +90,7 @@ Take, for example, a custom [`Tuple2`] implementation (using an actual [`Tuple2`
 it's supported by kantan.csv without needing the `generic` module):
 
 ```scala
-final case class CustomTuple2[A, B](a: A, b: B)
+case class CustomTuple2[A, B](a: A, b: B)
 ```
 
 We can encode from and decode to that type for free:

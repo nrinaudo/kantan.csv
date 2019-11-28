@@ -4,7 +4,6 @@ title: "Decoding rows as collections"
 section: tutorial
 sort_order: 1
 ---
-
 A simple but very common type of CSV data is rows of numerical values. This is something that kantan.csv tries to make
 as as easy as possible to deal with.
 
@@ -62,7 +61,6 @@ necessary: [`CsvReader`] will automatically close any underlying resource when i
 error occurs.
 
 ## What to read next
-
 If you want to learn more about:
 
 * [decoding rows as tuples](rows_as_tuples.html)
@@ -71,7 +69,6 @@ If you want to learn more about:
 * [how we were able to turn a `URL` into CSV data](csv_sources.html)
 
 [`List`]:http://www.scala-lang.org/api/current/scala/collection/immutable/List.html
-
 [`CsvReader`]:{{ site.baseurl }}/api/kantan/csv/package$$CsvReader.html
 [`CellDecoder`]:{{ site.baseurl }}/api/kantan/csv/CellDecoder$.html
 [`ReadResult`]:{{ site.baseurl }}/api/kantan/csv/ReadResult$.html

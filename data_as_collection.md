@@ -4,7 +4,6 @@ title: "Decoding CSV data into a collection"
 section: tutorial
 sort_order: 6
 ---
-
 When memory constraints are not an issue, decoding an entire CSV file into a single collection, such as a [`List`] or
 [`Vector`], can be useful. kantan.csv offers simple primitives for just this purpose.
 
@@ -36,7 +35,7 @@ import kantan.csv._
 import kantan.csv.ops._
 import kantan.csv.generic._
 
-final case class Car(year: Int, make: String, model: String, desc: Option[String], price: Float)
+case class Car(year: Int, make: String, model: String, desc: Option[String], price: Float)
 ```
 
 Now that we have everything we need to decode the CSV data, here's how to turn it into a [`List`]:
@@ -94,7 +93,6 @@ If you want to learn more about:
 [`Set`]:http://www.scala-lang.org/api/current/scala/collection/Set.html
 [`Map`]:http://www.scala-lang.org/api/current/scala/collection/immutable/Map.html
 [`Vector`]:http://www.scala-lang.org/api/current/scala/collection/immutable/Vector.html
-
 [`readCsv`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#readCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$3:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,kantan.csv.ReadResult[B],C[kantan.csv.ReadResult[B]]]):C[kantan.csv.ReadResult[B]]
 [`unsafeReadCsv`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#unsafeReadCsv[C[_],B](sep:Char,header:Boolean)(implicitevidence$4:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine,implicitcbf:scala.collection.generic.CanBuildFrom[Nothing,B,C[B]]):C[B]
 [`ReadResult`]:{{ site.baseurl }}/api/kantan/csv/ReadResult$.html

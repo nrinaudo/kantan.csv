@@ -4,7 +4,6 @@ title: "Decoding cells as arbitrary types"
 section: tutorial
 sort_order: 2
 ---
-
 We've seen in a [previous post](rows_as_collections.html) how to decode CSV rows as collections. Exactly *how* that
 happened and how individual cells were turned into useful types was sort of glossed over, though. In this tutorial,
 we'll take a deeper look at the underlying mechanism.
@@ -17,7 +16,7 @@ in scope - `Int`, for example:
 
 ```scala
 implicitly[kantan.csv.CellDecoder[Int]]
-// res0: kantan.csv.package.CellDecoder[Int] = kantan.codecs.Codec$$anon$1@2899c984
+// res0: kantan.csv.package.CellDecoder[Int] = kantan.codecs.Codec$$anon$1@251413bb
 ```
 
 A more complete list of default instances can be found [here](default_instances.html).
@@ -61,7 +60,6 @@ And we can now decode CSV data composed of dates:
 ```
 
 ## What to read next
-
 If you want to learn more about:
 
 * [encoding arbitrary types](arbitrary_types_as_cells.html)

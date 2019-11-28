@@ -4,7 +4,6 @@ title: "Encoding one row at a time"
 section: tutorial
 sort_order: 16
 ---
-
 A [previous post](serialising_collections.html) covered how to encode entire collections as CSV. This is not,
 however, always possible or even desirable: if the data to encode is obtained in a lazy way, it's usually better to
 encoded it as it comes.
@@ -20,7 +19,7 @@ import kantan.csv._
 import kantan.csv.ops._
 import kantan.csv.generic._
 
-final case class Person(id: Int, name: String, age: Int)
+case class Person(id: Int, name: String, age: Int)
 ```
 
 Obtaining an instance of [`CsvWriter`] is achieved by calling the [`asCsvWriter`] method that enriches any type that
@@ -61,7 +60,6 @@ scala.io.Source.fromFile(out).mkString
 ```
 
 ## What to read next
-
 If you want to learn more about:
 
 * [how we were able to turn a `File` into a `CsvWriter`](csv_sinks.html)

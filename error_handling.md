@@ -4,7 +4,6 @@ title: "Error handling"
 section: tutorial
 sort_order: 9
 ---
-
 There are many ways of dealing with parse errors in kantan.csv. This tutorial shows the most common strategies, but
 it essentially boils down to knowing how [`Either`] (the underlying type of [`ReadResult`]) works.
 
@@ -26,7 +25,7 @@ import kantan.csv._
 import kantan.csv.ops._
 import kantan.csv.generic._
 
-final case class Person(id: Int, name: String, flag: Boolean)
+case class Person(id: Int, name: String, flag: Boolean)
 
 val rawData: java.net.URL = getClass.getResource("/dodgy.csv")
 ```
@@ -48,7 +47,6 @@ rely on encoding errors in return types. Still, unsafe readers can be useful - w
 reliability or maintainability are not an issue, for example.
 
 ## Drop errors
-
 Another common, if not always viable strategy is to use [`collect`] to simply drop whatever rows failed to decode:
 
 ```scala
@@ -68,7 +66,6 @@ This is achieved in an entirely safe way, validated at compile time.
 
 
 ## Fail if at least one row fails to decode
-
 When not streaming data, a good option is to fail if a single row fails to decode - turn a
 [`List[ReadResult[A]]`][`List`] into a [`ReadResult[List[A]]`][`ReadResult`]. This is done through [`ReadResult`]'s
 [`sequence`] method:
@@ -83,13 +80,12 @@ ReadResult.sequence(rawData.readCsv[List, Person](rfc))
 The only real downside to this approach is that it requires loading the entire data in memory.
 
 ## Use more flexible types to prevent errors
-
 Our problem here is that the `flag` field of our `Person` class is not always of the same type - some rows have it as a
 `boolean`, others as an `Int`. This is something that the [`Either`] type is well suited for, so we could rewrite
 `Person` as follows:
 
 ```scala
-final case class SafePerson(id: Int, name: String, flag: Either[Boolean, Int])
+case class SafePerson(id: Int, name: String, flag: Either[Boolean, Int])
 ```
 
 We can now load the whole data without an error:
@@ -109,7 +105,6 @@ This strategy is not always possible, but is good to keep in mind for these case
 
 
 [`List`]:http://www.scala-lang.org/api/current/scala/collection/immutable/List.html
-
 [`asUnsafeCsvReader`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSourceOps.html#asUnsafeCsvReader[B](sep:Char,header:Boolean)(implicitevidence$2:kantan.csv.RowDecoder[B],implicitia:kantan.csv.CsvSource[A],implicite:kantan.csv.engine.ReaderEngine):kantan.csv.CsvReader[B]
 [`ReadResult`]:{{ site.baseurl }}/api/kantan/csv/ReadResult$.html
 [`collect`]:http://nrinaudo.github.io/kantan.codecs/api/kantan/codecs/resource/ResourceIterator.html#collect[B](f:PartialFunction[A,B]):kantan.codecs.resource.ResourceIterator[B]

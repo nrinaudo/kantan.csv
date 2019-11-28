@@ -4,7 +4,6 @@ title: "Encoding entire collections"
 section: tutorial
 sort_order: 15
 ---
-
 While kantan.csv was written with large amount of data in mind - or at least, more data than a standard laptop can
 comfortably fit in memory - it's still fairly common to have a collection that needs to be written down as CSV.
 
@@ -16,7 +15,7 @@ import kantan.csv._
 import kantan.csv.ops._
 import kantan.csv.generic._
 
-final case class Person(id: Int, name: String, age: Int)
+case class Person(id: Int, name: String, age: Int)
 
 val ps = List(Person(0, "Nicolas", 38), Person(1, "Kazuma", 1), Person(2, "John", 18))
 ```

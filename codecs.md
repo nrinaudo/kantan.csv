@@ -4,7 +4,6 @@ title: "Encoders, decoders and codecs"
 section: tutorial
 sort_order: 18
 ---
-
 We've seen how kantan.csv uses encoders and decoders as a convenient way to support new types. This didn't account for
 a fairly common scenario, however: types for which one wishes to declare both an encoder and a decoder. It's certainly
 possible to write both, but it's a bit cumbersome. kantan.csv offers an alternative: codecs, which are simply an
@@ -35,14 +34,14 @@ val dates = List(
   List(new DateTime(), new DateTime().plusDays(1)),
   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
 ).asCsv(rfc)
-// dates: String = """2019-10-24,2019-10-25
-// 2019-10-26,2019-10-27
+// dates: String = """2019-11-28,2019-11-29
+// 2019-11-30,2019-12-01
 // """
 
 dates.readCsv[List, List[DateTime]](rfc)
 // res0: List[ReadResult[List[DateTime]]] = List(
-//   Right(List(2019-10-24T00:00:00.000+02:00, 2019-10-25T00:00:00.000+02:00)),
-//   Right(List(2019-10-26T00:00:00.000+02:00, 2019-10-27T00:00:00.000+02:00))
+//   Right(List(2019-11-28T00:00:00.000+01:00, 2019-11-29T00:00:00.000+01:00)),
+//   Right(List(2019-11-30T00:00:00.000+01:00, 2019-12-01T00:00:00.000+01:00))
 // )
 ```
 
@@ -54,7 +53,7 @@ however: all the helper methods we've seen for creating [`RowDecoder`] and [`Row
 [`RowCodec`]. Let's take a concrete example with case classes.
 
 ```scala
-final case class Person(id: Int, name: String, age: Int)
+case class Person(id: Int, name: String, age: Int)
 
 val ps = List(Person(0, "Nicolas", 38), Person(1, "Kazuma", 1), Person(2, "John", 18))
 ```
@@ -83,7 +82,6 @@ csv.readCsv[List, Person](rfc)
 ```
 
 [`DateTime`]:http://www.joda.org/joda-time/apidocs/org/joda/time/DateTime.html
-
 [`CellCodec`]:{{ site.baseurl }}/api/kantan/csv/package$$CellCodec.html
 [`RowCodec`]:{{ site.baseurl }}/api/kantan/csv/package$$RowCodec.html
 [`RowDecoder`]:{{ site.baseurl }}/api/kantan/csv/package$$RowDecoder.html

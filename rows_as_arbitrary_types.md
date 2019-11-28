@@ -4,7 +4,6 @@ title: "Decoding rows as arbitrary types"
 section: tutorial
 sort_order: 5
 ---
-
 Other tutorials covered decoding rows as [collections](rows_as_collections.html), [tuples](rows_as_tuples.html)
 and [case classes](rows_as_case_classes.html). While those are the most common scenarios, it is sometimes necessary
 to decode rows into types that are none of these.

@@ -4,7 +4,6 @@ title: "Using header values instead of indexes"
 section: tutorial
 sort_order: 19
 ---
-
 kantan.csv mostly works from column indexes: when you need to refer to a specific CSV cell, you do so through its
 index in a row. The reason behind this behaviour is that headers are entirely optional and cannot be relied on to always
 be present.
@@ -37,7 +36,7 @@ scala.io.Source.fromURL(rawData).mkString
 An obvious representation of each row in this data would be:
 
 ```scala
-final case class Car(year: Int, make: String, model: String, price: Float, desc: Option[String])
+case class Car(year: Int, make: String, model: String, price: Float, desc: Option[String])
 ```
 
 Note how we've made sure to swap `desc` and `price`, to make sure that they were not in the same order as in the CSV

@@ -4,12 +4,11 @@ title: "Libra module"
 section: tutorial
 sort_order: 30
 ---
-
 kantan.csv comes with a [libra](https://github.com/to-ithaca/libra) module that can be used
 by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-libra" % "0.6.1-SNAPSHOT"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-libra" % "0.6.0"
 ```
 
 You then need to import the corresponding package:
@@ -39,4 +38,3 @@ We can then simply write the following:
 //   Right((Quantity(1), Quantity(2)))
 // )
 ```
-

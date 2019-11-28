@@ -4,14 +4,13 @@ title: "Encoding case classes as rows"
 section: tutorial
 sort_order: 13
 ---
-
 In a [previous post](tuples_as_rows.html), we've seen how to encode tuples as CSV rows. While useful, actual code
 rarely stores business objects as tuples - encoding case classes is a much more common need than encoding tuples.
 
 Let's imagine that we have a list of values of type `Person` to encode:
 
 ```scala
-final case class Person(id: Int, name: String, age: Int)
+case class Person(id: Int, name: String, age: Int)
 
 val ps = List(Person(0, "Nicolas", 38), Person(1, "Kazuma", 1), Person(2, "John", 18))
 ```
@@ -23,7 +22,7 @@ how to do that.
 You'll first need to add a dependency to the [generic](shapeless.html) module in your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.6.1-SNAPSHOT"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.6.0"
 ```
 
 Then, with the appropriate imports:
@@ -77,7 +76,6 @@ If you want to learn more about:
 * [how we were able to turn a `File` into a `CsvWriter`](csv_sinks.html)
 
 [shapeless]:https://github.com/milessabin/shapeless
-
 [`CsvWriter`]:{{ site.baseurl }}/api/kantan/csv/CsvWriter.html
 [`RowEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$RowEncoder.html
 [`caseEncoder`]:{{ site.baseurl }}/api/kantan/csv/GeneratedRowEncoders.html#caseEncoder[C,A1,A2,A3,A4](i1:Int,i2:Int,i3:Int,i4:Int)(f:C=>Option[(A1,A2,A3,A4)])(implicitevidence$513:kantan.csv.CellEncoder[A1],implicitevidence$514:kantan.csv.CellEncoder[A2],implicitevidence$515:kantan.csv.CellEncoder[A3],implicitevidence$516:kantan.csv.CellEncoder[A4]):kantan.csv.RowEncoder[C]

@@ -4,7 +4,6 @@ title: "Encoding arbitrary types as cells"
 section: tutorial
 sort_order: 11
 ---
-
 We've seen in a [previous post](collections_as_rows.html) how to encode collections as CSV rows. Exactly *how* that
 happened and how individual elements of the collection were turned into CSV cells was sort of glossed over, though. In
 this tutorial, we'll take a deeper look at the underlying mechanism.
@@ -13,11 +12,11 @@ this tutorial, we'll take a deeper look at the underlying mechanism.
 
 Cell encoding is type class based: kantan.csv knows how to turn a type `A` into a CSV cell, provided that there is an
 implicit instance of [`CellEncoder[A]`][`CellEncoder`] in scope. All sane primitive types have default implementations
-- `Int`, for example:
+ - `Int`, for example:
 
 ```scala
 implicitly[kantan.csv.CellEncoder[Int]]
-// res0: kantan.csv.package.CellEncoder[Int] = kantan.codecs.Codec$$anon$1@1b753d3f
+// res0: kantan.csv.package.CellEncoder[Int] = kantan.codecs.Codec$$anon$1@1d0ec5cc
 ```
 
 A more complete list of default instances can be found [here](default_instances.html)
@@ -58,13 +57,12 @@ List(
   List(new DateTime(), new DateTime().plusDays(1)),
   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
 ).asCsv(rfc)
-// res2: String = """2019-10-24,2019-10-25
-// 2019-10-26,2019-10-27
+// res2: String = """2019-11-28,2019-11-29
+// 2019-11-30,2019-12-01
 // """
 ```
 
 ## What to read next
-
 If you want to learn more about:
 
 * [decoding arbitrary types](cells_as_arbitrary_types.html)

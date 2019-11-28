@@ -4,7 +4,6 @@ title: "Encoding arbitrary types as rows"
 section: tutorial
 sort_order: 14
 ---
-
 Other tutorials covered encoding [collections](collections_as_rows.html), [tuples](tuples_as_rows.html)
 and [case classes](case_classes_as_rows.html) as CSV rows. While those are the most common scenarios, it is sometimes
 necessary to encode types that are none of these.

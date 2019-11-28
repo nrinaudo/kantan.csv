@@ -56,7 +56,6 @@ reader.foreach(println _)
 ```
 
 ## What to read next
-
 If you want to learn more about:
 
 * [decoding rows as case classes](rows_as_case_classes.html)

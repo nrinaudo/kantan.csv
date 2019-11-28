@@ -4,13 +4,12 @@ title: "Java 8 dates and times"
 section: tutorial
 sort_order: 27
 ---
-
 Java 8 comes with a better thought out dates and times API. Unfortunately, it cannot be supported as part of the core
 kantan.csv API - we still support Java 7. There is, however, a dedicated optional module that you can include by
 adding the following line to your `build.sbt` file:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-java8" % "0.6.1-SNAPSHOT"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-java8" % "0.6.0"
 ```
 
 You then need to import the corresponding package:
@@ -123,3 +122,6 @@ localDateDecoder(fmt"FOOBAR")
 [`LocalDate`]:https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html
 [`LocalTime`]:https://docs.oracle.com/javase/8/docs/api/java/time/LocalTime.html
 [`DateTimeFormatter`]:http://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormatter.html
+[`CellDecoder`]:{{ site.baseurl }}/api/kantan/csv/package$$CellDecoder.html
+[`CellEncoder`]:{{ site.baseurl }}/api/kantan/csv/package$$CellEncoder.html
+[`CellCodec`]:{{ site.baseurl }}/api/kantan/csv/package$$CellCodec.html

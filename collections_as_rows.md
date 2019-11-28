@@ -4,7 +4,6 @@ title: "Encoding collections as rows"
 section: tutorial
 sort_order: 10
 ---
-
 CSV is often used to store rows of homogeneous data - each cell could be an `Int`, for instance. We'll see in this post
 how kantan.csv supports this kind of scenario.
 
@@ -55,7 +54,6 @@ scala.io.Source.fromFile(out).mkString
 
 
 ## What to read next
-
 If you want to learn more about:
 
 * [encoding tuples as rows](tuples_as_rows.html)
@@ -65,7 +63,6 @@ If you want to learn more about:
 
 
 [`List`]:http://www.scala-lang.org/api/current/scala/collection/immutable/List.html
-
 [`CsvWriter`]:{{ site.baseurl }}/api/kantan/csv/CsvWriter.html
 [`Writer`]:https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html
 [`write`]:{{ site.baseurl }}/api/kantan/csv/CsvWriter.html#write(as:TraversableOnce[A]):kantan.csv.CsvWriter[A]

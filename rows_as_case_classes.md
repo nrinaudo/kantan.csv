@@ -6,7 +6,6 @@ sort_order: 4
 ---
 
 ## Overview
-
 In a [previous tutorial](rows_as_tuples), we saw how to decode CSV rows into tuples. This is useful, but we sometimes
 want a more specific type - a `Point` instead of an `(Int, Int)`, say. Case classes lend themselves well to such
 scenarios, and kantan.csv has various mechanisms to support them.
@@ -33,7 +32,7 @@ scala.io.Source.fromURL(rawData).mkString
 An obvious representation of each row in this data would be:
 
 ```scala
-final case class Car(year: Int, make: String, model: String, desc: Option[String], price: Float)
+case class Car(year: Int, make: String, model: String, desc: Option[String], price: Float)
 ```
 
 We find ourselves with a particularly easy scenario to deal with: the rows in the CSV data and the fields in the target
@@ -43,7 +42,7 @@ case class have a 1-to-1 correspondence and are declared in the same order. This
 You'll first need to add a dependency to the [generic](shapeless.html) module in your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.6.1-SNAPSHOT"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.6.0"
 ```
 
 Then, with the appropriate imports:
@@ -71,7 +70,7 @@ As we said before though, this was a particularly advantageous scenario. How wou
 where, say, the `year` and `make` fields have been swapped and the `desc` field doesn't exist?
 
 ```scala
-final case class Car2(make: String, year: Int, model: String, price: Float)
+case class Car2(make: String, year: Int, model: String, price: Float)
 ```
 
 This cannot be derived automatically, and we need to provide an instance of [`RowDecoder[Car2]`][`RowDecoder`]. This is

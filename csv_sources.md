@@ -4,7 +4,6 @@ title: "What can be parsed as CSV data?"
 section: tutorial
 sort_order: 8
 ---
-
 Before we can even think about parsing CSV data, we need to have access to it somehow. kantan.csv extends most things
 that "can be turned into CSV" with useful methods, such as the oft-used [`asCsvReader`] method. Among such things are:
 
@@ -20,7 +19,6 @@ This is done through the [`CsvSource`] type class: any type `A` such that there 
 Implementing your own instances of [`CsvSource`] for types that aren't supported by default is fairly simple.
 
 ## Implementation from scratch
-
 Reduced to its simplest expression, a [`CsvSource`] is essentially a `A => ParseResult[Reader]` - that is, a function
 that takes an `A` and turns it into a [`Reader`], with the possibility of safe failure encoded in [`ParseResult`].
 
@@ -36,7 +34,6 @@ implicit val stringSource: CsvSource[String] = CsvSource.from(s => ParseResult(n
 
 
 ## Adapting existing instances
-
 Most of the time though, it's easier to turn the type you wish to provide an instance for into a type that *already*
 has an instance. This is achieved either through [`contramap`] (if the transformation is safe and cannot fail) or
 [`econtramap`] (if, as with most IO-related things, it can fail). For example:

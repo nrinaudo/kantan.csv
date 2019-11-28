@@ -4,11 +4,9 @@ title: "Default instances"
 section: tutorial
 sort_order: 20
 ---
-
 ## Cells
 
 ### Basic types
-
 The following types have [`CellCodec`] instances available out of the box:
 
 * [`BigDecimal`]
@@ -42,8 +40,6 @@ provides easy ways of creating [`CellEncoder`], [`CellDecoder`] and [`CellCodec`
 * [`CellCodec.dateCodec`]({{ site.baseurl }}/api/kantan/csv/CellCodec$.html#dateCodec(format:java.text.DateFormat):kantan.csv.CellCodec[java.util.Date])
 * [`CellEncoder.dateEncoder`]({{ site.baseurl }}/api/kantan/csv/CellEncoder$.html#dateEncoder(format:java.text.DateFormat):kantan.csv.CellEncoder[java.util.Date])
 * [`CellDecoder.dateDecoder`]({{ site.baseurl }}/api/kantan/csv/CellDecoder$.html#dateDecoder(format:java.text.DateFormat):kantan.csv.CellDecoder[java.util.Date])
-
-Note that kantan.csv has a [joda-time](joda_time.html) module, a very well thought out alternative to [`Date`].
 
 ### `Either`
 
