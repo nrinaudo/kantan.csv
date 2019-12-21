@@ -59,7 +59,7 @@ final class CsvRowReadingOps[A: CsvSource](a: A) {
   def unsafeReadCsvRow[B: RowDecoder](conf: CsvConfiguration)(implicit e: ReaderEngine): B =
     readCsvRow[B](conf).fold(
       error => sys.error(s"Failed to decode value $a: $error"),
-      w => w
+      w     => w
     )
 }
 
