@@ -87,7 +87,7 @@ object CsvSink {
         .open(a)
         .fold(
           error => sys.error(s"Failed to open resource $a: $error"),
-          w     => w
+          w => w
         )
     )
 }
