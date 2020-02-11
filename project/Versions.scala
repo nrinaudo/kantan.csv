@@ -1,6 +1,6 @@
 object Versions {
   val commonsCsv       = "1.8"
-  val collectionCompat = "2.1.3"
+  val collectionCompat = "2.1.4"
   val jacksonCsv       = "2.10.2"
   val jodaTime         = "2.10.5"
   val kantanCodecs     = "0.5.1"
