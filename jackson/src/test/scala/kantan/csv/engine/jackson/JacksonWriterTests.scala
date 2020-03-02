@@ -20,12 +20,9 @@ import kantan.csv._
 import kantan.csv.laws._
 import kantan.csv.laws.discipline.WriterEngineTests
 import kantan.csv.ops._
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
-import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._
 
-class JacksonWriterTests extends AnyFunSuite with ScalaCheckPropertyChecks with Discipline with Matchers {
+class JacksonWriterTests extends DisciplineSuite {
   checkAll("JacksonWriter", WriterEngineTests(jacksonCsvWriterEngine).writerEngine)
 
   test("Trailing cells composed of a single \\n are properly encoded and decoded") {
