@@ -8,7 +8,7 @@ kantan.csv comes with a [refined](https://github.com/fthomas/refined) module tha
 by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-refined" % "0.6.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-refined" % "0.6.1"
 ```
 
 You then need to import the corresponding package:

@@ -34,14 +34,14 @@ val dates = List(
   List(new DateTime(), new DateTime().plusDays(1)),
   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
 ).asCsv(rfc)
-// dates: String = """2019-11-28,2019-11-29
-// 2019-11-30,2019-12-01
+// dates: String = """2020-05-27,2020-05-28
+// 2020-05-29,2020-05-30
 // """
 
 dates.readCsv[List, List[DateTime]](rfc)
 // res0: List[ReadResult[List[DateTime]]] = List(
-//   Right(List(2019-11-28T00:00:00.000+01:00, 2019-11-29T00:00:00.000+01:00)),
-//   Right(List(2019-11-30T00:00:00.000+01:00, 2019-12-01T00:00:00.000+01:00))
+//   Right(List(2020-05-27T00:00:00.000+02:00, 2020-05-28T00:00:00.000+02:00)),
+//   Right(List(2020-05-29T00:00:00.000+02:00, 2020-05-30T00:00:00.000+02:00))
 // )
 ```
 
