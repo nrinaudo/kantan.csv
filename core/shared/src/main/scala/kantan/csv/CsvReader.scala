@@ -36,7 +36,7 @@ object CsvReader {
 
     val decoder =
       if(conf.hasHeader && data.hasNext)
-        data.next.flatMap(header => HeaderDecoder[A].fromHeader(header.map(_.trim)))
+        data.next().flatMap(header => HeaderDecoder[A].fromHeader(header.map(_.trim())))
       else Right(HeaderDecoder[A].noHeader)
 
     decoder

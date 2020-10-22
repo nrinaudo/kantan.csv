@@ -35,7 +35,7 @@ final class CsvRowReadingOps[A: CsvSource](a: A) {
   def readCsvRow[B: RowDecoder](conf: CsvConfiguration)(implicit e: ReaderEngine): ReadResult[B] = {
     val reader = a.asCsvReader[B](conf)
 
-    reader.next.flatMap { res =>
+    reader.next().flatMap { res =>
       // Slight abuse of `no such element` to mean that we're not working with a single row.
       if(reader.hasNext) ParseResult.noSuchElement
       else ReadResult.success(res)
