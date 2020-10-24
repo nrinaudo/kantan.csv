@@ -14,8 +14,8 @@ before_cache:
   - find $HOME/.coursier -name "*.lock" -delete
   - find $HOME/.cache/coursier -name "*.lock" -delete
 scala:
-  - 2.12.10
-  - 2.13.1
+  - 2.12.12
+  - 2.13.3
 jdk:
   - oraclejdk8
   - openjdk8
