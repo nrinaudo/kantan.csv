@@ -16,11 +16,10 @@
 
 package kantan.csv.engine.jackson
 
-import kantan.csv._
-import kantan.csv.laws._
-import kantan.csv.laws.discipline.WriterEngineTests
+import kantan.csv.laws.Cell
+import kantan.csv.laws.discipline.{DisciplineSuite, WriterEngineTests}
 import kantan.csv.ops._
-import laws.discipline._
+import kantan.csv.rfc
 
 class JacksonWriterTests extends DisciplineSuite {
   checkAll("JacksonWriter", WriterEngineTests(jacksonCsvWriterEngine).writerEngine)

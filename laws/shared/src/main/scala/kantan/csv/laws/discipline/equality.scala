@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package laws
-package discipline
+package kantan.csv.laws.discipline
 
+import kantan.csv.{CellDecoder, CellEncoder, DecodeResult, RowDecoder, RowEncoder}
 import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.{arbitrary => arb}
 

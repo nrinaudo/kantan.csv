@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package ops
+package kantan.csv.ops
+
+import kantan.csv.{CellDecoder, DecodeResult}
 
 /** Provides syntax for decoding CSV cells as values.
   *

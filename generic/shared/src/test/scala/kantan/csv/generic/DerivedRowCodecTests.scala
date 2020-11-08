@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package generic
+package kantan.csv.generic
 
-import arbitrary._
-import kantan.codecs.shapeless.laws._
-import laws.LegalRow
-import laws.discipline._
+import kantan.codecs.shapeless.laws.{Left, Or, Right}
+import kantan.csv.generic.Instances._
+import kantan.csv.generic.arbitrary._
+import kantan.csv.laws.LegalRow
+import kantan.csv.laws.discipline.{DisciplineSuite, RowCodecTests}
 import org.scalacheck.Arbitrary
 
 object Instances {
@@ -39,7 +39,5 @@ object Instances {
 // Shapeless' Lazy generates code with Null that we need to ignore.
 @SuppressWarnings(Array("org.wartremover.warts.Null"))
 class DerivedRowCodecTests extends DisciplineSuite {
-  import Instances._
-
   checkAll("DerivedRowCodec[Or[Complex, Simple]]", RowCodecTests[Or[Complex, Simple]].codec[Byte, Float])
 }

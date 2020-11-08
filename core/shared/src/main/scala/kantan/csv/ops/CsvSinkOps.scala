@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package ops
+package kantan.csv.ops
 
-import engine.WriterEngine
+import kantan.csv.{rfc, CsvConfiguration, CsvSink, CsvWriter, HeaderEncoder}
+import kantan.csv.engine.WriterEngine
 
 /** Provides useful syntax for types that have implicit instances of [[CsvSink]] in scope.
   *

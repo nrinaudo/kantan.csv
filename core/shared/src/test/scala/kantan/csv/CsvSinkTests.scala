@@ -16,9 +16,9 @@
 
 package kantan.csv
 
-import java.io._
-import laws.discipline.arbitrary._
-import ops._
+import java.io.{ByteArrayOutputStream, StringWriter}
+import kantan.csv.laws.discipline.arbitrary._
+import kantan.csv.ops._
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks

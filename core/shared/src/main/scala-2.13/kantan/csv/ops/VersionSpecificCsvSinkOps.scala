@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package ops
+package kantan.csv.ops
 
-import engine.WriterEngine
+import kantan.csv.{rfc, CsvConfiguration, CsvSink, HeaderEncoder}
+import kantan.csv.engine.WriterEngine
 
 trait VersionSpecificCsvSinkOps[A] { self: CsvSinkOps[A] =>
   @deprecated("use writeCsv(rows, CsvConfiguration) instead", "0.1.18")

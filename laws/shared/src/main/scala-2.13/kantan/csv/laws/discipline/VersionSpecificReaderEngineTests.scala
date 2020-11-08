@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package laws
-package discipline
+package kantan.csv.laws.discipline
 
-import org.scalacheck.Prop, Prop._
+import org.scalacheck.Prop
+import org.scalacheck.Prop.forAll
 
 trait VersionSpecificReaderEngineTests { self: ReaderEngineTests =>
   def versionSpecificProps: Seq[(String, Prop)] = Seq(

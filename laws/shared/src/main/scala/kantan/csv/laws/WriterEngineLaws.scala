@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package laws
+package kantan.csv.laws
 
-import engine.WriterEngine
-import ops._
+import kantan.csv.engine.WriterEngine
+import kantan.csv.ops._
+import kantan.csv.rfc
 
 trait WriterEngineLaws extends RfcWriterLaws {
   def quoteAll(csv: List[List[Int]]): Boolean = {

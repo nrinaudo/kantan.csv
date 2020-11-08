@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package refined
+package kantan.csv.refined
 
-import arbitrary._
 import eu.timepit.refined.api.Refined
 import eu.timepit.refined.numeric.Positive
-import laws.discipline._
+import kantan.csv.laws.discipline.{CellCodecTests, DisciplineSuite, RowCodecTests}
+import kantan.csv.refined.arbitrary._
 
 class RefinedCodecTests extends DisciplineSuite {
 

@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package scalaz
+package kantan.csv.scalaz
 
-import _root_.scalaz.Maybe
+import kantan.csv.laws.{IllegalRow, LegalRow}
+import kantan.csv.laws.discipline.{CellCodecTests, DisciplineSuite, RowCodecTests}
 import kantan.csv.scalaz.arbitrary._
-import laws.discipline._
+import org.scalacheck.Arbitrary
+import scalaz.Maybe
 
 class MaybeCodecTests extends DisciplineSuite {
-
-  import org.scalacheck.Arbitrary
-  import kantan.csv.laws._
 
   // These 2 implicits are not found in 2.13. I'm not sure why - it *might* have to do with the change in import
   // statements behaviour?

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package engine
+package kantan.csv.engine
 
 import java.io.Reader
+import kantan.csv.{CsvConfiguration, CsvReader}
 import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer
 

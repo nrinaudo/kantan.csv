@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package refined
+package kantan.csv.refined
 
 import eu.timepit.refined.api.Refined
 import eu.timepit.refined.numeric.Positive
-import laws.discipline._
+import kantan.csv.{CellDecoder, CellEncoder, RowDecoder, RowEncoder}
+import kantan.csv.laws.discipline.{DisciplineSuite, SerializableTests}
 
 class SerialisationTests extends DisciplineSuite {
 

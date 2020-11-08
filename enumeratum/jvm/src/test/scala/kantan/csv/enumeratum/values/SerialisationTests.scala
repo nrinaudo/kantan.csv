@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package enumeratum.values
+package kantan.csv.enumeratum.values
 
-import kantan.codecs.enumeratum.laws.discipline.{SerializableTests => _, _}
-import laws.discipline._
+import kantan.codecs.enumeratum.laws.discipline._
+import kantan.csv.{CellDecoder, CellEncoder, RowDecoder, RowEncoder}
 
 class SerialisationTests extends DisciplineSuite {
 

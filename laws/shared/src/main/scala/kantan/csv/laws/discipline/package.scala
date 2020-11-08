@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package laws
+package kantan.csv.laws
 
-import kantan.codecs.laws.discipline._
-import kantan.csv._
+import kantan.codecs.laws.discipline.DisciplinePackage
+import kantan.csv.{codecs, DecodeError}
 
 package object discipline extends DisciplinePackage {
   type RowDecoderTests[A] = DecoderTests[Seq[String], A, DecodeError, codecs.type]

@@ -16,12 +16,17 @@
 
 package kantan.csv
 
-import java.net.URI
-import laws.discipline._, arbitrary._
+import java.text.SimpleDateFormat
+import java.util.{Date, Locale}
+import kantan.csv.laws.discipline.{CellCodecTests, DisciplineSuite, RowCodecTests}
+import kantan.csv.laws.discipline.arbitrary._
 
-class URICodecTests extends DisciplineSuite {
+class DateCodecTests extends DisciplineSuite {
 
-  checkAll("CellCodec[URI]", CellCodecTests[URI].codec[String, Float])
-  checkAll("RowCodec[URI]", RowCodecTests[URI].codec[String, Float])
+  implicit val codec: CellCodec[Date] =
+    CellCodec.dateCodec(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.ENGLISH))
+
+  checkAll("CellCodec[Date]", CellCodecTests[Date].codec[String, Float])
+  checkAll("RowCodec[Date]", RowCodecTests[Date].codec[String, Float])
 
 }

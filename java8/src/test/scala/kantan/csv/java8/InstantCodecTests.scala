@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package java8
+package kantan.csv.java8
 
-import arbitrary._
 import java.time.Instant
-import laws.discipline._
+import kantan.csv.{CellDecoder, CellEncoder, RowDecoder, RowEncoder}
+import kantan.csv.java8.arbitrary._
+import kantan.csv.laws.discipline.{CellCodecTests, DisciplineSuite, RowCodecTests, SerializableTests}
 
 class InstantCodecTests extends DisciplineSuite {
 

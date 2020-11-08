@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package laws
+package kantan.csv.laws
 
-import KnownFormatsReaderLaws.Car
-import engine.ReaderEngine
-import ops._
+import kantan.csv.{rfc, RowCodec}
+import kantan.csv.engine.ReaderEngine
+import kantan.csv.laws.KnownFormatsReaderLaws.Car
+import kantan.csv.ops._
 import scala.io.Codec
 
 trait KnownFormatsReaderLaws {

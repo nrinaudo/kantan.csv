@@ -14,14 +14,18 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package scalaz
+package kantan.csv.scalaz
 
-import _root_.scalaz._, Scalaz._
-import _root_.scalaz.scalacheck.ScalazProperties._
-import arbitrary._, equality._
 import kantan.codecs.scalaz.laws.discipline.ScalazDisciplineSuite
+import kantan.csv.{DecodeError, RowDecoder, RowEncoder}
+import kantan.csv.scalaz.arbitrary._
+import kantan.csv.scalaz.equality._
 import org.scalacheck.{Arbitrary, Gen}
+import scalaz.Equal
+import scalaz.scalacheck.ScalazProperties.{contravariant, monadError, plus}
+import scalaz.std.anyVal._
+import scalaz.std.list._
+import scalaz.std.string._
 
 class RowCodecTests extends ScalazDisciplineSuite {
 

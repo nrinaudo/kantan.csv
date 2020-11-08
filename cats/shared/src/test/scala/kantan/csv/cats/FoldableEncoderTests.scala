@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package cats
+package kantan.csv.cats
 
-import _root_.cats.instances.list._
-import arbitrary._
-import laws.discipline._
+import cats.instances.list._
+import kantan.csv.RowEncoder
+import kantan.csv.cats.arbitrary._
+import kantan.csv.laws.discipline.{DisciplineSuite, RowEncoderTests}
 import org.scalacheck.{Arbitrary, Gen}
 
 class FoldableEncoderTests extends DisciplineSuite {

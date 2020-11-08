@@ -16,7 +16,7 @@
 
 package kantan
 
-import kantan.codecs._
+import kantan.codecs.{Codec, Decoder, Encoder}
 import kantan.codecs.resource.ResourceIterator
 
 package object csv {

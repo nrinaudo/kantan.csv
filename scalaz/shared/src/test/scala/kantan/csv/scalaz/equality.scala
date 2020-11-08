@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package scalaz
+package kantan.csv.scalaz
 
 object equality extends kantan.codecs.scalaz.laws.discipline.EqualInstances

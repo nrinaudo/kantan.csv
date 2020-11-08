@@ -16,8 +16,8 @@
 
 package kantan.csv
 
-import java.io._
-import kantan.codecs.collection._
+import java.io.{IOException, Reader}
+import kantan.codecs.collection.Factory
 import kantan.codecs.resource.{ReaderResource, ResourceIterator}
 import kantan.csv.DecodeError.{OutOfBounds, TypeError}
 import kantan.csv.ParseError.{IOError, NoSuchElement}

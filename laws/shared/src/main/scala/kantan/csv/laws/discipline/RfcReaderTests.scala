@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package laws
-package discipline
+package kantan.csv.laws.discipline
 
-import org.scalacheck.Prop._
+import kantan.csv.laws.RfcReaderLaws
+import org.scalacheck.Prop.forAll
 import org.typelevel.discipline.Laws
 
 trait RfcReaderTests extends Laws {

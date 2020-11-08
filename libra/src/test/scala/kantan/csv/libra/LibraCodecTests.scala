@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package libra
+package kantan.csv.libra
 
-import _root_.libra.Quantity
-import arbitrary._
-import laws.discipline._
+import kantan.csv.{CellDecoder, CellEncoder, RowDecoder, RowEncoder}
+import kantan.csv.laws.discipline.{CellCodecTests, DisciplineSuite, RowCodecTests, SerializableTests}
+import kantan.csv.libra.arbitrary._
+import libra.Quantity
 import shapeless.HNil
 
 class LibraCodecTests extends DisciplineSuite {

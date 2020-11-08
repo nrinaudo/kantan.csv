@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package java8
+package kantan.csv.java8
 
 object arbitrary
     extends kantan.csv.laws.discipline.ArbitraryInstances

@@ -16,12 +16,13 @@
 
 package kantan.csv
 
-import java.net.URL
-import laws.discipline._, arbitrary._
+import java.net.URI
+import kantan.csv.laws.discipline.{CellCodecTests, DisciplineSuite, RowCodecTests}
+import kantan.csv.laws.discipline.arbitrary._
 
-class URLCodecTests extends DisciplineSuite {
+class URICodecTests extends DisciplineSuite {
 
-  checkAll("CellCodec[URL]", CellCodecTests[URL].codec[String, Float])
-  checkAll("RowCodec[URL]", RowCodecTests[URL].codec[String, Float])
+  checkAll("CellCodec[URI]", CellCodecTests[URI].codec[String, Float])
+  checkAll("RowCodec[URI]", RowCodecTests[URI].codec[String, Float])
 
 }

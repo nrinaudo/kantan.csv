@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package engine
+package kantan.csv.engine
 
 import kantan.codecs.resource.ResourceIterator
+import kantan.csv.{CsvConfiguration, CsvWriter}
 import org.apache.commons.csv.{CSVFormat, CSVPrinter, QuoteMode}
 import scala.jdk.CollectionConverters._
 

@@ -16,9 +16,9 @@
 
 package kantan.csv
 
-import _root_.cats._
+import _root_.cats.{Eq, Foldable}
 import imp.imp
-import kantan.codecs.cats._
+import kantan.codecs.cats.{CommonInstances, DecoderInstances, EncoderInstances}
 
 /** Declares various type class instances for bridging `kantan.csv` and `cats`. */
 package object cats extends CommonInstances with DecoderInstances with EncoderInstances {

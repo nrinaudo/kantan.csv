@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package enumeratum
+package kantan.csv.enumeratum
 
-import arbitrary._
 import kantan.codecs.enumeratum.laws.discipline.Enumerated
-import laws.discipline._
+import kantan.csv.enumeratum.arbitrary._
+import kantan.csv.laws.discipline.{CellCodecTests, DisciplineSuite, RowCodecTests}
 
 class EnumCodecTests extends DisciplineSuite {
 

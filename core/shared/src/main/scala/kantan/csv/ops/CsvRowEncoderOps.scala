@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package ops
+package kantan.csv.ops
+
+import kantan.csv.{HeaderEncoder, RowEncoder}
 
 /** Provides syntax for encoding values as CSV rows.
   *

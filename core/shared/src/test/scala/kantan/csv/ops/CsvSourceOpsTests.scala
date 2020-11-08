@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package ops
+package kantan.csv.ops
 
 import kantan.codecs.laws.CodecValue
-import laws._
-import laws.discipline.arbitrary._
+import kantan.csv.laws.{asCsv, RowValue}
+import kantan.csv.laws.discipline.arbitrary._
+import kantan.csv.rfc
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks

@@ -14,18 +14,21 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package cats
+package kantan.csv.cats
 
-import _root_.cats.Eq
-import _root_.cats.data.EitherT
-import _root_.cats.instances.all._
-import _root_.cats.laws.discipline.{ContravariantTests, MonadErrorTests, SemigroupKTests}
-import _root_.cats.laws.discipline.SemigroupalTests.Isomorphisms
-import cats.equality._
-import laws.discipline._, arbitrary._
+import cats.Eq
+import cats.data.EitherT
+import cats.instances.all._
+import cats.laws.discipline.{ContravariantTests, MonadErrorTests, SemigroupKTests}
+import cats.laws.discipline.SemigroupalTests.Isomorphisms
+import kantan.csv.{CellDecoder, CellEncoder, DecodeError}
+import kantan.csv.cats.arbitrary._
+import kantan.csv.cats.equality._
+import kantan.csv.laws.discipline.DisciplineSuite
 
 class CellCodecTests extends DisciplineSuite {
+
+  implicitly[Eq[Int]]
 
   // For some reason, these are not derived automatically. I *think* it's to do with the various codecs being type
   // aliases for types with many holes, but this is slightly beyond me.

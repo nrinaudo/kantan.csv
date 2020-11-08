@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package enumeratum
+package kantan.csv.enumeratum
 
 object arbitrary
     extends kantan.csv.laws.discipline.ArbitraryInstances

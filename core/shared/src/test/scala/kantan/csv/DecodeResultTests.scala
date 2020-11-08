@@ -16,7 +16,7 @@
 
 package kantan.csv
 
-import laws.discipline.arbitrary._
+import kantan.csv.laws.discipline.arbitrary._
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks

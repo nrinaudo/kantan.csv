@@ -16,7 +16,7 @@
 
 package kantan.csv
 
-import engine.WriterEngine
+import kantan.csv.engine.WriterEngine
 
 trait VersionSpecificCsvSink[-S] { self: CsvSink[S] =>
   @deprecated("use write(S, TraversableOnce[A], CsvConfiguration) instead", "0.1.18")
