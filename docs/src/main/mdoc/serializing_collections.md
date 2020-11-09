@@ -8,7 +8,7 @@ While kantan.csv was written with large amount of data in mind - or at least, mo
 comfortably fit in memory - it's still fairly common to have a collection that needs to be written down as CSV.
 
 This is something that kantan.csv attempts to make as straightforward as possible. First, let's define some CSV data
-that needs to be serialised (see [this](case_classes_as_rows) if you're not clear what the following code is for):
+that needs to be serialized (see [this](case_classes_as_rows) if you're not clear what the following code is for):
 
 ```scala mdoc:silent
 import kantan.csv._
@@ -37,7 +37,7 @@ out.writeCsv(ps, rfc.withHeader("Id", "Name", "Age"))
 * a character to use as column separator
 * an optional header row
 
-Now that we have serialised our data, let's make sure it comes out the way we expected:
+Now that we have serialized our data, let's make sure it comes out the way we expected:
 
 ```scala mdoc
 scala.io.Source.fromFile(out).mkString
@@ -55,7 +55,7 @@ ps.asCsv(rfc.withHeader("Id", "Name", "Age"))
 If you want to learn more about:
 
 * [how we were able to turn a `File` into a `CsvWriter`](csv_sinks.html)
-* [how to write CSV row by row](step_by_step_serialisation.html)
+* [how to write CSV row by row](step_by_step_serialization.html)
 
 
 [`asCsvWriter`]:{{ site.baseurl }}/api/kantan/csv/ops/CsvSinkOps.html#asCsvWriter[B](sep:Char,header:Seq[String])(implicitevidence$1:kantan.csv.RowEncoder[B],implicitoa:kantan.csv.CsvSink[A],implicite:kantan.csv.engine.WriterEngine):kantan.csv.CsvWriter[B]

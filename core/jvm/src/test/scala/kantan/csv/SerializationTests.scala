@@ -24,7 +24,7 @@ import java.util.{Date, Locale, UUID}
 import kantan.csv.laws.discipline.{DisciplineSuite, SerializableTests}
 import scala.reflect.ClassTag
 
-class SerialisationTests extends DisciplineSuite with VersionSpecificSerializationTests {
+class SerializationTests extends DisciplineSuite with VersionSpecificSerializationTests {
 
   // - Helper methods --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

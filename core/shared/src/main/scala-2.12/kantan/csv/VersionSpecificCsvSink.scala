@@ -28,7 +28,7 @@ trait VersionSpecificCsvSink[-S] { self: CsvSink[S] =>
   /** Writes the specified collections directly in the specifie `S`.
     *
     * @param s where to write the CSV data.
-    * @param rows CSV data to encode and serialise.
+    * @param rows CSV data to encode and serialize.
     * @param conf CSV writing behaviour.
     */
   def write[A: HeaderEncoder](s: S, rows: TraversableOnce[A], conf: CsvConfiguration)(implicit e: WriterEngine): Unit =

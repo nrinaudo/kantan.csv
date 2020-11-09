@@ -16,7 +16,7 @@
 
 package kantan.csv
 
-trait VersionSpecificSerializationTests { self: SerialisationTests =>
+trait VersionSpecificSerializationTests { self: SerializationTests =>
 
   checkRowCodec[Stream[Int]]
 
