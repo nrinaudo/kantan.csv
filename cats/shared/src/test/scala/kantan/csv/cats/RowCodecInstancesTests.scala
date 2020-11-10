@@ -21,22 +21,27 @@ import cats.data.EitherT
 import cats.instances.all._
 import cats.laws.discipline.{ContravariantTests, MonadErrorTests, SemigroupKTests}
 import cats.laws.discipline.SemigroupalTests.Isomorphisms
-import kantan.csv.{CellDecoder, CellEncoder, DecodeError}
+import kantan.csv.{DecodeError, RowDecoder, RowEncoder}
 import kantan.csv.cats.arbitrary._
 import kantan.csv.cats.equality._
 import kantan.csv.laws.discipline.DisciplineSuite
+import org.scalacheck.{Arbitrary, Gen}
 
-class CellCodecTests extends DisciplineSuite {
+class RowCodecInstancesTests extends DisciplineSuite {
+  // Limits the size of rows to 10 - using the default size makes these tests prohibitively long in some contexts
+  // (in particular, travis will timeout on the scala.js execution of these tests).
+  implicit def arbSeq[A: Arbitrary]: Arbitrary[Seq[A]] = Arbitrary(Gen.listOfN(10, implicitly[Arbitrary[A]].arbitrary))
 
-  implicitly[Eq[Int]]
+  // cats doesn't provide an Eq[Seq] instance, mostly because Seq isn't a very meaningfull type.
+  implicit def seqEq[A: Eq]: Eq[Seq[A]] = Eq.by(_.toList)
 
   // For some reason, these are not derived automatically. I *think* it's to do with the various codecs being type
   // aliases for types with many holes, but this is slightly beyond me.
-  implicit val eqCellEitherT: Eq[EitherT[CellDecoder, DecodeError, Int]] = EitherT.catsDataEqForEitherT
-  implicit val cellIso: Isomorphisms[CellDecoder]                        = Isomorphisms.invariant
+  implicit val eqRowEitherT: Eq[EitherT[RowDecoder, DecodeError, Int]] = EitherT.catsDataEqForEitherT
+  implicit val rowIso: Isomorphisms[RowDecoder]                        = Isomorphisms.invariant
 
-  checkAll("CellDecoder", SemigroupKTests[CellDecoder].semigroupK[Int])
-  checkAll("CellDecoder", MonadErrorTests[CellDecoder, DecodeError].monadError[Int, Int, Int])
-  checkAll("CellEncoder", ContravariantTests[CellEncoder].contravariant[Int, Int, Int])
+  checkAll("RowDecoder", SemigroupKTests[RowDecoder].semigroupK[Int])
+  checkAll("RowDecoder", MonadErrorTests[RowDecoder, DecodeError].monadError[Int, Int, Int])
+  checkAll("RowEncoder", ContravariantTests[RowEncoder].contravariant[Int, Int, Int])
 
 }

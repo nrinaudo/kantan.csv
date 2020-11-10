@@ -17,27 +17,17 @@
 package kantan.csv.scalaz
 
 import kantan.codecs.scalaz.laws.discipline.ScalazDisciplineSuite
-import kantan.csv.{DecodeError, RowDecoder, RowEncoder}
+import kantan.csv.{CellDecoder, CellEncoder, DecodeError}
 import kantan.csv.scalaz.arbitrary._
 import kantan.csv.scalaz.equality._
-import org.scalacheck.{Arbitrary, Gen}
-import scalaz.Equal
 import scalaz.scalacheck.ScalazProperties.{contravariant, monadError, plus}
 import scalaz.std.anyVal._
-import scalaz.std.list._
 import scalaz.std.string._
 
-class RowCodecTests extends ScalazDisciplineSuite {
+class CellCodecInstancesTests extends ScalazDisciplineSuite {
 
-  // Limits the size of rows to 10 - using the default size makes these tests prohibitively long in some contexts
-  // (in particular, travis will timeout on the scala.js execution of these tests).
-  implicit def arbSeq[A: Arbitrary]: Arbitrary[Seq[A]] = Arbitrary(Gen.listOfN(10, implicitly[Arbitrary[A]].arbitrary))
-
-  // scalaz doesn't provide an Eq[Seq] instance, mostly because Seq isn't a very meaningfull type.
-  implicit def seqEq[A: Equal]: Equal[Seq[A]] = Equal[List[A]].contramap(_.toList)
-
-  checkAll("RowDecoder", monadError.laws[RowDecoder, DecodeError])
-  checkAll("RowDecoder", plus.laws[RowDecoder])
-  checkAll("RowEncoder", contravariant.laws[RowEncoder])
+  checkAll("CellDecoder", monadError.laws[CellDecoder, DecodeError])
+  checkAll("CellDecoder", plus.laws[CellDecoder])
+  checkAll("CellEncoder", contravariant.laws[CellEncoder])
 
 }
