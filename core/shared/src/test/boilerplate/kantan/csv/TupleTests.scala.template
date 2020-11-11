@@ -25,8 +25,10 @@ class TupleTests extends DisciplineSuite {
   [#implicit val arbLegal1: Arbitrary[LegalRow[Tuple1[[#Int#]]]] = arbLegalValueFromEnc[Seq[String], Tuple1[[#Int#]], kantan.csv.codecs.type]
   implicit val arbIllegal1: Arbitrary[IllegalRow[Tuple1[[#Int#]]]] = arbIllegalValueFromDec[Seq[String], Tuple1[[#Int#]], kantan.csv.codecs.type]
   checkAll("RowCodec[([#Int#])]", RowCodecTests[Tuple1[[#Int#]]].codec[List[String], List[Float]])
-  checkAll("RowDecoder[([#Int#])]", SerializableTests[RowDecoder[Tuple1[[#Int#]]]].serializable)
-  checkAll("RowEncoder[([#Int#])]", SerializableTests[RowEncoder[Tuple1[[#Int#]]]].serializable)#
+
+  // Currently disabled because sbt-boilerplate doesn't support platform specific source directories.
+  // checkAll("RowDecoder[([#Int#])]", SerializableTests[RowDecoder[Tuple1[[#Int#]]]].serializable)
+  // checkAll("RowEncoder[([#Int#])]", SerializableTests[RowEncoder[Tuple1[[#Int#]]]].serializable)#
 
   ]
 }
