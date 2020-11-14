@@ -20,14 +20,18 @@ package laws
 import KnownFormatsReaderLaws.Car
 import engine.ReaderEngine
 import ops._
+import scala.io.Codec
 
 trait KnownFormatsReaderLaws {
   implicit def engine: ReaderEngine
 
   implicit val carFormat: RowCodec[Car] = RowCodec.caseCodec(1, 2, 3, 4, 0)(Car.apply)(Car.unapply)
 
-  def read(res: String): List[Car] =
+  def read(res: String): List[Car] = {
+    implicit val codec: Codec = Codec.UTF8
+
     getClass.getResource(s"/known_formats/$res.csv").unsafeReadCsv[List, Car](rfc.withHeader(true))
+  }
 
   lazy val reference: List[Car] = read("raw")
 

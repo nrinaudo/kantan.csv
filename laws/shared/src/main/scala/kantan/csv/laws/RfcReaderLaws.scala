@@ -55,6 +55,7 @@ trait RfcReaderLaws {
     equals(cellsToCsv(spaced, ",", "\r\n"), spaced)
   }
 
+  @SuppressWarnings(Array("org.wartremover.warts.ListAppend"))
   def trailingComma(csv: List[List[Cell]]): Boolean =
     equals(cellsToCsv(csv, ",", ",\r\n"), csv.map(_ :+ Cell.Empty))
 
