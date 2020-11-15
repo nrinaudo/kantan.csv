@@ -16,7 +16,7 @@
 
 package kantan.csv
 
-import java.io._
+import java.io.Writer
 import kantan.codecs.resource.WriterResource
 import kantan.csv.engine.WriterEngine
 

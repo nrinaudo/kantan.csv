@@ -17,7 +17,8 @@
 package kantan.csv
 
 import java.util.UUID
-import laws.discipline._, arbitrary._
+import kantan.csv.laws.discipline.{CellCodecTests, DisciplineSuite, RowCodecTests}
+import kantan.csv.laws.discipline.arbitrary._
 
 class UUIDCodecTests extends DisciplineSuite {
 

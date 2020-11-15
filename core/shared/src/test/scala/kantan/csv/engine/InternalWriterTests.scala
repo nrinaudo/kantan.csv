@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package engine
+package kantan.csv.engine
 
-import laws.discipline._
+import kantan.csv.laws.discipline.{DisciplineSuite, WriterEngineTests}
 
 class InternalWriterTests extends DisciplineSuite {
   checkAll("InternalWriter", WriterEngineTests(WriterEngine.internalCsvWriterEngine).writerEngine)

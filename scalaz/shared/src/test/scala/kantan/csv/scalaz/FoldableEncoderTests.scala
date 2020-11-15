@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package scalaz
+package kantan.csv.scalaz
 
-import _root_.scalaz.std.list._
-import arbitrary._
-import kantan.codecs.scalaz.laws.discipline._
-import laws.discipline.RowEncoderTests
+import kantan.codecs.scalaz.laws.discipline.ScalazDisciplineSuite
+import kantan.csv.laws.discipline.RowEncoderTests
+import kantan.csv.scalaz.arbitrary._
+import scalaz.std.list._
 
 class FoldableEncoderTests extends ScalazDisciplineSuite {
 

@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package generic
+package kantan.csv.generic
 
-import arbitrary._
-import kantan.codecs.shapeless.laws._
-import laws.discipline._
+import kantan.codecs.shapeless.laws.Or
+import kantan.csv.generic.arbitrary._
+import kantan.csv.laws.discipline.{CellCodecTests, DisciplineSuite}
 
 // Shapeless' Lazy generates code with Null that we need to ignore.
 @SuppressWarnings(Array("org.wartremover.warts.Null"))

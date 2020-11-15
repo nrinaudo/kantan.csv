@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package cats
+package kantan.csv.cats
 
 object equality extends kantan.codecs.cats.laws.discipline.EqInstances

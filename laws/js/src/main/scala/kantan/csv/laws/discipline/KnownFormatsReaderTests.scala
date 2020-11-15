@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package laws
-package discipline
+package kantan.csv.laws.discipline
 
 import org.typelevel.discipline.Laws
 

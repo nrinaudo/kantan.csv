@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package laws
+package kantan.csv.laws
 
 trait KnownFormatsReaderLaws

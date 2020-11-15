@@ -7,7 +7,7 @@ sort_order: 10
 CSV is often used to store rows of homogeneous data - each cell could be an `Int`, for instance. We'll see in this post
 how kantan.csv supports this kind of scenario.
 
-In kantan.csv, all CSV serialisation is done through [`CsvWriter`], which you can think of as a highly specialised
+In kantan.csv, all CSV serialization is done through [`CsvWriter`], which you can think of as a highly specialised
 version of [`Writer`]. One retrieves an instance of [`CsvWriter`] as follows:
 
 ```scala mdoc:silent

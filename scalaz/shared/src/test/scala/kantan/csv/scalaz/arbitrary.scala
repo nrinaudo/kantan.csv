@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package scalaz
+package kantan.csv.scalaz
 
 /** All arbitrary instances. */
 object arbitrary

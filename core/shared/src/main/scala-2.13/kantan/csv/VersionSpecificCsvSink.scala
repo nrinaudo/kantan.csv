@@ -16,7 +16,7 @@
 
 package kantan.csv
 
-import engine.WriterEngine
+import kantan.csv.engine.WriterEngine
 
 trait VersionSpecificCsvSink[-S] { self: CsvSink[S] =>
   @deprecated("use write(S, TraversableOnce[A], CsvConfiguration) instead", "0.1.18")
@@ -28,7 +28,7 @@ trait VersionSpecificCsvSink[-S] { self: CsvSink[S] =>
   /** Writes the specified collections directly in the specifie `S`.
     *
     * @param s where to write the CSV data.
-    * @param rows CSV data to encode and serialise.
+    * @param rows CSV data to encode and serialize.
     * @param conf CSV writing behaviour.
     */
   def write[A: HeaderEncoder](s: S, rows: IterableOnce[A], conf: CsvConfiguration)(implicit e: WriterEngine): Unit =

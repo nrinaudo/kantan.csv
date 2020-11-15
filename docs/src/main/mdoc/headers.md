@@ -69,7 +69,7 @@ rawData.asCsvReader[Car](rfc.withHeader).foreach(println _)
 ## Creating an encoder
 
 In a similar fashion, you can create a [`HeaderEncoder`] to have kantan.csv automatically add the correct header when
-serialising:
+serializing:
 
 ```scala mdoc:silent
 implicit val carEncoder: HeaderEncoder[Car] = HeaderEncoder.caseEncoder("Year", "Make", "Model", "Price", "Description")(Car.unapply _)

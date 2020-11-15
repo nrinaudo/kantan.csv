@@ -16,7 +16,7 @@
 
 package kantan.csv
 
-import java.time._
+import java.time.{Instant, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime}
 import kantan.codecs.export.Exported
 import kantan.codecs.strings.{StringDecoder, StringEncoder}
 import kantan.codecs.strings.java8.{TimeCodecCompanion, ToFormatLiteral}

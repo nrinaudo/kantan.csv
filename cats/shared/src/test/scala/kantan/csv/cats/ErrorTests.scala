@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package cats
+package kantan.csv.cats
 
-import _root_.cats.Show
-import _root_.cats.kernel.laws.discipline.EqTests
-import laws.discipline._, arbitrary._
+import cats.Show
+import cats.kernel.laws.discipline.EqTests
+import kantan.csv.{DecodeError, ParseError, ReadError}
+import kantan.csv.cats.arbitrary._
+import kantan.csv.laws.discipline.DisciplineSuite
 
 class ErrorTests extends DisciplineSuite {
 

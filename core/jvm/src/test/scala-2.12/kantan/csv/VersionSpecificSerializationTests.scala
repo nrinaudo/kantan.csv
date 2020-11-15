@@ -16,12 +16,8 @@
 
 package kantan.csv
 
-import java.net.URL
-import laws.discipline._, arbitrary._
+trait VersionSpecificSerializationTests { self: SerializationTests =>
 
-class URLCodecTests extends DisciplineSuite {
-
-  checkAll("CellCodec[URL]", CellCodecTests[URL].codec[String, Float])
-  checkAll("RowCodec[URL]", RowCodecTests[URL].codec[String, Float])
+  checkRowCodec[Stream[Int]]
 
 }

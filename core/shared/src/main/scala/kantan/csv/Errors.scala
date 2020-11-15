@@ -16,7 +16,7 @@
 
 package kantan.csv
 
-import kantan.codecs.error._
+import kantan.codecs.error.{Error, ErrorCompanion, IsError}
 
 /** Parent type for all errors that can occur while dealing with CSV data.
   *

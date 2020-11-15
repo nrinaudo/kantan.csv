@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package laws
-package discipline
+package kantan.csv.laws.discipline
 
-import laws._
+import kantan.csv.codecs
+import kantan.csv.laws.{CellEncoderLaws, LegalCell}
 import org.scalacheck.Arbitrary
 
 object CellEncoderTests {

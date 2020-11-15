@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package generic
+package kantan.csv.generic
 
-import kantan.codecs.shapeless.laws._
-import laws.discipline._
+import kantan.codecs.shapeless.laws.Or
+import kantan.csv.{CellDecoder, CellEncoder, RowDecoder, RowEncoder}
+import kantan.csv.generic.Instances._
+import kantan.csv.laws.discipline.{DisciplineSuite, SerializableTests}
 
 // Shapeless' Lazy generates code with Null that we need to ignore.
 @SuppressWarnings(Array("org.wartremover.warts.Null"))
-class SerialisationTests extends DisciplineSuite {
-
-  import Instances._
+class SerializationTests extends DisciplineSuite {
 
   checkAll("CellDecoder[Or[Int, Boolean]]", SerializableTests[CellDecoder[Int Or Boolean]].serializable)
   checkAll("CellEncoder[Or[Int, Boolean]]", SerializableTests[CellEncoder[Int Or Boolean]].serializable)

@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package engine
-package commons
+package kantan.csv.engine.commons
 
 import org.apache.commons.csv.CSVRecord
 

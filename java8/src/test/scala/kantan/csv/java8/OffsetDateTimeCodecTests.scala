@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package java8
+package kantan.csv.java8
 
-import arbitrary._
 import java.time.OffsetDateTime
-import laws.discipline._
+import kantan.csv.{CellDecoder, CellEncoder, RowDecoder, RowEncoder}
+import kantan.csv.java8.arbitrary._
+import kantan.csv.laws.discipline.{CellCodecTests, DisciplineSuite, RowCodecTests, SerializableTests}
 
 class OffsetDateTimeCodecTests extends DisciplineSuite {
   checkAll("CellEncoder[OffsetDateTime]", SerializableTests[CellEncoder[OffsetDateTime]].serializable)

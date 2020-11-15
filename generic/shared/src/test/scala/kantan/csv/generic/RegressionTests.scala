@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package generic
+package kantan.csv.generic
 
+import kantan.csv.rfc
 import org.scalatest.funsuite.AnyFunSuite
 
 class RegressionTests extends AnyFunSuite {

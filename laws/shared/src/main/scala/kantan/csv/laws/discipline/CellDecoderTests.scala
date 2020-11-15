@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package laws
-package discipline
+package kantan.csv.laws.discipline
 
-import arbitrary._
+import kantan.csv.{codecs, DecodeError}
+import kantan.csv.laws.{CellDecoderLaws, LegalCell}
+import kantan.csv.laws.discipline.arbitrary._
 import org.scalacheck.{Arbitrary, Cogen}
 
 object CellDecoderTests {

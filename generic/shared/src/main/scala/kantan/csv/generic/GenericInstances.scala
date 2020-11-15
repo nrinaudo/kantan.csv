@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package generic
+package kantan.csv.generic
 
 import kantan.codecs.shapeless.ShapelessInstances
-import shapeless.{HNil, _}
+import kantan.csv.{CellDecoder, CellEncoder, DecodeResult, RowDecoder, RowEncoder}
+import shapeless.{::, HList, HNil}
 
 trait GenericInstances extends ShapelessInstances {
 

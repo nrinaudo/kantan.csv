@@ -4,12 +4,12 @@ title: "What can CSV data be written to?"
 section: tutorial
 sort_order: 17
 ---
-All the encoding tutorials, such as [this](serialising_collections.html) one, matter-of-factly call the
+All the encoding tutorials, such as [this](serializing_collections.html) one, matter-of-factly call the
 [`asCsvWriter`] method of [`File`], when [`File`] does not in fact have such a method. This works thanks to the
 [`CsvSink`] type class.
 
 What happens is, any type `A` such that there exists an implicit instance of [`CsvSink[A]`][`CsvSink`] in scope will
-be enriched with various [useful methods]({{ site.baseurl }}/api/kantan/csv/ops/CsvSinkOps.html) for CSV serialisation.
+be enriched with various [useful methods]({{ site.baseurl }}/api/kantan/csv/ops/CsvSinkOps.html) for CSV serialization.
 Various default implementations are automatically in scope, such as one for [`Writer`] or [`OutputStream`], but the most
 useful one is [`File`].
 

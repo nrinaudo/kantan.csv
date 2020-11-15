@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package ops
+package kantan.csv.ops
 
-import engine.ReaderEngine
-import kantan.codecs.collection._
+import kantan.codecs.collection.Factory
+import kantan.csv.{rfc, CsvConfiguration, CsvReader, CsvSource, HeaderDecoder, ReadResult}
+import kantan.csv.engine.ReaderEngine
 
 /** Provides useful syntax for types that have implicit instances of [[CsvSource]] in scope.
   *

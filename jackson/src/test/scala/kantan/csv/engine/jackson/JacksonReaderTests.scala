@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package engine
-package jackson
+package kantan.csv.engine.jackson
 
-import laws.discipline.ReaderEngineTests
-import laws.discipline._
+import kantan.csv.laws.discipline.{DisciplineSuite, ReaderEngineTests}
 
 class JacksonReaderTests extends DisciplineSuite {
   checkAll("JacksonReader", ReaderEngineTests(jacksonCsvReaderEngine).readerEngine)

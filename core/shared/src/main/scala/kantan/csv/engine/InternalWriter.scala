@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package engine
+package kantan.csv.engine
 
 import java.io.Writer
+import kantan.csv.{CsvConfiguration, CsvWriter}
 import scala.annotation.tailrec
 
 private[csv] class InternalWriter(private val out: Writer, val conf: CsvConfiguration) extends CsvWriter[Seq[String]] {

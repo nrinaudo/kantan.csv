@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package laws
-package discipline
+package kantan.csv.laws.discipline
 
-import engine.ReaderEngine
-import org.scalacheck.Prop, Prop._
+import kantan.csv.engine.ReaderEngine
+import kantan.csv.laws.ReaderEngineLaws
+import org.scalacheck.Prop
+import org.scalacheck.Prop.forAll
 
 trait ReaderEngineTests
     extends RfcReaderTests with SpectrumReaderTests with KnownFormatsReaderTests with VersionSpecificReaderEngineTests {

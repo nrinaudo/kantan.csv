@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package laws
-package discipline
+package kantan.csv.laws.discipline
 
-import engine.WriterEngine
-import org.scalacheck.Prop._
+import kantan.csv.engine.WriterEngine
+import kantan.csv.laws.WriterEngineLaws
+import org.scalacheck.Prop.forAll
 import org.typelevel.discipline.Laws
 
 trait WriterEngineTests extends Laws {

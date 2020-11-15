@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package benchmark
+package kantan.csv.benchmark
 
 import com.univocity.parsers.csv.CsvParserSettings
-import engine.ReaderEngine
 import java.io.StringReader
 import java.util.concurrent.TimeUnit
-import org.openjdk.jmh.annotations._
+import kantan.csv.{rfc, CsvSource}
+import kantan.csv.engine.ReaderEngine
+import kantan.csv.engine.jackson.defaultMappingIteratorBuilder
+import org.openjdk.jmh.annotations.{Benchmark, BenchmarkMode, Mode, OutputTimeUnit, Scope, State}
 
 @State(Scope.Thread)
 @BenchmarkMode(Array(Mode.AverageTime))
@@ -89,7 +90,7 @@ object Decoding {
 
   @SuppressWarnings(Array("org.wartremover.warts.Null"))
   def jackson(str: String): List[CsvEntry] =
-    new CsvIterator(engine.jackson.defaultMappingIteratorBuilder(new StringReader(str), rfc))({ it =>
+    new CsvIterator(defaultMappingIteratorBuilder(new StringReader(str), rfc))({ it =>
       if(it.hasNext) it.next()
       else null
     }).toList
@@ -110,7 +111,8 @@ object Decoding {
   }
 
   def scalaCsv(str: String): List[CsvEntry] = {
-    import com.github.tototoshi.csv._
+    import com.github.tototoshi.csv.CSVReader
+
     CSVReader.open(new StringReader(str)).iterator.map(r => (r(0).toInt, r(1), r(2).toBoolean, r(3).toFloat)).toList
   }
 }

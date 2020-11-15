@@ -17,7 +17,7 @@
 package kantan.csv
 
 import java.io.{Closeable, Writer}
-import kantan.csv.engine._
+import kantan.csv.engine.WriterEngine
 
 /** Type of values that know how to write CSV data.
   *

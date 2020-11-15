@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package benchmark
+package kantan.csv.benchmark
 
-import ops._
+import kantan.csv.ops._
+import kantan.csv.rfc
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 

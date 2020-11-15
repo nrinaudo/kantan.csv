@@ -16,12 +16,8 @@
 
 package kantan.csv
 
-import java.nio.file.Path
-import laws.discipline._, arbitrary._
+trait VersionSpecificSerializationTests { self: SerializationTests =>
 
-class PathCodecTests extends DisciplineSuite {
-
-  checkAll("CellCodec[Path]", CellCodecTests[Path].bijectiveCodec[String, Float])
-  checkAll("RowCodec[Path]", RowCodecTests[Path].bijectiveCodec[String, Float])
+  checkRowCodec[LazyList[Int]]
 
 }

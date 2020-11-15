@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package benchmark
+package kantan.csv.benchmark
 
-import engine.WriterEngine
 import java.io.StringWriter
 import java.util.concurrent.TimeUnit
-import ops._
+import kantan.csv.engine.WriterEngine
+import kantan.csv.engine.jackson.defaultSequenceWriterBuilder
+import kantan.csv.ops._
+import kantan.csv.rfc
 import org.apache.commons.csv.CSVFormat
-import org.openjdk.jmh.annotations._
+import org.openjdk.jmh.annotations.{Benchmark, BenchmarkMode, Mode, OutputTimeUnit, Scope, State}
 
 @State(Scope.Thread)
 @BenchmarkMode(Array(Mode.AverageTime))
@@ -85,8 +86,9 @@ object Encoding {
   }
 
   def jackson(data: List[CsvEntry]): String = {
+
     val out    = new StringWriter()
-    val writer = engine.jackson.defaultSequenceWriterBuilder(out, rfc)
+    val writer = defaultSequenceWriterBuilder(out, rfc)
     write(data) { a =>
       writer.write(a)
       ()
@@ -97,7 +99,7 @@ object Encoding {
   }
 
   def univocity(data: List[CsvEntry]): String = {
-    import com.univocity.parsers.csv._
+    import com.univocity.parsers.csv.{CsvWriter, CsvWriterSettings}
 
     val out    = new StringWriter()
     val writer = new CsvWriter(out, new CsvWriterSettings())
@@ -108,7 +110,7 @@ object Encoding {
   }
 
   def scalaCsv(data: List[CsvEntry]): String = {
-    import com.github.tototoshi.csv._
+    import com.github.tototoshi.csv.CSVWriter
 
     val out    = new StringWriter()
     val writer = CSVWriter.open(out)

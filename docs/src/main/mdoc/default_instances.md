@@ -117,7 +117,7 @@ For any type `A` that as a [`RowEncoder`], there exists a [`RowEncoder[Option[A]
 By the same token, for any type `A` that as a [`RowDecoder`], there exists a [`RowDecoder[Option[A]]`][`RowDecoder`].
 
 This is useful for CSV data where some rows might be empty. Note that this is a bit of a dodgy case: the RFC states
-that empty rows should be ignored, so serialising a collection that contains `None` values and then deserialising the
+that empty rows should be ignored, so serializing a collection that contains `None` values and then deserializing the
 result will not yield the original list.
 
 

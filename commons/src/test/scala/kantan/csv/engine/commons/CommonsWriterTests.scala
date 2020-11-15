@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package engine
-package commons
+package kantan.csv.engine.commons
 
-import laws.discipline.WriterEngineTests
-import laws.discipline._
+import kantan.csv.laws.discipline.{DisciplineSuite, WriterEngineTests}
 
 class CommonsWriterTests extends DisciplineSuite {
   checkAll("CommonsWriter", WriterEngineTests(commonsCsvWriterEngine).writerEngine)

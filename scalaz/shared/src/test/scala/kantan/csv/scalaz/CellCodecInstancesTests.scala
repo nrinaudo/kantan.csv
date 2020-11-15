@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-package kantan.csv
-package scalaz
+package kantan.csv.scalaz
 
-import _root_.scalaz._, Scalaz._
-import _root_.scalaz.scalacheck.ScalazProperties._
-import arbitrary._, equality._
 import kantan.codecs.scalaz.laws.discipline.ScalazDisciplineSuite
+import kantan.csv.{CellDecoder, CellEncoder, DecodeError}
+import kantan.csv.scalaz.arbitrary._
+import kantan.csv.scalaz.equality._
+import scalaz.scalacheck.ScalazProperties.{contravariant, monadError, plus}
+import scalaz.std.anyVal._
+import scalaz.std.string._
 
-class CellCodecTests extends ScalazDisciplineSuite {
+class CellCodecInstancesTests extends ScalazDisciplineSuite {
 
   checkAll("CellDecoder", monadError.laws[CellDecoder, DecodeError])
   checkAll("CellDecoder", plus.laws[CellDecoder])
