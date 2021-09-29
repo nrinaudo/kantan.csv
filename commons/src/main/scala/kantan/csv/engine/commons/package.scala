@@ -39,13 +39,15 @@ package object commons {
 
   /** Creates a default `CSVFormat` instance using the specified column separator. */
   def defaultFormat(conf: CsvConfiguration): CSVFormat =
-    CSVFormat.RFC4180
-      .withDelimiter(conf.cellSeparator)
-      .withQuote(conf.quote)
-      .withQuoteMode(conf.quotePolicy match {
+    CSVFormat.Builder
+      .create(CSVFormat.RFC4180)
+      .setDelimiter(conf.cellSeparator)
+      .setQuote(conf.quote)
+      .setQuoteMode(conf.quotePolicy match {
         case CsvConfiguration.QuotePolicy.Always     => QuoteMode.ALL
         case CsvConfiguration.QuotePolicy.WhenNeeded => QuoteMode.MINIMAL
       })
+      .build()
 
   // - Reader engines --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
