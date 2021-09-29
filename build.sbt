@@ -1,5 +1,5 @@
-kantanProject in ThisBuild := "csv"
-startYear in ThisBuild     := Some(2015)
+ThisBuild / kantanProject := "csv"
+ThisBuild / startYear     := Some(2015)
 
 lazy val jsModules: Seq[ProjectReference] = Seq(
   catsJS,
@@ -32,7 +32,7 @@ lazy val root = Project(id = "kantan-csv", base = file("."))
   .settings(moduleName := "root")
   .enablePlugins(UnpublishedPlugin)
   .settings(
-    initialCommands in console :=
+    console / initialCommands :=
       """
       |import kantan.csv._
       |import kantan.csv.ops._
@@ -47,7 +47,7 @@ lazy val docs = project
   .enablePlugins(DocumentationPlugin)
   .settings(name := "docs")
   .settings(
-    unidocProjectFilter in (ScalaUnidoc, unidoc) :=
+    ScalaUnidoc / unidoc / unidocProjectFilter :=
       inAnyProject -- inProjects(benchmark) -- inProjects(jsModules: _*)
   )
   .settings(libraryDependencies += "joda-time" % "joda-time" % Versions.jodaTime)
