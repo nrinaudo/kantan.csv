@@ -6,5 +6,5 @@ object Versions {
   val kantanCodecs     = "0.5.3"
   val opencsv          = "5.3"
   val scalaCsv         = "1.3.6"
-  val univocity        = "2.9.0"
+  val univocity        = "2.9.1"
 }
