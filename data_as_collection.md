@@ -43,27 +43,43 @@ Now that we have everything we need to decode the CSV data, here's how to turn i
 ```scala
 rawData.readCsv[List, Car](rfc.withHeader)
 // res1: List[ReadResult[Car]] = List(
-//   Right(Car(1997, "Ford", "E350", Some("ac, abs, moon"), 3000.0F)),
-//   Right(Car(1999, "Chevy", "Venture \"Extended Edition\"", None, 4900.0F)),
 //   Right(
-//     Car(
-//       1999,
-//       "Chevy",
-//       "Venture \"Extended Edition, Very Large\"",
-//       None,
-//       5000.0F
+//     value = Car(
+//       year = 1997,
+//       make = "Ford",
+//       model = "E350",
+//       desc = Some(value = "ac, abs, moon"),
+//       price = 3000.0F
 //     )
 //   ),
 //   Right(
-//     Car(
-//       1996,
-//       "Jeep",
-//       "Grand Cherokee",
-//       Some(
-//         """MUST SELL!
+//     value = Car(
+//       year = 1999,
+//       make = "Chevy",
+//       model = "Venture \"Extended Edition\"",
+//       desc = None,
+//       price = 4900.0F
+//     )
+//   ),
+//   Right(
+//     value = Car(
+//       year = 1999,
+//       make = "Chevy",
+//       model = "Venture \"Extended Edition, Very Large\"",
+//       desc = None,
+//       price = 5000.0F
+//     )
+//   ),
+//   Right(
+//     value = Car(
+//       year = 1996,
+//       make = "Jeep",
+//       model = "Grand Cherokee",
+//       desc = Some(
+//         value = """MUST SELL!
 // air, moon roof, loaded"""
 //       ),
-//       4799.0F
+//       price = 4799.0F
 //     )
 //   )
 // )

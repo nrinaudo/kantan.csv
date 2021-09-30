@@ -38,7 +38,7 @@ to be thrown. This is achieved by using [`asUnsafeCsvReader`]:
 ```scala
 scala.util.Try(rawData.asUnsafeCsvReader[Person](rfc).toList)
 // res0: util.Try[List[Person]] = Failure(
-//   DecodeError("For input string: \"28\"")
+//   exception = DecodeError(message = "For input string: \"28\"")
 // )
 ```
 
@@ -52,8 +52,8 @@ Another common, if not always viable strategy is to use [`collect`] to simply dr
 ```scala
 rawData.asCsvReader[Person](rfc).collect { case Right(a) => a }.toList
 // res1: List[Person] = List(
-//   Person(1, "Nicolas", true),
-//   Person(3, "John", false)
+//   Person(id = 1, name = "Nicolas", flag = true),
+//   Person(id = 3, name = "John", flag = false)
 // )
 ```
 
@@ -73,7 +73,7 @@ When not streaming data, a good option is to fail if a single row fails to decod
 ```scala
 ReadResult.sequence(rawData.readCsv[List, Person](rfc))
 // res2: Either[ReadError, List[Person]] = Left(
-//   TypeError("'28' is not a valid Boolean")
+//   value = TypeError(message = "'28' is not a valid Boolean")
 // )
 ```
 
@@ -93,9 +93,9 @@ We can now load the whole data without an error:
 ```scala
 rawData.readCsv[List, SafePerson](rfc)
 // res3: List[ReadResult[SafePerson]] = List(
-//   Right(SafePerson(1, "Nicolas", Left(true))),
-//   Right(SafePerson(2, "Kazuma", Right(28))),
-//   Right(SafePerson(3, "John", Left(false)))
+//   Right(value = SafePerson(id = 1, name = "Nicolas", flag = Left(value = true))),
+//   Right(value = SafePerson(id = 2, name = "Kazuma", flag = Right(value = 28))),
+//   Right(value = SafePerson(id = 3, name = "John", flag = Left(value = false)))
 // )
 ```
 

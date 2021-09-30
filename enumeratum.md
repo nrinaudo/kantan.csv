@@ -8,7 +8,7 @@ kantan.csv comes with an [enumeratum](https://github.com/lloydmeta/enumeratum) m
 by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-enumeratum" % "0.6.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-enumeratum" % "0.6.2"
 ```
 
 ## Name-based enumerations
@@ -52,13 +52,15 @@ We can then simply write the following:
 ```scala
 "Hello,GoodBye".readCsv[List, List[DummyEnum]](rfc)
 // res0: List[kantan.csv.package.ReadResult[List[DummyEnum]]] = List(
-//   Right(List(Hello, GoodBye))
+//   Right(value = List(Hello, GoodBye))
 // )
 
 "Hello,GoodDay".readCsv[List, List[DummyEnum]](rfc)
 // res1: List[kantan.csv.package.ReadResult[List[DummyEnum]]] = List(
 //   Left(
-//     TypeError("'GoodDay' is not a member of enumeration [Hello, GoodBye, Hi]")
+//     value = TypeError(
+//       message = "'GoodDay' is not a member of enumeration [Hello, GoodBye, Hi]"
+//     )
 //   )
 // )
 ```
@@ -106,11 +108,11 @@ We can then simply write the following:
 ```scala
 "1,2".readCsv[List, List[Greeting]](rfc)
 // res3: List[kantan.csv.package.ReadResult[List[Greeting]]] = List(
-//   Right(List(Hello, GoodBye))
+//   Right(value = List(Hello, GoodBye))
 // )
 
 "1,-2".readCsv[List, List[Greeting]](rfc)
 // res4: List[kantan.csv.package.ReadResult[List[Greeting]]] = List(
-//   Left(TypeError("'-2' is not in values [1, 2, 3, 4]"))
+//   Left(value = TypeError(message = "'-2' is not in values [1, 2, 3, 4]"))
 // )
 ```

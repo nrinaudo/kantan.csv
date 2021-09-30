@@ -8,7 +8,7 @@ kantan.csv comes with a [libra](https://github.com/to-ithaca/libra) module that 
 by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-libra" % "0.6.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-libra" % "0.6.2"
 ```
 
 You then need to import the corresponding package:
@@ -35,6 +35,6 @@ We can then simply write the following:
 ```scala
 "1,2".readCsv[List, (Distance, Duration)](rfc)
 // res0: List[ReadResult[(Distance, Duration)]] = List(
-//   Right((Quantity(1), Quantity(2)))
+//   Right(value = (Quantity(value = 1), Quantity(value = 2)))
 // )
 ```

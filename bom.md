@@ -58,8 +58,8 @@ def readIso() = {
 
 readIso()
 // res1: List[ReadResult[String]] = List(
-//   Right("\u30cb\u30b3\u30e9"),
-//   Right("\u30ea\u30ce\u30c9")
+//   Right(value = "\u30cb\u30b3\u30e9"),
+//   Right(value = "\u30ea\u30ce\u30c9")
 // )
 ```
 

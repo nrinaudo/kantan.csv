@@ -34,14 +34,18 @@ val dates = List(
   List(new DateTime(), new DateTime().plusDays(1)),
   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
 ).asCsv(rfc)
-// dates: String = """2020-05-27,2020-05-28
-// 2020-05-29,2020-05-30
+// dates: String = """2021-09-30,2021-10-01
+// 2021-10-02,2021-10-03
 // """
 
 dates.readCsv[List, List[DateTime]](rfc)
 // res0: List[ReadResult[List[DateTime]]] = List(
-//   Right(List(2020-05-27T00:00:00.000+02:00, 2020-05-28T00:00:00.000+02:00)),
-//   Right(List(2020-05-29T00:00:00.000+02:00, 2020-05-30T00:00:00.000+02:00))
+//   Right(
+//     value = List(2021-09-30T00:00:00.000+02:00, 2021-10-01T00:00:00.000+02:00)
+//   ),
+//   Right(
+//     value = List(2021-10-02T00:00:00.000+02:00, 2021-10-03T00:00:00.000+02:00)
+//   )
 // )
 ```
 
@@ -75,9 +79,9 @@ val csv = ps.asCsv(rfc)
 
 csv.readCsv[List, Person](rfc)
 // res1: List[ReadResult[Person]] = List(
-//   Right(Person(0, "Nicolas", 38)),
-//   Right(Person(1, "Kazuma", 1)),
-//   Right(Person(2, "John", 18))
+//   Right(value = Person(id = 0, name = "Nicolas", age = 38)),
+//   Right(value = Person(id = 1, name = "Kazuma", age = 1)),
+//   Right(value = Person(id = 2, name = "John", age = 18))
 // )
 ```
 

@@ -12,7 +12,7 @@ for more common types and patterns.
 The `generic` module can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.6.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.6.2"
 ```
 
 Let's first declare the imports we'll need in the rest of this tutorial:
@@ -43,8 +43,8 @@ We can directly encode from and decode to instances of `Wrapper`:
 ```scala
 val decoded1 = "1, 2, 3\n4, 5, 6".unsafeReadCsv[List, List[Wrapper[Int]]](rfc)
 // decoded1: List[List[Wrapper[Int]]] = List(
-//   List(Wrapper(1), Wrapper(2), Wrapper(3)),
-//   List(Wrapper(4), Wrapper(5), Wrapper(6))
+//   List(Wrapper(a = 1), Wrapper(a = 2), Wrapper(a = 3)),
+//   List(Wrapper(a = 4), Wrapper(a = 5), Wrapper(a = 6))
 // )
 
 decoded1.asCsv(rfc)
@@ -70,8 +70,8 @@ case class Right[B](value: B) extends Or[Nothing, B]
 ```scala
 val decoded2 = "1,true\nfalse,2".unsafeReadCsv[List, List[Int Or Boolean]](rfc)
 // decoded2: List[List[Or[Int, Boolean]]] = List(
-//   List(Left(1), Right(true)),
-//   List(Right(false), Left(2))
+//   List(Left(value = 1), Right(value = true)),
+//   List(Right(value = false), Left(value = 2))
 // )
 
 decoded2.asCsv(rfc)
@@ -98,8 +98,8 @@ We can encode from and decode to that type for free:
 ```scala
 val decoded3 = "1,\n2,false".unsafeReadCsv[List, CustomTuple2[Int, Option[Boolean]]](rfc)
 // decoded3: List[CustomTuple2[Int, Option[Boolean]]] = List(
-//   CustomTuple2(1, None),
-//   CustomTuple2(2, Some(false))
+//   CustomTuple2(a = 1, b = None),
+//   CustomTuple2(a = 2, b = Some(value = false))
 // )
 
 decoded3.asCsv(rfc)
@@ -125,8 +125,8 @@ In the following example:
 ```scala
 "1,true\nfoobar,".unsafeReadCsv[List, (Int, Boolean) Or CustomTuple2[String, Option[Boolean]]](rfc)
 // res3: List[Or[(Int, Boolean), CustomTuple2[String, Option[Boolean]]]] = List(
-//   Left((1, true)),
-//   Right(CustomTuple2("foobar", None))
+//   Left(value = (1, true)),
+//   Right(value = CustomTuple2(a = "foobar", b = None))
 // )
 ```
 

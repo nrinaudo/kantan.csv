@@ -4,7 +4,7 @@ title: "External CSV libraries"
 section: tutorial
 sort_order: 21
 ---
-kantan.csv comes with a default implementation of CSV parsing and serialising. This implementation is
+kantan.csv comes with a default implementation of CSV parsing and serializing. This implementation is
 [relatively fast](benchmarks.html) and robust, but might not satisfy all use cases - some of the more outlandish CSV
 mutations are not implemented (yet), for instance. For these cases, it's possible to use other CSV libraries under the
 hood.
@@ -13,10 +13,10 @@ hood.
 
 ### Jackson CSV
 
-The [jackson csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
+The [jackson csv] parser and serializer can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.6.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-jackson" % "0.6.2"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -25,17 +25,17 @@ You then need to bring the right implicits in scope through:
 import kantan.csv.engine.jackson._
 ```
 
-You can tweak the behaviour of the underlying parsers and serialisers by creating them through
+You can tweak the behaviour of the underlying parsers and serializers by creating them through
 [`readerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson/index.html#readerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.ReaderEngine)
 and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/jackson/index.html#writerEngineFrom(f:kantan.csv.engine.jackson.CSVSchemaBuilder):kantan.csv.engine.WriterEngine).
 
 
 ### Apache Commons CSV
 
-The [commons csv] parser and serialiser can be used by adding the following dependency to your `build.sbt`:
+The [commons csv] parser and serializer can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.6.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "0.6.2"
 ```
 
 You then need to bring the right implicits in scope through:
@@ -44,7 +44,7 @@ You then need to bring the right implicits in scope through:
 import kantan.csv.engine.commons._
 ```
 
-You can tweak the behaviour of the underlying parsers and serialisers by creating them through
+You can tweak the behaviour of the underlying parsers and serializers by creating them through
 [`readerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/commons/index.html#readerEngineFrom(f:kantan.csv.engine.commons.package.CSVFormatBuilder):kantan.csv.engine.ReaderEngine)
 and [`writerEngineFrom`]({{ site.baseurl }}/api/kantan/csv/engine/commons/index.html#writerEngineFrom(f:kantan.csv.engine.commons.package.CSVFormatBuilder):kantan.csv.engine.WriterEngine).
 
@@ -87,9 +87,9 @@ implicit val readerEngine: ReaderEngine = ReaderEngine.from { (in: Reader, conf:
 }
 ```
 
-### Serialising
+### Serializing
 
-Serialising is very similar to parsing, except that instead of providing a [`ReaderEngine`], you need to provide a
+Serializing is very similar to parsing, except that instead of providing a [`ReaderEngine`], you need to provide a
 [`WriterEngine`]. This is achieved through [`WriterEngine.from`], the argument to which you most likely want to create
 through [`CsvWriter.apply`]:
 

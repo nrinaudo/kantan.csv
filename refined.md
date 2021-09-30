@@ -8,7 +8,7 @@ kantan.csv comes with a [refined](https://github.com/fthomas/refined) module tha
 by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-refined" % "0.6.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-refined" % "0.6.2"
 ```
 
 You then need to import the corresponding package:
@@ -34,10 +34,12 @@ We can then simply write the following:
 
 ```scala
 "1,2".readCsv[List, List[PositiveInt]](rfc)
-// res0: List[ReadResult[List[PositiveInt]]] = List(Right(List(1, 2)))
+// res0: List[ReadResult[List[PositiveInt]]] = List(Right(value = List(1, 2)))
 
 "1,-2".readCsv[List, List[PositiveInt]](rfc)
 // res1: List[ReadResult[List[PositiveInt]]] = List(
-//   Left(TypeError("Not acceptable: 'Predicate failed: (-2 > 0).'"))
+//   Left(
+//     value = TypeError(message = "Not acceptable: 'Predicate failed: (-2 > 0).'")
+//   )
 // )
 ```

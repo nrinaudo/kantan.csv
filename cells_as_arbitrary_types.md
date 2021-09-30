@@ -16,7 +16,7 @@ in scope - `Int`, for example:
 
 ```scala
 implicitly[kantan.csv.CellDecoder[Int]]
-// res0: kantan.csv.package.CellDecoder[Int] = kantan.codecs.Codec$$anon$1@60adb777
+// res0: kantan.csv.package.CellDecoder[Int] = kantan.codecs.Codec$$anon$1@1c8e9c4
 ```
 
 A more complete list of default instances can be found [here](default_instances.html).
@@ -30,8 +30,8 @@ import kantan.csv.ops._
 
 "1,2,3\n4,5,6".readCsv[List, List[Int]](rfc)
 // res1: List[ReadResult[List[Int]]] = List(
-//   Right(List(1, 2, 3)),
-//   Right(List(4, 5, 6))
+//   Right(value = List(1, 2, 3)),
+//   Right(value = List(4, 5, 6))
 // )
 ```
 
