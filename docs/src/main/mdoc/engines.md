@@ -101,7 +101,6 @@ implicit val writerEngine: WriterEngine = WriterEngine.from { (writer: Writer, c
 
 [commons csv]:https://commons.apache.org/proper/commons-csv/
 [jackson csv]:https://github.com/FasterXML/jackson-dataformat-csv
-[opencsv]:http://opencsv.sourceforge.net
 [`ReaderEngine`]:{{ site.baseurl }}/api/kantan/csv/engine/ReaderEngine.html
 [`WriterEngine`]:{{ site.baseurl }}/api/kantan/csv/engine/WriterEngine.html
 [`CsvReader`]:{{ site.baseurl }}/api/kantan/csv/package$$CsvReader.html

@@ -48,9 +48,6 @@ Additionally, while kantan.csv comes with a default parser / serializer (that ha
 reputable implementations. The following engines are currently supported:
 
 ```scala
-// opencsv engine.
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-opencsv" % "@VERSION@"
-
 // commons-csv engine.
 libraryDependencies += "com.nrinaudo" %% "kantan.csv-commons" % "@VERSION@"
 
