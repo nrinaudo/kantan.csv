@@ -5,6 +5,6 @@ object Versions {
   val jodaTime         = "2.10.12"
   val kantanCodecs     = "0.5.3"
   val opencsv          = "5.5.2"
-  val scalaCsv         = "1.3.8"
+  val scalaCsv         = "1.3.9"
   val univocity        = "2.9.1"
 }
