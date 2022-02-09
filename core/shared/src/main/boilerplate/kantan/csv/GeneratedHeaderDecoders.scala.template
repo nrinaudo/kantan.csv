@@ -31,11 +31,28 @@ trait GeneratedHeaderDecoders {
    * }}}
    *
    */
-  def decoder[[#A1: CellDecoder#], R]([#f1: String#])(f: ([#A1#]) => R): HeaderDecoder[R] = new HeaderDecoder[R] {
-    override def fromHeader(header: Seq[String]): DecodeResult[RowDecoder[R]] =
-      HeaderDecoder.determineRowMappings(Seq([#f1#]), header).map(mapping => RowDecoder.decoder([#mapping(0)#])(f))
-    override def noHeader = RowDecoder.ordered(f)
-  }#
+  def decoder[[#A1: CellDecoder#], R]([#f1: String#])(f: ([#A1#]) => R): HeaderDecoder[R] =
+    decoderWith([#f1#])(_ == _)(f)#
+  ]
 
+  [#/** Creates a new [[HeaderDecoder]] from the specified field list, and an equality function, and function to convert the fields into the resulting target type.
+   *
+   * @example
+   * {{{
+   * scala> import kantan.csv.ops._
+   *
+   * scala> case class Foo([#i1: Int#])
+   * scala> implicit val decoder: HeaderDecoder[Foo] = HeaderDecoder.decoderWith([#"f1"#])(_.equalsIgnoreCase(_))(Foo.apply _)
+   *
+   * scala> "[#f1#]\n[#1#]".asCsvReader[Foo](rfc.withHeader).next()
+   * res0: ReadResult[Foo] = Right(Foo([#1#,]))
+   * }}
+   *
+   */
+   def decoderWith[[#A1: CellDecoder#], R]([#f1: String#])(eql: (String, String) => Boolean)(f: ([#A1#]) => R): HeaderDecoder[R] = new HeaderDecoder[R] {
+     override def fromHeader(header: Seq[String]): DecodeResult[RowDecoder[R]] =
+       HeaderDecoder.determineRowMappings(Seq([#f1#]), header)(eql).map(mapping => RowDecoder.decoder([#mapping(0)#])(f))
+     override def noHeader = RowDecoder.ordered(f)
+   }#
   ]
 }
