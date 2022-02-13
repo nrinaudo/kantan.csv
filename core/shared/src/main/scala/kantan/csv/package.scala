@@ -19,7 +19,7 @@ package kantan
 import kantan.codecs.{Codec, Decoder, Encoder}
 import kantan.codecs.resource.ResourceIterator
 
-package object csv {
+package object csv extends HeaderDecoderOps0 {
 
   /** Iterator on CSV data.
     *
