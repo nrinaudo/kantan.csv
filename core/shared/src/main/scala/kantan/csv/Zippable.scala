@@ -18,37 +18,37 @@ package kantan.csv
 
 // Implementation originally from https://github.com/zio/zio/blob/series/2.x/core/shared/src/main/scala/zio/Zippable.scala
 trait Zippable[-A, -B] {
-    type Out
-    def zip(left: A, right: B): Out
+  type Out
+  def zip(left: A, right: B): Out
 }
 
 object Zippable extends ZippableOps1 {
-    type Out[-A, -B, C] = Zippable[A, B] { type Out = C }
+  type Out[-A, -B, C] = Zippable[A, B] { type Out = C }
 
-    implicit def zippableLeftIdentity[A]: Zippable.Out[Unit, A, A] =
-        new Zippable[Unit, A] {
-            type Out = A
-            def zip(left: Unit, right: A) = 
-                right
-        }
+  implicit def zippableLeftIdentity[A]: Zippable.Out[Unit, A, A] =
+    new Zippable[Unit, A] {
+      type Out = A
+      def zip(left: Unit, right: A) =
+        right
+    }
 }
 
 trait ZippableOps1 extends ZippableOps2 {
-    implicit def zippableRightIdentity[A]: Zippable.Out[A, Unit, A] =
-        new Zippable[A, Unit] {
-            type Out = A
-            def zip(left: A, right: Unit) =
-                left
-        }
+  implicit def zippableRightIdentity[A]: Zippable.Out[A, Unit, A] =
+    new Zippable[A, Unit] {
+      type Out = A
+      def zip(left: A, right: Unit) =
+        left
+    }
 }
 
 trait ZippableOps2 extends ZippableOps3 {
-    implicit def zippable3[A, B, Z]: Zippable.Out[(A, B), Z, (A, B, Z)] =
-        new Zippable[(A, B), Z] {
-            type Out = (A, B, Z)
-            def zip(left: (A, B), right: Z): (A, B, Z) =
-                (left._1, left._2, right)
-        }
+  implicit def zippable3[A, B, Z]: Zippable.Out[(A, B), Z, (A, B, Z)] =
+    new Zippable[(A, B), Z] {
+      type Out = (A, B, Z)
+      def zip(left: (A, B), right: Z): (A, B, Z) =
+        (left._1, left._2, right)
+    }
 
   implicit def zippable4[A, B, C, Z]: Zippable.Out[(A, B, C), Z, (A, B, C, Z)] =
     new Zippable[(A, B, C), Z] {
@@ -427,9 +427,9 @@ trait ZippableOps2 extends ZippableOps3 {
 
 trait ZippableOps3 {
 
-    implicit def zippable2[A, B]: Zippable.Out[A, B, (A, B)] =
-        new Zippable[A, B] {
-            type Out = (A, B)
-            def zip(left: A, right: B): Out = (left, right)
-        }
+  implicit def zippable2[A, B]: Zippable.Out[A, B, (A, B)] =
+    new Zippable[A, B] {
+      type Out = (A, B)
+      def zip(left: A, right: B): Out = (left, right)
+    }
 }
