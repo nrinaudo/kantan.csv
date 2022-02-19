@@ -65,7 +65,7 @@ trait GeneratedHeaderDecoders {
    *
    * scala> "[#f1#]\n[#1#]".asCsvReader[Foo](rfc.withHeader).next()
    * res0: ReadResult[Foo] = Right(Foo([#1#,]))
-   * }}
+   * }}}
    *
    */
    def decoderWith[[#A1: CellDecoder#], R]([#f1: String#])(eql: (String, String) => Boolean)(f: ([#A1#]) => R): HeaderDecoder[R] = new HeaderDecoder[R] {
