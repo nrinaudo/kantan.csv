@@ -36,7 +36,6 @@ class HeaderDecoderZipTests extends AnyFunSuite with Matchers {
 
     val lines = new ByteArrayInputStream(csv.getBytes)
       .asCsvReader[(String, String)](rfc.withHeader)
-      .iterator
       .toList
 
     lines should be(List(Right("foo" -> "bar"), Right("far" -> "baz")))
@@ -52,7 +51,6 @@ class HeaderDecoderZipTests extends AnyFunSuite with Matchers {
 
     val lines = new ByteArrayInputStream(csv.getBytes)
       .asCsvReader[(String, String, String)](rfc.withHeader)
-      .iterator
       .toList
 
     lines should be(List(Right(("bar", "foo", "baz")), Right(("baz", "far", "bau"))))
@@ -68,7 +66,6 @@ class HeaderDecoderZipTests extends AnyFunSuite with Matchers {
 
     val lines = new ByteArrayInputStream(csv.getBytes)
       .asCsvReader[(String, Option[String], String)](rfc.withHeader)
-      .iterator
       .toList
 
     lines should be(List(Right(("foo", None, "bar")), Right(("far", None, "baz"))))
