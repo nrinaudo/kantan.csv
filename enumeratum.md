@@ -8,7 +8,7 @@ kantan.csv comes with an [enumeratum](https://github.com/lloydmeta/enumeratum) m
 by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-enumeratum" % "0.6.3-SNAPSHOT"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-enumeratum" % "0.7.0"
 ```
 
 ## Name-based enumerations

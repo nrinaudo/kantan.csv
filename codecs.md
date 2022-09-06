@@ -34,17 +34,17 @@ val dates = List(
   List(new DateTime(), new DateTime().plusDays(1)),
   List(new DateTime().plusDays(2), new DateTime().plusDays(3))
 ).asCsv(rfc)
-// dates: String = """2021-10-19,2021-10-20
-// 2021-10-21,2021-10-22
+// dates: String = """2022-09-06,2022-09-07
+// 2022-09-08,2022-09-09
 // """
 
 dates.readCsv[List, List[DateTime]](rfc)
 // res0: List[ReadResult[List[DateTime]]] = List(
 //   Right(
-//     value = List(2021-10-19T00:00:00.000+02:00, 2021-10-20T00:00:00.000+02:00)
+//     value = List(2022-09-06T00:00:00.000+02:00, 2022-09-07T00:00:00.000+02:00)
 //   ),
 //   Right(
-//     value = List(2021-10-21T00:00:00.000+02:00, 2021-10-22T00:00:00.000+02:00)
+//     value = List(2022-09-08T00:00:00.000+02:00, 2022-09-09T00:00:00.000+02:00)
 //   )
 // )
 ```
