@@ -25,9 +25,33 @@ package kantan.csv
   * available), but you can create more useful [[HeaderDecoder]] instances through the
   * [[HeaderDecoder$ companion object]].
   */
-trait HeaderDecoder[A] extends Serializable {
+trait HeaderDecoder[A] extends Serializable { self =>
   def fromHeader(header: Seq[String]): DecodeResult[RowDecoder[A]]
   def noHeader: RowDecoder[A]
+
+  /**
+    * Combines two header decoders creating a tupled version that will decode the results from both. The combination will preserve the order
+    * of the merge in the case that no headers are detected.
+    */
+  def ~[B](that: HeaderDecoder[B])(implicit zippable: Zippable[A, B]): HeaderDecoder[zippable.Out] =
+    new HeaderDecoder[zippable.Out] {
+      override def fromHeader(header: Seq[String]): DecodeResult[RowDecoder[zippable.Out]] =
+        for {
+          a <- self.fromHeader(header)
+          b <- that.fromHeader(header)
+        } yield (a product b).map(c => zippable.zip(c._1, c._2))
+
+      override def noHeader: RowDecoder[zippable.Out] =
+        (self.noHeader product that.noHeader).map(c => zippable.zip(c._1, c._2))
+    }
+
+  def map[B](f: A => B): HeaderDecoder[B] = new HeaderDecoder[B] {
+    override def fromHeader(header: Seq[String]): DecodeResult[RowDecoder[B]] =
+      self.fromHeader(header).map(_.map(f))
+
+    override def noHeader: RowDecoder[B] =
+      self.noHeader.map(f)
+  }
 }
 
 /** Provides instance summoning and creation methods for [[HeaderDecoder]]. */
