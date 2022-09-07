@@ -25,6 +25,13 @@ trait GeneratedHeaderCodecs {
   ]
 
   [#
+  def codecWith[[#A1: CellEncoder: CellDecoder#], C]([#f1: String#])(eql: (String, String) => Boolean)(f: ([#A1#]) => C)(g: C => ([#A1#])): HeaderCodec[C] =
+    HeaderCodec.from(HeaderDecoder.decoderWith([#f1#])(eql)(f))(HeaderEncoder.encoder([#f1#])(g))
+  #
+
+  ]
+
+  [#
   def caseCodec[[#A1: CellEncoder: CellDecoder#], C]([#f1: String#])(f: ([#A1#]) => C)(g: C => Option[([#A1#])]): HeaderCodec[C] =
     HeaderCodec.from(HeaderDecoder.decoder([#f1#])(f))(HeaderEncoder.caseEncoder([#f1#])(g))
   #

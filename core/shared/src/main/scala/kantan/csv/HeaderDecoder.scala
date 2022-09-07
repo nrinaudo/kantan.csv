@@ -60,10 +60,12 @@ object HeaderDecoder extends GeneratedHeaderDecoders {
   /** Summons an implicit instance of [[HeaderDecoder]] if one can be found, fails compilation otherwise. */
   def apply[A](implicit ev: HeaderDecoder[A]): HeaderDecoder[A] = macro imp.summon[HeaderDecoder[A]]
 
-  private[csv] def determineRowMappings(requiredHeader: Seq[String], csvHeader: Seq[String]): DecodeResult[Seq[Int]] =
+  private[csv] def determineRowMappings(requiredHeader: Seq[String], csvHeader: Seq[String])(
+    eql: (String, String) => Boolean
+  ): DecodeResult[Seq[Int]] =
     requiredHeader.foldLeft((List.empty[String], List.empty[Int])) {
       case ((missing, found), header) =>
-        val index = csvHeader.indexOf(header)
+        val index = csvHeader.indexWhere(eql(header, _))
 
         if(index < 0) (header :: missing, found)
         else (missing, index :: found)
