@@ -4,7 +4,7 @@ object Versions {
   val jacksonCsv       = "2.13.1"
   val jodaTime         = "2.10.13"
   val kantanCodecs     = "0.5.3"
-  val opencsv          = "5.5.2"
+  val opencsv          = "5.9"
   val scalaCsv         = "1.3.10"
   val univocity        = "2.9.1"
 }
