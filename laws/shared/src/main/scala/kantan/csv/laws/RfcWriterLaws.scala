@@ -16,9 +16,12 @@
 
 package kantan.csv.laws
 
-import kantan.csv.{rfc, CellDecoder, CellEncoder, CsvConfiguration}
+import kantan.csv.CellDecoder
+import kantan.csv.CellEncoder
+import kantan.csv.CsvConfiguration
 import kantan.csv.engine.WriterEngine
 import kantan.csv.ops._
+import kantan.csv.rfc
 
 trait RfcWriterLaws {
   implicit def engine: WriterEngine
@@ -26,7 +29,8 @@ trait RfcWriterLaws {
   def roundTripFor[A: CellEncoder: CellDecoder](csv: List[List[A]], conf: CsvConfiguration): Boolean =
     csv.asCsv(conf).unsafeReadCsv[List, List[A]](conf) == csv
 
-  def roundTrip(csv: List[List[Cell]]): Boolean = roundTripFor(csv, rfc)
+  def roundTrip(csv: List[List[Cell]]): Boolean =
+    roundTripFor(csv, rfc)
 
   def noTrailingSeparator(csv: List[List[Cell.NonEscaped]]): Boolean =
     csv.asCsv(rfc).split("\n").forall(!_.endsWith(","))

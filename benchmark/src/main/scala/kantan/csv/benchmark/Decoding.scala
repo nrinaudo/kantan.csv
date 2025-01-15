@@ -17,40 +17,55 @@
 package kantan.csv.benchmark
 
 import com.univocity.parsers.csv.CsvParserSettings
-import java.io.StringReader
-import java.util.concurrent.TimeUnit
-import kantan.csv.{rfc, CsvSource}
+import kantan.csv.CsvSource
 import kantan.csv.engine.ReaderEngine
 import kantan.csv.engine.jackson.defaultMappingIteratorBuilder
-import org.openjdk.jmh.annotations.{Benchmark, BenchmarkMode, Mode, OutputTimeUnit, Scope, State}
+import kantan.csv.rfc
+import org.openjdk.jmh.annotations.Benchmark
+import org.openjdk.jmh.annotations.BenchmarkMode
+import org.openjdk.jmh.annotations.Mode
+import org.openjdk.jmh.annotations.OutputTimeUnit
+import org.openjdk.jmh.annotations.Scope
+import org.openjdk.jmh.annotations.State
+
+import java.io.StringReader
+import java.util.concurrent.TimeUnit
 
 @State(Scope.Thread)
 @BenchmarkMode(Array(Mode.AverageTime))
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 class Decoding {
   @Benchmark
-  def kantanInternal: List[CsvEntry] = Decoding.kantan(strData)
+  def kantanInternal: List[CsvEntry] =
+    Decoding.kantan(strData)
 
   @Benchmark
-  def kantanJackson: List[CsvEntry] = Decoding.kantan(strData)(kantan.csv.engine.jackson.jacksonCsvReaderEngine)
+  def kantanJackson: List[CsvEntry] =
+    Decoding.kantan(strData)(kantan.csv.engine.jackson.jacksonCsvReaderEngine)
 
   @Benchmark
-  def kantanCommons: List[CsvEntry] = Decoding.kantan(strData)(kantan.csv.engine.commons.commonsCsvReaderEngine)
+  def kantanCommons: List[CsvEntry] =
+    Decoding.kantan(strData)(kantan.csv.engine.commons.commonsCsvReaderEngine)
 
   @Benchmark
-  def opencsv: List[CsvEntry] = Decoding.opencsv(strData)
+  def opencsv: List[CsvEntry] =
+    Decoding.opencsv(strData)
 
   @Benchmark
-  def commons: List[CsvEntry] = Decoding.commons(strData)
+  def commons: List[CsvEntry] =
+    Decoding.commons(strData)
 
   @Benchmark
-  def jackson: List[CsvEntry] = Decoding.jackson(strData)
+  def jackson: List[CsvEntry] =
+    Decoding.jackson(strData)
 
   @Benchmark
-  def univocity: List[CsvEntry] = Decoding.univocity(strData)
+  def univocity: List[CsvEntry] =
+    Decoding.univocity(strData)
 
   @Benchmark
-  def scalaCsv: List[CsvEntry] = Decoding.scalaCsv(strData)
+  def scalaCsv: List[CsvEntry] =
+    Decoding.scalaCsv(strData)
 }
 
 object Decoding {
@@ -58,8 +73,9 @@ object Decoding {
   // -------------------------------------------------------------------------------------------------------------------
   @SuppressWarnings(Array("org.wartremover.warts.Var"))
   class CsvIterator[A](iterator: A)(f: A => Array[String]) extends Iterator[CsvEntry] {
-    private var n                 = f(iterator)
-    override def hasNext: Boolean = n != null
+    private var n = f(iterator)
+    override def hasNext: Boolean =
+      n != null
     override def next(): CsvEntry = {
       val temp = n
       n = f(iterator)
@@ -67,7 +83,8 @@ object Decoding {
     }
   }
 
-  def toTuple(row: Array[String]): CsvEntry = (row(0).toInt, row(1), row(2).toBoolean, row(3).toFloat)
+  def toTuple(row: Array[String]): CsvEntry =
+    (row(0).toInt, row(1), row(2).toBoolean, row(3).toFloat)
 
   // - Benchmarks ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -80,7 +97,8 @@ object Decoding {
   def commons(str: String): List[CsvEntry] = {
     val csv = org.apache.commons.csv.CSVFormat.RFC4180.parse(new StringReader(str)).iterator()
     new Iterator[CsvEntry] {
-      override def hasNext: Boolean = csv.hasNext
+      override def hasNext: Boolean =
+        csv.hasNext
       override def next(): CsvEntry = {
         val n = csv.next()
         (n.get(0).toInt, n.get(1), n.get(2).toBoolean, n.get(3).toFloat)

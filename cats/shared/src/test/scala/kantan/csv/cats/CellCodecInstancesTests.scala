@@ -19,9 +19,13 @@ package kantan.csv.cats
 import cats.Eq
 import cats.data.EitherT
 import cats.instances.all._
-import cats.laws.discipline.{ContravariantTests, MonadErrorTests, SemigroupKTests}
+import cats.laws.discipline.ContravariantTests
+import cats.laws.discipline.MonadErrorTests
+import cats.laws.discipline.SemigroupKTests
 import cats.laws.discipline.SemigroupalTests.Isomorphisms
-import kantan.csv.{CellDecoder, CellEncoder, DecodeError}
+import kantan.csv.CellDecoder
+import kantan.csv.CellEncoder
+import kantan.csv.DecodeError
 import kantan.csv.cats.arbitrary._
 import kantan.csv.cats.equality._
 import kantan.csv.laws.discipline.DisciplineSuite

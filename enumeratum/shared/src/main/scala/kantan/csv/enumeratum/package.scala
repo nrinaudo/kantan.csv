@@ -16,6 +16,7 @@
 
 package kantan.csv
 
-import kantan.codecs.enumeratum.{DecoderInstances, EncoderInstances}
+import kantan.codecs.enumeratum.DecoderInstances
+import kantan.codecs.enumeratum.EncoderInstances
 
 package object enumeratum extends DecoderInstances with EncoderInstances

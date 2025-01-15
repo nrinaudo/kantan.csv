@@ -16,7 +16,11 @@
 
 package kantan.csv.laws.discipline
 
-import kantan.csv.{CellDecoder, CellEncoder, DecodeResult, RowDecoder, RowEncoder}
+import kantan.csv.CellDecoder
+import kantan.csv.CellEncoder
+import kantan.csv.DecodeResult
+import kantan.csv.RowDecoder
+import kantan.csv.RowEncoder
 import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.{arbitrary => arb}
 

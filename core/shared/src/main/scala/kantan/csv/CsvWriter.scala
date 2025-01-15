@@ -16,15 +16,18 @@
 
 package kantan.csv
 
-import java.io.{Closeable, Writer}
 import kantan.csv.engine.WriterEngine
+
+import java.io.Closeable
+import java.io.Writer
 
 /** Type of values that know how to write CSV data.
   *
   * There should almost never be a reason to implement this trait directly. The default implementation should satisfy
   * most needs, and others can be swapped if needed through the [[kantan.csv.engine.WriterEngine]] mechanism.
   *
-  * @tparam A type of values that will be encoded as CSV.
+  * @tparam A
+  *   type of values that will be encoded as CSV.
   */
 trait CsvWriter[A] extends VersionSpecificCsvWriter[A] with Closeable { self =>
 
@@ -39,13 +42,15 @@ trait CsvWriter[A] extends VersionSpecificCsvWriter[A] with Closeable { self =>
   override def close(): Unit
 
   /** Turns a `CsvWriter[A]` into a `CsvWriter[B]`. */
-  def contramap[B](f: B => A): CsvWriter[B] = new CsvWriter[B] {
-    override def write(b: B): CsvWriter[B] = {
-      self.write(f(b))
-      this
+  def contramap[B](f: B => A): CsvWriter[B] =
+    new CsvWriter[B] {
+      override def write(b: B): CsvWriter[B] = {
+        self.write(f(b))
+        this
+      }
+      override def close(): Unit =
+        self.close()
     }
-    override def close(): Unit = self.close()
-  }
 }
 
 /** Provides useful instance creation methods. */
@@ -60,9 +65,12 @@ object CsvWriter {
     * [[kantan.csv.engine.WriterEngine]] is found in scope. If none is explicitly imported, the
     * [[kantan.csv.engine.WriterEngine$.internalCsvWriterEngine internal]] one will be used.
     *
-    * @param writer where to write CSV data to.
-    * @param conf CSV writing behaviour.
-    * @tparam A type of values that the returned instance will know to encode.
+    * @param writer
+    *   where to write CSV data to.
+    * @param conf
+    *   CSV writing behaviour.
+    * @tparam A
+    *   type of values that the returned instance will know to encode.
     */
   def apply[A: HeaderEncoder](writer: Writer, conf: CsvConfiguration)(implicit engine: WriterEngine): CsvWriter[A] = {
     val w = engine.writerFor(writer, conf)
@@ -80,15 +88,20 @@ object CsvWriter {
     *
     * This method is meant to help interface third party libraries with kantan.csv.
     *
-    * @param out where to send CSV rows to - this is meant to be a third party library's csv writer.
-    * @param w writes a CSV row using `out`.
-    * @param r releases `out` once we're done writing.
+    * @param out
+    *   where to send CSV rows to - this is meant to be a third party library's csv writer.
+    * @param w
+    *   writes a CSV row using `out`.
+    * @param r
+    *   releases `out` once we're done writing.
     */
-  def apply[A](out: A)(w: (A, Seq[String]) => Unit)(r: A => Unit): CsvWriter[Seq[String]] = new CsvWriter[Seq[String]] {
-    override def write(a: Seq[String]): CsvWriter[Seq[String]] = {
-      w(out, a)
-      this
+  def apply[A](out: A)(w: (A, Seq[String]) => Unit)(r: A => Unit): CsvWriter[Seq[String]] =
+    new CsvWriter[Seq[String]] {
+      override def write(a: Seq[String]): CsvWriter[Seq[String]] = {
+        w(out, a)
+        this
+      }
+      override def close(): Unit =
+        r(out)
     }
-    override def close(): Unit = r(out)
-  }
 }

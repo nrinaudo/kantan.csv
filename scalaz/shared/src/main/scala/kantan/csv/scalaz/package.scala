@@ -16,9 +16,12 @@
 
 package kantan.csv
 
-import _root_.scalaz.{Equal, Foldable}
+import _root_.scalaz.Equal
+import _root_.scalaz.Foldable
 import imp.imp
-import kantan.codecs.scalaz.{CommonInstances, DecoderInstances, EncoderInstances}
+import kantan.codecs.scalaz.CommonInstances
+import kantan.codecs.scalaz.DecoderInstances
+import kantan.codecs.scalaz.EncoderInstances
 
 /** Declares various type class instances for bridging `kantan.csv` and `scalaz`. */
 package object scalaz extends DecoderInstances with EncoderInstances with CommonInstances {

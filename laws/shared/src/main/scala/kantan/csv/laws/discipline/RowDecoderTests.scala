@@ -16,10 +16,13 @@
 
 package kantan.csv.laws.discipline
 
-import kantan.csv.{codecs, DecodeError}
-import kantan.csv.laws.{LegalRow, RowDecoderLaws}
+import kantan.csv.DecodeError
+import kantan.csv.codecs
+import kantan.csv.laws.LegalRow
+import kantan.csv.laws.RowDecoderLaws
 import kantan.csv.laws.discipline.arbitrary._
-import org.scalacheck.{Arbitrary, Cogen}
+import org.scalacheck.Arbitrary
+import org.scalacheck.Cogen
 
 object RowDecoderTests {
   def apply[A: RowDecoderLaws: Arbitrary: Cogen](implicit al: Arbitrary[LegalRow[A]]): RowDecoderTests[A] =

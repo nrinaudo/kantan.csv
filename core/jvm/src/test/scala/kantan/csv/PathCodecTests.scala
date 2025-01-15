@@ -16,9 +16,12 @@
 
 package kantan.csv
 
-import java.nio.file.Path
-import kantan.csv.laws.discipline.{CellCodecTests, DisciplineSuite, RowCodecTests}
+import kantan.csv.laws.discipline.CellCodecTests
+import kantan.csv.laws.discipline.DisciplineSuite
+import kantan.csv.laws.discipline.RowCodecTests
 import kantan.csv.laws.discipline.arbitrary._
+
+import java.nio.file.Path
 
 class PathCodecTests extends DisciplineSuite {
 

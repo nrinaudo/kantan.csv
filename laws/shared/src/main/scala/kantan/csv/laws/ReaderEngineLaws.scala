@@ -80,14 +80,16 @@ trait ReaderEngineLaws
     loop(asReader(csv))
   }
 
-  def map(csv: List[List[Cell]], f: List[Cell] => Int): Boolean = asReader(csv).map(f).toList == csv.map(f)
+  def map(csv: List[List[Cell]], f: List[Cell] => Int): Boolean =
+    asReader(csv).map(f).toList == csv.map(f)
 
   def flatMap(csv: List[List[Cell]], f: List[Cell] => List[List[Cell]]): Boolean =
     asReader(csv).flatMap(r => asReader(f(r))).toList == csv.flatMap(f)
 }
 
 object ReaderEngineLaws {
-  def apply(e: ReaderEngine): ReaderEngineLaws = new ReaderEngineLaws {
-    override implicit val engine: ReaderEngine = e
-  }
+  def apply(e: ReaderEngine): ReaderEngineLaws =
+    new ReaderEngineLaws {
+      override implicit val engine: ReaderEngine = e
+    }
 }

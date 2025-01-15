@@ -20,11 +20,12 @@ import org.scalacheck.Prop
 import org.scalacheck.Prop.forAll
 
 trait VersionSpecificReaderEngineTests { self: ReaderEngineTests =>
-  def versionSpecificProps: Seq[(String, Prop)] = Seq(
-    "withFilter"    -> forAll(laws.withFilter _),
-    "toStream"      -> forAll(laws.toStream _),
-    "toTraversable" -> forAll(laws.toTraversable _),
-    "toIterator"    -> forAll(laws.toIterator _)
-  )
+  def versionSpecificProps: Seq[(String, Prop)] =
+    Seq(
+      "withFilter"    -> forAll(laws.withFilter _),
+      "toStream"      -> forAll(laws.toStream _),
+      "toTraversable" -> forAll(laws.toTraversable _),
+      "toIterator"    -> forAll(laws.toIterator _)
+    )
 
 }

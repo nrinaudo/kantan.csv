@@ -22,8 +22,11 @@ package object engine {
     *
     * This is useful when writing [[ReaderEngine]] implementations for Java libraries.
     */
-  implicit def javaIterator(it: java.util.Iterator[Array[String]]): Iterator[Seq[String]] = new Iterator[Seq[String]] {
-    @inline override def hasNext: Boolean    = it.hasNext
-    @inline override def next(): Seq[String] = it.next().toSeq
-  }
+  implicit def javaIterator(it: java.util.Iterator[Array[String]]): Iterator[Seq[String]] =
+    new Iterator[Seq[String]] {
+      @inline override def hasNext: Boolean =
+        it.hasNext
+      @inline override def next(): Seq[String] =
+        it.next().toSeq
+    }
 }

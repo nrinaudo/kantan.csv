@@ -17,10 +17,18 @@
 package kantan.csv.laws.discipline
 
 import imp.imp
-import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
-import kantan.csv.{DecodeError, ParseError, ReadError}
-import kantan.csv.laws.{Cell, IllegalCell, IllegalRow, LegalCell, LegalRow}
-import org.scalacheck._, Arbitrary.{arbitrary => arb}
+import kantan.codecs.laws.CodecValue.IllegalValue
+import kantan.codecs.laws.CodecValue.LegalValue
+import kantan.csv.DecodeError
+import kantan.csv.ParseError
+import kantan.csv.ReadError
+import kantan.csv.laws.Cell
+import kantan.csv.laws.IllegalCell
+import kantan.csv.laws.IllegalRow
+import kantan.csv.laws.LegalCell
+import kantan.csv.laws.LegalRow
+import org.scalacheck.Arbitrary.{arbitrary => arb}
+import org.scalacheck._
 import org.scalacheck.rng.Seed
 
 object arbitrary extends ArbitraryInstances
@@ -50,7 +58,7 @@ trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstance
   implicit val arbOutOfBounds: Arbitrary[DecodeError.OutOfBounds]         = Arbitrary(genOutOfBoundsError)
   implicit val arbDecodeError: Arbitrary[DecodeError]                     = Arbitrary(genDecodeError)
   implicit val arbParseError: Arbitrary[ParseError]                       = Arbitrary(genParseError)
-  implicit val arbReadError: Arbitrary[ReadError]                         = Arbitrary(Gen.oneOf(genDecodeError, genParseError))
+  implicit val arbReadError: Arbitrary[ReadError] = Arbitrary(Gen.oneOf(genDecodeError, genParseError))
 
   implicit val cogenCsvIOError: Cogen[ParseError.IOError]                  = Cogen[String].contramap(_.message)
   implicit val cogenCsvNoSuchElement: Cogen[ParseError.NoSuchElement.type] = Cogen[Unit].contramap(_ => ())
@@ -79,16 +87,18 @@ trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstance
 
   // - Codec values ----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def arbLegalRow[A](implicit arb: Arbitrary[LegalCell[A]]): Arbitrary[LegalRow[A]] = Arbitrary {
-    arb.arbitrary.map { c =>
-      LegalValue(Seq(c.encoded), c.decoded)
+  implicit def arbLegalRow[A](implicit arb: Arbitrary[LegalCell[A]]): Arbitrary[LegalRow[A]] =
+    Arbitrary {
+      arb.arbitrary.map { c =>
+        LegalValue(Seq(c.encoded), c.decoded)
+      }
     }
-  }
 
-  implicit def arbIllegalRow[A](implicit arb: Arbitrary[IllegalCell[A]]): Arbitrary[IllegalRow[A]] = Arbitrary {
-    arb.arbitrary.map { c =>
-      IllegalValue(Seq(c.encoded))
+  implicit def arbIllegalRow[A](implicit arb: Arbitrary[IllegalCell[A]]): Arbitrary[IllegalRow[A]] =
+    Arbitrary {
+      arb.arbitrary.map { c =>
+        IllegalValue(Seq(c.encoded))
+      }
     }
-  }
 
 }

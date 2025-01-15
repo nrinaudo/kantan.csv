@@ -16,7 +16,9 @@
 
 package kantan.csv
 
-import kantan.csv.laws.discipline.{CellCodecTests, DisciplineSuite, RowCodecTests}
+import kantan.csv.laws.discipline.CellCodecTests
+import kantan.csv.laws.discipline.DisciplineSuite
+import kantan.csv.laws.discipline.RowCodecTests
 import kantan.csv.laws.discipline.arbitrary._
 
 class EitherCodecTests extends DisciplineSuite {

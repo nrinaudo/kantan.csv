@@ -17,8 +17,12 @@
 package kantan.csv.engine
 
 import kantan.codecs.resource.ResourceIterator
-import kantan.csv.{CsvConfiguration, CsvWriter}
-import org.apache.commons.csv.{CSVFormat, CSVPrinter, QuoteMode}
+import kantan.csv.CsvConfiguration
+import kantan.csv.CsvWriter
+import org.apache.commons.csv.CSVFormat
+import org.apache.commons.csv.CSVPrinter
+import org.apache.commons.csv.QuoteMode
+
 import scala.jdk.CollectionConverters._
 
 /** Provides CSV reader and writer engines using [[https://commons.apache.org/proper/commons-csv/ commons-csv]].
@@ -56,9 +60,10 @@ package object commons {
     * The purpose of this is to let developers use some of the commons-csv features that kantan.csv does not expose
     * through its public API.
     */
-  def readerEngineFrom(f: CSVFormatBuilder): ReaderEngine = ReaderEngine.from { (r, s) =>
-    ResourceIterator.fromIterator(f(s).parse(r).iterator.asScala.map(CsvSeq.apply))
-  }
+  def readerEngineFrom(f: CSVFormatBuilder): ReaderEngine =
+    ReaderEngine.from { (r, s) =>
+      ResourceIterator.fromIterator(f(s).parse(r).iterator.asScala.map(CsvSeq.apply))
+    }
 
   /** Default commons-csv `ReaderEngine`.
     *
@@ -73,11 +78,12 @@ package object commons {
     * The purpose of this is to let developers use some of the commons-csv features that kantan.csv does not expose
     * through its public API.
     */
-  def writerEngineFrom(f: CSVFormatBuilder): WriterEngine = WriterEngine.from { (w, s) =>
-    CsvWriter(new CSVPrinter(w, f(s))) { (csv, ss) =>
-      csv.printRecord(ss.asJava)
-    }(_.close())
-  }
+  def writerEngineFrom(f: CSVFormatBuilder): WriterEngine =
+    WriterEngine.from { (w, s) =>
+      CsvWriter(new CSVPrinter(w, f(s))) { (csv, ss) =>
+        csv.printRecord(ss.asJava)
+      }(_.close())
+    }
 
   /** Default commons-csv `WriterEngine`.
     *

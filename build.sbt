@@ -70,9 +70,9 @@ lazy val benchmark = project
   .dependsOn(coreJVM, jackson, commons, lawsJVM % Test)
   .settings(
     libraryDependencies ++= Seq(
-      "com.opencsv"          % "opencsv"           % Versions.opencsv,
-      "com.univocity"        % "univocity-parsers" % Versions.univocity,
-      "com.github.tototoshi" %% "scala-csv"        % Versions.scalaCsv
+      "com.opencsv"           % "opencsv"           % Versions.opencsv,
+      "com.univocity"         % "univocity-parsers" % Versions.univocity,
+      "com.github.tototoshi" %% "scala-csv"         % Versions.scalaCsv
     )
   )
 
@@ -118,7 +118,7 @@ lazy val commons = project
   .dependsOn(coreJVM, lawsJVM % Test)
   .settings(
     libraryDependencies ++= Seq(
-      "org.apache.commons"     % "commons-csv"              % Versions.commonsCsv,
+      "org.apache.commons"      % "commons-csv"             % Versions.commonsCsv,
       "org.scala-lang.modules" %% "scala-collection-compat" % Versions.collectionCompat
     )
   )

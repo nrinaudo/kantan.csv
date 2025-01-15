@@ -16,7 +16,8 @@
 
 package kantan.csv.engine
 
-import kantan.csv.laws.discipline.{DisciplineSuite, ReaderEngineTests}
+import kantan.csv.laws.discipline.DisciplineSuite
+import kantan.csv.laws.discipline.ReaderEngineTests
 
 class InternalReaderTests extends DisciplineSuite {
   checkAll("InternalReader", ReaderEngineTests(ReaderEngine.internalCsvReaderEngine).readerEngine)

@@ -97,9 +97,11 @@ trait SpectrumReaderLaws {
       )
     )
 
-  def simple: Boolean = equals("1,2,3\n", List(List("1", "2", "3")))
+  def simple: Boolean =
+    equals("1,2,3\n", List(List("1", "2", "3")))
 
-  def simpleCRLF: Boolean = equals("1,2,3\r\n", List(List("1", "2", "3")))
+  def simpleCRLF: Boolean =
+    equals("1,2,3\r\n", List(List("1", "2", "3")))
 
   def utf8: Boolean =
     equals(

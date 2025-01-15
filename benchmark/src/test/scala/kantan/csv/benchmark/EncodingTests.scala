@@ -24,7 +24,8 @@ import org.scalatest.matchers.should.Matchers
 class EncodingTests extends AnyFunSuite with Matchers {
   val encoding = new Encoding
 
-  def decode(str: String): List[CsvEntry] = str.unsafeReadCsv[List, CsvEntry](rfc)
+  def decode(str: String): List[CsvEntry] =
+    str.unsafeReadCsv[List, CsvEntry](rfc)
 
   test("kantan internal") {
     decode(encoding.kantanInternal) should be(rawData)

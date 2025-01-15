@@ -16,12 +16,17 @@
 
 package kantan.csv
 
-import java.io.{IOException, Reader}
 import kantan.codecs.collection.Factory
-import kantan.codecs.resource.{ReaderResource, ResourceIterator}
-import kantan.csv.DecodeError.{OutOfBounds, TypeError}
-import kantan.csv.ParseError.{IOError, NoSuchElement}
+import kantan.codecs.resource.ReaderResource
+import kantan.codecs.resource.ResourceIterator
+import kantan.csv.DecodeError.OutOfBounds
+import kantan.csv.DecodeError.TypeError
+import kantan.csv.ParseError.IOError
+import kantan.csv.ParseError.NoSuchElement
 import kantan.csv.engine.ReaderEngine
+
+import java.io.IOException
+import java.io.Reader
 
 /** Turns instances of `S` into valid sources of CSV data.
   *
@@ -37,7 +42,8 @@ trait CsvSource[-S] extends Serializable { self =>
     * Implementations of this method *must* be safe: all non-fatal exceptions should be caught and wrapped in an
     * [[ParseError.IOError]]. This is easily achieved by wrapping unsafe code in a call to [[ParseResult.apply]].
     *
-    * @param s instance of `S` to turn into a [[CsvSource]].
+    * @param s
+    *   instance of `S` to turn into a [[CsvSource]].
     */
   def open(s: S): ParseResult[Reader]
 
@@ -52,14 +58,17 @@ trait CsvSource[-S] extends Serializable { self =>
     * [[unsafeReader[A](s:S,conf:kantan\.csv\.CsvConfiguration* unsafeReader]] for an alternative.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> CsvSource[String].reader[List[Int]]("1,2,3\n4,5,6", rfc).toList
     * res0: List[ReadResult[List[Int]]] = List(Right(List(1, 2, 3)), Right(List(4, 5, 6)))
-    * }}}
+    *   }}}
     *
-    * @param s instance of `S` that will be opened an parsed.
-    * @param conf CSV parsing behaviour.
-    * @tparam A type to parse each row as. This must have a corresponding implicit [[HeaderDecoder]] instance in scope.
+    * @param s
+    *   instance of `S` that will be opened an parsed.
+    * @param conf
+    *   CSV parsing behaviour.
+    * @tparam A
+    *   type to parse each row as. This must have a corresponding implicit [[HeaderDecoder]] instance in scope.
     */
   def reader[A: HeaderDecoder](s: S, conf: CsvConfiguration)(implicit e: ReaderEngine): CsvReader[ReadResult[A]] =
     open(s)
@@ -78,14 +87,17 @@ trait CsvSource[-S] extends Serializable { self =>
     * soon as an error is encountered.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> CsvSource[String].unsafeReader[List[Int]]("1,2,3\n4,5,6", rfc).toList
     * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
-    * }}}
+    *   }}}
     *
-    * @param s instance of `S` that will be opened an parsed.
-    * @param conf CSV parsing behaviour.
-    * @tparam A type to parse each row as. This must have a corresponding implicit [[HeaderDecoder]] instance in scope.
+    * @param s
+    *   instance of `S` that will be opened an parsed.
+    * @param conf
+    *   CSV parsing behaviour.
+    * @tparam A
+    *   type to parse each row as. This must have a corresponding implicit [[HeaderDecoder]] instance in scope.
     */
   @SuppressWarnings(Array("org.wartremover.warts.Throw"))
   def unsafeReader[A: HeaderDecoder](s: S, conf: CsvConfiguration)(implicit engine: ReaderEngine): CsvReader[A] =
@@ -97,8 +109,8 @@ trait CsvSource[-S] extends Serializable { self =>
     }.merge)
 
   @deprecated("use read(S, CsvConfiguration) instead", "0.1.18")
-  def read[C[_], A: HeaderDecoder](s: S, sep: Char, header: Boolean)(
-    implicit e: ReaderEngine,
+  def read[C[_], A: HeaderDecoder](s: S, sep: Char, header: Boolean)(implicit
+    e: ReaderEngine,
     factory: Factory[ReadResult[A], C[ReadResult[A]]]
   ): C[ReadResult[A]] =
     read(s, rfc.withCellSeparator(sep).withHeader(header))
@@ -107,19 +119,22 @@ trait CsvSource[-S] extends Serializable { self =>
     *
     * This method is "safe", in that it does not throw exceptions when errors are encountered. This comes with the small
     * cost of having each row wrapped in a [[ReadResult]] that then need to be unpacked. See
-    * [[unsafeRead[C[_],A](s:S,conf:kantan\.csv\.CsvConfiguration*  unsafeRead]] for an
-    * alternative.
+    * [[unsafeRead[C[_],A](s:S,conf:kantan\.csv\.CsvConfiguration* unsafeRead]] for an alternative.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> CsvSource[String].read[List, List[Int]]("1,2,3\n4,5,6", rfc)
     * res0: List[ReadResult[List[Int]]] = List(Right(List(1, 2, 3)), Right(List(4, 5, 6)))
-    * }}}
+    *   }}}
     *
-    * @param s instance of `S` that will be opened an parsed.
-    * @param conf CSV parsing behaviour.
-    * @tparam C collection type in which to parse the specified `S`.
-    * @tparam A type in which to parse each row.
+    * @param s
+    *   instance of `S` that will be opened an parsed.
+    * @param conf
+    *   CSV parsing behaviour.
+    * @tparam C
+    *   collection type in which to parse the specified `S`.
+    * @tparam A
+    *   type in which to parse each row.
     */
   def read[C[_], A: HeaderDecoder](
     s: S,
@@ -128,8 +143,8 @@ trait CsvSource[-S] extends Serializable { self =>
     reader(s, conf).to(factory)
 
   @deprecated("use unsafeRead(S, CsvConfiguration) instead", "0.1.18")
-  def unsafeRead[C[_], A: HeaderDecoder](s: S, sep: Char, header: Boolean)(
-    implicit e: ReaderEngine,
+  def unsafeRead[C[_], A: HeaderDecoder](s: S, sep: Char, header: Boolean)(implicit
+    e: ReaderEngine,
     factory: Factory[A, C[A]]
   ): C[A] =
     unsafeRead(s, rfc.withCellSeparator(sep).withHeader(header))
@@ -140,15 +155,19 @@ trait CsvSource[-S] extends Serializable { self =>
     * soon as an error is encountered.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> CsvSource[String].unsafeRead[List, List[Int]]("1,2,3\n4,5,6", rfc)
     * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
-    * }}}
+    *   }}}
     *
-    * @param s instance of `S` that will be opened an parsed.
-    * @param conf CSV parsing behaviour.
-    * @tparam C collection type in which to parse the specified `S`.
-    * @tparam A type in which to parse each row.
+    * @param s
+    *   instance of `S` that will be opened an parsed.
+    * @param conf
+    *   CSV parsing behaviour.
+    * @tparam C
+    *   collection type in which to parse the specified `S`.
+    * @tparam A
+    *   type in which to parse each row.
     */
   def unsafeRead[C[_], A: HeaderDecoder](
     s: S,
@@ -164,43 +183,47 @@ trait CsvSource[-S] extends Serializable { self =>
     * [[econtramap]] instead.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> case class StringWrapper(value: String)
     *
     * scala> implicit val wrapperSource: CsvSource[StringWrapper] = CsvSource[String].contramap(_.value)
     *
     * scala> CsvSource[StringWrapper].unsafeRead[List, List[Int]](StringWrapper("1,2,3\n4,5,6"), rfc)
     * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
-    * }}}
+    *   }}}
     *
-    * @see [[econtramap]]
+    * @see
+    *   [[econtramap]]
     */
-  def contramap[T](f: T => S): CsvSource[T] = CsvSource.from(f andThen self.open)
+  def contramap[T](f: T => S): CsvSource[T] =
+    CsvSource.from(f.andThen(self.open))
 
   /** Turns an instance of `CsvSource[S]` into one of `CsvSource[T]`.
     *
     * This allows developers to adapt existing instances of [[CsvSource]] rather than write new ones from scratch.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> case class StringWrapper(value: String)
     *
     * scala> implicit val source: CsvSource[StringWrapper] = CsvSource[String].econtramap(s => ParseResult(s.value))
     *
     * scala> CsvSource[StringWrapper].unsafeRead[List, List[Int]](StringWrapper("1,2,3\n4,5,6"), rfc)
     * res0: List[List[Int]] = List(List(1, 2, 3), List(4, 5, 6))
-    * }}}
+    *   }}}
     *
     * Note that if the transformation from `T` to `S` is safe, it's better to use [[contramap]] and bypass the error
     * handling mechanism altogether.
     *
-    * @see [[contramap]]
+    * @see
+    *   [[contramap]]
     */
   def econtramap[SS <: S, T](f: T => ParseResult[SS]): CsvSource[T] =
     CsvSource.from(t => f(t).flatMap(self.open))
 
   @deprecated("Use econtramap instead", "0.3.2")
-  def contramapResult[SS <: S, T](f: T => ParseResult[SS]): CsvSource[T] = econtramap(f)
+  def contramapResult[SS <: S, T](f: T => ParseResult[SS]): CsvSource[T] =
+    econtramap(f)
 }
 
 /** Defines convenience methods for creating and retrieving instances of [[CsvSource]].
@@ -218,7 +241,8 @@ object CsvSource {
     *
     * This is basically a less verbose, slightly faster version of `implicitly`.
     */
-  def apply[A](implicit ev: CsvSource[A]): CsvSource[A] = macro imp.summon[CsvSource[A]]
+  def apply[A](implicit ev: CsvSource[A]): CsvSource[A] =
+    macro imp.summon[CsvSource[A]]
 
   /** Turns the specified function into a [[CsvSource]].
     *
@@ -226,16 +250,20 @@ object CsvSource {
     * [[CsvSource.econtramap]] rather than create one from scratch.
     *
     * @example
-    * {{{
+    *   {{{
     *   val urlInput: CsvSource[URL] = CsvSource[InputStream].contramap((url: URL) ⇒ url.openStream())
-    * }}}
+    *   }}}
     *
-    * @see [[CsvSource.contramap]]
-    * @see [[CsvSource.econtramap]]
+    * @see
+    *   [[CsvSource.contramap]]
+    * @see
+    *   [[CsvSource.econtramap]]
     */
-  def from[A](f: A => ParseResult[Reader]): CsvSource[A] = new CsvSource[A] {
-    override def open(a: A): ParseResult[Reader] = f(a)
-  }
+  def from[A](f: A => ParseResult[Reader]): CsvSource[A] =
+    new CsvSource[A] {
+      override def open(a: A): ParseResult[Reader] =
+        f(a)
+    }
 
   implicit def fromResource[A: ReaderResource]: CsvSource[A] =
     CsvSource.from(a => ReaderResource[A].open(a).left.map(e => ParseError.IOError(e.getMessage, e.getCause)))

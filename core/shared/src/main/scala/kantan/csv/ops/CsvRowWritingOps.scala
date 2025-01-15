@@ -16,8 +16,10 @@
 
 package kantan.csv.ops
 
-import kantan.csv.{rfc, CsvConfiguration, RowEncoder}
+import kantan.csv.CsvConfiguration
+import kantan.csv.RowEncoder
 import kantan.csv.engine.WriterEngine
+import kantan.csv.rfc
 
 /** Provides syntax for encoding single CSV rows as a string.
   *
@@ -40,5 +42,6 @@ final class CsvRowWritingOps[A: RowEncoder](a: A) {
 }
 
 trait ToCsvRowWritingOps {
-  implicit def toCsvRowWritingOps[A: RowEncoder](a: A): CsvRowWritingOps[A] = new CsvRowWritingOps(a)
+  implicit def toCsvRowWritingOps[A: RowEncoder](a: A): CsvRowWritingOps[A] =
+    new CsvRowWritingOps(a)
 }

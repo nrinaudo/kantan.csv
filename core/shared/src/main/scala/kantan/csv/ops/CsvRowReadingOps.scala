@@ -16,7 +16,11 @@
 
 package kantan.csv.ops
 
-import kantan.csv.{CsvConfiguration, CsvSource, ParseResult, ReadResult, RowDecoder}
+import kantan.csv.CsvConfiguration
+import kantan.csv.CsvSource
+import kantan.csv.ParseResult
+import kantan.csv.ReadResult
+import kantan.csv.RowDecoder
 import kantan.csv.engine.ReaderEngine
 
 /** Provides syntax for decoding a string as a CSV row. */
@@ -25,12 +29,12 @@ final class CsvRowReadingOps[A: CsvSource](a: A) {
   /** Parses a string as a single CSV row.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import kantan.csv._
     *
     * scala> "1,2,3".readCsvRow[(Int, Int, Int)](rfc)
     * res0: ReadResult[(Int, Int, Int)] = Right((1,2,3))
-    * }}}
+    *   }}}
     */
   def readCsvRow[B: RowDecoder](conf: CsvConfiguration)(implicit e: ReaderEngine): ReadResult[B] = {
     val reader = a.asCsvReader[B](conf)
@@ -45,12 +49,12 @@ final class CsvRowReadingOps[A: CsvSource](a: A) {
   /** Parses a string as a single CSV row.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import kantan.csv._
     *
     * scala> "1,2,3".unsafeReadCsvRow[(Int, Int, Int)](rfc)
     * res0: (Int, Int, Int) = (1,2,3)
-    * }}}
+    *   }}}
     *
     * Note that this method is unsafe and will throw an exception if the string value is not a valid `A`. Prefer
     * [[readCsvRow]] whenever possible.
@@ -64,5 +68,6 @@ final class CsvRowReadingOps[A: CsvSource](a: A) {
 }
 
 trait ToCsvRowReadingOps {
-  implicit def toCsvRowReadingOps[A: CsvSource](a: A): CsvRowReadingOps[A] = new CsvRowReadingOps(a)
+  implicit def toCsvRowReadingOps[A: CsvSource](a: A): CsvRowReadingOps[A] =
+    new CsvRowReadingOps(a)
 }

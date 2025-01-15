@@ -16,6 +16,7 @@
 
 package kantan.csv
 
-import kantan.codecs.libra.{DecoderInstances, EncoderInstances}
+import kantan.codecs.libra.DecoderInstances
+import kantan.codecs.libra.EncoderInstances
 
 package object libra extends DecoderInstances with EncoderInstances

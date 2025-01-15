@@ -16,13 +16,15 @@
 
 package kantan.csv
 
-import kantan.codecs.error.{Error, ErrorCompanion, IsError}
+import kantan.codecs.error.Error
+import kantan.codecs.error.ErrorCompanion
+import kantan.codecs.error.IsError
 
 /** Parent type for all errors that can occur while dealing with CSV data.
   *
   * [[ReadError]] is split into two main error types:
-  *  - [[DecodeError]]: errors that occur while decoding a cell or a row.
-  *  - [[ParseError]]: errors that occur while parsing raw data into CSV.
+  *   - [[DecodeError]]: errors that occur while decoding a cell or a row.
+  *   - [[ParseError]]: errors that occur while parsing raw data into CSV.
   */
 sealed abstract class ReadError(msg: String) extends Error(msg)
 
@@ -36,7 +38,8 @@ object DecodeError {
 
   /** Error that occurs when attempting to access a CSV cell whose index is outside of its row's boundaries.
     *
-    * @param index index that caused the issue.
+    * @param index
+    *   index that caused the issue.
     */
   final case class OutOfBounds(index: Int) extends DecodeError(s"${index.toString} is not a valid index")
 

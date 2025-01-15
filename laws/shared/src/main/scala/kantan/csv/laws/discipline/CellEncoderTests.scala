@@ -17,7 +17,8 @@
 package kantan.csv.laws.discipline
 
 import kantan.csv.codecs
-import kantan.csv.laws.{CellEncoderLaws, LegalCell}
+import kantan.csv.laws.CellEncoderLaws
+import kantan.csv.laws.LegalCell
 import org.scalacheck.Arbitrary
 
 object CellEncoderTests {

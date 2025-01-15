@@ -16,23 +16,24 @@
 
 package kantan.csv.ops
 
-import kantan.csv.{CellDecoder, DecodeResult}
+import kantan.csv.CellDecoder
+import kantan.csv.DecodeResult
 
 /** Provides syntax for decoding CSV cells as values.
   *
   * Importing `kantan.csv.ops._` will add the following methods to `String`:
-  *  - [[decodeCsv]]
-  *  - [[unsafeDecodeCsv]]
+  *   - [[decodeCsv]]
+  *   - [[unsafeDecodeCsv]]
   */
 final class CsvCellDecoderOps(val s: String) {
 
   /** Decodes a CSV cell as a value of type `A`.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> "1".decodeCsv[Option[Int]]
     * res0: kantan.csv.DecodeResult[Option[Int]] = Right(Some(1))
-    * }}}
+    *   }}}
     */
   def decodeCsv[A: CellDecoder]: DecodeResult[A] =
     CellDecoder[A].decode(s)
@@ -40,15 +41,16 @@ final class CsvCellDecoderOps(val s: String) {
   /** Decodes a CSV cell as a value of type `A`.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> "1".unsafeDecodeCsv[Option[Int]]
     * res0: Option[Int] = Some(1)
-    * }}}
+    *   }}}
     *
     * Note that this method is unsafe and will throw an exception if the cell's value is not a valid `A`. Prefer
     * [[decodeCsv]] whenever possible.
     */
-  def unsafeDecodeCsv[A: CellDecoder]: A = CellDecoder[A].unsafeDecode(s)
+  def unsafeDecodeCsv[A: CellDecoder]: A =
+    CellDecoder[A].unsafeDecode(s)
 }
 
 trait ToCsvCellDecoderOps {

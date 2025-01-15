@@ -16,8 +16,11 @@
 
 package kantan.csv.scalaz
 
-import kantan.csv.laws.{IllegalRow, LegalRow}
-import kantan.csv.laws.discipline.{CellCodecTests, DisciplineSuite, RowCodecTests}
+import kantan.csv.laws.IllegalRow
+import kantan.csv.laws.LegalRow
+import kantan.csv.laws.discipline.CellCodecTests
+import kantan.csv.laws.discipline.DisciplineSuite
+import kantan.csv.laws.discipline.RowCodecTests
 import kantan.csv.scalaz.arbitrary._
 import org.scalacheck.Arbitrary
 import scalaz.Maybe

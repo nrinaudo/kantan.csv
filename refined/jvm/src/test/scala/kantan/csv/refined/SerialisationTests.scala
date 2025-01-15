@@ -18,8 +18,12 @@ package kantan.csv.refined
 
 import eu.timepit.refined.api.Refined
 import eu.timepit.refined.numeric.Positive
-import kantan.csv.{CellDecoder, CellEncoder, RowDecoder, RowEncoder}
-import kantan.csv.laws.discipline.{DisciplineSuite, SerializableTests}
+import kantan.csv.CellDecoder
+import kantan.csv.CellEncoder
+import kantan.csv.RowDecoder
+import kantan.csv.RowEncoder
+import kantan.csv.laws.discipline.DisciplineSuite
+import kantan.csv.laws.discipline.SerializableTests
 
 class SerialisationTests extends DisciplineSuite {
 

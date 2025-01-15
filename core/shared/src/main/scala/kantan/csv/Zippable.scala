@@ -430,6 +430,7 @@ trait ZippableOps3 {
   implicit def zippable2[A, B]: Zippable.Out[A, B, (A, B)] =
     new Zippable[A, B] {
       type Out = (A, B)
-      def zip(left: A, right: B): Out = (left, right)
+      def zip(left: A, right: B): Out =
+        (left, right)
     }
 }

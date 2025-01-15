@@ -16,8 +16,10 @@
 
 package kantan.csv.engine
 
+import kantan.csv.CsvConfiguration
+import kantan.csv.CsvWriter
+
 import java.io.Writer
-import kantan.csv.{CsvConfiguration, CsvWriter}
 import scala.annotation.tailrec
 
 private[csv] class InternalWriter(private val out: Writer, val conf: CsvConfiguration) extends CsvWriter[Seq[String]] {
@@ -27,13 +29,11 @@ private[csv] class InternalWriter(private val out: Writer, val conf: CsvConfigur
     def escape(mark: Int, i: Int): Unit =
       if(i >= str.length) {
         if(mark != i) out.write(str, mark, i - mark)
-      }
-      else if(str.charAt(i) == conf.quote) {
+      } else if(str.charAt(i) == conf.quote) {
         out.write(str, mark, i - mark + 1)
         out.write(conf.quote.toInt)
         escape(i + 1, i + 1)
-      }
-      else escape(mark, i + 1)
+      } else escape(mark, i + 1)
 
     @tailrec
     def escapeIndex(index: Int): Int =
@@ -78,5 +78,6 @@ private[csv] class InternalWriter(private val out: Writer, val conf: CsvConfigur
     this
   }
 
-  override def close(): Unit = out.close()
+  override def close(): Unit =
+    out.close()
 }

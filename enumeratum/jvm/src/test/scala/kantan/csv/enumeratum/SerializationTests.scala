@@ -17,8 +17,12 @@
 package kantan.csv.enumeratum
 
 import kantan.codecs.enumeratum.laws.discipline.Enumerated
-import kantan.csv.{CellDecoder, CellEncoder, RowDecoder, RowEncoder}
-import kantan.csv.laws.discipline.{DisciplineSuite, SerializableTests}
+import kantan.csv.CellDecoder
+import kantan.csv.CellEncoder
+import kantan.csv.RowDecoder
+import kantan.csv.RowEncoder
+import kantan.csv.laws.discipline.DisciplineSuite
+import kantan.csv.laws.discipline.SerializableTests
 
 class SerializationTests extends DisciplineSuite {
 

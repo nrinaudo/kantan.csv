@@ -18,7 +18,9 @@ package kantan.csv.enumeratum
 
 import kantan.codecs.enumeratum.laws.discipline.Enumerated
 import kantan.csv.enumeratum.arbitrary._
-import kantan.csv.laws.discipline.{CellCodecTests, DisciplineSuite, RowCodecTests}
+import kantan.csv.laws.discipline.CellCodecTests
+import kantan.csv.laws.discipline.DisciplineSuite
+import kantan.csv.laws.discipline.RowCodecTests
 
 class EnumCodecTests extends DisciplineSuite {
 

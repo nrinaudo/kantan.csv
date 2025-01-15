@@ -32,7 +32,8 @@ trait WriterEngineLaws extends RfcWriterLaws {
 }
 
 object WriterEngineLaws {
-  def apply(e: WriterEngine): WriterEngineLaws = new WriterEngineLaws {
-    override implicit val engine: WriterEngine = e
-  }
+  def apply(e: WriterEngine): WriterEngineLaws =
+    new WriterEngineLaws {
+      override implicit val engine: WriterEngine = e
+    }
 }

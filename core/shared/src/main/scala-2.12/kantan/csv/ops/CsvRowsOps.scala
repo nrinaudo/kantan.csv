@@ -16,9 +16,13 @@
 
 package kantan.csv.ops
 
-import java.io.StringWriter
-import kantan.csv.{rfc, CsvConfiguration, CsvWriter, HeaderEncoder}
+import kantan.csv.CsvConfiguration
+import kantan.csv.CsvWriter
+import kantan.csv.HeaderEncoder
 import kantan.csv.engine.WriterEngine
+import kantan.csv.rfc
+
+import java.io.StringWriter
 
 /** Provides syntax for turning collections into CSV strings. */
 final class CsvRowsOps[A: HeaderEncoder](val as: TraversableOnce[A]) {
@@ -29,9 +33,9 @@ final class CsvRowsOps[A: HeaderEncoder](val as: TraversableOnce[A]) {
   /** Writes collections of `A` as a CSV string.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> List(List(1, 2, 3), List(4, 5, 6)).asCsv(rfc)
-    * }}}
+    *   }}}
     */
   def asCsv(conf: CsvConfiguration)(implicit e: WriterEngine): String = {
     val out = new StringWriter()
@@ -41,7 +45,8 @@ final class CsvRowsOps[A: HeaderEncoder](val as: TraversableOnce[A]) {
 }
 
 trait ToCsvRowsOps {
-  implicit def toCsvRowsOps[A: HeaderEncoder](as: TraversableOnce[A]): CsvRowsOps[A] = new CsvRowsOps(as)
+  implicit def toCsvRowsOps[A: HeaderEncoder](as: TraversableOnce[A]): CsvRowsOps[A] =
+    new CsvRowsOps(as)
 }
 
 object csvRows extends ToCsvRowsOps

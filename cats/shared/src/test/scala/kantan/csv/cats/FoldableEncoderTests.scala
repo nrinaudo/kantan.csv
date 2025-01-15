@@ -19,8 +19,10 @@ package kantan.csv.cats
 import cats.instances.list._
 import kantan.csv.RowEncoder
 import kantan.csv.cats.arbitrary._
-import kantan.csv.laws.discipline.{DisciplineSuite, RowEncoderTests}
-import org.scalacheck.{Arbitrary, Gen}
+import kantan.csv.laws.discipline.DisciplineSuite
+import kantan.csv.laws.discipline.RowEncoderTests
+import org.scalacheck.Arbitrary
+import org.scalacheck.Gen
 
 class FoldableEncoderTests extends DisciplineSuite {
 

@@ -18,7 +18,8 @@ package kantan.csv.generic
 
 import kantan.codecs.shapeless.laws.Or
 import kantan.csv.generic.arbitrary._
-import kantan.csv.laws.discipline.{CellCodecTests, DisciplineSuite}
+import kantan.csv.laws.discipline.CellCodecTests
+import kantan.csv.laws.discipline.DisciplineSuite
 
 // Shapeless' Lazy generates code with Null that we need to ignore.
 @SuppressWarnings(Array("org.wartremover.warts.Null"))

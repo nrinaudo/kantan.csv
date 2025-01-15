@@ -19,8 +19,9 @@ package kantan.csv.laws.discipline
 import org.typelevel.discipline.Laws
 
 trait KnownFormatsReaderTests extends Laws {
-  def knownFormats: RuleSet = new DefaultRuleSet(
-    name = "knownFormats",
-    parent = None
-  )
+  def knownFormats: RuleSet =
+    new DefaultRuleSet(
+      name = "knownFormats",
+      parent = None
+    )
 }

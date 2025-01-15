@@ -16,7 +16,8 @@
 
 package kantan.csv.engine.commons
 
-import kantan.csv.laws.discipline.{DisciplineSuite, WriterEngineTests}
+import kantan.csv.laws.discipline.DisciplineSuite
+import kantan.csv.laws.discipline.WriterEngineTests
 
 class CommonsWriterTests extends DisciplineSuite {
   checkAll("CommonsWriter", WriterEngineTests(commonsCsvWriterEngine).writerEngine)

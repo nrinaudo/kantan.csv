@@ -16,8 +16,14 @@
 
 package kantan.csv.libra
 
-import kantan.csv.{CellDecoder, CellEncoder, RowDecoder, RowEncoder}
-import kantan.csv.laws.discipline.{CellCodecTests, DisciplineSuite, RowCodecTests, SerializableTests}
+import kantan.csv.CellDecoder
+import kantan.csv.CellEncoder
+import kantan.csv.RowDecoder
+import kantan.csv.RowEncoder
+import kantan.csv.laws.discipline.CellCodecTests
+import kantan.csv.laws.discipline.DisciplineSuite
+import kantan.csv.laws.discipline.RowCodecTests
+import kantan.csv.laws.discipline.SerializableTests
 import kantan.csv.libra.arbitrary._
 import libra.Quantity
 import shapeless.HNil
