@@ -17,7 +17,9 @@
 package kantan.csv.scalaz
 
 import kantan.codecs.scalaz.laws.discipline.ScalazDisciplineSuite
-import kantan.csv.{DecodeError, ParseError, ReadError}
+import kantan.csv.DecodeError
+import kantan.csv.ParseError
+import kantan.csv.ReadError
 import kantan.csv.scalaz.arbitrary._
 import scalaz.Show
 import scalaz.scalacheck.ScalazProperties.{equal => equ}

@@ -16,27 +16,36 @@
 
 package kantan.csv.laws
 
-import kantan.csv.{CellDecoder, CellEncoder, DecodeResult}
-import org.scalacheck.{Arbitrary, Cogen, Gen, Shrink}
+import kantan.csv.CellDecoder
+import kantan.csv.CellEncoder
+import kantan.csv.DecodeResult
+import org.scalacheck.Arbitrary
+import org.scalacheck.Cogen
+import org.scalacheck.Gen
+import org.scalacheck.Shrink
 
 sealed trait Cell extends Product with Serializable {
   def value: String
   def encoded: String
-  def map(f: String => String): Cell = Cell(f(value))
+  def map(f: String => String): Cell =
+    Cell(f(value))
 }
 
 object Cell {
   final case class Escaped private[Cell] (override val value: String) extends Cell {
-    override def encoded = "\"" + value.replaceAll("\"", "\"\"") + "\""
+    override def encoded: String =
+      "\"" + value.replaceAll("\"", "\"\"") + "\""
   }
 
   final case class NonEscaped private[Cell] (override val value: String) extends Cell {
-    override def encoded = value
+    override def encoded =
+      value
   }
 
   case object Empty extends Cell {
-    override val value: String   = ""
-    override def encoded: String = ""
+    override val value: String = ""
+    override def encoded: String =
+      ""
   }
 
   implicit val cellEncoder: CellEncoder[Cell]                      = CellEncoder.from(_.value)
@@ -53,7 +62,7 @@ object Cell {
 
   // - CSV character generators ----------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  val nonEscapedChar: Gen[Char] = Gen.oneOf((0x20 to 0x21) ++ (0x23 to 0x2B) ++ (0x2D to 0x7E)).map(_.toChar)
+  val nonEscapedChar: Gen[Char] = Gen.oneOf((0x20 to 0x21) ++ (0x23 to 0x2b) ++ (0x2d to 0x7e)).map(_.toChar)
   val escapedChar: Gen[Char]    = Gen.oneOf(',', '"', '\r', '\n')
 
   // - CSV cell generators ---------------------------------------------------------------------------------------------
@@ -85,7 +94,8 @@ object Cell {
 
   // - CSV row generators ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def rowOf[C <: Cell](gen: Gen[C]): Gen[List[C]] = Gen.nonEmptyListOf(gen)
+  def rowOf[C <: Cell](gen: Gen[C]): Gen[List[C]] =
+    Gen.nonEmptyListOf(gen)
   val row: Gen[List[Cell]] = for {
     // Makes sure we don't end up with the non-empty list of the empty cell, which is the empty list.
     head <- Gen.oneOf(escaped, nonEscaped)
@@ -108,7 +118,8 @@ object Cell {
 
   // - CSV generators --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def csvOf[C <: Cell](gen: Gen[C]): Gen[List[List[C]]] = Gen.nonEmptyListOf(rowOf(gen))
+  def csvOf[C <: Cell](gen: Gen[C]): Gen[List[List[C]]] =
+    Gen.nonEmptyListOf(rowOf(gen))
 
   implicit val arbEscapedCsv: Arbitrary[List[List[Escaped]]]       = Arbitrary(csvOf(escaped))
   implicit val arbNonEscapedCsv: Arbitrary[List[List[NonEscaped]]] = Arbitrary(csvOf(nonEscaped))

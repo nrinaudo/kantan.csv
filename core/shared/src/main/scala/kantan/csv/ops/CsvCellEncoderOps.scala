@@ -28,10 +28,10 @@ final class CsvCellEncoderOps[A: CellEncoder](val a: A) {
   /** Encodes a value as a CSV cell.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> 1.asCsvCell
     * res0: String = 1
-    * }}}
+    *   }}}
     */
   def asCsvCell: String =
     CellEncoder[A].encode(a)

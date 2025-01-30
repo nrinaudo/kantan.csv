@@ -16,21 +16,22 @@
 
 package kantan.csv
 
-import java.io.Reader
 import kantan.codecs.resource.ResourceIterator
 import kantan.csv.engine.ReaderEngine
+
+import java.io.Reader
 
 /** Provides instance creation and summoning methods. */
 object CsvReader {
   @deprecated("use apply(Reader, CsvConfiguration) instead", "0.1.18")
-  def apply[A: HeaderDecoder](reader: Reader, sep: Char, header: Boolean)(
-    implicit e: ReaderEngine
+  def apply[A: HeaderDecoder](reader: Reader, sep: Char, header: Boolean)(implicit
+    e: ReaderEngine
   ): CsvReader[ReadResult[A]] =
     CsvReader(reader, rfc.withCellSeparator(sep).withHeader(header))
 
   /** Opens a [[CsvReader]] on the specified `Reader`. */
-  def apply[A: HeaderDecoder](reader: Reader, conf: CsvConfiguration)(
-    implicit e: ReaderEngine
+  def apply[A: HeaderDecoder](reader: Reader, conf: CsvConfiguration)(implicit
+    e: ReaderEngine
   ): CsvReader[ReadResult[A]] = {
     val data: CsvReader[ReadResult[Seq[String]]] = e.readerFor(reader, conf)
 

@@ -16,8 +16,10 @@
 
 package kantan.csv.engine
 
+import kantan.csv.CsvConfiguration
+import kantan.csv.CsvReader
+
 import java.io.Reader
-import kantan.csv.{CsvConfiguration, CsvReader}
 import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer
 
@@ -46,8 +48,7 @@ private[engine] class InternalReader private (
     if(cell.isEmpty) {
       if(index != mark) row += new String(characters, mark, index - mark - 1)
       else row              += ""
-    }
-    else {
+    } else {
       dumpCell()
       row += cell.toString()
       cell.clear()
@@ -73,46 +74,48 @@ private[engine] class InternalReader private (
     }
 
   @tailrec
-  final def cellStart(c: Char): InternalReader.CellStart = c match {
-    // Separator: empty cell, but a next one is coming.
-    case conf.cellSeparator =>
-      endCell()
-      InternalReader.CSeparator
-
-    // CR: empty cell, end of row.
-    case '\r' =>
-      endCell()
-      InternalReader.CCR
-
-    // LF: empty cell, end of row.
-    case '\n' =>
-      endCell()
-      InternalReader.CLF
-
-    // ": start of escaped cell.
-    case conf.quote =>
-      mark = index
-      InternalReader.Escaped
-
-    // whitespace: unsure, either whitespace before an escaped cell or part of a raw cell.
-    case _ if c.isWhitespace =>
-      if(hasNextChar) cellStart(nextChar())
-      else {
+  final def cellStart(c: Char): InternalReader.CellStart =
+    c match {
+      // Separator: empty cell, but a next one is coming.
+      case conf.cellSeparator =>
         endCell()
-        InternalReader.CEOF
-      }
+        InternalReader.CSeparator
 
-    // Anything else: raw cell.
-    case _ =>
-      InternalReader.Raw
-  }
+      // CR: empty cell, end of row.
+      case '\r' =>
+        endCell()
+        InternalReader.CCR
+
+      // LF: empty cell, end of row.
+      case '\n' =>
+        endCell()
+        InternalReader.CLF
+
+      // ": start of escaped cell.
+      case conf.quote =>
+        mark = index
+        InternalReader.Escaped
+
+      // whitespace: unsure, either whitespace before an escaped cell or part of a raw cell.
+      case _ if c.isWhitespace =>
+        if(hasNextChar) cellStart(nextChar())
+        else {
+          endCell()
+          InternalReader.CEOF
+        }
+
+      // Anything else: raw cell.
+      case _ =>
+        InternalReader.Raw
+    }
 
   @inline
-  final def nextCell(c: Char): InternalReader.Break = cellStart(c) match {
-    case InternalReader.Raw         => rawCell
-    case InternalReader.Escaped     => escapedCell(false)
-    case InternalReader.Finished(r) => r
-  }
+  final def nextCell(c: Char): InternalReader.Break =
+    cellStart(c) match {
+      case InternalReader.Raw         => rawCell
+      case InternalReader.Escaped     => escapedCell(false)
+      case InternalReader.Finished(r) => r
+    }
 
   @tailrec
   final def rawCell: InternalReader.Break =
@@ -142,32 +145,33 @@ private[engine] class InternalReader private (
     }
 
   @tailrec
-  final def escapedCellEnd(c: Char): InternalReader.Break = c match {
-    case conf.cellSeparator =>
-      endCell()
-      InternalReader.Separator
-
-    case '\r' =>
-      endCell()
-      InternalReader.CR
-
-    case '\n' =>
-      endCell()
-      InternalReader.LF
-
-    case _ if c.isWhitespace =>
-      if(hasNextChar) escapedCellEnd(nextChar())
-      else {
+  final def escapedCellEnd(c: Char): InternalReader.Break =
+    c match {
+      case conf.cellSeparator =>
         endCell()
-        InternalReader.EOF
-      }
+        InternalReader.Separator
 
-    case conf.quote => escapedCell(true)
+      case '\r' =>
+        endCell()
+        InternalReader.CR
 
-    case _ =>
-      cell.append(conf.quote)
-      escapedCell(false)
-  }
+      case '\n' =>
+        endCell()
+        InternalReader.LF
+
+      case _ if c.isWhitespace =>
+        if(hasNextChar) escapedCellEnd(nextChar())
+        else {
+          endCell()
+          InternalReader.EOF
+        }
+
+      case conf.quote => escapedCell(true)
+
+      case _ =>
+        cell.append(conf.quote)
+        escapedCell(false)
+    }
 
   @tailrec
   final def escapedCell(prev: Boolean): InternalReader.Break =
@@ -180,49 +184,47 @@ private[engine] class InternalReader private (
         if(prev) {
           cell.append(conf.quote)
           escapedCell(false)
-        }
-        else escapedCell(true)
-      }
-      else if(prev) escapedCellEnd(c)
+        } else escapedCell(true)
+      } else if(prev) escapedCellEnd(c)
       else escapedCell(false)
-    }
-    else {
+    } else {
       endCell()
       InternalReader.EOF
     }
 
   @tailrec
-  final def nextRow(c: Char): Unit = nextCell(c) match {
-    // Cell finished, row not done.
-    case InternalReader.Separator =>
-      if(hasNextChar) nextRow(nextChar())
-      // The next cell is empty AND there is no further data to read.
-      else {
-        row += ""
-        ()
-      }
+  final def nextRow(c: Char): Unit =
+    nextCell(c) match {
+      // Cell finished, row not done.
+      case InternalReader.Separator =>
+        if(hasNextChar) nextRow(nextChar())
+        // The next cell is empty AND there is no further data to read.
+        else {
+          row += ""
+          ()
+        }
 
-    // Row finished, might have a trailing LF.
-    case InternalReader.CR if hasNextChar =>
-      leftover = nextChar()
+      // Row finished, might have a trailing LF.
+      case InternalReader.CR if hasNextChar =>
+        leftover = nextChar()
 
-      // The leftover char is a LF: skip it.
-      if(leftover == '\n') {
+        // The leftover char is a LF: skip it.
+        if(leftover == '\n') {
+          hasLeftover = false
+          mark += 1
+        } else hasLeftover = true
+
+      // Row finished, no trailing LF.
+      case _ =>
         hasLeftover = false
-        mark += 1
-      }
-      else hasLeftover = true
+        ()
+    }
 
-    // Row finished, no trailing LF.
-    case _ =>
-      hasLeftover = false
-      ()
-  }
-
-  override def checkNext = hasNextChar || hasLeftover
+  override def checkNext: Boolean =
+    hasNextChar || hasLeftover
 
   @SuppressWarnings(Array("org.wartremover.warts.Throw"))
-  override def readNext() = {
+  override def readNext(): Seq[String] = {
     row.clear()
     if(hasLeftover) nextRow(leftover)
     else if(hasNextChar) nextRow(nextChar())
@@ -231,7 +233,8 @@ private[engine] class InternalReader private (
     hasNextChar
     row.toSeq
   }
-  override def release() = data.close()
+  override def release(): Unit =
+    data.close()
 }
 
 private object InternalReader {
@@ -244,18 +247,18 @@ private object InternalReader {
 
   // Possible reasons for breaking off a cell or row.
   case object Separator extends Break
-  case object CR        extends Break
-  case object LF        extends Break
-  case object EOF       extends Break
+  case object CR extends Break
+  case object LF extends Break
+  case object EOF extends Break
   sealed trait Break
 
   // Possible outcomes of parsing the beginning of a cell.
   final case class Finished(reason: Break) extends CellStart
-  val CSeparator = Finished(Separator)
-  val CCR        = Finished(CR)
-  val CLF        = Finished(LF)
-  val CEOF       = Finished(EOF)
+  val CSeparator: Finished = Finished(Separator)
+  val CCR: Finished        = Finished(CR)
+  val CLF: Finished        = Finished(LF)
+  val CEOF: Finished       = Finished(EOF)
   case object Escaped extends CellStart
-  case object Raw     extends CellStart
+  case object Raw extends CellStart
   sealed trait CellStart
 }

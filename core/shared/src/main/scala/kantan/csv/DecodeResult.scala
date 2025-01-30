@@ -24,31 +24,34 @@ object DecodeResult extends ResultCompanion.WithError[DecodeError] {
   /** Creates a new [[DecodeResult]] failure wrapping a [[DecodeError.OutOfBounds]] error.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> DecodeResult.outOfBounds(1)
     * res0: DecodeResult[Nothing] = Left(OutOfBounds: 1 is not a valid index)
-    * }}}
+    *   }}}
     */
-  def outOfBounds(index: Int): DecodeResult[Nothing] = failure(DecodeError.OutOfBounds(index))
+  def outOfBounds(index: Int): DecodeResult[Nothing] =
+    failure(DecodeError.OutOfBounds(index))
 
   /** Creates a new [[DecodeResult]] failure wrapping a [[DecodeError.TypeError]] error.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> DecodeResult.typeError("not a valid int")
     * res0: DecodeResult[Nothing] = Left(TypeError: not a valid int)
-    * }}}
+    *   }}}
     */
-  def typeError(str: String): DecodeResult[Nothing] = failure(DecodeError.TypeError(str))
+  def typeError(str: String): DecodeResult[Nothing] =
+    failure(DecodeError.TypeError(str))
 
   /** Creates a new [[DecodeResult]] failure wrapping a [[DecodeError.TypeError]] error.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> DecodeResult.typeError(new Exception("not a valid int"))
     * res0: DecodeResult[Nothing] = Left(TypeError: not a valid int)
-    * }}}
+    *   }}}
     */
-  def typeError(e: Exception): DecodeResult[Nothing] = failure(DecodeError.TypeError(e))
+  def typeError(e: Exception): DecodeResult[Nothing] =
+    failure(DecodeError.TypeError(e))
 
 }

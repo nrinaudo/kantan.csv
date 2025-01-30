@@ -16,7 +16,8 @@
 
 package kantan.csv
 
-import kantan.codecs.{Decoder, DecoderCompanion}
+import kantan.codecs.Decoder
+import kantan.codecs.DecoderCompanion
 import kantan.codecs.strings.StringDecoder
 import kantan.csv.DecodeError.TypeError
 
@@ -31,10 +32,10 @@ trait CellDecoderInstances {
     * This provides support for most basic Scala types.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> CellDecoder[Int].decode("123")
     * res1: DecodeResult[Int] = Right(123)
-    * }}}
+    *   }}}
     */
   implicit def fromStringDecoder[A: StringDecoder]: CellDecoder[A] =
     StringDecoder[A].tag[codecs.type].leftMap(e => TypeError(e.getMessage, e.getCause))
@@ -42,7 +43,7 @@ trait CellDecoderInstances {
   /** Provides an instance of `CellDecoder[Option[A]]` for any type `A` that has an instance of [[CellDecoder]].
     *
     * @example
-    * {{{
+    *   {{{
     * // Non-empty value
     * scala> CellDecoder[Option[Int]].decode("123")
     * res1: DecodeResult[Option[Int]] = Right(Some(123))
@@ -50,15 +51,16 @@ trait CellDecoderInstances {
     * // Empty value
     * scala> CellDecoder[Option[Int]].decode("")
     * res2: DecodeResult[Option[Int]] = Right(None)
-    * }}}
+    *   }}}
     */
-  implicit def cellDecoderOpt[A: CellDecoder]: CellDecoder[Option[A]] = Decoder.optionalDecoder
+  implicit def cellDecoderOpt[A: CellDecoder]: CellDecoder[Option[A]] =
+    Decoder.optionalDecoder
 
   /** Provides an instance of `CellDecoder[Either[A, B]]` for any type `A` and `B` that have instances of
     * [[CellDecoder]].
     *
     * @example
-    * {{{
+    *   {{{
     * // Left value
     * scala> CellDecoder[Either[Int, Boolean]].decode("123")
     * res1: DecodeResult[Either[Int, Boolean]] = Right(Left(123))
@@ -66,7 +68,8 @@ trait CellDecoderInstances {
     * // Right value
     * scala> CellDecoder[Either[Int, Boolean]].decode("true")
     * res2: DecodeResult[Either[Int, Boolean]] = Right(Right(true))
-    * }}}
+    *   }}}
     */
-  implicit def cellDecoderEither[A: CellDecoder, B: CellDecoder]: CellDecoder[Either[A, B]] = Decoder.eitherDecoder
+  implicit def cellDecoderEither[A: CellDecoder, B: CellDecoder]: CellDecoder[Either[A, B]] =
+    Decoder.eitherDecoder
 }

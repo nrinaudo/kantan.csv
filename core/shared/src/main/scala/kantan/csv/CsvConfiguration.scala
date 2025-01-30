@@ -16,7 +16,8 @@
 
 package kantan.csv
 
-import kantan.csv.CsvConfiguration.{Header, QuotePolicy}
+import kantan.csv.CsvConfiguration.Header
+import kantan.csv.CsvConfiguration.QuotePolicy
 
 /** Configuration for how to read / write CSV data.
   *
@@ -25,37 +26,48 @@ import kantan.csv.CsvConfiguration.{Header, QuotePolicy}
 final case class CsvConfiguration(cellSeparator: Char, quote: Char, quotePolicy: QuotePolicy, header: Header) {
 
   /** Use the specified quote character. */
-  def withQuote(char: Char): CsvConfiguration = copy(quote = char)
+  def withQuote(char: Char): CsvConfiguration =
+    copy(quote = char)
 
   /** Quote all cells, whether they need it or not. */
-  def quoteAll: CsvConfiguration = withQuotePolicy(QuotePolicy.Always)
+  def quoteAll: CsvConfiguration =
+    withQuotePolicy(QuotePolicy.Always)
 
   /** Quote only cells that need it. */
-  def quoteWhenNeeded: CsvConfiguration = withQuotePolicy(QuotePolicy.WhenNeeded)
+  def quoteWhenNeeded: CsvConfiguration =
+    withQuotePolicy(QuotePolicy.WhenNeeded)
 
   /** Use the specified quoting policy. */
-  def withQuotePolicy(policy: QuotePolicy): CsvConfiguration = copy(quotePolicy = policy)
+  def withQuotePolicy(policy: QuotePolicy): CsvConfiguration =
+    copy(quotePolicy = policy)
 
   /** Use the specified character for cell separator. */
-  def withCellSeparator(char: Char): CsvConfiguration = copy(cellSeparator = char)
+  def withCellSeparator(char: Char): CsvConfiguration =
+    copy(cellSeparator = char)
 
   /** Use the specified header configuration. */
-  def withHeader(header: CsvConfiguration.Header): CsvConfiguration = copy(header = header)
+  def withHeader(header: CsvConfiguration.Header): CsvConfiguration =
+    copy(header = header)
 
   /** Expect a header when reading, use the specified sequence when writing. */
-  def withHeader(ss: String*): CsvConfiguration = withHeader(CsvConfiguration.Header.Explicit(ss))
+  def withHeader(ss: String*): CsvConfiguration =
+    withHeader(CsvConfiguration.Header.Explicit(ss))
 
   /** If `flag` is `true`, expect a header when reading. Otherwise, don't. */
-  def withHeader(flag: Boolean): CsvConfiguration = if(flag) withHeader else withoutHeader
+  def withHeader(flag: Boolean): CsvConfiguration =
+    if(flag) withHeader else withoutHeader
 
   /** Expect a header when reading, do not use one when writing. */
-  def withHeader: CsvConfiguration = withHeader(CsvConfiguration.Header.Implicit)
+  def withHeader: CsvConfiguration =
+    withHeader(CsvConfiguration.Header.Implicit)
 
   /** Do not use a header, either when reading or writing. */
-  def withoutHeader: CsvConfiguration = withHeader(CsvConfiguration.Header.None)
+  def withoutHeader: CsvConfiguration =
+    withHeader(CsvConfiguration.Header.None)
 
   /** Checks whether this configuration has a header, either for reading or writing. */
-  def hasHeader: Boolean = header != CsvConfiguration.Header.None
+  def hasHeader: Boolean =
+    header != CsvConfiguration.Header.None
 }
 
 object CsvConfiguration {
@@ -63,7 +75,7 @@ object CsvConfiguration {
 
   sealed abstract class QuotePolicy extends Product with Serializable
   object QuotePolicy {
-    case object Always     extends QuotePolicy
+    case object Always extends QuotePolicy
     case object WhenNeeded extends QuotePolicy
   }
 
@@ -84,8 +96,8 @@ object CsvConfiguration {
 
     /** Use the specified header.
       *
-      * This is equivalent to [[Implicit]] when decoding. When encoding, it takes precedence over whatever header
-      * might have been defined through a [[HeaderEncoder]] instance.
+      * This is equivalent to [[Implicit]] when decoding. When encoding, it takes precedence over whatever header might
+      * have been defined through a [[HeaderEncoder]] instance.
       */
     final case class Explicit(header: Seq[String]) extends Header
   }

@@ -16,10 +16,17 @@
 
 package kantan.csv.java8
 
-import java.time.LocalDate
-import kantan.csv.{CellDecoder, CellEncoder, RowDecoder, RowEncoder}
+import kantan.csv.CellDecoder
+import kantan.csv.CellEncoder
+import kantan.csv.RowDecoder
+import kantan.csv.RowEncoder
 import kantan.csv.java8.arbitrary._
-import kantan.csv.laws.discipline.{CellCodecTests, DisciplineSuite, RowCodecTests, SerializableTests}
+import kantan.csv.laws.discipline.CellCodecTests
+import kantan.csv.laws.discipline.DisciplineSuite
+import kantan.csv.laws.discipline.RowCodecTests
+import kantan.csv.laws.discipline.SerializableTests
+
+import java.time.LocalDate
 
 class LocalDateCodecTests extends DisciplineSuite {
 

@@ -16,9 +16,10 @@
 
 package kantan.csv
 
-import java.io.Writer
 import kantan.codecs.resource.WriterResource
 import kantan.csv.engine.WriterEngine
+
+import java.io.Writer
 
 /** Type class for all types that can be turned into [[CsvWriter]] instances.
   *
@@ -38,8 +39,10 @@ trait CsvSink[-S] extends VersionSpecificCsvSink[S] with Serializable { self =>
 
   /** Opens a [[CsvWriter]] on the specified `S`.
     *
-    * @param s what to open a [[CsvWriter]] on.
-    * @param conf CSV writing behaviour.
+    * @param s
+    *   what to open a [[CsvWriter]] on.
+    * @param conf
+    *   CSV writing behaviour.
     */
   def writer[A: HeaderEncoder](s: S, conf: CsvConfiguration)(implicit e: WriterEngine): CsvWriter[A] =
     CsvWriter(open(s), conf)
@@ -54,7 +57,8 @@ trait CsvSink[-S] extends VersionSpecificCsvSink[S] with Serializable { self =>
     *     CsvSink[OutputStream].contramap(f ⇒ new FileOutputStream(f, c.charSet))
     * }}}
     */
-  def contramap[T](f: T => S): CsvSink[T] = CsvSink.from(f andThen self.open)
+  def contramap[T](f: T => S): CsvSink[T] =
+    CsvSink.from(f.andThen(self.open))
 }
 
 /** Provides default instances as well as instance summoning and creation methods. */
@@ -68,16 +72,19 @@ object CsvSink {
     *   val file2: CsvSink[File] = implicitly[CsvSink[File]]
     * }}}
     */
-  def apply[A](implicit ev: CsvSink[A]): CsvSink[A] = macro imp.summon[CsvSink[A]]
+  def apply[A](implicit ev: CsvSink[A]): CsvSink[A] =
+    macro imp.summon[CsvSink[A]]
 
   /** Turns the specified function into a [[CsvSink]].
     *
-    * Note that it's usually better to compose an existing instance through [[CsvSink.contramap]] rather than create
-    * one from scratch.
+    * Note that it's usually better to compose an existing instance through [[CsvSink.contramap]] rather than create one
+    * from scratch.
     */
-  def from[A](f: A => Writer): CsvSink[A] = new CsvSink[A] {
-    override def open(s: A): Writer = f(s)
-  }
+  def from[A](f: A => Writer): CsvSink[A] =
+    new CsvSink[A] {
+      override def open(s: A): Writer =
+        f(s)
+    }
 
   // TODO: unsafe, unacceptable, what was I thinking.
   @SuppressWarnings(Array("org.wartremover.warts.StringPlusAny"))

@@ -38,7 +38,8 @@ object HeaderDecoderOps0 {
               rowDecoder => DecodeResult.success(rowDecoder)
             )
 
-        override def noHeader: RowDecoder[Option[A]] = decoder.noHeader
+        override def noHeader: RowDecoder[Option[A]] =
+          decoder.noHeader
       }
   }
 }
@@ -63,7 +64,8 @@ object HeaderDecoderOps1 {
               rowDecoder => DecodeResult.success(rowDecoder.map(Some(_)))
             )
 
-        override def noHeader: RowDecoder[Option[A]] = decoder.noHeader.map(Some(_))
+        override def noHeader: RowDecoder[Option[A]] =
+          decoder.noHeader.map(Some(_))
       }
   }
 }

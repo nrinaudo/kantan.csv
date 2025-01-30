@@ -20,16 +20,19 @@ import kantan.csv.engine.WriterEngine
 
 trait VersionSpecificCsvSink[-S] { self: CsvSink[S] =>
   @deprecated("use write(S, TraversableOnce[A], CsvConfiguration) instead", "0.1.18")
-  def write[A: HeaderEncoder](s: S, rows: TraversableOnce[A], sep: Char, header: String*)(
-    implicit e: WriterEngine
+  def write[A: HeaderEncoder](s: S, rows: TraversableOnce[A], sep: Char, header: String*)(implicit
+    e: WriterEngine
   ): Unit =
     write(s, rows, rfc.withCellSeparator(sep).withHeader(header: _*))
 
   /** Writes the specified collections directly in the specifie `S`.
     *
-    * @param s where to write the CSV data.
-    * @param rows CSV data to encode and serialize.
-    * @param conf CSV writing behaviour.
+    * @param s
+    *   where to write the CSV data.
+    * @param rows
+    *   CSV data to encode and serialize.
+    * @param conf
+    *   CSV writing behaviour.
     */
   def write[A: HeaderEncoder](s: S, rows: TraversableOnce[A], conf: CsvConfiguration)(implicit e: WriterEngine): Unit =
     writer(s, conf).write(rows).close()

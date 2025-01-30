@@ -16,21 +16,31 @@
 
 package kantan.csv
 
-import java.time.{Instant, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime}
 import kantan.codecs.export.Exported
-import kantan.codecs.strings.{StringDecoder, StringEncoder}
-import kantan.codecs.strings.java8.{TimeCodecCompanion, ToFormatLiteral}
+import kantan.codecs.strings.StringDecoder
+import kantan.codecs.strings.StringEncoder
+import kantan.codecs.strings.java8.TimeCodecCompanion
+import kantan.codecs.strings.java8.ToFormatLiteral
+
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.OffsetDateTime
+import java.time.ZonedDateTime
 
 /** Declares [[kantan.csv.CellDecoder]] and [[kantan.csv.CellEncoder]] instances for java8 date and time types.
   *
   * Note that the type for default codecs might come as a surprise: the wrapping `Exported` is used to lower their
-  * priority. This is necessary because the standard use case will be to `import kantan.csv.java8._`, which
-  * brings both the instance creation and default instances in scope. Without this type trickery, custom instances
-  * and default ones would always clash.
+  * priority. This is necessary because the standard use case will be to `import kantan.csv.java8._`, which brings both
+  * the instance creation and default instances in scope. Without this type trickery, custom instances and default ones
+  * would always clash.
   */
 package object java8 extends TimeCodecCompanion[String, DecodeError, codecs.type] with ToFormatLiteral {
-  override def decoderFrom[D](d: StringDecoder[D]): CellDecoder[D] = codecs.fromStringDecoder(d)
-  override def encoderFrom[D](e: StringEncoder[D]): CellEncoder[D] = codecs.fromStringEncoder(e)
+  override def decoderFrom[D](d: StringDecoder[D]): CellDecoder[D] =
+    codecs.fromStringDecoder(d)
+  override def encoderFrom[D](e: StringEncoder[D]): CellEncoder[D] =
+    codecs.fromStringEncoder(e)
 
   implicit val defaultInstantCellDecoder: Exported[CellDecoder[Instant]] =
     Exported(defaultInstantDecoder)

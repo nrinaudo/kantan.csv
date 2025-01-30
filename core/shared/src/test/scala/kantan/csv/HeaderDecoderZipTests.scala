@@ -16,15 +16,16 @@
 
 package kantan.csv
 
-import java.io.ByteArrayInputStream
 import kantan.csv.ops._
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
+import java.io.ByteArrayInputStream
+
 class HeaderDecoderZipTests extends AnyFunSuite with Matchers {
-  val x = HeaderDecoder.decoder[String, String]("A")(identity)
-  val y = HeaderDecoder.decoder[String, String]("B")(identity)
-  val z = HeaderDecoder.decoder[String, String]("C")(identity)
+  val x: HeaderDecoder[String] = HeaderDecoder.decoder[String, String]("A")(identity)
+  val y: HeaderDecoder[String] = HeaderDecoder.decoder[String, String]("B")(identity)
+  val z: HeaderDecoder[String] = HeaderDecoder.decoder[String, String]("C")(identity)
 
   test("Zipping two header decoders should result in a union of the two") {
     implicit val decoder: HeaderDecoder[(String, String)] = x ~ y

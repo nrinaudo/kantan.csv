@@ -16,7 +16,10 @@
 
 package kantan.csv
 
-import kantan.codecs.laws.{CodecLaws, CodecValue, DecoderLaws, EncoderLaws}
+import kantan.codecs.laws.CodecLaws
+import kantan.codecs.laws.CodecValue
+import kantan.codecs.laws.DecoderLaws
+import kantan.codecs.laws.EncoderLaws
 import kantan.csv.ops._
 
 package object laws {

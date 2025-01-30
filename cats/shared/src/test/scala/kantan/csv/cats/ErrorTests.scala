@@ -18,7 +18,9 @@ package kantan.csv.cats
 
 import cats.Show
 import cats.kernel.laws.discipline.EqTests
-import kantan.csv.{DecodeError, ParseError, ReadError}
+import kantan.csv.DecodeError
+import kantan.csv.ParseError
+import kantan.csv.ReadError
 import kantan.csv.cats.arbitrary._
 import kantan.csv.laws.discipline.DisciplineSuite
 

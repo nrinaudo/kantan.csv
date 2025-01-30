@@ -16,7 +16,8 @@
 
 package kantan.csv.engine.jackson
 
-import kantan.csv.laws.discipline.{DisciplineSuite, ReaderEngineTests}
+import kantan.csv.laws.discipline.DisciplineSuite
+import kantan.csv.laws.discipline.ReaderEngineTests
 
 class JacksonReaderTests extends DisciplineSuite {
   checkAll("JacksonReader", ReaderEngineTests(jacksonCsvReaderEngine).readerEngine)

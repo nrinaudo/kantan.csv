@@ -16,10 +16,14 @@
 
 package kantan.csv
 
-import java.text.SimpleDateFormat
-import java.util.{Date, Locale}
-import kantan.csv.laws.discipline.{CellCodecTests, DisciplineSuite, RowCodecTests}
+import kantan.csv.laws.discipline.CellCodecTests
+import kantan.csv.laws.discipline.DisciplineSuite
+import kantan.csv.laws.discipline.RowCodecTests
 import kantan.csv.laws.discipline.arbitrary._
+
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class DateCodecTests extends DisciplineSuite {
 

@@ -23,15 +23,15 @@ import kantan.codecs.EncoderCompanion
   * The instance creation functions are important to know about, as they make the task of creating new encoders easier
   * and more correct. There are four main families, depending on the type to encode:
   *
-  *  - `encoder`: creates encoders from a function for which you need to specify
-  *    a mapping ''row index to parameter'' (such as if you need to skip some CSV cells, for instance).
-  *  - `ordered`: create encoders from a function such that its parameters are organised
-  *    in exactly the same way as CSV rows.
-  *  - `caseEncoder`: specialisation of `encoder` for case classes.
-  *  - `caseOrdered`: specialisation of `ordered` for case classes.
+  *   - `encoder`: creates encoders from a function for which you need to specify a mapping ''row index to parameter''
+  *     (such as if you need to skip some CSV cells, for instance).
+  *   - `ordered`: create encoders from a function such that its parameters are organised in exactly the same way as CSV
+  *     rows.
+  *   - `caseEncoder`: specialisation of `encoder` for case classes.
+  *   - `caseOrdered`: specialisation of `ordered` for case classes.
   *
-  * Note that a lot of types already have implicit instances: tuples, collections... moreover, the `generics` module
-  * can automatically derive valid instances for a lot of common scenarios.
+  * Note that a lot of types already have implicit instances: tuples, collections... moreover, the `generics` module can
+  * automatically derive valid instances for a lot of common scenarios.
   */
 object RowEncoder extends GeneratedRowEncoders with EncoderCompanion[Seq[String], codecs.type]
 

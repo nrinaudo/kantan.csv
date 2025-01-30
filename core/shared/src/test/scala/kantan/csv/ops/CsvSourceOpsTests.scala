@@ -17,12 +17,14 @@
 package kantan.csv.ops
 
 import kantan.codecs.laws.CodecValue
-import kantan.csv.laws.{asCsv, RowValue}
+import kantan.csv.laws.RowValue
+import kantan.csv.laws.asCsv
 import kantan.csv.laws.discipline.arbitrary._
 import kantan.csv.rfc
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
+
 import scala.util.Try
 
 class CsvSourceOpsTests extends AnyFunSuite with ScalaCheckPropertyChecks with Matchers {
@@ -60,11 +62,12 @@ class CsvSourceOpsTests extends AnyFunSuite with ScalaCheckPropertyChecks with M
   }
 
   def compareUnsafe[A](csv: => List[A], data: List[RowValue[A]]): Unit = {
-    def cmp(csv: List[A], data: List[RowValue[A]]): Unit = (csv, data) match {
-      case (Nil, Nil)                                                 => ()
-      case (h1 :: t1, CodecValue.LegalValue(_, h2) :: t2) if h1 == h2 => cmp(t1, t2)
-      case (a, b)                                                     => fail(s"$a is not compatible with $b")
-    }
+    def cmp(csv: List[A], data: List[RowValue[A]]): Unit =
+      (csv, data) match {
+        case (Nil, Nil)                                                 => ()
+        case (h1 :: t1, CodecValue.LegalValue(_, h2) :: t2) if h1 == h2 => cmp(t1, t2)
+        case (a, b)                                                     => fail(s"$a is not compatible with $b")
+      }
 
     Try(csv) match {
       case scala.util.Success(is) => cmp(is, data)

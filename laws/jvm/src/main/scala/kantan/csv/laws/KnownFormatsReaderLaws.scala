@@ -16,10 +16,12 @@
 
 package kantan.csv.laws
 
-import kantan.csv.{rfc, RowCodec}
+import kantan.csv.RowCodec
 import kantan.csv.engine.ReaderEngine
 import kantan.csv.laws.KnownFormatsReaderLaws.Car
 import kantan.csv.ops._
+import kantan.csv.rfc
+
 import scala.io.Codec
 
 trait KnownFormatsReaderLaws {
@@ -35,11 +37,14 @@ trait KnownFormatsReaderLaws {
 
   lazy val reference: List[Car] = read("raw")
 
-  def excelMac120: Boolean = read("excel_mac_12_0") == reference
+  def excelMac120: Boolean =
+    read("excel_mac_12_0") == reference
 
-  def numbers103: Boolean = read("numbers_1_0_3") == reference
+  def numbers103: Boolean =
+    read("numbers_1_0_3") == reference
 
-  def googleDocs: Boolean = read("google_docs") == reference
+  def googleDocs: Boolean =
+    read("google_docs") == reference
 }
 
 object KnownFormatsReaderLaws {

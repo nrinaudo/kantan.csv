@@ -16,11 +16,15 @@
 
 package kantan.csv.engine
 
-import com.fasterxml.jackson.databind.{MappingIterator, SequenceWriter}
+import com.fasterxml.jackson.databind.MappingIterator
+import com.fasterxml.jackson.databind.SequenceWriter
 import com.fasterxml.jackson.dataformat.csv.CsvGenerator
-import java.io.{Reader, Writer}
 import kantan.codecs.resource.ResourceIterator
-import kantan.csv.{CsvConfiguration, CsvWriter}
+import kantan.csv.CsvConfiguration
+import kantan.csv.CsvWriter
+
+import java.io.Reader
+import java.io.Writer
 
 /** Provides CSV reader and writer engines using [[https://github.com/FasterXML/jackson-dataformat-csv jackson.csv]].
   *
@@ -43,7 +47,7 @@ package object jackson {
 
   // - Reader engines --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  val defaultMappingIteratorBuilder: MappingIteratorBuilder = (reader, conf) => {
+  val defaultMappingIteratorBuilder: MappingIteratorBuilder = (reader, conf) =>
     MAPPER
       .readerFor(classOf[Array[String]])
       .`with`(
@@ -53,7 +57,6 @@ package object jackson {
           .withQuoteChar(conf.quote)
       )
       .readValues(reader)
-  }
 
   /** Creates a new `ReaderEngine` from the specified [[MappingIteratorBuilder]].
     *
@@ -95,12 +98,13 @@ package object jackson {
     * The purpose of this is to let developers use some of the jackson.csv features that kantan.csv does not expose
     * through its public API.
     */
-  def writerEngineFrom(f: SequenceWriterBuilder): WriterEngine = WriterEngine.from { (w, s) =>
-    CsvWriter(f(w, s)) { (out, ss) =>
-      out.write(ss.toArray)
-      ()
-    }(_.close())
-  }
+  def writerEngineFrom(f: SequenceWriterBuilder): WriterEngine =
+    WriterEngine.from { (w, s) =>
+      CsvWriter(f(w, s)) { (out, ss) =>
+        out.write(ss.toArray)
+        ()
+      }(_.close())
+    }
 
   /** Default jackson.csv `WriterEngine`.
     *

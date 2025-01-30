@@ -17,7 +17,8 @@
 package kantan.csv.laws
 
 import kantan.codecs.laws.discipline.DisciplinePackage
-import kantan.csv.{codecs, DecodeError}
+import kantan.csv.DecodeError
+import kantan.csv.codecs
 
 package object discipline extends DisciplinePackage {
   type RowDecoderTests[A] = DecoderTests[Seq[String], A, DecodeError, codecs.type]

@@ -34,14 +34,19 @@ trait RfcReaderLaws {
 
   // - RFC 4180: 2.1 ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def crlfRowSeparator(csv: List[List[Cell]]): Boolean = equals(cellsToCsv(csv, ",", "\r\n"), csv)
-  def lfRowSeparator(csv: List[List[Cell]]): Boolean   = equals(cellsToCsv(csv, ",", "\n"), csv)
+  def crlfRowSeparator(csv: List[List[Cell]]): Boolean =
+    equals(cellsToCsv(csv, ",", "\r\n"), csv)
+  def lfRowSeparator(csv: List[List[Cell]]): Boolean =
+    equals(cellsToCsv(csv, ",", "\n"), csv)
 
   // - RFC 4180: 2.2 ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def crlfEnding(csv: List[List[Cell]]): Boolean  = equals(cellsToCsv(csv, ",", "\r\n") + "\r\n", csv)
-  def lfEnding(csv: List[List[Cell]]): Boolean    = equals(cellsToCsv(csv, ",", "\r\n") + "\n", csv)
-  def emptyEnding(csv: List[List[Cell]]): Boolean = equals(cellsToCsv(csv, ",", "\r\n"), csv)
+  def crlfEnding(csv: List[List[Cell]]): Boolean =
+    equals(cellsToCsv(csv, ",", "\r\n") + "\r\n", csv)
+  def lfEnding(csv: List[List[Cell]]): Boolean =
+    equals(cellsToCsv(csv, ",", "\r\n") + "\n", csv)
+  def emptyEnding(csv: List[List[Cell]]): Boolean =
+    equals(cellsToCsv(csv, ",", "\r\n"), csv)
 
   // - RFC 4180: 2.4 ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -73,5 +78,6 @@ trait RfcReaderLaws {
 
   // - RFC 4180: 2.6 ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def escapedCells(csv: List[List[Cell.Escaped]]): Boolean = equals(cellsToCsv(csv, ",", "\r\n"), csv)
+  def escapedCells(csv: List[List[Cell.Escaped]]): Boolean =
+    equals(cellsToCsv(csv, ",", "\r\n"), csv)
 }

@@ -1,36 +1,15 @@
-*.class
-*.log
+# IDE and other personal preferences go to a global gitignore or .git/info/exclude
 
-# sbt specific
-.cache/
-.history/
-.lib/
-dist/*
-target/
-lib_managed/
-src_managed/
+# Scala ecosystem
+.bloop
+.bsp
+.metals
 project/boot/
 project/plugins/project/
-.bsp
+target/
 
-# Scala-IDE specific
-.scala_dependencies
-.worksheet
-
-# Misc. analysis tools
-.ensime
-.ensime_cache
-.bloop
-.metals
-
-# Intellij
-.idea/
-*.iml
-*.iws
-
-# Mac
-.DS_Store
-
-# Auto-generated files
+# Project
+## generated files
+.scalafix.conf
 .scalafmt.conf
-scalastyle-config.xml
+*.log

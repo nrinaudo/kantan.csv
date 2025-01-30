@@ -16,7 +16,8 @@
 
 package kantan.csv.ops
 
-import kantan.csv.{HeaderEncoder, RowEncoder}
+import kantan.csv.HeaderEncoder
+import kantan.csv.RowEncoder
 
 /** Provides syntax for encoding values as CSV rows.
   *
@@ -28,10 +29,10 @@ final class CsvRowEncoderOps[A: RowEncoder](val a: A) {
   /** Encodes a value as a CSV row.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> List(1, 2, 3).asCsvRow
     * res0: Seq[String] = List(1, 2, 3)
-    * }}}
+    *   }}}
     */
   def asCsvRow: Seq[String] =
     RowEncoder[A].encode(a)

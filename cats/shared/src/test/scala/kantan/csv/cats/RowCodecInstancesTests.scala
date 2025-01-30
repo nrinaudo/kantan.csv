@@ -19,21 +19,28 @@ package kantan.csv.cats
 import cats.Eq
 import cats.data.EitherT
 import cats.instances.all._
-import cats.laws.discipline.{ContravariantTests, MonadErrorTests, SemigroupKTests}
+import cats.laws.discipline.ContravariantTests
+import cats.laws.discipline.MonadErrorTests
+import cats.laws.discipline.SemigroupKTests
 import cats.laws.discipline.SemigroupalTests.Isomorphisms
-import kantan.csv.{DecodeError, RowDecoder, RowEncoder}
+import kantan.csv.DecodeError
+import kantan.csv.RowDecoder
+import kantan.csv.RowEncoder
 import kantan.csv.cats.arbitrary._
 import kantan.csv.cats.equality._
 import kantan.csv.laws.discipline.DisciplineSuite
-import org.scalacheck.{Arbitrary, Gen}
+import org.scalacheck.Arbitrary
+import org.scalacheck.Gen
 
 class RowCodecInstancesTests extends DisciplineSuite {
   // Limits the size of rows to 10 - using the default size makes these tests prohibitively long in some contexts
   // (in particular, travis will timeout on the scala.js execution of these tests).
-  implicit def arbSeq[A: Arbitrary]: Arbitrary[Seq[A]] = Arbitrary(Gen.listOfN(10, implicitly[Arbitrary[A]].arbitrary))
+  implicit def arbSeq[A: Arbitrary]: Arbitrary[Seq[A]] =
+    Arbitrary(Gen.listOfN(10, implicitly[Arbitrary[A]].arbitrary))
 
   // cats doesn't provide an Eq[Seq] instance, mostly because Seq isn't a very meaningfull type.
-  implicit def seqEq[A: Eq]: Eq[Seq[A]] = Eq.by(_.toList)
+  implicit def seqEq[A: Eq]: Eq[Seq[A]] =
+    Eq.by(_.toList)
 
   // For some reason, these are not derived automatically. I *think* it's to do with the various codecs being type
   // aliases for types with many holes, but this is slightly beyond me.

@@ -16,9 +16,11 @@
 
 package kantan.csv
 
-import kantan.csv.laws.discipline.{DisciplineSuite, RowCodecTests}
+import kantan.csv.laws.discipline.DisciplineSuite
+import kantan.csv.laws.discipline.RowCodecTests
 import kantan.csv.laws.discipline.arbitrary._
-import org.scalacheck.{Arbitrary, Gen}
+import org.scalacheck.Arbitrary
+import org.scalacheck.Gen
 
 class ListCodecTests extends DisciplineSuite {
 

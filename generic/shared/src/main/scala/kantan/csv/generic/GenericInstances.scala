@@ -17,8 +17,14 @@
 package kantan.csv.generic
 
 import kantan.codecs.shapeless.ShapelessInstances
-import kantan.csv.{CellDecoder, CellEncoder, DecodeResult, RowDecoder, RowEncoder}
-import shapeless.{::, HList, HNil}
+import kantan.csv.CellDecoder
+import kantan.csv.CellEncoder
+import kantan.csv.DecodeResult
+import kantan.csv.RowDecoder
+import kantan.csv.RowEncoder
+import shapeless.::
+import shapeless.HList
+import shapeless.HNil
 
 trait GenericInstances extends ShapelessInstances {
 
@@ -37,24 +43,27 @@ trait GenericInstances extends ShapelessInstances {
       }.getOrElse(DecodeResult.outOfBounds(0))
     }
 
-  implicit def hlistCellDecoder[H: CellDecoder]: CellDecoder[H :: HNil] = CellDecoder[H].map(h => h :: HNil)
+  implicit def hlistCellDecoder[H: CellDecoder]: CellDecoder[H :: HNil] =
+    CellDecoder[H].map(h => h :: HNil)
 
   implicit val hnilRowDecoder: RowDecoder[HNil] = RowDecoder.from(_ => DecodeResult.success(HNil))
 
   // - HList encoders --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def hlistSingletonRowEncoder[H: RowEncoder]: RowEncoder[H :: HNil] = RowEncoder[H].contramap {
-    case (h :: _) => h
-  }
-
-  implicit def hlistRowEncoder[H: CellEncoder, T <: HList: RowEncoder]: RowEncoder[H :: T] =
-    RowEncoder.from {
-      case h :: t => CellEncoder[H].encode(h) +: RowEncoder[T].encode(t)
+  implicit def hlistSingletonRowEncoder[H: RowEncoder]: RowEncoder[H :: HNil] =
+    RowEncoder[H].contramap { case (h :: _) =>
+      h
     }
 
-  implicit def hlistCellEncoder[H: CellEncoder]: CellEncoder[H :: HNil] = CellEncoder[H].contramap {
-    case (h :: _) => h
-  }
+  implicit def hlistRowEncoder[H: CellEncoder, T <: HList: RowEncoder]: RowEncoder[H :: T] =
+    RowEncoder.from { case h :: t =>
+      CellEncoder[H].encode(h) +: RowEncoder[T].encode(t)
+    }
+
+  implicit def hlistCellEncoder[H: CellEncoder]: CellEncoder[H :: HNil] =
+    CellEncoder[H].contramap { case (h :: _) =>
+      h
+    }
 
   implicit val hnilRowEncoder: RowEncoder[HNil] = RowEncoder.from(_ => Seq.empty)
 }

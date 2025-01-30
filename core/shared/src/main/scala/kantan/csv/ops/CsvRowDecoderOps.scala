@@ -16,23 +16,24 @@
 
 package kantan.csv.ops
 
-import kantan.csv.{DecodeResult, RowDecoder}
+import kantan.csv.DecodeResult
+import kantan.csv.RowDecoder
 
 /** Provides syntax for decoding CSV rows as values.
   *
   * Importing `kantan.csv.ops._` will add the following methods to `Seq[String]`:
-  *  - [[decodeCsv]]
-  *  - [[unsafeDecodeCsv]]
+  *   - [[decodeCsv]]
+  *   - [[unsafeDecodeCsv]]
   */
 final class CsvRowDecoderOps(val ss: Seq[String]) {
 
   /** Decodes a CSV row as a value of type `A`.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> Seq("1", "2", "3").decodeCsv[(Int, Int, Int)]
     * res0: kantan.csv.DecodeResult[(Int, Int, Int)] = Right((1,2,3))
-    * }}}
+    *   }}}
     */
   def decodeCsv[A: RowDecoder]: DecodeResult[A] =
     RowDecoder[A].decode(ss)
@@ -40,10 +41,10 @@ final class CsvRowDecoderOps(val ss: Seq[String]) {
   /** Decodes a CSV row as a value of type `A`.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> Seq("1", "2", "3").unsafeDecodeCsv[(Int, Int, Int)]
     * res0: (Int, Int, Int) = (1,2,3)
-    * }}}
+    *   }}}
     *
     * Note that this method is unsafe and will throw an exception if the row's value is not a valid `A`. Prefer
     * [[decodeCsv]] whenever possible.

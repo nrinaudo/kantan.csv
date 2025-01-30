@@ -24,19 +24,22 @@ import org.typelevel.discipline.Laws
 trait WriterEngineTests extends Laws {
   def laws: WriterEngineLaws
 
-  def writerEngine: RuleSet = new DefaultRuleSet(
-    name = "writerEngine",
-    parent = None,
-    "round-trip"                 -> forAll(laws.roundTrip _),
-    "quote all"                  -> forAll(laws.quoteAll _),
-    "column separator"           -> forAll(laws.columnSeparator _),
-    "no trailing cell separator" -> forAll(laws.noTrailingSeparator _),
-    "crlf row separator"         -> forAll(laws.crlfAsRowSeparator _)
-  )
+  def writerEngine: RuleSet =
+    new DefaultRuleSet(
+      name = "writerEngine",
+      parent = None,
+      "round-trip"                 -> forAll(laws.roundTrip _),
+      "quote all"                  -> forAll(laws.quoteAll _),
+      "column separator"           -> forAll(laws.columnSeparator _),
+      "no trailing cell separator" -> forAll(laws.noTrailingSeparator _),
+      "crlf row separator"         -> forAll(laws.crlfAsRowSeparator _)
+    )
 }
 
 object WriterEngineTests {
-  def apply(engine: WriterEngine): WriterEngineTests = new WriterEngineTests {
-    override def laws: WriterEngineLaws = WriterEngineLaws(engine)
-  }
+  def apply(engine: WriterEngine): WriterEngineTests =
+    new WriterEngineTests {
+      override def laws: WriterEngineLaws =
+        WriterEngineLaws(engine)
+    }
 }

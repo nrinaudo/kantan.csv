@@ -28,7 +28,7 @@ class ErrorTests extends AnyFunSuite with ScalaCheckPropertyChecks with Matchers
     forAll { (e1: TypeError, e2: ReadError) =>
       (e1, e2) match {
         case (TypeError(t1), TypeError(t2)) => (e1 == e2) should be(t1 == t2)
-        case _                              => e1 should not be (e2)
+        case _                              => e1 should not be e2
       }
     }
   }
@@ -43,7 +43,7 @@ class ErrorTests extends AnyFunSuite with ScalaCheckPropertyChecks with Matchers
     forAll { (e1: IOError, e2: ReadError) =>
       (e1, e2) match {
         case (IOError(t1), IOError(t2)) => (e1 == e2) should be(t1 == t2)
-        case _                          => e1 should not be (e2)
+        case _                          => e1 should not be e2
       }
     }
   }
