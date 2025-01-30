@@ -57,6 +57,7 @@ sealed abstract class ParseError(msg: String) extends ReadError(msg)
 object ParseError {
 
   /** Error that occurs when attempting to read from an empty [[CsvReader]]. */
+  @SuppressWarnings(Array("org.wartremover.warts.ObjectThrowable"))
   case object NoSuchElement extends ParseError("trying to read from an empty reader")
 
   /** Error that occurs while interacting with an IO resource.

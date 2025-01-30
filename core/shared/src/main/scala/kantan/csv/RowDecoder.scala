@@ -46,6 +46,7 @@ object RowDecoder extends GeneratedRowDecoders with DecoderCompanion[Seq[String]
     * res0: DecodeResult[Int] = Left(TypeError: 'abc' is not a valid Int)
     * }}}
     */
+  @SuppressWarnings(Array("org.wartremover.warts.SeqApply"))
   def decodeCell[A: CellDecoder](ss: Seq[String], i: Int): DecodeResult[A] =
     if(ss.isDefinedAt(i)) CellDecoder[A].decode(ss(i))
     // Special case, see https://github.com/nrinaudo/kantan.csv/issues/53

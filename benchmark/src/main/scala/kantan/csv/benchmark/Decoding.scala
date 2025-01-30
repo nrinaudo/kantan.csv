@@ -110,6 +110,7 @@ object Decoding {
     new CsvIterator(parser)(_.parseNext()).toList
   }
 
+  @SuppressWarnings(Array("org.wartremover.warts.SeqApply"))
   def scalaCsv(str: String): List[CsvEntry] = {
     import com.github.tototoshi.csv.CSVReader
 

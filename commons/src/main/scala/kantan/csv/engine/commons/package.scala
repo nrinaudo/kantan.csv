@@ -47,7 +47,7 @@ package object commons {
         case CsvConfiguration.QuotePolicy.Always     => QuoteMode.ALL
         case CsvConfiguration.QuotePolicy.WhenNeeded => QuoteMode.MINIMAL
       })
-      .build()
+      .get()
 
   // - Reader engines --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

@@ -56,7 +56,7 @@ class Encoding {
 
 object Encoding {
   def write[A](data: List[CsvEntry])(f: Array[String] => Unit): Unit =
-    data.foreach(entry => f(Array(entry._1.toString, entry._2.toString, entry._3.toString, entry._4.toString)))
+    data.foreach(entry => f(Array(entry._1.toString, entry._2, entry._3.toString, entry._4.toString)))
 
   def kantan(data: List[CsvEntry])(implicit engine: WriterEngine): String = data.asCsv(rfc)
 
@@ -115,7 +115,7 @@ object Encoding {
     val out    = new StringWriter()
     val writer = CSVWriter.open(out)
     data.foreach { row =>
-      writer.writeRow(List(row._1.toString, row._2.toString, row._3.toString, row._4.toString))
+      writer.writeRow(List(row._1.toString, row._2, row._3.toString, row._4.toString))
     }
     writer.close()
     out.close()
