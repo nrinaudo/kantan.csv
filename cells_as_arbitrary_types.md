@@ -16,7 +16,7 @@ in scope - `Int`, for example:
 
 ```scala
 implicitly[kantan.csv.CellDecoder[Int]]
-// res0: kantan.csv.package.CellDecoder[Int] = kantan.codecs.Codec$$anon$1@62051f4b
+// res0: kantan.csv.package.CellDecoder[Int] = kantan.codecs.Codec$$anon$1@90ec82a
 ```
 
 A more complete list of default instances can be found [here](default_instances.html).

@@ -9,7 +9,7 @@ kantan.csv API - we still support Java 7. There is, however, a dedicated optiona
 adding the following line to your `build.sbt` file:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-java8" % "0.7.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-java8" % "0.8.0"
 ```
 
 You then need to import the corresponding package:
@@ -110,8 +110,6 @@ The advantage is that this is checked at compile time - invalid pattern strings 
 ```scala
 localDateDecoder(fmt"FOOBAR")
 // error: Illegal format: 'FOOBAR'
-// localDateDecoder(fmt"FOOBAR")
-//                  ^^^^^^^^^^^
 ```
 
 [`GroupDecoder`]:{{ site.baseurl }}/api/kantan/regex/package$$GroupDecoder.html

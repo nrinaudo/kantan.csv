@@ -12,7 +12,7 @@ for more common types and patterns.
 The `generic` module can be used by adding the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.7.0"
+libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.8.0"
 ```
 
 Let's first declare the imports we'll need in the rest of this tutorial:
