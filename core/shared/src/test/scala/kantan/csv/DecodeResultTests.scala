@@ -24,25 +24,25 @@ import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 @SuppressWarnings(Array("org.wartremover.warts.Throw"))
 class DecodeResultTests extends AnyFunSuite with ScalaCheckPropertyChecks with Matchers {
   test("DecodeResult.success should return a Right") {
-    forAll { i: Int =>
+    forAll { (i: Int) =>
       DecodeResult.success(i) should be(Right(i))
     }
   }
 
   test("DecodeResult.apply should return a Right on 'good' values") {
-    forAll { i: Int =>
+    forAll { (i: Int) =>
       DecodeResult(i) should be(Right(i))
     }
   }
 
   test("DecodeResult.apply should return a Left on 'bad' values") {
-    forAll { e: Exception =>
+    forAll { (e: Exception) =>
       DecodeResult(throw e) should be(Left(DecodeError.TypeError(e)))
     }
   }
 
   test("DecodeResult.outOfBounds should return a Left") {
-    forAll { i: Int =>
+    forAll { (i: Int) =>
       DecodeResult.outOfBounds(i) should be(Left(DecodeError.OutOfBounds(i)))
     }
   }

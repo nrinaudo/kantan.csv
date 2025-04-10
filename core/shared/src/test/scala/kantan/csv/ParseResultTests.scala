@@ -24,19 +24,19 @@ import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 @SuppressWarnings(Array("org.wartremover.warts.Throw"))
 class ParseResultTests extends AnyFunSuite with ScalaCheckPropertyChecks with Matchers {
   test("ParseResult.success should return a Right") {
-    forAll { i: Int =>
+    forAll { (i: Int) =>
       ParseResult.success(i) should be(Right(i))
     }
   }
 
   test("ParseResult.apply should return a Right on 'good' values") {
-    forAll { i: Int =>
+    forAll { (i: Int) =>
       ParseResult(i) should be(Right(i))
     }
   }
 
   test("ParseResult.apply should return a Left on 'bad' values") {
-    forAll { e: Exception =>
+    forAll { (e: Exception) =>
       ParseResult(throw e) should be(Left(ParseError.IOError(e)))
     }
   }
