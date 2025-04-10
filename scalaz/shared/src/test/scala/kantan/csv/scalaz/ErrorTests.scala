@@ -37,7 +37,7 @@ class ErrorTests extends ScalazDisciplineSuite {
   checkAll("ParseError.IOError", equ.laws[ParseError.IOError])
 
   test("Show[DecodeError.OutOfBounds] should yield a string containing the expected index") {
-    forAll { error: DecodeError.OutOfBounds =>
+    forAll { (error: DecodeError.OutOfBounds) =>
       Show[DecodeError.OutOfBounds].shows(error) should include(error.index.toString)
       Show[DecodeError].shows(error) should include(error.index.toString)
       Show[ReadError].shows(error) should include(error.index.toString)
@@ -45,7 +45,7 @@ class ErrorTests extends ScalazDisciplineSuite {
   }
 
   test("Show[DecodeError.TypeError] should yield a string containing the expected message") {
-    forAll { error: DecodeError.TypeError =>
+    forAll { (error: DecodeError.TypeError) =>
       Show[DecodeError.TypeError].shows(error) should include(error.message)
       Show[DecodeError].shows(error) should include(error.message)
       Show[ReadError].shows(error) should include(error.message)
@@ -53,7 +53,7 @@ class ErrorTests extends ScalazDisciplineSuite {
   }
 
   test("Show[ParseError.IOError] should yield a string containing the expected message") {
-    forAll { error: ParseError.IOError =>
+    forAll { (error: ParseError.IOError) =>
       Show[ParseError.IOError].shows(error) should include(error.message)
       Show[ParseError].shows(error) should include(error.message)
       Show[ReadError].shows(error) should include(error.message)

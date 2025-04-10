@@ -41,7 +41,7 @@ class CsvSourceOpsTests extends AnyFunSuite with ScalaCheckPropertyChecks with M
   }
 
   test("CsvSource instances should have a working asCsvReader method") {
-    forAll { data: List[RowValue[TestCase]] =>
+    forAll { (data: List[RowValue[TestCase]]) =>
       compare(
         asCsv(data, rfc)
           .asCsvReader[TestCase](rfc)
@@ -52,7 +52,7 @@ class CsvSourceOpsTests extends AnyFunSuite with ScalaCheckPropertyChecks with M
   }
 
   test("CsvSource instances should have a working readCsv method") {
-    forAll { data: List[RowValue[TestCase]] =>
+    forAll { (data: List[RowValue[TestCase]]) =>
       compare(
         asCsv(data, rfc)
           .readCsv[List, TestCase](rfc),
@@ -78,7 +78,7 @@ class CsvSourceOpsTests extends AnyFunSuite with ScalaCheckPropertyChecks with M
   }
 
   test("CsvSource instances should have a working asUnsafeCsvReader method") {
-    forAll { data: List[RowValue[TestCase]] =>
+    forAll { (data: List[RowValue[TestCase]]) =>
       compareUnsafe(
         asCsv(data, rfc)
           .asUnsafeCsvReader[TestCase](rfc)
@@ -89,7 +89,7 @@ class CsvSourceOpsTests extends AnyFunSuite with ScalaCheckPropertyChecks with M
   }
 
   test("CsvSource instances should have a working unsafeReadCsv method") {
-    forAll { data: List[RowValue[TestCase]] =>
+    forAll { (data: List[RowValue[TestCase]]) =>
       compareUnsafe(
         asCsv(data, rfc)
           .unsafeReadCsv[List, TestCase](rfc),
