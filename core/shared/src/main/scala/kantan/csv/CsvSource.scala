@@ -242,7 +242,7 @@ object CsvSource {
     * This is basically a less verbose, slightly faster version of `implicitly`.
     */
   def apply[A](implicit ev: CsvSource[A]): CsvSource[A] =
-    macro imp.summon[CsvSource[A]]
+    ev
 
   /** Turns the specified function into a [[CsvSource]].
     *

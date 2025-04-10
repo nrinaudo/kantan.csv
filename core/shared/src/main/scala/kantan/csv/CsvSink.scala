@@ -73,7 +73,7 @@ object CsvSink {
     * }}}
     */
   def apply[A](implicit ev: CsvSink[A]): CsvSink[A] =
-    macro imp.summon[CsvSink[A]]
+    ev
 
   /** Turns the specified function into a [[CsvSink]].
     *

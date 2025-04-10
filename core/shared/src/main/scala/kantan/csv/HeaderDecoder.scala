@@ -59,7 +59,7 @@ object HeaderDecoder extends GeneratedHeaderDecoders {
 
   /** Summons an implicit instance of [[HeaderDecoder]] if one can be found, fails compilation otherwise. */
   def apply[A](implicit ev: HeaderDecoder[A]): HeaderDecoder[A] =
-    macro imp.summon[HeaderDecoder[A]]
+    ev
 
   private[csv] def determineRowMappings(requiredHeader: Seq[String], csvHeader: Seq[String]): DecodeResult[Seq[Int]] =
     requiredHeader.foldLeft((List.empty[String], List.empty[Int])) { case ((missing, found), header) =>
