@@ -16,7 +16,6 @@
 
 package kantan.csv.laws.discipline
 
-import imp.imp
 import kantan.codecs.laws.CodecValue.IllegalValue
 import kantan.codecs.laws.CodecValue.LegalValue
 import kantan.csv.DecodeError
@@ -37,7 +36,7 @@ trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstance
   val csv: Gen[List[List[String]]] = arb[List[List[Cell]]].map(_.map(_.map(_.value)))
 
   implicit def arbTuple1[A: Arbitrary]: Arbitrary[Tuple1[A]] =
-    Arbitrary(imp[Arbitrary[A]].arbitrary.map(Tuple1.apply))
+    Arbitrary(implicitly[Arbitrary[A]].arbitrary.map(Tuple1.apply))
 
   // - Errors ----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

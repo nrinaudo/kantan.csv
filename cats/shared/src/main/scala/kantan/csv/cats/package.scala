@@ -18,7 +18,6 @@ package kantan.csv
 
 import _root_.cats.Eq
 import _root_.cats.Foldable
-import imp.imp
 import kantan.codecs.cats.CommonInstances
 import kantan.codecs.cats.DecoderInstances
 import kantan.codecs.cats.EncoderInstances
@@ -42,7 +41,7 @@ package object cats extends CommonInstances with DecoderInstances with EncoderIn
 
   implicit def foldableRowEncoder[F[_]: Foldable, A: CellEncoder]: RowEncoder[F[A]] =
     RowEncoder.from { as =>
-      imp[Foldable[F]]
+      Foldable[F]
         .foldLeft(as, Seq.newBuilder[String])((acc, a) => acc += CellEncoder[A].encode(a))
         .result()
     }
