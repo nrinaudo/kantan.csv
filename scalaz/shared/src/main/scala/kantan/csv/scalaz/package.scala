@@ -18,7 +18,6 @@ package kantan.csv
 
 import _root_.scalaz.Equal
 import _root_.scalaz.Foldable
-import imp.imp
 import kantan.codecs.scalaz.CommonInstances
 import kantan.codecs.scalaz.DecoderInstances
 import kantan.codecs.scalaz.EncoderInstances
@@ -39,7 +38,7 @@ package object scalaz extends DecoderInstances with EncoderInstances with Common
 
   implicit def foldableRowEncoder[F[_]: Foldable, A: CellEncoder]: RowEncoder[F[A]] =
     RowEncoder.from { as =>
-      imp[Foldable[F]]
+      Foldable[F]
         .foldLeft(as, Seq.newBuilder[String])((acc, a) => acc += CellEncoder[A].encode(a))
         .result()
     }
