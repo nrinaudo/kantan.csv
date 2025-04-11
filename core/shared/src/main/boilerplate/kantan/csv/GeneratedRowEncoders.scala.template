@@ -108,7 +108,8 @@ trait GeneratedRowEncoders {
     *
     * @param f encoding method, intended to be a case class' `unapply` method.
     * @param i1 index of the cell that should be passed as parameter number 1 of `f`#
-    */  def caseEncoder[C, A1: CellEncoder](f: C => Option[A1]): RowEncoder[C] =
+    */
+  def caseEncoder[C, A1: CellEncoder](f: C => Option[A1]): RowEncoder[C] =
     encoder(f andThen (_.get))
 
   [2..#/** Creates a new [[RowEncoder]] from the specified `unapply` method of a case class' companion object.

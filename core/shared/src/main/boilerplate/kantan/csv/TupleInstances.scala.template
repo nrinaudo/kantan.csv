@@ -26,7 +26,7 @@ trait TupleInstances {
     * res0: DecodeResult[Tuple1[[#Int#]]] = Right(([#1#,]))
     * }}}
     */
-   implicit def tupleRowDecoder1[[#A1: CellDecoder#]]: RowDecoder[Tuple1[[#A1#]]] =
+  implicit def tupleRowDecoder1[[#A1: CellDecoder#]]: RowDecoder[Tuple1[[#A1#]]] =
     RowDecoder.ordered(Tuple1.apply[[#A1#]] _)#
 
   ]
@@ -49,7 +49,8 @@ trait TupleInstances {
     * scala> RowEncoder[Tuple1[[#Int#]]].encode(([#1#]))
     * res0: Seq[String] = Vector([#1#])
     * }}}
-    */implicit def tupleRowEncoder1[[#A1: CellEncoder#]]: RowEncoder[Tuple1[[#A1#]]] =
+    */
+  implicit def tupleRowEncoder1[[#A1: CellEncoder#]]: RowEncoder[Tuple1[[#A1#]]] =
     RowEncoder.ordered((t: Tuple1[[#A1#]]) => t)#
 
   ]
