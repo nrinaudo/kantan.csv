@@ -129,8 +129,8 @@ trait GeneratedRowEncoders {
     [#* @param i1 index of the cell that should be passed as parameter number 1 of `f`#
     ]
     */
-    def caseEncoder[C, [#A1: CellEncoder#]]([#i1: Int#])(f: C => Option[Tuple1[[#A1#]]]): RowEncoder[C] =
-      encoder([#i1#])(f andThen (_.get))#
+  def caseEncoder[C, [#A1: CellEncoder#]]([#i1: Int#])(f: C => Option[Tuple1[[#A1#]]]): RowEncoder[C] =
+    encoder([#i1#])(f andThen (_.get))#
   ]
 
   /** Creates a new [[RowEncoder]] from the specified `unapply` method of a case class' companion object.
@@ -166,7 +166,8 @@ trait GeneratedRowEncoders {
     *
     * Consider using the `generics` kantan.csv module instead: it can automatically derive instances for this use case.
     */
-    def caseOrdered[C, [#A1: CellEncoder#]](f: C => Option[Tuple1[[#A1#]]]): RowEncoder[C] =
-      ordered(f andThen (_.get))#
-  ]
+  def caseOrdered[C, [#A1: CellEncoder#]](f: C => Option[Tuple1[[#A1#]]]): RowEncoder[C] =
+    ordered(f andThen (_.get))#
+
+]
 }
