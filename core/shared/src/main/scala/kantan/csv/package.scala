@@ -27,7 +27,7 @@ package object csv extends HeaderDecoderOps0 {
     *
     * @documentable
     */
-  type CsvReader[A] = ResourceIterator[A]
+  type CsvReader[+A] = ResourceIterator[A]
 
   val rfc: CsvConfiguration = CsvConfiguration.rfc
 
@@ -40,7 +40,7 @@ package object csv extends HeaderDecoderOps0 {
     *
     * @documentable
     */
-  type ReadResult[A] = Either[ReadError, A]
+  type ReadResult[+A] = Either[ReadError, A]
 
   /** Result of a parsing operation.
     *
@@ -52,7 +52,7 @@ package object csv extends HeaderDecoderOps0 {
     *
     * @documentable
     */
-  type ParseResult[A] = Either[ParseError, A]
+  type ParseResult[+A] = Either[ParseError, A]
 
   /** Result of a decode operation.
     *
@@ -64,7 +64,7 @@ package object csv extends HeaderDecoderOps0 {
     *
     * @documentable
     */
-  type DecodeResult[A] = Either[DecodeError, A]
+  type DecodeResult[+A] = Either[DecodeError, A]
 
   // - Cell codecs -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
