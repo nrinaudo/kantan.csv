@@ -20,13 +20,32 @@ import kantan.codecs.shapeless.ShapelessInstances
 import kantan.csv.CellDecoder
 import kantan.csv.CellEncoder
 import kantan.csv.DecodeResult
+import kantan.csv.HeaderEncoder
 import kantan.csv.RowDecoder
 import kantan.csv.RowEncoder
 import shapeless.::
 import shapeless.HList
 import shapeless.HNil
+import shapeless.LabelledGeneric
+import shapeless.ops.hlist.ToList
+import shapeless.ops.record.Keys
+
+import scala.annotation.nowarn
 
 trait GenericInstances extends ShapelessInstances {
+
+  @nowarn("msg=parameter gen in method genHeaderEncoder is never used")
+  implicit def genHeaderEncoder[T, Repr <: HList, Ks <: HList](
+    implicit gen: LabelledGeneric.Aux[T, Repr],
+             re: RowEncoder[T],
+             keys: Keys.Aux[Repr, Ks],
+             toList: ToList[Ks, Symbol]
+  ): HeaderEncoder[T] = new HeaderEncoder[T] {
+
+    override val header: Option[Seq[String]] = Some(keys().toList.map(_.name))
+
+    override val rowEncoder: RowEncoder[T] = re
+  }
 
   // - HList decoders --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
